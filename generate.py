@@ -9,6 +9,8 @@ ARCHITECTURE = "X64"
 
 py_builtins = ("False", "True", "None")
 
+knowntype = {"PSTR":"c_char_p", "PWSTR":"c_wchar_p"}
+
 class MetadataTranspiler:
     def __init__(self, pyfile: Path) -> None:
         self.pyfile = pyfile
@@ -110,7 +112,10 @@ class MetadataTranspiler:
         self.writeline(f"""{mt['Name']} = CFUNCTYPE({ts}, use_last_error={mt['SetLastError']})""")
 
     def visit_typedef(self, mt) -> None:
-        pytype = self.to_pytype(mt["Def"])
+        if mt["Name"] in knowntype:
+            pytype = knowntype[mt["Name"]]
+        else:
+            pytype = self.to_pytype(mt["Def"])
         self.writeline(f"{mt['Name']} = {pytype}")
 
     def visit_struct(self, mt) -> None:
