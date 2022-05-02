@@ -189,10 +189,7 @@ class MetadataTranspiler:
                 element_type = self.to_pytype(mt["Child"])
                 return f"{element_type} * {size}"
             case "ApiRef":
-                if mt["TargetKind"] == "Com":
-                    return f"POINTER({mt['Name']})"
-                else:
-                    return mt["Name"]
+                return mt["Name"]
             case "Native":
                 return mt["Name"]
             case "MissingClrType":
