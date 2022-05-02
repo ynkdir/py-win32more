@@ -22,7 +22,7 @@ ISpVoice.Speak.errcheck = errcheck
 
 def enum_tokens():
     cat = ISpObjectTokenCategory()
-    CoCreateInstance(SpObjectTokenCategory, None, CLSCTX_CLSCTX_INPROC_SERVER, ISpObjectTokenCategory.Guid, cat)
+    CoCreateInstance(SpObjectTokenCategory, None, CLSCTX_INPROC_SERVER, ISpObjectTokenCategory.Guid, cat)
     with ComPtr(cat):
         cat.SetId(r"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices", False)
         et = IEnumSpObjectTokens()
@@ -38,9 +38,9 @@ def enum_tokens():
 
 def speak(msg):
     sapi = ISpVoice()
-    CoCreateInstance(SpVoice, None, CLSCTX_CLSCTX_INPROC_SERVER, ISpVoice.Guid, sapi)
+    CoCreateInstance(SpVoice, None, CLSCTX_INPROC_SERVER, ISpVoice.Guid, sapi)
     with ComPtr(sapi):
-        sapi.Speak(msg, SPEAKFLAGS_SPF_DEFAULT, None)
+        sapi.Speak(msg, SPF_DEFAULT, None)
 
 def main():
     CoInitialize(None)

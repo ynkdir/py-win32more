@@ -4,7 +4,7 @@ from pathlib import Path
 CoInitialize(None)
 
 shell_link = IShellLinkW()
-if FAILED(hr := CoCreateInstance(ShellLink, None, CLSCTX_CLSCTX_INPROC_SERVER, IShellLinkW.Guid, shell_link)):
+if FAILED(hr := CoCreateInstance(ShellLink, None, CLSCTX_INPROC_SERVER, IShellLinkW.Guid, shell_link)):
     raise WinError(hr)
 
 persist_file = IPersistFile()

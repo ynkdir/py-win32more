@@ -101,8 +101,19 @@ class MetadataTranspiler:
         # FIXME: enum value name?
         intbase = mt["IntegerBase"] if mt["IntegerBase"] else "Int32"   # IntegerBase can be null
         self.writeline(f"{mt['Name']} = {intbase}")
+        need_prefix = self.enum_need_prefix(mt)
         for v in mt["Values"]:
-            self.writeline(f"{mt['Name']}_{v['Name']} = {v['Value']}")
+            if need_prefix:
+                name = f"{mt['Name']}_{v['Name']}"
+            else:
+                name = self.to_pyname(v["Name"])
+            self.writeline(f"{name} = {v['Value']}")
+
+    def enum_need_prefix(self, mt) -> bool:
+        for v in mt["Values"]:
+            if not ("_" in v["Name"] or v["Name"].isupper()):
+                return True
+        return False
 
     def visit_function_pointer(self, mt) -> None:
         types = [self.to_pytype(mt["ReturnType"])]
