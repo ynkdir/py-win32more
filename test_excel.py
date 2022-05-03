@@ -1,22 +1,11 @@
 # https://docs.microsoft.com/en-us/previous-versions/office/troubleshoot/office-developer/automate-excel-from-c
 
-from contextlib import contextmanager
+from contextlib import ExitStack
 from win32more.all import *
 
 # missing constants in win32metadata
 LOCALE_SYSTEM_DEFAULT = 2048
 LOCALE_USER_DEFAULT = 1024
-
-@contextmanager
-def Defer():
-    def defer(f):
-        funs.append(f)
-    funs = []
-    try:
-        yield defer
-    finally:
-        for f in reversed(funs):
-            f()
 
 def HRCHECK(hr):
     if FAILED(hr):
@@ -68,34 +57,34 @@ def AutoWrap(autotype, pdisp, name, *args):
     return variant_to_py(result)
 
 def main():
-    with Defer() as defer:
+    with ExitStack() as stack:
         CoInitialize(None)
-        defer(CoUninitialize)
+        stack.callback(CoUninitialize)
 
         clsid = Guid()
         HRCHECK(CLSIDFromProgID("Excel.Application", clsid))
 
         pXlApp = IDispatch()
         HRCHECK(CoCreateInstance(clsid, None, CLSCTX_LOCAL_SERVER, IDispatch.Guid, pXlApp))
-        defer(pXlApp.Release)
+        stack.callback(pXlApp.Release)
 
         # Make it visible
         AutoWrap(DISPATCH_PROPERTYPUT, pXlApp, "Visible", 1)
 
         # Get Workbooks collection
         pXlBooks = AutoWrap(DISPATCH_PROPERTYGET, pXlApp, "Workbooks")
-        defer(pXlBooks.Release)
+        stack.callback(pXlBooks.Release)
 
         # Call Workbooks.Add() to get a new workbook...
         pXlBook = AutoWrap(DISPATCH_PROPERTYGET, pXlBooks, "Add")
-        defer(pXlBooks.Release)
+        stack.callback(pXlBooks.Release)
 
         # Create a 15x15 safearray of variants
         sab = (SAFEARRAYBOUND * 2)()
         sab[0] = SAFEARRAYBOUND(lLbound=1, cElements=15)
         sab[1] = SAFEARRAYBOUND(lLbound=1, cElements=15)
         arr = VARIANT(vt=(VT_ARRAY|VT_VARIANT), parray=SafeArrayCreate(VT_VARIANT, 2, sab))
-        defer(lambda: VariantClear(arr))
+        stack.callback(VariantClear, arr)
 
         # Fill safearray with some values
         for i in range(1, 16):
@@ -104,13 +93,13 @@ def main():
 
         # Get ActiveSheet object
         pXlSheet = AutoWrap(DISPATCH_PROPERTYGET, pXlApp, "ActiveSheet")
-        defer(pXlSheet.Release)
+        stack.callback(pXlSheet.Release)
 
         # Get Range object for the Range A1:O15
         parm = VARIANT(vt=VT_BSTR, bstrVal=SysAllocString("A1:O15"))
-        defer(lambda: VariantClear(parm))
+        stack.callback(VariantClear, parm)
         pXlRange = AutoWrap(DISPATCH_PROPERTYGET, pXlSheet, "Range", parm)
-        defer(pXlRange.Release)
+        stack.callback(pXlRange.Release)
 
         # Set range with our safearray
         AutoWrap(DISPATCH_PROPERTYPUT, pXlRange, "Value", arr)
