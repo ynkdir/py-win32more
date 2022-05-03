@@ -9,7 +9,7 @@ ARCHITECTURE = "X64"
 
 py_builtins = ("False", "True", "None")
 
-knowntype = {"PSTR":"c_char_p", "PWSTR":"c_wchar_p", "BSTR":"c_wchar_p"}
+knowntype = {"PSTR":"c_char_p_no", "PWSTR":"c_wchar_p_no", "BSTR":"c_wchar_p_no"}
 
 class MetadataTranspiler:
     def __init__(self, pyfile: Path) -> None:

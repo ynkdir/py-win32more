@@ -3,9 +3,6 @@
 from contextlib import contextmanager
 from win32more.all import *
 
-# ctypes c_wchar_p to python str autoconversion is not always suitable...
-SysAllocString.restype = c_void_p
-
 # missing constants in win32metadata
 LOCALE_SYSTEM_DEFAULT = 2048
 LOCALE_USER_DEFAULT = 1024
@@ -110,7 +107,7 @@ def main():
         defer(pXlSheet.Release)
 
         # Get Range object for the Range A1:O15
-        parm = VARIANT(vt=VT_BSTR, byref=SysAllocString("A1:O15"))
+        parm = VARIANT(vt=VT_BSTR, bstrVal=SysAllocString("A1:O15"))
         defer(lambda: VariantClear(parm))
         pXlRange = AutoWrap(DISPATCH_PROPERTYGET, pXlSheet, "Range", parm)
         defer(pXlRange.Release)

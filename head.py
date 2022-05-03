@@ -2,6 +2,13 @@ from ctypes import *
 from ctypes.wintypes import *
 import uuid
 
+# to avoid auto conversion to str
+class c_char_p_no(c_char_p):
+    pass
+
+class c_wchar_p_no(c_wchar_p):
+    pass
+
 Byte = c_ubyte
 SByte = c_byte
 Char = c_wchar
@@ -15,7 +22,7 @@ IntPtr = c_longlong
 UIntPtr = c_ulonglong
 Single = c_float
 Double = c_double
-String = str
+String = c_wchar_p_no
 Boolean = c_bool
 Void = None
 
