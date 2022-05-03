@@ -137,18 +137,19 @@ class MetadataTranspiler:
         for nt in mt["NestedTypes"]:
             self.visit_struct(nt)
         anonymous = []
+        for f in mt["Fields"]:
+            if re.match(r"^Anonymous\d*$", f["Name"]):
+                anonymous.append(f["Name"])
+        if anonymous:
+            self.writeline(f"{mt['Name']}._anonymous_ = [")
+            for name in anonymous:
+                self.writeline(f"    '{name}',")
+            self.writeline("]")
         if mt["Fields"]:
             self.writeline(f"{mt['Name']}._fields_ = [")
             for f in mt["Fields"]:
                 pytype = self.to_pytype(f["Type"])
                 self.writeline(f"""    ("{f['Name']}", {pytype}),""")
-                if re.match(r"^Anonymous\d*$", f["Name"]):
-                    anonymous.append(f["Name"])
-            self.writeline("]")
-        if anonymous:
-            self.writeline(f"{mt['Name']}._anonymous_ = [")
-            for name in anonymous:
-                self.writeline(f"    '{name}',")
             self.writeline("]")
 
     def get_struct_base(slef, mt) -> str:
