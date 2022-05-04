@@ -26,7 +26,7 @@ def variant_to_py(v):
     elif v.vt == VT_NULL:
         return None
     elif v.vt == VT_INT:
-        return v.intval
+        return v.intVal
     elif v.vt == VT_BSTR:
         return v.bstrVal
     elif v.vt == VT_DISPATCH:
