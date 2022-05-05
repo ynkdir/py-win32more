@@ -41,7 +41,7 @@ def AutoWrap(autotype, pdisp, name, *args):
     dp = DISPPARAMS()
     pargs = (VARIANT * len(args))()
     for i, e in enumerate(args):
-        pargs[i] = py_to_variant(args[i])
+        pargs[i] = py_to_variant(e)
 
     dp.cArgs = len(args)
     dp.rgvarg = pargs
@@ -77,7 +77,7 @@ def main():
 
         # Call Workbooks.Add() to get a new workbook...
         pXlBook = AutoWrap(DISPATCH_PROPERTYGET, pXlBooks, "Add")
-        stack.callback(pXlBooks.Release)
+        stack.callback(pXlBook.Release)
 
         # Create a 15x15 safearray of variants
         sab = (SAFEARRAYBOUND * 2)()
