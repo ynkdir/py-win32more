@@ -8,8 +8,6 @@ from pathlib import Path
 
 ARCHITECTURE = "X64"
 
-py_builtins = ("False", "True", "None")
-
 knowntype = {"PSTR":"c_char_p_no", "PWSTR":"c_wchar_p_no", "BSTR":"c_wchar_p_no"}
 
 class MetadataTranspiler:
@@ -91,22 +89,9 @@ class MetadataTranspiler:
         self.writeline(f"{mt['Name']} = Guid({guid})")
 
     def visit_enum(self, mt) -> None:
-        # FIXME: enum value name?
-        intbase = mt["IntegerBase"] if mt["IntegerBase"] else "Int32"   # IntegerBase can be null
-        self.writeline(f"{mt['Name']} = {intbase}")
-        need_prefix = self.enum_need_prefix(mt)
+        self.writeline(f"{mt['Name']} = {mt['IntegerBase']}")
         for v in mt["Values"]:
-            if need_prefix:
-                name = f"{mt['Name']}_{v['Name']}"
-            else:
-                name = self.to_pyname(v["Name"])
-            self.writeline(f"{name} = {v['Value']}")
-
-    def enum_need_prefix(self, mt) -> bool:
-        for v in mt["Values"]:
-            if not ("_" in v["Name"] or v["Name"].isupper()):
-                return True
-        return False
+            self.writeline(f"{v['Name']} = {v['Value']}")
 
     def visit_function_pointer(self, mt) -> None:
         types = [self.to_pytype(mt["ReturnType"])]
@@ -175,9 +160,8 @@ class MetadataTranspiler:
         self.writeline("    pass")
 
     def visit_constant(self, ct) -> None:
-        name = self.to_pyname(ct["Name"])
         pyvalue = self.to_pyvalue(ct)
-        self.writeline(f"{name} = {pyvalue}")
+        self.writeline(f"{ct['Name']} = {pyvalue}")
 
     def to_pytype(self, mt) -> str:
         match mt["Kind"]:
@@ -222,12 +206,6 @@ class MetadataTranspiler:
                 return f"PROPERTYKEY(Fmtid={fmtid}, Pid={pid})"
             case _:
                 raise RuntimeError(f"unknown value type {ct['ValueType']}")
-
-    def to_pyname(self, name) -> str:
-        if name in py_builtins:
-            return f"{name}_"
-        else:
-            return name
 
     def write(self, s: str) -> None:
         self.out.write(s)
@@ -302,6 +280,7 @@ class Preprocessor:
         ns = self.make_namespace(allmeta)
         ns = self.patch_name_conflict(ns)
         ns = self.patch_struct_nested_type(ns)
+        ns = self.patch_enum(ns)
         return ns
 
     def make_namespace(self, allmeta: dict) -> dict:
@@ -395,6 +374,25 @@ class Preprocessor:
                 return self.get_element_type(c)
             case _:
                 return e
+
+    def patch_enum(self, ns: dict):
+        for e in ns.values():
+            match e:
+                case {"_Category": "Types", "Kind": "Enum"}:
+                    # IntegerBase can be null.  Default to Int32.
+                    if not e["IntegerBase"]:
+                        e["IntegerBase"] = "Int32"
+                    # FIXME: enum value name? (NAME or ENUM_NAME or ENUM.Name?)
+                    if self.enum_need_prefix(e):
+                        for v in e["Values"]:
+                            v["Name"] = f"{e['Name']}_{v['Name']}"
+        return ns
+
+    def enum_need_prefix(self, e: dict) -> bool:
+        for v in e["Values"]:
+            if not ("_" in v["Name"] or v["Name"].isupper()):
+                return True
+        return False
 
 class JsonLoader:
     def loadall(self, apipath):
