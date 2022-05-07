@@ -19,15 +19,12 @@ class MetadataTranspiler:
     def __del__(self):
         self.out.close()
 
-    def transpile(self, meta) -> None:
-        self.namespace = {}
-        for e in meta["Resolved"]:
-            self.namespace[f"{e['_Api']}.{e['Name']}"] = e
-        self.unicode_aliases = {f"{ua}W": ua for ua in meta["UnicodeAliases"]}
+    def transpile(self, ns) -> None:
+        self.ns = ns
         self.write(Path("head.py").read_text())
-        for e in meta["Resolved"]:
+        for e in ns.values():
             self.visit_head(e)
-        for e in meta["Resolved"]:
+        for e in ns.values():
             match e["_Category"]:
                 case "Types":
                     self.visit_type(e)
@@ -90,7 +87,7 @@ class MetadataTranspiler:
     def count_interface_method(self, interface):
         if not interface:
             return 0
-        cls = self.namespace[f"{interface['Api']}.{interface['Name']}"]
+        cls = self.ns[f"{interface['Api']}.{interface['Name']}"]
         return len(cls["Methods"]) + self.count_interface_method(cls["Interface"])
 
     def visit_com_class_id(self, mt) -> None:
@@ -174,10 +171,9 @@ class MetadataTranspiler:
             ps = "(" + ",".join(f"({inout}, '{name}')" for inout, name in params) + ",)"
         else:
             ps = "()"
-        ua = self.unicode_aliases.get(ft["Name"])
         self.writeline("try:")
         self.writeline(f"""    {ft['Name']} = WINFUNCTYPE({ts}, use_last_error={ft['SetLastError']})(("{ft['Name']}", windll["{dll}"]), {ps})""")
-        if ua:
+        if ua := ft.get("_UnicodeAlias"):
             self.writeline(f"    {ua} = {ft['Name']}")
         self.writeline("except (FileNotFoundError, AttributeError):")
         self.writeline("    pass")
@@ -245,22 +241,24 @@ class MetadataTranspiler:
         self.write("\n")
 
 class DependencyResolver:
-    def resolve(self, meta):
-        ns = set()
-        resolved = []
+    def resolve(self, ns: dict) -> dict:
+        defined = set()
+        resolved = {}
         pending = {}
-        for e in self.collect(meta):
-            if e["_Ref"] <= ns:
-                resolved.append(e)
-                ns.add(e["_ApiName"])
+        for e in ns.values():
+            e["_Ref"] = self.collect_apiref(e, ns, set())
+        for e in ns.values():
+            if e["_Ref"] <= defined:
+                resolved[e["_ApiName"]] = e
+                defined.add(e["_ApiName"])
                 has_resolved = True
                 while has_resolved:
                     has_resolved = False
                     remove = []
                     for name in pending:
-                        if pending[name]["_Ref"] <= ns:
-                            resolved.append(pending[name])
-                            ns.add(pending[name]["_ApiName"])
+                        if pending[name]["_Ref"] <= defined:
+                            resolved[pending[name]["_ApiName"]] = pending[name]
+                            defined.add(pending[name]["_ApiName"])
                             remove.append(name)
                             has_resolved = True
                     for name in remove:
@@ -269,66 +267,131 @@ class DependencyResolver:
                 pending[e["Name"]] = e
         if pending:
             for e in sorted(pending.values(), key=lambda e: f"{e['_ApiName']}"):
-                ref = [ref for ref in e['_Ref'] if ref not in ns]
+                ref = [ref for ref in e['_Ref'] if ref not in defined]
                 print(f"{e['_ApiName']} -> {ref}\n")
             raise RuntimeError("pending")
-        meta["Resolved"] = resolved
-        return meta
+        return resolved
 
-    def collect(self, meta):
-        namespace = {}
-        for e in meta["Constants"]:
-            e["_Category"] = "Constants"
-            namespace[e["_ApiName"]] = e
-        for e in meta["Types"]:
-            if e["Architectures"] and ARCHITECTURE not in e["Architectures"]:
-                continue
-            e["_Category"] = "Types"
-            if e["Kind"] in ("Struct", "Union"):
-                self.patch_nested_type(e)
-            namespace[e["_ApiName"]] = e
-        for e in meta["Functions"]:
-            if e["Architectures"] and ARCHITECTURE not in e["Architectures"]:
-                continue
-            e["_Category"] = "Functions"
-            namespace[e["_ApiName"]] = e
-        for e in namespace.values():
-            e["_Ref"] = self.collect_apiref(e["Name"], e, {}, namespace, set())
-        self.patch_name_conflict(namespace)
-        return namespace.values()
-
-    def collect_apiref(self, clsname, seq, parent, namespace, ref):
-        match seq:
+    def collect_apiref(self, node: dict, ns: dict, ref: set) -> set:
+        match node:
+            case {"Kind": "Com", "Interface": interface, "Methods": [*methods]}:
+                if interface:
+                    ref.add(f"{interface['Api']}.{interface['Name']}")
+                for e in methods:
+                    self.collect_apiref(e, ns, ref)
+            case {"Kind": "PointerTo", "Child": {"Kind": "ApiRef", "Name": name, "Api": api}}:
+                if name.endswith("_e__Struct") or name.endswith("_e__Union"):
+                    pass
+                elif ns[f"{api}.{name}"]["Kind"] in ("Struct", "Union", "Com"):
+                    pass
+                else:
+                    ref.add(f"{api}.{name}")
             case {"Kind": "ApiRef", "Name": name, "Api": api, "TargetKind": targetkind}:
-                if name == clsname or name.endswith("_e__Struct") or name.endswith("_e__Union"):
+                if name.endswith("_e__Struct") or name.endswith("_e__Union"):
                     pass
-                elif namespace[f"{api}.{name}"]["Kind"] in ("Struct", "Union") and parent.get("Kind") == "PointerTo":
-                    pass
-                elif targetkind == "Com" and seq is not parent.get("Interface"):
+                elif targetkind == "Com":
                     pass
                 else:
                     ref.add(f"{api}.{name}")
             case {}:
-                for x in seq.values():
-                    self.collect_apiref(clsname, x, seq, namespace, ref)
+                for e in node.values():
+                    self.collect_apiref(e, ns, ref)
             case [*_]:
-                for x in seq:
-                    self.collect_apiref(clsname, x, seq, namespace, ref)
+                for e in node:
+                    self.collect_apiref(e, ns, ref)
         return ref
 
-    def patch_nested_type(self, e):
-        names = {}
+class Preprocessor:
+    def preprocess(self, allmeta: dict) -> dict:
+        ns = self.make_namespace(allmeta)
+        ns = self.patch_name_conflict(ns)
+        ns = self.patch_struct_nested_type(ns)
+        return ns
+
+    def make_namespace(self, allmeta: dict) -> dict:
+        ns = {}
+        ua = {}
+        for api, meta in allmeta.items():
+            for a in meta["UnicodeAliases"]:
+                ua[f"{a}W"] = a
+        for api, meta in allmeta.items():
+            for e in meta["Constants"]:
+                apiname = f"{api}.{e['Name']}"
+                e["_Category"] = "Constants"
+                e["_Api"] = api
+                e["_ApiName"] = apiname
+                ns[apiname] = e
+        for api, meta in allmeta.items():
+            for e in meta["Types"]:
+                if e["Architectures"] and ARCHITECTURE not in e["Architectures"]:
+                    continue
+                apiname = f"{api}.{e['Name']}"
+                e["_Category"] = "Types"
+                e["_Api"] = api
+                e["_ApiName"] = apiname
+                ns[apiname] = e
+        for api, meta in allmeta.items():
+            for e in meta["Functions"]:
+                if e["Architectures"] and ARCHITECTURE not in e["Architectures"]:
+                    continue
+                apiname = f"{api}.{e['Name']}"
+                e["_Category"] = "Functions"
+                e["_Api"] = api
+                e["_ApiName"] = apiname
+                e["_UnicodeAlias"] = ua.get(e["Name"])
+                ns[apiname] = e
+        return ns
+
+    # Rename conflicted name to put them in one namespace.
+    def patch_name_conflict(self, ns: dict) -> dict:
+        newns = {}
+        defined = set()
+        for apiname, e in ns.items():
+            if e["Name"] in defined:
+                print("patch_name_conflict:", e["_ApiName"])
+                newname = e["_ApiName"].replace(".", "_")
+                newapiname = f"{e['_Api']}.{newname}"
+                self.patch_name(ns, e["_Api"], e["Name"], newname)
+                e["Name"] = newname
+                e["_ApiName"] = newapiname
+                newns[newapiname] = e
+            else:
+                defined.add(e["Name"])
+                newns[apiname] = e
+        return newns
+
+    def patch_name(self, node, api: str, name: str, newname: str) -> None:
+        match node:
+            case {"Kind": "ApiRef", "Api": api_, "Name": name_} if api_ == api and name_ == name:
+                node["Name"] = newname
+            case {}:
+                for e in node.values():
+                    self.patch_name(e, api, name, newname)
+            case [*_]:
+                for e in node:
+                    self.patch_name(e, api, name, newname)
+
+    def patch_struct_nested_type(self, ns: dict) -> dict:
+        for e in ns.values():
+            match e:
+                case {"_Category": "Types", "Kind": "Struct" | "Union"}:
+                    self.patch_nested_type(e)
+        return ns
+
+    # Rename nested type to {struct_name}_{nested_name}_e__{Struct|Union}.
+    def patch_nested_type(self, e: dict) -> None:
+        renamed = {}
         for n in e["NestedTypes"]:
-            name = f"{e['Name']}_{n['Name']}"
-            if not (name.endswith("_e__Struct") or name.endswith("_e__Union")):
-                name = f"{name}_e__{n['Kind']}"
-            names[n["Name"]] = name
-            n["Name"] = name
+            newname = f"{e['Name']}_{n['Name']}"
+            if not (newname.endswith("_e__Struct") or newname.endswith("_e__Union")):
+                newname = f"{newname}_e__{n['Kind']}"
+            renamed[n["Name"]] = newname
+            n["Name"] = newname
             self.patch_nested_type(n)
         for f in e["Fields"]:
             t = self.get_element_type(f["Type"])
-            if t["Name"] in names:
-                t["Name"] = names[t["Name"]]
+            if t["Name"] in renamed:
+                t["Name"] = renamed[t["Name"]]
 
     def get_element_type(self, e) -> str:
         match e:
@@ -337,49 +400,19 @@ class DependencyResolver:
             case _:
                 return e
 
-    # WORKAROUND
-    def patch_name_conflict(self, namespace):
-        ns = set()
-        for e in namespace.values():
-            if e["Name"] in ns:
-                print("patch_name_conflict:", e["_ApiName"])
-                newname = e["_ApiName"].replace(".", "_")
-                self.patch_name(namespace, e["_Api"], e["Name"], newname)
-                e["Name"] = newname
-            else:
-                ns.add(e["Name"])
-
-    def patch_name(self, seq, api, name, newname):
-        match seq:
-            case {"Kind": "ApiRef"}:
-                if seq["Api"] == api and seq["Name"] == name:
-                    seq["Name"] = newname
-            case {}:
-                for x in seq.values():
-                    self.patch_name(x, api, name, newname)
-            case [*_]:
-                for x in seq:
-                    self.patch_name(x, api, name, newname)
-
-def loadall():
-    def addapi(seq, api):
-        for e in seq:
-            e["_Api"] = api
-            e["_ApiName"] = f"{e['_Api']}.{e['Name']}"
-        return seq
-    meta = {"Constants": [], "Types": [], "Functions": [], "UnicodeAliases": []}
-    for jsonfile in Path("win32json/api").glob("*.json"):
-        api = jsonfile.stem
-        o = json.loads(jsonfile.read_text())
-        meta["Constants"].extend(addapi(o["Constants"], api))
-        meta["Types"].extend(addapi(o["Types"], api))
-        meta["Functions"].extend(addapi(o["Functions"], api))
-        meta["UnicodeAliases"].extend(o["UnicodeAliases"])
-    return meta
+class JsonLoader:
+    def loadall(self, apipath):
+        allmeta = {}
+        for jsonfile in Path(apipath).glob("*.json"):
+            api = jsonfile.stem
+            allmeta[api] = json.loads(jsonfile.read_text())
+        return allmeta
 
 def main():
-    meta = DependencyResolver().resolve(loadall())
-    MetadataTranspiler(Path("win32more/all.py")).transpile(meta)
+    allmeta = JsonLoader().loadall("win32json/api")
+    ns = Preprocessor().preprocess(allmeta)
+    ns = DependencyResolver().resolve(ns)
+    MetadataTranspiler(Path("win32more/all.py")).transpile(ns)
 
 if __name__ == "__main__":
     main()
