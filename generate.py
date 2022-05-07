@@ -8,8 +8,6 @@ from pathlib import Path
 
 ARCHITECTURE = "X64"
 
-knowntype = {"PSTR":"c_char_p_no", "PWSTR":"c_wchar_p_no", "BSTR":"c_wchar_p_no"}
-
 class MetadataTranspiler:
     def transpile(self, ns: dict) -> str:
         self.out = io.StringIO()
@@ -101,10 +99,7 @@ class MetadataTranspiler:
         self.writeline(f"""{mt['Name']} = CFUNCTYPE({ts}, use_last_error={mt['SetLastError']})""")
 
     def visit_typedef(self, mt) -> None:
-        if mt["Name"] in knowntype:
-            pytype = knowntype[mt["Name"]]
-        else:
-            pytype = self.to_pytype(mt["Def"])
+        pytype = self.to_pytype(mt["Def"])
         self.writeline(f"{mt['Name']} = {pytype}")
 
     def visit_struct(self, mt, nested: bool = False) -> None:
@@ -166,9 +161,13 @@ class MetadataTranspiler:
     def to_pytype(self, mt) -> str:
         match mt:
             case {"Kind": "PointerTo", "Child": {"Kind": "MissingClrType"}}:
-                return "c_void_p"
+                return "c_void_p"       # MissingClrType?
             case {"Kind": "PointerTo", "Child": {"Kind": "Native", "Name": "Void"}}:
                 return "c_void_p"
+            case {"Kind": "PointerTo", "Child": {"Kind": "Native", "Name": "Byte"}}:
+                return "c_char_p_no"    # safe?
+            case {"Kind": "PointerTo", "Child": {"Kind": "Native", "Name": "Char"}}:
+                return "c_wchar_p_no"   # safe?
             case {"Kind": "PointerTo", "Child": c}:
                 pointee = self.to_pytype(c)
                 return f"POINTER({pointee})"
