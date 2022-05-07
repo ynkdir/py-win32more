@@ -107,13 +107,13 @@ class MetadataTranspiler:
             pytype = self.to_pytype(mt["Def"])
         self.writeline(f"{mt['Name']} = {pytype}")
 
-    def visit_struct(self, mt) -> None:
-        if mt["Name"].endswith("_e__Struct") or mt["Name"].endswith("_e__Union"):
+    def visit_struct(self, mt, nested: bool = False) -> None:
+        if nested:
             base = self.get_struct_base(mt)
             self.writeline(f"class {mt['Name']}({base}):")
             self.writeline(f"    pass")
         for nt in mt["NestedTypes"]:
-            self.visit_struct(nt)
+            self.visit_struct(nt, True)
         anonymous = []
         for f in mt["Fields"]:
             if re.match(r"^Anonymous\d*$", f["Name"]):
