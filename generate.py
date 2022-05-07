@@ -164,32 +164,27 @@ class MetadataTranspiler:
         self.writeline(f"{ct['Name']} = {pyvalue}")
 
     def to_pytype(self, mt) -> str:
-        match mt["Kind"]:
-            case "PointerTo":
-                pointee = self.to_pytype(mt["Child"])
-                if pointee == "Void":   # WORKAROUND
-                    return "c_void_p"
-                else:
-                    return f"POINTER({pointee})"
-            case "LPArray":
-                pointee = self.to_pytype(mt["Child"])
+        match mt:
+            case {"Kind": "PointerTo", "Child": {"Kind": "MissingClrType"}}:
+                return "c_void_p"
+            case {"Kind": "PointerTo", "Child": {"Kind": "Native", "Name": "Void"}}:
+                return "c_void_p"
+            case {"Kind": "PointerTo", "Child": c}:
+                pointee = self.to_pytype(c)
                 return f"POINTER({pointee})"
-            case "Array":
-                if mt["Shape"] is None:
-                    size = 0
-                else:
-                    size = mt["Shape"]["Size"]
-                element_type = self.to_pytype(mt["Child"])
+            case {"Kind": "LPArray", "Child": c}:
+                pointee = self.to_pytype(c)
+                return f"POINTER({pointee})"
+            case {"Kind": "Array", "Shape": shape, "Child": c}:
+                size = shape["Size"] if shape else 0
+                element_type = self.to_pytype(c)
                 return f"{element_type} * {size}"
-            case "ApiRef":
-                return mt["Name"]
-            case "Native":
-                return mt["Name"]
-            case "MissingClrType":
-                # TODO
-                return "Void"
+            case {"Kind": "ApiRef", "Name": name}:
+                return name
+            case {"Kind": "Native", "Name": name}:
+                return name
             case _:
-                raise RuntimeError(f"unknown type kind {mt['Kind']}")
+                raise RuntimeError(f"unknown type {mt}")
 
     def to_pyvalue(self, ct) -> str:
         match ct["ValueType"]:
