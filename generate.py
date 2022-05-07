@@ -27,9 +27,9 @@ class MetadataTranspiler:
 
     def visit_head(self, e) -> None:
         match e:
-            case {"Kind": "Com", "Name": name}:
-                interface = e["Interface"]["Name"] if e["Interface"] else "c_void_p"
-                self.writeline(f"class {name}({interface}):")
+            case {"Kind": "Com", "Name": name, "Interface": interface}:
+                base = interface["Name"] if interface else "c_void_p"
+                self.writeline(f"class {name}({base}):")
                 self.writeline(f"    pass")
             case {"Kind": "Struct", "Name": name}:
                 self.writeline(f"class {name}(Structure):")
