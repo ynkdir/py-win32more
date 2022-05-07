@@ -1,6 +1,7 @@
 # https://github.com/microsoft/win32metadata
 # https://github.com/marlersoft/win32json
 
+import io
 import json
 import re
 from pathlib import Path
@@ -12,14 +13,8 @@ py_builtins = ("False", "True", "None")
 knowntype = {"PSTR":"c_char_p_no", "PWSTR":"c_wchar_p_no", "BSTR":"c_wchar_p_no"}
 
 class MetadataTranspiler:
-    def __init__(self, pyfile: Path) -> None:
-        self.pyfile = pyfile
-        self.out = pyfile.open("w")
-
-    def __del__(self):
-        self.out.close()
-
-    def transpile(self, ns) -> None:
+    def transpile(self, ns: dict) -> str:
+        self.out = io.StringIO()
         self.ns = ns
         self.write(Path("head.py").read_text())
         for e in ns.values():
@@ -32,6 +27,7 @@ class MetadataTranspiler:
                     self.visit_function(e)
                 case "Constants":
                     self.visit_constant(e)
+        return self.out.getvalue()
 
     def visit_head(self, e) -> None:
         match e:
@@ -412,7 +408,8 @@ def main():
     allmeta = JsonLoader().loadall("win32json/api")
     ns = Preprocessor().preprocess(allmeta)
     ns = DependencyResolver().resolve(ns)
-    MetadataTranspiler(Path("win32more/all.py")).transpile(ns)
+    s = MetadataTranspiler().transpile(ns)
+    Path("win32more/all.py").write_text(s)
 
 if __name__ == "__main__":
     main()
