@@ -11,7 +11,6 @@ ARCHITECTURE = "X64"
 class MetadataTranspiler:
     def transpile(self, ns: dict) -> str:
         self.out = io.StringIO()
-        self.ns = ns
         self.write(Path("head.py").read_text())
         for e in ns.values():
             self.visit_head(e)
@@ -59,7 +58,6 @@ class MetadataTranspiler:
 
     def visit_com(self, mt) -> None:
         guid = repr(mt["Guid"])
-        vtbl_index = self.count_interface_method(mt["Interface"])
         self.writeline(f"{mt['Name']}.Guid = Guid({guid})")
         for m in mt["Methods"]:
             types = [self.to_pytype(m["ReturnType"])]
@@ -73,14 +71,7 @@ class MetadataTranspiler:
                 ps = "(" + ",".join(f"({inout}, '{name}')" for inout, name in params) + ",)"
             else:
                 ps = "()"
-            self.writeline(f"{mt['Name']}.{m['Name']} = COMMETHOD(WINFUNCTYPE({ts}, use_last_error={m['SetLastError']})({vtbl_index}, '{m['Name']}', {ps}))")
-            vtbl_index += 1
-
-    def count_interface_method(self, interface):
-        if not interface:
-            return 0
-        cls = self.ns[f"{interface['Api']}.{interface['Name']}"]
-        return len(cls["Methods"]) + self.count_interface_method(cls["Interface"])
+            self.writeline(f"{mt['Name']}.{m['Name']} = COMMETHOD(WINFUNCTYPE({ts}, use_last_error={m['SetLastError']})({m['_vtbl_index']}, '{m['Name']}', {ps}))")
 
     def visit_com_class_id(self, mt) -> None:
         guid = repr(mt["Guid"])
@@ -275,6 +266,7 @@ class Preprocessor:
         ns = self.patch_name_conflict(ns)
         ns = self.patch_struct_nested_type(ns)
         ns = self.patch_enum(ns)
+        ns = self.patch_com_vtbl_index(ns)
         return ns
 
     def make_namespace(self, allmeta: dict) -> dict:
@@ -369,7 +361,7 @@ class Preprocessor:
             case _:
                 return e
 
-    def patch_enum(self, ns: dict):
+    def patch_enum(self, ns: dict) -> dict:
         for e in ns.values():
             match e:
                 case {"_Category": "Types", "Kind": "Enum"}:
@@ -387,6 +379,24 @@ class Preprocessor:
             if not ("_" in v["Name"] or v["Name"].isupper()):
                 return True
         return False
+
+    # Add vtbl_index to COM methods.
+    def patch_com_vtbl_index(self, ns: dict):
+        for e in ns.values():
+            match e:
+                case {"_Category": "Types", "Kind": "Com", "Interface": interface, "Methods": [*methods]}:
+                    vtbl_index = self.count_interface_method(interface, ns)
+                    for m in methods:
+                        m["_vtbl_index"] = vtbl_index
+                        vtbl_index += 1
+        return ns
+
+    def count_interface_method(self, interface: dict, ns: dict) -> int:
+        if not interface:
+            return 0
+        cls = ns[f"{interface['Api']}.{interface['Name']}"]
+        return len(cls["Methods"]) + self.count_interface_method(cls["Interface"], ns)
+
 
 class JsonLoader:
     def loadall(self, apipath):
