@@ -207,11 +207,10 @@ class DependencyResolver:
             if e["_Ref"] <= defined:
                 self.define(e, resolved, defined, waitfor)
             else:
-                for ref in e["_Ref"]:
-                    if ref not in defined:
-                        if ref not in waitfor:
-                            waitfor[ref] = []
-                        waitfor[ref].append(e)
+                for ref in e["_Ref"] - defined:
+                    if ref not in waitfor:
+                        waitfor[ref] = []
+                    waitfor[ref].append(e)
         if waitfor:
             pending = {e["_ApiName"]: p for pp in waitfor.values() for p in pp}
             for e in sorted(pending.values(), key=lambda e: f"{e['_ApiName']}"):
