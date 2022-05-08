@@ -201,35 +201,36 @@ class MetadataTranspiler:
 
 class DependencyResolver:
     def resolve(self, ns: dict) -> dict:
-        defined = set()
         resolved = {}
-        pending = {}
+        waitfor = {}
+        defined = set()
         for e in ns.values():
             e["_Ref"] = self.collect_apiref(e, ns, set())
         for e in ns.values():
             if e["_Ref"] <= defined:
-                resolved[e["_ApiName"]] = e
-                defined.add(e["_ApiName"])
-                has_resolved = True
-                while has_resolved:
-                    has_resolved = False
-                    remove = []
-                    for name in pending:
-                        if pending[name]["_Ref"] <= defined:
-                            resolved[pending[name]["_ApiName"]] = pending[name]
-                            defined.add(pending[name]["_ApiName"])
-                            remove.append(name)
-                            has_resolved = True
-                    for name in remove:
-                        del pending[name]
+                self.define(e, resolved, defined, waitfor)
             else:
-                pending[e["Name"]] = e
-        if pending:
+                for ref in e["_Ref"]:
+                    if ref not in defined:
+                        if ref not in waitfor:
+                            waitfor[ref] = []
+                        waitfor[ref].append(e)
+        if waitfor:
+            pending = {e["_ApiName"]: p for pp in waitfor.values() for p in pp}
             for e in sorted(pending.values(), key=lambda e: f"{e['_ApiName']}"):
                 ref = [ref for ref in e['_Ref'] if ref not in defined]
                 print(f"{e['_ApiName']} -> {ref}\n")
             raise RuntimeError("pending")
         return resolved
+
+    def define(self, e, resolved, defined, waitfor):
+        resolved[e["_ApiName"]] = e
+        defined.add(e["_ApiName"])
+        if e["_ApiName"] in waitfor:
+            for p in waitfor[e["_ApiName"]]:
+                if p["_ApiName"] not in defined and p["_Ref"] <= defined:
+                    self.define(p, resolved, defined, waitfor)
+            del waitfor[e["_ApiName"]]
 
     def collect_apiref(self, node: dict, ns: dict, ref: set) -> set:
         match node:
