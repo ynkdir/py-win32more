@@ -178,11 +178,8 @@ class MetadataTranspiler:
 
     def to_pyvalue(self, ct) -> str:
         match ct["ValueType"]:
-            case "Byte"| "SByte"| "Char"| "Int16"| "UInt16"| "Int32"| "UInt32"| "Int64"| "UInt64":
-                return str(ct["Value"])
-            case "Single" | "Double":
-                return str(ct["Value"])
-            case "String":
+            case ("Byte"| "SByte"| "Char"| "Int16"| "UInt16"| "Int32"| "UInt32"| "Int64"| "UInt64" |
+                  "Single" | "Double" | "String"):
                 return repr(ct["Value"])
             case "PropertyKey":
                 # TODO: other type?
