@@ -8,10 +8,9 @@ from pathlib import Path
 
 ARCHITECTURE = "X64"
 
-class MetadataTranspiler:
-    def transpile(self, ns: dict) -> str:
+class Generator:
+    def generate(self, ns: dict) -> str:
         self.out = io.StringIO()
-        self.write(Path("head.py").read_text())
         for e in ns.values():
             self.visit_head(e)
         for e in ns.values():
@@ -407,8 +406,9 @@ def main():
     allmeta = JsonLoader().loadall("win32json/api")
     ns = Preprocessor().preprocess(allmeta)
     ns = DependencyResolver().resolve(ns)
-    s = MetadataTranspiler().transpile(ns)
-    Path("win32more/all.py").write_text(s)
+    s = Generator().generate(ns)
+    h = Path("head.py").read_text()
+    Path("win32more/all.py").write_text(h + s)
 
 if __name__ == "__main__":
     main()
