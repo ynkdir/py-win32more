@@ -99,6 +99,8 @@ class Generator:
             self.writeline(f"    pass")
         for nt in mt["NestedTypes"]:
             self.visit_struct(nt, True)
+        if mt["PackingSize"] != 0:
+            self.writeline(f"{mt['Name']}._pack_ = {mt['PackingSize']}")
         anonymous = []
         for f in mt["Fields"]:
             if re.match(r"^Anonymous\d*$", f["Name"]):
