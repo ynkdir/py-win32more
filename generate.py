@@ -12,8 +12,6 @@ class Generator:
     def generate(self, ns: dict) -> str:
         self.out = io.StringIO()
         for e in ns.values():
-            self.visit_head(e)
-        for e in ns.values():
             match e["_Category"]:
                 case "Types":
                     self.visit_type(e)
@@ -22,19 +20,6 @@ class Generator:
                 case "Constants":
                     self.visit_constant(e)
         return self.out.getvalue()
-
-    def visit_head(self, e) -> None:
-        match e:
-            case {"Kind": "Com", "Name": name, "Interface": interface}:
-                base = interface["Name"] if interface else "c_void_p"
-                self.writeline(f"class {name}({base}):")
-                self.writeline(f"    pass")
-            case {"Kind": "Struct", "Name": name}:
-                self.writeline(f"class {name}(Structure):")
-                self.writeline(f"    pass")
-            case {"Kind": "Union", "Name": name}:
-                self.writeline(f"class {name}(Union):")
-                self.writeline(f"    pass")
 
     def visit_type(self, mt) -> None:
         match mt["Kind"]:
@@ -56,8 +41,14 @@ class Generator:
                 raise RuntimeError(f"unknown type {mt['Kind']}")
 
     def visit_com(self, mt) -> None:
+        base = f"win32more.{mt['Interface']['Api']}.{mt['Interface']['Name']}_head" if mt["Interface"] else "c_void_p"
         guid = repr(mt["Guid"])
-        self.writeline(f"{mt['Name']}.Guid = Guid({guid})")
+        self.writeline(f"def _define_{mt['Name']}_head():")
+        self.writeline(f"    class {mt['Name']}({base}):")
+        self.writeline(f"        Guid = Guid({guid})")
+        self.writeline(f"    return {mt['Name']}")
+        self.writeline(f"def _define_{mt['Name']}():")
+        self.writeline(f"    {mt['Name']} = win32more.{mt['_ApiName']}_head")
         for m in mt["Methods"]:
             types = [self.to_pytype(m["ReturnType"])]
             params = []
@@ -70,7 +61,8 @@ class Generator:
                 ps = "(" + ",".join(f"({inout}, '{name}')" for inout, name in params) + ",)"
             else:
                 ps = "()"
-            self.writeline(f"{mt['Name']}.{m['Name']} = COMMETHOD(WINFUNCTYPE({ts}, use_last_error={m['SetLastError']})({m['_vtbl_index']}, '{m['Name']}', {ps}))")
+            self.writeline(f"    {mt['Name']}.{m['Name']} = COMMETHOD(WINFUNCTYPE({ts}, use_last_error={m['SetLastError']})({m['_vtbl_index']}, '{m['Name']}', {ps}))")
+        self.writeline(f"    return {mt['Name']}")
 
     def visit_com_class_id(self, mt) -> None:
         guid = repr(mt["Guid"])
@@ -86,36 +78,46 @@ class Generator:
         for p in mt["Params"]:
             types.append(self.to_pytype(p["Type"]))
         ts = ",".join(types)
-        self.writeline(f"""{mt['Name']} = CFUNCTYPE({ts}, use_last_error={mt['SetLastError']})""")
+        self.writeline(f"def _define_{mt['Name']}():")
+        self.writeline(f"""    return CFUNCTYPE({ts}, use_last_error={mt['SetLastError']})""")
 
     def visit_typedef(self, mt) -> None:
         pytype = self.to_pytype(mt["Def"])
         self.writeline(f"{mt['Name']} = {pytype}")
 
     def visit_struct(self, mt, nested: bool = False) -> None:
-        if nested:
-            base = self.get_struct_base(mt)
-            self.writeline(f"class {mt['Name']}({base}):")
-            self.writeline(f"    pass")
+        base = self.get_struct_base(mt)
+        if not nested:
+            self.writeline(f"def _define_{mt['Name']}_head():")
+            self.writeline(f"    class {mt['Name']}({base}):")
+            self.writeline(f"        pass")
+            self.writeline(f"    return {mt['Name']}")
+            self.writeline(f"def _define_{mt['Name']}():")
+            self.writeline(f"    {mt['Name']} = win32more.{mt['_ApiName']}_head")
+        else:
+            self.writeline(f"    class {mt['Name']}({base}):")
+            self.writeline(f"        pass")
         for nt in mt["NestedTypes"]:
             self.visit_struct(nt, True)
         if mt["PackingSize"] != 0:
-            self.writeline(f"{mt['Name']}._pack_ = {mt['PackingSize']}")
+            self.writeline(f"    {mt['Name']}._pack_ = {mt['PackingSize']}")
         anonymous = []
         for f in mt["Fields"]:
             if re.match(r"^Anonymous\d*$", f["Name"]):
                 anonymous.append(f["Name"])
         if anonymous:
-            self.writeline(f"{mt['Name']}._anonymous_ = [")
+            self.writeline(f"    {mt['Name']}._anonymous_ = [")
             for name in anonymous:
-                self.writeline(f"    '{name}',")
-            self.writeline("]")
+                self.writeline(f"        '{name}',")
+            self.writeline("    ]")
         if mt["Fields"]:
-            self.writeline(f"{mt['Name']}._fields_ = [")
+            self.writeline(f"    {mt['Name']}._fields_ = [")
             for f in mt["Fields"]:
                 pytype = self.to_pytype(f["Type"])
-                self.writeline(f"""    ("{f['Name']}", {pytype}),""")
-            self.writeline("]")
+                self.writeline(f"""        ("{f['Name']}", {pytype}),""")
+            self.writeline("    ]")
+        if not nested:
+            self.writeline(f"    return {mt['Name']}")
 
     def get_struct_base(slef, mt) -> str:
         match mt["Kind"]:
@@ -127,6 +129,7 @@ class Generator:
                 raise RuntimeError(f"unknown struct kind {mt['Kind']}")
 
     def visit_function(self, ft) -> None:
+        self.writeline(f"def _define_{ft['Name']}():")
         dll = ft["DllImport"]
         types = [self.to_pytype(ft["ReturnType"])]
         params = []
@@ -139,12 +142,13 @@ class Generator:
             ps = "(" + ",".join(f"({inout}, '{name}')" for inout, name in params) + ",)"
         else:
             ps = "()"
-        self.writeline("try:")
-        self.writeline(f"""    {ft['Name']} = WINFUNCTYPE({ts}, use_last_error={ft['SetLastError']})(("{ft['Name']}", windll["{dll}"]), {ps})""")
+        self.writeline(f"    try:")
+        self.writeline(f"""        return WINFUNCTYPE({ts}, use_last_error={ft['SetLastError']})(("{ft['Name']}", windll["{dll}"]), {ps})""")
+        self.writeline(f"    except (FileNotFoundError, AttributeError):")
+        self.writeline(f"        return None")
         if ua := ft.get("_UnicodeAlias"):
-            self.writeline(f"    {ua} = {ft['Name']}")
-        self.writeline("except (FileNotFoundError, AttributeError):")
-        self.writeline("    pass")
+            self.writeline(f"def _define_{ua}():")
+            self.writeline(f"    return win32more.{ft['_ApiName']}")
 
     def visit_constant(self, ct) -> None:
         pyvalue = self.to_pyvalue(ct)
@@ -160,18 +164,19 @@ class Generator:
                 return "c_char_p_no"    # safe?
             case {"Kind": "PointerTo", "Child": {"Kind": "Native", "Name": "Char"}}:
                 return "c_wchar_p_no"   # safe?
-            case {"Kind": "PointerTo", "Child": c}:
-                pointee = self.to_pytype(c)
-                return f"POINTER({pointee})"
-            case {"Kind": "LPArray", "Child": c}:
+            case {"Kind": "PointerTo" | "LPArray", "Child": c}:
                 pointee = self.to_pytype(c)
                 return f"POINTER({pointee})"
             case {"Kind": "Array", "Shape": shape, "Child": c}:
                 size = shape["Size"] if shape else 0
                 element_type = self.to_pytype(c)
                 return f"{element_type} * {size}"
-            case {"Kind": "ApiRef", "Name": name}:
+            case {"Kind": "ApiRef", "Name": name, "Api": api, "_nested": True}:
                 return name
+            case {"Kind": "ApiRef", "Name": name, "Api": api, "_head": True}:
+                return f"win32more.{api}.{name}_head"
+            case {"Kind": "ApiRef", "Name": name, "Api": api}:
+                return f"win32more.{api}.{name}"
             case {"Kind": "Native", "Name": name}:
                 return name
             case _:
@@ -197,74 +202,13 @@ class Generator:
         self.write(s)
         self.write("\n")
 
-class DependencyResolver:
-    def resolve(self, ns: dict) -> dict:
-        resolved = {}
-        waitfor = {}
-        defined = set()
-        for e in ns.values():
-            e["_Ref"] = self.collect_apiref(e, ns, set())
-        for e in ns.values():
-            if e["_Ref"] <= defined:
-                self.define(e, resolved, defined, waitfor)
-            else:
-                for ref in e["_Ref"] - defined:
-                    if ref not in waitfor:
-                        waitfor[ref] = []
-                    waitfor[ref].append(e)
-        if waitfor:
-            pending = {e["_ApiName"]: p for pp in waitfor.values() for p in pp}
-            for e in sorted(pending.values(), key=lambda e: f"{e['_ApiName']}"):
-                ref = [ref for ref in e['_Ref'] if ref not in defined]
-                print(f"{e['_ApiName']} -> {ref}\n")
-            raise RuntimeError("pending")
-        return resolved
-
-    def define(self, e, resolved, defined, waitfor):
-        resolved[e["_ApiName"]] = e
-        defined.add(e["_ApiName"])
-        if e["_ApiName"] in waitfor:
-            for p in waitfor[e["_ApiName"]]:
-                if p["_ApiName"] not in defined and p["_Ref"] <= defined:
-                    self.define(p, resolved, defined, waitfor)
-            del waitfor[e["_ApiName"]]
-
-    def collect_apiref(self, node: dict, ns: dict, ref: set) -> set:
-        match node:
-            case {"Kind": "Com", "Interface": interface, "Methods": [*methods]}:
-                if interface:
-                    ref.add(f"{interface['Api']}.{interface['Name']}")
-                for e in methods:
-                    self.collect_apiref(e, ns, ref)
-            case {"Kind": "PointerTo", "Child": {"Kind": "ApiRef", "Name": name, "Api": api}}:
-                if name.endswith("_e__Struct") or name.endswith("_e__Union"):
-                    pass
-                elif ns[f"{api}.{name}"]["Kind"] in ("Struct", "Union", "Com"):
-                    pass
-                else:
-                    ref.add(f"{api}.{name}")
-            case {"Kind": "ApiRef", "Name": name, "Api": api, "TargetKind": targetkind}:
-                if name.endswith("_e__Struct") or name.endswith("_e__Union"):
-                    pass
-                elif targetkind == "Com":
-                    pass
-                else:
-                    ref.add(f"{api}.{name}")
-            case {}:
-                for e in node.values():
-                    self.collect_apiref(e, ns, ref)
-            case [*_]:
-                for e in node:
-                    self.collect_apiref(e, ns, ref)
-        return ref
-
 class Preprocessor:
     def preprocess(self, allmeta: dict) -> dict:
         ns = self.make_namespace(allmeta)
-        ns = self.patch_name_conflict(ns)
         ns = self.patch_struct_nested_type(ns)
         ns = self.patch_enum(ns)
         ns = self.patch_com_vtbl_index(ns)
+        ns = self.patch_apiref(ns)
         return ns
 
     def make_namespace(self, allmeta: dict) -> dict:
@@ -301,35 +245,6 @@ class Preprocessor:
                 ns[apiname] = e
         return ns
 
-    # Rename conflicted name to put them in one namespace.
-    def patch_name_conflict(self, ns: dict) -> dict:
-        newns = {}
-        defined = set()
-        for apiname, e in ns.items():
-            if e["Name"] in defined:
-                print("patch_name_conflict:", e["_ApiName"])
-                newname = e["_ApiName"].replace(".", "_")
-                newapiname = f"{e['_Api']}.{newname}"
-                self.patch_name(ns, e["_Api"], e["Name"], newname)
-                e["Name"] = newname
-                e["_ApiName"] = newapiname
-                newns[newapiname] = e
-            else:
-                defined.add(e["Name"])
-                newns[apiname] = e
-        return newns
-
-    def patch_name(self, node, api: str, name: str, newname: str) -> None:
-        match node:
-            case {"Kind": "ApiRef", "Api": api_, "Name": name_} if api_ == api and name_ == name:
-                node["Name"] = newname
-            case {}:
-                for e in node.values():
-                    self.patch_name(e, api, name, newname)
-            case [*_]:
-                for e in node:
-                    self.patch_name(e, api, name, newname)
-
     def patch_struct_nested_type(self, ns: dict) -> dict:
         for e in ns.values():
             match e:
@@ -342,8 +257,6 @@ class Preprocessor:
         renamed = {}
         for n in e["NestedTypes"]:
             newname = f"{e['Name']}_{n['Name']}"
-            if not (newname.endswith("_e__Struct") or newname.endswith("_e__Union")):
-                newname = f"{newname}_e__{n['Kind']}"
             renamed[n["Name"]] = newname
             n["Name"] = newname
             self.patch_nested_type(n)
@@ -395,6 +308,37 @@ class Preprocessor:
         cls = ns[f"{interface['Api']}.{interface['Name']}"]
         return len(cls["Methods"]) + self.count_interface_method(cls["Interface"], ns)
 
+    # Add additional information to ApiRef.
+    # _head: require header only.
+    # _nested: is nested type.
+    def patch_apiref(self, ns: dict):
+        for e in ns.values():
+            self.add_apiref_attr(e, ns)
+        return ns
+
+    def add_apiref_attr(self, node, ns) -> None:
+        match node:
+            case {"Kind": "Com", "Interface": interface, "Methods": [*methods]}:
+                if interface:
+                    interface["_head"] = True
+                for e in methods:
+                    self.add_apiref_attr(e, ns)
+            case {"Kind": "PointerTo", "Child": {"Kind": "ApiRef", "Name": name, "Api": api} as apiref}:
+                if f"{api}.{name}" not in ns:
+                    apiref["_nested"] = True
+                elif ns[f"{api}.{name}"]["Kind"] in ("Struct", "Union", "Com"):
+                    apiref["_head"] = True
+            case {"Kind": "ApiRef", "Name": name, "Api": api, "TargetKind": targetkind} as apiref:
+                if f"{api}.{name}" not in ns:
+                    apiref["_nested"] = True
+                elif targetkind == "Com":
+                    apiref["_head"] = True
+            case {}:
+                for e in node.values():
+                    self.add_apiref_attr(e, ns)
+            case [*_]:
+                for e in node:
+                    self.add_apiref_attr(e, ns)
 
 class JsonLoader:
     def loadall(self, apipath):
@@ -404,13 +348,75 @@ class JsonLoader:
             allmeta[api] = json.loads(jsonfile.read_text())
         return allmeta
 
+def collect_apiref(node, apiref):
+    match node:
+        case {"Kind": "ApiRef", "Api": api}:
+            apiref.add(api)
+        case {}:
+            for x in node.values():
+                collect_apiref(x, apiref)
+        case [*_]:
+            for x in node:
+                collect_apiref(x, apiref)
+    return apiref
+
 def main():
     allmeta = JsonLoader().loadall("win32json/api")
     ns = Preprocessor().preprocess(allmeta)
-    ns = DependencyResolver().resolve(ns)
-    s = Generator().generate(ns)
-    h = Path("head.py").read_text()
-    Path("win32more/all.py").write_text(h + s)
+    for api in allmeta:
+        mod = {e["_ApiName"]: e for e in ns.values() if e["_Api"] == api}
+        imp = set()
+        for e in mod.values():
+            imp |= collect_apiref(e, set())
+        imp -= {api}
+        out = io.StringIO()
+        out.write(f"from win32more import *\n")
+        out.write(f"import win32more.{api}\n")
+        for ref in sorted(list(imp)):
+            out.write(f"import win32more.{ref}\n")
+        out.write(f"""
+def __getattr__(name):
+    if name == "__path__":
+        raise AttributeError()
+    setattr(win32more.{api}, name, eval(f"_define_{{name}}()"))
+    return getattr(win32more.{api}, name)
+""")
+        out.write(Generator().generate(mod))
+        out.write("__all__ = [\n")
+        for e in mod.values():
+            out.write(f"""    "{e['Name']}",\n""")
+            match e:
+                case {"_Category": "Types", "Kind": "Enum"}:
+                    for v in e["Values"]:
+                        out.write(f"""    "{v['Name']}",\n""")
+                case {"_Category": "Functions", "_UnicodeAlias": ua} if ua is not None:
+                    out.write(f"""    "{ua}",\n""")
+        out.write("]\n")
+        is_dir = False
+        for ref in allmeta:
+            if ref != api and ref.startswith(api + "."):
+                is_dir = True
+                break
+        if is_dir:
+            p = Path("win32more") / api.replace(".", "/")
+            if not p.exists():
+                p.mkdir(parents=True)
+            (p / "__init__.py").write_text(out.getvalue())
+        else:
+            p = Path("win32more") / api.replace(".", "/")
+            if not p.parent.exists():
+                p.parent.mkdir(parents=True)
+            (Path(str(p) + ".py")).write_text(out.getvalue())
+
+    for p in Path("win32more").glob("**/*"):
+        if p.is_dir() and not (p / "__init__.py").exists():
+            (p / "__init__.py").write_text("")
+
+    out = io.StringIO()
+    out.write("from win32more import *\n")
+    for api in sorted(allmeta):
+        out.write(f"from win32more.{api} import *\n")
+    Path("win32more/all.py").write_text(out.getvalue())
 
 if __name__ == "__main__":
     main()

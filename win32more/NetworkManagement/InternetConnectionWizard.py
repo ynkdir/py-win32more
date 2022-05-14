@@ -1,0 +1,53 @@
+from win32more import *
+import win32more.NetworkManagement.InternetConnectionWizard
+import win32more.Foundation
+
+def __getattr__(name):
+    if name == "__path__":
+        raise AttributeError()
+    setattr(win32more.NetworkManagement.InternetConnectionWizard, name, eval(f"_define_{name}()"))
+    return getattr(win32more.NetworkManagement.InternetConnectionWizard, name)
+ICW_MAX_ACCTNAME = 256
+ICW_MAX_PASSWORD = 256
+ICW_MAX_LOGONNAME = 256
+ICW_MAX_SERVERNAME = 64
+ICW_MAX_RASNAME = 256
+ICW_MAX_EMAILNAME = 64
+ICW_MAX_EMAILADDR = 128
+ICW_CHECKSTATUS = 1
+ICW_LAUNCHFULL = 256
+ICW_LAUNCHMANUAL = 512
+ICW_USE_SHELLNEXT = 1024
+ICW_FULL_SMARTSTART = 2048
+ICW_FULLPRESENT = 1
+ICW_MANUALPRESENT = 2
+ICW_ALREADYRUN = 4
+ICW_LAUNCHEDFULL = 256
+ICW_LAUNCHEDMANUAL = 512
+ICW_USEDEFAULTS = 1
+def _define_PFNCHECKCONNECTIONWIZARD():
+    return CFUNCTYPE(UInt32,UInt32,POINTER(UInt32), use_last_error=False)
+def _define_PFNSETSHELLNEXT():
+    return CFUNCTYPE(UInt32,win32more.Foundation.PSTR, use_last_error=False)
+__all__ = [
+    "ICW_MAX_ACCTNAME",
+    "ICW_MAX_PASSWORD",
+    "ICW_MAX_LOGONNAME",
+    "ICW_MAX_SERVERNAME",
+    "ICW_MAX_RASNAME",
+    "ICW_MAX_EMAILNAME",
+    "ICW_MAX_EMAILADDR",
+    "ICW_CHECKSTATUS",
+    "ICW_LAUNCHFULL",
+    "ICW_LAUNCHMANUAL",
+    "ICW_USE_SHELLNEXT",
+    "ICW_FULL_SMARTSTART",
+    "ICW_FULLPRESENT",
+    "ICW_MANUALPRESENT",
+    "ICW_ALREADYRUN",
+    "ICW_LAUNCHEDFULL",
+    "ICW_LAUNCHEDMANUAL",
+    "ICW_USEDEFAULTS",
+    "PFNCHECKCONNECTIONWIZARD",
+    "PFNSETSHELLNEXT",
+]
