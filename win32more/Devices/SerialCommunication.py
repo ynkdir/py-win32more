@@ -3,10 +3,12 @@ import win32more.Devices.SerialCommunication
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Devices.SerialCommunication, name, eval(f"_define_{name}()"))
+    setattr(win32more.Devices.SerialCommunication, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Devices.SerialCommunication, name)
+def __dir__():
+    return __all__
 COMDB_MIN_PORTS_ARBITRATED = 256
 COMDB_MAX_PORTS_ARBITRATED = 4096
 CDB_REPORT_BITS = 0

@@ -7,10 +7,12 @@ import win32more.Graphics.Dxgi
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Pdf, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Pdf, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Pdf, name)
+def __dir__():
+    return __all__
 def _define_PFN_PDF_CREATE_RENDERER():
     return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.System.WinRT.Pdf.IPdfRendererNative_head), use_last_error=False)
 def _define_PDF_RENDER_PARAMS_head():

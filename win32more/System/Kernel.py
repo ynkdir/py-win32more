@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Diagnostics.Debug
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Kernel, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Kernel, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Kernel, name)
+def __dir__():
+    return __all__
 OBJ_HANDLE_TAGBITS = 3
 RTL_BALANCED_NODE_RESERVED_PARENT_MASK = 3
 OBJ_INHERIT = 2

@@ -7,10 +7,12 @@ import win32more.System.Ole
 import win32more.UI.Controls
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.TabletPC, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.TabletPC, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.TabletPC, name)
+def __dir__():
+    return __all__
 MICROSOFT_URL_EXPERIENCE_PROPERTY = 'Microsoft TIP URL Experience'
 MICROSOFT_TIP_NO_INSERT_BUTTON_PROPERTY = 'Microsoft TIP No Insert Option'
 MICROSOFT_TIP_COMBOBOXLIST_PROPERTY = 'Microsoft TIP ComboBox List Window Identifier'

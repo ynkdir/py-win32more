@@ -6,10 +6,12 @@ import win32more.Storage.FileSystem
 import win32more.System.IO
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Pipes, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Pipes, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Pipes, name)
+def __dir__():
+    return __all__
 PIPE_UNLIMITED_INSTANCES = 255
 NMPWAIT_WAIT_FOREVER = 4294967295
 NMPWAIT_NOWAIT = 1

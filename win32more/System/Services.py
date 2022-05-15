@@ -5,10 +5,12 @@ import win32more.Security
 import win32more.System.Registry
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Services, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Services, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Services, name)
+def __dir__():
+    return __all__
 SERVICE_ALL_ACCESS = 983551
 SC_MANAGER_ALL_ACCESS = 983103
 SERVICE_NO_CHANGE = 4294967295

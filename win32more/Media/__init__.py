@@ -5,10 +5,12 @@ import win32more.Media.Multimedia
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media, name)
+def __dir__():
+    return __all__
 TIMERR_NOERROR = 0
 TIMERR_NOCANDO = 97
 TIMERR_STRUCT = 129

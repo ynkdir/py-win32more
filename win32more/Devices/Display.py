@@ -11,10 +11,12 @@ import win32more.UI.ColorSystem
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Devices.Display, name, eval(f"_define_{name}()"))
+    setattr(win32more.Devices.Display, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Devices.Display, name)
+def __dir__():
+    return __all__
 GUID_DEVINTERFACE_DISPLAY_ADAPTER = '5b45201d-f2f2-4f3b-85bb-30ff1f953599'
 GUID_DEVINTERFACE_MONITOR = 'e6f07b5f-ee97-4a90-b076-33f57bf4eaa7'
 GUID_DISPLAY_DEVICE_ARRIVAL = '1ca05180-a699-450a-9a0c-de4fbe3ddd89'

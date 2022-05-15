@@ -6,10 +6,12 @@ import win32more.System.Com
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.Audio.Apo, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.Audio.Apo, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.Audio.Apo, name)
+def __dir__():
+    return __all__
 APOERR_ALREADY_INITIALIZED = -2005073919
 APOERR_NOT_INITIALIZED = -2005073918
 APOERR_FORMAT_NOT_SUPPORTED = -2005073917

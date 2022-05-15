@@ -8,10 +8,12 @@ import win32more.System.Com
 import win32more.System.Registry
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.NetManagement, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.NetManagement, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.NetManagement, name)
+def __dir__():
+    return __all__
 NERR_BASE = 2100
 NERR_PasswordExpired = 2242
 CNLEN = 15

@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.Input.Ink, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.Input.Ink, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.Input.Ink, name)
+def __dir__():
+    return __all__
 InkDesktopHost = Guid('062584a6-f830-4bdc-a4d2-0a10ab062b1d')
 def _define_IInkCommitRequestHandler_head():
     class IInkCommitRequestHandler(win32more.System.Com.IUnknown_head):

@@ -7,10 +7,12 @@ import win32more.System.Com
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Printing, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Printing, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Printing, name)
+def __dir__():
+    return __all__
 def _define_IPrinting3DManagerInterop_head():
     class IPrinting3DManagerInterop(win32more.System.WinRT.IInspectable_head):
         Guid = Guid('9ca31010-1484-4587-b26b-dddf9f9caecd')

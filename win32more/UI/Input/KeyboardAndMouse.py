@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.UI.TextServices
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.Input.KeyboardAndMouse, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.Input.KeyboardAndMouse, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.Input.KeyboardAndMouse, name)
+def __dir__():
+    return __all__
 EXTENDED_BIT = 16777216
 DONTCARE_BIT = 33554432
 FAKE_KEYSTROKE = 33554432

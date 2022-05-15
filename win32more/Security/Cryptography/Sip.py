@@ -5,10 +5,12 @@ import win32more.Security.Cryptography
 import win32more.Security.Cryptography.Catalog
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.Cryptography.Sip, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.Cryptography.Sip, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.Cryptography.Sip, name)
+def __dir__():
+    return __all__
 MSSIP_FLAGS_PROHIBIT_RESIZE_ON_CREATE = 65536
 MSSIP_FLAGS_USE_CATALOG = 131072
 MSSIP_FLAGS_MULTI_HASH = 262144

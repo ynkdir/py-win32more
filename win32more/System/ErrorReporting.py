@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Diagnostics.Debug
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.ErrorReporting, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.ErrorReporting, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.ErrorReporting, name)
+def __dir__():
+    return __all__
 WER_FAULT_REPORTING_NO_UI = 32
 WER_FAULT_REPORTING_FLAG_NO_HEAP_ON_QUEUE = 64
 WER_FAULT_REPORTING_DISABLE_SNAPSHOT_CRASH = 128

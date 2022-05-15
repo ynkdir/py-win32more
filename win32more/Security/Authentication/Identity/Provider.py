@@ -6,10 +6,12 @@ import win32more.System.Com.StructuredStorage
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.Authentication.Identity.Provider, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.Authentication.Identity.Provider, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.Authentication.Identity.Provider, name)
+def __dir__():
+    return __all__
 OID_OAssociatedIdentityProviderObject = '98c5a3dd-db68-4f1a-8d2b-9079cdfeaf61'
 IDENTITY_TYPE = Int32
 IDENTITIES_ALL = 0

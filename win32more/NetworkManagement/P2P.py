@@ -7,10 +7,12 @@ import win32more.System.Com
 import win32more.System.IO
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.P2P, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.P2P, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.P2P, name)
+def __dir__():
+    return __all__
 NS_PNRPNAME = 38
 NS_PNRPCLOUD = 39
 PNRPINFO_HINT = 1

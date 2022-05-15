@@ -6,10 +6,12 @@ import win32more.System.Com
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.Xaml.Diagnostics, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.Xaml.Diagnostics, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.Xaml.Diagnostics, name)
+def __dir__():
+    return __all__
 E_UNKNOWNTYPE = -2144665560
 VisualMutationType = Int32
 VisualMutationType_Add = 0

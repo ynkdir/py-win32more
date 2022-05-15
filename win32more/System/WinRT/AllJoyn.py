@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.AllJoyn, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.AllJoyn, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.AllJoyn, name)
+def __dir__():
+    return __all__
 def _define_IWindowsDevicesAllJoynBusAttachmentInterop_head():
     class IWindowsDevicesAllJoynBusAttachmentInterop(win32more.System.WinRT.IInspectable_head):
         Guid = Guid('fd89c65b-b50e-4a19-9d0c-b42b783281cd')

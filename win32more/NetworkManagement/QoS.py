@@ -6,10 +6,12 @@ import win32more.Networking.WinSock
 import win32more.System.IO
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.QoS, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.QoS, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.QoS, name)
+def __dir__():
+    return __all__
 QOS_MAX_OBJECT_STRING_LENGTH = 256
 QOS_TRAFFIC_GENERAL_ID_BASE = 4000
 SERVICETYPE_NOTRAFFIC = 0

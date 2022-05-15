@@ -5,10 +5,12 @@ import win32more.Media.MediaFoundation
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Media, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Media, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Media, name)
+def __dir__():
+    return __all__
 CLSID_AudioFrameNativeFactory = '16a0a3b9-9f65-4102-9367-2cda3a4f372a'
 CLSID_VideoFrameNativeFactory = 'd194386a-04e3-4814-8100-b2b0ae6d78c7'
 def _define_IAudioFrameNative_head():

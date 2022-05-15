@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.UpdateAgent, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.UpdateAgent, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.UpdateAgent, name)
+def __dir__():
+    return __all__
 LIBID_WUApiLib = 'b596cc9f-56e5-419e-a622-e01bb457431e'
 UPDATE_LOCKDOWN_WEBSITE_ACCESS = 1
 WU_S_SERVICE_STOP = 2359297

@@ -3,10 +3,12 @@ import win32more.System.TpmBaseServices
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.TpmBaseServices, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.TpmBaseServices, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.TpmBaseServices, name)
+def __dir__():
+    return __all__
 TBS_CONTEXT_VERSION_ONE = 1
 TBS_SUCCESS = 0
 TBS_OWNERAUTH_TYPE_FULL = 1

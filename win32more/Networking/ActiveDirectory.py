@@ -13,10 +13,12 @@ import win32more.UI.Shell
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Networking.ActiveDirectory, name, eval(f"_define_{name}()"))
+    setattr(win32more.Networking.ActiveDirectory, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Networking.ActiveDirectory, name)
+def __dir__():
+    return __all__
 WM_ADSPROP_NOTIFY_PAGEINIT = 2125
 WM_ADSPROP_NOTIFY_PAGEHWND = 2126
 WM_ADSPROP_NOTIFY_CHANGE = 2127

@@ -6,10 +6,12 @@ import win32more.System.Com
 import win32more.System.Threading
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.Authorization, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.Authorization, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.Authorization, name)
+def __dir__():
+    return __all__
 SDDL_REVISION_1 = 1
 SDDL_REVISION = 1
 SDDL_ALIAS_SIZE = 2

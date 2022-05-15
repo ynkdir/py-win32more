@@ -7,10 +7,12 @@ import win32more.Security
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.Direct3D12, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.Direct3D12, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.Direct3D12, name)
+def __dir__():
+    return __all__
 D3D12_SHADER_COMPONENT_MAPPING_ALWAYS_SET_BIT_AVOIDING_ZEROMEM_MISTAKES = 4096
 D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING = 5768
 D3D12_16BIT_INDEX_STRIP_CUT_VALUE = 65535

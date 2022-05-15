@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.WindowsConnectNow, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.WindowsConnectNow, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.WindowsConnectNow, name)
+def __dir__():
+    return __all__
 WCN_E_PEER_NOT_FOUND = -2147206143
 WCN_E_AUTHENTICATION_FAILED = -2147206142
 WCN_E_CONNECTION_REJECTED = -2147206141

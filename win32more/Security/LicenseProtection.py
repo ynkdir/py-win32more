@@ -3,10 +3,12 @@ import win32more.Security.LicenseProtection
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.LicenseProtection, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.LicenseProtection, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.LicenseProtection, name)
+def __dir__():
+    return __all__
 LicenseProtectionStatus = Int32
 LicenseProtectionStatus_Success = 0
 LicenseProtectionStatus_LicenseKeyNotFound = 1

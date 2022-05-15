@@ -6,10 +6,12 @@ import win32more.Security
 import win32more.System.IO
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Networking.HttpServer, name, eval(f"_define_{name}()"))
+    setattr(win32more.Networking.HttpServer, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Networking.HttpServer, name)
+def __dir__():
+    return __all__
 HTTP_DEMAND_CBT = 4
 HTTP_MAX_SERVER_QUEUE_LENGTH = 2147483647
 HTTP_MIN_SERVER_QUEUE_LENGTH = 1

@@ -7,10 +7,12 @@ import win32more.System.Ole
 import win32more.System.Registry
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.LegacyWindowsEnvironmentFeatures, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.LegacyWindowsEnvironmentFeatures, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.LegacyWindowsEnvironmentFeatures, name)
+def __dir__():
+    return __all__
 EVCF_HASSETTINGS = 1
 EVCF_ENABLEBYDEFAULT = 2
 EVCF_REMOVEFROMLIST = 4

@@ -5,10 +5,12 @@ import win32more.Graphics.Gdi
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Graphics.Capture, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Graphics.Capture, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Graphics.Capture, name)
+def __dir__():
+    return __all__
 def _define_IGraphicsCaptureItemInterop_head():
     class IGraphicsCaptureItemInterop(win32more.System.Com.IUnknown_head):
         Guid = Guid('3628e81b-3cac-4c60-b7f4-23ce0e0c3356')

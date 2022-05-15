@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.CoreInputView, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.CoreInputView, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.CoreInputView, name)
+def __dir__():
+    return __all__
 def _define_ICoreFrameworkInputViewInterop_head():
     class ICoreFrameworkInputViewInterop(win32more.System.WinRT.IInspectable_head):
         Guid = Guid('0e3da342-b11c-484b-9c1c-be0d61c2f6c5')

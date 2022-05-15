@@ -3,10 +3,12 @@ import win32more.Graphics.Dxgi.Common
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.Dxgi.Common, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.Dxgi.Common, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.Dxgi.Common, name)
+def __dir__():
+    return __all__
 _FACDXGI = 2170
 DXGI_CPU_ACCESS_NONE = 0
 DXGI_CPU_ACCESS_DYNAMIC = 1

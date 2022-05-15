@@ -6,10 +6,12 @@ import win32more.Graphics.Imaging
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.Wpf, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.Wpf, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.Wpf, name)
+def __dir__():
+    return __all__
 MILBITMAPEFFECT_SDK_VERSION = 16777216
 CLSID_MILBitmapEffectGroup = 'ac9c1a9a-7e18-4f64-ac7e-47cf7f051e95'
 CLSID_MILBitmapEffectBlur = 'a924df87-225d-4373-8f5b-b90ec85ae3de'

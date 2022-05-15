@@ -6,10 +6,12 @@ import win32more.System.Com.StructuredStorage
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Devices.FunctionDiscovery, name, eval(f"_define_{name}()"))
+    setattr(win32more.Devices.FunctionDiscovery, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Devices.FunctionDiscovery, name)
+def __dir__():
+    return __all__
 FD_EVENTID_PRIVATE = 100
 FD_EVENTID = 1000
 FD_EVENTID_SEARCHCOMPLETE = 1000

@@ -11,10 +11,12 @@ import win32more.UI.Shell.Common
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Search, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Search, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Search, name)
+def __dir__():
+    return __all__
 SI_TEMPORARY = 2147483648
 SUBSINFO_ALLFLAGS = 61311
 RS_READY = 1

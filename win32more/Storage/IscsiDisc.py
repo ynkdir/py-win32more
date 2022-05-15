@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Ioctl
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.IscsiDisc, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.IscsiDisc, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.IscsiDisc, name)
+def __dir__():
+    return __all__
 IOCTL_SCSI_BASE = 4
 ScsiRawInterfaceGuid = '53f56309-b6bf-11d0-94f2-00a0c91efb8b'
 WmiScsiAddressGuid = '53f5630f-b6bf-11d0-94f2-00a0c91efb8b'

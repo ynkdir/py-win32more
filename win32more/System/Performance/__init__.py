@@ -5,10 +5,12 @@ import win32more.System.Com
 import win32more.System.Ole
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Performance, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Performance, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Performance, name)
+def __dir__():
+    return __all__
 MAX_COUNTER_PATH = 256
 PDH_MAX_COUNTER_NAME = 1024
 PDH_MAX_INSTANCE_NAME = 1024

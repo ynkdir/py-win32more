@@ -5,10 +5,12 @@ import win32more.Graphics.Gdi
 import win32more.Security
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.DataExchange, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.DataExchange, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.DataExchange, name)
+def __dir__():
+    return __all__
 WM_DDE_FIRST = 992
 WM_DDE_INITIATE = 992
 WM_DDE_TERMINATE = 993

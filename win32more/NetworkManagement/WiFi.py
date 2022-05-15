@@ -7,10 +7,12 @@ import win32more.System.Com
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.WiFi, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.WiFi, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.WiFi, name)
+def __dir__():
+    return __all__
 L2_REASON_CODE_DOT11_AC_BASE = 131072
 L2_REASON_CODE_DOT11_MSM_BASE = 196608
 L2_REASON_CODE_DOT11_SECURITY_BASE = 262144

@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Com.Events, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Com.Events, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Com.Events, name)
+def __dir__():
+    return __all__
 CEventSystem = Guid('4e14fba2-2e22-11d1-9964-00c04fbbb345')
 CEventPublisher = Guid('ab944620-79c6-11d1-88f9-0080c7d771bf')
 CEventClass = Guid('cdbec9c0-7a68-11d1-88f9-0080c7d771bf')

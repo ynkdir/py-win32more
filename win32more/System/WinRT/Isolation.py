@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Isolation, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Isolation, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Isolation, name)
+def __dir__():
+    return __all__
 def _define_IIsolatedEnvironmentInterop_head():
     class IIsolatedEnvironmentInterop(win32more.System.Com.IUnknown_head):
         Guid = Guid('85713c2e-8e62-46c5-8de2-c647e1d54636')

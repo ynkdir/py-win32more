@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.DXCore, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.DXCore, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.DXCore, name)
+def __dir__():
+    return __all__
 _FACDXCORE = 2176
 DXCORE_ADAPTER_ATTRIBUTE_D3D11_GRAPHICS = '8c47866b-7583-450d-f0f0-6bada895af4b'
 DXCORE_ADAPTER_ATTRIBUTE_D3D12_GRAPHICS = '0c9ece4d-2f6e-4f01-8c96-e89e331b47b1'

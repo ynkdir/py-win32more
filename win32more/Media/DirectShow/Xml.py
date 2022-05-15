@@ -6,10 +6,12 @@ import win32more.Media.DirectShow
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.DirectShow.Xml, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.DirectShow.Xml, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.DirectShow.Xml, name)
+def __dir__():
+    return __all__
 CLSID_XMLGraphBuilder = '1bb05961-5fbf-11d2-a521-44df07c10000'
 def _define_IXMLGraphBuilder_head():
     class IXMLGraphBuilder(win32more.System.Com.IUnknown_head):

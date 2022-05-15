@@ -6,10 +6,12 @@ import win32more.System.Diagnostics.Debug
 import win32more.Web.MsHtml
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Diagnostics.Debug.WebApp, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Diagnostics.Debug.WebApp, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Diagnostics.Debug.WebApp, name)
+def __dir__():
+    return __all__
 def _define_IWebApplicationScriptEvents_head():
     class IWebApplicationScriptEvents(win32more.System.Com.IUnknown_head):
         Guid = Guid('7c3f6998-1567-4bba-b52b-48d32141d613')

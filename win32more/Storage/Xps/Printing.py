@@ -5,10 +5,12 @@ import win32more.Storage.Xps
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.Xps.Printing, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.Xps.Printing, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.Xps.Printing, name)
+def __dir__():
+    return __all__
 ID_DOCUMENTPACKAGETARGET_MSXPS = '9cae40a8-ded1-41c9-a9fd-d735ef33aeda'
 ID_DOCUMENTPACKAGETARGET_OPENXPS = '0056bb72-8c9c-4612-bd0f-93012a87099d'
 ID_DOCUMENTPACKAGETARGET_OPENXPS_WITH_3D = '63dbd720-8b14-4577-b074-7bb11b596d28'

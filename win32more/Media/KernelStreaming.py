@@ -6,10 +6,12 @@ import win32more.System.Com
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.KernelStreaming, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.KernelStreaming, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.KernelStreaming, name)
+def __dir__():
+    return __all__
 IOCTL_KS_PROPERTY = 3080195
 IOCTL_KS_ENABLE_EVENT = 3080199
 IOCTL_KS_DISABLE_EVENT = 3080203

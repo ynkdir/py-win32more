@@ -8,10 +8,12 @@ import win32more.System.IO
 import win32more.System.Kernel
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Networking.WinSock, name, eval(f"_define_{name}()"))
+    setattr(win32more.Networking.WinSock, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Networking.WinSock, name)
+def __dir__():
+    return __all__
 SOCKET_DEFAULT2_QM_POLICY = 'aec2ef9c-3a4d-4d3e-8842-239942e39a47'
 REAL_TIME_NOTIFICATION_CAPABILITY = '6b59819a-5cae-492d-a901-2a3c2c50164f'
 REAL_TIME_NOTIFICATION_CAPABILITY_EX = '6843da03-154a-4616-a508-44371295f96b'

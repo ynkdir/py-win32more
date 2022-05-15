@@ -9,10 +9,12 @@ import win32more.System.SystemServices
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Networking.Clustering, name, eval(f"_define_{name}()"))
+    setattr(win32more.Networking.Clustering, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Networking.Clustering, name)
+def __dir__():
+    return __all__
 CLUSTER_VERSION_FLAG_MIXED_MODE = 1
 CLUSTER_VERSION_UNKNOWN = 4294967295
 NT4_MAJOR_VERSION = 1

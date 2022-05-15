@@ -8,10 +8,12 @@ import win32more.System.Ole
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.MediaPlayer, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.MediaPlayer, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.MediaPlayer, name)
+def __dir__():
+    return __all__
 CLSID_XFeedsManager = 'fe6b11c3-c72e-4061-86c6-9d163121f229'
 WMPGC_FLAGS_ALLOW_PREROLL = 1
 WMPGC_FLAGS_SUPPRESS_DIALOGS = 2

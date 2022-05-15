@@ -3,10 +3,12 @@ import win32more.UI.Input
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.Input, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.Input, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.Input, name)
+def __dir__():
+    return __all__
 RAW_INPUT_DATA_COMMAND_FLAGS = UInt32
 RID_HEADER = 268435461
 RID_INPUT = 268435459

@@ -5,10 +5,12 @@ import win32more.System.Diagnostics.Debug
 import win32more.System.Kernel
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.VirtualDosMachines, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.VirtualDosMachines, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.VirtualDosMachines, name)
+def __dir__():
+    return __all__
 VDMCONTEXT_i386 = 65536
 VDMCONTEXT_i486 = 65536
 VDM_KGDT_R3_CODE = 24

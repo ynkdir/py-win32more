@@ -7,10 +7,12 @@ import win32more.System.Com.StructuredStorage
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Devices.PortableDevices, name, eval(f"_define_{name}()"))
+    setattr(win32more.Devices.PortableDevices, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Devices.PortableDevices, name)
+def __dir__():
+    return __all__
 DEVPKEY_MTPBTH_IsConnected = PROPERTYKEY(Fmtid='ea1237fa-589d-4472-84e4-0abe36fd62ef', Pid=2)
 GUID_DEVINTERFACE_WPD = '6ac27878-a6fa-4155-ba85-f98f491d4f33'
 GUID_DEVINTERFACE_WPD_PRIVATE = 'ba0c718f-4ded-49b7-bdd3-fabe28661211'

@@ -6,10 +6,12 @@ import win32more.System.Com
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Com.Marshal, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Com.Marshal, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Com.Marshal, name)
+def __dir__():
+    return __all__
 def _define_IMarshal_head():
     class IMarshal(win32more.System.Com.IUnknown_head):
         Guid = Guid('00000003-0000-0000-c000-000000000046')

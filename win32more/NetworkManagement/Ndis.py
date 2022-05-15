@@ -7,10 +7,12 @@ import win32more.Security.ExtensibleAuthenticationProtocol
 import win32more.System.RemoteDesktop
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.Ndis, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.Ndis, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.Ndis, name)
+def __dir__():
+    return __all__
 IOCTL_NDIS_RESERVED5 = 1507380
 IOCTL_NDIS_RESERVED6 = 1540152
 NDIS_OBJECT_TYPE_DEFAULT = 128

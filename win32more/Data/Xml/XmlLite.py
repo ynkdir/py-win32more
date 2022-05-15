@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Data.Xml.XmlLite, name, eval(f"_define_{name}()"))
+    setattr(win32more.Data.Xml.XmlLite, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Data.Xml.XmlLite, name)
+def __dir__():
+    return __all__
 _IID_IXmlReader = '7279fc81-709d-4095-b63d-69fe4b0d9030'
 _IID_IXmlWriter = '7279fc88-709d-4095-b63d-69fe4b0d9030'
 _IID_IXmlResolver = '7279fc82-709d-4095-b63d-69fe4b0d9030'

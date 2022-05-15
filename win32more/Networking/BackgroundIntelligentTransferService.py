@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Networking.BackgroundIntelligentTransferService, name, eval(f"_define_{name}()"))
+    setattr(win32more.Networking.BackgroundIntelligentTransferService, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Networking.BackgroundIntelligentTransferService, name)
+def __dir__():
+    return __all__
 BG_NOTIFY_JOB_TRANSFERRED = 1
 BG_NOTIFY_JOB_ERROR = 2
 BG_NOTIFY_DISABLE = 4

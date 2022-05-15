@@ -3,10 +3,12 @@ import win32more.NetworkManagement.Dhcp
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.Dhcp, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.Dhcp, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.Dhcp, name)
+def __dir__():
+    return __all__
 OPTION_PAD = 0
 OPTION_SUBNET_MASK = 1
 OPTION_TIME_OFFSET = 2

@@ -6,10 +6,12 @@ import win32more.Networking.WinSock
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.RealTimeCommunications, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.RealTimeCommunications, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.RealTimeCommunications, name)
+def __dir__():
+    return __all__
 RTCCS_FORCE_PROFILE = 1
 RTCCS_FAIL_ON_REDIRECT = 2
 RTCMT_AUDIO_SEND = 1

@@ -6,10 +6,12 @@ import win32more.Security.WinTrust
 import win32more.UI.Controls
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.Cryptography.UI, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.Cryptography.UI, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.Cryptography.UI, name)
+def __dir__():
+    return __all__
 CRYTPDLG_FLAGS_MASK = 4278190080
 CRYPTDLG_REVOCATION_DEFAULT = 0
 CRYPTDLG_REVOCATION_ONLINE = 2147483648

@@ -3,10 +3,12 @@ import win32more.System.RestartManager
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.RestartManager, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.RestartManager, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.RestartManager, name)
+def __dir__():
+    return __all__
 CCH_RM_SESSION_KEY = 32
 CCH_RM_MAX_APP_NAME = 255
 CCH_RM_MAX_SVC_NAME = 63

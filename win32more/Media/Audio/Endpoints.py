@@ -7,10 +7,12 @@ import win32more.Media.KernelStreaming
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.Audio.Endpoints, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.Audio.Endpoints, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.Audio.Endpoints, name)
+def __dir__():
+    return __all__
 def _define_IAudioEndpointFormatControl_head():
     class IAudioEndpointFormatControl(win32more.System.Com.IUnknown_head):
         Guid = Guid('784cfd40-9f89-456e-a1a6-873b006a664e')

@@ -6,10 +6,12 @@ import win32more.System.WinRT
 import win32more.UI.Input.Pointer
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Composition, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Composition, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Composition, name)
+def __dir__():
+    return __all__
 def _define_ICompositionDrawingSurfaceInterop_head():
     class ICompositionDrawingSurfaceInterop(win32more.System.Com.IUnknown_head):
         Guid = Guid('fd04e6e3-fe0c-4c3c-ab19-a07601a576ee')

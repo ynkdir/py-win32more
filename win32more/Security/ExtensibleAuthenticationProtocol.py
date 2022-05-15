@@ -5,10 +5,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.ExtensibleAuthenticationProtocol, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.ExtensibleAuthenticationProtocol, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.ExtensibleAuthenticationProtocol, name)
+def __dir__():
+    return __all__
 FACILITY_EAP_MESSAGE = 2114
 EAP_GROUP_MASK = 65280
 EAP_E_EAPHOST_FIRST = -2143158272

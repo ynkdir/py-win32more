@@ -3,10 +3,12 @@ import win32more.Devices.Pwm
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Devices.Pwm, name, eval(f"_define_{name}()"))
+    setattr(win32more.Devices.Pwm, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Devices.Pwm, name)
+def __dir__():
+    return __all__
 GUID_DEVINTERFACE_PWM_CONTROLLER = '60824b4c-eed1-4c9c-b49c-1b961461a819'
 IOCTL_PWM_CONTROLLER_GET_INFO = 262144
 IOCTL_PWM_CONTROLLER_GET_ACTUAL_PERIOD = 262148

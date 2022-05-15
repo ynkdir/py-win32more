@@ -7,10 +7,12 @@ import win32more.Graphics.Direct3D12
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.Direct3D11on12, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.Direct3D11on12, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.Direct3D11on12, name)
+def __dir__():
+    return __all__
 def _define_PFN_D3D11ON12_CREATE_DEVICE():
     return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),UInt32,POINTER(win32more.System.Com.IUnknown_head),UInt32,UInt32,POINTER(win32more.Graphics.Direct3D11.ID3D11Device_head),POINTER(win32more.Graphics.Direct3D11.ID3D11DeviceContext_head),POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL), use_last_error=False)
 def _define_D3D11_RESOURCE_FLAGS_head():

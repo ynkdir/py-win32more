@@ -6,10 +6,12 @@ import win32more.Media.DirectShow
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.WindowsMediaFormat, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.WindowsMediaFormat, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.WindowsMediaFormat, name)
+def __dir__():
+    return __all__
 WMT_VIDEOIMAGE_SAMPLE_INPUT_FRAME = 1
 WMT_VIDEOIMAGE_SAMPLE_OUTPUT_FRAME = 2
 WMT_VIDEOIMAGE_SAMPLE_USES_CURRENT_INPUT_FRAME = 4

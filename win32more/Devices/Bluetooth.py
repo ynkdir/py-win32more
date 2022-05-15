@@ -3,10 +3,12 @@ import win32more.Devices.Bluetooth
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Devices.Bluetooth, name, eval(f"_define_{name}()"))
+    setattr(win32more.Devices.Bluetooth, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Devices.Bluetooth, name)
+def __dir__():
+    return __all__
 BT_PORT_MIN = 1
 BT_PORT_MAX = 65535
 BT_PORT_DYN_FIRST = 4097

@@ -5,10 +5,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.EnhancedStorage, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.EnhancedStorage, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.EnhancedStorage, name)
+def __dir__():
+    return __all__
 GUID_DEVINTERFACE_ENHANCED_STORAGE_SILO = '3897f6a4-fd35-4bc8-a0b7-5dbba36adafa'
 WPD_CATEGORY_ENHANCED_STORAGE = '91248166-b832-4ad4-baa4-7ca0b6b2798c'
 ENHANCED_STORAGE_AUTHN_STATE_UNKNOWN = 0

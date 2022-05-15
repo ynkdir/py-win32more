@@ -6,10 +6,12 @@ import win32more.Media.MediaFoundation
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Graphics.Imaging, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Graphics.Imaging, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Graphics.Imaging, name)
+def __dir__():
+    return __all__
 CLSID_SoftwareBitmapNativeFactory = '84e65691-8602-4a84-be46-708be9cd4b74'
 def _define_ISoftwareBitmapNative_head():
     class ISoftwareBitmapNative(win32more.System.WinRT.IInspectable_head):

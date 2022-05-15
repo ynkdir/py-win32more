@@ -5,10 +5,12 @@ import win32more.Graphics.Dxgi.Common
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.Direct2D.Common, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.Direct2D.Common, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.Direct2D.Common, name)
+def __dir__():
+    return __all__
 def _define_D2D_COLOR_F_head():
     class D2D_COLOR_F(Structure):
         pass

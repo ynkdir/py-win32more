@@ -5,10 +5,12 @@ import win32more.System.HostComputeSystem
 import win32more.System.Power
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Hypervisor, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Hypervisor, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Hypervisor, name)
+def __dir__():
+    return __all__
 HVSOCKET_CONNECT_TIMEOUT = 1
 HVSOCKET_CONNECT_TIMEOUT_MAX = 300000
 HVSOCKET_CONTAINER_PASSTHRU = 2

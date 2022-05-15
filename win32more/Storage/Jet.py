@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.Storage.StructuredStorage
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.Jet, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.Jet, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.Jet, name)
+def __dir__():
+    return __all__
 JET_bitConfigStoreReadControlInhibitRead = 1
 JET_bitConfigStoreReadControlDisableAll = 2
 JET_bitConfigStoreReadControlDefault = 0

@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.Tpm, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.Tpm, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.Tpm, name)
+def __dir__():
+    return __all__
 TPMVSC_DEFAULT_ADMIN_ALGORITHM_ID = 130
 TpmVirtualSmartCardManager = Guid('16a18e86-7f6e-4c20-ad89-4ffc0db7a96a')
 RemoteTpmVirtualSmartCardManager = Guid('152ea2a8-70dc-4c59-8b2a-32aa3ca0dcac')

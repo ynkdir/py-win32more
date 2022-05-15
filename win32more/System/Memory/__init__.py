@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.Security
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Memory, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Memory, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Memory, name)
+def __dir__():
+    return __all__
 FILE_CACHE_MAX_HARD_ENABLE = 1
 FILE_CACHE_MAX_HARD_DISABLE = 2
 FILE_CACHE_MIN_HARD_ENABLE = 4

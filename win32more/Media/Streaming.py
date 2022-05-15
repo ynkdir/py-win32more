@@ -5,10 +5,12 @@ import win32more.Media.MediaFoundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.Streaming, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.Streaming, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.Streaming, name)
+def __dir__():
+    return __all__
 def _define_IMFDeviceTransform_head():
     class IMFDeviceTransform(win32more.System.Com.IUnknown_head):
         Guid = Guid('d818fbd8-fc46-42f2-87ac-1ea2d1f9bf32')

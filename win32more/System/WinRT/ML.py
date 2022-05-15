@@ -6,10 +6,12 @@ import win32more.Graphics.Direct3D12
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.ML, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.ML, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.ML, name)
+def __dir__():
+    return __all__
 def _define_ILearningModelOperatorProviderNative_head():
     class ILearningModelOperatorProviderNative(win32more.System.Com.IUnknown_head):
         Guid = Guid('1adaa23a-eb67-41f3-aad8-5d984e9bacd4')

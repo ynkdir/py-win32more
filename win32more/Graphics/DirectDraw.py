@@ -5,10 +5,12 @@ import win32more.Graphics.Gdi
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.DirectDraw, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.DirectDraw, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.DirectDraw, name)
+def __dir__():
+    return __all__
 DIRECTDRAW_VERSION = 1792
 _FACDD = 2166
 CLSID_DirectDraw = 'd7b70ee0-4340-11cf-b063-0020afc2cd35'

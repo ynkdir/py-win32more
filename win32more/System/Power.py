@@ -6,10 +6,12 @@ import win32more.System.Threading
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Power, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Power, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Power, name)
+def __dir__():
+    return __all__
 PROCESSOR_NUMBER_PKEY = PROPERTYKEY(Fmtid='5724c81d-d5af-4c1f-a103-a06e28f204c6', Pid=1)
 GUID_DEVICE_BATTERY = '72631e54-78a4-11d0-bcf7-00aa00b7b32a'
 GUID_DEVICE_APPLICATIONLAUNCH_BUTTON = '629758ee-986e-4d9e-8e47-de27f8ab054d'

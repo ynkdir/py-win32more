@@ -8,10 +8,12 @@ import win32more.Storage.Packaging.Opc
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.Xps, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.Xps, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.Xps, name)
+def __dir__():
+    return __all__
 XPS_E_SIGREQUESTID_DUP = -2142108795
 XPS_E_PACKAGE_NOT_OPENED = -2142108794
 XPS_E_PACKAGE_ALREADY_OPENED = -2142108793

@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Storage, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Storage, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Storage, name)
+def __dir__():
+    return __all__
 def _define_IRandomAccessStreamFileAccessMode_head():
     class IRandomAccessStreamFileAccessMode(win32more.System.Com.IUnknown_head):
         Guid = Guid('332e5848-2e15-458e-85c4-c911c0c3d6f4')

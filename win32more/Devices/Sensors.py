@@ -7,10 +7,12 @@ import win32more.System.Com.StructuredStorage
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Devices.Sensors, name, eval(f"_define_{name}()"))
+    setattr(win32more.Devices.Sensors, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Devices.Sensors, name)
+def __dir__():
+    return __all__
 GUID_DEVINTERFACE_SENSOR = 'ba1bb692-9b7a-4833-9a1e-525ed134e7e2'
 SENSOR_EVENT_STATE_CHANGED = 'bfd96016-6bd7-4560-ad34-f2f6607e8f81'
 SENSOR_EVENT_DATA_UPDATED = '2ed0f2a4-0087-41d3-87db-6773370b3c88'

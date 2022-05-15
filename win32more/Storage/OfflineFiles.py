@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.OfflineFiles, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.OfflineFiles, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.OfflineFiles, name)
+def __dir__():
+    return __all__
 OFFLINEFILES_SYNC_STATE_LOCAL_KNOWN = 1
 OFFLINEFILES_SYNC_STATE_REMOTE_KNOWN = 2
 OFFLINEFILES_CHANGES_NONE = 0

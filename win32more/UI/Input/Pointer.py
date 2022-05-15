@@ -5,10 +5,12 @@ import win32more.UI.Controls
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.Input.Pointer, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.Input.Pointer, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.Input.Pointer, name)
+def __dir__():
+    return __all__
 POINTER_FLAGS = UInt32
 POINTER_FLAG_NONE = 0
 POINTER_FLAG_NEW = 1

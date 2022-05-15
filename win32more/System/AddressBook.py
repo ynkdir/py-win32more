@@ -5,10 +5,12 @@ import win32more.System.Com
 import win32more.System.Com.StructuredStorage
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.AddressBook, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.AddressBook, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.AddressBook, name)
+def __dir__():
+    return __all__
 PROP_ID_SECURE_MIN = 26608
 PROP_ID_SECURE_MAX = 26623
 MAPI_DIM = 1

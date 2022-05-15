@@ -9,10 +9,12 @@ import win32more.System.Com
 import win32more.System.IO
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.Audio.DirectMusic, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.Audio.DirectMusic, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.Audio.DirectMusic, name)
+def __dir__():
+    return __all__
 DMUS_MAX_DESCRIPTION = 128
 DMUS_MAX_DRIVER = 128
 DMUS_EFFECT_NONE = 0

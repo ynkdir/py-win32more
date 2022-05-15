@@ -5,10 +5,12 @@ import win32more.UI.Input.Pointer
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.InteractionContext, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.InteractionContext, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.InteractionContext, name)
+def __dir__():
+    return __all__
 HINTERACTIONCONTEXT = IntPtr
 INTERACTION_ID = Int32
 INTERACTION_ID_NONE = 0

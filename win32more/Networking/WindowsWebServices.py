@@ -6,10 +6,12 @@ import win32more.Security.Cryptography
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Networking.WindowsWebServices, name, eval(f"_define_{name}()"))
+    setattr(win32more.Networking.WindowsWebServices, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Networking.WindowsWebServices, name)
+def __dir__():
+    return __all__
 WEBAUTHN_API_VERSION_1 = 1
 WEBAUTHN_API_VERSION_2 = 2
 WEBAUTHN_API_VERSION_3 = 3

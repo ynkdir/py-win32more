@@ -5,10 +5,12 @@ import win32more.Graphics.Gdi
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.Credentials, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.Credentials, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.Credentials, name)
+def __dir__():
+    return __all__
 FILE_DEVICE_SMARTCARD = 49
 GUID_DEVINTERFACE_SMARTCARD_READER = '50dd5230-ba8a-11d1-bf5d-0000f805f530'
 SCARD_ATR_LENGTH = 33

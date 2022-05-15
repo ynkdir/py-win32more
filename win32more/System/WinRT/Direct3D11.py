@@ -6,10 +6,12 @@ import win32more.System.Com
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Direct3D11, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Direct3D11, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Direct3D11, name)
+def __dir__():
+    return __all__
 def _define_IDirect3DDxgiInterfaceAccess_head():
     class IDirect3DDxgiInterfaceAccess(win32more.System.Com.IUnknown_head):
         Guid = Guid('a9b3d012-3df2-4ee3-b8d1-8695f457d3c1')

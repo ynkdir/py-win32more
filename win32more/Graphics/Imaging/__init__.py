@@ -9,10 +9,12 @@ import win32more.System.Com.StructuredStorage
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.Imaging, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.Imaging, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.Imaging, name)
+def __dir__():
+    return __all__
 WINCODEC_SDK_VERSION1 = 566
 WINCODEC_SDK_VERSION2 = 567
 CLSID_WICImagingFactory = 'cacaf262-9370-4615-a13b-9f5539da4c0a'

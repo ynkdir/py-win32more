@@ -5,10 +5,12 @@ import win32more.System.Com
 import win32more.System.Diagnostics.Debug
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Js, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Js, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Js, name)
+def __dir__():
+    return __all__
 JS_SOURCE_CONTEXT_NONE = 18446744073709551615
 JsRuntimeVersion = Int32
 JsRuntimeVersion_JsRuntimeVersion10 = 0

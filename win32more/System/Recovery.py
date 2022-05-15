@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.WindowsProgramming
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Recovery, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Recovery, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Recovery, name)
+def __dir__():
+    return __all__
 REGISTER_APPLICATION_RESTART_FLAGS = UInt32
 RESTART_NO_CRASH = 1
 RESTART_NO_HANG = 2

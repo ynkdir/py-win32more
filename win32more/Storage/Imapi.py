@@ -7,10 +7,12 @@ import win32more.System.Com.StructuredStorage
 import win32more.System.Ole
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.Imapi, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.Imapi, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.Imapi, name)
+def __dir__():
+    return __all__
 IMAPI_SECTOR_SIZE = 2048
 IMAPI2_DEFAULT_COMMAND_TIMEOUT = 10
 DISPID_DDISCMASTER2EVENTS_DEVICEADDED = 256

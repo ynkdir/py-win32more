@@ -7,10 +7,12 @@ import win32more.System.Kernel
 import win32more.System.Rpc
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.WindowsFilteringPlatform, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.WindowsFilteringPlatform, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.WindowsFilteringPlatform, name)
+def __dir__():
+    return __all__
 FWPM_NET_EVENT_KEYWORD_INBOUND_MCAST = 1
 FWPM_NET_EVENT_KEYWORD_INBOUND_BCAST = 2
 FWPM_NET_EVENT_KEYWORD_CAPABILITY_DROP = 4

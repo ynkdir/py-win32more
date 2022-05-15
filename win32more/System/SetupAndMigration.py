@@ -3,10 +3,12 @@ import win32more.System.SetupAndMigration
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.SetupAndMigration, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.SetupAndMigration, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.SetupAndMigration, name)
+def __dir__():
+    return __all__
 def _define_OOBE_COMPLETED_CALLBACK():
     return CFUNCTYPE(Void,c_void_p, use_last_error=False)
 def _define_OOBEComplete():

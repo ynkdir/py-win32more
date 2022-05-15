@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.Input.Radial, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.Input.Radial, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.Input.Radial, name)
+def __dir__():
+    return __all__
 def _define_IRadialControllerInterop_head():
     class IRadialControllerInterop(win32more.System.WinRT.IInspectable_head):
         Guid = Guid('1b0535c9-57ad-45c1-9d79-ad5c34360513')

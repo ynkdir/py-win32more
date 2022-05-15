@@ -5,10 +5,12 @@ import win32more.Graphics.Gdi
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Globalization, name, eval(f"_define_{name}()"))
+    setattr(win32more.Globalization, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Globalization, name)
+def __dir__():
+    return __all__
 ALL_SERVICE_TYPES = 0
 HIGHLEVEL_SERVICE_TYPES = 1
 LOWLEVEL_SERVICE_TYPES = 2

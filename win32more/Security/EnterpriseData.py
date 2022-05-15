@@ -6,10 +6,12 @@ import win32more.System.Com
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.EnterpriseData, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.EnterpriseData, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.EnterpriseData, name)
+def __dir__():
+    return __all__
 def _define_IProtectionPolicyManagerInterop_head():
     class IProtectionPolicyManagerInterop(win32more.System.WinRT.IInspectable_head):
         Guid = Guid('4652651d-c1fe-4ba1-9f0a-c0f56596f721')

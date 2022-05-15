@@ -6,10 +6,12 @@ import win32more.Security.Cryptography
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.Packaging.Opc, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.Packaging.Opc, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.Packaging.Opc, name)
+def __dir__():
+    return __all__
 OPC_E_NONCONFORMING_URI = -2142175231
 OPC_E_RELATIVE_URI_REQUIRED = -2142175230
 OPC_E_RELATIONSHIP_URI_REQUIRED = -2142175229

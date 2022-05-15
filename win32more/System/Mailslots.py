@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.Security
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Mailslots, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Mailslots, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Mailslots, name)
+def __dir__():
+    return __all__
 def _define_CreateMailslotA():
     try:
         return WINFUNCTYPE(win32more.Foundation.HANDLE,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head), use_last_error=True)(("CreateMailslotA", windll["KERNEL32"]), ((1, 'lpName'),(1, 'nMaxMessageSize'),(1, 'lReadTimeout'),(1, 'lpSecurityAttributes'),))

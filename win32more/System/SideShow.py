@@ -7,10 +7,12 @@ import win32more.UI.Shell.PropertiesSystem
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.SideShow, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.SideShow, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.SideShow, name)
+def __dir__():
+    return __all__
 SIDESHOW_ENDPOINT_SIMPLE_CONTENT_FORMAT = 'a9a5353f-2d4b-47ce-93ee-759f3a7dda4f'
 SIDESHOW_ENDPOINT_ICAL = '4dff36b5-9dde-4f76-9a2a-96435047063d'
 SIDESHOW_CAPABILITY_DEVICE_PROPERTIES = '8abc88a8-857b-4ad7-a35a-b5942f492b99'

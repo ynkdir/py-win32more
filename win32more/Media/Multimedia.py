@@ -10,10 +10,12 @@ import win32more.UI.Controls
 import win32more.UI.Controls.Dialogs
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.Multimedia, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.Multimedia, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.Multimedia, name)
+def __dir__():
+    return __all__
 WM_CAP_START = 1024
 MODM_USER = 16384
 MIDM_USER = 16384

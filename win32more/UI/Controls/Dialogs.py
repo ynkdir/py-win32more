@@ -6,10 +6,12 @@ import win32more.System.Com
 import win32more.UI.Controls
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.UI.Controls.Dialogs, name, eval(f"_define_{name}()"))
+    setattr(win32more.UI.Controls.Dialogs, name, globals()[f"_define_{name}"]())
     return getattr(win32more.UI.Controls.Dialogs, name)
+def __dir__():
+    return __all__
 OFN_SHAREFALLTHROUGH = 2
 OFN_SHARENOWARN = 1
 OFN_SHAREWARN = 0

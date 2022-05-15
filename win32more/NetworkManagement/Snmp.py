@@ -3,10 +3,12 @@ import win32more.NetworkManagement.Snmp
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.Snmp, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.Snmp, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.Snmp, name)
+def __dir__():
+    return __all__
 ASN_UNIVERSAL = 0
 ASN_APPLICATION = 64
 ASN_CONTEXT = 128

@@ -3,10 +3,12 @@ import win32more.System.CorrelationVector
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.CorrelationVector, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.CorrelationVector, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.CorrelationVector, name)
+def __dir__():
+    return __all__
 RTL_CORRELATION_VECTOR_STRING_LENGTH = 129
 RTL_CORRELATION_VECTOR_V1_PREFIX_LENGTH = 16
 RTL_CORRELATION_VECTOR_V1_LENGTH = 64

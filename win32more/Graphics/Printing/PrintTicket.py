@@ -6,10 +6,12 @@ import win32more.Storage.Xps
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.Printing.PrintTicket, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.Printing.PrintTicket, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.Printing.PrintTicket, name)
+def __dir__():
+    return __all__
 PRINTTICKET_ISTREAM_APIS = 1
 S_PT_NO_CONFLICT = 262145
 S_PT_CONFLICT_RESOLVED = 262146

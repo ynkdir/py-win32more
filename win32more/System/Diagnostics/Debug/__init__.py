@@ -12,10 +12,12 @@ import win32more.System.Threading
 import win32more.System.Time
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Diagnostics.Debug, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Diagnostics.Debug, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Diagnostics.Debug, name)
+def __dir__():
+    return __all__
 WOW64_CONTEXT_i386 = 65536
 WOW64_CONTEXT_i486 = 65536
 WOW64_CONTEXT_EXCEPTION_ACTIVE = 134217728

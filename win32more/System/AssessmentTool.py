@@ -7,10 +7,12 @@ import win32more.System.Com
 import win32more.UI.Accessibility
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.AssessmentTool, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.AssessmentTool, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.AssessmentTool, name)
+def __dir__():
+    return __all__
 CInitiateWinSAT = Guid('489331dc-f5e0-4528-9fda-45331bf4a571')
 CQueryWinSAT = Guid('f3bdfad3-f276-49e9-9b17-c474f48f0764')
 CQueryAllWinSAT = Guid('05df8d13-c355-47f4-a11e-851b338cefb8')

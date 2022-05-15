@@ -5,10 +5,12 @@ import win32more.Graphics.Direct3D12
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Holographic, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Holographic, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Holographic, name)
+def __dir__():
+    return __all__
 def _define_IHolographicCameraInterop_head():
     class IHolographicCameraInterop(win32more.System.WinRT.IInspectable_head):
         Guid = Guid('7cc1f9c5-6d02-41fa-9500-e1809eb48eec')

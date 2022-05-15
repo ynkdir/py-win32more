@@ -12,10 +12,12 @@ import win32more.Storage.Xps.Printing
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.Direct2D, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.Direct2D, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.Direct2D, name)
+def __dir__():
+    return __all__
 D2D1_DEFAULT_FLATTENING_TOLERANCE = 0.25
 CLSID_D2D12DAffineTransform = '6aa97485-6354-4cfc-908c-e4a74f62c96c'
 CLSID_D2D13DPerspectiveTransform = 'c2844d0b-3d86-46e7-85ba-526c9240f3fb'

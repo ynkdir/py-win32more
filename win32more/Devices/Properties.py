@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Devices.Properties, name, eval(f"_define_{name}()"))
+    setattr(win32more.Devices.Properties, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Devices.Properties, name)
+def __dir__():
+    return __all__
 DEVPKEY_DeviceInterface_Autoplay_Silent = PROPERTYKEY(Fmtid='434dd28f-9e75-450a-9ab9-ff61e618bad0', Pid=2)
 DEVPKEY_NAME = PROPERTYKEY(Fmtid='b725f130-47ef-101a-a5f1-02608c9eebac', Pid=10)
 DEVPKEY_Device_DeviceDesc = PROPERTYKEY(Fmtid='a45c254e-df1c-4efd-8020-67d146a850e0', Pid=2)

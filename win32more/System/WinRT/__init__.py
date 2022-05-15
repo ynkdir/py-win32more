@@ -6,10 +6,12 @@ import win32more.System.Com.Marshal
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT, name)
+def __dir__():
+    return __all__
 MAX_ERROR_MESSAGE_CHARS = 512
 CastingSourceInfo_Property_PreferredSourceUriScheme = 'PreferredSourceUriScheme'
 CastingSourceInfo_Property_CastingTypes = 'CastingTypes'

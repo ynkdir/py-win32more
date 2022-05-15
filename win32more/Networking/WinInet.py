@@ -10,10 +10,12 @@ import win32more.System.Com
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Networking.WinInet, name, eval(f"_define_{name}()"))
+    setattr(win32more.Networking.WinInet, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Networking.WinInet, name)
+def __dir__():
+    return __all__
 DIALENG_OperationComplete = 65536
 DIALENG_RedialAttempt = 65537
 DIALENG_RedialWait = 65538

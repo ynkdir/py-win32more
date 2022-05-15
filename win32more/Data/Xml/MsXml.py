@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Data.Xml.MsXml, name, eval(f"_define_{name}()"))
+    setattr(win32more.Data.Xml.MsXml, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Data.Xml.MsXml, name)
+def __dir__():
+    return __all__
 E_XML_NOTWF = -1072897501
 E_XML_NODTD = -1072897500
 E_XML_INVALID = -1072897499

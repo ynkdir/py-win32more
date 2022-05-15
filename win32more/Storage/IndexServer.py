@@ -5,10 +5,12 @@ import win32more.System.Com
 import win32more.System.Com.StructuredStorage
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.IndexServer, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.IndexServer, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.IndexServer, name)
+def __dir__():
+    return __all__
 CI_VERSION_WDS30 = 258
 CI_VERSION_WDS40 = 265
 CI_VERSION_WIN70 = 1792

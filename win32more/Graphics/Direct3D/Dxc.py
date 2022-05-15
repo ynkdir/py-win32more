@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Graphics.Direct3D.Dxc, name, eval(f"_define_{name}()"))
+    setattr(win32more.Graphics.Direct3D.Dxc, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Graphics.Direct3D.Dxc, name)
+def __dir__():
+    return __all__
 DXC_HASHFLAG_INCLUDES_SOURCE = 1
 DxcValidatorFlags_Default = 0
 DxcValidatorFlags_InPlaceEdit = 1

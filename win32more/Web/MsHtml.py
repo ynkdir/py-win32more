@@ -12,10 +12,12 @@ import win32more.UI.Input.Ime
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Web.MsHtml, name, eval(f"_define_{name}()"))
+    setattr(win32more.Web.MsHtml, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Web.MsHtml, name)
+def __dir__():
+    return __all__
 DISPID_STYLESHEETSCOLLECTION_NAMED_MAX = 1999999
 DISPID_AMBIENT_OFFLINEIFNOTCONNECTED = -5501
 DISPID_AMBIENT_SILENT = -5502

@@ -3,10 +3,12 @@ import win32more.Management.MobileDeviceManagementRegistration
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Management.MobileDeviceManagementRegistration, name, eval(f"_define_{name}()"))
+    setattr(win32more.Management.MobileDeviceManagementRegistration, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Management.MobileDeviceManagementRegistration, name)
+def __dir__():
+    return __all__
 MENROLL_E_DEVICE_MESSAGE_FORMAT_ERROR = -2145910783
 MENROLL_E_DEVICE_AUTHENTICATION_ERROR = -2145910782
 MENROLL_E_DEVICE_AUTHORIZATION_ERROR = -2145910781

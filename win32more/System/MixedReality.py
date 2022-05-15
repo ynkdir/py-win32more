@@ -2,10 +2,12 @@ from win32more import *
 import win32more.System.MixedReality
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.MixedReality, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.MixedReality, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.MixedReality, name)
+def __dir__():
+    return __all__
 PERCEPTIONFIELD_StateStream_TimeStamps = 'aa886119-f32f-49bf-92ca-f9ddf784d297'
 def _define_PERCEPTION_PAYLOAD_FIELD_head():
     class PERCEPTION_PAYLOAD_FIELD(Structure):

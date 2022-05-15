@@ -4,10 +4,12 @@ import win32more.Devices.Properties
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Devices.DeviceQuery, name, eval(f"_define_{name}()"))
+    setattr(win32more.Devices.DeviceQuery, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Devices.DeviceQuery, name)
+def __dir__():
+    return __all__
 DEVPROP_OPERATOR = UInt32
 DEVPROP_OPERATOR_MODIFIER_NOT = 65536
 DEVPROP_OPERATOR_MODIFIER_IGNORE_CASE = 131072

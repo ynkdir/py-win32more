@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.FileServerResourceManager, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.FileServerResourceManager, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.FileServerResourceManager, name)
+def __dir__():
+    return __all__
 FSRM_DISPID_FEATURE_MASK = 251658240
 FSRM_DISPID_INTERFACE_A_MASK = 15728640
 FSRM_DISPID_INTERFACE_B_MASK = 983040

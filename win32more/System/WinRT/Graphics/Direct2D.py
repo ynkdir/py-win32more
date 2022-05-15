@@ -5,10 +5,12 @@ import win32more.Graphics.Direct2D
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.WinRT.Graphics.Direct2D, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.WinRT.Graphics.Direct2D, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.WinRT.Graphics.Direct2D, name)
+def __dir__():
+    return __all__
 GRAPHICS_EFFECT_PROPERTY_MAPPING = Int32
 GRAPHICS_EFFECT_PROPERTY_MAPPING_UNKNOWN = 0
 GRAPHICS_EFFECT_PROPERTY_MAPPING_DIRECT = 1

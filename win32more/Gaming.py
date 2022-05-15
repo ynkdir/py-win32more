@@ -5,10 +5,12 @@ import win32more.System.Com
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Gaming, name, eval(f"_define_{name}()"))
+    setattr(win32more.Gaming, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Gaming, name)
+def __dir__():
+    return __all__
 GameExplorer = Guid('9a5ea990-3034-4d6f-9128-01f3c61022bc')
 GameStatistics = Guid('dbc85a2c-c0dc-4961-b6e2-d28b62c11ad4')
 GAME_INSTALL_SCOPE = Int32

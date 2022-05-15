@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.DataDeduplication, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.DataDeduplication, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.DataDeduplication, name)
+def __dir__():
+    return __all__
 DEDUP_CHUNKLIB_MAX_CHUNKS_ENUM = 1024
 DedupBackupSupport = Guid('73d6b2ad-2984-4715-b2e3-924c149744dd')
 def _define_DEDUP_CONTAINER_EXTENT_head():

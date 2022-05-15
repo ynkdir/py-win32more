@@ -3,10 +3,12 @@ import win32more.Storage.Cabinets
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.Cabinets, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.Cabinets, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.Cabinets, name)
+def __dir__():
+    return __all__
 INCLUDED_FCI = 1
 _A_NAME_IS_UTF = 128
 _A_EXEC = 64

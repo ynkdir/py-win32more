@@ -6,10 +6,12 @@ import win32more.Security
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.StationsAndDesktops, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.StationsAndDesktops, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.StationsAndDesktops, name)
+def __dir__():
+    return __all__
 BROADCAST_SYSTEM_MESSAGE_FLAGS = UInt32
 BSF_ALLOWSFW = 128
 BSF_FLUSHDISK = 4

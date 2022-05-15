@@ -7,10 +7,12 @@ import win32more.System.IO
 import win32more.System.WindowsProgramming
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.NetworkManagement.IpHelper, name, eval(f"_define_{name}()"))
+    setattr(win32more.NetworkManagement.IpHelper, name, globals()[f"_define_{name}"]())
     return getattr(win32more.NetworkManagement.IpHelper, name)
+def __dir__():
+    return __all__
 NET_IF_OPER_STATUS_DOWN_NOT_AUTHENTICATED = 1
 NET_IF_OPER_STATUS_DOWN_NOT_MEDIA_CONNECTED = 2
 NET_IF_OPER_STATUS_DORMANT_PAUSED = 4

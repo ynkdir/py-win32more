@@ -7,10 +7,12 @@ import win32more.System.IO
 import win32more.System.WindowsProgramming
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.FileSystem, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.FileSystem, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.FileSystem, name)
+def __dir__():
+    return __all__
 CLFS_FLAG_REENTRANT_FILE_SYSTEM = 8
 CLFS_FLAG_NON_REENTRANT_FILTER = 16
 CLFS_FLAG_REENTRANT_FILTER = 32

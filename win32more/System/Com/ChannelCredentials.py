@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Com.ChannelCredentials, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Com.ChannelCredentials, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Com.ChannelCredentials, name)
+def __dir__():
+    return __all__
 def _define_IChannelCredentials_head():
     class IChannelCredentials(win32more.System.Com.IDispatch_head):
         Guid = Guid('181b448c-c17c-4b17-ac6d-06699b93198f')

@@ -3,10 +3,12 @@ import win32more.Storage.OperationRecorder
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Storage.OperationRecorder, name, eval(f"_define_{name}()"))
+    setattr(win32more.Storage.OperationRecorder, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Storage.OperationRecorder, name)
+def __dir__():
+    return __all__
 OPERATION_START_FLAGS = UInt32
 OPERATION_START_TRACE_CURRENT_THREAD = 1
 OPERATION_END_PARAMETERS_FLAGS = UInt32

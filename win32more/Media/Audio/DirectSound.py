@@ -6,10 +6,12 @@ import win32more.Media.Audio
 import win32more.System.Com
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Media.Audio.DirectSound, name, eval(f"_define_{name}()"))
+    setattr(win32more.Media.Audio.DirectSound, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Media.Audio.DirectSound, name)
+def __dir__():
+    return __all__
 DIRECTSOUND_VERSION = 1792
 _FACDS = 2168
 CLSID_DirectSound = '47d4d946-62e8-11cf-93bc-444553540000'

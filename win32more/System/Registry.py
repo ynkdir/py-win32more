@@ -4,10 +4,12 @@ import win32more.Foundation
 import win32more.Security
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Registry, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Registry, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Registry, name)
+def __dir__():
+    return __all__
 HKEY_CLASSES_ROOT = -2147483648
 HKEY_CURRENT_USER = -2147483647
 HKEY_LOCAL_MACHINE = -2147483646

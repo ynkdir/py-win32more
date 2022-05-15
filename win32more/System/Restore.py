@@ -3,10 +3,12 @@ import win32more.System.Restore
 import win32more.Foundation
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.System.Restore, name, eval(f"_define_{name}()"))
+    setattr(win32more.System.Restore, name, globals()[f"_define_{name}"]())
     return getattr(win32more.System.Restore, name)
+def __dir__():
+    return __all__
 MIN_EVENT = 100
 BEGIN_NESTED_SYSTEM_CHANGE_NORP = 104
 MAX_EVENT = 104

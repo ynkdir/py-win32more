@@ -6,10 +6,12 @@ import win32more.System.Com
 import win32more.System.Registry
 
 def __getattr__(name):
-    if name == "__path__":
+    if f"_define_{name}" not in globals():
         raise AttributeError()
-    setattr(win32more.Security.Isolation, name, eval(f"_define_{name}()"))
+    setattr(win32more.Security.Isolation, name, globals()[f"_define_{name}"]())
     return getattr(win32more.Security.Isolation, name)
+def __dir__():
+    return __all__
 IsolatedAppLauncher = Guid('bc812430-e75e-4fd1-9641-1f9f1e2d9a1f')
 def _define_IsolatedAppLauncherTelemetryParameters_head():
     class IsolatedAppLauncherTelemetryParameters(Structure):
