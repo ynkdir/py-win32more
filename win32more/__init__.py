@@ -33,7 +33,9 @@ class Guid(Structure):
                 ("Data4", Byte * 8)]
 
     def __init__(self, val=None):
-        if isinstance(val, self.__class__):
+        if val is None:
+            pass
+        elif isinstance(val, self.__class__):
             self.Data1 = val.Data1
             self.Data2 = val.Data2
             self.Data3 = val.Data3
@@ -45,6 +47,8 @@ class Guid(Structure):
             self.Data3 = u.time_hi_version
             for i in range(8):
                 self.Data4[i] = u.bytes[8 + i]
+        else:
+            raise ValueError()
 
     def __str__(self):
         return f"{self.Data1:08x}-{self.Data2:04x}-{self.Data3:04x}-{self.Data4[0]:02x}{self.Data4[1]:02x}-{self.Data4[2]:02x}{self.Data4[3]:02x}{self.Data4[4]:02x}{self.Data4[5]:02x}{self.Data4[6]:02x}{self.Data4[7]:02x}"
