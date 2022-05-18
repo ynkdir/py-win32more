@@ -1,4 +1,5 @@
 from win32more import *
+import win32more.System.Search.Common
 
 def __getattr__(name):
     module = globals()

@@ -2,6 +2,7 @@ from win32more import *
 import win32more.Foundation
 import win32more.Media.MediaFoundation
 import win32more.System.WinRT
+import win32more.System.WinRT.Media
 
 def __getattr__(name):
     module = globals()

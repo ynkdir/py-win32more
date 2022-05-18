@@ -3,6 +3,7 @@ import win32more.Foundation
 import win32more.Graphics.Imaging
 import win32more.Media.MediaFoundation
 import win32more.System.WinRT
+import win32more.System.WinRT.Graphics.Imaging
 
 def __getattr__(name):
     module = globals()

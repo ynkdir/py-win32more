@@ -1,4 +1,5 @@
 from win32more import *
+import win32more.System.MixedReality
 
 def __getattr__(name):
     module = globals()

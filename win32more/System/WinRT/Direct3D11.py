@@ -3,6 +3,7 @@ import win32more.Foundation
 import win32more.Graphics.Dxgi
 import win32more.System.Com
 import win32more.System.WinRT
+import win32more.System.WinRT.Direct3D11
 
 def __getattr__(name):
     module = globals()

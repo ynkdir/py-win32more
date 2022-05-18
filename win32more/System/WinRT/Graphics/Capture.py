@@ -2,6 +2,7 @@ from win32more import *
 import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.System.Com
+import win32more.System.WinRT.Graphics.Capture
 
 def __getattr__(name):
     module = globals()

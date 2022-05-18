@@ -2,6 +2,7 @@ from win32more import *
 import win32more.Foundation
 import win32more.Graphics.Direct3D12
 import win32more.System.WinRT
+import win32more.System.WinRT.Holographic
 
 def __getattr__(name):
     module = globals()

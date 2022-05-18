@@ -3,6 +3,7 @@ import win32more.Foundation
 import win32more.Security
 import win32more.System.Com
 import win32more.System.WinRT
+import win32more.System.WinRT.Display
 
 def __getattr__(name):
     module = globals()

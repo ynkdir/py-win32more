@@ -12,8 +12,8 @@ class Generator:
     def __init__(self, out) -> None:
         self.out = out
 
-    def write_import(self, ns: dict) -> None:
-        for api in sorted(self.collect_apiref(ns, set())):
+    def write_import(self, ns: dict, modapi: str) -> None:
+        for api in sorted(self.collect_apiref(ns, {modapi})):
             self.writeline(f"import win32more.{api}")
 
     def collect_apiref(self, node, apiref: set) -> set:
@@ -410,7 +410,7 @@ def main():
         with p.open("w") as f:
             g = Generator(f)
             g.writeline(f"from win32more import *")
-            g.write_import(mod)
+            g.write_import(mod, modapi)
             g.write_getattr()
             g.write_define(mod)
             g.write_export(mod)

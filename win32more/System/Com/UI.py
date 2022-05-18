@@ -3,6 +3,7 @@ import win32more.Foundation
 import win32more.Graphics.Gdi
 import win32more.System.Com
 import win32more.System.Com.StructuredStorage
+import win32more.System.Com.UI
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):

@@ -2,6 +2,7 @@ from win32more import *
 import win32more.Data.Xml.MsXml
 import win32more.Foundation
 import win32more.Media.DirectShow
+import win32more.Media.DirectShow.Xml
 import win32more.System.Com
 
 def __getattr__(name):
