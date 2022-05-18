@@ -1,5 +1,4 @@
 from win32more import *
-import win32more.UI.Shell
 import win32more.Data.Xml.MsXml
 import win32more.Foundation
 import win32more.Graphics.DirectComposition
@@ -17,15 +16,19 @@ import win32more.System.Registry
 import win32more.System.Search
 import win32more.System.Threading
 import win32more.UI.Controls
+import win32more.UI.Shell
 import win32more.UI.Shell.Common
 import win32more.UI.Shell.PropertiesSystem
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.UI.Shell, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.UI.Shell, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 HLINK_E_FIRST = -2147221248

@@ -1,15 +1,18 @@
 from win32more import *
-import win32more.Storage.Packaging.Opc
 import win32more.Foundation
 import win32more.Security
 import win32more.Security.Cryptography
+import win32more.Storage.Packaging.Opc
 import win32more.System.Com
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Storage.Packaging.Opc, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Storage.Packaging.Opc, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 OPC_E_NONCONFORMING_URI = -2142175231

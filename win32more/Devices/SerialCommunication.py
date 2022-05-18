@@ -3,10 +3,13 @@ import win32more.Devices.SerialCommunication
 import win32more.Foundation
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Devices.SerialCommunication, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Devices.SerialCommunication, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 COMDB_MIN_PORTS_ARBITRATED = 256

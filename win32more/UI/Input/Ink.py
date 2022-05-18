@@ -1,13 +1,16 @@
 from win32more import *
-import win32more.UI.Input.Ink
 import win32more.Foundation
 import win32more.System.Com
+import win32more.UI.Input.Ink
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.UI.Input.Ink, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.UI.Input.Ink, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 InkDesktopHost = Guid('062584a6-f830-4bdc-a4d2-0a10ab062b1d')

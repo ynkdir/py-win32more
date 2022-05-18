@@ -1,5 +1,4 @@
 from win32more import *
-import win32more.Web.MsHtml
 import win32more.Foundation
 import win32more.Graphics.DirectDraw
 import win32more.Graphics.Dxgi.Common
@@ -10,12 +9,16 @@ import win32more.System.Ole
 import win32more.System.WinRT
 import win32more.UI.Input.Ime
 import win32more.UI.WindowsAndMessaging
+import win32more.Web.MsHtml
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Web.MsHtml, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Web.MsHtml, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 DISPID_STYLESHEETSCOLLECTION_NAMED_MAX = 1999999

@@ -1,14 +1,17 @@
 from win32more import *
-import win32more.UI.Accessibility
 import win32more.Foundation
 import win32more.System.Com
+import win32more.UI.Accessibility
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.UI.Accessibility, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.UI.Accessibility, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 LIBID_Accessibility = '1ea4dbf0-3c3b-11cf-810c-00aa00389b71'

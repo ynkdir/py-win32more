@@ -1,7 +1,7 @@
 from win32more import *
-import win32more.Security.Authentication.Identity
 import win32more.Foundation
 import win32more.Security
+import win32more.Security.Authentication.Identity
 import win32more.Security.Credentials
 import win32more.Security.Cryptography
 import win32more.System.Com
@@ -12,10 +12,13 @@ import win32more.System.Threading
 import win32more.System.WindowsProgramming
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Security.Authentication.Identity, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Security.Authentication.Identity, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 ISSP_LEVEL = 32

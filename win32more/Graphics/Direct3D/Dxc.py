@@ -1,13 +1,16 @@
 from win32more import *
-import win32more.Graphics.Direct3D.Dxc
 import win32more.Foundation
+import win32more.Graphics.Direct3D.Dxc
 import win32more.System.Com
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Graphics.Direct3D.Dxc, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Graphics.Direct3D.Dxc, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 DXC_HASHFLAG_INCLUDES_SOURCE = 1

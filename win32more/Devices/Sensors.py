@@ -1,16 +1,19 @@
 from win32more import *
-import win32more.Devices.Sensors
 import win32more.Devices.PortableDevices
+import win32more.Devices.Sensors
 import win32more.Foundation
 import win32more.System.Com
 import win32more.System.Com.StructuredStorage
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Devices.Sensors, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Devices.Sensors, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 GUID_DEVINTERFACE_SENSOR = 'ba1bb692-9b7a-4833-9a1e-525ed134e7e2'

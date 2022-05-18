@@ -1,16 +1,19 @@
 from win32more import *
-import win32more.System.AssessmentTool
 import win32more.Data.Xml.MsXml
 import win32more.Foundation
 import win32more.Graphics.Gdi
+import win32more.System.AssessmentTool
 import win32more.System.Com
 import win32more.UI.Accessibility
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.System.AssessmentTool, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.System.AssessmentTool, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 CInitiateWinSAT = Guid('489331dc-f5e0-4528-9fda-45331bf4a571')

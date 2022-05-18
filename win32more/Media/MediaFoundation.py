@@ -1,5 +1,4 @@
 from win32more import *
-import win32more.Media.MediaFoundation
 import win32more.Devices.Properties
 import win32more.Foundation
 import win32more.Graphics.Direct3D12
@@ -9,6 +8,7 @@ import win32more.Graphics.Gdi
 import win32more.Media.Audio
 import win32more.Media.DirectShow
 import win32more.Media.DxMediaObjects
+import win32more.Media.MediaFoundation
 import win32more.Media.Streaming
 import win32more.System.Com
 import win32more.System.Com.StructuredStorage
@@ -16,10 +16,13 @@ import win32more.System.WinRT
 import win32more.UI.Shell.PropertiesSystem
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Media.MediaFoundation, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Media.MediaFoundation, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 MEDIASUBTYPE_None = 'e436eb8e-524f-11ce-9f53-0020af0ba770'

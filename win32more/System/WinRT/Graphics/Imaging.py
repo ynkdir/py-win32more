@@ -1,15 +1,17 @@
 from win32more import *
-import win32more.System.WinRT.Graphics.Imaging
 import win32more.Foundation
 import win32more.Graphics.Imaging
 import win32more.Media.MediaFoundation
 import win32more.System.WinRT
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.System.WinRT.Graphics.Imaging, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.System.WinRT.Graphics.Imaging, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 CLSID_SoftwareBitmapNativeFactory = '84e65691-8602-4a84-be46-708be9cd4b74'

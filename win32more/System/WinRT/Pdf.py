@@ -1,16 +1,19 @@
 from win32more import *
-import win32more.System.WinRT.Pdf
 import win32more.Foundation
 import win32more.Graphics.Direct2D
 import win32more.Graphics.Direct2D.Common
 import win32more.Graphics.Dxgi
 import win32more.System.Com
+import win32more.System.WinRT.Pdf
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.System.WinRT.Pdf, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.System.WinRT.Pdf, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 def _define_PFN_PDF_CREATE_RENDERER():

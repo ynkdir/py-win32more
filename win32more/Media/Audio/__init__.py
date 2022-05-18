@@ -1,7 +1,7 @@
 from win32more import *
-import win32more.Media.Audio
 import win32more.Foundation
 import win32more.Media
+import win32more.Media.Audio
 import win32more.Media.Multimedia
 import win32more.System.Com
 import win32more.System.Com.StructuredStorage
@@ -9,10 +9,13 @@ import win32more.UI.Shell.PropertiesSystem
 import win32more.UI.WindowsAndMessaging
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Media.Audio, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Media.Audio, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 MIXERCONTROL_CONTROLTYPE_CUSTOM = 0

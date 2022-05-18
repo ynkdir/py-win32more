@@ -1,17 +1,20 @@
 from win32more import *
-import win32more.Networking.WinSock
 import win32more.Foundation
 import win32more.NetworkManagement.QoS
 import win32more.NetworkManagement.WindowsFilteringPlatform
+import win32more.Networking.WinSock
 import win32more.System.Com
 import win32more.System.IO
 import win32more.System.Kernel
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Networking.WinSock, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Networking.WinSock, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 SOCKET_DEFAULT2_QM_POLICY = 'aec2ef9c-3a4d-4d3e-8842-239942e39a47'

@@ -1,15 +1,18 @@
 from win32more import *
-import win32more.System.Pipes
 import win32more.Foundation
 import win32more.Security
 import win32more.Storage.FileSystem
 import win32more.System.IO
+import win32more.System.Pipes
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.System.Pipes, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.System.Pipes, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 PIPE_UNLIMITED_INSTANCES = 255

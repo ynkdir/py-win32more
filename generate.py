@@ -9,8 +9,56 @@ from pathlib import Path
 ARCHITECTURE = "X64"
 
 class Generator:
-    def generate(self, ns: dict) -> str:
-        self.out = io.StringIO()
+    def __init__(self, out) -> None:
+        self.out = out
+
+    def write_import(self, ns: dict) -> None:
+        for api in sorted(self.collect_apiref(ns, set())):
+            self.writeline(f"import win32more.{api}")
+
+    def collect_apiref(self, node, apiref: set) -> set:
+        match node:
+            case {"Kind": "ApiRef", "Api": api}:
+                apiref.add(api)
+            case {}:
+                for x in node.values():
+                    self.collect_apiref(x, apiref)
+            case [*_]:
+                for x in node:
+                    self.collect_apiref(x, apiref)
+        return apiref
+
+    def write_getattr(self) -> None:
+        self.write(f"""
+def __getattr__(name):
+    module = globals()
+    try:
+        f = module[f"_define_{{name}}"]
+    except KeyError:
+        raise AttributeError(f"module '{{__name__}}' has no attribute '{{name}}'") from None
+    module[name] = f()
+    return module[name]
+def __dir__():
+    return __all__
+""")
+
+    def write_export(self, ns: dict) -> None:
+        self.writeline("__all__ = [")
+        for name in self.collect_export(ns):
+            self.writeline(f'    "{name}",')
+        self.writeline("]")
+
+    def collect_export(self, ns: dict):
+        for e in ns.values():
+            yield e["Name"]
+            match e:
+                case {"_Category": "Types", "Kind": "Enum"}:
+                    for v in e["Values"]:
+                        yield v["Name"]
+                case {"_Category": "Functions", "_UnicodeAlias": ua} if ua is not None:
+                    yield ua
+
+    def write_define(self, ns: dict) -> None:
         for e in ns.values():
             match e["_Category"]:
                 case "Types":
@@ -19,7 +67,6 @@ class Generator:
                     self.visit_function(e)
                 case "Constants":
                     self.visit_constant(e)
-        return self.out.getvalue()
 
     def visit_type(self, mt) -> None:
         match mt["Kind"]:
@@ -348,77 +395,34 @@ class JsonLoader:
             allmeta[api] = json.loads(jsonfile.read_text())
         return allmeta
 
-def collect_apiref(node, apiref):
-    match node:
-        case {"Kind": "ApiRef", "Api": api}:
-            apiref.add(api)
-        case {}:
-            for x in node.values():
-                collect_apiref(x, apiref)
-        case [*_]:
-            for x in node:
-                collect_apiref(x, apiref)
-    return apiref
-
 def main():
     allmeta = JsonLoader().loadall("win32json/api")
     ns = Preprocessor().preprocess(allmeta)
-    for api in allmeta:
-        mod = {e["_ApiName"]: e for e in ns.values() if e["_Api"] == api}
-        imp = set()
-        for e in mod.values():
-            imp |= collect_apiref(e, set())
-        imp -= {api}
-        out = io.StringIO()
-        out.write(f"from win32more import *\n")
-        out.write(f"import win32more.{api}\n")
-        for ref in sorted(list(imp)):
-            out.write(f"import win32more.{ref}\n")
-        out.write(f"""
-def __getattr__(name):
-    if f"_define_{{name}}" not in globals():
-        raise AttributeError()
-    setattr(win32more.{api}, name, globals()[f"_define_{{name}}"]())
-    return getattr(win32more.{api}, name)
-def __dir__():
-    return __all__
-""")
-        out.write(Generator().generate(mod))
-        out.write("__all__ = [\n")
-        for e in mod.values():
-            out.write(f"""    "{e['Name']}",\n""")
-            match e:
-                case {"_Category": "Types", "Kind": "Enum"}:
-                    for v in e["Values"]:
-                        out.write(f"""    "{v['Name']}",\n""")
-                case {"_Category": "Functions", "_UnicodeAlias": ua} if ua is not None:
-                    out.write(f"""    "{ua}",\n""")
-        out.write("]\n")
-        is_dir = False
-        for ref in allmeta:
-            if ref != api and ref.startswith(api + "."):
-                is_dir = True
-                break
+    for modapi in allmeta:
+        mod = {k: v for k, v in ns.items() if v["_Api"] == modapi}
+        is_dir = any(api.startswith(modapi + ".") for api in allmeta)
         if is_dir:
-            p = Path("win32more") / api.replace(".", "/")
-            if not p.exists():
-                p.mkdir(parents=True)
-            (p / "__init__.py").write_text(out.getvalue())
+            p = Path("win32more") / modapi.replace(".", "/") / "__init__.py"
         else:
-            p = Path("win32more") / api.replace(".", "/")
-            if not p.parent.exists():
-                p.parent.mkdir(parents=True)
-            (Path(str(p) + ".py")).write_text(out.getvalue())
-
+            p = Path("win32more") / (modapi.replace(".", "/") + ".py")
+        if not p.parent.exists():
+            p.parent.mkdir(parents=True)
+        with p.open("w") as f:
+            g = Generator(f)
+            g.writeline(f"from win32more import *")
+            g.write_import(mod)
+            g.write_getattr()
+            g.write_define(mod)
+            g.write_export(mod)
+    # generate __init__.py
     for p in Path("win32more").glob("**/*"):
         if p.is_dir() and not (p / "__init__.py").exists():
             (p / "__init__.py").write_text("")
-
-    out = io.StringIO()
-    out.write("from win32more import *\n")
-    for api in sorted(allmeta):
-        out.write(f"from win32more.{api} import *\n")
-    Path("win32more/all.py").write_text(out.getvalue())
+    # generate all.py module
+    with open("win32more/all.py", "w") as f:
+        f.write("from win32more import *\n")
+        for api in sorted(allmeta):
+            f.write(f"from win32more.{api} import *\n")
 
 if __name__ == "__main__":
     main()

@@ -1,13 +1,16 @@
 from win32more import *
-import win32more.Storage.DistributedFileSystem
 import win32more.Foundation
 import win32more.Security
+import win32more.Storage.DistributedFileSystem
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Storage.DistributedFileSystem, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Storage.DistributedFileSystem, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 FSCTL_DFS_BASE = 6

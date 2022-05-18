@@ -1,16 +1,19 @@
 from win32more import *
-import win32more.Media.Speech
 import win32more.Foundation
 import win32more.Media.Audio
+import win32more.Media.Speech
 import win32more.System.Com
 import win32more.System.Com.Urlmon
 import win32more.System.Registry
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Media.Speech, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Media.Speech, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 SP_LOW_CONFIDENCE = -1

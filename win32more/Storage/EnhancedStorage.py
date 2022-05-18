@@ -1,14 +1,17 @@
 from win32more import *
-import win32more.Storage.EnhancedStorage
 import win32more.Devices.PortableDevices
 import win32more.Foundation
+import win32more.Storage.EnhancedStorage
 import win32more.System.Com
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Storage.EnhancedStorage, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Storage.EnhancedStorage, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 GUID_DEVINTERFACE_ENHANCED_STORAGE_SILO = '3897f6a4-fd35-4bc8-a0b7-5dbba36adafa'

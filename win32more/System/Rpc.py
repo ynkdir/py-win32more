@@ -1,15 +1,18 @@
 from win32more import *
-import win32more.System.Rpc
 import win32more.Foundation
 import win32more.Security.Cryptography
 import win32more.System.Com
 import win32more.System.IO
+import win32more.System.Rpc
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.System.Rpc, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.System.Rpc, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 RPC_C_BINDING_INFINITE_TIMEOUT = 10

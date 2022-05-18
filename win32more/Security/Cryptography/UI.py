@@ -1,15 +1,18 @@
 from win32more import *
-import win32more.Security.Cryptography.UI
 import win32more.Foundation
 import win32more.Security.Cryptography
+import win32more.Security.Cryptography.UI
 import win32more.Security.WinTrust
 import win32more.UI.Controls
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Security.Cryptography.UI, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Security.Cryptography.UI, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 CRYTPDLG_FLAGS_MASK = 4278190080

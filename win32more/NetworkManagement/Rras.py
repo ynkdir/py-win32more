@@ -1,15 +1,18 @@
 from win32more import *
-import win32more.NetworkManagement.Rras
 import win32more.Foundation
 import win32more.NetworkManagement.IpHelper
+import win32more.NetworkManagement.Rras
 import win32more.Networking.WinSock
 import win32more.Security.Cryptography
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.NetworkManagement.Rras, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.NetworkManagement.Rras, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 RASNAP_ProbationTime = 1

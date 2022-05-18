@@ -1,10 +1,10 @@
 from win32more import *
-import win32more.System.Diagnostics.Debug
 import win32more.Foundation
 import win32more.Security.WinTrust
 import win32more.Storage.FileSystem
 import win32more.System.Com
 import win32more.System.Com.StructuredStorage
+import win32more.System.Diagnostics.Debug
 import win32more.System.Kernel
 import win32more.System.Memory
 import win32more.System.Ole
@@ -12,10 +12,13 @@ import win32more.System.Threading
 import win32more.System.Time
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.System.Diagnostics.Debug, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.System.Diagnostics.Debug, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 WOW64_CONTEXT_i386 = 65536

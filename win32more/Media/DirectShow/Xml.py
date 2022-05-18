@@ -1,15 +1,17 @@
 from win32more import *
-import win32more.Media.DirectShow.Xml
 import win32more.Data.Xml.MsXml
 import win32more.Foundation
 import win32more.Media.DirectShow
 import win32more.System.Com
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.Media.DirectShow.Xml, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.Media.DirectShow.Xml, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 CLSID_XMLGraphBuilder = '1bb05961-5fbf-11d2-a521-44df07c10000'

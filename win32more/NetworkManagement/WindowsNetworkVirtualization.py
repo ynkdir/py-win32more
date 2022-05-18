@@ -1,15 +1,18 @@
 from win32more import *
-import win32more.NetworkManagement.WindowsNetworkVirtualization
 import win32more.Foundation
 import win32more.NetworkManagement.WindowsFilteringPlatform
+import win32more.NetworkManagement.WindowsNetworkVirtualization
 import win32more.Networking.WinSock
 import win32more.System.IO
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.NetworkManagement.WindowsNetworkVirtualization, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.NetworkManagement.WindowsNetworkVirtualization, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 WNV_API_MAJOR_VERSION_1 = 1

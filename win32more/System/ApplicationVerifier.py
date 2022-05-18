@@ -1,12 +1,15 @@
 from win32more import *
-import win32more.System.ApplicationVerifier
 import win32more.Foundation
+import win32more.System.ApplicationVerifier
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.System.ApplicationVerifier, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.System.ApplicationVerifier, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 AVRF_MAX_TRACES = 32

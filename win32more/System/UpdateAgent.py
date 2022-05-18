@@ -1,13 +1,16 @@
 from win32more import *
-import win32more.System.UpdateAgent
 import win32more.Foundation
 import win32more.System.Com
+import win32more.System.UpdateAgent
 
 def __getattr__(name):
-    if f"_define_{name}" not in globals():
-        raise AttributeError()
-    setattr(win32more.System.UpdateAgent, name, globals()[f"_define_{name}"]())
-    return getattr(win32more.System.UpdateAgent, name)
+    module = globals()
+    try:
+        f = module[f"_define_{name}"]
+    except KeyError:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module[name] = f()
+    return module[name]
 def __dir__():
     return __all__
 LIBID_WUApiLib = 'b596cc9f-56e5-419e-a622-e01bb457431e'
