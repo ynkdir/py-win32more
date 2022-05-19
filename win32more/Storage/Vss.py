@@ -5,14 +5,15 @@ import win32more.Storage.VirtualDiskService
 import win32more.Storage.Vss
 import win32more.System.Com
 
+import sys
+_module = sys.modules[__name__]
 def __getattr__(name):
-    module = globals()
     try:
-        f = module[f"_define_{name}"]
+        f = globals()[f"_define_{name}"]
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    module[name] = f()
-    return module[name]
+    setattr(_module, name, f())
+    return getattr(_module, name)
 def __dir__():
     return __all__
 VSS_ASSOC_NO_MAX_SPACE = -1

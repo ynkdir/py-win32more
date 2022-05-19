@@ -3,14 +3,15 @@ import win32more.Foundation
 import win32more.Networking.WinHttp
 import win32more.Networking.WinSock
 
+import sys
+_module = sys.modules[__name__]
 def __getattr__(name):
-    module = globals()
     try:
-        f = module[f"_define_{name}"]
+        f = globals()[f"_define_{name}"]
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    module[name] = f()
-    return module[name]
+    setattr(_module, name, f())
+    return getattr(_module, name)
 def __dir__():
     return __all__
 WINHTTP_FLAG_ASYNC = 268435456

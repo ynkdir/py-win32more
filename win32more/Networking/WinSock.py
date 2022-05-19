@@ -7,14 +7,15 @@ import win32more.System.Com
 import win32more.System.IO
 import win32more.System.Kernel
 
+import sys
+_module = sys.modules[__name__]
 def __getattr__(name):
-    module = globals()
     try:
-        f = module[f"_define_{name}"]
+        f = globals()[f"_define_{name}"]
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    module[name] = f()
-    return module[name]
+    setattr(_module, name, f())
+    return getattr(_module, name)
 def __dir__():
     return __all__
 SOCKET_DEFAULT2_QM_POLICY = 'aec2ef9c-3a4d-4d3e-8842-239942e39a47'

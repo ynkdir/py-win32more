@@ -4,14 +4,15 @@ import win32more.Storage.Xps
 import win32more.Storage.Xps.Printing
 import win32more.System.Com
 
+import sys
+_module = sys.modules[__name__]
 def __getattr__(name):
-    module = globals()
     try:
-        f = module[f"_define_{name}"]
+        f = globals()[f"_define_{name}"]
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    module[name] = f()
-    return module[name]
+    setattr(_module, name, f())
+    return getattr(_module, name)
 def __dir__():
     return __all__
 ID_DOCUMENTPACKAGETARGET_MSXPS = '9cae40a8-ded1-41c9-a9fd-d735ef33aeda'

@@ -6,14 +6,15 @@ import win32more.System.Com
 import win32more.System.Com.StructuredStorage
 import win32more.UI.Shell.PropertiesSystem
 
+import sys
+_module = sys.modules[__name__]
 def __getattr__(name):
-    module = globals()
     try:
-        f = module[f"_define_{name}"]
+        f = globals()[f"_define_{name}"]
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    module[name] = f()
-    return module[name]
+    setattr(_module, name, f())
+    return getattr(_module, name)
 def __dir__():
     return __all__
 DEVPKEY_MTPBTH_IsConnected = PROPERTYKEY(Fmtid='ea1237fa-589d-4472-84e4-0abe36fd62ef', Pid=2)

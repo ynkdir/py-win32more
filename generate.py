@@ -6,57 +6,38 @@ import json
 import re
 from pathlib import Path
 
+PACKAGE_NAME = "win32more"
+
 ARCHITECTURE = "X64"
 
 class Generator:
     def __init__(self, out) -> None:
         self.out = out
 
-    def write_import(self, ns: dict, modapi: str) -> None:
-        for api in sorted(self.collect_apiref(ns, {modapi})):
-            self.writeline(f"import win32more.{api}")
-
-    def collect_apiref(self, node, apiref: set) -> set:
-        match node:
-            case {"Kind": "ApiRef", "Api": api}:
-                apiref.add(api)
-            case {}:
-                for x in node.values():
-                    self.collect_apiref(x, apiref)
-            case [*_]:
-                for x in node:
-                    self.collect_apiref(x, apiref)
-        return apiref
+    def write_import(self, apiref) -> None:
+        for api in sorted(apiref):
+            self.writeline(f"import {api}")
 
     def write_getattr(self) -> None:
         self.write(f"""
+import sys
+_module = sys.modules[__name__]
 def __getattr__(name):
-    module = globals()
     try:
-        f = module[f"_define_{{name}}"]
+        f = globals()[f"_define_{{name}}"]
     except KeyError:
         raise AttributeError(f"module '{{__name__}}' has no attribute '{{name}}'") from None
-    module[name] = f()
-    return module[name]
+    setattr(_module, name, f())
+    return getattr(_module, name)
 def __dir__():
     return __all__
 """)
 
-    def write_export(self, ns: dict) -> None:
+    def write_export(self, exports) -> None:
         self.writeline("__all__ = [")
-        for name in self.collect_export(ns):
+        for name in exports:
             self.writeline(f'    "{name}",')
         self.writeline("]")
-
-    def collect_export(self, ns: dict):
-        for e in ns.values():
-            yield e["Name"]
-            match e:
-                case {"_Category": "Types", "Kind": "Enum"}:
-                    for v in e["Values"]:
-                        yield v["Name"]
-                case {"_Category": "Functions", "_UnicodeAlias": ua} if ua is not None:
-                    yield ua
 
     def write_define(self, ns: dict) -> None:
         for e in ns.values():
@@ -88,14 +69,14 @@ def __dir__():
                 raise RuntimeError(f"unknown type {mt['Kind']}")
 
     def visit_com(self, mt) -> None:
-        base = f"win32more.{mt['Interface']['Api']}.{mt['Interface']['Name']}_head" if mt["Interface"] else "c_void_p"
+        base = f"{mt['Interface']['Api']}.{mt['Interface']['Name']}_head" if mt["Interface"] else "c_void_p"
         guid = repr(mt["Guid"])
         self.writeline(f"def _define_{mt['Name']}_head():")
         self.writeline(f"    class {mt['Name']}({base}):")
         self.writeline(f"        Guid = Guid({guid})")
         self.writeline(f"    return {mt['Name']}")
         self.writeline(f"def _define_{mt['Name']}():")
-        self.writeline(f"    {mt['Name']} = win32more.{mt['_ApiName']}_head")
+        self.writeline(f"    {mt['Name']} = {mt['_ApiName']}_head")
         for m in mt["Methods"]:
             types = [self.to_pytype(m["ReturnType"])]
             params = []
@@ -140,7 +121,7 @@ def __dir__():
             self.writeline(f"        pass")
             self.writeline(f"    return {mt['Name']}")
             self.writeline(f"def _define_{mt['Name']}():")
-            self.writeline(f"    {mt['Name']} = win32more.{mt['_ApiName']}_head")
+            self.writeline(f"    {mt['Name']} = {mt['_ApiName']}_head")
         else:
             self.writeline(f"    class {mt['Name']}({base}):")
             self.writeline(f"        pass")
@@ -195,7 +176,7 @@ def __dir__():
         self.writeline(f"        return None")
         if ua := ft.get("_UnicodeAlias"):
             self.writeline(f"def _define_{ua}():")
-            self.writeline(f"    return win32more.{ft['_ApiName']}")
+            self.writeline(f"    return {ft['_ApiName']}")
 
     def visit_constant(self, ct) -> None:
         pyvalue = self.to_pyvalue(ct)
@@ -221,9 +202,9 @@ def __dir__():
             case {"Kind": "ApiRef", "Name": name, "Api": api, "_nested": True}:
                 return name
             case {"Kind": "ApiRef", "Name": name, "Api": api, "_head": True}:
-                return f"win32more.{api}.{name}_head"
+                return f"{api}.{name}_head"
             case {"Kind": "ApiRef", "Name": name, "Api": api}:
-                return f"win32more.{api}.{name}"
+                return f"{api}.{name}"
             case {"Kind": "Native", "Name": name}:
                 return name
             case _:
@@ -250,14 +231,6 @@ def __dir__():
         self.write("\n")
 
 class Preprocessor:
-    def preprocess(self, allmeta: dict) -> dict:
-        ns = self.make_namespace(allmeta)
-        ns = self.patch_struct_nested_type(ns)
-        ns = self.patch_enum(ns)
-        ns = self.patch_com_vtbl_index(ns)
-        ns = self.patch_apiref(ns)
-        return ns
-
     def make_namespace(self, allmeta: dict) -> dict:
         ns = {}
         ua = {}
@@ -363,7 +336,7 @@ class Preprocessor:
             self.add_apiref_attr(e, ns)
         return ns
 
-    def add_apiref_attr(self, node, ns) -> None:
+    def add_apiref_attr(self, node, ns: dict) -> None:
         match node:
             case {"Kind": "Com", "Interface": interface, "Methods": [*methods]}:
                 if interface:
@@ -387,6 +360,49 @@ class Preprocessor:
                 for e in node:
                     self.add_apiref_attr(e, ns)
 
+    # Add prefix to module name.
+    def patch_api_prefix(self, ns: dict, prefix: str) -> dict:
+        newns = {}
+        for api, e in ns.items():
+            self.add_api_prefix(e, prefix)
+            e["_Api"] = f"{prefix}.{e['_Api']}"
+            e["_ApiName"] = f"{prefix}.{e['_ApiName']}"
+            newns[f"{prefix}.{api}"] = e
+        return newns
+
+    def add_api_prefix(self, node, prefix: str) -> None:
+        match node:
+            case {"Kind": "ApiRef", "Api": api} as e:
+                e["Api"] = f"{prefix}.{api}"
+            case {}:
+                for x in node.values():
+                    self.add_api_prefix(x, prefix)
+            case [*_]:
+                for x in node:
+                    self.add_api_prefix(x, prefix)
+
+    def collect_apiref(self, node, apiref: set) -> set:
+        match node:
+            case {"Kind": "ApiRef", "Api": api}:
+                apiref.add(api)
+            case {}:
+                for x in node.values():
+                    self.collect_apiref(x, apiref)
+            case [*_]:
+                for x in node:
+                    self.collect_apiref(x, apiref)
+        return apiref
+
+    def collect_export(self, ns: dict):
+        for e in ns.values():
+            yield e["Name"]
+            match e:
+                case {"_Category": "Types", "Kind": "Enum"}:
+                    for v in e["Values"]:
+                        yield v["Name"]
+                case {"_Category": "Functions", "_UnicodeAlias": ua} if ua is not None:
+                    yield ua
+
 class JsonLoader:
     def loadall(self, apipath):
         allmeta = {}
@@ -397,32 +413,39 @@ class JsonLoader:
 
 def main():
     allmeta = JsonLoader().loadall("win32json/api")
-    ns = Preprocessor().preprocess(allmeta)
+    pp = Preprocessor()
+    ns = pp.make_namespace(allmeta)
+    ns = pp.patch_struct_nested_type(ns)
+    ns = pp.patch_enum(ns)
+    ns = pp.patch_com_vtbl_index(ns)
+    ns = pp.patch_apiref(ns)
+    ns = pp.patch_api_prefix(ns, PACKAGE_NAME)
     for modapi in allmeta:
-        mod = {k: v for k, v in ns.items() if v["_Api"] == modapi}
+        pkg_modapi = f"{PACKAGE_NAME}.{modapi}"
+        mod = {k: v for k, v in ns.items() if v["_Api"] == pkg_modapi}
         is_dir = any(api.startswith(modapi + ".") for api in allmeta)
         if is_dir:
-            p = Path("win32more") / modapi.replace(".", "/") / "__init__.py"
+            p = Path(pkg_modapi.replace(".", "/")) / "__init__.py"
         else:
-            p = Path("win32more") / (modapi.replace(".", "/") + ".py")
+            p = Path(pkg_modapi.replace(".", "/") + ".py")
         if not p.parent.exists():
             p.parent.mkdir(parents=True)
         with p.open("w") as f:
             g = Generator(f)
-            g.writeline(f"from win32more import *")
-            g.write_import(mod, modapi)
+            g.writeline(f"from {PACKAGE_NAME} import *")
+            g.write_import(pp.collect_apiref(mod, {pkg_modapi}))
             g.write_getattr()
             g.write_define(mod)
-            g.write_export(mod)
+            g.write_export(pp.collect_export(mod))
     # generate __init__.py
-    for p in Path("win32more").glob("**/*"):
+    for p in Path(PACKAGE_NAME).glob("**/*"):
         if p.is_dir() and not (p / "__init__.py").exists():
             (p / "__init__.py").write_text("")
     # generate all.py module
-    with open("win32more/all.py", "w") as f:
-        f.write("from win32more import *\n")
+    with open(f"{PACKAGE_NAME}/all.py", "w") as f:
+        f.write(f"from {PACKAGE_NAME} import *\n")
         for api in sorted(allmeta):
-            f.write(f"from win32more.{api} import *\n")
+            f.write(f"from {PACKAGE_NAME}.{api} import *\n")
 
 if __name__ == "__main__":
     main()

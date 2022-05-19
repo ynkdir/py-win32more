@@ -5,14 +5,15 @@ import win32more.System.Com
 import win32more.UI.ColorSystem
 import win32more.UI.WindowsAndMessaging
 
+import sys
+_module = sys.modules[__name__]
 def __getattr__(name):
-    module = globals()
     try:
-        f = module[f"_define_{name}"]
+        f = globals()[f"_define_{name}"]
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    module[name] = f()
-    return module[name]
+    setattr(_module, name, f())
+    return getattr(_module, name)
 def __dir__():
     return __all__
 CATID_WcsPlugin = 'a0b402e0-8240-405f-8a16-8a5b4df2f0dd'

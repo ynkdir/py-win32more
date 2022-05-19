@@ -4,14 +4,15 @@ import win32more.Gaming
 import win32more.System.Com
 import win32more.System.WinRT
 
+import sys
+_module = sys.modules[__name__]
 def __getattr__(name):
-    module = globals()
     try:
-        f = module[f"_define_{name}"]
+        f = globals()[f"_define_{name}"]
     except KeyError:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
-    module[name] = f()
-    return module[name]
+    setattr(_module, name, f())
+    return getattr(_module, name)
 def __dir__():
     return __all__
 GameExplorer = Guid('9a5ea990-3034-4d6f-9128-01f3c61022bc')
