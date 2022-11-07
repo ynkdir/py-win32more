@@ -5,6 +5,7 @@ import win32more.Media.Audio.Apo
 import win32more.Media.Audio.Endpoints
 import win32more.Media.KernelStreaming
 import win32more.System.Com
+import win32more.UI.Shell.PropertiesSystem
 
 import sys
 _module = sys.modules[__name__]
@@ -17,6 +18,10 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+DEVPKEY_AudioEndpointPlugin_FactoryCLSID = PROPERTYKEY(Fmtid='12d83bd7-cf12-46be-8540-812710d3021c', Pid=1)
+DEVPKEY_AudioEndpointPlugin_DataFlow = PROPERTYKEY(Fmtid='12d83bd7-cf12-46be-8540-812710d3021c', Pid=2)
+DEVPKEY_AudioEndpointPlugin_PnPInterface = PROPERTYKEY(Fmtid='12d83bd7-cf12-46be-8540-812710d3021c', Pid=3)
+DEVPKEY_AudioEndpointPlugin2_FactoryCLSID = PROPERTYKEY(Fmtid='12d83bd7-cf12-46be-8540-812710d3021c', Pid=4)
 def _define_IAudioEndpointFormatControl_head():
     class IAudioEndpointFormatControl(win32more.System.Com.IUnknown_head):
         Guid = Guid('784cfd40-9f89-456e-a1a6-873b006a664e')
@@ -156,6 +161,10 @@ def _define_IAudioMeterInformation():
     IAudioMeterInformation.QueryHardwareSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'QueryHardwareSupport', ((1, 'pdwHardwareSupportMask'),)))
     return IAudioMeterInformation
 __all__ = [
+    "DEVPKEY_AudioEndpointPlugin_FactoryCLSID",
+    "DEVPKEY_AudioEndpointPlugin_DataFlow",
+    "DEVPKEY_AudioEndpointPlugin_PnPInterface",
+    "DEVPKEY_AudioEndpointPlugin2_FactoryCLSID",
     "IAudioEndpointFormatControl",
     "EndpointConnectorType",
     "EndpointConnectorType_eHostProcessConnector",

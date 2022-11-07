@@ -2,6 +2,7 @@ from win32more import *
 import win32more.Foundation
 import win32more.NetworkManagement.WindowsConnectNow
 import win32more.System.Com
+import win32more.UI.Shell.PropertiesSystem
 
 import sys
 _module = sys.modules[__name__]
@@ -98,6 +99,10 @@ WCN_FLAG_DISCOVERY_VE = 1
 WCN_FLAG_AUTHENTICATED_VE = 2
 WCN_FLAG_ENCRYPTED_VE = 4
 SID_WcnProvider = 'c100beca-d33a-4a4b-bf23-bbef4663d017'
+PKEY_WCN_DeviceType_Category = PROPERTYKEY(Fmtid='88190b8b-4684-11da-a26a-0002b3988e81', Pid=16)
+PKEY_WCN_DeviceType_SubCategoryOUI = PROPERTYKEY(Fmtid='88190b8b-4684-11da-a26a-0002b3988e81', Pid=17)
+PKEY_WCN_DeviceType_SubCategory = PROPERTYKEY(Fmtid='88190b8b-4684-11da-a26a-0002b3988e81', Pid=18)
+PKEY_WCN_SSID = PROPERTYKEY(Fmtid='88190b8b-4684-11da-a26a-0002b3988e81', Pid=32)
 WCN_ATTRIBUTE_TYPE = Int32
 WCN_TYPE_AP_CHANNEL = 0
 WCN_TYPE_ASSOCIATION_STATE = 1
@@ -456,6 +461,10 @@ __all__ = [
     "WCN_FLAG_AUTHENTICATED_VE",
     "WCN_FLAG_ENCRYPTED_VE",
     "SID_WcnProvider",
+    "PKEY_WCN_DeviceType_Category",
+    "PKEY_WCN_DeviceType_SubCategoryOUI",
+    "PKEY_WCN_DeviceType_SubCategory",
+    "PKEY_WCN_SSID",
     "WCN_ATTRIBUTE_TYPE",
     "WCN_TYPE_AP_CHANNEL",
     "WCN_TYPE_ASSOCIATION_STATE",

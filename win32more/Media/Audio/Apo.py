@@ -34,6 +34,36 @@ AUDIO_MIN_FRAMERATE = 10
 AUDIO_MAX_FRAMERATE = 384000
 AUDIO_MIN_CHANNELS = 1
 AUDIO_MAX_CHANNELS = 4096
+PKEY_FX_Association = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=0)
+PKEY_FX_PreMixEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=1)
+PKEY_FX_PostMixEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=2)
+PKEY_FX_UserInterfaceClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=3)
+PKEY_FX_FriendlyName = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=4)
+PKEY_FX_StreamEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=5)
+PKEY_FX_ModeEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=6)
+PKEY_FX_EndpointEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=7)
+PKEY_FX_KeywordDetector_StreamEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=8)
+PKEY_FX_KeywordDetector_ModeEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=9)
+PKEY_FX_KeywordDetector_EndpointEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=10)
+PKEY_FX_Offload_StreamEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=11)
+PKEY_FX_Offload_ModeEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=12)
+PKEY_CompositeFX_StreamEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=13)
+PKEY_CompositeFX_ModeEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=14)
+PKEY_CompositeFX_EndpointEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=15)
+PKEY_CompositeFX_KeywordDetector_StreamEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=16)
+PKEY_CompositeFX_KeywordDetector_ModeEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=17)
+PKEY_CompositeFX_KeywordDetector_EndpointEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=18)
+PKEY_CompositeFX_Offload_StreamEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=19)
+PKEY_CompositeFX_Offload_ModeEffectClsid = PROPERTYKEY(Fmtid='d04e05a6-594b-4fb6-a80d-01af5eed7d1d', Pid=20)
+PKEY_SFX_ProcessingModes_Supported_For_Streaming = PROPERTYKEY(Fmtid='d3993a3f-99c2-4402-b5ec-a92a0367664b', Pid=5)
+PKEY_MFX_ProcessingModes_Supported_For_Streaming = PROPERTYKEY(Fmtid='d3993a3f-99c2-4402-b5ec-a92a0367664b', Pid=6)
+PKEY_EFX_ProcessingModes_Supported_For_Streaming = PROPERTYKEY(Fmtid='d3993a3f-99c2-4402-b5ec-a92a0367664b', Pid=7)
+PKEY_SFX_KeywordDetector_ProcessingModes_Supported_For_Streaming = PROPERTYKEY(Fmtid='d3993a3f-99c2-4402-b5ec-a92a0367664b', Pid=8)
+PKEY_MFX_KeywordDetector_ProcessingModes_Supported_For_Streaming = PROPERTYKEY(Fmtid='d3993a3f-99c2-4402-b5ec-a92a0367664b', Pid=9)
+PKEY_EFX_KeywordDetector_ProcessingModes_Supported_For_Streaming = PROPERTYKEY(Fmtid='d3993a3f-99c2-4402-b5ec-a92a0367664b', Pid=10)
+PKEY_SFX_Offload_ProcessingModes_Supported_For_Streaming = PROPERTYKEY(Fmtid='d3993a3f-99c2-4402-b5ec-a92a0367664b', Pid=11)
+PKEY_MFX_Offload_ProcessingModes_Supported_For_Streaming = PROPERTYKEY(Fmtid='d3993a3f-99c2-4402-b5ec-a92a0367664b', Pid=12)
+PKEY_APO_SWFallback_ProcessingModes = PROPERTYKEY(Fmtid='d3993a3f-99c2-4402-b5ec-a92a0367664b', Pid=13)
 SID_AudioProcessingObjectRTQueue = '458c1a1f-6899-4c12-99ac-e2e6ac253104'
 SID_AudioProcessingObjectLoggingService = '8b8008af-09f9-456e-a173-bdb58499bce7'
 AUDIOMEDIATYPE_EQUAL_FORMAT_TYPES = 2
@@ -514,6 +544,36 @@ __all__ = [
     "AUDIO_MAX_FRAMERATE",
     "AUDIO_MIN_CHANNELS",
     "AUDIO_MAX_CHANNELS",
+    "PKEY_FX_Association",
+    "PKEY_FX_PreMixEffectClsid",
+    "PKEY_FX_PostMixEffectClsid",
+    "PKEY_FX_UserInterfaceClsid",
+    "PKEY_FX_FriendlyName",
+    "PKEY_FX_StreamEffectClsid",
+    "PKEY_FX_ModeEffectClsid",
+    "PKEY_FX_EndpointEffectClsid",
+    "PKEY_FX_KeywordDetector_StreamEffectClsid",
+    "PKEY_FX_KeywordDetector_ModeEffectClsid",
+    "PKEY_FX_KeywordDetector_EndpointEffectClsid",
+    "PKEY_FX_Offload_StreamEffectClsid",
+    "PKEY_FX_Offload_ModeEffectClsid",
+    "PKEY_CompositeFX_StreamEffectClsid",
+    "PKEY_CompositeFX_ModeEffectClsid",
+    "PKEY_CompositeFX_EndpointEffectClsid",
+    "PKEY_CompositeFX_KeywordDetector_StreamEffectClsid",
+    "PKEY_CompositeFX_KeywordDetector_ModeEffectClsid",
+    "PKEY_CompositeFX_KeywordDetector_EndpointEffectClsid",
+    "PKEY_CompositeFX_Offload_StreamEffectClsid",
+    "PKEY_CompositeFX_Offload_ModeEffectClsid",
+    "PKEY_SFX_ProcessingModes_Supported_For_Streaming",
+    "PKEY_MFX_ProcessingModes_Supported_For_Streaming",
+    "PKEY_EFX_ProcessingModes_Supported_For_Streaming",
+    "PKEY_SFX_KeywordDetector_ProcessingModes_Supported_For_Streaming",
+    "PKEY_MFX_KeywordDetector_ProcessingModes_Supported_For_Streaming",
+    "PKEY_EFX_KeywordDetector_ProcessingModes_Supported_For_Streaming",
+    "PKEY_SFX_Offload_ProcessingModes_Supported_For_Streaming",
+    "PKEY_MFX_Offload_ProcessingModes_Supported_For_Streaming",
+    "PKEY_APO_SWFallback_ProcessingModes",
     "SID_AudioProcessingObjectRTQueue",
     "SID_AudioProcessingObjectLoggingService",
     "AUDIOMEDIATYPE_EQUAL_FORMAT_TYPES",

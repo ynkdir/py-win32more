@@ -18,6 +18,15 @@ def __getattr__(name):
     return getattr(_module, name)
 def __dir__():
     return __all__
+PKEY_PhotoAcquire_RelativePathname = PROPERTYKEY(Fmtid='00f23377-7ac6-4b7a-8443-345e731fa57a', Pid=2)
+PKEY_PhotoAcquire_FinalFilename = PROPERTYKEY(Fmtid='00f23377-7ac6-4b7a-8443-345e731fa57a', Pid=3)
+PKEY_PhotoAcquire_GroupTag = PROPERTYKEY(Fmtid='00f23377-7ac6-4b7a-8443-345e731fa57a', Pid=4)
+PKEY_PhotoAcquire_TransferResult = PROPERTYKEY(Fmtid='00f23377-7ac6-4b7a-8443-345e731fa57a', Pid=5)
+PKEY_PhotoAcquire_OriginalFilename = PROPERTYKEY(Fmtid='00f23377-7ac6-4b7a-8443-345e731fa57a', Pid=6)
+PKEY_PhotoAcquire_CameraSequenceNumber = PROPERTYKEY(Fmtid='00f23377-7ac6-4b7a-8443-345e731fa57a', Pid=7)
+PKEY_PhotoAcquire_IntermediateFile = PROPERTYKEY(Fmtid='00f23377-7ac6-4b7a-8443-345e731fa57a', Pid=8)
+PKEY_PhotoAcquire_SkipImport = PROPERTYKEY(Fmtid='00f23377-7ac6-4b7a-8443-345e731fa57a', Pid=9)
+PKEY_PhotoAcquire_DuplicateDetectionID = PROPERTYKEY(Fmtid='00f23377-7ac6-4b7a-8443-345e731fa57a', Pid=10)
 PROGRESS_INDETERMINATE = -1
 PHOTOACQ_ERROR_RESTART_REQUIRED = -2147180543
 PHOTOACQ_RUN_DEFAULT = 0
@@ -255,6 +264,15 @@ def _define_IPhotoAcquirePlugin():
     IPhotoAcquirePlugin.DisplayConfigureDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(6, 'DisplayConfigureDialog', ((1, 'hWndParent'),)))
     return IPhotoAcquirePlugin
 __all__ = [
+    "PKEY_PhotoAcquire_RelativePathname",
+    "PKEY_PhotoAcquire_FinalFilename",
+    "PKEY_PhotoAcquire_GroupTag",
+    "PKEY_PhotoAcquire_TransferResult",
+    "PKEY_PhotoAcquire_OriginalFilename",
+    "PKEY_PhotoAcquire_CameraSequenceNumber",
+    "PKEY_PhotoAcquire_IntermediateFile",
+    "PKEY_PhotoAcquire_SkipImport",
+    "PKEY_PhotoAcquire_DuplicateDetectionID",
     "PROGRESS_INDETERMINATE",
     "PHOTOACQ_ERROR_RESTART_REQUIRED",
     "PHOTOACQ_RUN_DEFAULT",

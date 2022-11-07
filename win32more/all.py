@@ -43,6 +43,7 @@ from win32more.Graphics.Direct3D11 import *
 from win32more.Graphics.Direct3D11on12 import *
 from win32more.Graphics.Direct3D12 import *
 from win32more.Graphics.Direct3D9 import *
+from win32more.Graphics.Direct3D9on12 import *
 from win32more.Graphics.DirectComposition import *
 from win32more.Graphics.DirectDraw import *
 from win32more.Graphics.DirectManipulation import *

@@ -126,8 +126,24 @@ DEVICE_STATE_DISABLED = 2
 DEVICE_STATE_NOTPRESENT = 4
 DEVICE_STATE_UNPLUGGED = 8
 DEVICE_STATEMASK_ALL = 15
+PKEY_AudioEndpoint_FormFactor = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=0)
+PKEY_AudioEndpoint_ControlPanelPageProvider = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=1)
+PKEY_AudioEndpoint_Association = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=2)
+PKEY_AudioEndpoint_PhysicalSpeakers = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=3)
+PKEY_AudioEndpoint_GUID = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=4)
+PKEY_AudioEndpoint_Disable_SysFx = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=5)
 ENDPOINT_SYSFX_ENABLED = 0
 ENDPOINT_SYSFX_DISABLED = 1
+PKEY_AudioEndpoint_FullRangeSpeakers = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=6)
+PKEY_AudioEndpoint_Supports_EventDriven_Mode = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=7)
+PKEY_AudioEndpoint_JackSubType = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=8)
+PKEY_AudioEndpoint_Default_VolumeInDb = PROPERTYKEY(Fmtid='1da5d803-d492-4edd-8c23-e0c0ffee7f0e', Pid=9)
+PKEY_AudioEngine_DeviceFormat = PROPERTYKEY(Fmtid='f19f064d-082c-4e27-bc73-6882a1bb8e4c', Pid=0)
+PKEY_AudioEngine_OEMFormat = PROPERTYKEY(Fmtid='e4870e26-3cc5-4cd2-ba46-ca0a9a70ed04', Pid=3)
+PKEY_AudioEndpointLogo_IconEffects = PROPERTYKEY(Fmtid='f1ab780d-2010-4ed3-a3a6-8b87f0f0c476', Pid=0)
+PKEY_AudioEndpointLogo_IconPath = PROPERTYKEY(Fmtid='f1ab780d-2010-4ed3-a3a6-8b87f0f0c476', Pid=1)
+PKEY_AudioEndpointSettings_MenuText = PROPERTYKEY(Fmtid='14242002-0320-4de4-9555-a7d82b73c286', Pid=0)
+PKEY_AudioEndpointSettings_LaunchContract = PROPERTYKEY(Fmtid='14242002-0320-4de4-9555-a7d82b73c286', Pid=1)
 DEVINTERFACE_AUDIO_RENDER = 'e6327cad-dcec-4949-ae8a-991e976a79d2'
 DEVINTERFACE_AUDIO_CAPTURE = '2eef81be-33fa-4800-9670-1cd474972c3f'
 DEVINTERFACE_MIDI_OUTPUT = '6dc23320-ab33-4ce4-80d4-bbb3ebbf2814'
@@ -4132,8 +4148,24 @@ __all__ = [
     "DEVICE_STATE_NOTPRESENT",
     "DEVICE_STATE_UNPLUGGED",
     "DEVICE_STATEMASK_ALL",
+    "PKEY_AudioEndpoint_FormFactor",
+    "PKEY_AudioEndpoint_ControlPanelPageProvider",
+    "PKEY_AudioEndpoint_Association",
+    "PKEY_AudioEndpoint_PhysicalSpeakers",
+    "PKEY_AudioEndpoint_GUID",
+    "PKEY_AudioEndpoint_Disable_SysFx",
     "ENDPOINT_SYSFX_ENABLED",
     "ENDPOINT_SYSFX_DISABLED",
+    "PKEY_AudioEndpoint_FullRangeSpeakers",
+    "PKEY_AudioEndpoint_Supports_EventDriven_Mode",
+    "PKEY_AudioEndpoint_JackSubType",
+    "PKEY_AudioEndpoint_Default_VolumeInDb",
+    "PKEY_AudioEngine_DeviceFormat",
+    "PKEY_AudioEngine_OEMFormat",
+    "PKEY_AudioEndpointLogo_IconEffects",
+    "PKEY_AudioEndpointLogo_IconPath",
+    "PKEY_AudioEndpointSettings_MenuText",
+    "PKEY_AudioEndpointSettings_LaunchContract",
     "DEVINTERFACE_AUDIO_RENDER",
     "DEVINTERFACE_AUDIO_CAPTURE",
     "DEVINTERFACE_MIDI_OUTPUT",
