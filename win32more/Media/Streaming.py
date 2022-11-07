@@ -41,6 +41,7 @@ def _define_IMFDeviceTransform():
     IMFDeviceTransform.GetInputStreamPreferredState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.DeviceStreamState),POINTER(win32more.Media.MediaFoundation.IMFMediaType_head), use_last_error=False)(20, 'GetInputStreamPreferredState', ((1, 'dwStreamID'),(1, 'value'),(1, 'ppMediaType'),)))
     IMFDeviceTransform.FlushInputStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(21, 'FlushInputStream', ((1, 'dwStreamIndex'),(1, 'dwFlags'),)))
     IMFDeviceTransform.FlushOutputStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(22, 'FlushOutputStream', ((1, 'dwStreamIndex'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IMFDeviceTransform
 def _define_IMFDeviceTransformCallback_head():
     class IMFDeviceTransformCallback(win32more.System.Com.IUnknown_head):
@@ -49,6 +50,7 @@ def _define_IMFDeviceTransformCallback_head():
 def _define_IMFDeviceTransformCallback():
     IMFDeviceTransformCallback = win32more.Media.Streaming.IMFDeviceTransformCallback_head
     IMFDeviceTransformCallback.OnBufferSent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAttributes_head,UInt32, use_last_error=False)(3, 'OnBufferSent', ((1, 'pCallbackAttributes'),(1, 'pinId'),)))
+    win32more.System.Com.IUnknown
     return IMFDeviceTransformCallback
 MF_TRANSFER_VIDEO_FRAME_FLAGS = Int32
 MF_TRANSFER_VIDEO_FRAME_DEFAULT = 0

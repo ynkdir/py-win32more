@@ -45,6 +45,7 @@ def _define_IXpsPrintJobStream_head():
 def _define_IXpsPrintJobStream():
     IXpsPrintJobStream = win32more.Storage.Xps.Printing.IXpsPrintJobStream_head
     IXpsPrintJobStream.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Close', ()))
+    win32more.System.Com.ISequentialStream
     return IXpsPrintJobStream
 def _define_IXpsPrintJob_head():
     class IXpsPrintJob(win32more.System.Com.IUnknown_head):
@@ -54,6 +55,7 @@ def _define_IXpsPrintJob():
     IXpsPrintJob = win32more.Storage.Xps.Printing.IXpsPrintJob_head
     IXpsPrintJob.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Cancel', ()))
     IXpsPrintJob.GetJobStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.Printing.XPS_JOB_STATUS_head), use_last_error=False)(4, 'GetJobStatus', ((1, 'jobStatus'),)))
+    win32more.System.Com.IUnknown
     return IXpsPrintJob
 PrintDocumentPackageTarget = Guid('4842669e-9947-46ea-8ba2-d8cce432c2ca')
 PrintDocumentPackageTargetFactory = Guid('348ef17d-6c81-4982-92b4-ee188a43867a')
@@ -66,6 +68,7 @@ def _define_IPrintDocumentPackageTarget():
     IPrintDocumentPackageTarget.GetPackageTargetTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(3, 'GetPackageTargetTypes', ((1, 'targetCount'),(1, 'targetTypes'),)))
     IPrintDocumentPackageTarget.GetPackageTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetPackageTarget', ((1, 'guidTargetType'),(1, 'riid'),(1, 'ppvTarget'),)))
     IPrintDocumentPackageTarget.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return IPrintDocumentPackageTarget
 PrintDocumentPackageCompletion = Int32
 PrintDocumentPackageCompletion_InProgress = 0
@@ -94,6 +97,7 @@ def _define_IPrintDocumentPackageStatusEvent_head():
 def _define_IPrintDocumentPackageStatusEvent():
     IPrintDocumentPackageStatusEvent = win32more.Storage.Xps.Printing.IPrintDocumentPackageStatusEvent_head
     IPrintDocumentPackageStatusEvent.PackageStatusUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.Printing.PrintDocumentPackageStatus_head), use_last_error=False)(7, 'PackageStatusUpdated', ((1, 'packageStatus'),)))
+    win32more.System.Com.IDispatch
     return IPrintDocumentPackageStatusEvent
 def _define_IPrintDocumentPackageTargetFactory_head():
     class IPrintDocumentPackageTargetFactory(win32more.System.Com.IUnknown_head):
@@ -102,6 +106,7 @@ def _define_IPrintDocumentPackageTargetFactory_head():
 def _define_IPrintDocumentPackageTargetFactory():
     IPrintDocumentPackageTargetFactory = win32more.Storage.Xps.Printing.IPrintDocumentPackageTargetFactory_head
     IPrintDocumentPackageTargetFactory.CreateDocumentPackageTargetForPrintJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Xps.Printing.IPrintDocumentPackageTarget_head), use_last_error=False)(3, 'CreateDocumentPackageTargetForPrintJob', ((1, 'printerName'),(1, 'jobName'),(1, 'jobOutputStream'),(1, 'jobPrintTicketStream'),(1, 'docPackageTarget'),)))
+    win32more.System.Com.IUnknown
     return IPrintDocumentPackageTargetFactory
 def _define_StartXpsPrintJob():
     try:

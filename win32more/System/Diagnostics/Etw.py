@@ -2384,6 +2384,7 @@ def _define_ITraceEvent():
     ITraceEvent.SetActivityId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(12, 'SetActivityId', ((1, 'ActivityId'),)))
     ITraceEvent.SetTimeStamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.LARGE_INTEGER_head), use_last_error=False)(13, 'SetTimeStamp', ((1, 'TimeStamp'),)))
     ITraceEvent.SetProviderId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(14, 'SetProviderId', ((1, 'ProviderId'),)))
+    win32more.System.Com.IUnknown
     return ITraceEvent
 def _define_ITraceEventCallback_head():
     class ITraceEventCallback(win32more.System.Com.IUnknown_head):
@@ -2394,6 +2395,7 @@ def _define_ITraceEventCallback():
     ITraceEventCallback.OnBeginProcessTrace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Etw.ITraceEvent_head,win32more.System.Diagnostics.Etw.ITraceRelogger_head, use_last_error=False)(3, 'OnBeginProcessTrace', ((1, 'HeaderEvent'),(1, 'Relogger'),)))
     ITraceEventCallback.OnFinalizeProcessTrace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Etw.ITraceRelogger_head, use_last_error=False)(4, 'OnFinalizeProcessTrace', ((1, 'Relogger'),)))
     ITraceEventCallback.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Etw.ITraceEvent_head,win32more.System.Diagnostics.Etw.ITraceRelogger_head, use_last_error=False)(5, 'OnEvent', ((1, 'Event'),(1, 'Relogger'),)))
+    win32more.System.Com.IUnknown
     return ITraceEventCallback
 def _define_ITraceRelogger_head():
     class ITraceRelogger(win32more.System.Com.IUnknown_head):
@@ -2410,6 +2412,7 @@ def _define_ITraceRelogger():
     ITraceRelogger.SetOutputFilename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'SetOutputFilename', ((1, 'LogfileName'),)))
     ITraceRelogger.SetCompressionMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOLEAN, use_last_error=False)(10, 'SetCompressionMode', ((1, 'CompressionMode'),)))
     ITraceRelogger.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return ITraceRelogger
 def _define_StartTraceW():
     try:

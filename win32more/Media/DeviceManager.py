@@ -643,6 +643,7 @@ def _define_IWMDMMetaData():
     IWMDMMetaData.QueryByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Media.DeviceManager.WMDM_TAG_DATATYPE),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(4, 'QueryByName', ((1, 'pwszTagName'),(1, 'pType'),(1, 'pValue'),(1, 'pcbLength'),)))
     IWMDMMetaData.QueryByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(UInt16)),POINTER(win32more.Media.DeviceManager.WMDM_TAG_DATATYPE),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(5, 'QueryByIndex', ((1, 'iIndex'),(1, 'ppwszName'),(1, 'pType'),(1, 'ppValue'),(1, 'pcbLength'),)))
     IWMDMMetaData.GetItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetItemCount', ((1, 'iCount'),)))
+    win32more.System.Com.IUnknown
     return IWMDMMetaData
 def _define_IWMDeviceManager_head():
     class IWMDeviceManager(win32more.System.Com.IUnknown_head):
@@ -653,6 +654,7 @@ def _define_IWMDeviceManager():
     IWMDeviceManager.GetRevision = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetRevision', ((1, 'pdwRevision'),)))
     IWMDeviceManager.GetDeviceCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetDeviceCount', ((1, 'pdwCount'),)))
     IWMDeviceManager.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IWMDMEnumDevice_head), use_last_error=False)(5, 'EnumDevices', ((1, 'ppEnumDevice'),)))
+    win32more.System.Com.IUnknown
     return IWMDeviceManager
 def _define_IWMDeviceManager2_head():
     class IWMDeviceManager2(win32more.Media.DeviceManager.IWMDeviceManager_head):
@@ -663,6 +665,7 @@ def _define_IWMDeviceManager2():
     IWMDeviceManager2.GetDeviceFromCanonicalName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Media.DeviceManager.IWMDMDevice_head), use_last_error=False)(6, 'GetDeviceFromCanonicalName', ((1, 'pwszCanonicalName'),(1, 'ppDevice'),)))
     IWMDeviceManager2.EnumDevices2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IWMDMEnumDevice_head), use_last_error=False)(7, 'EnumDevices2', ((1, 'ppEnumDevice'),)))
     IWMDeviceManager2.Reinitialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reinitialize', ()))
+    win32more.Media.DeviceManager.IWMDeviceManager
     return IWMDeviceManager2
 def _define_IWMDeviceManager3_head():
     class IWMDeviceManager3(win32more.Media.DeviceManager.IWMDeviceManager2_head):
@@ -671,6 +674,7 @@ def _define_IWMDeviceManager3_head():
 def _define_IWMDeviceManager3():
     IWMDeviceManager3 = win32more.Media.DeviceManager.IWMDeviceManager3_head
     IWMDeviceManager3.SetDeviceEnumPreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'SetDeviceEnumPreference', ((1, 'dwEnumPref'),)))
+    win32more.Media.DeviceManager.IWMDeviceManager2
     return IWMDeviceManager3
 def _define_IWMDMStorageGlobals_head():
     class IWMDMStorageGlobals(win32more.System.Com.IUnknown_head):
@@ -685,6 +689,7 @@ def _define_IWMDMStorageGlobals():
     IWMDMStorageGlobals.GetTotalBad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(7, 'GetTotalBad', ((1, 'pdwBadLow'),(1, 'pdwBadHigh'),)))
     IWMDMStorageGlobals.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetStatus', ((1, 'pdwStatus'),)))
     IWMDMStorageGlobals.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.DeviceManager.IWMDMProgress_head, use_last_error=False)(9, 'Initialize', ((1, 'fuMode'),(1, 'pProgress'),)))
+    win32more.System.Com.IUnknown
     return IWMDMStorageGlobals
 def _define_IWMDMStorage_head():
     class IWMDMStorage(win32more.System.Com.IUnknown_head):
@@ -701,6 +706,7 @@ def _define_IWMDMStorage():
     IWMDMStorage.GetRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.DeviceManager.WMDMRIGHTS_head)),POINTER(UInt32),c_char_p_no, use_last_error=False)(9, 'GetRights', ((1, 'ppRights'),(1, 'pnRightsCount'),(1, 'abMac'),)))
     IWMDMStorage.EnumStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IWMDMEnumStorage_head), use_last_error=False)(10, 'EnumStorage', ((1, 'pEnumStorage'),)))
     IWMDMStorage.SendOpaqueCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.OPAQUECOMMAND_head), use_last_error=False)(11, 'SendOpaqueCommand', ((1, 'pCommand'),)))
+    win32more.System.Com.IUnknown
     return IWMDMStorage
 def _define_IWMDMStorage2_head():
     class IWMDMStorage2(win32more.Media.DeviceManager.IWMDMStorage_head):
@@ -711,6 +717,7 @@ def _define_IWMDMStorage2():
     IWMDMStorage2.GetStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Media.DeviceManager.IWMDMStorage_head), use_last_error=False)(12, 'GetStorage', ((1, 'pszStorageName'),(1, 'ppStorage'),)))
     IWMDMStorage2.SetAttributes2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head),POINTER(win32more.Media.DeviceManager._VIDEOINFOHEADER_head), use_last_error=False)(13, 'SetAttributes2', ((1, 'dwAttributes'),(1, 'dwAttributesEx'),(1, 'pFormat'),(1, 'pVideoFormat'),)))
     IWMDMStorage2.GetAttributes2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head),POINTER(win32more.Media.DeviceManager._VIDEOINFOHEADER_head), use_last_error=False)(14, 'GetAttributes2', ((1, 'pdwAttributes'),(1, 'pdwAttributesEx'),(1, 'pAudioFormat'),(1, 'pVideoFormat'),)))
+    win32more.Media.DeviceManager.IWMDMStorage
     return IWMDMStorage2
 def _define_IWMDMStorage3_head():
     class IWMDMStorage3(win32more.Media.DeviceManager.IWMDMStorage2_head):
@@ -722,6 +729,7 @@ def _define_IWMDMStorage3():
     IWMDMStorage3.SetMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.IWMDMMetaData_head, use_last_error=False)(16, 'SetMetadata', ((1, 'pMetadata'),)))
     IWMDMStorage3.CreateEmptyMetadataObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IWMDMMetaData_head), use_last_error=False)(17, 'CreateEmptyMetadataObject', ((1, 'ppMetadata'),)))
     IWMDMStorage3.SetEnumPreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.WMDM_STORAGE_ENUM_MODE),UInt32,POINTER(win32more.Media.DeviceManager.WMDMMetadataView), use_last_error=False)(18, 'SetEnumPreference', ((1, 'pMode'),(1, 'nViews'),(1, 'pViews'),)))
+    win32more.Media.DeviceManager.IWMDMStorage2
     return IWMDMStorage3
 def _define_IWMDMStorage4_head():
     class IWMDMStorage4(win32more.Media.DeviceManager.IWMDMStorage3_head):
@@ -735,6 +743,7 @@ def _define_IWMDMStorage4():
     IWMDMStorage4.GetSpecifiedMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Media.DeviceManager.IWMDMMetaData_head), use_last_error=False)(22, 'GetSpecifiedMetadata', ((1, 'cProperties'),(1, 'ppwszPropNames'),(1, 'ppMetadata'),)))
     IWMDMStorage4.FindStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.WMDM_FIND_SCOPE,win32more.Foundation.PWSTR,POINTER(win32more.Media.DeviceManager.IWMDMStorage_head), use_last_error=False)(23, 'FindStorage', ((1, 'findScope'),(1, 'pwszUniqueID'),(1, 'ppStorage'),)))
     IWMDMStorage4.GetParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IWMDMStorage_head), use_last_error=False)(24, 'GetParent', ((1, 'ppStorage'),)))
+    win32more.Media.DeviceManager.IWMDMStorage3
     return IWMDMStorage4
 def _define_IWMDMOperation_head():
     class IWMDMOperation(win32more.System.Com.IUnknown_head):
@@ -752,6 +761,7 @@ def _define_IWMDMOperation():
     IWMDMOperation.SetObjectTotalSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(10, 'SetObjectTotalSize', ((1, 'dwSize'),(1, 'dwSizeHigh'),)))
     IWMDMOperation.TransferObjectData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),POINTER(UInt32),c_char_p_no, use_last_error=False)(11, 'TransferObjectData', ((1, 'pData'),(1, 'pdwSize'),(1, 'abMac'),)))
     IWMDMOperation.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),win32more.System.Com.IUnknown_head, use_last_error=False)(12, 'End', ((1, 'phCompletionCode'),(1, 'pNewObject'),)))
+    win32more.System.Com.IUnknown
     return IWMDMOperation
 def _define_IWMDMOperation2_head():
     class IWMDMOperation2(win32more.Media.DeviceManager.IWMDMOperation_head):
@@ -761,6 +771,7 @@ def _define_IWMDMOperation2():
     IWMDMOperation2 = win32more.Media.DeviceManager.IWMDMOperation2_head
     IWMDMOperation2.SetObjectAttributes2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head),POINTER(win32more.Media.DeviceManager._VIDEOINFOHEADER_head), use_last_error=False)(13, 'SetObjectAttributes2', ((1, 'dwAttributes'),(1, 'dwAttributesEx'),(1, 'pFormat'),(1, 'pVideoFormat'),)))
     IWMDMOperation2.GetObjectAttributes2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head),POINTER(win32more.Media.DeviceManager._VIDEOINFOHEADER_head), use_last_error=False)(14, 'GetObjectAttributes2', ((1, 'pdwAttributes'),(1, 'pdwAttributesEx'),(1, 'pAudioFormat'),(1, 'pVideoFormat'),)))
+    win32more.Media.DeviceManager.IWMDMOperation
     return IWMDMOperation2
 def _define_IWMDMOperation3_head():
     class IWMDMOperation3(win32more.Media.DeviceManager.IWMDMOperation_head):
@@ -769,6 +780,7 @@ def _define_IWMDMOperation3_head():
 def _define_IWMDMOperation3():
     IWMDMOperation3 = win32more.Media.DeviceManager.IWMDMOperation3_head
     IWMDMOperation3.TransferObjectDataOnClearChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),POINTER(UInt32), use_last_error=False)(13, 'TransferObjectDataOnClearChannel', ((1, 'pData'),(1, 'pdwSize'),)))
+    win32more.Media.DeviceManager.IWMDMOperation
     return IWMDMOperation3
 def _define_IWMDMProgress_head():
     class IWMDMProgress(win32more.System.Com.IUnknown_head):
@@ -779,6 +791,7 @@ def _define_IWMDMProgress():
     IWMDMProgress.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'Begin', ((1, 'dwEstimatedTicks'),)))
     IWMDMProgress.Progress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Progress', ((1, 'dwTranspiredTicks'),)))
     IWMDMProgress.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'End', ()))
+    win32more.System.Com.IUnknown
     return IWMDMProgress
 def _define_IWMDMProgress2_head():
     class IWMDMProgress2(win32more.Media.DeviceManager.IWMDMProgress_head):
@@ -787,6 +800,7 @@ def _define_IWMDMProgress2_head():
 def _define_IWMDMProgress2():
     IWMDMProgress2 = win32more.Media.DeviceManager.IWMDMProgress2_head
     IWMDMProgress2.End2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(6, 'End2', ((1, 'hrCompletionCode'),)))
+    win32more.Media.DeviceManager.IWMDMProgress
     return IWMDMProgress2
 def _define_IWMDMProgress3_head():
     class IWMDMProgress3(win32more.Media.DeviceManager.IWMDMProgress2_head):
@@ -797,6 +811,7 @@ def _define_IWMDMProgress3():
     IWMDMProgress3.Begin3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,POINTER(win32more.Media.DeviceManager.OPAQUECOMMAND_head), use_last_error=False)(7, 'Begin3', ((1, 'EventId'),(1, 'dwEstimatedTicks'),(1, 'pContext'),)))
     IWMDMProgress3.Progress3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,POINTER(win32more.Media.DeviceManager.OPAQUECOMMAND_head), use_last_error=False)(8, 'Progress3', ((1, 'EventId'),(1, 'dwTranspiredTicks'),(1, 'pContext'),)))
     IWMDMProgress3.End3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.OPAQUECOMMAND_head), use_last_error=False)(9, 'End3', ((1, 'EventId'),(1, 'hrCompletionCode'),(1, 'pContext'),)))
+    win32more.Media.DeviceManager.IWMDMProgress2
     return IWMDMProgress3
 def _define_IWMDMDevice_head():
     class IWMDMDevice(win32more.System.Com.IUnknown_head):
@@ -815,6 +830,7 @@ def _define_IWMDMDevice():
     IWMDMDevice.EnumStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IWMDMEnumStorage_head), use_last_error=False)(11, 'EnumStorage', ((1, 'ppEnumStorage'),)))
     IWMDMDevice.GetFormatSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head)),POINTER(UInt32),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UInt32), use_last_error=False)(12, 'GetFormatSupport', ((1, 'ppFormatEx'),(1, 'pnFormatCount'),(1, 'pppwszMimeType'),(1, 'pnMimeTypeCount'),)))
     IWMDMDevice.SendOpaqueCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.OPAQUECOMMAND_head), use_last_error=False)(13, 'SendOpaqueCommand', ((1, 'pCommand'),)))
+    win32more.System.Com.IUnknown
     return IWMDMDevice
 def _define_IWMDMDevice2_head():
     class IWMDMDevice2(win32more.Media.DeviceManager.IWMDMDevice_head):
@@ -826,6 +842,7 @@ def _define_IWMDMDevice2():
     IWMDMDevice2.GetFormatSupport2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head)),POINTER(UInt32),POINTER(POINTER(win32more.Media.DeviceManager._VIDEOINFOHEADER_head)),POINTER(UInt32),POINTER(POINTER(win32more.Media.DeviceManager.WMFILECAPABILITIES_head)),POINTER(UInt32), use_last_error=False)(15, 'GetFormatSupport2', ((1, 'dwFlags'),(1, 'ppAudioFormatEx'),(1, 'pnAudioFormatCount'),(1, 'ppVideoFormatEx'),(1, 'pnVideoFormatCount'),(1, 'ppFileType'),(1, 'pnFileTypeCount'),)))
     IWMDMDevice2.GetSpecifyPropertyPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.ISpecifyPropertyPages_head),POINTER(POINTER(win32more.System.Com.IUnknown_head)),POINTER(UInt32), use_last_error=False)(16, 'GetSpecifyPropertyPages', ((1, 'ppSpecifyPropPages'),(1, 'pppUnknowns'),(1, 'pcUnks'),)))
     IWMDMDevice2.GetCanonicalName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(17, 'GetCanonicalName', ((1, 'pwszPnPName'),(1, 'nMaxChars'),)))
+    win32more.Media.DeviceManager.IWMDMDevice
     return IWMDMDevice2
 def _define_IWMDMDevice3_head():
     class IWMDMDevice3(win32more.Media.DeviceManager.IWMDMDevice2_head):
@@ -838,6 +855,7 @@ def _define_IWMDMDevice3():
     IWMDMDevice3.GetFormatCapability = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.WMDM_FORMATCODE,POINTER(win32more.Media.DeviceManager.WMDM_FORMAT_CAPABILITY_head), use_last_error=False)(20, 'GetFormatCapability', ((1, 'format'),(1, 'pFormatSupport'),)))
     IWMDMDevice3.DeviceIoControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(21, 'DeviceIoControl', ((1, 'dwIoControlCode'),(1, 'lpInBuffer'),(1, 'nInBufferSize'),(1, 'lpOutBuffer'),(1, 'pnOutBufferSize'),)))
     IWMDMDevice3.FindStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.WMDM_FIND_SCOPE,win32more.Foundation.PWSTR,POINTER(win32more.Media.DeviceManager.IWMDMStorage_head), use_last_error=False)(22, 'FindStorage', ((1, 'findScope'),(1, 'pwszUniqueID'),(1, 'ppStorage'),)))
+    win32more.Media.DeviceManager.IWMDMDevice2
     return IWMDMDevice3
 def _define_IWMDMDeviceSession_head():
     class IWMDMDeviceSession(win32more.System.Com.IUnknown_head):
@@ -847,6 +865,7 @@ def _define_IWMDMDeviceSession():
     IWMDMDeviceSession = win32more.Media.DeviceManager.IWMDMDeviceSession_head
     IWMDMDeviceSession.BeginSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.WMDM_SESSION_TYPE,POINTER(Byte),UInt32, use_last_error=False)(3, 'BeginSession', ((1, 'type'),(1, 'pCtx'),(1, 'dwSizeCtx'),)))
     IWMDMDeviceSession.EndSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.WMDM_SESSION_TYPE,POINTER(Byte),UInt32, use_last_error=False)(4, 'EndSession', ((1, 'type'),(1, 'pCtx'),(1, 'dwSizeCtx'),)))
+    win32more.System.Com.IUnknown
     return IWMDMDeviceSession
 def _define_IWMDMEnumDevice_head():
     class IWMDMEnumDevice(win32more.System.Com.IUnknown_head):
@@ -858,6 +877,7 @@ def _define_IWMDMEnumDevice():
     IWMDMEnumDevice.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(4, 'Skip', ((1, 'celt'),(1, 'pceltFetched'),)))
     IWMDMEnumDevice.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IWMDMEnumDevice.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IWMDMEnumDevice_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnumDevice'),)))
+    win32more.System.Com.IUnknown
     return IWMDMEnumDevice
 def _define_IWMDMDeviceControl_head():
     class IWMDMDeviceControl(win32more.System.Com.IUnknown_head):
@@ -873,6 +893,7 @@ def _define_IWMDMDeviceControl():
     IWMDMDeviceControl.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Resume', ()))
     IWMDMDeviceControl.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Stop', ()))
     IWMDMDeviceControl.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32, use_last_error=False)(10, 'Seek', ((1, 'fuMode'),(1, 'nOffset'),)))
+    win32more.System.Com.IUnknown
     return IWMDMDeviceControl
 def _define_IWMDMEnumStorage_head():
     class IWMDMEnumStorage(win32more.System.Com.IUnknown_head):
@@ -884,6 +905,7 @@ def _define_IWMDMEnumStorage():
     IWMDMEnumStorage.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(4, 'Skip', ((1, 'celt'),(1, 'pceltFetched'),)))
     IWMDMEnumStorage.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IWMDMEnumStorage.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IWMDMEnumStorage_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnumStorage'),)))
+    win32more.System.Com.IUnknown
     return IWMDMEnumStorage
 def _define_IWMDMStorageControl_head():
     class IWMDMStorageControl(win32more.System.Com.IUnknown_head):
@@ -896,6 +918,7 @@ def _define_IWMDMStorageControl():
     IWMDMStorageControl.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Media.DeviceManager.IWMDMProgress_head, use_last_error=False)(5, 'Rename', ((1, 'fuMode'),(1, 'pwszNewName'),(1, 'pProgress'),)))
     IWMDMStorageControl.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Media.DeviceManager.IWMDMProgress_head,win32more.Media.DeviceManager.IWMDMOperation_head, use_last_error=False)(6, 'Read', ((1, 'fuMode'),(1, 'pwszFile'),(1, 'pProgress'),(1, 'pOperation'),)))
     IWMDMStorageControl.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.DeviceManager.IWMDMStorage_head,win32more.Media.DeviceManager.IWMDMProgress_head, use_last_error=False)(7, 'Move', ((1, 'fuMode'),(1, 'pTargetObject'),(1, 'pProgress'),)))
+    win32more.System.Com.IUnknown
     return IWMDMStorageControl
 def _define_IWMDMStorageControl2_head():
     class IWMDMStorageControl2(win32more.Media.DeviceManager.IWMDMStorageControl_head):
@@ -904,6 +927,7 @@ def _define_IWMDMStorageControl2_head():
 def _define_IWMDMStorageControl2():
     IWMDMStorageControl2 = win32more.Media.DeviceManager.IWMDMStorageControl2_head
     IWMDMStorageControl2.Insert2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Media.DeviceManager.IWMDMOperation_head,win32more.Media.DeviceManager.IWMDMProgress_head,win32more.System.Com.IUnknown_head,POINTER(win32more.Media.DeviceManager.IWMDMStorage_head), use_last_error=False)(8, 'Insert2', ((1, 'fuMode'),(1, 'pwszFileSource'),(1, 'pwszFileDest'),(1, 'pOperation'),(1, 'pProgress'),(1, 'pUnknown'),(1, 'ppNewObject'),)))
+    win32more.Media.DeviceManager.IWMDMStorageControl
     return IWMDMStorageControl2
 def _define_IWMDMStorageControl3_head():
     class IWMDMStorageControl3(win32more.Media.DeviceManager.IWMDMStorageControl2_head):
@@ -912,6 +936,7 @@ def _define_IWMDMStorageControl3_head():
 def _define_IWMDMStorageControl3():
     IWMDMStorageControl3 = win32more.Media.DeviceManager.IWMDMStorageControl3_head
     IWMDMStorageControl3.Insert3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Media.DeviceManager.IWMDMOperation_head,win32more.Media.DeviceManager.IWMDMProgress_head,win32more.Media.DeviceManager.IWMDMMetaData_head,win32more.System.Com.IUnknown_head,POINTER(win32more.Media.DeviceManager.IWMDMStorage_head), use_last_error=False)(9, 'Insert3', ((1, 'fuMode'),(1, 'fuType'),(1, 'pwszFileSource'),(1, 'pwszFileDest'),(1, 'pOperation'),(1, 'pProgress'),(1, 'pMetaData'),(1, 'pUnknown'),(1, 'ppNewObject'),)))
+    win32more.Media.DeviceManager.IWMDMStorageControl2
     return IWMDMStorageControl3
 def _define_IWMDMObjectInfo_head():
     class IWMDMObjectInfo(win32more.System.Com.IUnknown_head):
@@ -926,6 +951,7 @@ def _define_IWMDMObjectInfo():
     IWMDMObjectInfo.GetTotalLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetTotalLength', ((1, 'pdwLength'),)))
     IWMDMObjectInfo.GetLastPlayPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetLastPlayPosition', ((1, 'pdwLastPos'),)))
     IWMDMObjectInfo.GetLongestPlayPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetLongestPlayPosition', ((1, 'pdwLongestPos'),)))
+    win32more.System.Com.IUnknown
     return IWMDMObjectInfo
 def _define_IWMDMRevoked_head():
     class IWMDMRevoked(win32more.System.Com.IUnknown_head):
@@ -934,6 +960,7 @@ def _define_IWMDMRevoked_head():
 def _define_IWMDMRevoked():
     IWMDMRevoked = win32more.Media.DeviceManager.IWMDMRevoked_head
     IWMDMRevoked.GetRevocationURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetRevocationURL', ((1, 'ppwszRevocationURL'),(1, 'pdwBufferLen'),(1, 'pdwRevokedBitFlag'),)))
+    win32more.System.Com.IUnknown
     return IWMDMRevoked
 def _define_IWMDMNotification_head():
     class IWMDMNotification(win32more.System.Com.IUnknown_head):
@@ -942,6 +969,7 @@ def _define_IWMDMNotification_head():
 def _define_IWMDMNotification():
     IWMDMNotification = win32more.Media.DeviceManager.IWMDMNotification_head
     IWMDMNotification.WMDMMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(3, 'WMDMMessage', ((1, 'dwMessageType'),(1, 'pwszCanonicalName'),)))
+    win32more.System.Com.IUnknown
     return IWMDMNotification
 def _define_WMDMDetermineMaxPropStringLen_head():
     class WMDMDetermineMaxPropStringLen(Union):
@@ -1042,6 +1070,7 @@ def _define_IMDServiceProvider():
     IMDServiceProvider = win32more.Media.DeviceManager.IMDServiceProvider_head
     IMDServiceProvider.GetDeviceCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetDeviceCount', ((1, 'pdwCount'),)))
     IMDServiceProvider.EnumDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IMDSPEnumDevice_head), use_last_error=False)(4, 'EnumDevices', ((1, 'ppEnumDevice'),)))
+    win32more.System.Com.IUnknown
     return IMDServiceProvider
 def _define_IMDServiceProvider2_head():
     class IMDServiceProvider2(win32more.Media.DeviceManager.IMDServiceProvider_head):
@@ -1050,6 +1079,7 @@ def _define_IMDServiceProvider2_head():
 def _define_IMDServiceProvider2():
     IMDServiceProvider2 = win32more.Media.DeviceManager.IMDServiceProvider2_head
     IMDServiceProvider2.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.Media.DeviceManager.IMDSPDevice_head)), use_last_error=False)(5, 'CreateDevice', ((1, 'pwszDevicePath'),(1, 'pdwCount'),(1, 'pppDeviceArray'),)))
+    win32more.Media.DeviceManager.IMDServiceProvider
     return IMDServiceProvider2
 def _define_IMDServiceProvider3_head():
     class IMDServiceProvider3(win32more.Media.DeviceManager.IMDServiceProvider2_head):
@@ -1058,6 +1088,7 @@ def _define_IMDServiceProvider3_head():
 def _define_IMDServiceProvider3():
     IMDServiceProvider3 = win32more.Media.DeviceManager.IMDServiceProvider3_head
     IMDServiceProvider3.SetDeviceEnumPreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'SetDeviceEnumPreference', ((1, 'dwEnumPref'),)))
+    win32more.Media.DeviceManager.IMDServiceProvider2
     return IMDServiceProvider3
 def _define_IMDSPEnumDevice_head():
     class IMDSPEnumDevice(win32more.System.Com.IUnknown_head):
@@ -1069,6 +1100,7 @@ def _define_IMDSPEnumDevice():
     IMDSPEnumDevice.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(4, 'Skip', ((1, 'celt'),(1, 'pceltFetched'),)))
     IMDSPEnumDevice.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IMDSPEnumDevice.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IMDSPEnumDevice_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnumDevice'),)))
+    win32more.System.Com.IUnknown
     return IMDSPEnumDevice
 def _define_IMDSPDevice_head():
     class IMDSPDevice(win32more.System.Com.IUnknown_head):
@@ -1087,6 +1119,7 @@ def _define_IMDSPDevice():
     IMDSPDevice.EnumStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IMDSPEnumStorage_head), use_last_error=False)(11, 'EnumStorage', ((1, 'ppEnumStorage'),)))
     IMDSPDevice.GetFormatSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head)),POINTER(UInt32),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UInt32), use_last_error=False)(12, 'GetFormatSupport', ((1, 'pFormatEx'),(1, 'pnFormatCount'),(1, 'pppwszMimeType'),(1, 'pnMimeTypeCount'),)))
     IMDSPDevice.SendOpaqueCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.OPAQUECOMMAND_head), use_last_error=False)(13, 'SendOpaqueCommand', ((1, 'pCommand'),)))
+    win32more.System.Com.IUnknown
     return IMDSPDevice
 def _define_IMDSPDevice2_head():
     class IMDSPDevice2(win32more.Media.DeviceManager.IMDSPDevice_head):
@@ -1098,6 +1131,7 @@ def _define_IMDSPDevice2():
     IMDSPDevice2.GetFormatSupport2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head)),POINTER(UInt32),POINTER(POINTER(win32more.Media.DeviceManager._VIDEOINFOHEADER_head)),POINTER(UInt32),POINTER(POINTER(win32more.Media.DeviceManager.WMFILECAPABILITIES_head)),POINTER(UInt32), use_last_error=False)(15, 'GetFormatSupport2', ((1, 'dwFlags'),(1, 'ppAudioFormatEx'),(1, 'pnAudioFormatCount'),(1, 'ppVideoFormatEx'),(1, 'pnVideoFormatCount'),(1, 'ppFileType'),(1, 'pnFileTypeCount'),)))
     IMDSPDevice2.GetSpecifyPropertyPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.ISpecifyPropertyPages_head),POINTER(POINTER(win32more.System.Com.IUnknown_head)),POINTER(UInt32), use_last_error=False)(16, 'GetSpecifyPropertyPages', ((1, 'ppSpecifyPropPages'),(1, 'pppUnknowns'),(1, 'pcUnks'),)))
     IMDSPDevice2.GetCanonicalName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(17, 'GetCanonicalName', ((1, 'pwszPnPName'),(1, 'nMaxChars'),)))
+    win32more.Media.DeviceManager.IMDSPDevice
     return IMDSPDevice2
 def _define_IMDSPDevice3_head():
     class IMDSPDevice3(win32more.Media.DeviceManager.IMDSPDevice2_head):
@@ -1110,6 +1144,7 @@ def _define_IMDSPDevice3():
     IMDSPDevice3.GetFormatCapability = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.WMDM_FORMATCODE,POINTER(win32more.Media.DeviceManager.WMDM_FORMAT_CAPABILITY_head), use_last_error=False)(20, 'GetFormatCapability', ((1, 'format'),(1, 'pFormatSupport'),)))
     IMDSPDevice3.DeviceIoControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(21, 'DeviceIoControl', ((1, 'dwIoControlCode'),(1, 'lpInBuffer'),(1, 'nInBufferSize'),(1, 'lpOutBuffer'),(1, 'pnOutBufferSize'),)))
     IMDSPDevice3.FindStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.WMDM_FIND_SCOPE,win32more.Foundation.PWSTR,POINTER(win32more.Media.DeviceManager.IMDSPStorage_head), use_last_error=False)(22, 'FindStorage', ((1, 'findScope'),(1, 'pwszUniqueID'),(1, 'ppStorage'),)))
+    win32more.Media.DeviceManager.IMDSPDevice2
     return IMDSPDevice3
 def _define_IMDSPDeviceControl_head():
     class IMDSPDeviceControl(win32more.System.Com.IUnknown_head):
@@ -1125,6 +1160,7 @@ def _define_IMDSPDeviceControl():
     IMDSPDeviceControl.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Resume', ()))
     IMDSPDeviceControl.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Stop', ()))
     IMDSPDeviceControl.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32, use_last_error=False)(10, 'Seek', ((1, 'fuMode'),(1, 'nOffset'),)))
+    win32more.System.Com.IUnknown
     return IMDSPDeviceControl
 def _define_IMDSPEnumStorage_head():
     class IMDSPEnumStorage(win32more.System.Com.IUnknown_head):
@@ -1136,6 +1172,7 @@ def _define_IMDSPEnumStorage():
     IMDSPEnumStorage.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(4, 'Skip', ((1, 'celt'),(1, 'pceltFetched'),)))
     IMDSPEnumStorage.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IMDSPEnumStorage.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IMDSPEnumStorage_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnumStorage'),)))
+    win32more.System.Com.IUnknown
     return IMDSPEnumStorage
 def _define_IMDSPStorage_head():
     class IMDSPStorage(win32more.System.Com.IUnknown_head):
@@ -1153,6 +1190,7 @@ def _define_IMDSPStorage():
     IMDSPStorage.CreateStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head),win32more.Foundation.PWSTR,POINTER(win32more.Media.DeviceManager.IMDSPStorage_head), use_last_error=False)(10, 'CreateStorage', ((1, 'dwAttributes'),(1, 'pFormat'),(1, 'pwszName'),(1, 'ppNewStorage'),)))
     IMDSPStorage.EnumStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IMDSPEnumStorage_head), use_last_error=False)(11, 'EnumStorage', ((1, 'ppEnumStorage'),)))
     IMDSPStorage.SendOpaqueCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.OPAQUECOMMAND_head), use_last_error=False)(12, 'SendOpaqueCommand', ((1, 'pCommand'),)))
+    win32more.System.Com.IUnknown
     return IMDSPStorage
 def _define_IMDSPStorage2_head():
     class IMDSPStorage2(win32more.Media.DeviceManager.IMDSPStorage_head):
@@ -1164,6 +1202,7 @@ def _define_IMDSPStorage2():
     IMDSPStorage2.CreateStorage2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head),POINTER(win32more.Media.DeviceManager._VIDEOINFOHEADER_head),win32more.Foundation.PWSTR,UInt64,POINTER(win32more.Media.DeviceManager.IMDSPStorage_head), use_last_error=False)(14, 'CreateStorage2', ((1, 'dwAttributes'),(1, 'dwAttributesEx'),(1, 'pAudioFormat'),(1, 'pVideoFormat'),(1, 'pwszName'),(1, 'qwFileSize'),(1, 'ppNewStorage'),)))
     IMDSPStorage2.SetAttributes2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head),POINTER(win32more.Media.DeviceManager._VIDEOINFOHEADER_head), use_last_error=False)(15, 'SetAttributes2', ((1, 'dwAttributes'),(1, 'dwAttributesEx'),(1, 'pAudioFormat'),(1, 'pVideoFormat'),)))
     IMDSPStorage2.GetAttributes2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Media.DeviceManager._WAVEFORMATEX_head),POINTER(win32more.Media.DeviceManager._VIDEOINFOHEADER_head), use_last_error=False)(16, 'GetAttributes2', ((1, 'pdwAttributes'),(1, 'pdwAttributesEx'),(1, 'pAudioFormat'),(1, 'pVideoFormat'),)))
+    win32more.Media.DeviceManager.IMDSPStorage
     return IMDSPStorage2
 def _define_IMDSPStorage3_head():
     class IMDSPStorage3(win32more.Media.DeviceManager.IMDSPStorage2_head):
@@ -1173,6 +1212,7 @@ def _define_IMDSPStorage3():
     IMDSPStorage3 = win32more.Media.DeviceManager.IMDSPStorage3_head
     IMDSPStorage3.GetMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.IWMDMMetaData_head, use_last_error=False)(17, 'GetMetadata', ((1, 'pMetadata'),)))
     IMDSPStorage3.SetMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.IWMDMMetaData_head, use_last_error=False)(18, 'SetMetadata', ((1, 'pMetadata'),)))
+    win32more.Media.DeviceManager.IMDSPStorage2
     return IMDSPStorage3
 def _define_IMDSPStorage4_head():
     class IMDSPStorage4(win32more.Media.DeviceManager.IMDSPStorage3_head):
@@ -1186,6 +1226,7 @@ def _define_IMDSPStorage4():
     IMDSPStorage4.GetSpecifiedMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),win32more.Media.DeviceManager.IWMDMMetaData_head, use_last_error=False)(22, 'GetSpecifiedMetadata', ((1, 'cProperties'),(1, 'ppwszPropNames'),(1, 'pMetadata'),)))
     IMDSPStorage4.FindStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.WMDM_FIND_SCOPE,win32more.Foundation.PWSTR,POINTER(win32more.Media.DeviceManager.IMDSPStorage_head), use_last_error=False)(23, 'FindStorage', ((1, 'findScope'),(1, 'pwszUniqueID'),(1, 'ppStorage'),)))
     IMDSPStorage4.GetParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IMDSPStorage_head), use_last_error=False)(24, 'GetParent', ((1, 'ppStorage'),)))
+    win32more.Media.DeviceManager.IMDSPStorage3
     return IMDSPStorage4
 def _define_IMDSPStorageGlobals_head():
     class IMDSPStorageGlobals(win32more.System.Com.IUnknown_head):
@@ -1202,6 +1243,7 @@ def _define_IMDSPStorageGlobals():
     IMDSPStorageGlobals.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.DeviceManager.IWMDMProgress_head, use_last_error=False)(9, 'Initialize', ((1, 'fuMode'),(1, 'pProgress'),)))
     IMDSPStorageGlobals.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IMDSPDevice_head), use_last_error=False)(10, 'GetDevice', ((1, 'ppDevice'),)))
     IMDSPStorageGlobals.GetRootStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.IMDSPStorage_head), use_last_error=False)(11, 'GetRootStorage', ((1, 'ppRoot'),)))
+    win32more.System.Com.IUnknown
     return IMDSPStorageGlobals
 def _define_IMDSPObjectInfo_head():
     class IMDSPObjectInfo(win32more.System.Com.IUnknown_head):
@@ -1216,6 +1258,7 @@ def _define_IMDSPObjectInfo():
     IMDSPObjectInfo.GetTotalLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetTotalLength', ((1, 'pdwLength'),)))
     IMDSPObjectInfo.GetLastPlayPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetLastPlayPosition', ((1, 'pdwLastPos'),)))
     IMDSPObjectInfo.GetLongestPlayPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetLongestPlayPosition', ((1, 'pdwLongestPos'),)))
+    win32more.System.Com.IUnknown
     return IMDSPObjectInfo
 def _define_IMDSPObject_head():
     class IMDSPObject(win32more.System.Com.IUnknown_head):
@@ -1231,6 +1274,7 @@ def _define_IMDSPObject():
     IMDSPObject.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.DeviceManager.IWMDMProgress_head, use_last_error=False)(8, 'Rename', ((1, 'pwszNewName'),(1, 'pProgress'),)))
     IMDSPObject.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.DeviceManager.IWMDMProgress_head,win32more.Media.DeviceManager.IMDSPStorage_head, use_last_error=False)(9, 'Move', ((1, 'fuMode'),(1, 'pProgress'),(1, 'pTarget'),)))
     IMDSPObject.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IMDSPObject
 def _define_IMDSPObject2_head():
     class IMDSPObject2(win32more.Media.DeviceManager.IMDSPObject_head):
@@ -1240,6 +1284,7 @@ def _define_IMDSPObject2():
     IMDSPObject2 = win32more.Media.DeviceManager.IMDSPObject2_head
     IMDSPObject2.ReadOnClearChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),POINTER(UInt32), use_last_error=False)(11, 'ReadOnClearChannel', ((1, 'pData'),(1, 'pdwSize'),)))
     IMDSPObject2.WriteOnClearChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),POINTER(UInt32), use_last_error=False)(12, 'WriteOnClearChannel', ((1, 'pData'),(1, 'pdwSize'),)))
+    win32more.Media.DeviceManager.IMDSPObject
     return IMDSPObject2
 def _define_IMDSPDirectTransfer_head():
     class IMDSPDirectTransfer(win32more.System.Com.IUnknown_head):
@@ -1248,6 +1293,7 @@ def _define_IMDSPDirectTransfer_head():
 def _define_IMDSPDirectTransfer():
     IMDSPDirectTransfer = win32more.Media.DeviceManager.IMDSPDirectTransfer_head
     IMDSPDirectTransfer.TransferToDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.DeviceManager.IWMDMOperation_head,UInt32,win32more.Foundation.PWSTR,win32more.Media.DeviceManager.IWMDMMetaData_head,win32more.Media.DeviceManager.IWMDMProgress_head,POINTER(win32more.Media.DeviceManager.IMDSPStorage_head), use_last_error=False)(3, 'TransferToDevice', ((1, 'pwszSourceFilePath'),(1, 'pSourceOperation'),(1, 'fuFlags'),(1, 'pwszDestinationName'),(1, 'pSourceMetaData'),(1, 'pTransferProgress'),(1, 'ppNewObject'),)))
+    win32more.System.Com.IUnknown
     return IMDSPDirectTransfer
 def _define_IMDSPRevoked_head():
     class IMDSPRevoked(win32more.System.Com.IUnknown_head):
@@ -1256,6 +1302,7 @@ def _define_IMDSPRevoked_head():
 def _define_IMDSPRevoked():
     IMDSPRevoked = win32more.Media.DeviceManager.IMDSPRevoked_head
     IMDSPRevoked.GetRevocationURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32), use_last_error=False)(3, 'GetRevocationURL', ((1, 'ppwszRevocationURL'),(1, 'pdwBufferLen'),)))
+    win32more.System.Com.IUnknown
     return IMDSPRevoked
 def _define_ISCPSecureAuthenticate_head():
     class ISCPSecureAuthenticate(win32more.System.Com.IUnknown_head):
@@ -1264,6 +1311,7 @@ def _define_ISCPSecureAuthenticate_head():
 def _define_ISCPSecureAuthenticate():
     ISCPSecureAuthenticate = win32more.Media.DeviceManager.ISCPSecureAuthenticate_head
     ISCPSecureAuthenticate.GetSecureQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.ISCPSecureQuery_head), use_last_error=False)(3, 'GetSecureQuery', ((1, 'ppSecureQuery'),)))
+    win32more.System.Com.IUnknown
     return ISCPSecureAuthenticate
 def _define_ISCPSecureAuthenticate2_head():
     class ISCPSecureAuthenticate2(win32more.Media.DeviceManager.ISCPSecureAuthenticate_head):
@@ -1272,6 +1320,7 @@ def _define_ISCPSecureAuthenticate2_head():
 def _define_ISCPSecureAuthenticate2():
     ISCPSecureAuthenticate2 = win32more.Media.DeviceManager.ISCPSecureAuthenticate2_head
     ISCPSecureAuthenticate2.GetSCPSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.ISCPSession_head), use_last_error=False)(4, 'GetSCPSession', ((1, 'ppSCPSession'),)))
+    win32more.Media.DeviceManager.ISCPSecureAuthenticate
     return ISCPSecureAuthenticate2
 def _define_ISCPSecureQuery_head():
     class ISCPSecureQuery(win32more.System.Com.IUnknown_head):
@@ -1283,6 +1332,7 @@ def _define_ISCPSecureQuery():
     ISCPSecureQuery.ExamineData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(Byte),UInt32,c_char_p_no, use_last_error=False)(4, 'ExamineData', ((1, 'fuFlags'),(1, 'pwszExtension'),(1, 'pData'),(1, 'dwSize'),(1, 'abMac'),)))
     ISCPSecureQuery.MakeDecision = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,UInt32,POINTER(Byte),UInt32,win32more.Media.DeviceManager.IMDSPStorageGlobals_head,POINTER(win32more.Media.DeviceManager.ISCPSecureExchange_head),c_char_p_no, use_last_error=False)(5, 'MakeDecision', ((1, 'fuFlags'),(1, 'pData'),(1, 'dwSize'),(1, 'dwAppSec'),(1, 'pbSPSessionKey'),(1, 'dwSessionKeyLen'),(1, 'pStorageGlobals'),(1, 'ppExchange'),(1, 'abMac'),)))
     ISCPSecureQuery.GetRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Media.DeviceManager.IMDSPStorageGlobals_head,POINTER(POINTER(win32more.Media.DeviceManager.WMDMRIGHTS_head)),POINTER(UInt32),c_char_p_no, use_last_error=False)(6, 'GetRights', ((1, 'pData'),(1, 'dwSize'),(1, 'pbSPSessionKey'),(1, 'dwSessionKeyLen'),(1, 'pStgGlobals'),(1, 'ppRights'),(1, 'pnRightsCount'),(1, 'abMac'),)))
+    win32more.System.Com.IUnknown
     return ISCPSecureQuery
 def _define_ISCPSecureQuery2_head():
     class ISCPSecureQuery2(win32more.Media.DeviceManager.ISCPSecureQuery_head):
@@ -1291,6 +1341,7 @@ def _define_ISCPSecureQuery2_head():
 def _define_ISCPSecureQuery2():
     ISCPSecureQuery2 = win32more.Media.DeviceManager.ISCPSecureQuery2_head
     ISCPSecureQuery2.MakeDecision2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,UInt32,POINTER(Byte),UInt32,win32more.Media.DeviceManager.IMDSPStorageGlobals_head,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32),POINTER(UInt32),POINTER(UInt64),win32more.System.Com.IUnknown_head,POINTER(win32more.Media.DeviceManager.ISCPSecureExchange_head),c_char_p_no, use_last_error=False)(7, 'MakeDecision2', ((1, 'fuFlags'),(1, 'pData'),(1, 'dwSize'),(1, 'dwAppSec'),(1, 'pbSPSessionKey'),(1, 'dwSessionKeyLen'),(1, 'pStorageGlobals'),(1, 'pAppCertApp'),(1, 'dwAppCertAppLen'),(1, 'pAppCertSP'),(1, 'dwAppCertSPLen'),(1, 'pszRevocationURL'),(1, 'pdwRevocationURLLen'),(1, 'pdwRevocationBitFlag'),(1, 'pqwFileSize'),(1, 'pUnknown'),(1, 'ppExchange'),(1, 'abMac'),)))
+    win32more.Media.DeviceManager.ISCPSecureQuery
     return ISCPSecureQuery2
 def _define_ISCPSecureExchange_head():
     class ISCPSecureExchange(win32more.System.Com.IUnknown_head):
@@ -1301,6 +1352,7 @@ def _define_ISCPSecureExchange():
     ISCPSecureExchange.TransferContainerData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(UInt32),c_char_p_no, use_last_error=False)(3, 'TransferContainerData', ((1, 'pData'),(1, 'dwSize'),(1, 'pfuReadyFlags'),(1, 'abMac'),)))
     ISCPSecureExchange.ObjectData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),POINTER(UInt32),c_char_p_no, use_last_error=False)(4, 'ObjectData', ((1, 'pData'),(1, 'pdwSize'),(1, 'abMac'),)))
     ISCPSecureExchange.TransferComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'TransferComplete', ()))
+    win32more.System.Com.IUnknown
     return ISCPSecureExchange
 def _define_ISCPSecureExchange2_head():
     class ISCPSecureExchange2(win32more.Media.DeviceManager.ISCPSecureExchange_head):
@@ -1309,6 +1361,7 @@ def _define_ISCPSecureExchange2_head():
 def _define_ISCPSecureExchange2():
     ISCPSecureExchange2 = win32more.Media.DeviceManager.ISCPSecureExchange2_head
     ISCPSecureExchange2.TransferContainerData2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,win32more.Media.DeviceManager.IWMDMProgress3_head,POINTER(UInt32),c_char_p_no, use_last_error=False)(6, 'TransferContainerData2', ((1, 'pData'),(1, 'dwSize'),(1, 'pProgressCallback'),(1, 'pfuReadyFlags'),(1, 'abMac'),)))
+    win32more.Media.DeviceManager.ISCPSecureExchange
     return ISCPSecureExchange2
 def _define_ISCPSecureExchange3_head():
     class ISCPSecureExchange3(win32more.Media.DeviceManager.ISCPSecureExchange2_head):
@@ -1319,6 +1372,7 @@ def _define_ISCPSecureExchange3():
     ISCPSecureExchange3.TransferContainerDataOnClearChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.IMDSPDevice_head,POINTER(Byte),UInt32,win32more.Media.DeviceManager.IWMDMProgress3_head,POINTER(UInt32), use_last_error=False)(7, 'TransferContainerDataOnClearChannel', ((1, 'pDevice'),(1, 'pData'),(1, 'dwSize'),(1, 'pProgressCallback'),(1, 'pfuReadyFlags'),)))
     ISCPSecureExchange3.GetObjectDataOnClearChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.IMDSPDevice_head,POINTER(Byte),POINTER(UInt32), use_last_error=False)(8, 'GetObjectDataOnClearChannel', ((1, 'pDevice'),(1, 'pData'),(1, 'pdwSize'),)))
     ISCPSecureExchange3.TransferCompleteForDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.IMDSPDevice_head, use_last_error=False)(9, 'TransferCompleteForDevice', ((1, 'pDevice'),)))
+    win32more.Media.DeviceManager.ISCPSecureExchange2
     return ISCPSecureExchange3
 def _define_ISCPSession_head():
     class ISCPSession(win32more.System.Com.IUnknown_head):
@@ -1329,6 +1383,7 @@ def _define_ISCPSession():
     ISCPSession.BeginSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DeviceManager.IMDSPDevice_head,POINTER(Byte),UInt32, use_last_error=False)(3, 'BeginSession', ((1, 'pIDevice'),(1, 'pCtx'),(1, 'dwSizeCtx'),)))
     ISCPSession.EndSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(4, 'EndSession', ((1, 'pCtx'),(1, 'dwSizeCtx'),)))
     ISCPSession.GetSecureQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DeviceManager.ISCPSecureQuery_head), use_last_error=False)(5, 'GetSecureQuery', ((1, 'ppSecureQuery'),)))
+    win32more.System.Com.IUnknown
     return ISCPSession
 def _define_ISCPSecureQuery3_head():
     class ISCPSecureQuery3(win32more.Media.DeviceManager.ISCPSecureQuery2_head):
@@ -1338,6 +1393,7 @@ def _define_ISCPSecureQuery3():
     ISCPSecureQuery3 = win32more.Media.DeviceManager.ISCPSecureQuery3_head
     ISCPSecureQuery3.GetRightsOnClearChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Media.DeviceManager.IMDSPStorageGlobals_head,win32more.Media.DeviceManager.IWMDMProgress3_head,POINTER(POINTER(win32more.Media.DeviceManager.WMDMRIGHTS_head)),POINTER(UInt32), use_last_error=False)(8, 'GetRightsOnClearChannel', ((1, 'pData'),(1, 'dwSize'),(1, 'pbSPSessionKey'),(1, 'dwSessionKeyLen'),(1, 'pStgGlobals'),(1, 'pProgressCallback'),(1, 'ppRights'),(1, 'pnRightsCount'),)))
     ISCPSecureQuery3.MakeDecisionOnClearChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,UInt32,POINTER(Byte),UInt32,win32more.Media.DeviceManager.IMDSPStorageGlobals_head,win32more.Media.DeviceManager.IWMDMProgress3_head,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32),POINTER(UInt32),POINTER(UInt64),win32more.System.Com.IUnknown_head,POINTER(win32more.Media.DeviceManager.ISCPSecureExchange_head), use_last_error=False)(9, 'MakeDecisionOnClearChannel', ((1, 'fuFlags'),(1, 'pData'),(1, 'dwSize'),(1, 'dwAppSec'),(1, 'pbSPSessionKey'),(1, 'dwSessionKeyLen'),(1, 'pStorageGlobals'),(1, 'pProgressCallback'),(1, 'pAppCertApp'),(1, 'dwAppCertAppLen'),(1, 'pAppCertSP'),(1, 'dwAppCertSPLen'),(1, 'pszRevocationURL'),(1, 'pdwRevocationURLLen'),(1, 'pdwRevocationBitFlag'),(1, 'pqwFileSize'),(1, 'pUnknown'),(1, 'ppExchange'),)))
+    win32more.Media.DeviceManager.ISCPSecureQuery2
     return ISCPSecureQuery3
 def _define_IComponentAuthenticate_head():
     class IComponentAuthenticate(win32more.System.Com.IUnknown_head):
@@ -1347,6 +1403,7 @@ def _define_IComponentAuthenticate():
     IComponentAuthenticate = win32more.Media.DeviceManager.IComponentAuthenticate_head
     IComponentAuthenticate.SACAuth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Byte),UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(3, 'SACAuth', ((1, 'dwProtocolID'),(1, 'dwPass'),(1, 'pbDataIn'),(1, 'dwDataInLen'),(1, 'ppbDataOut'),(1, 'pdwDataOutLen'),)))
     IComponentAuthenticate.SACGetProtocols = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt32)),POINTER(UInt32), use_last_error=False)(4, 'SACGetProtocols', ((1, 'ppdwProtocols'),(1, 'pdwProtocolCount'),)))
+    win32more.System.Com.IUnknown
     return IComponentAuthenticate
 WMDMLogger = Guid('110a3202-5a79-11d3-8d78-444553540000')
 def _define_IWMDMLogger_head():
@@ -1364,6 +1421,7 @@ def _define_IWMDMLogger():
     IWMDMLogger.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Reset', ()))
     IWMDMLogger.GetSizeParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(10, 'GetSizeParams', ((1, 'pdwMaxSize'),(1, 'pdwShrinkToSize'),)))
     IWMDMLogger.SetSizeParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(11, 'SetSizeParams', ((1, 'dwMaxSize'),(1, 'dwShrinkToSize'),)))
+    win32more.System.Com.IUnknown
     return IWMDMLogger
 def _define_MTP_COMMAND_DATA_IN_head():
     class MTP_COMMAND_DATA_IN(Structure):

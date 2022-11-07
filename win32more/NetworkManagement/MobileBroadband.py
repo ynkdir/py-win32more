@@ -24,6 +24,7 @@ def _define_IDummyMBNUCMExt_head():
     return IDummyMBNUCMExt
 def _define_IDummyMBNUCMExt():
     IDummyMBNUCMExt = win32more.NetworkManagement.MobileBroadband.IDummyMBNUCMExt_head
+    win32more.System.Com.IDispatch
     return IDummyMBNUCMExt
 MBN_SIGNAL_CONSTANTS = Int32
 MBN_RSSI_DEFAULT = -1
@@ -370,6 +371,7 @@ def _define_IMbnConnection():
     IMbnConnection.GetConnectionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_ACTIVATION_STATE),POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetConnectionState', ((1, 'ConnectionState'),(1, 'ProfileName'),)))
     IMbnConnection.GetVoiceCallState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_VOICE_CALL_STATE), use_last_error=False)(8, 'GetVoiceCallState', ((1, 'voiceCallState'),)))
     IMbnConnection.GetActivationNetworkError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetActivationNetworkError', ((1, 'networkError'),)))
+    win32more.System.Com.IUnknown
     return IMbnConnection
 def _define_IMbnConnectionEvents_head():
     class IMbnConnectionEvents(win32more.System.Com.IUnknown_head):
@@ -381,6 +383,7 @@ def _define_IMbnConnectionEvents():
     IMbnConnectionEvents.OnDisconnectComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnection_head,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnDisconnectComplete', ((1, 'newConnection'),(1, 'requestID'),(1, 'status'),)))
     IMbnConnectionEvents.OnConnectStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnection_head, use_last_error=False)(5, 'OnConnectStateChange', ((1, 'newConnection'),)))
     IMbnConnectionEvents.OnVoiceCallStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnection_head, use_last_error=False)(6, 'OnVoiceCallStateChange', ((1, 'newConnection'),)))
+    win32more.System.Com.IUnknown
     return IMbnConnectionEvents
 def _define_IMbnInterface_head():
     class IMbnInterface(win32more.System.Com.IUnknown_head):
@@ -399,6 +402,7 @@ def _define_IMbnInterface():
     IMbnInterface.GetVisibleProviders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(11, 'GetVisibleProviders', ((1, 'age'),(1, 'visibleProviders'),)))
     IMbnInterface.ScanNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'ScanNetwork', ((1, 'requestID'),)))
     IMbnInterface.GetConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.IMbnConnection_head), use_last_error=False)(13, 'GetConnection', ((1, 'mbnConnection'),)))
+    win32more.System.Com.IUnknown
     return IMbnInterface
 def _define_IMbnInterfaceEvents_head():
     class IMbnInterfaceEvents(win32more.System.Com.IUnknown_head):
@@ -414,6 +418,7 @@ def _define_IMbnInterfaceEvents():
     IMbnInterfaceEvents.OnPreferredProvidersChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnInterface_head, use_last_error=False)(8, 'OnPreferredProvidersChange', ((1, 'newInterface'),)))
     IMbnInterfaceEvents.OnSetPreferredProvidersComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnInterface_head,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(9, 'OnSetPreferredProvidersComplete', ((1, 'newInterface'),(1, 'requestID'),(1, 'status'),)))
     IMbnInterfaceEvents.OnScanNetworkComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnInterface_head,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(10, 'OnScanNetworkComplete', ((1, 'newInterface'),(1, 'requestID'),(1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IMbnInterfaceEvents
 def _define_IMbnInterfaceManager_head():
     class IMbnInterfaceManager(win32more.System.Com.IUnknown_head):
@@ -423,6 +428,7 @@ def _define_IMbnInterfaceManager():
     IMbnInterfaceManager = win32more.NetworkManagement.MobileBroadband.IMbnInterfaceManager_head
     IMbnInterfaceManager.GetInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.MobileBroadband.IMbnInterface_head), use_last_error=False)(3, 'GetInterface', ((1, 'interfaceID'),(1, 'mbnInterface'),)))
     IMbnInterfaceManager.GetInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(4, 'GetInterfaces', ((1, 'mbnInterfaces'),)))
+    win32more.System.Com.IUnknown
     return IMbnInterfaceManager
 def _define_IMbnInterfaceManagerEvents_head():
     class IMbnInterfaceManagerEvents(win32more.System.Com.IUnknown_head):
@@ -432,6 +438,7 @@ def _define_IMbnInterfaceManagerEvents():
     IMbnInterfaceManagerEvents = win32more.NetworkManagement.MobileBroadband.IMbnInterfaceManagerEvents_head
     IMbnInterfaceManagerEvents.OnInterfaceArrival = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnInterface_head, use_last_error=False)(3, 'OnInterfaceArrival', ((1, 'newInterface'),)))
     IMbnInterfaceManagerEvents.OnInterfaceRemoval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnInterface_head, use_last_error=False)(4, 'OnInterfaceRemoval', ((1, 'oldInterface'),)))
+    win32more.System.Com.IUnknown
     return IMbnInterfaceManagerEvents
 def _define_IMbnRegistration_head():
     class IMbnRegistration(win32more.System.Com.IUnknown_head):
@@ -449,6 +456,7 @@ def _define_IMbnRegistration():
     IMbnRegistration.GetRegistrationNetworkError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'GetRegistrationNetworkError', ((1, 'registrationNetworkError'),)))
     IMbnRegistration.GetPacketAttachNetworkError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(11, 'GetPacketAttachNetworkError', ((1, 'packetAttachNetworkError'),)))
     IMbnRegistration.SetRegisterMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.MBN_REGISTER_MODE,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32), use_last_error=False)(12, 'SetRegisterMode', ((1, 'registerMode'),(1, 'providerID'),(1, 'dataClass'),(1, 'requestID'),)))
+    win32more.System.Com.IUnknown
     return IMbnRegistration
 def _define_IMbnRegistrationEvents_head():
     class IMbnRegistrationEvents(win32more.System.Com.IUnknown_head):
@@ -460,6 +468,7 @@ def _define_IMbnRegistrationEvents():
     IMbnRegistrationEvents.OnRegisterStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnRegistration_head, use_last_error=False)(4, 'OnRegisterStateChange', ((1, 'newInterface'),)))
     IMbnRegistrationEvents.OnPacketServiceStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnRegistration_head, use_last_error=False)(5, 'OnPacketServiceStateChange', ((1, 'newInterface'),)))
     IMbnRegistrationEvents.OnSetRegisterModeComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnRegistration_head,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(6, 'OnSetRegisterModeComplete', ((1, 'newInterface'),(1, 'requestID'),(1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IMbnRegistrationEvents
 def _define_IMbnConnectionManager_head():
     class IMbnConnectionManager(win32more.System.Com.IUnknown_head):
@@ -469,6 +478,7 @@ def _define_IMbnConnectionManager():
     IMbnConnectionManager = win32more.NetworkManagement.MobileBroadband.IMbnConnectionManager_head
     IMbnConnectionManager.GetConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.MobileBroadband.IMbnConnection_head), use_last_error=False)(3, 'GetConnection', ((1, 'connectionID'),(1, 'mbnConnection'),)))
     IMbnConnectionManager.GetConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(4, 'GetConnections', ((1, 'mbnConnections'),)))
+    win32more.System.Com.IUnknown
     return IMbnConnectionManager
 def _define_IMbnConnectionManagerEvents_head():
     class IMbnConnectionManagerEvents(win32more.System.Com.IUnknown_head):
@@ -478,6 +488,7 @@ def _define_IMbnConnectionManagerEvents():
     IMbnConnectionManagerEvents = win32more.NetworkManagement.MobileBroadband.IMbnConnectionManagerEvents_head
     IMbnConnectionManagerEvents.OnConnectionArrival = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnection_head, use_last_error=False)(3, 'OnConnectionArrival', ((1, 'newConnection'),)))
     IMbnConnectionManagerEvents.OnConnectionRemoval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnection_head, use_last_error=False)(4, 'OnConnectionRemoval', ((1, 'oldConnection'),)))
+    win32more.System.Com.IUnknown
     return IMbnConnectionManagerEvents
 def _define_IMbnPinManager_head():
     class IMbnPinManager(win32more.System.Com.IUnknown_head):
@@ -488,6 +499,7 @@ def _define_IMbnPinManager():
     IMbnPinManager.GetPinList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetPinList', ((1, 'pinList'),)))
     IMbnPinManager.GetPin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.MBN_PIN_TYPE,POINTER(win32more.NetworkManagement.MobileBroadband.IMbnPin_head), use_last_error=False)(4, 'GetPin', ((1, 'pinType'),(1, 'pin'),)))
     IMbnPinManager.GetPinState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetPinState', ((1, 'requestID'),)))
+    win32more.System.Com.IUnknown
     return IMbnPinManager
 def _define_IMbnPinManagerEvents_head():
     class IMbnPinManagerEvents(win32more.System.Com.IUnknown_head):
@@ -497,6 +509,7 @@ def _define_IMbnPinManagerEvents():
     IMbnPinManagerEvents = win32more.NetworkManagement.MobileBroadband.IMbnPinManagerEvents_head
     IMbnPinManagerEvents.OnPinListAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnPinManager_head, use_last_error=False)(3, 'OnPinListAvailable', ((1, 'pinManager'),)))
     IMbnPinManagerEvents.OnGetPinStateComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnPinManager_head,win32more.NetworkManagement.MobileBroadband.MBN_PIN_INFO,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnGetPinStateComplete', ((1, 'pinManager'),(1, 'pinInfo'),(1, 'requestID'),(1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IMbnPinManagerEvents
 def _define_IMbnPinEvents_head():
     class IMbnPinEvents(win32more.System.Com.IUnknown_head):
@@ -509,6 +522,7 @@ def _define_IMbnPinEvents():
     IMbnPinEvents.OnEnterComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnPin_head,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_PIN_INFO_head),UInt32,win32more.Foundation.HRESULT, use_last_error=False)(5, 'OnEnterComplete', ((1, 'Pin'),(1, 'pinInfo'),(1, 'requestID'),(1, 'status'),)))
     IMbnPinEvents.OnChangeComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnPin_head,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_PIN_INFO_head),UInt32,win32more.Foundation.HRESULT, use_last_error=False)(6, 'OnChangeComplete', ((1, 'Pin'),(1, 'pinInfo'),(1, 'requestID'),(1, 'status'),)))
     IMbnPinEvents.OnUnblockComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnPin_head,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_PIN_INFO_head),UInt32,win32more.Foundation.HRESULT, use_last_error=False)(7, 'OnUnblockComplete', ((1, 'Pin'),(1, 'pinInfo'),(1, 'requestID'),(1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IMbnPinEvents
 def _define_IMbnSubscriberInformation_head():
     class IMbnSubscriberInformation(win32more.System.Com.IUnknown_head):
@@ -519,6 +533,7 @@ def _define_IMbnSubscriberInformation():
     IMbnSubscriberInformation.get_SubscriberID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_SubscriberID', ((1, 'SubscriberID'),)))
     IMbnSubscriberInformation.get_SimIccID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_SimIccID', ((1, 'SimIccID'),)))
     IMbnSubscriberInformation.get_TelephoneNumbers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(5, 'get_TelephoneNumbers', ((1, 'TelephoneNumbers'),)))
+    win32more.System.Com.IUnknown
     return IMbnSubscriberInformation
 def _define_IMbnSignal_head():
     class IMbnSignal(win32more.System.Com.IUnknown_head):
@@ -528,6 +543,7 @@ def _define_IMbnSignal():
     IMbnSignal = win32more.NetworkManagement.MobileBroadband.IMbnSignal_head
     IMbnSignal.GetSignalStrength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetSignalStrength', ((1, 'signalStrength'),)))
     IMbnSignal.GetSignalError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetSignalError', ((1, 'signalError'),)))
+    win32more.System.Com.IUnknown
     return IMbnSignal
 def _define_IMbnSignalEvents_head():
     class IMbnSignalEvents(win32more.System.Com.IUnknown_head):
@@ -536,6 +552,7 @@ def _define_IMbnSignalEvents_head():
 def _define_IMbnSignalEvents():
     IMbnSignalEvents = win32more.NetworkManagement.MobileBroadband.IMbnSignalEvents_head
     IMbnSignalEvents.OnSignalStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnSignal_head, use_last_error=False)(3, 'OnSignalStateChange', ((1, 'newInterface'),)))
+    win32more.System.Com.IUnknown
     return IMbnSignalEvents
 def _define_IMbnConnectionContext_head():
     class IMbnConnectionContext(win32more.System.Com.IUnknown_head):
@@ -545,6 +562,7 @@ def _define_IMbnConnectionContext():
     IMbnConnectionContext = win32more.NetworkManagement.MobileBroadband.IMbnConnectionContext_head
     IMbnConnectionContext.GetProvisionedContexts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetProvisionedContexts', ((1, 'provisionedContexts'),)))
     IMbnConnectionContext.SetProvisionedContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.MBN_CONTEXT,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(4, 'SetProvisionedContext', ((1, 'provisionedContexts'),(1, 'providerID'),(1, 'requestID'),)))
+    win32more.System.Com.IUnknown
     return IMbnConnectionContext
 def _define_IMbnConnectionContextEvents_head():
     class IMbnConnectionContextEvents(win32more.System.Com.IUnknown_head):
@@ -554,6 +572,7 @@ def _define_IMbnConnectionContextEvents():
     IMbnConnectionContextEvents = win32more.NetworkManagement.MobileBroadband.IMbnConnectionContextEvents_head
     IMbnConnectionContextEvents.OnProvisionedContextListChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnectionContext_head, use_last_error=False)(3, 'OnProvisionedContextListChange', ((1, 'newInterface'),)))
     IMbnConnectionContextEvents.OnSetProvisionedContextComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnectionContext_head,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnSetProvisionedContextComplete', ((1, 'newInterface'),(1, 'requestID'),(1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IMbnConnectionContextEvents
 def _define_IMbnConnectionProfileManager_head():
     class IMbnConnectionProfileManager(win32more.System.Com.IUnknown_head):
@@ -564,6 +583,7 @@ def _define_IMbnConnectionProfileManager():
     IMbnConnectionProfileManager.GetConnectionProfiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnInterface_head,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetConnectionProfiles', ((1, 'mbnInterface'),(1, 'connectionProfiles'),)))
     IMbnConnectionProfileManager.GetConnectionProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnInterface_head,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.MobileBroadband.IMbnConnectionProfile_head), use_last_error=False)(4, 'GetConnectionProfile', ((1, 'mbnInterface'),(1, 'profileName'),(1, 'connectionProfile'),)))
     IMbnConnectionProfileManager.CreateConnectionProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'CreateConnectionProfile', ((1, 'xmlProfile'),)))
+    win32more.System.Com.IUnknown
     return IMbnConnectionProfileManager
 def _define_IMbnConnectionProfile_head():
     class IMbnConnectionProfile(win32more.System.Com.IUnknown_head):
@@ -574,6 +594,7 @@ def _define_IMbnConnectionProfile():
     IMbnConnectionProfile.GetProfileXmlData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetProfileXmlData', ((1, 'profileData'),)))
     IMbnConnectionProfile.UpdateProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'UpdateProfile', ((1, 'strProfile'),)))
     IMbnConnectionProfile.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Delete', ()))
+    win32more.System.Com.IUnknown
     return IMbnConnectionProfile
 def _define_IMbnConnectionProfileEvents_head():
     class IMbnConnectionProfileEvents(win32more.System.Com.IUnknown_head):
@@ -582,6 +603,7 @@ def _define_IMbnConnectionProfileEvents_head():
 def _define_IMbnConnectionProfileEvents():
     IMbnConnectionProfileEvents = win32more.NetworkManagement.MobileBroadband.IMbnConnectionProfileEvents_head
     IMbnConnectionProfileEvents.OnProfileUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnectionProfile_head, use_last_error=False)(3, 'OnProfileUpdate', ((1, 'newProfile'),)))
+    win32more.System.Com.IUnknown
     return IMbnConnectionProfileEvents
 def _define_IMbnSmsConfiguration_head():
     class IMbnSmsConfiguration(win32more.System.Com.IUnknown_head):
@@ -595,6 +617,7 @@ def _define_IMbnSmsConfiguration():
     IMbnSmsConfiguration.get_CdmaShortMsgSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'get_CdmaShortMsgSize', ((1, 'shortMsgSize'),)))
     IMbnSmsConfiguration.get_SmsFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_SMS_FORMAT), use_last_error=False)(7, 'get_SmsFormat', ((1, 'smsFormat'),)))
     IMbnSmsConfiguration.put_SmsFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.MBN_SMS_FORMAT, use_last_error=False)(8, 'put_SmsFormat', ((1, 'smsFormat'),)))
+    win32more.System.Com.IUnknown
     return IMbnSmsConfiguration
 def _define_IMbnSmsReadMsgPdu_head():
     class IMbnSmsReadMsgPdu(win32more.System.Com.IUnknown_head):
@@ -606,6 +629,7 @@ def _define_IMbnSmsReadMsgPdu():
     IMbnSmsReadMsgPdu.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_MSG_STATUS), use_last_error=False)(4, 'get_Status', ((1, 'Status'),)))
     IMbnSmsReadMsgPdu.get_PduData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_PduData', ((1, 'PduData'),)))
     IMbnSmsReadMsgPdu.get_Message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(6, 'get_Message', ((1, 'Message'),)))
+    win32more.System.Com.IUnknown
     return IMbnSmsReadMsgPdu
 def _define_IMbnSmsReadMsgTextCdma_head():
     class IMbnSmsReadMsgTextCdma(win32more.System.Com.IUnknown_head):
@@ -621,6 +645,7 @@ def _define_IMbnSmsReadMsgTextCdma():
     IMbnSmsReadMsgTextCdma.get_LanguageID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_SMS_CDMA_LANG), use_last_error=False)(8, 'get_LanguageID', ((1, 'LanguageID'),)))
     IMbnSmsReadMsgTextCdma.get_SizeInCharacters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'get_SizeInCharacters', ((1, 'SizeInCharacters'),)))
     IMbnSmsReadMsgTextCdma.get_Message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(10, 'get_Message', ((1, 'Message'),)))
+    win32more.System.Com.IUnknown
     return IMbnSmsReadMsgTextCdma
 def _define_IMbnSms_head():
     class IMbnSms(win32more.System.Com.IUnknown_head):
@@ -636,6 +661,7 @@ def _define_IMbnSms():
     IMbnSms.SmsRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_SMS_FILTER_head),win32more.NetworkManagement.MobileBroadband.MBN_SMS_FORMAT,POINTER(UInt32), use_last_error=False)(8, 'SmsRead', ((1, 'smsFilter'),(1, 'smsFormat'),(1, 'requestID'),)))
     IMbnSms.SmsDelete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_SMS_FILTER_head),POINTER(UInt32), use_last_error=False)(9, 'SmsDelete', ((1, 'smsFilter'),(1, 'requestID'),)))
     IMbnSms.GetSmsStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_SMS_STATUS_INFO_head), use_last_error=False)(10, 'GetSmsStatus', ((1, 'smsStatusInfo'),)))
+    win32more.System.Com.IUnknown
     return IMbnSms
 def _define_IMbnSmsEvents_head():
     class IMbnSmsEvents(win32more.System.Com.IUnknown_head):
@@ -650,6 +676,7 @@ def _define_IMbnSmsEvents():
     IMbnSmsEvents.OnSmsNewClass0Message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnSms_head,win32more.NetworkManagement.MobileBroadband.MBN_SMS_FORMAT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(7, 'OnSmsNewClass0Message', ((1, 'sms'),(1, 'smsFormat'),(1, 'readMsgs'),)))
     IMbnSmsEvents.OnSmsDeleteComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnSms_head,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(8, 'OnSmsDeleteComplete', ((1, 'sms'),(1, 'requestID'),(1, 'status'),)))
     IMbnSmsEvents.OnSmsStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnSms_head, use_last_error=False)(9, 'OnSmsStatusChange', ((1, 'sms'),)))
+    win32more.System.Com.IUnknown
     return IMbnSmsEvents
 def _define_IMbnServiceActivation_head():
     class IMbnServiceActivation(win32more.System.Com.IUnknown_head):
@@ -658,6 +685,7 @@ def _define_IMbnServiceActivation_head():
 def _define_IMbnServiceActivation():
     IMbnServiceActivation = win32more.NetworkManagement.MobileBroadband.IMbnServiceActivation_head
     IMbnServiceActivation.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(UInt32), use_last_error=False)(3, 'Activate', ((1, 'vendorSpecificData'),(1, 'requestID'),)))
+    win32more.System.Com.IUnknown
     return IMbnServiceActivation
 def _define_IMbnServiceActivationEvents_head():
     class IMbnServiceActivationEvents(win32more.System.Com.IUnknown_head):
@@ -666,6 +694,7 @@ def _define_IMbnServiceActivationEvents_head():
 def _define_IMbnServiceActivationEvents():
     IMbnServiceActivationEvents = win32more.NetworkManagement.MobileBroadband.IMbnServiceActivationEvents_head
     IMbnServiceActivationEvents.OnActivationComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnServiceActivation_head,POINTER(win32more.System.Com.SAFEARRAY_head),UInt32,win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'OnActivationComplete', ((1, 'serviceActivation'),(1, 'vendorSpecificData'),(1, 'requestID'),(1, 'status'),(1, 'networkError'),)))
+    win32more.System.Com.IUnknown
     return IMbnServiceActivationEvents
 def _define_IMbnVendorSpecificOperation_head():
     class IMbnVendorSpecificOperation(win32more.System.Com.IUnknown_head):
@@ -674,6 +703,7 @@ def _define_IMbnVendorSpecificOperation_head():
 def _define_IMbnVendorSpecificOperation():
     IMbnVendorSpecificOperation = win32more.NetworkManagement.MobileBroadband.IMbnVendorSpecificOperation_head
     IMbnVendorSpecificOperation.SetVendorSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head),POINTER(UInt32), use_last_error=False)(3, 'SetVendorSpecific', ((1, 'vendorSpecificData'),(1, 'requestID'),)))
+    win32more.System.Com.IUnknown
     return IMbnVendorSpecificOperation
 def _define_IMbnVendorSpecificEvents_head():
     class IMbnVendorSpecificEvents(win32more.System.Com.IUnknown_head):
@@ -683,6 +713,7 @@ def _define_IMbnVendorSpecificEvents():
     IMbnVendorSpecificEvents = win32more.NetworkManagement.MobileBroadband.IMbnVendorSpecificEvents_head
     IMbnVendorSpecificEvents.OnEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnVendorSpecificOperation_head,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(3, 'OnEventNotification', ((1, 'vendorOperation'),(1, 'vendorSpecificData'),)))
     IMbnVendorSpecificEvents.OnSetVendorSpecificComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnVendorSpecificOperation_head,POINTER(win32more.System.Com.SAFEARRAY_head),UInt32, use_last_error=False)(4, 'OnSetVendorSpecificComplete', ((1, 'vendorOperation'),(1, 'vendorSpecificData'),(1, 'requestID'),)))
+    win32more.System.Com.IUnknown
     return IMbnVendorSpecificEvents
 def _define_IMbnConnectionProfileManagerEvents_head():
     class IMbnConnectionProfileManagerEvents(win32more.System.Com.IUnknown_head):
@@ -692,6 +723,7 @@ def _define_IMbnConnectionProfileManagerEvents():
     IMbnConnectionProfileManagerEvents = win32more.NetworkManagement.MobileBroadband.IMbnConnectionProfileManagerEvents_head
     IMbnConnectionProfileManagerEvents.OnConnectionProfileArrival = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnectionProfile_head, use_last_error=False)(3, 'OnConnectionProfileArrival', ((1, 'newConnectionProfile'),)))
     IMbnConnectionProfileManagerEvents.OnConnectionProfileRemoval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnConnectionProfile_head, use_last_error=False)(4, 'OnConnectionProfileRemoval', ((1, 'oldConnectionProfile'),)))
+    win32more.System.Com.IUnknown
     return IMbnConnectionProfileManagerEvents
 def _define_IMbnRadio_head():
     class IMbnRadio(win32more.System.Com.IUnknown_head):
@@ -702,6 +734,7 @@ def _define_IMbnRadio():
     IMbnRadio.get_SoftwareRadioState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_RADIO), use_last_error=False)(3, 'get_SoftwareRadioState', ((1, 'SoftwareRadioState'),)))
     IMbnRadio.get_HardwareRadioState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_RADIO), use_last_error=False)(4, 'get_HardwareRadioState', ((1, 'HardwareRadioState'),)))
     IMbnRadio.SetSoftwareRadioState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.MBN_RADIO,POINTER(UInt32), use_last_error=False)(5, 'SetSoftwareRadioState', ((1, 'radioState'),(1, 'requestID'),)))
+    win32more.System.Com.IUnknown
     return IMbnRadio
 def _define_IMbnRadioEvents_head():
     class IMbnRadioEvents(win32more.System.Com.IUnknown_head):
@@ -711,6 +744,7 @@ def _define_IMbnRadioEvents():
     IMbnRadioEvents = win32more.NetworkManagement.MobileBroadband.IMbnRadioEvents_head
     IMbnRadioEvents.OnRadioStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnRadio_head, use_last_error=False)(3, 'OnRadioStateChange', ((1, 'newInterface'),)))
     IMbnRadioEvents.OnSetSoftwareRadioStateComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnRadio_head,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnSetSoftwareRadioStateComplete', ((1, 'newInterface'),(1, 'requestID'),(1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IMbnRadioEvents
 def _define_IMbnMultiCarrier_head():
     class IMbnMultiCarrier(win32more.System.Com.IUnknown_head):
@@ -724,6 +758,7 @@ def _define_IMbnMultiCarrier():
     IMbnMultiCarrier.GetSupportedCellularClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(6, 'GetSupportedCellularClasses', ((1, 'cellularClasses'),)))
     IMbnMultiCarrier.GetCurrentCellularClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.MBN_CELLULAR_CLASS), use_last_error=False)(7, 'GetCurrentCellularClass', ((1, 'currentCellularClass'),)))
     IMbnMultiCarrier.ScanNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'ScanNetwork', ((1, 'requestID'),)))
+    win32more.System.Com.IUnknown
     return IMbnMultiCarrier
 def _define_IMbnMultiCarrierEvents_head():
     class IMbnMultiCarrierEvents(win32more.System.Com.IUnknown_head):
@@ -736,6 +771,7 @@ def _define_IMbnMultiCarrierEvents():
     IMbnMultiCarrierEvents.OnPreferredProvidersChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnMultiCarrier_head, use_last_error=False)(5, 'OnPreferredProvidersChange', ((1, 'mbnInterface'),)))
     IMbnMultiCarrierEvents.OnScanNetworkComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnMultiCarrier_head,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(6, 'OnScanNetworkComplete', ((1, 'mbnInterface'),(1, 'requestID'),(1, 'status'),)))
     IMbnMultiCarrierEvents.OnInterfaceCapabilityChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnMultiCarrier_head, use_last_error=False)(7, 'OnInterfaceCapabilityChange', ((1, 'mbnInterface'),)))
+    win32more.System.Com.IUnknown
     return IMbnMultiCarrierEvents
 def _define_IMbnDeviceServiceStateEvents_head():
     class IMbnDeviceServiceStateEvents(win32more.System.Com.IUnknown_head):
@@ -744,6 +780,7 @@ def _define_IMbnDeviceServiceStateEvents_head():
 def _define_IMbnDeviceServiceStateEvents():
     IMbnDeviceServiceStateEvents = win32more.NetworkManagement.MobileBroadband.IMbnDeviceServiceStateEvents_head
     IMbnDeviceServiceStateEvents.OnSessionsStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.NetworkManagement.MobileBroadband.MBN_DEVICE_SERVICE_SESSIONS_STATE, use_last_error=False)(3, 'OnSessionsStateChange', ((1, 'interfaceID'),(1, 'stateChange'),)))
+    win32more.System.Com.IUnknown
     return IMbnDeviceServiceStateEvents
 def _define_IMbnDeviceServicesManager_head():
     class IMbnDeviceServicesManager(win32more.System.Com.IUnknown_head):
@@ -752,6 +789,7 @@ def _define_IMbnDeviceServicesManager_head():
 def _define_IMbnDeviceServicesManager():
     IMbnDeviceServicesManager = win32more.NetworkManagement.MobileBroadband.IMbnDeviceServicesManager_head
     IMbnDeviceServicesManager.GetDeviceServicesContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.MobileBroadband.IMbnDeviceServicesContext_head), use_last_error=False)(3, 'GetDeviceServicesContext', ((1, 'networkInterfaceID'),(1, 'mbnDevicesContext'),)))
+    win32more.System.Com.IUnknown
     return IMbnDeviceServicesManager
 def _define_IMbnDeviceServicesContext_head():
     class IMbnDeviceServicesContext(win32more.System.Com.IUnknown_head):
@@ -763,6 +801,7 @@ def _define_IMbnDeviceServicesContext():
     IMbnDeviceServicesContext.GetDeviceService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.MobileBroadband.IMbnDeviceService_head), use_last_error=False)(4, 'GetDeviceService', ((1, 'deviceServiceID'),(1, 'mbnDeviceService'),)))
     IMbnDeviceServicesContext.get_MaxCommandSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'get_MaxCommandSize', ((1, 'maxCommandSize'),)))
     IMbnDeviceServicesContext.get_MaxDataSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'get_MaxDataSize', ((1, 'maxDataSize'),)))
+    win32more.System.Com.IUnknown
     return IMbnDeviceServicesContext
 def _define_IMbnDeviceServicesEvents_head():
     class IMbnDeviceServicesEvents(win32more.System.Com.IUnknown_head):
@@ -781,6 +820,7 @@ def _define_IMbnDeviceServicesEvents():
     IMbnDeviceServicesEvents.OnWriteDataComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnDeviceService_head,win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'OnWriteDataComplete', ((1, 'deviceService'),(1, 'status'),(1, 'requestID'),)))
     IMbnDeviceServicesEvents.OnReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.MobileBroadband.IMbnDeviceService_head,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(12, 'OnReadData', ((1, 'deviceService'),(1, 'deviceServiceData'),)))
     IMbnDeviceServicesEvents.OnInterfaceStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.NetworkManagement.MobileBroadband.MBN_DEVICE_SERVICES_INTERFACE_STATE, use_last_error=False)(13, 'OnInterfaceStateChange', ((1, 'interfaceID'),(1, 'stateChange'),)))
+    win32more.System.Com.IUnknown
     return IMbnDeviceServicesEvents
 def _define_IMbnDeviceService_head():
     class IMbnDeviceService(win32more.System.Com.IUnknown_head):
@@ -800,6 +840,7 @@ def _define_IMbnDeviceService():
     IMbnDeviceService.get_DeviceServiceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_DeviceServiceID', ((1, 'DeviceServiceID'),)))
     IMbnDeviceService.get_IsCommandSessionOpen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(13, 'get_IsCommandSessionOpen', ((1, 'value'),)))
     IMbnDeviceService.get_IsDataSessionOpen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(14, 'get_IsDataSessionOpen', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IMbnDeviceService
 def _define___mbnapi_ReferenceRemainingTypes___head():
     class __mbnapi_ReferenceRemainingTypes__(Structure):
@@ -851,6 +892,7 @@ def _define_IMbnPin():
     IMbnPin.Change = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(11, 'Change', ((1, 'pin'),(1, 'newPin'),(1, 'requestID'),)))
     IMbnPin.Unblock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(12, 'Unblock', ((1, 'puk'),(1, 'newPin'),(1, 'requestID'),)))
     IMbnPin.GetPinManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.MobileBroadband.IMbnPinManager_head), use_last_error=False)(13, 'GetPinManager', ((1, 'pinManager'),)))
+    win32more.System.Com.IUnknown
     return IMbnPin
 __all__ = [
     "MbnConnectionProfileManager",

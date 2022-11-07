@@ -108,6 +108,7 @@ def _define_ILocationReport():
     ILocationReport.GetSensorID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetSensorID', ((1, 'pSensorID'),)))
     ILocationReport.GetTimestamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(4, 'GetTimestamp', ((1, 'pCreationTime'),)))
     ILocationReport.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'GetValue', ((1, 'pKey'),(1, 'pValue'),)))
+    win32more.System.Com.IUnknown
     return ILocationReport
 def _define_ILatLongReport_head():
     class ILatLongReport(win32more.Devices.Geolocation.ILocationReport_head):
@@ -120,6 +121,7 @@ def _define_ILatLongReport():
     ILatLongReport.GetErrorRadius = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(8, 'GetErrorRadius', ((1, 'pErrorRadius'),)))
     ILatLongReport.GetAltitude = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(9, 'GetAltitude', ((1, 'pAltitude'),)))
     ILatLongReport.GetAltitudeError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(10, 'GetAltitudeError', ((1, 'pAltitudeError'),)))
+    win32more.Devices.Geolocation.ILocationReport
     return ILatLongReport
 def _define_ICivicAddressReport_head():
     class ICivicAddressReport(win32more.Devices.Geolocation.ILocationReport_head):
@@ -134,6 +136,7 @@ def _define_ICivicAddressReport():
     ICivicAddressReport.GetPostalCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'GetPostalCode', ((1, 'pbstrPostalCode'),)))
     ICivicAddressReport.GetCountryRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'GetCountryRegion', ((1, 'pbstrCountryRegion'),)))
     ICivicAddressReport.GetDetailLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'GetDetailLevel', ((1, 'pDetailLevel'),)))
+    win32more.Devices.Geolocation.ILocationReport
     return ICivicAddressReport
 def _define_ILocation_head():
     class ILocation(win32more.System.Com.IUnknown_head):
@@ -150,6 +153,7 @@ def _define_ILocation():
     ILocation.GetDesiredAccuracy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.Sensors.LOCATION_DESIRED_ACCURACY), use_last_error=False)(9, 'GetDesiredAccuracy', ((1, 'reportType'),(1, 'pDesiredAccuracy'),)))
     ILocation.SetDesiredAccuracy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Devices.Sensors.LOCATION_DESIRED_ACCURACY, use_last_error=False)(10, 'SetDesiredAccuracy', ((1, 'reportType'),(1, 'desiredAccuracy'),)))
     ILocation.RequestPermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),UInt32,win32more.Foundation.BOOL, use_last_error=False)(11, 'RequestPermissions', ((1, 'hParent'),(1, 'pReportTypes'),(1, 'count'),(1, 'fModal'),)))
+    win32more.System.Com.IUnknown
     return ILocation
 def _define_ILocationPower_head():
     class ILocationPower(win32more.System.Com.IUnknown_head):
@@ -159,6 +163,7 @@ def _define_ILocationPower():
     ILocationPower = win32more.Devices.Geolocation.ILocationPower_head
     ILocationPower.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Connect', ()))
     ILocationPower.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Disconnect', ()))
+    win32more.System.Com.IUnknown
     return ILocationPower
 def _define_IDefaultLocation_head():
     class IDefaultLocation(win32more.System.Com.IUnknown_head):
@@ -168,6 +173,7 @@ def _define_IDefaultLocation():
     IDefaultLocation = win32more.Devices.Geolocation.IDefaultLocation_head
     IDefaultLocation.SetReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Devices.Geolocation.ILocationReport_head, use_last_error=False)(3, 'SetReport', ((1, 'reportType'),(1, 'pLocationReport'),)))
     IDefaultLocation.GetReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.Geolocation.ILocationReport_head), use_last_error=False)(4, 'GetReport', ((1, 'reportType'),(1, 'ppLocationReport'),)))
+    win32more.System.Com.IUnknown
     return IDefaultLocation
 def _define_ILocationEvents_head():
     class ILocationEvents(win32more.System.Com.IUnknown_head):
@@ -177,6 +183,7 @@ def _define_ILocationEvents():
     ILocationEvents = win32more.Devices.Geolocation.ILocationEvents_head
     ILocationEvents.OnLocationChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Devices.Geolocation.ILocationReport_head, use_last_error=False)(3, 'OnLocationChanged', ((1, 'reportType'),(1, 'pLocationReport'),)))
     ILocationEvents.OnStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Devices.Geolocation.LOCATION_REPORT_STATUS, use_last_error=False)(4, 'OnStatusChanged', ((1, 'reportType'),(1, 'newStatus'),)))
+    win32more.System.Com.IUnknown
     return ILocationEvents
 def _define_IDispLatLongReport_head():
     class IDispLatLongReport(win32more.System.Com.IDispatch_head):
@@ -190,6 +197,7 @@ def _define_IDispLatLongReport():
     IDispLatLongReport.get_Altitude = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(10, 'get_Altitude', ((1, 'pVal'),)))
     IDispLatLongReport.get_AltitudeError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(11, 'get_AltitudeError', ((1, 'pVal'),)))
     IDispLatLongReport.get_Timestamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(12, 'get_Timestamp', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IDispLatLongReport
 def _define_IDispCivicAddressReport_head():
     class IDispCivicAddressReport(win32more.System.Com.IDispatch_head):
@@ -205,6 +213,7 @@ def _define_IDispCivicAddressReport():
     IDispCivicAddressReport.get_CountryRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_CountryRegion', ((1, 'pCountryRegion'),)))
     IDispCivicAddressReport.get_DetailLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(13, 'get_DetailLevel', ((1, 'pDetailLevel'),)))
     IDispCivicAddressReport.get_Timestamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(14, 'get_Timestamp', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IDispCivicAddressReport
 def _define_ILocationReportFactory_head():
     class ILocationReportFactory(win32more.System.Com.IDispatch_head):
@@ -220,6 +229,7 @@ def _define_ILocationReportFactory():
     ILocationReportFactory.get_DesiredAccuracy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_DesiredAccuracy', ((1, 'pDesiredAccuracy'),)))
     ILocationReportFactory.put_DesiredAccuracy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(13, 'put_DesiredAccuracy', ((1, 'desiredAccuracy'),)))
     ILocationReportFactory.RequestPermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'RequestPermissions', ((1, 'hWnd'),)))
+    win32more.System.Com.IDispatch
     return ILocationReportFactory
 def _define_ILatLongReportFactory_head():
     class ILatLongReportFactory(win32more.Devices.Geolocation.ILocationReportFactory_head):
@@ -228,6 +238,7 @@ def _define_ILatLongReportFactory_head():
 def _define_ILatLongReportFactory():
     ILatLongReportFactory = win32more.Devices.Geolocation.ILatLongReportFactory_head
     ILatLongReportFactory.get_LatLongReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Geolocation.IDispLatLongReport_head), use_last_error=False)(15, 'get_LatLongReport', ((1, 'pVal'),)))
+    win32more.Devices.Geolocation.ILocationReportFactory
     return ILatLongReportFactory
 def _define_ICivicAddressReportFactory_head():
     class ICivicAddressReportFactory(win32more.Devices.Geolocation.ILocationReportFactory_head):
@@ -236,6 +247,7 @@ def _define_ICivicAddressReportFactory_head():
 def _define_ICivicAddressReportFactory():
     ICivicAddressReportFactory = win32more.Devices.Geolocation.ICivicAddressReportFactory_head
     ICivicAddressReportFactory.get_CivicAddressReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Geolocation.IDispCivicAddressReport_head), use_last_error=False)(15, 'get_CivicAddressReport', ((1, 'pVal'),)))
+    win32more.Devices.Geolocation.ILocationReportFactory
     return ICivicAddressReportFactory
 def _define__ILatLongReportFactoryEvents_head():
     class _ILatLongReportFactoryEvents(win32more.System.Com.IDispatch_head):
@@ -243,6 +255,7 @@ def _define__ILatLongReportFactoryEvents_head():
     return _ILatLongReportFactoryEvents
 def _define__ILatLongReportFactoryEvents():
     _ILatLongReportFactoryEvents = win32more.Devices.Geolocation._ILatLongReportFactoryEvents_head
+    win32more.System.Com.IDispatch
     return _ILatLongReportFactoryEvents
 def _define__ICivicAddressReportFactoryEvents_head():
     class _ICivicAddressReportFactoryEvents(win32more.System.Com.IDispatch_head):
@@ -250,6 +263,7 @@ def _define__ICivicAddressReportFactoryEvents_head():
     return _ICivicAddressReportFactoryEvents
 def _define__ICivicAddressReportFactoryEvents():
     _ICivicAddressReportFactoryEvents = win32more.Devices.Geolocation._ICivicAddressReportFactoryEvents_head
+    win32more.System.Com.IDispatch
     return _ICivicAddressReportFactoryEvents
 def _define_GNSS_SUPL_VERSION_head():
     class GNSS_SUPL_VERSION(Structure):

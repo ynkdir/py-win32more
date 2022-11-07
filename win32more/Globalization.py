@@ -1307,6 +1307,7 @@ def _define_ISpellingError():
     ISpellingError.get_Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'get_Length', ((1, 'value'),)))
     ISpellingError.get_CorrectiveAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Globalization.CORRECTIVE_ACTION), use_last_error=False)(5, 'get_CorrectiveAction', ((1, 'value'),)))
     ISpellingError.get_Replacement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'get_Replacement', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return ISpellingError
 def _define_IEnumSpellingError_head():
     class IEnumSpellingError(win32more.System.Com.IUnknown_head):
@@ -1315,6 +1316,7 @@ def _define_IEnumSpellingError_head():
 def _define_IEnumSpellingError():
     IEnumSpellingError = win32more.Globalization.IEnumSpellingError_head
     IEnumSpellingError.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Globalization.ISpellingError_head), use_last_error=False)(3, 'Next', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IEnumSpellingError
 def _define_IOptionDescription_head():
     class IOptionDescription(win32more.System.Com.IUnknown_head):
@@ -1326,6 +1328,7 @@ def _define_IOptionDescription():
     IOptionDescription.get_Heading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'get_Heading', ((1, 'value'),)))
     IOptionDescription.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'get_Description', ((1, 'value'),)))
     IOptionDescription.get_Labels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head), use_last_error=False)(6, 'get_Labels', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IOptionDescription
 def _define_ISpellCheckerChangedEventHandler_head():
     class ISpellCheckerChangedEventHandler(win32more.System.Com.IUnknown_head):
@@ -1334,6 +1337,7 @@ def _define_ISpellCheckerChangedEventHandler_head():
 def _define_ISpellCheckerChangedEventHandler():
     ISpellCheckerChangedEventHandler = win32more.Globalization.ISpellCheckerChangedEventHandler_head
     ISpellCheckerChangedEventHandler.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.ISpellChecker_head, use_last_error=False)(3, 'Invoke', ((1, 'sender'),)))
+    win32more.System.Com.IUnknown
     return ISpellCheckerChangedEventHandler
 def _define_ISpellChecker_head():
     class ISpellChecker(win32more.System.Com.IUnknown_head):
@@ -1355,6 +1359,7 @@ def _define_ISpellChecker():
     ISpellChecker.remove_SpellCheckerChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(14, 'remove_SpellCheckerChanged', ((1, 'eventCookie'),)))
     ISpellChecker.GetOptionDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Globalization.IOptionDescription_head), use_last_error=False)(15, 'GetOptionDescription', ((1, 'optionId'),(1, 'value'),)))
     ISpellChecker.ComprehensiveCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Globalization.IEnumSpellingError_head), use_last_error=False)(16, 'ComprehensiveCheck', ((1, 'text'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return ISpellChecker
 def _define_ISpellChecker2_head():
     class ISpellChecker2(win32more.Globalization.ISpellChecker_head):
@@ -1363,6 +1368,7 @@ def _define_ISpellChecker2_head():
 def _define_ISpellChecker2():
     ISpellChecker2 = win32more.Globalization.ISpellChecker2_head
     ISpellChecker2.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(17, 'Remove', ((1, 'word'),)))
+    win32more.Globalization.ISpellChecker
     return ISpellChecker2
 def _define_ISpellCheckerFactory_head():
     class ISpellCheckerFactory(win32more.System.Com.IUnknown_head):
@@ -1373,6 +1379,7 @@ def _define_ISpellCheckerFactory():
     ISpellCheckerFactory.get_SupportedLanguages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head), use_last_error=False)(3, 'get_SupportedLanguages', ((1, 'value'),)))
     ISpellCheckerFactory.IsSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsSupported', ((1, 'languageTag'),(1, 'value'),)))
     ISpellCheckerFactory.CreateSpellChecker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Globalization.ISpellChecker_head), use_last_error=False)(5, 'CreateSpellChecker', ((1, 'languageTag'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return ISpellCheckerFactory
 def _define_IUserDictionariesRegistrar_head():
     class IUserDictionariesRegistrar(win32more.System.Com.IUnknown_head):
@@ -1382,6 +1389,7 @@ def _define_IUserDictionariesRegistrar():
     IUserDictionariesRegistrar = win32more.Globalization.IUserDictionariesRegistrar_head
     IUserDictionariesRegistrar.RegisterUserDictionary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'RegisterUserDictionary', ((1, 'dictionaryPath'),(1, 'languageTag'),)))
     IUserDictionariesRegistrar.UnregisterUserDictionary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'UnregisterUserDictionary', ((1, 'dictionaryPath'),(1, 'languageTag'),)))
+    win32more.System.Com.IUnknown
     return IUserDictionariesRegistrar
 def _define_ISpellCheckProvider_head():
     class ISpellCheckProvider(win32more.System.Com.IUnknown_head):
@@ -1399,6 +1407,7 @@ def _define_ISpellCheckProvider():
     ISpellCheckProvider.get_LocalizedName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'get_LocalizedName', ((1, 'value'),)))
     ISpellCheckProvider.GetOptionDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Globalization.IOptionDescription_head), use_last_error=False)(11, 'GetOptionDescription', ((1, 'optionId'),(1, 'value'),)))
     ISpellCheckProvider.InitializeWordlist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.WORDLIST_TYPE,win32more.System.Com.IEnumString_head, use_last_error=False)(12, 'InitializeWordlist', ((1, 'wordlistType'),(1, 'words'),)))
+    win32more.System.Com.IUnknown
     return ISpellCheckProvider
 def _define_IComprehensiveSpellCheckProvider_head():
     class IComprehensiveSpellCheckProvider(win32more.System.Com.IUnknown_head):
@@ -1407,6 +1416,7 @@ def _define_IComprehensiveSpellCheckProvider_head():
 def _define_IComprehensiveSpellCheckProvider():
     IComprehensiveSpellCheckProvider = win32more.Globalization.IComprehensiveSpellCheckProvider_head
     IComprehensiveSpellCheckProvider.ComprehensiveCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Globalization.IEnumSpellingError_head), use_last_error=False)(3, 'ComprehensiveCheck', ((1, 'text'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IComprehensiveSpellCheckProvider
 def _define_ISpellCheckProviderFactory_head():
     class ISpellCheckProviderFactory(win32more.System.Com.IUnknown_head):
@@ -1417,6 +1427,7 @@ def _define_ISpellCheckProviderFactory():
     ISpellCheckProviderFactory.get_SupportedLanguages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head), use_last_error=False)(3, 'get_SupportedLanguages', ((1, 'value'),)))
     ISpellCheckProviderFactory.IsSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsSupported', ((1, 'languageTag'),(1, 'value'),)))
     ISpellCheckProviderFactory.CreateSpellCheckProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Globalization.ISpellCheckProvider_head), use_last_error=False)(5, 'CreateSpellCheckProvider', ((1, 'languageTag'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return ISpellCheckProviderFactory
 def _define_SCRIPT_CONTROL_head():
     class SCRIPT_CONTROL(Structure):
@@ -4317,6 +4328,7 @@ def _define_IMLangStringBufW():
     IMLangStringBufW.UnlockBuf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,Int32, use_last_error=False)(5, 'UnlockBuf', ((1, 'pszBuf'),(1, 'cchOffset'),(1, 'cchWrite'),)))
     IMLangStringBufW.Insert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(Int32), use_last_error=False)(6, 'Insert', ((1, 'cchOffset'),(1, 'cchMaxInsert'),(1, 'pcchActual'),)))
     IMLangStringBufW.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(7, 'Delete', ((1, 'cchOffset'),(1, 'cchDelete'),)))
+    win32more.System.Com.IUnknown
     return IMLangStringBufW
 def _define_IMLangStringBufA_head():
     class IMLangStringBufA(win32more.System.Com.IUnknown_head):
@@ -4329,6 +4341,7 @@ def _define_IMLangStringBufA():
     IMLangStringBufA.UnlockBuf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,Int32,Int32, use_last_error=False)(5, 'UnlockBuf', ((1, 'pszBuf'),(1, 'cchOffset'),(1, 'cchWrite'),)))
     IMLangStringBufA.Insert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(Int32), use_last_error=False)(6, 'Insert', ((1, 'cchOffset'),(1, 'cchMaxInsert'),(1, 'pcchActual'),)))
     IMLangStringBufA.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(7, 'Delete', ((1, 'cchOffset'),(1, 'cchDelete'),)))
+    win32more.System.Com.IUnknown
     return IMLangStringBufA
 def _define_IMLangString_head():
     class IMLangString(win32more.System.Com.IUnknown_head):
@@ -4340,6 +4353,7 @@ def _define_IMLangString():
     IMLangString.GetLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'GetLength', ((1, 'plLen'),)))
     IMLangString.SetMLStr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.System.Com.IUnknown_head,Int32,Int32, use_last_error=False)(5, 'SetMLStr', ((1, 'lDestPos'),(1, 'lDestLen'),(1, 'pSrcMLStr'),(1, 'lSrcPos'),(1, 'lSrcLen'),)))
     IMLangString.GetMLStr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.System.Com.IUnknown_head,UInt32,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head),POINTER(Int32),POINTER(Int32), use_last_error=False)(6, 'GetMLStr', ((1, 'lSrcPos'),(1, 'lSrcLen'),(1, 'pUnkOuter'),(1, 'dwClsContext'),(1, 'piid'),(1, 'ppDestMLStr'),(1, 'plDestPos'),(1, 'plDestLen'),)))
+    win32more.System.Com.IUnknown
     return IMLangString
 def _define_IMLangStringWStr_head():
     class IMLangStringWStr(win32more.Globalization.IMLangString_head):
@@ -4355,6 +4369,7 @@ def _define_IMLangStringWStr():
     IMLangStringWStr.UnlockWStr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),Int32,POINTER(Int32),POINTER(Int32), use_last_error=False)(12, 'UnlockWStr', ((1, 'pszSrc'),(1, 'cchSrc'),(1, 'pcchActual'),(1, 'plActualLen'),)))
     IMLangStringWStr.SetLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,UInt32, use_last_error=False)(13, 'SetLocale', ((1, 'lDestPos'),(1, 'lDestLen'),(1, 'locale'),)))
     IMLangStringWStr.GetLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(UInt32),POINTER(Int32),POINTER(Int32), use_last_error=False)(14, 'GetLocale', ((1, 'lSrcPos'),(1, 'lSrcMaxLen'),(1, 'plocale'),(1, 'plLocalePos'),(1, 'plLocaleLen'),)))
+    win32more.Globalization.IMLangString
     return IMLangStringWStr
 def _define_IMLangStringAStr_head():
     class IMLangStringAStr(win32more.Globalization.IMLangString_head):
@@ -4370,6 +4385,7 @@ def _define_IMLangStringAStr():
     IMLangStringAStr.UnlockAStr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),Int32,POINTER(Int32),POINTER(Int32), use_last_error=False)(12, 'UnlockAStr', ((1, 'pszSrc'),(1, 'cchSrc'),(1, 'pcchActual'),(1, 'plActualLen'),)))
     IMLangStringAStr.SetLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,UInt32, use_last_error=False)(13, 'SetLocale', ((1, 'lDestPos'),(1, 'lDestLen'),(1, 'locale'),)))
     IMLangStringAStr.GetLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(UInt32),POINTER(Int32),POINTER(Int32), use_last_error=False)(14, 'GetLocale', ((1, 'lSrcPos'),(1, 'lSrcMaxLen'),(1, 'plocale'),(1, 'plLocalePos'),(1, 'plLocaleLen'),)))
+    win32more.Globalization.IMLangString
     return IMLangStringAStr
 def _define_IMLangLineBreakConsole_head():
     class IMLangLineBreakConsole(win32more.System.Com.IUnknown_head):
@@ -4380,6 +4396,7 @@ def _define_IMLangLineBreakConsole():
     IMLangLineBreakConsole.BreakLineML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.IMLangString_head,Int32,Int32,Int32,Int32,POINTER(Int32),POINTER(Int32), use_last_error=False)(3, 'BreakLineML', ((1, 'pSrcMLStr'),(1, 'lSrcPos'),(1, 'lSrcLen'),(1, 'cMinColumns'),(1, 'cMaxColumns'),(1, 'plLineLen'),(1, 'plSkipLen'),)))
     IMLangLineBreakConsole.BreakLineW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),Int32,Int32,POINTER(Int32),POINTER(Int32), use_last_error=False)(4, 'BreakLineW', ((1, 'locale'),(1, 'pszSrc'),(1, 'cchSrc'),(1, 'cMaxColumns'),(1, 'pcchLine'),(1, 'pcchSkip'),)))
     IMLangLineBreakConsole.BreakLineA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Byte),Int32,Int32,POINTER(Int32),POINTER(Int32), use_last_error=False)(5, 'BreakLineA', ((1, 'locale'),(1, 'uCodePage'),(1, 'pszSrc'),(1, 'cchSrc'),(1, 'cMaxColumns'),(1, 'pcchLine'),(1, 'pcchSkip'),)))
+    win32more.System.Com.IUnknown
     return IMLangLineBreakConsole
 MIMECONTF = Int32
 MIMECONTF_MAILNEWS = 1
@@ -4436,6 +4453,7 @@ def _define_IEnumCodePage():
     IEnumCodePage.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Globalization.MIMECPINFO_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
     IEnumCodePage.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumCodePage.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'celt'),)))
+    win32more.System.Com.IUnknown
     return IEnumCodePage
 def _define_RFC1766INFO_head():
     class RFC1766INFO(Structure):
@@ -4459,6 +4477,7 @@ def _define_IEnumRfc1766():
     IEnumRfc1766.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Globalization.RFC1766INFO_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
     IEnumRfc1766.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumRfc1766.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'celt'),)))
+    win32more.System.Com.IUnknown
     return IEnumRfc1766
 SCRIPTCONTF = Int32
 SCRIPTCONTF_sidDefault = 0
@@ -4529,6 +4548,7 @@ def _define_IEnumScript():
     IEnumScript.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Globalization.SCRIPTINFO_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
     IEnumScript.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumScript.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'celt'),)))
+    win32more.System.Com.IUnknown
     return IEnumScript
 tagMLCONVCHARF = Int32
 MLCONVCHARF_AUTODETECT = 1
@@ -4560,6 +4580,7 @@ def _define_IMLangConvertCharset():
     IMLangConvertCharset.DoConversion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32),c_char_p_no,POINTER(UInt32), use_last_error=False)(7, 'DoConversion', ((1, 'pSrcStr'),(1, 'pcSrcSize'),(1, 'pDstStr'),(1, 'pcDstSize'),)))
     IMLangConvertCharset.DoConversionToUnicode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(Char),POINTER(UInt32), use_last_error=False)(8, 'DoConversionToUnicode', ((1, 'pSrcStr'),(1, 'pcSrcSize'),(1, 'pDstStr'),(1, 'pcDstSize'),)))
     IMLangConvertCharset.DoConversionFromUnicode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt32),win32more.Foundation.PSTR,POINTER(UInt32), use_last_error=False)(9, 'DoConversionFromUnicode', ((1, 'pSrcStr'),(1, 'pcSrcSize'),(1, 'pDstStr'),(1, 'pcDstSize'),)))
+    win32more.System.Com.IUnknown
     return IMLangConvertCharset
 def _define_IMultiLanguage_head():
     class IMultiLanguage(win32more.System.Com.IUnknown_head):
@@ -4582,6 +4603,7 @@ def _define_IMultiLanguage():
     IMultiLanguage.EnumRfc1766 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Globalization.IEnumRfc1766_head), use_last_error=False)(15, 'EnumRfc1766', ((1, 'ppEnumRfc1766'),)))
     IMultiLanguage.GetRfc1766Info = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Globalization.RFC1766INFO_head), use_last_error=False)(16, 'GetRfc1766Info', ((1, 'Locale'),(1, 'pRfc1766Info'),)))
     IMultiLanguage.CreateConvertCharset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.Globalization.IMLangConvertCharset_head), use_last_error=False)(17, 'CreateConvertCharset', ((1, 'uiSrcCodePage'),(1, 'uiDstCodePage'),(1, 'dwProperty'),(1, 'ppMLangConvertCharset'),)))
+    win32more.System.Com.IUnknown
     return IMultiLanguage
 MLDETECTCP = Int32
 MLDETECTCP_NONE = 0
@@ -4653,6 +4675,7 @@ def _define_IMultiLanguage2():
     IMultiLanguage2.GetNumberOfScripts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(27, 'GetNumberOfScripts', ((1, 'pnScripts'),)))
     IMultiLanguage2.EnumScripts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt16,POINTER(win32more.Globalization.IEnumScript_head), use_last_error=False)(28, 'EnumScripts', ((1, 'dwFlags'),(1, 'LangId'),(1, 'ppEnumScript'),)))
     IMultiLanguage2.ValidateCodePageEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HWND,UInt32, use_last_error=False)(29, 'ValidateCodePageEx', ((1, 'uiCodePage'),(1, 'hwnd'),(1, 'dwfIODControl'),)))
+    win32more.System.Com.IUnknown
     return IMultiLanguage2
 def _define_IMLangCodePages_head():
     class IMLangCodePages(win32more.System.Com.IUnknown_head):
@@ -4664,6 +4687,7 @@ def _define_IMLangCodePages():
     IMLangCodePages.GetStrCodePages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),Int32,UInt32,POINTER(UInt32),POINTER(Int32), use_last_error=False)(4, 'GetStrCodePages', ((1, 'pszSrc'),(1, 'cchSrc'),(1, 'dwPriorityCodePages'),(1, 'pdwCodePages'),(1, 'pcchCodePages'),)))
     IMLangCodePages.CodePageToCodePages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(5, 'CodePageToCodePages', ((1, 'uCodePage'),(1, 'pdwCodePages'),)))
     IMLangCodePages.CodePagesToCodePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(6, 'CodePagesToCodePage', ((1, 'dwCodePages'),(1, 'uDefaultCodePage'),(1, 'puCodePage'),)))
+    win32more.System.Com.IUnknown
     return IMLangCodePages
 def _define_IMLangFontLink_head():
     class IMLangFontLink(win32more.Globalization.IMLangCodePages_head):
@@ -4675,6 +4699,7 @@ def _define_IMLangFontLink():
     IMLangFontLink.MapFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,UInt32,win32more.Graphics.Gdi.HFONT,POINTER(win32more.Graphics.Gdi.HFONT), use_last_error=False)(8, 'MapFont', ((1, 'hDC'),(1, 'dwCodePages'),(1, 'hSrcFont'),(1, 'phDestFont'),)))
     IMLangFontLink.ReleaseFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HFONT, use_last_error=False)(9, 'ReleaseFont', ((1, 'hFont'),)))
     IMLangFontLink.ResetFontMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'ResetFontMapping', ()))
+    win32more.Globalization.IMLangCodePages
     return IMLangFontLink
 def _define_UNICODERANGE_head():
     class UNICODERANGE(Structure):
@@ -4700,6 +4725,7 @@ def _define_IMLangFontLink2():
     IMLangFontLink2.GetFontUnicodeRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,POINTER(UInt32),POINTER(win32more.Globalization.UNICODERANGE_head), use_last_error=False)(11, 'GetFontUnicodeRanges', ((1, 'hDC'),(1, 'puiRanges'),(1, 'pUranges'),)))
     IMLangFontLink2.GetScriptFontInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte,UInt32,POINTER(UInt32),POINTER(win32more.Globalization.tagSCRIPFONTINFO_head), use_last_error=False)(12, 'GetScriptFontInfo', ((1, 'sid'),(1, 'dwFlags'),(1, 'puiFonts'),(1, 'pScriptFont'),)))
     IMLangFontLink2.CodePageToScriptID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no, use_last_error=False)(13, 'CodePageToScriptID', ((1, 'uiCodePage'),(1, 'pSid'),)))
+    win32more.Globalization.IMLangCodePages
     return IMLangFontLink2
 def _define_IMultiLanguage3_head():
     class IMultiLanguage3(win32more.Globalization.IMultiLanguage2_head):
@@ -4709,6 +4735,7 @@ def _define_IMultiLanguage3():
     IMultiLanguage3 = win32more.Globalization.IMultiLanguage3_head
     IMultiLanguage3.DetectOutboundCodePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32,POINTER(UInt32),UInt32,POINTER(UInt32),POINTER(UInt32),win32more.Foundation.PWSTR, use_last_error=False)(30, 'DetectOutboundCodePage', ((1, 'dwFlags'),(1, 'lpWideCharStr'),(1, 'cchWideChar'),(1, 'puiPreferredCodePages'),(1, 'nPreferredCodePages'),(1, 'puiDetectedCodePages'),(1, 'pnDetectedCodePages'),(1, 'lpSpecialChar'),)))
     IMultiLanguage3.DetectOutboundCodePageInIStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IStream_head,POINTER(UInt32),UInt32,POINTER(UInt32),POINTER(UInt32),win32more.Foundation.PWSTR, use_last_error=False)(31, 'DetectOutboundCodePageInIStream', ((1, 'dwFlags'),(1, 'pStrIn'),(1, 'puiPreferredCodePages'),(1, 'nPreferredCodePages'),(1, 'puiDetectedCodePages'),(1, 'pnDetectedCodePages'),(1, 'lpSpecialChar'),)))
+    win32more.Globalization.IMultiLanguage2
     return IMultiLanguage3
 MLSTR_FLAGS = Int32
 MLSTR_READ = 1

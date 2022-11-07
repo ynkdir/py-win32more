@@ -59,6 +59,7 @@ def _define__IManipulationEvents():
     _IManipulationEvents.ManipulationStarted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single, use_last_error=False)(3, 'ManipulationStarted', ((1, 'x'),(1, 'y'),)))
     _IManipulationEvents.ManipulationDelta = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single,Single,Single,Single,Single,Single,Single,Single,Single, use_last_error=False)(4, 'ManipulationDelta', ((1, 'x'),(1, 'y'),(1, 'translationDeltaX'),(1, 'translationDeltaY'),(1, 'scaleDelta'),(1, 'expansionDelta'),(1, 'rotationDelta'),(1, 'cumulativeTranslationX'),(1, 'cumulativeTranslationY'),(1, 'cumulativeScale'),(1, 'cumulativeExpansion'),(1, 'cumulativeRotation'),)))
     _IManipulationEvents.ManipulationCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single,Single,Single,Single, use_last_error=False)(5, 'ManipulationCompleted', ((1, 'x'),(1, 'y'),(1, 'cumulativeTranslationX'),(1, 'cumulativeTranslationY'),(1, 'cumulativeScale'),(1, 'cumulativeExpansion'),(1, 'cumulativeRotation'),)))
+    win32more.System.Com.IUnknown
     return _IManipulationEvents
 def _define_IInertiaProcessor_head():
     class IInertiaProcessor(win32more.System.Com.IUnknown_head):
@@ -115,6 +116,7 @@ def _define_IInertiaProcessor():
     IInertiaProcessor.ProcessTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(49, 'ProcessTime', ((1, 'timestamp'),(1, 'completed'),)))
     IInertiaProcessor.Complete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(50, 'Complete', ()))
     IInertiaProcessor.CompleteTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(51, 'CompleteTime', ((1, 'timestamp'),)))
+    win32more.System.Com.IUnknown
     return IInertiaProcessor
 def _define_IManipulationProcessor_head():
     class IManipulationProcessor(win32more.System.Com.IUnknown_head):
@@ -143,6 +145,7 @@ def _define_IManipulationProcessor():
     IManipulationProcessor.GetAngularVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(21, 'GetAngularVelocity', ((1, 'angularVelocity'),)))
     IManipulationProcessor.get_MinimumScaleRotateRadius = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(22, 'get_MinimumScaleRotateRadius', ((1, 'minRadius'),)))
     IManipulationProcessor.put_MinimumScaleRotateRadius = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(23, 'put_MinimumScaleRotateRadius', ((1, 'minRadius'),)))
+    win32more.System.Com.IUnknown
     return IManipulationProcessor
 def _define_TOUCHINPUT_head():
     class TOUCHINPUT(Structure):

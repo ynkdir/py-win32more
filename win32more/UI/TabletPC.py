@@ -1074,6 +1074,7 @@ def _define_IInkRectangle():
     IInkRectangle.put_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.RECT, use_last_error=False)(16, 'put_Data', ((1, 'Rect'),)))
     IInkRectangle.GetRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(Int32), use_last_error=False)(17, 'GetRectangle', ((1, 'Top'),(1, 'Left'),(1, 'Bottom'),(1, 'Right'),)))
     IInkRectangle.SetRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32, use_last_error=False)(18, 'SetRectangle', ((1, 'Top'),(1, 'Left'),(1, 'Bottom'),(1, 'Right'),)))
+    win32more.System.Com.IDispatch
     return IInkRectangle
 def _define_IInkExtendedProperty_head():
     class IInkExtendedProperty(win32more.System.Com.IDispatch_head):
@@ -1084,6 +1085,7 @@ def _define_IInkExtendedProperty():
     IInkExtendedProperty.get_Guid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Guid', ((1, 'Guid'),)))
     IInkExtendedProperty.get_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Data', ((1, 'Data'),)))
     IInkExtendedProperty.put_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_Data', ((1, 'Data'),)))
+    win32more.System.Com.IDispatch
     return IInkExtendedProperty
 def _define_IInkExtendedProperties_head():
     class IInkExtendedProperties(win32more.System.Com.IDispatch_head):
@@ -1098,6 +1100,7 @@ def _define_IInkExtendedProperties():
     IInkExtendedProperties.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(11, 'Remove', ((1, 'Identifier'),)))
     IInkExtendedProperties.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     IInkExtendedProperties.DoesPropertyExist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(13, 'DoesPropertyExist', ((1, 'Guid'),(1, 'DoesPropertyExist'),)))
+    win32more.System.Com.IDispatch
     return IInkExtendedProperties
 def _define_IInkDrawingAttributes_head():
     class IInkDrawingAttributes(win32more.System.Com.IDispatch_head):
@@ -1125,6 +1128,7 @@ def _define_IInkDrawingAttributes():
     IInkDrawingAttributes.put_PenTip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.InkPenTip, use_last_error=False)(24, 'put_PenTip', ((1, 'NewPenTip'),)))
     IInkDrawingAttributes.get_ExtendedProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkExtendedProperties_head), use_last_error=False)(25, 'get_ExtendedProperties', ((1, 'Properties'),)))
     IInkDrawingAttributes.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkDrawingAttributes_head), use_last_error=False)(26, 'Clone', ((1, 'DrawingAttributes'),)))
+    win32more.System.Com.IDispatch
     return IInkDrawingAttributes
 def _define_IInkTransform_head():
     class IInkTransform(win32more.System.Com.IDispatch_head):
@@ -1154,6 +1158,7 @@ def _define_IInkTransform():
     IInkTransform.put_eDy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(26, 'put_eDy', ((1, 'Value'),)))
     IInkTransform.get_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.XFORM_head), use_last_error=False)(27, 'get_Data', ((1, 'XForm'),)))
     IInkTransform.put_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.XFORM, use_last_error=False)(28, 'put_Data', ((1, 'XForm'),)))
+    win32more.System.Com.IDispatch
     return IInkTransform
 def _define_IInkGesture_head():
     class IInkGesture(win32more.System.Com.IDispatch_head):
@@ -1164,6 +1169,7 @@ def _define_IInkGesture():
     IInkGesture.get_Confidence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.InkRecognitionConfidence), use_last_error=False)(7, 'get_Confidence', ((1, 'Confidence'),)))
     IInkGesture.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.InkApplicationGesture), use_last_error=False)(8, 'get_Id', ((1, 'Id'),)))
     IInkGesture.GetHotPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32), use_last_error=False)(9, 'GetHotPoint', ((1, 'X'),(1, 'Y'),)))
+    win32more.System.Com.IDispatch
     return IInkGesture
 def _define_IInkCursor_head():
     class IInkCursor(win32more.System.Com.IDispatch_head):
@@ -1178,6 +1184,7 @@ def _define_IInkCursor():
     IInkCursor.putref_DrawingAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkDrawingAttributes_head, use_last_error=False)(11, 'putref_DrawingAttributes', ((1, 'Attributes'),)))
     IInkCursor.get_Tablet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkTablet_head), use_last_error=False)(12, 'get_Tablet', ((1, 'Tablet'),)))
     IInkCursor.get_Buttons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkCursorButtons_head), use_last_error=False)(13, 'get_Buttons', ((1, 'Buttons'),)))
+    win32more.System.Com.IDispatch
     return IInkCursor
 def _define_IInkCursors_head():
     class IInkCursors(win32more.System.Com.IDispatch_head):
@@ -1188,6 +1195,7 @@ def _define_IInkCursors():
     IInkCursors.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     IInkCursors.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, '_NewEnum'),)))
     IInkCursors.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.TabletPC.IInkCursor_head), use_last_error=False)(9, 'Item', ((1, 'Index'),(1, 'Cursor'),)))
+    win32more.System.Com.IDispatch
     return IInkCursors
 def _define_IInkCursorButton_head():
     class IInkCursorButton(win32more.System.Com.IDispatch_head):
@@ -1198,6 +1206,7 @@ def _define_IInkCursorButton():
     IInkCursorButton.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'Name'),)))
     IInkCursorButton.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Id', ((1, 'Id'),)))
     IInkCursorButton.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.InkCursorButtonState), use_last_error=False)(9, 'get_State', ((1, 'CurrentState'),)))
+    win32more.System.Com.IDispatch
     return IInkCursorButton
 def _define_IInkCursorButtons_head():
     class IInkCursorButtons(win32more.System.Com.IDispatch_head):
@@ -1208,6 +1217,7 @@ def _define_IInkCursorButtons():
     IInkCursorButtons.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     IInkCursorButtons.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, '_NewEnum'),)))
     IInkCursorButtons.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.UI.TabletPC.IInkCursorButton_head), use_last_error=False)(9, 'Item', ((1, 'Identifier'),(1, 'Button'),)))
+    win32more.System.Com.IDispatch
     return IInkCursorButtons
 def _define_IInkTablet_head():
     class IInkTablet(win32more.System.Com.IDispatch_head):
@@ -1221,6 +1231,7 @@ def _define_IInkTablet():
     IInkTablet.get_HardwareCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.TabletHardwareCapabilities), use_last_error=False)(10, 'get_HardwareCapabilities', ((1, 'Capabilities'),)))
     IInkTablet.IsPacketPropertySupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(11, 'IsPacketPropertySupported', ((1, 'packetPropertyName'),(1, 'Supported'),)))
     IInkTablet.GetPropertyMetrics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32),POINTER(Int32),POINTER(win32more.UI.TabletPC.TabletPropertyMetricUnit),POINTER(Single), use_last_error=False)(12, 'GetPropertyMetrics', ((1, 'propertyName'),(1, 'Minimum'),(1, 'Maximum'),(1, 'Units'),(1, 'Resolution'),)))
+    win32more.System.Com.IDispatch
     return IInkTablet
 def _define_IInkTablet2_head():
     class IInkTablet2(win32more.System.Com.IDispatch_head):
@@ -1229,6 +1240,7 @@ def _define_IInkTablet2_head():
 def _define_IInkTablet2():
     IInkTablet2 = win32more.UI.TabletPC.IInkTablet2_head
     IInkTablet2.get_DeviceKind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.TabletDeviceKind), use_last_error=False)(7, 'get_DeviceKind', ((1, 'Kind'),)))
+    win32more.System.Com.IDispatch
     return IInkTablet2
 def _define_IInkTablet3_head():
     class IInkTablet3(win32more.System.Com.IDispatch_head):
@@ -1238,6 +1250,7 @@ def _define_IInkTablet3():
     IInkTablet3 = win32more.UI.TabletPC.IInkTablet3_head
     IInkTablet3.get_IsMultiTouch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(7, 'get_IsMultiTouch', ((1, 'pIsMultiTouch'),)))
     IInkTablet3.get_MaximumCursors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'get_MaximumCursors', ((1, 'pMaximumCursors'),)))
+    win32more.System.Com.IDispatch
     return IInkTablet3
 def _define_IInkTablets_head():
     class IInkTablets(win32more.System.Com.IDispatch_head):
@@ -1250,6 +1263,7 @@ def _define_IInkTablets():
     IInkTablets.get_DefaultTablet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkTablet_head), use_last_error=False)(9, 'get_DefaultTablet', ((1, 'DefaultTablet'),)))
     IInkTablets.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.TabletPC.IInkTablet_head), use_last_error=False)(10, 'Item', ((1, 'Index'),(1, 'Tablet'),)))
     IInkTablets.IsPacketPropertySupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(11, 'IsPacketPropertySupported', ((1, 'packetPropertyName'),(1, 'Supported'),)))
+    win32more.System.Com.IDispatch
     return IInkTablets
 def _define_IInkStrokeDisp_head():
     class IInkStrokeDisp(win32more.System.Com.IDispatch_head):
@@ -1290,6 +1304,7 @@ def _define_IInkStrokeDisp():
     IInkStrokeDisp.Rotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single, use_last_error=False)(37, 'Rotate', ((1, 'Degrees'),(1, 'x'),(1, 'y'),)))
     IInkStrokeDisp.Shear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single, use_last_error=False)(38, 'Shear', ((1, 'HorizontalMultiplier'),(1, 'VerticalMultiplier'),)))
     IInkStrokeDisp.ScaleTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single, use_last_error=False)(39, 'ScaleTransform', ((1, 'HorizontalMultiplier'),(1, 'VerticalMultiplier'),)))
+    win32more.System.Com.IDispatch
     return IInkStrokeDisp
 def _define_IInkStrokes_head():
     class IInkStrokes(win32more.System.Com.IDispatch_head):
@@ -1317,6 +1332,7 @@ def _define_IInkStrokes():
     IInkStrokes.ScaleTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single, use_last_error=False)(24, 'ScaleTransform', ((1, 'HorizontalMultiplier'),(1, 'VerticalMultiplier'),)))
     IInkStrokes.Clip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkRectangle_head, use_last_error=False)(25, 'Clip', ((1, 'Rectangle'),)))
     IInkStrokes.RemoveRecognitionResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(26, 'RemoveRecognitionResult', ()))
+    win32more.System.Com.IDispatch
     return IInkStrokes
 def _define_IInkCustomStrokes_head():
     class IInkCustomStrokes(win32more.System.Com.IDispatch_head):
@@ -1330,6 +1346,7 @@ def _define_IInkCustomStrokes():
     IInkCustomStrokes.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.UI.TabletPC.IInkStrokes_head, use_last_error=False)(10, 'Add', ((1, 'Name'),(1, 'Strokes'),)))
     IInkCustomStrokes.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(11, 'Remove', ((1, 'Identifier'),)))
     IInkCustomStrokes.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
+    win32more.System.Com.IDispatch
     return IInkCustomStrokes
 def _define__IInkStrokesEvents_head():
     class _IInkStrokesEvents(win32more.System.Com.IDispatch_head):
@@ -1337,6 +1354,7 @@ def _define__IInkStrokesEvents_head():
     return _IInkStrokesEvents
 def _define__IInkStrokesEvents():
     _IInkStrokesEvents = win32more.UI.TabletPC._IInkStrokesEvents_head
+    win32more.System.Com.IDispatch
     return _IInkStrokesEvents
 def _define_IInkDisp_head():
     class IInkDisp(win32more.System.Com.IDispatch_head):
@@ -1369,6 +1387,7 @@ def _define_IInkDisp():
     IInkDisp.ClipboardCopy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkStrokes_head,win32more.UI.TabletPC.InkClipboardFormats,win32more.UI.TabletPC.InkClipboardModes,POINTER(win32more.System.Com.IDataObject_head), use_last_error=False)(29, 'ClipboardCopy', ((1, 'strokes'),(1, 'ClipboardFormats'),(1, 'ClipboardModes'),(1, 'DataObject'),)))
     IInkDisp.CanPaste = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,POINTER(Int16), use_last_error=False)(30, 'CanPaste', ((1, 'DataObject'),(1, 'CanPaste'),)))
     IInkDisp.ClipboardPaste = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.System.Com.IDataObject_head,POINTER(win32more.UI.TabletPC.IInkStrokes_head), use_last_error=False)(31, 'ClipboardPaste', ((1, 'x'),(1, 'y'),(1, 'DataObject'),(1, 'Strokes'),)))
+    win32more.System.Com.IDispatch
     return IInkDisp
 def _define__IInkEvents_head():
     class _IInkEvents(win32more.System.Com.IDispatch_head):
@@ -1376,6 +1395,7 @@ def _define__IInkEvents_head():
     return _IInkEvents
 def _define__IInkEvents():
     _IInkEvents = win32more.UI.TabletPC._IInkEvents_head
+    win32more.System.Com.IDispatch
     return _IInkEvents
 def _define_IInkRenderer_head():
     class IInkRenderer(win32more.System.Com.IDispatch_head):
@@ -1398,6 +1418,7 @@ def _define_IInkRenderer():
     IInkRenderer.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single, use_last_error=False)(19, 'Move', ((1, 'HorizontalComponent'),(1, 'VerticalComponent'),)))
     IInkRenderer.Rotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single, use_last_error=False)(20, 'Rotate', ((1, 'Degrees'),(1, 'x'),(1, 'y'),)))
     IInkRenderer.ScaleTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Int16, use_last_error=False)(21, 'ScaleTransform', ((1, 'HorizontalMultiplier'),(1, 'VerticalMultiplier'),(1, 'ApplyOnPenWidth'),)))
+    win32more.System.Com.IDispatch
     return IInkRenderer
 def _define_IInkCollector_head():
     class IInkCollector(win32more.System.Com.IDispatch_head):
@@ -1445,6 +1466,7 @@ def _define_IInkCollector():
     IInkCollector.SetSingleTabletIntegratedMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkTablet_head, use_last_error=False)(44, 'SetSingleTabletIntegratedMode', ((1, 'Tablet'),)))
     IInkCollector.GetEventInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.InkCollectorEventInterest,POINTER(Int16), use_last_error=False)(45, 'GetEventInterest', ((1, 'EventId'),(1, 'Listen'),)))
     IInkCollector.SetEventInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.InkCollectorEventInterest,Int16, use_last_error=False)(46, 'SetEventInterest', ((1, 'EventId'),(1, 'Listen'),)))
+    win32more.System.Com.IDispatch
     return IInkCollector
 def _define__IInkCollectorEvents_head():
     class _IInkCollectorEvents(win32more.System.Com.IDispatch_head):
@@ -1452,6 +1474,7 @@ def _define__IInkCollectorEvents_head():
     return _IInkCollectorEvents
 def _define__IInkCollectorEvents():
     _IInkCollectorEvents = win32more.UI.TabletPC._IInkCollectorEvents_head
+    win32more.System.Com.IDispatch
     return _IInkCollectorEvents
 def _define_IInkOverlay_head():
     class IInkOverlay(win32more.System.Com.IDispatch_head):
@@ -1513,6 +1536,7 @@ def _define_IInkOverlay():
     IInkOverlay.SetSingleTabletIntegratedMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkTablet_head, use_last_error=False)(58, 'SetSingleTabletIntegratedMode', ((1, 'Tablet'),)))
     IInkOverlay.GetEventInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.InkCollectorEventInterest,POINTER(Int16), use_last_error=False)(59, 'GetEventInterest', ((1, 'EventId'),(1, 'Listen'),)))
     IInkOverlay.SetEventInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.InkCollectorEventInterest,Int16, use_last_error=False)(60, 'SetEventInterest', ((1, 'EventId'),(1, 'Listen'),)))
+    win32more.System.Com.IDispatch
     return IInkOverlay
 def _define__IInkOverlayEvents_head():
     class _IInkOverlayEvents(win32more.System.Com.IDispatch_head):
@@ -1520,6 +1544,7 @@ def _define__IInkOverlayEvents_head():
     return _IInkOverlayEvents
 def _define__IInkOverlayEvents():
     _IInkOverlayEvents = win32more.UI.TabletPC._IInkOverlayEvents_head
+    win32more.System.Com.IDispatch
     return _IInkOverlayEvents
 def _define_IInkPicture_head():
     class IInkPicture(win32more.System.Com.IDispatch_head):
@@ -1586,6 +1611,7 @@ def _define_IInkPicture():
     IInkPicture.put_InkEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(63, 'put_InkEnabled', ((1, 'Collecting'),)))
     IInkPicture.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(64, 'get_Enabled', ((1, 'pbool'),)))
     IInkPicture.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(65, 'put_Enabled', ((1, 'vbool'),)))
+    win32more.System.Com.IDispatch
     return IInkPicture
 def _define__IInkPictureEvents_head():
     class _IInkPictureEvents(win32more.System.Com.IDispatch_head):
@@ -1593,6 +1619,7 @@ def _define__IInkPictureEvents_head():
     return _IInkPictureEvents
 def _define__IInkPictureEvents():
     _IInkPictureEvents = win32more.UI.TabletPC._IInkPictureEvents_head
+    win32more.System.Com.IDispatch
     return _IInkPictureEvents
 def _define_IInkRecognizer_head():
     class IInkRecognizer(win32more.System.Com.IDispatch_head):
@@ -1607,6 +1634,7 @@ def _define_IInkRecognizer():
     IInkRecognizer.get_SupportedProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'get_SupportedProperties', ((1, 'SupportedProperties'),)))
     IInkRecognizer.get_PreferredPacketDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_PreferredPacketDescription', ((1, 'PreferredPacketDescription'),)))
     IInkRecognizer.CreateRecognizerContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkRecognizerContext_head), use_last_error=False)(13, 'CreateRecognizerContext', ((1, 'Context'),)))
+    win32more.System.Com.IDispatch
     return IInkRecognizer
 def _define_IInkRecognizer2_head():
     class IInkRecognizer2(win32more.System.Com.IDispatch_head):
@@ -1616,6 +1644,7 @@ def _define_IInkRecognizer2():
     IInkRecognizer2 = win32more.UI.TabletPC.IInkRecognizer2_head
     IInkRecognizer2.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Id', ((1, 'pbstrId'),)))
     IInkRecognizer2.get_UnicodeRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_UnicodeRanges', ((1, 'UnicodeRanges'),)))
+    win32more.System.Com.IDispatch
     return IInkRecognizer2
 def _define_IInkRecognizers_head():
     class IInkRecognizers(win32more.System.Com.IDispatch_head):
@@ -1627,6 +1656,7 @@ def _define_IInkRecognizers():
     IInkRecognizers.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, '_NewEnum'),)))
     IInkRecognizers.GetDefaultRecognizer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.TabletPC.IInkRecognizer_head), use_last_error=False)(9, 'GetDefaultRecognizer', ((1, 'lcid'),(1, 'DefaultRecognizer'),)))
     IInkRecognizers.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.TabletPC.IInkRecognizer_head), use_last_error=False)(10, 'Item', ((1, 'Index'),(1, 'InkRecognizer'),)))
+    win32more.System.Com.IDispatch
     return IInkRecognizers
 def _define__IInkRecognitionEvents_head():
     class _IInkRecognitionEvents(win32more.System.Com.IDispatch_head):
@@ -1634,6 +1664,7 @@ def _define__IInkRecognitionEvents_head():
     return _IInkRecognitionEvents
 def _define__IInkRecognitionEvents():
     _IInkRecognitionEvents = win32more.UI.TabletPC._IInkRecognitionEvents_head
+    win32more.System.Com.IDispatch
     return _IInkRecognitionEvents
 def _define_IInkRecognizerContext_head():
     class IInkRecognizerContext(win32more.System.Com.IDispatch_head):
@@ -1665,6 +1696,7 @@ def _define_IInkRecognizerContext():
     IInkRecognizerContext.BackgroundRecognizeWithAlternates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(28, 'BackgroundRecognizeWithAlternates', ((1, 'CustomData'),)))
     IInkRecognizerContext.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkRecognizerContext_head), use_last_error=False)(29, 'Clone', ((1, 'RecoContext'),)))
     IInkRecognizerContext.IsStringSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(30, 'IsStringSupported', ((1, 'String'),(1, 'Supported'),)))
+    win32more.System.Com.IDispatch
     return IInkRecognizerContext
 def _define_IInkRecognizerContext2_head():
     class IInkRecognizerContext2(win32more.System.Com.IDispatch_head):
@@ -1674,6 +1706,7 @@ def _define_IInkRecognizerContext2():
     IInkRecognizerContext2 = win32more.UI.TabletPC.IInkRecognizerContext2_head
     IInkRecognizerContext2.get_EnabledUnicodeRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_EnabledUnicodeRanges', ((1, 'UnicodeRanges'),)))
     IInkRecognizerContext2.put_EnabledUnicodeRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_EnabledUnicodeRanges', ((1, 'UnicodeRanges'),)))
+    win32more.System.Com.IDispatch
     return IInkRecognizerContext2
 def _define_IInkRecognitionResult_head():
     class IInkRecognitionResult(win32more.System.Com.IDispatch_head):
@@ -1688,6 +1721,7 @@ def _define_IInkRecognitionResult():
     IInkRecognitionResult.AlternatesFromSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,POINTER(win32more.UI.TabletPC.IInkRecognitionAlternates_head), use_last_error=False)(11, 'AlternatesFromSelection', ((1, 'selectionStart'),(1, 'selectionLength'),(1, 'maximumAlternates'),(1, 'AlternatesFromSelection'),)))
     IInkRecognitionResult.ModifyTopAlternate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkRecognitionAlternate_head, use_last_error=False)(12, 'ModifyTopAlternate', ((1, 'Alternate'),)))
     IInkRecognitionResult.SetResultOnStrokes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'SetResultOnStrokes', ()))
+    win32more.System.Com.IDispatch
     return IInkRecognitionResult
 def _define_IInkRecognitionAlternate_head():
     class IInkRecognitionAlternate(win32more.System.Com.IDispatch_head):
@@ -1710,6 +1744,7 @@ def _define_IInkRecognitionAlternate():
     IInkRecognitionAlternate.GetTextRangeFromStrokes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkStrokes_head,POINTER(Int32),POINTER(Int32), use_last_error=False)(19, 'GetTextRangeFromStrokes', ((1, 'Strokes'),(1, 'selectionStart'),(1, 'selectionLength'),)))
     IInkRecognitionAlternate.AlternatesWithConstantPropertyValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.UI.TabletPC.IInkRecognitionAlternates_head), use_last_error=False)(20, 'AlternatesWithConstantPropertyValues', ((1, 'PropertyType'),(1, 'AlternatesWithConstantPropertyValues'),)))
     IInkRecognitionAlternate.GetPropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(21, 'GetPropertyValue', ((1, 'PropertyType'),(1, 'PropertyValue'),)))
+    win32more.System.Com.IDispatch
     return IInkRecognitionAlternate
 def _define_IInkRecognitionAlternates_head():
     class IInkRecognitionAlternates(win32more.System.Com.IDispatch_head):
@@ -1721,6 +1756,7 @@ def _define_IInkRecognitionAlternates():
     IInkRecognitionAlternates.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, '_NewEnum'),)))
     IInkRecognitionAlternates.get_Strokes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkStrokes_head), use_last_error=False)(9, 'get_Strokes', ((1, 'Strokes'),)))
     IInkRecognitionAlternates.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.TabletPC.IInkRecognitionAlternate_head), use_last_error=False)(10, 'Item', ((1, 'Index'),(1, 'InkRecoAlternate'),)))
+    win32more.System.Com.IDispatch
     return IInkRecognitionAlternates
 def _define_IInkRecognizerGuide_head():
     class IInkRecognizerGuide(win32more.System.Com.IDispatch_head):
@@ -1740,6 +1776,7 @@ def _define_IInkRecognizerGuide():
     IInkRecognizerGuide.put_Midline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(16, 'put_Midline', ((1, 'Units'),)))
     IInkRecognizerGuide.get_GuideData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.InkRecoGuide_head), use_last_error=False)(17, 'get_GuideData', ((1, 'pRecoGuide'),)))
     IInkRecognizerGuide.put_GuideData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.InkRecoGuide, use_last_error=False)(18, 'put_GuideData', ((1, 'recoGuide'),)))
+    win32more.System.Com.IDispatch
     return IInkRecognizerGuide
 def _define_IInkWordList_head():
     class IInkWordList(win32more.System.Com.IDispatch_head):
@@ -1750,6 +1787,7 @@ def _define_IInkWordList():
     IInkWordList.AddWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'AddWord', ((1, 'NewWord'),)))
     IInkWordList.RemoveWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'RemoveWord', ((1, 'RemoveWord'),)))
     IInkWordList.Merge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkWordList_head, use_last_error=False)(9, 'Merge', ((1, 'MergeWordList'),)))
+    win32more.System.Com.IDispatch
     return IInkWordList
 def _define_IInkWordList2_head():
     class IInkWordList2(win32more.System.Com.IDispatch_head):
@@ -1758,6 +1796,7 @@ def _define_IInkWordList2_head():
 def _define_IInkWordList2():
     IInkWordList2 = win32more.UI.TabletPC.IInkWordList2_head
     IInkWordList2.AddWords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'AddWords', ((1, 'NewWords'),)))
+    win32more.System.Com.IDispatch
     return IInkWordList2
 def _define_IInk_head():
     class IInk(win32more.System.Com.IDispatch_head):
@@ -1765,6 +1804,7 @@ def _define_IInk_head():
     return IInk
 def _define_IInk():
     IInk = win32more.UI.TabletPC.IInk_head
+    win32more.System.Com.IDispatch
     return IInk
 def _define_IInkLineInfo_head():
     class IInkLineInfo(win32more.System.Com.IUnknown_head):
@@ -1778,6 +1818,7 @@ def _define_IInkLineInfo():
     IInkLineInfo.GetCandidate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),UInt32, use_last_error=False)(6, 'GetCandidate', ((1, 'nCandidateNum'),(1, 'pwcRecogWord'),(1, 'pcwcRecogWord'),(1, 'dwFlags'),)))
     IInkLineInfo.SetCandidate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(7, 'SetCandidate', ((1, 'nCandidateNum'),(1, 'strRecogWord'),)))
     IInkLineInfo.Recognize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Recognize', ()))
+    win32more.System.Com.IUnknown
     return IInkLineInfo
 def _define_ISketchInk_head():
     class ISketchInk(win32more.System.Com.IDispatch_head):
@@ -1785,6 +1826,7 @@ def _define_ISketchInk_head():
     return ISketchInk
 def _define_ISketchInk():
     ISketchInk = win32more.UI.TabletPC.ISketchInk_head
+    win32more.System.Com.IDispatch
     return ISketchInk
 InkDivider = Guid('8854f6a0-4683-4ae7-9191-752fe64612c3')
 InkDivisionType = Int32
@@ -1822,6 +1864,7 @@ def _define_IInkDivider():
     IInkDivider.get_LineHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_LineHeight', ((1, 'LineHeight'),)))
     IInkDivider.put_LineHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'put_LineHeight', ((1, 'LineHeight'),)))
     IInkDivider.Divide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkDivisionResult_head), use_last_error=False)(13, 'Divide', ((1, 'InkDivisionResult'),)))
+    win32more.System.Com.IDispatch
     return IInkDivider
 def _define_IInkDivisionResult_head():
     class IInkDivisionResult(win32more.System.Com.IDispatch_head):
@@ -1831,6 +1874,7 @@ def _define_IInkDivisionResult():
     IInkDivisionResult = win32more.UI.TabletPC.IInkDivisionResult_head
     IInkDivisionResult.get_Strokes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkStrokes_head), use_last_error=False)(7, 'get_Strokes', ((1, 'Strokes'),)))
     IInkDivisionResult.ResultByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.InkDivisionType,POINTER(win32more.UI.TabletPC.IInkDivisionUnits_head), use_last_error=False)(8, 'ResultByType', ((1, 'divisionType'),(1, 'InkDivisionUnits'),)))
+    win32more.System.Com.IDispatch
     return IInkDivisionResult
 def _define_IInkDivisionUnit_head():
     class IInkDivisionUnit(win32more.System.Com.IDispatch_head):
@@ -1842,6 +1886,7 @@ def _define_IInkDivisionUnit():
     IInkDivisionUnit.get_DivisionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.InkDivisionType), use_last_error=False)(8, 'get_DivisionType', ((1, 'divisionType'),)))
     IInkDivisionUnit.get_RecognizedString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_RecognizedString', ((1, 'RecoString'),)))
     IInkDivisionUnit.get_RotationTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkTransform_head), use_last_error=False)(10, 'get_RotationTransform', ((1, 'RotationTransform'),)))
+    win32more.System.Com.IDispatch
     return IInkDivisionUnit
 def _define_IInkDivisionUnits_head():
     class IInkDivisionUnits(win32more.System.Com.IDispatch_head):
@@ -1852,6 +1897,7 @@ def _define_IInkDivisionUnits():
     IInkDivisionUnits.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     IInkDivisionUnits.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, '_NewEnum'),)))
     IInkDivisionUnits.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.TabletPC.IInkDivisionUnit_head), use_last_error=False)(9, 'Item', ((1, 'Index'),(1, 'InkDivisionUnit'),)))
+    win32more.System.Com.IDispatch
     return IInkDivisionUnits
 HandwrittenTextInsertion = Guid('9f074ee2-e6e9-4d8a-a047-eb5b5c3c55da')
 PenInputPanel = Guid('f744e496-1b5a-489e-81dc-fbd7ac6298a8')
@@ -1963,6 +2009,7 @@ def _define_IPenInputPanel():
     IPenInputPanel.CommitPendingInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(29, 'CommitPendingInput', ()))
     IPenInputPanel.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(30, 'Refresh', ()))
     IPenInputPanel.EnableTsf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(31, 'EnableTsf', ((1, 'Enable'),)))
+    win32more.System.Com.IDispatch
     return IPenInputPanel
 def _define__IPenInputPanelEvents_head():
     class _IPenInputPanelEvents(win32more.System.Com.IDispatch_head):
@@ -1970,6 +2017,7 @@ def _define__IPenInputPanelEvents_head():
     return _IPenInputPanelEvents
 def _define__IPenInputPanelEvents():
     _IPenInputPanelEvents = win32more.UI.TabletPC._IPenInputPanelEvents_head
+    win32more.System.Com.IDispatch
     return _IPenInputPanelEvents
 def _define_IHandwrittenTextInsertion_head():
     class IHandwrittenTextInsertion(win32more.System.Com.IUnknown_head):
@@ -1979,6 +2027,7 @@ def _define_IHandwrittenTextInsertion():
     IHandwrittenTextInsertion = win32more.UI.TabletPC.IHandwrittenTextInsertion_head
     IHandwrittenTextInsertion.InsertRecognitionResultsArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head),UInt32,win32more.Foundation.BOOL, use_last_error=False)(3, 'InsertRecognitionResultsArray', ((1, 'psaAlternates'),(1, 'locale'),(1, 'fAlternateContainsAutoSpacingInformation'),)))
     IHandwrittenTextInsertion.InsertInkRecognitionResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkRecognitionResult_head,UInt32,win32more.Foundation.BOOL, use_last_error=False)(4, 'InsertInkRecognitionResult', ((1, 'pIInkRecoResult'),(1, 'locale'),(1, 'fAlternateContainsAutoSpacingInformation'),)))
+    win32more.System.Com.IUnknown
     return IHandwrittenTextInsertion
 def _define_ITextInputPanelEventSink_head():
     class ITextInputPanelEventSink(win32more.System.Com.IUnknown_head):
@@ -1998,6 +2047,7 @@ def _define_ITextInputPanelEventSink():
     ITextInputPanelEventSink.InPlaceVisibilityChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(12, 'InPlaceVisibilityChanged', ((1, 'oldVisible'),(1, 'newVisible'),)))
     ITextInputPanelEventSink.TextInserting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(13, 'TextInserting', ((1, 'Ink'),)))
     ITextInputPanelEventSink.TextInserted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(14, 'TextInserted', ((1, 'Ink'),)))
+    win32more.System.Com.IUnknown
     return ITextInputPanelEventSink
 def _define_ITextInputPanel_head():
     class ITextInputPanel(win32more.System.Com.IUnknown_head):
@@ -2030,6 +2080,7 @@ def _define_ITextInputPanel():
     ITextInputPanel.SetInPlaceHoverTargetPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(25, 'SetInPlaceHoverTargetPosition', ((1, 'xPosition'),(1, 'yPosition'),)))
     ITextInputPanel.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.ITextInputPanelEventSink_head,UInt32, use_last_error=False)(26, 'Advise', ((1, 'EventSink'),(1, 'EventMask'),)))
     ITextInputPanel.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.ITextInputPanelEventSink_head, use_last_error=False)(27, 'Unadvise', ((1, 'EventSink'),)))
+    win32more.System.Com.IUnknown
     return ITextInputPanel
 def _define_IInputPanelWindowHandle_head():
     class IInputPanelWindowHandle(win32more.System.Com.IUnknown_head):
@@ -2041,6 +2092,7 @@ def _define_IInputPanelWindowHandle():
     IInputPanelWindowHandle.put_AttachedEditWindow32 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(4, 'put_AttachedEditWindow32', ((1, 'AttachedEditWindow'),)))
     IInputPanelWindowHandle.get_AttachedEditWindow64 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(5, 'get_AttachedEditWindow64', ((1, 'AttachedEditWindow'),)))
     IInputPanelWindowHandle.put_AttachedEditWindow64 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(6, 'put_AttachedEditWindow64', ((1, 'AttachedEditWindow'),)))
+    win32more.System.Com.IUnknown
     return IInputPanelWindowHandle
 def _define_ITextInputPanelRunInfo_head():
     class ITextInputPanelRunInfo(win32more.System.Com.IUnknown_head):
@@ -2049,6 +2101,7 @@ def _define_ITextInputPanelRunInfo_head():
 def _define_ITextInputPanelRunInfo():
     ITextInputPanelRunInfo = win32more.UI.TabletPC.ITextInputPanelRunInfo_head
     ITextInputPanelRunInfo.IsTipRunning = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsTipRunning', ((1, 'pfRunning'),)))
+    win32more.System.Com.IUnknown
     return ITextInputPanelRunInfo
 FLICKDIRECTION = Int32
 FLICKDIRECTION_MIN = 0
@@ -2310,6 +2363,7 @@ def _define_IInkEdit():
     IInkEdit.get_SelRTF = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(81, 'get_SelRTF', ((1, 'pbstrSelRTF'),)))
     IInkEdit.put_SelRTF = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(82, 'put_SelRTF', ((1, 'pbstrSelRTF'),)))
     IInkEdit.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(83, 'Refresh', ()))
+    win32more.System.Com.IDispatch
     return IInkEdit
 def _define__IInkEditEvents_head():
     class _IInkEditEvents(win32more.System.Com.IDispatch_head):
@@ -2317,6 +2371,7 @@ def _define__IInkEditEvents_head():
     return _IInkEditEvents
 def _define__IInkEditEvents():
     _IInkEditEvents = win32more.UI.TabletPC._IInkEditEvents_head
+    win32more.System.Com.IDispatch
     return _IInkEditEvents
 MathInputControl = Guid('c561816c-14d8-4090-830c-98d994b21c7b')
 MICUIELEMENT = Int32
@@ -2363,6 +2418,7 @@ def _define_IMathInputControl():
     IMathInputControl.AddFunctionName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(21, 'AddFunctionName', ((1, 'FunctionName'),)))
     IMathInputControl.RemoveFunctionName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(22, 'RemoveFunctionName', ((1, 'FunctionName'),)))
     IMathInputControl.GetHoverIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IPictureDisp_head), use_last_error=False)(23, 'GetHoverIcon', ((1, 'HoverImage'),)))
+    win32more.System.Com.IDispatch
     return IMathInputControl
 def _define__IMathInputControlEvents_head():
     class _IMathInputControlEvents(win32more.System.Com.IDispatch_head):
@@ -2370,6 +2426,7 @@ def _define__IMathInputControlEvents_head():
     return _IMathInputControlEvents
 def _define__IMathInputControlEvents():
     _IMathInputControlEvents = win32more.UI.TabletPC._IMathInputControlEvents_head
+    win32more.System.Com.IDispatch
     return _IMathInputControlEvents
 RealTimeStylus = Guid('e26b366d-f998-43ce-836f-cb6d904432b0')
 DynamicRenderer = Guid('ecd32aea-746f-4dcb-bf68-082757faff18')
@@ -2479,6 +2536,7 @@ def _define_IRealTimeStylus():
     IRealTimeStylus.SetDesiredPacketDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(31, 'SetDesiredPacketDescription', ((1, 'cProperties'),(1, 'pPropertyGuids'),)))
     IRealTimeStylus.GetDesiredPacketDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(32, 'GetDesiredPacketDescription', ((1, 'pcProperties'),(1, 'ppPropertyGuids'),)))
     IRealTimeStylus.GetPacketDescriptionData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),POINTER(Single),POINTER(UInt32),POINTER(POINTER(win32more.UI.TabletPC.PACKET_PROPERTY_head)), use_last_error=False)(33, 'GetPacketDescriptionData', ((1, 'tcid'),(1, 'pfInkToDeviceScaleX'),(1, 'pfInkToDeviceScaleY'),(1, 'pcPacketProperties'),(1, 'ppPacketProperties'),)))
+    win32more.System.Com.IUnknown
     return IRealTimeStylus
 def _define_IRealTimeStylus2_head():
     class IRealTimeStylus2(win32more.System.Com.IUnknown_head):
@@ -2488,6 +2546,7 @@ def _define_IRealTimeStylus2():
     IRealTimeStylus2 = win32more.UI.TabletPC.IRealTimeStylus2_head
     IRealTimeStylus2.get_FlicksEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'get_FlicksEnabled', ((1, 'pfEnable'),)))
     IRealTimeStylus2.put_FlicksEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'put_FlicksEnabled', ((1, 'fEnable'),)))
+    win32more.System.Com.IUnknown
     return IRealTimeStylus2
 def _define_IRealTimeStylus3_head():
     class IRealTimeStylus3(win32more.System.Com.IUnknown_head):
@@ -2497,6 +2556,7 @@ def _define_IRealTimeStylus3():
     IRealTimeStylus3 = win32more.UI.TabletPC.IRealTimeStylus3_head
     IRealTimeStylus3.get_MultiTouchEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'get_MultiTouchEnabled', ((1, 'pfEnable'),)))
     IRealTimeStylus3.put_MultiTouchEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'put_MultiTouchEnabled', ((1, 'fEnable'),)))
+    win32more.System.Com.IUnknown
     return IRealTimeStylus3
 def _define_IRealTimeStylusSynchronization_head():
     class IRealTimeStylusSynchronization(win32more.System.Com.IUnknown_head):
@@ -2506,6 +2566,7 @@ def _define_IRealTimeStylusSynchronization():
     IRealTimeStylusSynchronization = win32more.UI.TabletPC.IRealTimeStylusSynchronization_head
     IRealTimeStylusSynchronization.AcquireLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.RealTimeStylusLockType, use_last_error=False)(3, 'AcquireLock', ((1, 'lock'),)))
     IRealTimeStylusSynchronization.ReleaseLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.RealTimeStylusLockType, use_last_error=False)(4, 'ReleaseLock', ((1, 'lock'),)))
+    win32more.System.Com.IUnknown
     return IRealTimeStylusSynchronization
 def _define_IStrokeBuilder_head():
     class IStrokeBuilder(win32more.System.Com.IUnknown_head):
@@ -2519,6 +2580,7 @@ def _define_IStrokeBuilder():
     IStrokeBuilder.EndStroke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.UI.TabletPC.IInkStrokeDisp_head),POINTER(win32more.Foundation.RECT_head), use_last_error=False)(6, 'EndStroke', ((1, 'tcid'),(1, 'sid'),(1, 'ppIInkStroke'),(1, 'pDirtyRect'),)))
     IStrokeBuilder.get_Ink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.IInkDisp_head), use_last_error=False)(7, 'get_Ink', ((1, 'ppiInkObj'),)))
     IStrokeBuilder.putref_Ink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IInkDisp_head, use_last_error=False)(8, 'putref_Ink', ((1, 'piInkObj'),)))
+    win32more.System.Com.IUnknown
     return IStrokeBuilder
 def _define_IStylusPlugin_head():
     class IStylusPlugin(win32more.System.Com.IUnknown_head):
@@ -2543,6 +2605,7 @@ def _define_IStylusPlugin():
     IStylusPlugin.Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IRealTimeStylus_head,win32more.UI.TabletPC.IStylusPlugin_head,win32more.UI.TabletPC.RealTimeStylusDataInterest,win32more.Foundation.HRESULT,POINTER(IntPtr), use_last_error=False)(17, 'Error', ((1, 'piRtsSrc'),(1, 'piPlugin'),(1, 'dataInterest'),(1, 'hrErrorCode'),(1, 'lptrKey'),)))
     IStylusPlugin.UpdateMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TabletPC.IRealTimeStylus_head, use_last_error=False)(18, 'UpdateMapping', ((1, 'piRtsSrc'),)))
     IStylusPlugin.DataInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TabletPC.RealTimeStylusDataInterest), use_last_error=False)(19, 'DataInterest', ((1, 'pDataInterest'),)))
+    win32more.System.Com.IUnknown
     return IStylusPlugin
 def _define_IStylusSyncPlugin_head():
     class IStylusSyncPlugin(win32more.UI.TabletPC.IStylusPlugin_head):
@@ -2550,6 +2613,7 @@ def _define_IStylusSyncPlugin_head():
     return IStylusSyncPlugin
 def _define_IStylusSyncPlugin():
     IStylusSyncPlugin = win32more.UI.TabletPC.IStylusSyncPlugin_head
+    win32more.UI.TabletPC.IStylusPlugin
     return IStylusSyncPlugin
 def _define_IStylusAsyncPlugin_head():
     class IStylusAsyncPlugin(win32more.UI.TabletPC.IStylusPlugin_head):
@@ -2557,6 +2621,7 @@ def _define_IStylusAsyncPlugin_head():
     return IStylusAsyncPlugin
 def _define_IStylusAsyncPlugin():
     IStylusAsyncPlugin = win32more.UI.TabletPC.IStylusAsyncPlugin_head
+    win32more.UI.TabletPC.IStylusPlugin
     return IStylusAsyncPlugin
 def _define_IDynamicRenderer_head():
     class IDynamicRenderer(win32more.System.Com.IUnknown_head):
@@ -2579,6 +2644,7 @@ def _define_IDynamicRenderer():
     IDynamicRenderer.ReleaseCachedData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(15, 'ReleaseCachedData', ((1, 'strokeId'),)))
     IDynamicRenderer.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Refresh', ()))
     IDynamicRenderer.Draw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE_PTR, use_last_error=False)(17, 'Draw', ((1, 'hDC'),)))
+    win32more.System.Com.IUnknown
     return IDynamicRenderer
 def _define_IGestureRecognizer_head():
     class IGestureRecognizer(win32more.System.Com.IUnknown_head):
@@ -2592,6 +2658,7 @@ def _define_IGestureRecognizer():
     IGestureRecognizer.put_MaxStrokeCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(6, 'put_MaxStrokeCount', ((1, 'cStrokes'),)))
     IGestureRecognizer.EnableGestures = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Int32), use_last_error=False)(7, 'EnableGestures', ((1, 'cGestures'),(1, 'pGestures'),)))
     IGestureRecognizer.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IGestureRecognizer
 def _define_RECO_GUIDE_head():
     class RECO_GUIDE(Structure):
@@ -2762,6 +2829,7 @@ def _define_ITipAutoCompleteProvider():
     ITipAutoCompleteProvider = win32more.UI.TabletPC.ITipAutoCompleteProvider_head
     ITipAutoCompleteProvider.UpdatePendingText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(3, 'UpdatePendingText', ((1, 'bstrPendingText'),)))
     ITipAutoCompleteProvider.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'Show', ((1, 'fShow'),)))
+    win32more.System.Com.IUnknown
     return ITipAutoCompleteProvider
 def _define_ITipAutoCompleteClient_head():
     class ITipAutoCompleteClient(win32more.System.Com.IUnknown_head):
@@ -2774,6 +2842,7 @@ def _define_ITipAutoCompleteClient():
     ITipAutoCompleteClient.UserSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'UserSelection', ()))
     ITipAutoCompleteClient.PreferredRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'PreferredRects', ((1, 'prcACList'),(1, 'prcField'),(1, 'prcModifiedACList'),(1, 'pfShownAboveTip'),)))
     ITipAutoCompleteClient.RequestShowUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'RequestShowUI', ((1, 'hWndList'),(1, 'pfAllowShowing'),)))
+    win32more.System.Com.IUnknown
     return ITipAutoCompleteClient
 def _define_CreateRecognizer():
     try:

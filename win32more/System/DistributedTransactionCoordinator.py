@@ -230,6 +230,7 @@ def _define_ITransaction():
     ITransaction.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,UInt32,UInt32, use_last_error=False)(3, 'Commit', ((1, 'fRetaining'),(1, 'grfTC'),(1, 'grfRM'),)))
     ITransaction.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head),win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(4, 'Abort', ((1, 'pboidReason'),(1, 'fRetaining'),(1, 'fAsync'),)))
     ITransaction.GetTransactionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.XACTTRANSINFO_head), use_last_error=False)(5, 'GetTransactionInfo', ((1, 'pinfo'),)))
+    win32more.System.Com.IUnknown
     return ITransaction
 def _define_ITransactionCloner_head():
     class ITransactionCloner(win32more.System.DistributedTransactionCoordinator.ITransaction_head):
@@ -238,6 +239,7 @@ def _define_ITransactionCloner_head():
 def _define_ITransactionCloner():
     ITransactionCloner = win32more.System.DistributedTransactionCoordinator.ITransactionCloner_head
     ITransactionCloner.CloneWithCommitDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head), use_last_error=False)(6, 'CloneWithCommitDisabled', ((1, 'ppITransaction'),)))
+    win32more.System.DistributedTransactionCoordinator.ITransaction
     return ITransactionCloner
 def _define_ITransaction2_head():
     class ITransaction2(win32more.System.DistributedTransactionCoordinator.ITransactionCloner_head):
@@ -246,6 +248,7 @@ def _define_ITransaction2_head():
 def _define_ITransaction2():
     ITransaction2 = win32more.System.DistributedTransactionCoordinator.ITransaction2_head
     ITransaction2.GetTransactionInfo2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.XACTTRANSINFO_head), use_last_error=False)(7, 'GetTransactionInfo2', ((1, 'pinfo'),)))
+    win32more.System.DistributedTransactionCoordinator.ITransactionCloner
     return ITransaction2
 def _define_ITransactionDispenser_head():
     class ITransactionDispenser(win32more.System.Com.IUnknown_head):
@@ -255,6 +258,7 @@ def _define_ITransactionDispenser():
     ITransactionDispenser = win32more.System.DistributedTransactionCoordinator.ITransactionDispenser_head
     ITransactionDispenser.GetOptionsObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head), use_last_error=False)(3, 'GetOptionsObject', ((1, 'ppOptions'),)))
     ITransactionDispenser.BeginTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Int32,UInt32,win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head), use_last_error=False)(4, 'BeginTransaction', ((1, 'punkOuter'),(1, 'isoLevel'),(1, 'isoFlags'),(1, 'pOptions'),(1, 'ppTransaction'),)))
+    win32more.System.Com.IUnknown
     return ITransactionDispenser
 def _define_ITransactionOptions_head():
     class ITransactionOptions(win32more.System.Com.IUnknown_head):
@@ -264,6 +268,7 @@ def _define_ITransactionOptions():
     ITransactionOptions = win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head
     ITransactionOptions.SetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.XACTOPT_head), use_last_error=False)(3, 'SetOptions', ((1, 'pOptions'),)))
     ITransactionOptions.GetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.XACTOPT_head), use_last_error=False)(4, 'GetOptions', ((1, 'pOptions'),)))
+    win32more.System.Com.IUnknown
     return ITransactionOptions
 def _define_ITransactionOutcomeEvents_head():
     class ITransactionOutcomeEvents(win32more.System.Com.IUnknown_head):
@@ -275,6 +280,7 @@ def _define_ITransactionOutcomeEvents():
     ITransactionOutcomeEvents.Aborted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head),win32more.Foundation.BOOL,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head),win32more.Foundation.HRESULT, use_last_error=False)(4, 'Aborted', ((1, 'pboidReason'),(1, 'fRetaining'),(1, 'pNewUOW'),(1, 'hr'),)))
     ITransactionOutcomeEvents.HeuristicDecision = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head),win32more.Foundation.HRESULT, use_last_error=False)(5, 'HeuristicDecision', ((1, 'dwDecision'),(1, 'pboidReason'),(1, 'hr'),)))
     ITransactionOutcomeEvents.Indoubt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Indoubt', ()))
+    win32more.System.Com.IUnknown
     return ITransactionOutcomeEvents
 def _define_ITmNodeName_head():
     class ITmNodeName(win32more.System.Com.IUnknown_head):
@@ -284,6 +290,7 @@ def _define_ITmNodeName():
     ITmNodeName = win32more.System.DistributedTransactionCoordinator.ITmNodeName_head
     ITmNodeName.GetNodeNameSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetNodeNameSize', ((1, 'pcbNodeNameSize'),)))
     ITmNodeName.GetNodeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'GetNodeName', ((1, 'cbNodeNameBufferSize'),(1, 'pNodeNameBuffer'),)))
+    win32more.System.Com.IUnknown
     return ITmNodeName
 def _define_IKernelTransaction_head():
     class IKernelTransaction(win32more.System.Com.IUnknown_head):
@@ -292,6 +299,7 @@ def _define_IKernelTransaction_head():
 def _define_IKernelTransaction():
     IKernelTransaction = win32more.System.DistributedTransactionCoordinator.IKernelTransaction_head
     IKernelTransaction.GetHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(3, 'GetHandle', ((1, 'pHandle'),)))
+    win32more.System.Com.IUnknown
     return IKernelTransaction
 def _define_ITransactionResourceAsync_head():
     class ITransactionResourceAsync(win32more.System.Com.IUnknown_head):
@@ -303,6 +311,7 @@ def _define_ITransactionResourceAsync():
     ITransactionResourceAsync.CommitRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head), use_last_error=False)(4, 'CommitRequest', ((1, 'grfRM'),(1, 'pNewUOW'),)))
     ITransactionResourceAsync.AbortRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head),win32more.Foundation.BOOL,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head), use_last_error=False)(5, 'AbortRequest', ((1, 'pboidReason'),(1, 'fRetaining'),(1, 'pNewUOW'),)))
     ITransactionResourceAsync.TMDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'TMDown', ()))
+    win32more.System.Com.IUnknown
     return ITransactionResourceAsync
 def _define_ITransactionLastResourceAsync_head():
     class ITransactionLastResourceAsync(win32more.System.Com.IUnknown_head):
@@ -312,6 +321,7 @@ def _define_ITransactionLastResourceAsync():
     ITransactionLastResourceAsync = win32more.System.DistributedTransactionCoordinator.ITransactionLastResourceAsync_head
     ITransactionLastResourceAsync.DelegateCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'DelegateCommit', ((1, 'grfRM'),)))
     ITransactionLastResourceAsync.ForgetRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head), use_last_error=False)(4, 'ForgetRequest', ((1, 'pNewUOW'),)))
+    win32more.System.Com.IUnknown
     return ITransactionLastResourceAsync
 def _define_ITransactionResource_head():
     class ITransactionResource(win32more.System.Com.IUnknown_head):
@@ -323,6 +333,7 @@ def _define_ITransactionResource():
     ITransactionResource.CommitRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head), use_last_error=False)(4, 'CommitRequest', ((1, 'grfRM'),(1, 'pNewUOW'),)))
     ITransactionResource.AbortRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head),win32more.Foundation.BOOL,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head), use_last_error=False)(5, 'AbortRequest', ((1, 'pboidReason'),(1, 'fRetaining'),(1, 'pNewUOW'),)))
     ITransactionResource.TMDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'TMDown', ()))
+    win32more.System.Com.IUnknown
     return ITransactionResource
 def _define_ITransactionEnlistmentAsync_head():
     class ITransactionEnlistmentAsync(win32more.System.Com.IUnknown_head):
@@ -333,6 +344,7 @@ def _define_ITransactionEnlistmentAsync():
     ITransactionEnlistmentAsync.PrepareRequestDone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head), use_last_error=False)(3, 'PrepareRequestDone', ((1, 'hr'),(1, 'pmk'),(1, 'pboidReason'),)))
     ITransactionEnlistmentAsync.CommitRequestDone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'CommitRequestDone', ((1, 'hr'),)))
     ITransactionEnlistmentAsync.AbortRequestDone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(5, 'AbortRequestDone', ((1, 'hr'),)))
+    win32more.System.Com.IUnknown
     return ITransactionEnlistmentAsync
 def _define_ITransactionLastEnlistmentAsync_head():
     class ITransactionLastEnlistmentAsync(win32more.System.Com.IUnknown_head):
@@ -341,6 +353,7 @@ def _define_ITransactionLastEnlistmentAsync_head():
 def _define_ITransactionLastEnlistmentAsync():
     ITransactionLastEnlistmentAsync = win32more.System.DistributedTransactionCoordinator.ITransactionLastEnlistmentAsync_head
     ITransactionLastEnlistmentAsync.TransactionOutcome = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DistributedTransactionCoordinator.XACTSTAT,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head), use_last_error=False)(3, 'TransactionOutcome', ((1, 'XactStat'),(1, 'pboidReason'),)))
+    win32more.System.Com.IUnknown
     return ITransactionLastEnlistmentAsync
 def _define_ITransactionExportFactory_head():
     class ITransactionExportFactory(win32more.System.Com.IUnknown_head):
@@ -350,6 +363,7 @@ def _define_ITransactionExportFactory():
     ITransactionExportFactory = win32more.System.DistributedTransactionCoordinator.ITransactionExportFactory_head
     ITransactionExportFactory.GetRemoteClassId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetRemoteClassId', ((1, 'pclsid'),)))
     ITransactionExportFactory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionExport_head), use_last_error=False)(4, 'Create', ((1, 'cbWhereabouts'),(1, 'rgbWhereabouts'),(1, 'ppExport'),)))
+    win32more.System.Com.IUnknown
     return ITransactionExportFactory
 def _define_ITransactionImportWhereabouts_head():
     class ITransactionImportWhereabouts(win32more.System.Com.IUnknown_head):
@@ -359,6 +373,7 @@ def _define_ITransactionImportWhereabouts():
     ITransactionImportWhereabouts = win32more.System.DistributedTransactionCoordinator.ITransactionImportWhereabouts_head
     ITransactionImportWhereabouts.GetWhereaboutsSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetWhereaboutsSize', ((1, 'pcbWhereabouts'),)))
     ITransactionImportWhereabouts.GetWhereabouts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(4, 'GetWhereabouts', ((1, 'cbWhereabouts'),(1, 'rgbWhereabouts'),(1, 'pcbUsed'),)))
+    win32more.System.Com.IUnknown
     return ITransactionImportWhereabouts
 def _define_ITransactionExport_head():
     class ITransactionExport(win32more.System.Com.IUnknown_head):
@@ -368,6 +383,7 @@ def _define_ITransactionExport():
     ITransactionExport = win32more.System.DistributedTransactionCoordinator.ITransactionExport_head
     ITransactionExport.Export = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(UInt32), use_last_error=False)(3, 'Export', ((1, 'punkTransaction'),(1, 'pcbTransactionCookie'),)))
     ITransactionExport.GetTransactionCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(4, 'GetTransactionCookie', ((1, 'punkTransaction'),(1, 'cbTransactionCookie'),(1, 'rgbTransactionCookie'),(1, 'pcbUsed'),)))
+    win32more.System.Com.IUnknown
     return ITransactionExport
 def _define_ITransactionImport_head():
     class ITransactionImport(win32more.System.Com.IUnknown_head):
@@ -376,6 +392,7 @@ def _define_ITransactionImport_head():
 def _define_ITransactionImport():
     ITransactionImport = win32more.System.DistributedTransactionCoordinator.ITransactionImport_head
     ITransactionImport.Import = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'Import', ((1, 'cbTransactionCookie'),(1, 'rgbTransactionCookie'),(1, 'piid'),(1, 'ppvTransaction'),)))
+    win32more.System.Com.IUnknown
     return ITransactionImport
 def _define_ITipTransaction_head():
     class ITipTransaction(win32more.System.Com.IUnknown_head):
@@ -385,6 +402,7 @@ def _define_ITipTransaction():
     ITipTransaction = win32more.System.DistributedTransactionCoordinator.ITipTransaction_head
     ITipTransaction.Push = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(win32more.Foundation.PSTR), use_last_error=False)(3, 'Push', ((1, 'i_pszRemoteTmUrl'),(1, 'o_ppszRemoteTxUrl'),)))
     ITipTransaction.GetTransactionUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PSTR), use_last_error=False)(4, 'GetTransactionUrl', ((1, 'o_ppszLocalTxUrl'),)))
+    win32more.System.Com.IUnknown
     return ITipTransaction
 def _define_ITipHelper_head():
     class ITipHelper(win32more.System.Com.IUnknown_head):
@@ -395,6 +413,7 @@ def _define_ITipHelper():
     ITipHelper.Pull = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head), use_last_error=False)(3, 'Pull', ((1, 'i_pszTxUrl'),(1, 'o_ppITransaction'),)))
     ITipHelper.PullAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,win32more.System.DistributedTransactionCoordinator.ITipPullSink_head,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head), use_last_error=False)(4, 'PullAsync', ((1, 'i_pszTxUrl'),(1, 'i_pTipPullSink'),(1, 'o_ppITransaction'),)))
     ITipHelper.GetLocalTmUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no), use_last_error=False)(5, 'GetLocalTmUrl', ((1, 'o_ppszLocalTmUrl'),)))
+    win32more.System.Com.IUnknown
     return ITipHelper
 def _define_ITipPullSink_head():
     class ITipPullSink(win32more.System.Com.IUnknown_head):
@@ -403,6 +422,7 @@ def _define_ITipPullSink_head():
 def _define_ITipPullSink():
     ITipPullSink = win32more.System.DistributedTransactionCoordinator.ITipPullSink_head
     ITipPullSink.PullComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'PullComplete', ((1, 'i_hrPull'),)))
+    win32more.System.Com.IUnknown
     return ITipPullSink
 def _define_IDtcNetworkAccessConfig_head():
     class IDtcNetworkAccessConfig(win32more.System.Com.IUnknown_head):
@@ -423,6 +443,7 @@ def _define_IDtcNetworkAccessConfig():
     IDtcNetworkAccessConfig.GetXAAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(13, 'GetXAAccess', ((1, 'pbXAAccess'),)))
     IDtcNetworkAccessConfig.SetXAAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(14, 'SetXAAccess', ((1, 'bXAAccess'),)))
     IDtcNetworkAccessConfig.RestartDtcService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'RestartDtcService', ()))
+    win32more.System.Com.IUnknown
     return IDtcNetworkAccessConfig
 AUTHENTICATION_LEVEL = Int32
 NO_AUTHENTICATION_REQUIRED = 0
@@ -440,6 +461,7 @@ def _define_IDtcNetworkAccessConfig2():
     IDtcNetworkAccessConfig2.SetNetworkOutboundAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(19, 'SetNetworkOutboundAccess', ((1, 'bOutbound'),)))
     IDtcNetworkAccessConfig2.GetAuthenticationLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.AUTHENTICATION_LEVEL), use_last_error=False)(20, 'GetAuthenticationLevel', ((1, 'pAuthLevel'),)))
     IDtcNetworkAccessConfig2.SetAuthenticationLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DistributedTransactionCoordinator.AUTHENTICATION_LEVEL, use_last_error=False)(21, 'SetAuthenticationLevel', ((1, 'AuthLevel'),)))
+    win32more.System.DistributedTransactionCoordinator.IDtcNetworkAccessConfig
     return IDtcNetworkAccessConfig2
 def _define_IDtcNetworkAccessConfig3_head():
     class IDtcNetworkAccessConfig3(win32more.System.DistributedTransactionCoordinator.IDtcNetworkAccessConfig2_head):
@@ -449,6 +471,7 @@ def _define_IDtcNetworkAccessConfig3():
     IDtcNetworkAccessConfig3 = win32more.System.DistributedTransactionCoordinator.IDtcNetworkAccessConfig3_head
     IDtcNetworkAccessConfig3.GetLUAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(22, 'GetLUAccess', ((1, 'pbLUAccess'),)))
     IDtcNetworkAccessConfig3.SetLUAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(23, 'SetLUAccess', ((1, 'bLUAccess'),)))
+    win32more.System.DistributedTransactionCoordinator.IDtcNetworkAccessConfig2
     return IDtcNetworkAccessConfig3
 def _define_xid_t_head():
     class xid_t(Structure):
@@ -515,6 +538,7 @@ def _define_IDtcToXaMapper():
     IDtcToXaMapper.TranslateTridToXid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.xid_t_head), use_last_error=False)(4, 'TranslateTridToXid', ((1, 'pdwITransaction'),(1, 'dwRMCookie'),(1, 'pXid'),)))
     IDtcToXaMapper.EnlistResourceManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(5, 'EnlistResourceManager', ((1, 'dwRMCookie'),(1, 'pdwITransaction'),)))
     IDtcToXaMapper.ReleaseResourceManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'ReleaseResourceManager', ((1, 'dwRMCookie'),)))
+    win32more.System.Com.IUnknown
     return IDtcToXaMapper
 def _define_IDtcToXaHelperFactory_head():
     class IDtcToXaHelperFactory(win32more.System.Com.IUnknown_head):
@@ -523,6 +547,7 @@ def _define_IDtcToXaHelperFactory_head():
 def _define_IDtcToXaHelperFactory():
     IDtcToXaHelperFactory = win32more.System.DistributedTransactionCoordinator.IDtcToXaHelperFactory_head
     IDtcToXaHelperFactory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(Guid),POINTER(win32more.System.DistributedTransactionCoordinator.IDtcToXaHelper_head), use_last_error=False)(3, 'Create', ((1, 'pszDSN'),(1, 'pszClientDllName'),(1, 'pguidRm'),(1, 'ppXaHelper'),)))
+    win32more.System.Com.IUnknown
     return IDtcToXaHelperFactory
 def _define_IDtcToXaHelper_head():
     class IDtcToXaHelper(win32more.System.Com.IUnknown_head):
@@ -532,6 +557,7 @@ def _define_IDtcToXaHelper():
     IDtcToXaHelper = win32more.System.DistributedTransactionCoordinator.IDtcToXaHelper_head
     IDtcToXaHelper.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'Close', ((1, 'i_fDoRecovery'),)))
     IDtcToXaHelper.TranslateTridToXid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DistributedTransactionCoordinator.ITransaction_head,POINTER(Guid),POINTER(win32more.System.DistributedTransactionCoordinator.xid_t_head), use_last_error=False)(4, 'TranslateTridToXid', ((1, 'pITransaction'),(1, 'pguidBqual'),(1, 'pXid'),)))
+    win32more.System.Com.IUnknown
     return IDtcToXaHelper
 def _define_IDtcToXaHelperSinglePipe_head():
     class IDtcToXaHelperSinglePipe(win32more.System.Com.IUnknown_head):
@@ -543,6 +569,7 @@ def _define_IDtcToXaHelperSinglePipe():
     IDtcToXaHelperSinglePipe.ConvertTridToXID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.xid_t_head), use_last_error=False)(4, 'ConvertTridToXID', ((1, 'pdwITrans'),(1, 'dwRMCookie'),(1, 'pxid'),)))
     IDtcToXaHelperSinglePipe.EnlistWithRM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.DistributedTransactionCoordinator.ITransaction_head,win32more.System.DistributedTransactionCoordinator.ITransactionResourceAsync_head,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync_head), use_last_error=False)(5, 'EnlistWithRM', ((1, 'dwRMCookie'),(1, 'i_pITransaction'),(1, 'i_pITransRes'),(1, 'o_ppITransEnslitment'),)))
     IDtcToXaHelperSinglePipe.ReleaseRMCookie = COMMETHOD(WINFUNCTYPE(Void,UInt32,win32more.Foundation.BOOL, use_last_error=False)(6, 'ReleaseRMCookie', ((1, 'i_dwRMCookie'),(1, 'i_fNormal'),)))
+    win32more.System.Com.IUnknown
     return IDtcToXaHelperSinglePipe
 APPLICATIONTYPE = Int32
 LOCAL_APPLICATIONTYPE = 0
@@ -602,6 +629,7 @@ def _define_IXATransLookup_head():
 def _define_IXATransLookup():
     IXATransLookup = win32more.System.DistributedTransactionCoordinator.IXATransLookup_head
     IXATransLookup.Lookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head), use_last_error=False)(3, 'Lookup', ((1, 'ppTransaction'),)))
+    win32more.System.Com.IUnknown
     return IXATransLookup
 def _define_IXATransLookup2_head():
     class IXATransLookup2(win32more.System.Com.IUnknown_head):
@@ -610,6 +638,7 @@ def _define_IXATransLookup2_head():
 def _define_IXATransLookup2():
     IXATransLookup2 = win32more.System.DistributedTransactionCoordinator.IXATransLookup2_head
     IXATransLookup2.Lookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.xid_t_head),POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head), use_last_error=False)(3, 'Lookup', ((1, 'pXID'),(1, 'ppTransaction'),)))
+    win32more.System.Com.IUnknown
     return IXATransLookup2
 def _define_IResourceManagerSink_head():
     class IResourceManagerSink(win32more.System.Com.IUnknown_head):
@@ -618,6 +647,7 @@ def _define_IResourceManagerSink_head():
 def _define_IResourceManagerSink():
     IResourceManagerSink = win32more.System.DistributedTransactionCoordinator.IResourceManagerSink_head
     IResourceManagerSink.TMDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'TMDown', ()))
+    win32more.System.Com.IUnknown
     return IResourceManagerSink
 def _define_IResourceManager_head():
     class IResourceManager(win32more.System.Com.IUnknown_head):
@@ -629,6 +659,7 @@ def _define_IResourceManager():
     IResourceManager.Reenlist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.XACTSTAT), use_last_error=False)(4, 'Reenlist', ((1, 'pPrepInfo'),(1, 'cbPrepInfo'),(1, 'lTimeout'),(1, 'pXactStat'),)))
     IResourceManager.ReenlistmentComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ReenlistmentComplete', ()))
     IResourceManager.GetDistributedTransactionManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetDistributedTransactionManager', ((1, 'iid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return IResourceManager
 def _define_ILastResourceManager_head():
     class ILastResourceManager(win32more.System.Com.IUnknown_head):
@@ -638,6 +669,7 @@ def _define_ILastResourceManager():
     ILastResourceManager = win32more.System.DistributedTransactionCoordinator.ILastResourceManager_head
     ILastResourceManager.TransactionCommitted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(3, 'TransactionCommitted', ((1, 'pPrepInfo'),(1, 'cbPrepInfo'),)))
     ILastResourceManager.RecoveryDone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'RecoveryDone', ()))
+    win32more.System.Com.IUnknown
     return ILastResourceManager
 def _define_IResourceManager2_head():
     class IResourceManager2(win32more.System.DistributedTransactionCoordinator.IResourceManager_head):
@@ -647,6 +679,7 @@ def _define_IResourceManager2():
     IResourceManager2 = win32more.System.DistributedTransactionCoordinator.IResourceManager2_head
     IResourceManager2.Enlist2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DistributedTransactionCoordinator.ITransaction_head,win32more.System.DistributedTransactionCoordinator.ITransactionResourceAsync_head,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head),POINTER(Int32),POINTER(win32more.System.DistributedTransactionCoordinator.xid_t_head),POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionEnlistmentAsync_head), use_last_error=False)(7, 'Enlist2', ((1, 'pTransaction'),(1, 'pResAsync'),(1, 'pUOW'),(1, 'pisoLevel'),(1, 'pXid'),(1, 'ppEnlist'),)))
     IResourceManager2.Reenlist2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.xid_t_head),UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.XACTSTAT), use_last_error=False)(8, 'Reenlist2', ((1, 'pXid'),(1, 'dwTimeout'),(1, 'pXactStat'),)))
+    win32more.System.DistributedTransactionCoordinator.IResourceManager
     return IResourceManager2
 def _define_IResourceManagerRejoinable_head():
     class IResourceManagerRejoinable(win32more.System.DistributedTransactionCoordinator.IResourceManager2_head):
@@ -655,6 +688,7 @@ def _define_IResourceManagerRejoinable_head():
 def _define_IResourceManagerRejoinable():
     IResourceManagerRejoinable = win32more.System.DistributedTransactionCoordinator.IResourceManagerRejoinable_head
     IResourceManagerRejoinable.Rejoin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.XACTSTAT), use_last_error=False)(9, 'Rejoin', ((1, 'pPrepInfo'),(1, 'cbPrepInfo'),(1, 'lTimeout'),(1, 'pXactStat'),)))
+    win32more.System.DistributedTransactionCoordinator.IResourceManager2
     return IResourceManagerRejoinable
 def _define_IXAConfig_head():
     class IXAConfig(win32more.System.Com.IUnknown_head):
@@ -664,6 +698,7 @@ def _define_IXAConfig():
     IXAConfig = win32more.System.DistributedTransactionCoordinator.IXAConfig_head
     IXAConfig.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(3, 'Initialize', ((1, 'clsidHelperDll'),)))
     IXAConfig.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Terminate', ()))
+    win32more.System.Com.IUnknown
     return IXAConfig
 def _define_IRMHelper_head():
     class IRMHelper(win32more.System.Com.IUnknown_head):
@@ -673,6 +708,7 @@ def _define_IRMHelper():
     IRMHelper = win32more.System.DistributedTransactionCoordinator.IRMHelper_head
     IRMHelper.RMCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'RMCount', ((1, 'dwcTotalNumberOfRMs'),)))
     IRMHelper.RMInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.xa_switch_t_head),win32more.Foundation.BOOL,win32more.Foundation.PSTR,win32more.Foundation.PSTR,Guid, use_last_error=False)(4, 'RMInfo', ((1, 'pXa_Switch'),(1, 'fCDeclCallingConv'),(1, 'pszOpenString'),(1, 'pszCloseString'),(1, 'guidRMRecovery'),)))
+    win32more.System.Com.IUnknown
     return IRMHelper
 def _define_IXAObtainRMInfo_head():
     class IXAObtainRMInfo(win32more.System.Com.IUnknown_head):
@@ -681,6 +717,7 @@ def _define_IXAObtainRMInfo_head():
 def _define_IXAObtainRMInfo():
     IXAObtainRMInfo = win32more.System.DistributedTransactionCoordinator.IXAObtainRMInfo_head
     IXAObtainRMInfo.ObtainRMInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DistributedTransactionCoordinator.IRMHelper_head, use_last_error=False)(3, 'ObtainRMInfo', ((1, 'pIRMHelper'),)))
+    win32more.System.Com.IUnknown
     return IXAObtainRMInfo
 def _define_IResourceManagerFactory_head():
     class IResourceManagerFactory(win32more.System.Com.IUnknown_head):
@@ -689,6 +726,7 @@ def _define_IResourceManagerFactory_head():
 def _define_IResourceManagerFactory():
     IResourceManagerFactory = win32more.System.DistributedTransactionCoordinator.IResourceManagerFactory_head
     IResourceManagerFactory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PSTR,win32more.System.DistributedTransactionCoordinator.IResourceManagerSink_head,POINTER(win32more.System.DistributedTransactionCoordinator.IResourceManager_head), use_last_error=False)(3, 'Create', ((1, 'pguidRM'),(1, 'pszRMName'),(1, 'pIResMgrSink'),(1, 'ppResMgr'),)))
+    win32more.System.Com.IUnknown
     return IResourceManagerFactory
 def _define_IResourceManagerFactory2_head():
     class IResourceManagerFactory2(win32more.System.DistributedTransactionCoordinator.IResourceManagerFactory_head):
@@ -697,6 +735,7 @@ def _define_IResourceManagerFactory2_head():
 def _define_IResourceManagerFactory2():
     IResourceManagerFactory2 = win32more.System.DistributedTransactionCoordinator.IResourceManagerFactory2_head
     IResourceManagerFactory2.CreateEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PSTR,win32more.System.DistributedTransactionCoordinator.IResourceManagerSink_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'CreateEx', ((1, 'pguidRM'),(1, 'pszRMName'),(1, 'pIResMgrSink'),(1, 'riidRequested'),(1, 'ppvResMgr'),)))
+    win32more.System.DistributedTransactionCoordinator.IResourceManagerFactory
     return IResourceManagerFactory2
 def _define_IPrepareInfo_head():
     class IPrepareInfo(win32more.System.Com.IUnknown_head):
@@ -706,6 +745,7 @@ def _define_IPrepareInfo():
     IPrepareInfo = win32more.System.DistributedTransactionCoordinator.IPrepareInfo_head
     IPrepareInfo.GetPrepareInfoSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetPrepareInfoSize', ((1, 'pcbPrepInfo'),)))
     IPrepareInfo.GetPrepareInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(4, 'GetPrepareInfo', ((1, 'pPrepInfo'),)))
+    win32more.System.Com.IUnknown
     return IPrepareInfo
 def _define_IPrepareInfo2_head():
     class IPrepareInfo2(win32more.System.Com.IUnknown_head):
@@ -715,6 +755,7 @@ def _define_IPrepareInfo2():
     IPrepareInfo2 = win32more.System.DistributedTransactionCoordinator.IPrepareInfo2_head
     IPrepareInfo2.GetPrepareInfoSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetPrepareInfoSize', ((1, 'pcbPrepInfo'),)))
     IPrepareInfo2.GetPrepareInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte), use_last_error=False)(4, 'GetPrepareInfo', ((1, 'cbPrepareInfo'),(1, 'pPrepInfo'),)))
+    win32more.System.Com.IUnknown
     return IPrepareInfo2
 def _define_IGetDispenser_head():
     class IGetDispenser(win32more.System.Com.IUnknown_head):
@@ -723,6 +764,7 @@ def _define_IGetDispenser_head():
 def _define_IGetDispenser():
     IGetDispenser = win32more.System.DistributedTransactionCoordinator.IGetDispenser_head
     IGetDispenser.GetDispenser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetDispenser', ((1, 'iid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return IGetDispenser
 def _define_ITransactionVoterBallotAsync2_head():
     class ITransactionVoterBallotAsync2(win32more.System.Com.IUnknown_head):
@@ -731,6 +773,7 @@ def _define_ITransactionVoterBallotAsync2_head():
 def _define_ITransactionVoterBallotAsync2():
     ITransactionVoterBallotAsync2 = win32more.System.DistributedTransactionCoordinator.ITransactionVoterBallotAsync2_head
     ITransactionVoterBallotAsync2.VoteRequestDone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.BOID_head), use_last_error=False)(3, 'VoteRequestDone', ((1, 'hr'),(1, 'pboidReason'),)))
+    win32more.System.Com.IUnknown
     return ITransactionVoterBallotAsync2
 def _define_ITransactionVoterNotifyAsync2_head():
     class ITransactionVoterNotifyAsync2(win32more.System.DistributedTransactionCoordinator.ITransactionOutcomeEvents_head):
@@ -739,6 +782,7 @@ def _define_ITransactionVoterNotifyAsync2_head():
 def _define_ITransactionVoterNotifyAsync2():
     ITransactionVoterNotifyAsync2 = win32more.System.DistributedTransactionCoordinator.ITransactionVoterNotifyAsync2_head
     ITransactionVoterNotifyAsync2.VoteRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'VoteRequest', ()))
+    win32more.System.DistributedTransactionCoordinator.ITransactionOutcomeEvents
     return ITransactionVoterNotifyAsync2
 def _define_ITransactionVoterFactory2_head():
     class ITransactionVoterFactory2(win32more.System.Com.IUnknown_head):
@@ -747,6 +791,7 @@ def _define_ITransactionVoterFactory2_head():
 def _define_ITransactionVoterFactory2():
     ITransactionVoterFactory2 = win32more.System.DistributedTransactionCoordinator.ITransactionVoterFactory2_head
     ITransactionVoterFactory2.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DistributedTransactionCoordinator.ITransaction_head,win32more.System.DistributedTransactionCoordinator.ITransactionVoterNotifyAsync2_head,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionVoterBallotAsync2_head), use_last_error=False)(3, 'Create', ((1, 'pTransaction'),(1, 'pVoterNotify'),(1, 'ppVoterBallot'),)))
+    win32more.System.Com.IUnknown
     return ITransactionVoterFactory2
 def _define_ITransactionPhase0EnlistmentAsync_head():
     class ITransactionPhase0EnlistmentAsync(win32more.System.Com.IUnknown_head):
@@ -759,6 +804,7 @@ def _define_ITransactionPhase0EnlistmentAsync():
     ITransactionPhase0EnlistmentAsync.Phase0Done = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Phase0Done', ()))
     ITransactionPhase0EnlistmentAsync.Unenlist = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Unenlist', ()))
     ITransactionPhase0EnlistmentAsync.GetTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head), use_last_error=False)(7, 'GetTransaction', ((1, 'ppITransaction'),)))
+    win32more.System.Com.IUnknown
     return ITransactionPhase0EnlistmentAsync
 def _define_ITransactionPhase0NotifyAsync_head():
     class ITransactionPhase0NotifyAsync(win32more.System.Com.IUnknown_head):
@@ -768,6 +814,7 @@ def _define_ITransactionPhase0NotifyAsync():
     ITransactionPhase0NotifyAsync = win32more.System.DistributedTransactionCoordinator.ITransactionPhase0NotifyAsync_head
     ITransactionPhase0NotifyAsync.Phase0Request = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'Phase0Request', ((1, 'fAbortingHint'),)))
     ITransactionPhase0NotifyAsync.EnlistCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'EnlistCompleted', ((1, 'status'),)))
+    win32more.System.Com.IUnknown
     return ITransactionPhase0NotifyAsync
 def _define_ITransactionPhase0Factory_head():
     class ITransactionPhase0Factory(win32more.System.Com.IUnknown_head):
@@ -776,6 +823,7 @@ def _define_ITransactionPhase0Factory_head():
 def _define_ITransactionPhase0Factory():
     ITransactionPhase0Factory = win32more.System.DistributedTransactionCoordinator.ITransactionPhase0Factory_head
     ITransactionPhase0Factory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DistributedTransactionCoordinator.ITransactionPhase0NotifyAsync_head,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionPhase0EnlistmentAsync_head), use_last_error=False)(3, 'Create', ((1, 'pPhase0Notify'),(1, 'ppPhase0Enlistment'),)))
+    win32more.System.Com.IUnknown
     return ITransactionPhase0Factory
 def _define_ITransactionTransmitter_head():
     class ITransactionTransmitter(win32more.System.Com.IUnknown_head):
@@ -788,6 +836,7 @@ def _define_ITransactionTransmitter():
     ITransactionTransmitter.MarshalPropagationToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(5, 'MarshalPropagationToken', ((1, 'cbToken'),(1, 'rgbToken'),(1, 'pcbUsed'),)))
     ITransactionTransmitter.UnmarshalReturnToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte), use_last_error=False)(6, 'UnmarshalReturnToken', ((1, 'cbReturnToken'),(1, 'rgbReturnToken'),)))
     ITransactionTransmitter.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return ITransactionTransmitter
 def _define_ITransactionTransmitterFactory_head():
     class ITransactionTransmitterFactory(win32more.System.Com.IUnknown_head):
@@ -796,6 +845,7 @@ def _define_ITransactionTransmitterFactory_head():
 def _define_ITransactionTransmitterFactory():
     ITransactionTransmitterFactory = win32more.System.DistributedTransactionCoordinator.ITransactionTransmitterFactory_head
     ITransactionTransmitterFactory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionTransmitter_head), use_last_error=False)(3, 'Create', ((1, 'ppTransmitter'),)))
+    win32more.System.Com.IUnknown
     return ITransactionTransmitterFactory
 def _define_ITransactionReceiver_head():
     class ITransactionReceiver(win32more.System.Com.IUnknown_head):
@@ -807,6 +857,7 @@ def _define_ITransactionReceiver():
     ITransactionReceiver.GetReturnTokenSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetReturnTokenSize', ((1, 'pcbReturnToken'),)))
     ITransactionReceiver.MarshalReturnToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(5, 'MarshalReturnToken', ((1, 'cbReturnToken'),(1, 'rgbReturnToken'),(1, 'pcbUsed'),)))
     ITransactionReceiver.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return ITransactionReceiver
 def _define_ITransactionReceiverFactory_head():
     class ITransactionReceiverFactory(win32more.System.Com.IUnknown_head):
@@ -815,6 +866,7 @@ def _define_ITransactionReceiverFactory_head():
 def _define_ITransactionReceiverFactory():
     ITransactionReceiverFactory = win32more.System.DistributedTransactionCoordinator.ITransactionReceiverFactory_head
     ITransactionReceiverFactory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionReceiver_head), use_last_error=False)(3, 'Create', ((1, 'ppReceiver'),)))
+    win32more.System.Com.IUnknown
     return ITransactionReceiverFactory
 def _define__ProxyConfigParams_head():
     class _ProxyConfigParams(Structure):
@@ -834,6 +886,7 @@ def _define_IDtcLuConfigure():
     IDtcLuConfigure = win32more.System.DistributedTransactionCoordinator.IDtcLuConfigure_head
     IDtcLuConfigure.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(3, 'Add', ((1, 'pucLuPair'),(1, 'cbLuPair'),)))
     IDtcLuConfigure.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(4, 'Delete', ((1, 'pucLuPair'),(1, 'cbLuPair'),)))
+    win32more.System.Com.IUnknown
     return IDtcLuConfigure
 def _define_IDtcLuRecovery_head():
     class IDtcLuRecovery(win32more.System.Com.IUnknown_head):
@@ -841,6 +894,7 @@ def _define_IDtcLuRecovery_head():
     return IDtcLuRecovery
 def _define_IDtcLuRecovery():
     IDtcLuRecovery = win32more.System.DistributedTransactionCoordinator.IDtcLuRecovery_head
+    win32more.System.Com.IUnknown
     return IDtcLuRecovery
 def _define_IDtcLuRecoveryFactory_head():
     class IDtcLuRecoveryFactory(win32more.System.Com.IUnknown_head):
@@ -849,6 +903,7 @@ def _define_IDtcLuRecoveryFactory_head():
 def _define_IDtcLuRecoveryFactory():
     IDtcLuRecoveryFactory = win32more.System.DistributedTransactionCoordinator.IDtcLuRecoveryFactory_head
     IDtcLuRecoveryFactory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.IDtcLuRecovery_head), use_last_error=False)(3, 'Create', ((1, 'pucLuPair'),(1, 'cbLuPair'),(1, 'ppRecovery'),)))
+    win32more.System.Com.IUnknown
     return IDtcLuRecoveryFactory
 _DtcLu_LocalRecovery_Work = Int32
 DTCINITIATEDRECOVERYWORK_CHECKLUSTATUS = 1
@@ -905,6 +960,7 @@ def _define_IDtcLuRecoveryInitiatedByDtcTransWork():
     IDtcLuRecoveryInitiatedByDtcTransWork.ConversationLost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'ConversationLost', ()))
     IDtcLuRecoveryInitiatedByDtcTransWork.GetRecoverySeqNum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'GetRecoverySeqNum', ((1, 'plRecoverySeqNum'),)))
     IDtcLuRecoveryInitiatedByDtcTransWork.ObsoleteRecoverySeqNum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(15, 'ObsoleteRecoverySeqNum', ((1, 'lNewRecoverySeqNum'),)))
+    win32more.System.Com.IUnknown
     return IDtcLuRecoveryInitiatedByDtcTransWork
 def _define_IDtcLuRecoveryInitiatedByDtcStatusWork_head():
     class IDtcLuRecoveryInitiatedByDtcStatusWork(win32more.System.Com.IUnknown_head):
@@ -913,6 +969,7 @@ def _define_IDtcLuRecoveryInitiatedByDtcStatusWork_head():
 def _define_IDtcLuRecoveryInitiatedByDtcStatusWork():
     IDtcLuRecoveryInitiatedByDtcStatusWork = win32more.System.DistributedTransactionCoordinator.IDtcLuRecoveryInitiatedByDtcStatusWork_head
     IDtcLuRecoveryInitiatedByDtcStatusWork.HandleCheckLuStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'HandleCheckLuStatus', ((1, 'lRecoverySeqNum'),)))
+    win32more.System.Com.IUnknown
     return IDtcLuRecoveryInitiatedByDtcStatusWork
 def _define_IDtcLuRecoveryInitiatedByDtc_head():
     class IDtcLuRecoveryInitiatedByDtc(win32more.System.Com.IUnknown_head):
@@ -921,6 +978,7 @@ def _define_IDtcLuRecoveryInitiatedByDtc_head():
 def _define_IDtcLuRecoveryInitiatedByDtc():
     IDtcLuRecoveryInitiatedByDtc = win32more.System.DistributedTransactionCoordinator.IDtcLuRecoveryInitiatedByDtc_head
     IDtcLuRecoveryInitiatedByDtc.GetWork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator._DtcLu_LocalRecovery_Work),POINTER(c_void_p), use_last_error=False)(3, 'GetWork', ((1, 'pWork'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IDtcLuRecoveryInitiatedByDtc
 def _define_IDtcLuRecoveryInitiatedByLuWork_head():
     class IDtcLuRecoveryInitiatedByLuWork(win32more.System.Com.IUnknown_head):
@@ -936,6 +994,7 @@ def _define_IDtcLuRecoveryInitiatedByLuWork():
     IDtcLuRecoveryInitiatedByLuWork.HandleConfirmationOfOurCompareStates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DistributedTransactionCoordinator._DtcLu_CompareStates_Confirmation, use_last_error=False)(8, 'HandleConfirmationOfOurCompareStates', ((1, 'Confirmation'),)))
     IDtcLuRecoveryInitiatedByLuWork.HandleErrorFromOurCompareStates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DistributedTransactionCoordinator._DtcLu_CompareStates_Error, use_last_error=False)(9, 'HandleErrorFromOurCompareStates', ((1, 'Error'),)))
     IDtcLuRecoveryInitiatedByLuWork.ConversationLost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'ConversationLost', ()))
+    win32more.System.Com.IUnknown
     return IDtcLuRecoveryInitiatedByLuWork
 def _define_IDtcLuRecoveryInitiatedByLu_head():
     class IDtcLuRecoveryInitiatedByLu(win32more.System.Com.IUnknown_head):
@@ -944,6 +1003,7 @@ def _define_IDtcLuRecoveryInitiatedByLu_head():
 def _define_IDtcLuRecoveryInitiatedByLu():
     IDtcLuRecoveryInitiatedByLu = win32more.System.DistributedTransactionCoordinator.IDtcLuRecoveryInitiatedByLu_head
     IDtcLuRecoveryInitiatedByLu.GetObjectToHandleWorkFromLu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.IDtcLuRecoveryInitiatedByLuWork_head), use_last_error=False)(3, 'GetObjectToHandleWorkFromLu', ((1, 'ppWork'),)))
+    win32more.System.Com.IUnknown
     return IDtcLuRecoveryInitiatedByLu
 def _define_IDtcLuRmEnlistment_head():
     class IDtcLuRmEnlistment(win32more.System.Com.IUnknown_head):
@@ -957,6 +1017,7 @@ def _define_IDtcLuRmEnlistment():
     IDtcLuRmEnlistment.Committed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Committed', ()))
     IDtcLuRmEnlistment.Forget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Forget', ()))
     IDtcLuRmEnlistment.RequestCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'RequestCommit', ()))
+    win32more.System.Com.IUnknown
     return IDtcLuRmEnlistment
 def _define_IDtcLuRmEnlistmentSink_head():
     class IDtcLuRmEnlistmentSink(win32more.System.Com.IUnknown_head):
@@ -973,6 +1034,7 @@ def _define_IDtcLuRmEnlistmentSink():
     IDtcLuRmEnlistmentSink.Forget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Forget', ()))
     IDtcLuRmEnlistmentSink.Prepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Prepare', ()))
     IDtcLuRmEnlistmentSink.RequestCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'RequestCommit', ()))
+    win32more.System.Com.IUnknown
     return IDtcLuRmEnlistmentSink
 def _define_IDtcLuRmEnlistmentFactory_head():
     class IDtcLuRmEnlistmentFactory(win32more.System.Com.IUnknown_head):
@@ -981,6 +1043,7 @@ def _define_IDtcLuRmEnlistmentFactory_head():
 def _define_IDtcLuRmEnlistmentFactory():
     IDtcLuRmEnlistmentFactory = win32more.System.DistributedTransactionCoordinator.IDtcLuRmEnlistmentFactory_head
     IDtcLuRmEnlistmentFactory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,win32more.System.DistributedTransactionCoordinator.ITransaction_head,c_char_p_no,UInt32,win32more.System.DistributedTransactionCoordinator.IDtcLuRmEnlistmentSink_head,POINTER(win32more.System.DistributedTransactionCoordinator.IDtcLuRmEnlistment_head), use_last_error=False)(3, 'Create', ((1, 'pucLuPair'),(1, 'cbLuPair'),(1, 'pITransaction'),(1, 'pTransId'),(1, 'cbTransId'),(1, 'pRmEnlistmentSink'),(1, 'ppRmEnlistment'),)))
+    win32more.System.Com.IUnknown
     return IDtcLuRmEnlistmentFactory
 def _define_IDtcLuSubordinateDtc_head():
     class IDtcLuSubordinateDtc(win32more.System.Com.IUnknown_head):
@@ -995,6 +1058,7 @@ def _define_IDtcLuSubordinateDtc():
     IDtcLuSubordinateDtc.Forget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Forget', ()))
     IDtcLuSubordinateDtc.Prepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Prepare', ()))
     IDtcLuSubordinateDtc.RequestCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'RequestCommit', ()))
+    win32more.System.Com.IUnknown
     return IDtcLuSubordinateDtc
 def _define_IDtcLuSubordinateDtcSink_head():
     class IDtcLuSubordinateDtcSink(win32more.System.Com.IUnknown_head):
@@ -1010,6 +1074,7 @@ def _define_IDtcLuSubordinateDtcSink():
     IDtcLuSubordinateDtcSink.Committed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Committed', ()))
     IDtcLuSubordinateDtcSink.Forget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Forget', ()))
     IDtcLuSubordinateDtcSink.RequestCommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'RequestCommit', ()))
+    win32more.System.Com.IUnknown
     return IDtcLuSubordinateDtcSink
 def _define_IDtcLuSubordinateDtcFactory_head():
     class IDtcLuSubordinateDtcFactory(win32more.System.Com.IUnknown_head):
@@ -1018,6 +1083,7 @@ def _define_IDtcLuSubordinateDtcFactory_head():
 def _define_IDtcLuSubordinateDtcFactory():
     IDtcLuSubordinateDtcFactory = win32more.System.DistributedTransactionCoordinator.IDtcLuSubordinateDtcFactory_head
     IDtcLuSubordinateDtcFactory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,win32more.System.Com.IUnknown_head,Int32,UInt32,win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head),c_char_p_no,UInt32,win32more.System.DistributedTransactionCoordinator.IDtcLuSubordinateDtcSink_head,POINTER(win32more.System.DistributedTransactionCoordinator.IDtcLuSubordinateDtc_head), use_last_error=False)(3, 'Create', ((1, 'pucLuPair'),(1, 'cbLuPair'),(1, 'punkTransactionOuter'),(1, 'isoLevel'),(1, 'isoFlags'),(1, 'pOptions'),(1, 'ppTransaction'),(1, 'pTransId'),(1, 'cbTransId'),(1, 'pSubordinateDtcSink'),(1, 'ppSubordinateDtc'),)))
+    win32more.System.Com.IUnknown
     return IDtcLuSubordinateDtcFactory
 def _define_DtcGetTransactionManager():
     try:

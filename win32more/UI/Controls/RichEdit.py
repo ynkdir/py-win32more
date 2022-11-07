@@ -1362,6 +1362,7 @@ def _define_ITextServices():
     ITextServices.TxGetDropTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IDropTarget_head), use_last_error=False)(18, 'TxGetDropTarget', ((1, 'ppDropTarget'),)))
     ITextServices.OnTxPropertyBitsChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(19, 'OnTxPropertyBitsChange', ((1, 'dwMask'),(1, 'dwBits'),)))
     ITextServices.TxGetCachedSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(20, 'TxGetCachedSize', ((1, 'pdwWidth'),(1, 'pdwHeight'),)))
+    win32more.System.Com.IUnknown
     return ITextServices
 CARET_FLAGS = Int32
 CARET_NONE = 0
@@ -1426,6 +1427,7 @@ def _define_ITextHost():
     ITextHost.TxImmGetContext = COMMETHOD(WINFUNCTYPE(win32more.Globalization.HIMC, use_last_error=False)(39, 'TxImmGetContext', ()))
     ITextHost.TxImmReleaseContext = COMMETHOD(WINFUNCTYPE(Void,win32more.Globalization.HIMC, use_last_error=False)(40, 'TxImmReleaseContext', ((1, 'himc'),)))
     ITextHost.TxGetSelectionBarWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(41, 'TxGetSelectionBarWidth', ((1, 'lSelBarWidth'),)))
+    win32more.System.Com.IUnknown
     return ITextHost
 def _define_IRicheditUiaOverrides_head():
     class IRicheditUiaOverrides(win32more.System.Com.IUnknown_head):
@@ -1434,6 +1436,7 @@ def _define_IRicheditUiaOverrides_head():
 def _define_IRicheditUiaOverrides():
     IRicheditUiaOverrides = win32more.UI.Controls.RichEdit.IRicheditUiaOverrides_head
     IRicheditUiaOverrides.GetPropertyOverrideValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(3, 'GetPropertyOverrideValue', ((1, 'propertyId'),(1, 'pRetValue'),)))
+    win32more.System.Com.IUnknown
     return IRicheditUiaOverrides
 def _define_PCreateTextServices():
     return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.UI.Controls.RichEdit.ITextHost_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)
@@ -1457,6 +1460,7 @@ def _define_ITextHost2():
     ITextHost2.TxShowDropCaret = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(51, 'TxShowDropCaret', ((1, 'fShow'),(1, 'hdc'),(1, 'prc'),)))
     ITextHost2.TxDestroyCaret = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(52, 'TxDestroyCaret', ()))
     ITextHost2.TxGetHorzExtent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(53, 'TxGetHorzExtent', ((1, 'plHorzExtent'),)))
+    win32more.UI.Controls.RichEdit.ITextHost
     return ITextHost2
 def _define_ITextServices2_head():
     class ITextServices2(win32more.UI.Controls.RichEdit.ITextServices_head):
@@ -1466,6 +1470,7 @@ def _define_ITextServices2():
     ITextServices2 = win32more.UI.Controls.RichEdit.ITextServices2_head
     ITextServices2.TxGetNaturalSize2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Gdi.HDC,win32more.Graphics.Gdi.HDC,POINTER(win32more.System.Com.DVTARGETDEVICE_head),UInt32,POINTER(win32more.Foundation.SIZE_head),POINTER(Int32),POINTER(Int32),POINTER(Int32), use_last_error=False)(21, 'TxGetNaturalSize2', ((1, 'dwAspect'),(1, 'hdcDraw'),(1, 'hicTargetDev'),(1, 'ptd'),(1, 'dwMode'),(1, 'psizelExtent'),(1, 'pwidth'),(1, 'pheight'),(1, 'pascent'),)))
     ITextServices2.TxDrawD2D = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1RenderTarget_head,POINTER(win32more.Foundation.RECTL_head),POINTER(win32more.Foundation.RECT_head),Int32, use_last_error=False)(22, 'TxDrawD2D', ((1, 'pRenderTarget'),(1, 'lprcBounds'),(1, 'lprcUpdate'),(1, 'lViewId'),)))
+    win32more.UI.Controls.RichEdit.ITextServices
     return ITextServices2
 def _define_REOBJECT_head():
     class REOBJECT(Structure):
@@ -1508,6 +1513,7 @@ def _define_IRichEditOle():
     IRichEditOle.ContextSensitiveHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(16, 'ContextSensitiveHelp', ((1, 'fEnterMode'),)))
     IRichEditOle.GetClipboardData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.RichEdit.CHARRANGE_head),UInt32,POINTER(win32more.System.Com.IDataObject_head), use_last_error=False)(17, 'GetClipboardData', ((1, 'lpchrg'),(1, 'reco'),(1, 'lplpdataobj'),)))
     IRichEditOle.ImportDataObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,UInt16,IntPtr, use_last_error=False)(18, 'ImportDataObject', ((1, 'lpdataobj'),(1, 'cf'),(1, 'hMetaPict'),)))
+    win32more.System.Com.IUnknown
     return IRichEditOle
 def _define_IRichEditOleCallback_head():
     class IRichEditOleCallback(win32more.System.Com.IUnknown_head):
@@ -1525,6 +1531,7 @@ def _define_IRichEditOleCallback():
     IRichEditOleCallback.GetClipboardData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.RichEdit.CHARRANGE_head),UInt32,POINTER(win32more.System.Com.IDataObject_head), use_last_error=False)(10, 'GetClipboardData', ((1, 'lpchrg'),(1, 'reco'),(1, 'lplpdataobj'),)))
     IRichEditOleCallback.GetDragDropEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,UInt32,POINTER(UInt32), use_last_error=False)(11, 'GetDragDropEffect', ((1, 'fDrag'),(1, 'grfKeyState'),(1, 'pdwEffect'),)))
     IRichEditOleCallback.GetContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Controls.RichEdit.RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE,win32more.System.Ole.IOleObject_head,POINTER(win32more.UI.Controls.RichEdit.CHARRANGE_head),POINTER(win32more.UI.WindowsAndMessaging.HMENU), use_last_error=False)(12, 'GetContextMenu', ((1, 'seltype'),(1, 'lpoleobj'),(1, 'lpchrg'),(1, 'lphmenu'),)))
+    win32more.System.Com.IUnknown
     return IRichEditOleCallback
 tomConstants = Int32
 tomConstants_tomFalse = 0
@@ -2185,6 +2192,7 @@ def _define_ITextDocument():
     ITextDocument.Redo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(23, 'Redo', ((1, 'Count'),(1, 'pCount'),)))
     ITextDocument.Range = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.UI.Controls.RichEdit.ITextRange_head), use_last_error=False)(24, 'Range', ((1, 'cpActive'),(1, 'cpAnchor'),(1, 'ppRange'),)))
     ITextDocument.RangeFromPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.UI.Controls.RichEdit.ITextRange_head), use_last_error=False)(25, 'RangeFromPoint', ((1, 'x'),(1, 'y'),(1, 'ppRange'),)))
+    win32more.System.Com.IDispatch
     return ITextDocument
 def _define_ITextRange_head():
     class ITextRange(win32more.System.Com.IDispatch_head):
@@ -2243,6 +2251,7 @@ def _define_ITextRange():
     ITextRange.SetPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32, use_last_error=False)(55, 'SetPoint', ((1, 'x'),(1, 'y'),(1, 'Type'),(1, 'Extend'),)))
     ITextRange.ScrollIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(56, 'ScrollIntoView', ((1, 'Value'),)))
     ITextRange.GetEmbeddedObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(57, 'GetEmbeddedObject', ((1, 'ppObject'),)))
+    win32more.System.Com.IDispatch
     return ITextRange
 def _define_ITextSelection_head():
     class ITextSelection(win32more.UI.Controls.RichEdit.ITextRange_head):
@@ -2260,6 +2269,7 @@ def _define_ITextSelection():
     ITextSelection.HomeKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Controls.RichEdit.tomConstants,Int32,POINTER(Int32), use_last_error=False)(65, 'HomeKey', ((1, 'Unit'),(1, 'Extend'),(1, 'pDelta'),)))
     ITextSelection.EndKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(Int32), use_last_error=False)(66, 'EndKey', ((1, 'Unit'),(1, 'Extend'),(1, 'pDelta'),)))
     ITextSelection.TypeText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(67, 'TypeText', ((1, 'bstr'),)))
+    win32more.UI.Controls.RichEdit.ITextRange
     return ITextSelection
 def _define_ITextFont_head():
     class ITextFont(win32more.System.Com.IDispatch_head):
@@ -2322,6 +2332,7 @@ def _define_ITextFont():
     ITextFont.SetUnderline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(59, 'SetUnderline', ((1, 'Value'),)))
     ITextFont.GetWeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(60, 'GetWeight', ((1, 'pValue'),)))
     ITextFont.SetWeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(61, 'SetWeight', ((1, 'Value'),)))
+    win32more.System.Com.IDispatch
     return ITextFont
 def _define_ITextPara_head():
     class ITextPara(win32more.System.Com.IDispatch_head):
@@ -2377,6 +2388,7 @@ def _define_ITextPara():
     ITextPara.ClearAllTabs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(52, 'ClearAllTabs', ()))
     ITextPara.DeleteTab = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(53, 'DeleteTab', ((1, 'tbPos'),)))
     ITextPara.GetTab = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Single),POINTER(Int32),POINTER(Int32), use_last_error=False)(54, 'GetTab', ((1, 'iTab'),(1, 'ptbPos'),(1, 'ptbAlign'),(1, 'ptbLeader'),)))
+    win32more.System.Com.IDispatch
     return ITextPara
 def _define_ITextStoryRanges_head():
     class ITextStoryRanges(win32more.System.Com.IDispatch_head):
@@ -2387,6 +2399,7 @@ def _define_ITextStoryRanges():
     ITextStoryRanges._NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, '_NewEnum', ((1, 'ppunkEnum'),)))
     ITextStoryRanges.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Controls.RichEdit.ITextRange_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'ppRange'),)))
     ITextStoryRanges.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'GetCount', ((1, 'pCount'),)))
+    win32more.System.Com.IDispatch
     return ITextStoryRanges
 def _define_ITextDocument2_head():
     class ITextDocument2(win32more.UI.Controls.RichEdit.ITextDocument_head):
@@ -2438,6 +2451,7 @@ def _define_ITextDocument2():
     ITextDocument2.GetMainStory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.RichEdit.ITextStory_head), use_last_error=False)(67, 'GetMainStory', ((1, 'ppStory'),)))
     ITextDocument2.GetNewStory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.RichEdit.ITextStory_head), use_last_error=False)(68, 'GetNewStory', ((1, 'ppStory'),)))
     ITextDocument2.GetStory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Controls.RichEdit.ITextStory_head), use_last_error=False)(69, 'GetStory', ((1, 'Index'),(1, 'ppStory'),)))
+    win32more.UI.Controls.RichEdit.ITextDocument
     return ITextDocument2
 def _define_ITextRange2_head():
     class ITextRange2(win32more.UI.Controls.RichEdit.ITextSelection_head):
@@ -2485,6 +2499,7 @@ def _define_ITextRange2():
     ITextRange2.SetInlineObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32,Int32,Int32,Int32,Int32, use_last_error=False)(105, 'SetInlineObject', ((1, 'Type'),(1, 'Align'),(1, 'Char'),(1, 'Char1'),(1, 'Char2'),(1, 'Count'),(1, 'TeXStyle'),(1, 'cCol'),)))
     ITextRange2.GetMathFunctionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(106, 'GetMathFunctionType', ((1, 'bstr'),(1, 'pValue'),)))
     ITextRange2.InsertImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,win32more.Graphics.Gdi.TEXT_ALIGN_OPTIONS,win32more.Foundation.BSTR,win32more.System.Com.IStream_head, use_last_error=False)(107, 'InsertImage', ((1, 'width'),(1, 'height'),(1, 'ascent'),(1, 'Type'),(1, 'bstrAltText'),(1, 'pStream'),)))
+    win32more.UI.Controls.RichEdit.ITextSelection
     return ITextRange2
 def _define_ITextSelection2_head():
     class ITextSelection2(win32more.UI.Controls.RichEdit.ITextRange2_head):
@@ -2492,6 +2507,7 @@ def _define_ITextSelection2_head():
     return ITextSelection2
 def _define_ITextSelection2():
     ITextSelection2 = win32more.UI.Controls.RichEdit.ITextSelection2_head
+    win32more.UI.Controls.RichEdit.ITextRange2
     return ITextSelection2
 def _define_ITextFont2_head():
     class ITextFont2(win32more.UI.Controls.RichEdit.ITextFont_head):
@@ -2545,6 +2561,7 @@ def _define_ITextFont2():
     ITextFont2.SetEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(105, 'SetEffects', ((1, 'Value'),(1, 'Mask'),)))
     ITextFont2.SetEffects2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(106, 'SetEffects2', ((1, 'Value'),(1, 'Mask'),)))
     ITextFont2.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(107, 'SetProperty', ((1, 'Type'),(1, 'Value'),)))
+    win32more.UI.Controls.RichEdit.ITextFont
     return ITextFont2
 def _define_ITextPara2_head():
     class ITextPara2(win32more.UI.Controls.RichEdit.ITextPara_head):
@@ -2568,6 +2585,7 @@ def _define_ITextPara2():
     ITextPara2.IsEqual2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Controls.RichEdit.ITextPara2_head,POINTER(Int32), use_last_error=False)(68, 'IsEqual2', ((1, 'pPara'),(1, 'pB'),)))
     ITextPara2.SetEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(69, 'SetEffects', ((1, 'Value'),(1, 'Mask'),)))
     ITextPara2.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(70, 'SetProperty', ((1, 'Type'),(1, 'Value'),)))
+    win32more.UI.Controls.RichEdit.ITextPara
     return ITextPara2
 def _define_ITextStoryRanges2_head():
     class ITextStoryRanges2(win32more.UI.Controls.RichEdit.ITextStoryRanges_head):
@@ -2576,6 +2594,7 @@ def _define_ITextStoryRanges2_head():
 def _define_ITextStoryRanges2():
     ITextStoryRanges2 = win32more.UI.Controls.RichEdit.ITextStoryRanges2_head
     ITextStoryRanges2.Item2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Controls.RichEdit.ITextRange2_head), use_last_error=False)(10, 'Item2', ((1, 'Index'),(1, 'ppRange'),)))
+    win32more.UI.Controls.RichEdit.ITextStoryRanges
     return ITextStoryRanges2
 def _define_ITextStory_head():
     class ITextStory(win32more.System.Com.IUnknown_head):
@@ -2595,6 +2614,7 @@ def _define_ITextStory():
     ITextStory.SetFormattedText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(12, 'SetFormattedText', ((1, 'pUnk'),)))
     ITextStory.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(13, 'SetProperty', ((1, 'Type'),(1, 'Value'),)))
     ITextStory.SetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(14, 'SetText', ((1, 'Flags'),(1, 'bstr'),)))
+    win32more.System.Com.IUnknown
     return ITextStory
 def _define_ITextStrings_head():
     class ITextStrings(win32more.System.Com.IDispatch_head):
@@ -2619,6 +2639,7 @@ def _define_ITextStrings():
     ITextStrings.SetOpCp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(21, 'SetOpCp', ((1, 'iString'),(1, 'cp'),)))
     ITextStrings.SuffixTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.UI.Controls.RichEdit.ITextRange2_head, use_last_error=False)(22, 'SuffixTop', ((1, 'bstr'),(1, 'pRange'),)))
     ITextStrings.Swap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(23, 'Swap', ()))
+    win32more.System.Com.IDispatch
     return ITextStrings
 def _define_ITextRow_head():
     class ITextRow(win32more.System.Com.IDispatch_head):
@@ -2672,6 +2693,7 @@ def _define_ITextRow():
     ITextRow.IsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Controls.RichEdit.ITextRow_head,POINTER(Int32), use_last_error=False)(50, 'IsEqual', ((1, 'pRow'),(1, 'pB'),)))
     ITextRow.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(51, 'Reset', ((1, 'Value'),)))
     ITextRow.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(52, 'SetProperty', ((1, 'Type'),(1, 'Value'),)))
+    win32more.System.Com.IDispatch
     return ITextRow
 def _define_ITextDisplays_head():
     class ITextDisplays(win32more.System.Com.IDispatch_head):
@@ -2679,6 +2701,7 @@ def _define_ITextDisplays_head():
     return ITextDisplays
 def _define_ITextDisplays():
     ITextDisplays = win32more.UI.Controls.RichEdit.ITextDisplays_head
+    win32more.System.Com.IDispatch
     return ITextDisplays
 def _define_ITextDocument2Old_head():
     class ITextDocument2Old(win32more.UI.Controls.RichEdit.ITextDocument_head):
@@ -2710,6 +2733,7 @@ def _define_ITextDocument2Old():
     ITextDocument2Old.GetDocumentPara = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.RichEdit.ITextPara_head), use_last_error=False)(47, 'GetDocumentPara', ((1, 'ppITextPara'),)))
     ITextDocument2Old.GetCallManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(48, 'GetCallManager', ((1, 'ppVoid'),)))
     ITextDocument2Old.ReleaseCallManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(49, 'ReleaseCallManager', ((1, 'pVoid'),)))
+    win32more.UI.Controls.RichEdit.ITextDocument
     return ITextDocument2Old
 __all__ = [
     "WM_CONTEXTMENU",

@@ -128,6 +128,7 @@ def _define_IOpcUri():
     IOpcUri.GetRelationshipsPartUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcPartUri_head), use_last_error=False)(28, 'GetRelationshipsPartUri', ((1, 'relationshipPartUri'),)))
     IOpcUri.GetRelativeUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.System.Com.IUri_head), use_last_error=False)(29, 'GetRelativeUri', ((1, 'targetPartUri'),(1, 'relativeUri'),)))
     IOpcUri.CombinePartUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,POINTER(win32more.Storage.Packaging.Opc.IOpcPartUri_head), use_last_error=False)(30, 'CombinePartUri', ((1, 'relativeUri'),(1, 'combinedUri'),)))
+    win32more.System.Com.IUri
     return IOpcUri
 def _define_IOpcPartUri_head():
     class IOpcPartUri(win32more.Storage.Packaging.Opc.IOpcUri_head):
@@ -138,6 +139,7 @@ def _define_IOpcPartUri():
     IOpcPartUri.ComparePartUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(Int32), use_last_error=False)(31, 'ComparePartUri', ((1, 'partUri'),(1, 'comparisonResult'),)))
     IOpcPartUri.GetSourceUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcUri_head), use_last_error=False)(32, 'GetSourceUri', ((1, 'sourceUri'),)))
     IOpcPartUri.IsRelationshipsPartUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(33, 'IsRelationshipsPartUri', ((1, 'isRelationshipUri'),)))
+    win32more.Storage.Packaging.Opc.IOpcUri
     return IOpcPartUri
 OPC_URI_TARGET_MODE = Int32
 OPC_URI_TARGET_MODE_INTERNAL = 0
@@ -190,6 +192,7 @@ def _define_IOpcPackage():
     IOpcPackage = win32more.Storage.Packaging.Opc.IOpcPackage_head
     IOpcPackage.GetPartSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcPartSet_head), use_last_error=False)(3, 'GetPartSet', ((1, 'partSet'),)))
     IOpcPackage.GetRelationshipSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipSet_head), use_last_error=False)(4, 'GetRelationshipSet', ((1, 'relationshipSet'),)))
+    win32more.System.Com.IUnknown
     return IOpcPackage
 def _define_IOpcPart_head():
     class IOpcPart(win32more.System.Com.IUnknown_head):
@@ -202,6 +205,7 @@ def _define_IOpcPart():
     IOpcPart.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcPartUri_head), use_last_error=False)(5, 'GetName', ((1, 'name'),)))
     IOpcPart.GetContentType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetContentType', ((1, 'contentType'),)))
     IOpcPart.GetCompressionOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.OPC_COMPRESSION_OPTIONS), use_last_error=False)(7, 'GetCompressionOptions', ((1, 'compressionOptions'),)))
+    win32more.System.Com.IUnknown
     return IOpcPart
 def _define_IOpcRelationship_head():
     class IOpcRelationship(win32more.System.Com.IUnknown_head):
@@ -214,6 +218,7 @@ def _define_IOpcRelationship():
     IOpcRelationship.GetSourceUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcUri_head), use_last_error=False)(5, 'GetSourceUri', ((1, 'sourceUri'),)))
     IOpcRelationship.GetTargetUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUri_head), use_last_error=False)(6, 'GetTargetUri', ((1, 'targetUri'),)))
     IOpcRelationship.GetTargetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.OPC_URI_TARGET_MODE), use_last_error=False)(7, 'GetTargetMode', ((1, 'targetMode'),)))
+    win32more.System.Com.IUnknown
     return IOpcRelationship
 def _define_IOpcPartSet_head():
     class IOpcPartSet(win32more.System.Com.IUnknown_head):
@@ -226,6 +231,7 @@ def _define_IOpcPartSet():
     IOpcPartSet.DeletePart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(5, 'DeletePart', ((1, 'name'),)))
     IOpcPartSet.PartExists = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'PartExists', ((1, 'name'),(1, 'partExists'),)))
     IOpcPartSet.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcPartEnumerator_head), use_last_error=False)(7, 'GetEnumerator', ((1, 'partEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IOpcPartSet
 def _define_IOpcRelationshipSet_head():
     class IOpcRelationshipSet(win32more.System.Com.IUnknown_head):
@@ -240,6 +246,7 @@ def _define_IOpcRelationshipSet():
     IOpcRelationshipSet.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipEnumerator_head), use_last_error=False)(7, 'GetEnumerator', ((1, 'relationshipEnumerator'),)))
     IOpcRelationshipSet.GetEnumeratorForType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipEnumerator_head), use_last_error=False)(8, 'GetEnumeratorForType', ((1, 'relationshipType'),(1, 'relationshipEnumerator'),)))
     IOpcRelationshipSet.GetRelationshipsContentStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(9, 'GetRelationshipsContentStream', ((1, 'contents'),)))
+    win32more.System.Com.IUnknown
     return IOpcRelationshipSet
 def _define_IOpcPartEnumerator_head():
     class IOpcPartEnumerator(win32more.System.Com.IUnknown_head):
@@ -251,6 +258,7 @@ def _define_IOpcPartEnumerator():
     IOpcPartEnumerator.MovePrevious = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MovePrevious', ((1, 'hasPrevious'),)))
     IOpcPartEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcPart_head), use_last_error=False)(5, 'GetCurrent', ((1, 'part'),)))
     IOpcPartEnumerator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcPartEnumerator_head), use_last_error=False)(6, 'Clone', ((1, 'copy'),)))
+    win32more.System.Com.IUnknown
     return IOpcPartEnumerator
 def _define_IOpcRelationshipEnumerator_head():
     class IOpcRelationshipEnumerator(win32more.System.Com.IUnknown_head):
@@ -262,6 +270,7 @@ def _define_IOpcRelationshipEnumerator():
     IOpcRelationshipEnumerator.MovePrevious = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MovePrevious', ((1, 'hasPrevious'),)))
     IOpcRelationshipEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationship_head), use_last_error=False)(5, 'GetCurrent', ((1, 'relationship'),)))
     IOpcRelationshipEnumerator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipEnumerator_head), use_last_error=False)(6, 'Clone', ((1, 'copy'),)))
+    win32more.System.Com.IUnknown
     return IOpcRelationshipEnumerator
 def _define_IOpcSignaturePartReference_head():
     class IOpcSignaturePartReference(win32more.System.Com.IUnknown_head):
@@ -274,6 +283,7 @@ def _define_IOpcSignaturePartReference():
     IOpcSignaturePartReference.GetDigestMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetDigestMethod', ((1, 'digestMethod'),)))
     IOpcSignaturePartReference.GetDigestValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(6, 'GetDigestValue', ((1, 'digestValue'),(1, 'count'),)))
     IOpcSignaturePartReference.GetTransformMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.OPC_CANONICALIZATION_METHOD), use_last_error=False)(7, 'GetTransformMethod', ((1, 'transformMethod'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignaturePartReference
 def _define_IOpcSignatureRelationshipReference_head():
     class IOpcSignatureRelationshipReference(win32more.System.Com.IUnknown_head):
@@ -287,6 +297,7 @@ def _define_IOpcSignatureRelationshipReference():
     IOpcSignatureRelationshipReference.GetTransformMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.OPC_CANONICALIZATION_METHOD), use_last_error=False)(6, 'GetTransformMethod', ((1, 'transformMethod'),)))
     IOpcSignatureRelationshipReference.GetRelationshipSigningOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.OPC_RELATIONSHIPS_SIGNING_OPTION), use_last_error=False)(7, 'GetRelationshipSigningOption', ((1, 'relationshipSigningOption'),)))
     IOpcSignatureRelationshipReference.GetRelationshipSelectorEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipSelectorEnumerator_head), use_last_error=False)(8, 'GetRelationshipSelectorEnumerator', ((1, 'selectorEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignatureRelationshipReference
 def _define_IOpcRelationshipSelector_head():
     class IOpcRelationshipSelector(win32more.System.Com.IUnknown_head):
@@ -296,6 +307,7 @@ def _define_IOpcRelationshipSelector():
     IOpcRelationshipSelector = win32more.Storage.Packaging.Opc.IOpcRelationshipSelector_head
     IOpcRelationshipSelector.GetSelectorType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.OPC_RELATIONSHIP_SELECTOR), use_last_error=False)(3, 'GetSelectorType', ((1, 'selector'),)))
     IOpcRelationshipSelector.GetSelectionCriterion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetSelectionCriterion', ((1, 'selectionCriterion'),)))
+    win32more.System.Com.IUnknown
     return IOpcRelationshipSelector
 def _define_IOpcSignatureReference_head():
     class IOpcSignatureReference(win32more.System.Com.IUnknown_head):
@@ -309,6 +321,7 @@ def _define_IOpcSignatureReference():
     IOpcSignatureReference.GetTransformMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.OPC_CANONICALIZATION_METHOD), use_last_error=False)(6, 'GetTransformMethod', ((1, 'transformMethod'),)))
     IOpcSignatureReference.GetDigestMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetDigestMethod', ((1, 'digestMethod'),)))
     IOpcSignatureReference.GetDigestValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(8, 'GetDigestValue', ((1, 'digestValue'),(1, 'count'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignatureReference
 def _define_IOpcSignatureCustomObject_head():
     class IOpcSignatureCustomObject(win32more.System.Com.IUnknown_head):
@@ -317,6 +330,7 @@ def _define_IOpcSignatureCustomObject_head():
 def _define_IOpcSignatureCustomObject():
     IOpcSignatureCustomObject = win32more.Storage.Packaging.Opc.IOpcSignatureCustomObject_head
     IOpcSignatureCustomObject.GetXml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(3, 'GetXml', ((1, 'xmlMarkup'),(1, 'count'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignatureCustomObject
 def _define_IOpcDigitalSignature_head():
     class IOpcDigitalSignature(win32more.System.Com.IUnknown_head):
@@ -339,6 +353,7 @@ def _define_IOpcDigitalSignature():
     IOpcDigitalSignature.GetCustomReferenceEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureReferenceEnumerator_head), use_last_error=False)(15, 'GetCustomReferenceEnumerator', ((1, 'customReferenceEnumerator'),)))
     IOpcDigitalSignature.GetCustomObjectEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureCustomObjectEnumerator_head), use_last_error=False)(16, 'GetCustomObjectEnumerator', ((1, 'customObjectEnumerator'),)))
     IOpcDigitalSignature.GetSignatureXml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(17, 'GetSignatureXml', ((1, 'signatureXml'),(1, 'count'),)))
+    win32more.System.Com.IUnknown
     return IOpcDigitalSignature
 def _define_IOpcSigningOptions_head():
     class IOpcSigningOptions(win32more.System.Com.IUnknown_head):
@@ -363,6 +378,7 @@ def _define_IOpcSigningOptions():
     IOpcSigningOptions.GetCertificateSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcCertificateSet_head), use_last_error=False)(17, 'GetCertificateSet', ((1, 'certificateSet'),)))
     IOpcSigningOptions.GetSignaturePartName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcPartUri_head), use_last_error=False)(18, 'GetSignaturePartName', ((1, 'signaturePartName'),)))
     IOpcSigningOptions.SetSignaturePartName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(19, 'SetSignaturePartName', ((1, 'signaturePartName'),)))
+    win32more.System.Com.IUnknown
     return IOpcSigningOptions
 def _define_IOpcDigitalSignatureManager_head():
     class IOpcDigitalSignatureManager(win32more.System.Com.IUnknown_head):
@@ -378,6 +394,7 @@ def _define_IOpcDigitalSignatureManager():
     IOpcDigitalSignatureManager.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcDigitalSignature_head,POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head),POINTER(win32more.Storage.Packaging.Opc.OPC_SIGNATURE_VALIDATION_RESULT), use_last_error=False)(8, 'Validate', ((1, 'signature'),(1, 'certificate'),(1, 'validationResult'),)))
     IOpcDigitalSignatureManager.Sign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head),win32more.Storage.Packaging.Opc.IOpcSigningOptions_head,POINTER(win32more.Storage.Packaging.Opc.IOpcDigitalSignature_head), use_last_error=False)(9, 'Sign', ((1, 'certificate'),(1, 'signingOptions'),(1, 'digitalSignature'),)))
     IOpcDigitalSignatureManager.ReplaceSignatureXml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,c_char_p_no,UInt32,POINTER(win32more.Storage.Packaging.Opc.IOpcDigitalSignature_head), use_last_error=False)(10, 'ReplaceSignatureXml', ((1, 'signaturePartName'),(1, 'newSignatureXml'),(1, 'count'),(1, 'digitalSignature'),)))
+    win32more.System.Com.IUnknown
     return IOpcDigitalSignatureManager
 def _define_IOpcSignaturePartReferenceEnumerator_head():
     class IOpcSignaturePartReferenceEnumerator(win32more.System.Com.IUnknown_head):
@@ -389,6 +406,7 @@ def _define_IOpcSignaturePartReferenceEnumerator():
     IOpcSignaturePartReferenceEnumerator.MovePrevious = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MovePrevious', ((1, 'hasPrevious'),)))
     IOpcSignaturePartReferenceEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignaturePartReference_head), use_last_error=False)(5, 'GetCurrent', ((1, 'partReference'),)))
     IOpcSignaturePartReferenceEnumerator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignaturePartReferenceEnumerator_head), use_last_error=False)(6, 'Clone', ((1, 'copy'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignaturePartReferenceEnumerator
 def _define_IOpcSignatureRelationshipReferenceEnumerator_head():
     class IOpcSignatureRelationshipReferenceEnumerator(win32more.System.Com.IUnknown_head):
@@ -400,6 +418,7 @@ def _define_IOpcSignatureRelationshipReferenceEnumerator():
     IOpcSignatureRelationshipReferenceEnumerator.MovePrevious = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MovePrevious', ((1, 'hasPrevious'),)))
     IOpcSignatureRelationshipReferenceEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureRelationshipReference_head), use_last_error=False)(5, 'GetCurrent', ((1, 'relationshipReference'),)))
     IOpcSignatureRelationshipReferenceEnumerator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureRelationshipReferenceEnumerator_head), use_last_error=False)(6, 'Clone', ((1, 'copy'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignatureRelationshipReferenceEnumerator
 def _define_IOpcRelationshipSelectorEnumerator_head():
     class IOpcRelationshipSelectorEnumerator(win32more.System.Com.IUnknown_head):
@@ -411,6 +430,7 @@ def _define_IOpcRelationshipSelectorEnumerator():
     IOpcRelationshipSelectorEnumerator.MovePrevious = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MovePrevious', ((1, 'hasPrevious'),)))
     IOpcRelationshipSelectorEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipSelector_head), use_last_error=False)(5, 'GetCurrent', ((1, 'relationshipSelector'),)))
     IOpcRelationshipSelectorEnumerator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipSelectorEnumerator_head), use_last_error=False)(6, 'Clone', ((1, 'copy'),)))
+    win32more.System.Com.IUnknown
     return IOpcRelationshipSelectorEnumerator
 def _define_IOpcSignatureReferenceEnumerator_head():
     class IOpcSignatureReferenceEnumerator(win32more.System.Com.IUnknown_head):
@@ -422,6 +442,7 @@ def _define_IOpcSignatureReferenceEnumerator():
     IOpcSignatureReferenceEnumerator.MovePrevious = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MovePrevious', ((1, 'hasPrevious'),)))
     IOpcSignatureReferenceEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureReference_head), use_last_error=False)(5, 'GetCurrent', ((1, 'reference'),)))
     IOpcSignatureReferenceEnumerator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureReferenceEnumerator_head), use_last_error=False)(6, 'Clone', ((1, 'copy'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignatureReferenceEnumerator
 def _define_IOpcSignatureCustomObjectEnumerator_head():
     class IOpcSignatureCustomObjectEnumerator(win32more.System.Com.IUnknown_head):
@@ -433,6 +454,7 @@ def _define_IOpcSignatureCustomObjectEnumerator():
     IOpcSignatureCustomObjectEnumerator.MovePrevious = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MovePrevious', ((1, 'hasPrevious'),)))
     IOpcSignatureCustomObjectEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureCustomObject_head), use_last_error=False)(5, 'GetCurrent', ((1, 'customObject'),)))
     IOpcSignatureCustomObjectEnumerator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureCustomObjectEnumerator_head), use_last_error=False)(6, 'Clone', ((1, 'copy'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignatureCustomObjectEnumerator
 def _define_IOpcCertificateEnumerator_head():
     class IOpcCertificateEnumerator(win32more.System.Com.IUnknown_head):
@@ -444,6 +466,7 @@ def _define_IOpcCertificateEnumerator():
     IOpcCertificateEnumerator.MovePrevious = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MovePrevious', ((1, 'hasPrevious'),)))
     IOpcCertificateEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)), use_last_error=False)(5, 'GetCurrent', ((1, 'certificate'),)))
     IOpcCertificateEnumerator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcCertificateEnumerator_head), use_last_error=False)(6, 'Clone', ((1, 'copy'),)))
+    win32more.System.Com.IUnknown
     return IOpcCertificateEnumerator
 def _define_IOpcDigitalSignatureEnumerator_head():
     class IOpcDigitalSignatureEnumerator(win32more.System.Com.IUnknown_head):
@@ -455,6 +478,7 @@ def _define_IOpcDigitalSignatureEnumerator():
     IOpcDigitalSignatureEnumerator.MovePrevious = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MovePrevious', ((1, 'hasPrevious'),)))
     IOpcDigitalSignatureEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcDigitalSignature_head), use_last_error=False)(5, 'GetCurrent', ((1, 'digitalSignature'),)))
     IOpcDigitalSignatureEnumerator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcDigitalSignatureEnumerator_head), use_last_error=False)(6, 'Clone', ((1, 'copy'),)))
+    win32more.System.Com.IUnknown
     return IOpcDigitalSignatureEnumerator
 def _define_IOpcSignaturePartReferenceSet_head():
     class IOpcSignaturePartReferenceSet(win32more.System.Com.IUnknown_head):
@@ -465,6 +489,7 @@ def _define_IOpcSignaturePartReferenceSet():
     IOpcSignaturePartReferenceSet.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.Foundation.PWSTR,win32more.Storage.Packaging.Opc.OPC_CANONICALIZATION_METHOD,POINTER(win32more.Storage.Packaging.Opc.IOpcSignaturePartReference_head), use_last_error=False)(3, 'Create', ((1, 'partUri'),(1, 'digestMethod'),(1, 'transformMethod'),(1, 'partReference'),)))
     IOpcSignaturePartReferenceSet.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcSignaturePartReference_head, use_last_error=False)(4, 'Delete', ((1, 'partReference'),)))
     IOpcSignaturePartReferenceSet.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignaturePartReferenceEnumerator_head), use_last_error=False)(5, 'GetEnumerator', ((1, 'partReferenceEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignaturePartReferenceSet
 def _define_IOpcSignatureRelationshipReferenceSet_head():
     class IOpcSignatureRelationshipReferenceSet(win32more.System.Com.IUnknown_head):
@@ -476,6 +501,7 @@ def _define_IOpcSignatureRelationshipReferenceSet():
     IOpcSignatureRelationshipReferenceSet.CreateRelationshipSelectorSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipSelectorSet_head), use_last_error=False)(4, 'CreateRelationshipSelectorSet', ((1, 'selectorSet'),)))
     IOpcSignatureRelationshipReferenceSet.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcSignatureRelationshipReference_head, use_last_error=False)(5, 'Delete', ((1, 'relationshipReference'),)))
     IOpcSignatureRelationshipReferenceSet.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureRelationshipReferenceEnumerator_head), use_last_error=False)(6, 'GetEnumerator', ((1, 'relationshipReferenceEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignatureRelationshipReferenceSet
 def _define_IOpcRelationshipSelectorSet_head():
     class IOpcRelationshipSelectorSet(win32more.System.Com.IUnknown_head):
@@ -486,6 +512,7 @@ def _define_IOpcRelationshipSelectorSet():
     IOpcRelationshipSelectorSet.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.OPC_RELATIONSHIP_SELECTOR,win32more.Foundation.PWSTR,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipSelector_head), use_last_error=False)(3, 'Create', ((1, 'selector'),(1, 'selectionCriterion'),(1, 'relationshipSelector'),)))
     IOpcRelationshipSelectorSet.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcRelationshipSelector_head, use_last_error=False)(4, 'Delete', ((1, 'relationshipSelector'),)))
     IOpcRelationshipSelectorSet.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcRelationshipSelectorEnumerator_head), use_last_error=False)(5, 'GetEnumerator', ((1, 'relationshipSelectorEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IOpcRelationshipSelectorSet
 def _define_IOpcSignatureReferenceSet_head():
     class IOpcSignatureReferenceSet(win32more.System.Com.IUnknown_head):
@@ -496,6 +523,7 @@ def _define_IOpcSignatureReferenceSet():
     IOpcSignatureReferenceSet.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Storage.Packaging.Opc.OPC_CANONICALIZATION_METHOD,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureReference_head), use_last_error=False)(3, 'Create', ((1, 'referenceUri'),(1, 'referenceId'),(1, 'type'),(1, 'digestMethod'),(1, 'transformMethod'),(1, 'reference'),)))
     IOpcSignatureReferenceSet.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcSignatureReference_head, use_last_error=False)(4, 'Delete', ((1, 'reference'),)))
     IOpcSignatureReferenceSet.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureReferenceEnumerator_head), use_last_error=False)(5, 'GetEnumerator', ((1, 'referenceEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignatureReferenceSet
 def _define_IOpcSignatureCustomObjectSet_head():
     class IOpcSignatureCustomObjectSet(win32more.System.Com.IUnknown_head):
@@ -506,6 +534,7 @@ def _define_IOpcSignatureCustomObjectSet():
     IOpcSignatureCustomObjectSet.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureCustomObject_head), use_last_error=False)(3, 'Create', ((1, 'xmlMarkup'),(1, 'count'),(1, 'customObject'),)))
     IOpcSignatureCustomObjectSet.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcSignatureCustomObject_head, use_last_error=False)(4, 'Delete', ((1, 'customObject'),)))
     IOpcSignatureCustomObjectSet.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureCustomObjectEnumerator_head), use_last_error=False)(5, 'GetEnumerator', ((1, 'customObjectEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IOpcSignatureCustomObjectSet
 def _define_IOpcCertificateSet_head():
     class IOpcCertificateSet(win32more.System.Com.IUnknown_head):
@@ -516,6 +545,7 @@ def _define_IOpcCertificateSet():
     IOpcCertificateSet.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), use_last_error=False)(3, 'Add', ((1, 'certificate'),)))
     IOpcCertificateSet.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head), use_last_error=False)(4, 'Remove', ((1, 'certificate'),)))
     IOpcCertificateSet.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcCertificateEnumerator_head), use_last_error=False)(5, 'GetEnumerator', ((1, 'certificateEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IOpcCertificateSet
 def _define_IOpcFactory_head():
     class IOpcFactory(win32more.System.Com.IUnknown_head):
@@ -530,6 +560,7 @@ def _define_IOpcFactory():
     IOpcFactory.ReadPackageFromStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Opc.OPC_READ_FLAGS,POINTER(win32more.Storage.Packaging.Opc.IOpcPackage_head), use_last_error=False)(7, 'ReadPackageFromStream', ((1, 'stream'),(1, 'flags'),(1, 'package'),)))
     IOpcFactory.WritePackageToStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPackage_head,win32more.Storage.Packaging.Opc.OPC_WRITE_FLAGS,win32more.System.Com.IStream_head, use_last_error=False)(8, 'WritePackageToStream', ((1, 'package'),(1, 'flags'),(1, 'stream'),)))
     IOpcFactory.CreateDigitalSignatureManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPackage_head,POINTER(win32more.Storage.Packaging.Opc.IOpcDigitalSignatureManager_head), use_last_error=False)(9, 'CreateDigitalSignatureManager', ((1, 'package'),(1, 'signatureManager'),)))
+    win32more.System.Com.IUnknown
     return IOpcFactory
 __all__ = [
     "OPC_E_NONCONFORMING_URI",

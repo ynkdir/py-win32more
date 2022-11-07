@@ -22,6 +22,7 @@ def _define_IInkCommitRequestHandler_head():
 def _define_IInkCommitRequestHandler():
     IInkCommitRequestHandler = win32more.UI.Input.Ink.IInkCommitRequestHandler_head
     IInkCommitRequestHandler.OnCommitRequested = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnCommitRequested', ()))
+    win32more.System.Com.IUnknown
     return IInkCommitRequestHandler
 def _define_IInkPresenterDesktop_head():
     class IInkPresenterDesktop(win32more.System.Com.IUnknown_head):
@@ -34,6 +35,7 @@ def _define_IInkPresenterDesktop():
     IInkPresenterDesktop.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),POINTER(Single), use_last_error=False)(5, 'GetSize', ((1, 'width'),(1, 'height'),)))
     IInkPresenterDesktop.SetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single, use_last_error=False)(6, 'SetSize', ((1, 'width'),(1, 'height'),)))
     IInkPresenterDesktop.OnHighContrastChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'OnHighContrastChanged', ()))
+    win32more.System.Com.IUnknown
     return IInkPresenterDesktop
 def _define_IInkHostWorkItem_head():
     class IInkHostWorkItem(win32more.System.Com.IUnknown_head):
@@ -42,6 +44,7 @@ def _define_IInkHostWorkItem_head():
 def _define_IInkHostWorkItem():
     IInkHostWorkItem = win32more.UI.Input.Ink.IInkHostWorkItem_head
     IInkHostWorkItem.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Invoke', ()))
+    win32more.System.Com.IUnknown
     return IInkHostWorkItem
 def _define_IInkDesktopHost_head():
     class IInkDesktopHost(win32more.System.Com.IUnknown_head):
@@ -52,6 +55,7 @@ def _define_IInkDesktopHost():
     IInkDesktopHost.QueueWorkItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Input.Ink.IInkHostWorkItem_head, use_last_error=False)(3, 'QueueWorkItem', ((1, 'workItem'),)))
     IInkDesktopHost.CreateInkPresenter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'CreateInkPresenter', ((1, 'riid'),(1, 'ppv'),)))
     IInkDesktopHost.CreateAndInitializeInkPresenter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Single,Single,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'CreateAndInitializeInkPresenter', ((1, 'rootVisual'),(1, 'width'),(1, 'height'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IInkDesktopHost
 InkD2DRenderer = Guid('4044e60c-7b01-4671-a97c-04e0210a07a5')
 INK_HIGH_CONTRAST_ADJUSTMENT = Int32
@@ -65,6 +69,7 @@ def _define_IInkD2DRenderer_head():
 def _define_IInkD2DRenderer():
     IInkD2DRenderer = win32more.UI.Input.Ink.IInkD2DRenderer_head
     IInkD2DRenderer.Draw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL, use_last_error=False)(3, 'Draw', ((1, 'pD2D1DeviceContext'),(1, 'pInkStrokeIterable'),(1, 'fHighContrast'),)))
+    win32more.System.Com.IUnknown
     return IInkD2DRenderer
 def _define_IInkD2DRenderer2_head():
     class IInkD2DRenderer2(win32more.System.Com.IUnknown_head):
@@ -73,6 +78,7 @@ def _define_IInkD2DRenderer2_head():
 def _define_IInkD2DRenderer2():
     IInkD2DRenderer2 = win32more.UI.Input.Ink.IInkD2DRenderer2_head
     IInkD2DRenderer2.Draw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head,win32more.UI.Input.Ink.INK_HIGH_CONTRAST_ADJUSTMENT, use_last_error=False)(3, 'Draw', ((1, 'pD2D1DeviceContext'),(1, 'pInkStrokeIterable'),(1, 'highContrastAdjustment'),)))
+    win32more.System.Com.IUnknown
     return IInkD2DRenderer2
 __all__ = [
     "InkDesktopHost",

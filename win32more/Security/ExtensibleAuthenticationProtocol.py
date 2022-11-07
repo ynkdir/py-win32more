@@ -446,6 +446,7 @@ def _define_IRouterProtocolConfig():
     IRouterProtocolConfig = win32more.Security.ExtensibleAuthenticationProtocol.IRouterProtocolConfig_head
     IRouterProtocolConfig.AddProtocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.HWND,UInt32,win32more.System.Com.IUnknown_head,UIntPtr, use_last_error=False)(3, 'AddProtocol', ((1, 'pszMachineName'),(1, 'dwTransportId'),(1, 'dwProtocolId'),(1, 'hWnd'),(1, 'dwFlags'),(1, 'pRouter'),(1, 'uReserved1'),)))
     IRouterProtocolConfig.RemoveProtocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.HWND,UInt32,win32more.System.Com.IUnknown_head,UIntPtr, use_last_error=False)(4, 'RemoveProtocol', ((1, 'pszMachineName'),(1, 'dwTransportId'),(1, 'dwProtocolId'),(1, 'hWnd'),(1, 'dwFlags'),(1, 'pRouter'),(1, 'uReserved1'),)))
+    win32more.System.Com.IUnknown
     return IRouterProtocolConfig
 def _define_IAuthenticationProviderConfig_head():
     class IAuthenticationProviderConfig(win32more.System.Com.IUnknown_head):
@@ -458,6 +459,7 @@ def _define_IAuthenticationProviderConfig():
     IAuthenticationProviderConfig.Configure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.Foundation.HWND,UInt32,UIntPtr,UIntPtr, use_last_error=False)(5, 'Configure', ((1, 'uConnectionParam'),(1, 'hWnd'),(1, 'dwFlags'),(1, 'uReserved1'),(1, 'uReserved2'),)))
     IAuthenticationProviderConfig.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(6, 'Activate', ((1, 'uConnectionParam'),(1, 'uReserved1'),(1, 'uReserved2'),)))
     IAuthenticationProviderConfig.Deactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(7, 'Deactivate', ((1, 'uConnectionParam'),(1, 'uReserved1'),(1, 'uReserved2'),)))
+    win32more.System.Com.IUnknown
     return IAuthenticationProviderConfig
 def _define_IAccountingProviderConfig_head():
     class IAccountingProviderConfig(win32more.System.Com.IUnknown_head):
@@ -470,6 +472,7 @@ def _define_IAccountingProviderConfig():
     IAccountingProviderConfig.Configure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.Foundation.HWND,UInt32,UIntPtr,UIntPtr, use_last_error=False)(5, 'Configure', ((1, 'uConnectionParam'),(1, 'hWnd'),(1, 'dwFlags'),(1, 'uReserved1'),(1, 'uReserved2'),)))
     IAccountingProviderConfig.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(6, 'Activate', ((1, 'uConnectionParam'),(1, 'uReserved1'),(1, 'uReserved2'),)))
     IAccountingProviderConfig.Deactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(7, 'Deactivate', ((1, 'uConnectionParam'),(1, 'uReserved1'),(1, 'uReserved2'),)))
+    win32more.System.Com.IUnknown
     return IAccountingProviderConfig
 def _define_IEAPProviderConfig_head():
     class IEAPProviderConfig(win32more.System.Com.IUnknown_head):
@@ -482,6 +485,7 @@ def _define_IEAPProviderConfig():
     IEAPProviderConfig.ServerInvokeConfigUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,win32more.Foundation.HWND,UIntPtr,UIntPtr, use_last_error=False)(5, 'ServerInvokeConfigUI', ((1, 'dwEapTypeId'),(1, 'uConnectionParam'),(1, 'hWnd'),(1, 'uReserved1'),(1, 'uReserved2'),)))
     IEAPProviderConfig.RouterInvokeConfigUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,win32more.Foundation.HWND,UInt32,POINTER(Byte),UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(6, 'RouterInvokeConfigUI', ((1, 'dwEapTypeId'),(1, 'uConnectionParam'),(1, 'hwndParent'),(1, 'dwFlags'),(1, 'pConnectionDataIn'),(1, 'dwSizeOfConnectionDataIn'),(1, 'ppConnectionDataOut'),(1, 'pdwSizeOfConnectionDataOut'),)))
     IEAPProviderConfig.RouterInvokeCredentialsUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,win32more.Foundation.HWND,UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(7, 'RouterInvokeCredentialsUI', ((1, 'dwEapTypeId'),(1, 'uConnectionParam'),(1, 'hwndParent'),(1, 'dwFlags'),(1, 'pConnectionDataIn'),(1, 'dwSizeOfConnectionDataIn'),(1, 'pUserDataIn'),(1, 'dwSizeOfUserDataIn'),(1, 'ppUserDataOut'),(1, 'pdwSizeOfUserDataOut'),)))
+    win32more.System.Com.IUnknown
     return IEAPProviderConfig
 def _define_IEAPProviderConfig2_head():
     class IEAPProviderConfig2(win32more.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig_head):
@@ -491,6 +495,7 @@ def _define_IEAPProviderConfig2():
     IEAPProviderConfig2 = win32more.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig2_head
     IEAPProviderConfig2.ServerInvokeConfigUI2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,win32more.Foundation.HWND,c_char_p_no,UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(8, 'ServerInvokeConfigUI2', ((1, 'dwEapTypeId'),(1, 'uConnectionParam'),(1, 'hWnd'),(1, 'pConfigDataIn'),(1, 'dwSizeOfConfigDataIn'),(1, 'ppConfigDataOut'),(1, 'pdwSizeOfConfigDataOut'),)))
     IEAPProviderConfig2.GetGlobalConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(9, 'GetGlobalConfig', ((1, 'dwEapTypeId'),(1, 'ppConfigDataOut'),(1, 'pdwSizeOfConfigDataOut'),)))
+    win32more.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig
     return IEAPProviderConfig2
 def _define_IEAPProviderConfig3_head():
     class IEAPProviderConfig3(win32more.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig2_head):
@@ -499,6 +504,7 @@ def _define_IEAPProviderConfig3_head():
 def _define_IEAPProviderConfig3():
     IEAPProviderConfig3 = win32more.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig3_head
     IEAPProviderConfig3.ServerInvokeCertificateConfigUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,win32more.Foundation.HWND,c_char_p_no,UInt32,POINTER(c_char_p_no),POINTER(UInt32),UIntPtr, use_last_error=False)(10, 'ServerInvokeCertificateConfigUI', ((1, 'dwEapTypeId'),(1, 'uConnectionParam'),(1, 'hWnd'),(1, 'pConfigDataIn'),(1, 'dwSizeOfConfigDataIn'),(1, 'ppConfigDataOut'),(1, 'pdwSizeOfConfigDataOut'),(1, 'uReserved'),)))
+    win32more.Security.ExtensibleAuthenticationProtocol.IEAPProviderConfig2
     return IEAPProviderConfig3
 def _define_EAP_TYPE_head():
     class EAP_TYPE(Structure):

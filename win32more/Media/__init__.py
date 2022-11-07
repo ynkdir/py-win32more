@@ -186,6 +186,7 @@ def _define_IReferenceClock():
     IReferenceClock.AdviseTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,Int64,win32more.Foundation.HANDLE,POINTER(UIntPtr), use_last_error=False)(4, 'AdviseTime', ((1, 'baseTime'),(1, 'streamTime'),(1, 'hEvent'),(1, 'pdwAdviseCookie'),)))
     IReferenceClock.AdvisePeriodic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,Int64,win32more.Foundation.HANDLE,POINTER(UIntPtr), use_last_error=False)(5, 'AdvisePeriodic', ((1, 'startTime'),(1, 'periodTime'),(1, 'hSemaphore'),(1, 'pdwAdviseCookie'),)))
     IReferenceClock.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(6, 'Unadvise', ((1, 'dwAdviseCookie'),)))
+    win32more.System.Com.IUnknown
     return IReferenceClock
 def _define_IReferenceClockTimerControl_head():
     class IReferenceClockTimerControl(win32more.System.Com.IUnknown_head):
@@ -195,6 +196,7 @@ def _define_IReferenceClockTimerControl():
     IReferenceClockTimerControl = win32more.Media.IReferenceClockTimerControl_head
     IReferenceClockTimerControl.SetDefaultTimerResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(3, 'SetDefaultTimerResolution', ((1, 'timerResolution'),)))
     IReferenceClockTimerControl.GetDefaultTimerResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(4, 'GetDefaultTimerResolution', ((1, 'pTimerResolution'),)))
+    win32more.System.Com.IUnknown
     return IReferenceClockTimerControl
 def _define_IReferenceClock2_head():
     class IReferenceClock2(win32more.Media.IReferenceClock_head):
@@ -202,6 +204,7 @@ def _define_IReferenceClock2_head():
     return IReferenceClock2
 def _define_IReferenceClock2():
     IReferenceClock2 = win32more.Media.IReferenceClock2_head
+    win32more.Media.IReferenceClock
     return IReferenceClock2
 def _define_TIMECODE_head():
     class TIMECODE(Union):

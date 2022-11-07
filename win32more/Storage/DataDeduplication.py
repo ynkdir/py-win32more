@@ -51,6 +51,7 @@ def _define_IDedupReadFileCallback():
     IDedupReadFileCallback.ReadBackupFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int64,UInt32,POINTER(Byte),POINTER(UInt32),UInt32, use_last_error=False)(3, 'ReadBackupFile', ((1, 'FileFullPath'),(1, 'FileOffset'),(1, 'SizeToRead'),(1, 'FileBuffer'),(1, 'ReturnedSize'),(1, 'Flags'),)))
     IDedupReadFileCallback.OrderContainersRestore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32),POINTER(POINTER(win32more.Storage.DataDeduplication.DEDUP_CONTAINER_EXTENT_head)), use_last_error=False)(4, 'OrderContainersRestore', ((1, 'NumberOfContainers'),(1, 'ContainerPaths'),(1, 'ReadPlanEntries'),(1, 'ReadPlan'),)))
     IDedupReadFileCallback.PreviewContainerRead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(win32more.Storage.DataDeduplication.DDP_FILE_EXTENT), use_last_error=False)(5, 'PreviewContainerRead', ((1, 'FileFullPath'),(1, 'NumberOfReads'),(1, 'ReadOffsets'),)))
+    win32more.System.Com.IUnknown
     return IDedupReadFileCallback
 def _define_IDedupBackupSupport_head():
     class IDedupBackupSupport(win32more.System.Com.IUnknown_head):
@@ -59,6 +60,7 @@ def _define_IDedupBackupSupport_head():
 def _define_IDedupBackupSupport():
     IDedupBackupSupport = win32more.Storage.DataDeduplication.IDedupBackupSupport_head
     IDedupBackupSupport.RestoreFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),win32more.Storage.DataDeduplication.IDedupReadFileCallback_head,UInt32,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(3, 'RestoreFiles', ((1, 'NumberOfFiles'),(1, 'FileFullPaths'),(1, 'Store'),(1, 'Flags'),(1, 'FileResults'),)))
+    win32more.System.Com.IUnknown
     return IDedupBackupSupport
 DEDUP_SET_PARAM_TYPE = Int32
 DEDUP_PT_MinChunkSizeBytes = 1
@@ -89,6 +91,7 @@ def _define_IDedupChunkLibrary():
     IDedupChunkLibrary.Uninitialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Uninitialize', ()))
     IDedupChunkLibrary.SetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.VARIANT, use_last_error=False)(5, 'SetParameter', ((1, 'dwParamType'),(1, 'vParamValue'),)))
     IDedupChunkLibrary.StartChunking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'StartChunking', ((1, 'iidIteratorInterfaceID'),(1, 'ppChunksEnum'),)))
+    win32more.System.Com.IUnknown
     return IDedupChunkLibrary
 def _define_IDedupIterateChunksHash32_head():
     class IDedupIterateChunksHash32(win32more.System.Com.IUnknown_head):
@@ -100,6 +103,7 @@ def _define_IDedupIterateChunksHash32():
     IDedupIterateChunksHash32.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.DataDeduplication.DEDUP_CHUNK_INFO_HASH32),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulMaxChunks'),(1, 'pArrChunks'),(1, 'pulFetched'),)))
     IDedupIterateChunksHash32.Drain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Drain', ()))
     IDedupIterateChunksHash32.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IDedupIterateChunksHash32
 DedupDataPortManagerOption = Int32
 DedupDataPortManagerOption_None = 0
@@ -199,6 +203,7 @@ def _define_IDedupDataPort():
     IDedupDataPort.GetChunksResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.Storage.DataDeduplication.DedupChunk_head)),POINTER(UInt32),POINTER(c_char_p_no),POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus),POINTER(POINTER(win32more.Foundation.HRESULT)), use_last_error=False)(12, 'GetChunksResults', ((1, 'RequestId'),(1, 'MaxWaitMs'),(1, 'ChunkIndex'),(1, 'pChunkCount'),(1, 'ppChunkMetadata'),(1, 'pDataByteCount'),(1, 'ppChunkData'),(1, 'pStatus'),(1, 'ppItemResults'),)))
     IDedupDataPort.GetRequestStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus), use_last_error=False)(13, 'GetRequestStatus', ((1, 'RequestId'),(1, 'pStatus'),)))
     IDedupDataPort.GetRequestResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,POINTER(win32more.Foundation.HRESULT),POINTER(UInt32),POINTER(win32more.Storage.DataDeduplication.DedupDataPortRequestStatus),POINTER(POINTER(win32more.Foundation.HRESULT)), use_last_error=False)(14, 'GetRequestResults', ((1, 'RequestId'),(1, 'MaxWaitMs'),(1, 'pBatchResult'),(1, 'pBatchCount'),(1, 'pStatus'),(1, 'ppItemResults'),)))
+    win32more.System.Com.IUnknown
     return IDedupDataPort
 def _define_IDedupDataPortManager_head():
     class IDedupDataPortManager(win32more.System.Com.IUnknown_head):
@@ -209,6 +214,7 @@ def _define_IDedupDataPortManager():
     IDedupDataPortManager.GetConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Storage.DataDeduplication.DedupChunkingAlgorithm),POINTER(win32more.Storage.DataDeduplication.DedupHashingAlgorithm),POINTER(win32more.Storage.DataDeduplication.DedupCompressionAlgorithm), use_last_error=False)(3, 'GetConfiguration', ((1, 'pMinChunkSize'),(1, 'pMaxChunkSize'),(1, 'pChunkingAlgorithm'),(1, 'pHashingAlgorithm'),(1, 'pCompressionAlgorithm'),)))
     IDedupDataPortManager.GetVolumeStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,POINTER(win32more.Storage.DataDeduplication.DedupDataPortVolumeStatus), use_last_error=False)(4, 'GetVolumeStatus', ((1, 'Options'),(1, 'Path'),(1, 'pStatus'),)))
     IDedupDataPortManager.GetVolumeDataPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR,POINTER(win32more.Storage.DataDeduplication.IDedupDataPort_head), use_last_error=False)(5, 'GetVolumeDataPort', ((1, 'Options'),(1, 'Path'),(1, 'ppDataPort'),)))
+    win32more.System.Com.IUnknown
     return IDedupDataPortManager
 __all__ = [
     "DEDUP_CHUNKLIB_MAX_CHUNKS_ENUM",

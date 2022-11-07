@@ -159,6 +159,7 @@ def _define_IEnumSTATSTG():
     IEnumSTATSTG.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumSTATSTG.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSTATSTG.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATSTG_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSTATSTG
 def _define_RemSNB_head():
     class RemSNB(Structure):
@@ -193,6 +194,7 @@ def _define_IStorage():
     IStorage.SetClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(15, 'SetClass', ((1, 'clsid'),)))
     IStorage.SetStateBits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(16, 'SetStateBits', ((1, 'grfStateBits'),(1, 'grfMask'),)))
     IStorage.Stat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.STATSTG_head),UInt32, use_last_error=False)(17, 'Stat', ((1, 'pstatstg'),(1, 'grfStatFlag'),)))
+    win32more.System.Com.IUnknown
     return IStorage
 def _define_IPersistStorage_head():
     class IPersistStorage(win32more.System.Com.IPersist_head):
@@ -206,6 +208,7 @@ def _define_IPersistStorage():
     IPersistStorage.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,win32more.Foundation.BOOL, use_last_error=False)(7, 'Save', ((1, 'pStgSave'),(1, 'fSameAsLoad'),)))
     IPersistStorage.SaveCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head, use_last_error=False)(8, 'SaveCompleted', ((1, 'pStgNew'),)))
     IPersistStorage.HandsOffStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'HandsOffStorage', ()))
+    win32more.System.Com.IPersist
     return IPersistStorage
 def _define_ILockBytes_head():
     class ILockBytes(win32more.System.Com.IUnknown_head):
@@ -220,6 +223,7 @@ def _define_ILockBytes():
     ILockBytes.LockRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER,win32more.Foundation.ULARGE_INTEGER,UInt32, use_last_error=False)(7, 'LockRegion', ((1, 'libOffset'),(1, 'cb'),(1, 'dwLockType'),)))
     ILockBytes.UnlockRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER,win32more.Foundation.ULARGE_INTEGER,UInt32, use_last_error=False)(8, 'UnlockRegion', ((1, 'libOffset'),(1, 'cb'),(1, 'dwLockType'),)))
     ILockBytes.Stat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.STATSTG_head),UInt32, use_last_error=False)(9, 'Stat', ((1, 'pstatstg'),(1, 'grfStatFlag'),)))
+    win32more.System.Com.IUnknown
     return ILockBytes
 def _define_IRootStorage_head():
     class IRootStorage(win32more.System.Com.IUnknown_head):
@@ -228,6 +232,7 @@ def _define_IRootStorage_head():
 def _define_IRootStorage():
     IRootStorage = win32more.System.Com.StructuredStorage.IRootStorage_head
     IRootStorage.SwitchToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SwitchToFile', ((1, 'pszFile'),)))
+    win32more.System.Com.IUnknown
     return IRootStorage
 def _define_IFillLockBytes_head():
     class IFillLockBytes(win32more.System.Com.IUnknown_head):
@@ -239,6 +244,7 @@ def _define_IFillLockBytes():
     IFillLockBytes.FillAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(4, 'FillAt', ((1, 'ulOffset'),(1, 'pv'),(1, 'cb'),(1, 'pcbWritten'),)))
     IFillLockBytes.SetFillSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.ULARGE_INTEGER, use_last_error=False)(5, 'SetFillSize', ((1, 'ulSize'),)))
     IFillLockBytes.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(6, 'Terminate', ((1, 'bCanceled'),)))
+    win32more.System.Com.IUnknown
     return IFillLockBytes
 def _define_ILayoutStorage_head():
     class ILayoutStorage(win32more.System.Com.IUnknown_head):
@@ -251,6 +257,7 @@ def _define_ILayoutStorage():
     ILayoutStorage.EndMonitor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'EndMonitor', ()))
     ILayoutStorage.ReLayoutDocfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'ReLayoutDocfile', ((1, 'pwcsNewDfName'),)))
     ILayoutStorage.ReLayoutDocfileOnILockBytes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.ILockBytes_head, use_last_error=False)(7, 'ReLayoutDocfileOnILockBytes', ((1, 'pILockBytes'),)))
+    win32more.System.Com.IUnknown
     return ILayoutStorage
 def _define_IDirectWriterLock_head():
     class IDirectWriterLock(win32more.System.Com.IUnknown_head):
@@ -261,6 +268,7 @@ def _define_IDirectWriterLock():
     IDirectWriterLock.WaitForWriteAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'WaitForWriteAccess', ((1, 'dwTimeout'),)))
     IDirectWriterLock.ReleaseWriteAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ReleaseWriteAccess', ()))
     IDirectWriterLock.HaveWriteAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'HaveWriteAccess', ()))
+    win32more.System.Com.IUnknown
     return IDirectWriterLock
 def _define_VERSIONEDSTREAM_head():
     class VERSIONEDSTREAM(Structure):
@@ -692,6 +700,7 @@ def _define_IPropertyStorage():
     IPropertyStorage.SetTimes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(12, 'SetTimes', ((1, 'pctime'),(1, 'patime'),(1, 'pmtime'),)))
     IPropertyStorage.SetClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(13, 'SetClass', ((1, 'clsid'),)))
     IPropertyStorage.Stat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.STATPROPSETSTG_head), use_last_error=False)(14, 'Stat', ((1, 'pstatpsstg'),)))
+    win32more.System.Com.IUnknown
     return IPropertyStorage
 def _define_IPropertySetStorage_head():
     class IPropertySetStorage(win32more.System.Com.IUnknown_head):
@@ -703,6 +712,7 @@ def _define_IPropertySetStorage():
     IPropertySetStorage.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head), use_last_error=False)(4, 'Open', ((1, 'rfmtid'),(1, 'grfMode'),(1, 'ppprstg'),)))
     IPropertySetStorage.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'Delete', ((1, 'rfmtid'),)))
     IPropertySetStorage.Enum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head), use_last_error=False)(6, 'Enum', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IPropertySetStorage
 def _define_IEnumSTATPROPSTG_head():
     class IEnumSTATPROPSTG(win32more.System.Com.IUnknown_head):
@@ -714,6 +724,7 @@ def _define_IEnumSTATPROPSTG():
     IEnumSTATPROPSTG.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumSTATPROPSTG.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSTATPROPSTG.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSTG_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSTATPROPSTG
 def _define_IEnumSTATPROPSETSTG_head():
     class IEnumSTATPROPSETSTG(win32more.System.Com.IUnknown_head):
@@ -725,6 +736,7 @@ def _define_IEnumSTATPROPSETSTG():
     IEnumSTATPROPSETSTG.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumSTATPROPSETSTG.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSTATPROPSETSTG.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IEnumSTATPROPSETSTG_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSTATPROPSETSTG
 def _define_STGOPTIONS_head():
     class STGOPTIONS(Structure):
@@ -776,6 +788,7 @@ def _define_IPropertyBag():
     IPropertyBag = win32more.System.Com.StructuredStorage.IPropertyBag_head
     IPropertyBag.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.System.Com.IErrorLog_head, use_last_error=False)(3, 'Read', ((1, 'pszPropName'),(1, 'pVar'),(1, 'pErrorLog'),)))
     IPropertyBag.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(4, 'Write', ((1, 'pszPropName'),(1, 'pVar'),)))
+    win32more.System.Com.IUnknown
     return IPropertyBag
 def _define_OLESTREAMVTBL_head():
     class OLESTREAMVTBL(Structure):
@@ -824,6 +837,7 @@ def _define_IPropertyBag2():
     IPropertyBag2.CountProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'CountProperties', ((1, 'pcProperties'),)))
     IPropertyBag2.GetPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPBAG2),POINTER(UInt32), use_last_error=False)(6, 'GetPropertyInfo', ((1, 'iProperty'),(1, 'cProperties'),(1, 'pPropBag'),(1, 'pcProperties'),)))
     IPropertyBag2.LoadObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.System.Com.IUnknown_head,win32more.System.Com.IErrorLog_head, use_last_error=False)(7, 'LoadObject', ((1, 'pstrName'),(1, 'dwHint'),(1, 'pUnkObject'),(1, 'pErrLog'),)))
+    win32more.System.Com.IUnknown
     return IPropertyBag2
 def _define_CoGetInstanceFromFile():
     try:

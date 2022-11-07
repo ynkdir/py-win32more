@@ -204,6 +204,7 @@ def _define_IRdcGeneratorParameters():
     IRdcGeneratorParameters.GetParametersVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'GetParametersVersion', ((1, 'currentVersion'),(1, 'minimumCompatibleAppVersion'),)))
     IRdcGeneratorParameters.GetSerializeSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetSerializeSize', ((1, 'size'),)))
     IRdcGeneratorParameters.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,POINTER(UInt32), use_last_error=False)(6, 'Serialize', ((1, 'size'),(1, 'parametersBlob'),(1, 'bytesWritten'),)))
+    win32more.System.Com.IUnknown
     return IRdcGeneratorParameters
 def _define_IRdcGeneratorFilterMaxParameters_head():
     class IRdcGeneratorFilterMaxParameters(win32more.System.Com.IUnknown_head):
@@ -215,6 +216,7 @@ def _define_IRdcGeneratorFilterMaxParameters():
     IRdcGeneratorFilterMaxParameters.SetHorizonSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetHorizonSize', ((1, 'horizonSize'),)))
     IRdcGeneratorFilterMaxParameters.GetHashWindowSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetHashWindowSize', ((1, 'hashWindowSize'),)))
     IRdcGeneratorFilterMaxParameters.SetHashWindowSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'SetHashWindowSize', ((1, 'hashWindowSize'),)))
+    win32more.System.Com.IUnknown
     return IRdcGeneratorFilterMaxParameters
 def _define_IRdcGenerator_head():
     class IRdcGenerator(win32more.System.Com.IUnknown_head):
@@ -224,6 +226,7 @@ def _define_IRdcGenerator():
     IRdcGenerator = win32more.Networking.RemoteDifferentialCompression.IRdcGenerator_head
     IRdcGenerator.GetGeneratorParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.RemoteDifferentialCompression.IRdcGeneratorParameters_head), use_last_error=False)(3, 'GetGeneratorParameters', ((1, 'level'),(1, 'iGeneratorParameters'),)))
     IRdcGenerator.Process = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Networking.RemoteDifferentialCompression.RdcBufferPointer_head),UInt32,POINTER(POINTER(win32more.Networking.RemoteDifferentialCompression.RdcBufferPointer_head)),POINTER(win32more.Networking.RemoteDifferentialCompression.RDC_ErrorCode), use_last_error=False)(4, 'Process', ((1, 'endOfInput'),(1, 'endOfOutput'),(1, 'inputBuffer'),(1, 'depth'),(1, 'outputBuffers'),(1, 'rdc_ErrorCode'),)))
+    win32more.System.Com.IUnknown
     return IRdcGenerator
 def _define_IRdcFileReader_head():
     class IRdcFileReader(win32more.System.Com.IUnknown_head):
@@ -234,6 +237,7 @@ def _define_IRdcFileReader():
     IRdcFileReader.GetFileSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(3, 'GetFileSize', ((1, 'fileSize'),)))
     IRdcFileReader.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,POINTER(UInt32),c_char_p_no,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'Read', ((1, 'offsetFileStart'),(1, 'bytesToRead'),(1, 'bytesActuallyRead'),(1, 'buffer'),(1, 'eof'),)))
     IRdcFileReader.GetFilePosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(5, 'GetFilePosition', ((1, 'offsetFromStart'),)))
+    win32more.System.Com.IUnknown
     return IRdcFileReader
 def _define_IRdcFileWriter_head():
     class IRdcFileWriter(win32more.Networking.RemoteDifferentialCompression.IRdcFileReader_head):
@@ -244,6 +248,7 @@ def _define_IRdcFileWriter():
     IRdcFileWriter.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,c_char_p_no, use_last_error=False)(6, 'Write', ((1, 'offsetFileStart'),(1, 'bytesToWrite'),(1, 'buffer'),)))
     IRdcFileWriter.Truncate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Truncate', ()))
     IRdcFileWriter.DeleteOnClose = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'DeleteOnClose', ()))
+    win32more.Networking.RemoteDifferentialCompression.IRdcFileReader
     return IRdcFileWriter
 def _define_IRdcSignatureReader_head():
     class IRdcSignatureReader(win32more.System.Com.IUnknown_head):
@@ -253,6 +258,7 @@ def _define_IRdcSignatureReader():
     IRdcSignatureReader = win32more.Networking.RemoteDifferentialCompression.IRdcSignatureReader_head
     IRdcSignatureReader.ReadHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.RemoteDifferentialCompression.RDC_ErrorCode), use_last_error=False)(3, 'ReadHeader', ((1, 'rdc_ErrorCode'),)))
     IRdcSignatureReader.ReadSignatures = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.RemoteDifferentialCompression.RdcSignaturePointer_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'ReadSignatures', ((1, 'rdcSignaturePointer'),(1, 'endOfOutput'),)))
+    win32more.System.Com.IUnknown
     return IRdcSignatureReader
 def _define_IRdcComparator_head():
     class IRdcComparator(win32more.System.Com.IUnknown_head):
@@ -261,6 +267,7 @@ def _define_IRdcComparator_head():
 def _define_IRdcComparator():
     IRdcComparator = win32more.Networking.RemoteDifferentialCompression.IRdcComparator_head
     IRdcComparator.Process = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Networking.RemoteDifferentialCompression.RdcBufferPointer_head),POINTER(win32more.Networking.RemoteDifferentialCompression.RdcNeedPointer_head),POINTER(win32more.Networking.RemoteDifferentialCompression.RDC_ErrorCode), use_last_error=False)(3, 'Process', ((1, 'endOfInput'),(1, 'endOfOutput'),(1, 'inputBuffer'),(1, 'outputBuffer'),(1, 'rdc_ErrorCode'),)))
+    win32more.System.Com.IUnknown
     return IRdcComparator
 def _define_IRdcLibrary_head():
     class IRdcLibrary(win32more.System.Com.IUnknown_head):
@@ -275,6 +282,7 @@ def _define_IRdcLibrary():
     IRdcLibrary.CreateComparator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.RemoteDifferentialCompression.IRdcFileReader_head,UInt32,POINTER(win32more.Networking.RemoteDifferentialCompression.IRdcComparator_head), use_last_error=False)(7, 'CreateComparator', ((1, 'iSeedSignaturesFile'),(1, 'comparatorBufferSize'),(1, 'iComparator'),)))
     IRdcLibrary.CreateSignatureReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.RemoteDifferentialCompression.IRdcFileReader_head,POINTER(win32more.Networking.RemoteDifferentialCompression.IRdcSignatureReader_head), use_last_error=False)(8, 'CreateSignatureReader', ((1, 'iFileReader'),(1, 'iSignatureReader'),)))
     IRdcLibrary.GetRDCVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(9, 'GetRDCVersion', ((1, 'currentVersion'),(1, 'minimumCompatibleAppVersion'),)))
+    win32more.System.Com.IUnknown
     return IRdcLibrary
 def _define_ISimilarityReportProgress_head():
     class ISimilarityReportProgress(win32more.System.Com.IUnknown_head):
@@ -283,6 +291,7 @@ def _define_ISimilarityReportProgress_head():
 def _define_ISimilarityReportProgress():
     ISimilarityReportProgress = win32more.Networking.RemoteDifferentialCompression.ISimilarityReportProgress_head
     ISimilarityReportProgress.ReportProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'ReportProgress', ((1, 'percentCompleted'),)))
+    win32more.System.Com.IUnknown
     return ISimilarityReportProgress
 def _define_ISimilarityTableDumpState_head():
     class ISimilarityTableDumpState(win32more.System.Com.IUnknown_head):
@@ -291,6 +300,7 @@ def _define_ISimilarityTableDumpState_head():
 def _define_ISimilarityTableDumpState():
     ISimilarityTableDumpState = win32more.Networking.RemoteDifferentialCompression.ISimilarityTableDumpState_head
     ISimilarityTableDumpState.GetNextData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Networking.RemoteDifferentialCompression.SimilarityDumpData_head), use_last_error=False)(3, 'GetNextData', ((1, 'resultsSize'),(1, 'resultsUsed'),(1, 'eof'),(1, 'results'),)))
+    win32more.System.Com.IUnknown
     return ISimilarityTableDumpState
 def _define_ISimilarityTraitsMappedView_head():
     class ISimilarityTraitsMappedView(win32more.System.Com.IUnknown_head):
@@ -302,6 +312,7 @@ def _define_ISimilarityTraitsMappedView():
     ISimilarityTraitsMappedView.Unmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Unmap', ()))
     ISimilarityTraitsMappedView.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.BOOL,UInt32,POINTER(win32more.Networking.RemoteDifferentialCompression.SimilarityMappedViewInfo_head), use_last_error=False)(5, 'Get', ((1, 'index'),(1, 'dirty'),(1, 'numElements'),(1, 'viewInfo'),)))
     ISimilarityTraitsMappedView.GetView = COMMETHOD(WINFUNCTYPE(Void,POINTER(c_char_p_no),POINTER(c_char_p_no), use_last_error=False)(6, 'GetView', ((1, 'mappedPageBegin'),(1, 'mappedPageEnd'),)))
+    win32more.System.Com.IUnknown
     return ISimilarityTraitsMappedView
 def _define_ISimilarityTraitsMapping_head():
     class ISimilarityTraitsMapping(win32more.System.Com.IUnknown_head):
@@ -316,6 +327,7 @@ def _define_ISimilarityTraitsMapping():
     ISimilarityTraitsMapping.ResizeMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.RemoteDifferentialCompression.RdcMappingAccessMode,UInt64,UInt64,POINTER(UInt64), use_last_error=False)(7, 'ResizeMapping', ((1, 'accessMode'),(1, 'begin'),(1, 'end'),(1, 'actualEnd'),)))
     ISimilarityTraitsMapping.GetPageSize = COMMETHOD(WINFUNCTYPE(Void,POINTER(UInt32), use_last_error=False)(8, 'GetPageSize', ((1, 'pageSize'),)))
     ISimilarityTraitsMapping.CreateView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Networking.RemoteDifferentialCompression.RdcMappingAccessMode,POINTER(win32more.Networking.RemoteDifferentialCompression.ISimilarityTraitsMappedView_head), use_last_error=False)(9, 'CreateView', ((1, 'minimumMappedPages'),(1, 'accessMode'),(1, 'mappedView'),)))
+    win32more.System.Com.IUnknown
     return ISimilarityTraitsMapping
 def _define_ISimilarityTraitsTable_head():
     class ISimilarityTraitsTable(win32more.System.Com.IUnknown_head):
@@ -330,6 +342,7 @@ def _define_ISimilarityTraitsTable():
     ISimilarityTraitsTable.FindSimilarFileIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.RemoteDifferentialCompression.SimilarityData_head),UInt16,POINTER(win32more.Networking.RemoteDifferentialCompression.FindSimilarFileIndexResults_head),UInt32,POINTER(UInt32), use_last_error=False)(7, 'FindSimilarFileIndex', ((1, 'similarityData'),(1, 'numberOfMatchesRequired'),(1, 'findSimilarFileIndexResults'),(1, 'resultsSize'),(1, 'resultsUsed'),)))
     ISimilarityTraitsTable.BeginDump = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.RemoteDifferentialCompression.ISimilarityTableDumpState_head), use_last_error=False)(8, 'BeginDump', ((1, 'similarityTableDumpState'),)))
     ISimilarityTraitsTable.GetLastIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetLastIndex', ((1, 'fileIndex'),)))
+    win32more.System.Com.IUnknown
     return ISimilarityTraitsTable
 def _define_ISimilarityFileIdTable_head():
     class ISimilarityFileIdTable(win32more.System.Com.IUnknown_head):
@@ -344,6 +357,7 @@ def _define_ISimilarityFileIdTable():
     ISimilarityFileIdTable.Lookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.RemoteDifferentialCompression.SimilarityFileId_head), use_last_error=False)(7, 'Lookup', ((1, 'similarityFileIndex'),(1, 'similarityFileId'),)))
     ISimilarityFileIdTable.Invalidate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'Invalidate', ((1, 'similarityFileIndex'),)))
     ISimilarityFileIdTable.GetRecordCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetRecordCount', ((1, 'recordCount'),)))
+    win32more.System.Com.IUnknown
     return ISimilarityFileIdTable
 def _define_IRdcSimilarityGenerator_head():
     class IRdcSimilarityGenerator(win32more.System.Com.IUnknown_head):
@@ -353,6 +367,7 @@ def _define_IRdcSimilarityGenerator():
     IRdcSimilarityGenerator = win32more.Networking.RemoteDifferentialCompression.IRdcSimilarityGenerator_head
     IRdcSimilarityGenerator.EnableSimilarity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'EnableSimilarity', ()))
     IRdcSimilarityGenerator.Results = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.RemoteDifferentialCompression.SimilarityData_head), use_last_error=False)(4, 'Results', ((1, 'similarityData'),)))
+    win32more.System.Com.IUnknown
     return IRdcSimilarityGenerator
 def _define_IFindSimilarResults_head():
     class IFindSimilarResults(win32more.System.Com.IUnknown_head):
@@ -362,6 +377,7 @@ def _define_IFindSimilarResults():
     IFindSimilarResults = win32more.Networking.RemoteDifferentialCompression.IFindSimilarResults_head
     IFindSimilarResults.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetSize', ((1, 'size'),)))
     IFindSimilarResults.GetNextFileId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.Networking.RemoteDifferentialCompression.SimilarityFileId_head), use_last_error=False)(4, 'GetNextFileId', ((1, 'numTraitsMatched'),(1, 'similarityFileId'),)))
+    win32more.System.Com.IUnknown
     return IFindSimilarResults
 def _define_ISimilarity_head():
     class ISimilarity(win32more.System.Com.IUnknown_head):
@@ -376,6 +392,7 @@ def _define_ISimilarity():
     ISimilarity.FindSimilarFileId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.RemoteDifferentialCompression.SimilarityData_head),UInt16,UInt32,POINTER(win32more.Networking.RemoteDifferentialCompression.IFindSimilarResults_head), use_last_error=False)(7, 'FindSimilarFileId', ((1, 'similarityData'),(1, 'numberOfMatchesRequired'),(1, 'resultsSize'),(1, 'findSimilarResults'),)))
     ISimilarity.CopyAndSwap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.RemoteDifferentialCompression.ISimilarity_head,win32more.Networking.RemoteDifferentialCompression.ISimilarityReportProgress_head, use_last_error=False)(8, 'CopyAndSwap', ((1, 'newSimilarityTables'),(1, 'reportProgress'),)))
     ISimilarity.GetRecordCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetRecordCount', ((1, 'recordCount'),)))
+    win32more.System.Com.IUnknown
     return ISimilarity
 __all__ = [
     "RDCE_TABLE_FULL",

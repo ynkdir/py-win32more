@@ -27,6 +27,7 @@ def _define_IWindowsMediaLibrarySharingDeviceProperty():
     IWindowsMediaLibrarySharingDeviceProperty = win32more.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDeviceProperty_head
     IWindowsMediaLibrarySharingDeviceProperty.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'name'),)))
     IWindowsMediaLibrarySharingDeviceProperty.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Value', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IWindowsMediaLibrarySharingDeviceProperty
 def _define_IWindowsMediaLibrarySharingDeviceProperties_head():
     class IWindowsMediaLibrarySharingDeviceProperties(win32more.System.Com.IDispatch_head):
@@ -37,6 +38,7 @@ def _define_IWindowsMediaLibrarySharingDeviceProperties():
     IWindowsMediaLibrarySharingDeviceProperties.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDeviceProperty_head), use_last_error=False)(7, 'get_Item', ((1, 'index'),(1, 'property'),)))
     IWindowsMediaLibrarySharingDeviceProperties.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'count'),)))
     IWindowsMediaLibrarySharingDeviceProperties.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDeviceProperty_head), use_last_error=False)(9, 'GetProperty', ((1, 'name'),(1, 'property'),)))
+    win32more.System.Com.IDispatch
     return IWindowsMediaLibrarySharingDeviceProperties
 def _define_IWindowsMediaLibrarySharingDevice_head():
     class IWindowsMediaLibrarySharingDevice(win32more.System.Com.IDispatch_head):
@@ -48,6 +50,7 @@ def _define_IWindowsMediaLibrarySharingDevice():
     IWindowsMediaLibrarySharingDevice.get_Authorization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.LibrarySharingServices.WindowsMediaLibrarySharingDeviceAuthorizationStatus), use_last_error=False)(8, 'get_Authorization', ((1, 'authorization'),)))
     IWindowsMediaLibrarySharingDevice.put_Authorization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.LibrarySharingServices.WindowsMediaLibrarySharingDeviceAuthorizationStatus, use_last_error=False)(9, 'put_Authorization', ((1, 'authorization'),)))
     IWindowsMediaLibrarySharingDevice.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDeviceProperties_head), use_last_error=False)(10, 'get_Properties', ((1, 'deviceProperties'),)))
+    win32more.System.Com.IDispatch
     return IWindowsMediaLibrarySharingDevice
 def _define_IWindowsMediaLibrarySharingDevices_head():
     class IWindowsMediaLibrarySharingDevices(win32more.System.Com.IDispatch_head):
@@ -58,6 +61,7 @@ def _define_IWindowsMediaLibrarySharingDevices():
     IWindowsMediaLibrarySharingDevices.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDevice_head), use_last_error=False)(7, 'get_Item', ((1, 'index'),(1, 'device'),)))
     IWindowsMediaLibrarySharingDevices.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'count'),)))
     IWindowsMediaLibrarySharingDevices.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDevice_head), use_last_error=False)(9, 'GetDevice', ((1, 'deviceID'),(1, 'device'),)))
+    win32more.System.Com.IDispatch
     return IWindowsMediaLibrarySharingDevices
 def _define_IWindowsMediaLibrarySharingServices_head():
     class IWindowsMediaLibrarySharingServices(win32more.System.Com.IDispatch_head):
@@ -84,6 +88,7 @@ def _define_IWindowsMediaLibrarySharingServices():
     IWindowsMediaLibrarySharingServices.setAuthorizationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(23, 'setAuthorizationState', ((1, 'MACAddress'),(1, 'authorizationState'),)))
     IWindowsMediaLibrarySharingServices.getAllDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.LibrarySharingServices.IWindowsMediaLibrarySharingDevices_head), use_last_error=False)(24, 'getAllDevices', ((1, 'devices'),)))
     IWindowsMediaLibrarySharingServices.get_customSettingsApplied = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(25, 'get_customSettingsApplied', ((1, 'customSettingsApplied'),)))
+    win32more.System.Com.IDispatch
     return IWindowsMediaLibrarySharingServices
 __all__ = [
     "WindowsMediaLibrarySharingServices",

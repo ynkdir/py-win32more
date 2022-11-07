@@ -297,6 +297,7 @@ def _define_IXAPO():
     IXAPO.Process = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS),UInt32,POINTER(win32more.Media.Audio.XAudio2.XAPO_PROCESS_BUFFER_PARAMETERS),win32more.Foundation.BOOL, use_last_error=False)(10, 'Process', ((1, 'InputProcessParameterCount'),(1, 'pInputProcessParameters'),(1, 'OutputProcessParameterCount'),(1, 'pOutputProcessParameters'),(1, 'IsEnabled'),)))
     IXAPO.CalcInputFrames = COMMETHOD(WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(11, 'CalcInputFrames', ((1, 'OutputFrameCount'),)))
     IXAPO.CalcOutputFrames = COMMETHOD(WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(12, 'CalcOutputFrames', ((1, 'InputFrameCount'),)))
+    win32more.System.Com.IUnknown
     return IXAPO
 def _define_IXAPOParameters_head():
     class IXAPOParameters(win32more.System.Com.IUnknown_head):
@@ -306,6 +307,7 @@ def _define_IXAPOParameters():
     IXAPOParameters = win32more.Media.Audio.XAudio2.IXAPOParameters_head
     IXAPOParameters.SetParameters = COMMETHOD(WINFUNCTYPE(Void,c_void_p,UInt32, use_last_error=False)(3, 'SetParameters', ((1, 'pParameters'),(1, 'ParameterByteSize'),)))
     IXAPOParameters.GetParameters = COMMETHOD(WINFUNCTYPE(Void,c_void_p,UInt32, use_last_error=False)(4, 'GetParameters', ((1, 'pParameters'),(1, 'ParameterByteSize'),)))
+    win32more.System.Com.IUnknown
     return IXAPOParameters
 FXEQ = Guid('f5e01117-d6c4-485a-a3f5-695196f3dbfa')
 FXMasteringLimiter = Guid('c4137916-2be1-46fd-8599-441536f49856')
@@ -564,6 +566,7 @@ def _define_IXAudio2():
     IXAudio2.CommitChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(10, 'CommitChanges', ((1, 'OperationSet'),)))
     IXAudio2.GetPerformanceData = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_PERFORMANCE_DATA_head), use_last_error=False)(11, 'GetPerformanceData', ((1, 'pPerfData'),)))
     IXAudio2.SetDebugConfiguration = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.XAudio2.XAUDIO2_DEBUG_CONFIGURATION_head),c_void_p, use_last_error=False)(12, 'SetDebugConfiguration', ((1, 'pDebugConfiguration'),(1, 'pReserved'),)))
+    win32more.System.Com.IUnknown
     return IXAudio2
 def _define_IXAudio2Extension_head():
     class IXAudio2Extension(win32more.System.Com.IUnknown_head):
@@ -573,6 +576,7 @@ def _define_IXAudio2Extension():
     IXAudio2Extension = win32more.Media.Audio.XAudio2.IXAudio2Extension_head
     IXAudio2Extension.GetProcessingQuantum = COMMETHOD(WINFUNCTYPE(Void,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetProcessingQuantum', ((1, 'quantumNumerator'),(1, 'quantumDenominator'),)))
     IXAudio2Extension.GetProcessor = COMMETHOD(WINFUNCTYPE(Void,POINTER(UInt32), use_last_error=False)(4, 'GetProcessor', ((1, 'processor'),)))
+    win32more.System.Com.IUnknown
     return IXAudio2Extension
 def _define_IXAudio2Voice_head():
     class IXAudio2Voice(c_void_p):
@@ -616,6 +620,7 @@ def _define_IXAudio2SourceVoice():
     IXAudio2SourceVoice.SetFrequencyRatio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,UInt32, use_last_error=False)(26, 'SetFrequencyRatio', ((1, 'Ratio'),(1, 'OperationSet'),)))
     IXAudio2SourceVoice.GetFrequencyRatio = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single), use_last_error=False)(27, 'GetFrequencyRatio', ((1, 'pRatio'),)))
     IXAudio2SourceVoice.SetSourceSampleRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(28, 'SetSourceSampleRate', ((1, 'NewSourceSampleRate'),)))
+    win32more.Media.Audio.XAudio2.IXAudio2Voice
     return IXAudio2SourceVoice
 def _define_IXAudio2SubmixVoice_head():
     class IXAudio2SubmixVoice(win32more.Media.Audio.XAudio2.IXAudio2Voice_head):
@@ -623,6 +628,7 @@ def _define_IXAudio2SubmixVoice_head():
     return IXAudio2SubmixVoice
 def _define_IXAudio2SubmixVoice():
     IXAudio2SubmixVoice = win32more.Media.Audio.XAudio2.IXAudio2SubmixVoice_head
+    win32more.Media.Audio.XAudio2.IXAudio2Voice
     return IXAudio2SubmixVoice
 def _define_IXAudio2MasteringVoice_head():
     class IXAudio2MasteringVoice(win32more.Media.Audio.XAudio2.IXAudio2Voice_head):
@@ -631,6 +637,7 @@ def _define_IXAudio2MasteringVoice_head():
 def _define_IXAudio2MasteringVoice():
     IXAudio2MasteringVoice = win32more.Media.Audio.XAudio2.IXAudio2MasteringVoice_head
     IXAudio2MasteringVoice.GetChannelMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(19, 'GetChannelMask', ((1, 'pChannelmask'),)))
+    win32more.Media.Audio.XAudio2.IXAudio2Voice
     return IXAudio2MasteringVoice
 def _define_IXAudio2EngineCallback_head():
     class IXAudio2EngineCallback(c_void_p):
@@ -831,6 +838,7 @@ def _define_IXAPOHrtfParameters():
     IXAPOHrtfParameters.SetSourceOrientation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.XAudio2.HrtfOrientation_head), use_last_error=False)(4, 'SetSourceOrientation', ((1, 'orientation'),)))
     IXAPOHrtfParameters.SetSourceGain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(5, 'SetSourceGain', ((1, 'gain'),)))
     IXAPOHrtfParameters.SetEnvironment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.XAudio2.HrtfEnvironment, use_last_error=False)(6, 'SetEnvironment', ((1, 'environment'),)))
+    win32more.System.Com.IUnknown
     return IXAPOHrtfParameters
 def _define_CreateFX():
     try:

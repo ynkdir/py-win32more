@@ -111,6 +111,7 @@ def _define_IUPnPDeviceFinder():
     IUPnPDeviceFinder.StartAsyncFind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'StartAsyncFind', ((1, 'lFindData'),)))
     IUPnPDeviceFinder.CancelAsyncFind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'CancelAsyncFind', ((1, 'lFindData'),)))
     IUPnPDeviceFinder.FindByUDN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head), use_last_error=False)(11, 'FindByUDN', ((1, 'bstrUDN'),(1, 'pDevice'),)))
+    win32more.System.Com.IDispatch
     return IUPnPDeviceFinder
 def _define_IUPnPAddressFamilyControl_head():
     class IUPnPAddressFamilyControl(win32more.System.Com.IUnknown_head):
@@ -120,6 +121,7 @@ def _define_IUPnPAddressFamilyControl():
     IUPnPAddressFamilyControl = win32more.Devices.Enumeration.Pnp.IUPnPAddressFamilyControl_head
     IUPnPAddressFamilyControl.SetAddressFamily = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'SetAddressFamily', ((1, 'dwFlags'),)))
     IUPnPAddressFamilyControl.GetAddressFamily = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'GetAddressFamily', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IUnknown
     return IUPnPAddressFamilyControl
 def _define_IUPnPHttpHeaderControl_head():
     class IUPnPHttpHeaderControl(win32more.System.Com.IUnknown_head):
@@ -128,6 +130,7 @@ def _define_IUPnPHttpHeaderControl_head():
 def _define_IUPnPHttpHeaderControl():
     IUPnPHttpHeaderControl = win32more.Devices.Enumeration.Pnp.IUPnPHttpHeaderControl_head
     IUPnPHttpHeaderControl.AddRequestHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(3, 'AddRequestHeaders', ((1, 'bstrHttpHeaders'),)))
+    win32more.System.Com.IUnknown
     return IUPnPHttpHeaderControl
 def _define_IUPnPDeviceFinderCallback_head():
     class IUPnPDeviceFinderCallback(win32more.System.Com.IUnknown_head):
@@ -138,6 +141,7 @@ def _define_IUPnPDeviceFinderCallback():
     IUPnPDeviceFinderCallback.DeviceAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Enumeration.Pnp.IUPnPDevice_head, use_last_error=False)(3, 'DeviceAdded', ((1, 'lFindData'),(1, 'pDevice'),)))
     IUPnPDeviceFinderCallback.DeviceRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(4, 'DeviceRemoved', ((1, 'lFindData'),(1, 'bstrUDN'),)))
     IUPnPDeviceFinderCallback.SearchComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(5, 'SearchComplete', ((1, 'lFindData'),)))
+    win32more.System.Com.IUnknown
     return IUPnPDeviceFinderCallback
 def _define_IUPnPServices_head():
     class IUPnPServices(win32more.System.Com.IDispatch_head):
@@ -148,6 +152,7 @@ def _define_IUPnPServices():
     IUPnPServices.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'plCount'),)))
     IUPnPServices.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'ppunk'),)))
     IUPnPServices.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPService_head), use_last_error=False)(9, 'get_Item', ((1, 'bstrServiceId'),(1, 'ppService'),)))
+    win32more.System.Com.IDispatch
     return IUPnPServices
 def _define_IUPnPService_head():
     class IUPnPService(win32more.System.Com.IDispatch_head):
@@ -161,6 +166,7 @@ def _define_IUPnPService():
     IUPnPService.AddCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(10, 'AddCallback', ((1, 'pUnkCallback'),)))
     IUPnPService.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_Id', ((1, 'pbstrId'),)))
     IUPnPService.get_LastTransportStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_LastTransportStatus', ((1, 'plValue'),)))
+    win32more.System.Com.IDispatch
     return IUPnPService
 def _define_IUPnPAsyncResult_head():
     class IUPnPAsyncResult(win32more.System.Com.IUnknown_head):
@@ -169,6 +175,7 @@ def _define_IUPnPAsyncResult_head():
 def _define_IUPnPAsyncResult():
     IUPnPAsyncResult = win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head
     IUPnPAsyncResult.AsyncOperationComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(3, 'AsyncOperationComplete', ((1, 'ullRequestID'),)))
+    win32more.System.Com.IUnknown
     return IUPnPAsyncResult
 def _define_IUPnPServiceAsync_head():
     class IUPnPServiceAsync(win32more.System.Com.IUnknown_head):
@@ -185,6 +192,7 @@ def _define_IUPnPServiceAsync():
     IUPnPServiceAsync.BeginSCPDDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPAsyncResult_head,POINTER(UInt64), use_last_error=False)(9, 'BeginSCPDDownload', ((1, 'pAsyncResult'),(1, 'pullRequestID'),)))
     IUPnPServiceAsync.EndSCPDDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'EndSCPDDownload', ((1, 'ullRequestID'),(1, 'pbstrSCPDDoc'),)))
     IUPnPServiceAsync.CancelAsyncOperation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(11, 'CancelAsyncOperation', ((1, 'ullRequestID'),)))
+    win32more.System.Com.IUnknown
     return IUPnPServiceAsync
 def _define_IUPnPServiceCallback_head():
     class IUPnPServiceCallback(win32more.System.Com.IUnknown_head):
@@ -194,6 +202,7 @@ def _define_IUPnPServiceCallback():
     IUPnPServiceCallback = win32more.Devices.Enumeration.Pnp.IUPnPServiceCallback_head
     IUPnPServiceCallback.StateVariableChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPService_head,win32more.Foundation.PWSTR,win32more.System.Com.VARIANT, use_last_error=False)(3, 'StateVariableChanged', ((1, 'pus'),(1, 'pcwszStateVarName'),(1, 'vaValue'),)))
     IUPnPServiceCallback.ServiceInstanceDied = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPService_head, use_last_error=False)(4, 'ServiceInstanceDied', ((1, 'pus'),)))
+    win32more.System.Com.IUnknown
     return IUPnPServiceCallback
 def _define_IUPnPServiceEnumProperty_head():
     class IUPnPServiceEnumProperty(win32more.System.Com.IUnknown_head):
@@ -202,6 +211,7 @@ def _define_IUPnPServiceEnumProperty_head():
 def _define_IUPnPServiceEnumProperty():
     IUPnPServiceEnumProperty = win32more.Devices.Enumeration.Pnp.IUPnPServiceEnumProperty_head
     IUPnPServiceEnumProperty.SetServiceEnumProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'SetServiceEnumProperty', ((1, 'dwMask'),)))
+    win32more.System.Com.IUnknown
     return IUPnPServiceEnumProperty
 def _define_IUPnPServiceDocumentAccess_head():
     class IUPnPServiceDocumentAccess(win32more.System.Com.IUnknown_head):
@@ -211,6 +221,7 @@ def _define_IUPnPServiceDocumentAccess():
     IUPnPServiceDocumentAccess = win32more.Devices.Enumeration.Pnp.IUPnPServiceDocumentAccess_head
     IUPnPServiceDocumentAccess.GetDocumentURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetDocumentURL', ((1, 'pbstrDocUrl'),)))
     IUPnPServiceDocumentAccess.GetDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetDocument', ((1, 'pbstrDoc'),)))
+    win32more.System.Com.IUnknown
     return IUPnPServiceDocumentAccess
 def _define_IUPnPDevices_head():
     class IUPnPDevices(win32more.System.Com.IDispatch_head):
@@ -221,6 +232,7 @@ def _define_IUPnPDevices():
     IUPnPDevices.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'plCount'),)))
     IUPnPDevices.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'ppunk'),)))
     IUPnPDevices.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head), use_last_error=False)(9, 'get_Item', ((1, 'bstrUDN'),(1, 'ppDevice'),)))
+    win32more.System.Com.IDispatch
     return IUPnPDevices
 def _define_IUPnPDevice_head():
     class IUPnPDevice(win32more.System.Com.IDispatch_head):
@@ -247,6 +259,7 @@ def _define_IUPnPDevice():
     IUPnPDevice.get_SerialNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(23, 'get_SerialNumber', ((1, 'pbstr'),)))
     IUPnPDevice.IconURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(24, 'IconURL', ((1, 'bstrEncodingFormat'),(1, 'lSizeX'),(1, 'lSizeY'),(1, 'lBitDepth'),(1, 'pbstrIconURL'),)))
     IUPnPDevice.get_Services = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPServices_head), use_last_error=False)(25, 'get_Services', ((1, 'ppusServices'),)))
+    win32more.System.Com.IDispatch
     return IUPnPDevice
 def _define_IUPnPDeviceDocumentAccess_head():
     class IUPnPDeviceDocumentAccess(win32more.System.Com.IUnknown_head):
@@ -255,6 +268,7 @@ def _define_IUPnPDeviceDocumentAccess_head():
 def _define_IUPnPDeviceDocumentAccess():
     IUPnPDeviceDocumentAccess = win32more.Devices.Enumeration.Pnp.IUPnPDeviceDocumentAccess_head
     IUPnPDeviceDocumentAccess.GetDocumentURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetDocumentURL', ((1, 'pbstrDocument'),)))
+    win32more.System.Com.IUnknown
     return IUPnPDeviceDocumentAccess
 def _define_IUPnPDeviceDocumentAccessEx_head():
     class IUPnPDeviceDocumentAccessEx(win32more.System.Com.IUnknown_head):
@@ -263,6 +277,7 @@ def _define_IUPnPDeviceDocumentAccessEx_head():
 def _define_IUPnPDeviceDocumentAccessEx():
     IUPnPDeviceDocumentAccessEx = win32more.Devices.Enumeration.Pnp.IUPnPDeviceDocumentAccessEx_head
     IUPnPDeviceDocumentAccessEx.GetDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetDocument', ((1, 'pbstrDocument'),)))
+    win32more.System.Com.IUnknown
     return IUPnPDeviceDocumentAccessEx
 def _define_IUPnPDescriptionDocument_head():
     class IUPnPDescriptionDocument(win32more.System.Com.IDispatch_head):
@@ -277,6 +292,7 @@ def _define_IUPnPDescriptionDocument():
     IUPnPDescriptionDocument.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Abort', ()))
     IUPnPDescriptionDocument.RootDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head), use_last_error=False)(12, 'RootDevice', ((1, 'ppudRootDevice'),)))
     IUPnPDescriptionDocument.DeviceByUDN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Enumeration.Pnp.IUPnPDevice_head), use_last_error=False)(13, 'DeviceByUDN', ((1, 'bstrUDN'),(1, 'ppudDevice'),)))
+    win32more.System.Com.IDispatch
     return IUPnPDescriptionDocument
 def _define_IUPnPDeviceFinderAddCallbackWithInterface_head():
     class IUPnPDeviceFinderAddCallbackWithInterface(win32more.System.Com.IUnknown_head):
@@ -285,6 +301,7 @@ def _define_IUPnPDeviceFinderAddCallbackWithInterface_head():
 def _define_IUPnPDeviceFinderAddCallbackWithInterface():
     IUPnPDeviceFinderAddCallbackWithInterface = win32more.Devices.Enumeration.Pnp.IUPnPDeviceFinderAddCallbackWithInterface_head
     IUPnPDeviceFinderAddCallbackWithInterface.DeviceAddedWithInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Enumeration.Pnp.IUPnPDevice_head,POINTER(Guid), use_last_error=False)(3, 'DeviceAddedWithInterface', ((1, 'lFindData'),(1, 'pDevice'),(1, 'pguidInterface'),)))
+    win32more.System.Com.IUnknown
     return IUPnPDeviceFinderAddCallbackWithInterface
 def _define_IUPnPDescriptionDocumentCallback_head():
     class IUPnPDescriptionDocumentCallback(win32more.System.Com.IUnknown_head):
@@ -293,6 +310,7 @@ def _define_IUPnPDescriptionDocumentCallback_head():
 def _define_IUPnPDescriptionDocumentCallback():
     IUPnPDescriptionDocumentCallback = win32more.Devices.Enumeration.Pnp.IUPnPDescriptionDocumentCallback_head
     IUPnPDescriptionDocumentCallback.LoadComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'LoadComplete', ((1, 'hrLoadResult'),)))
+    win32more.System.Com.IUnknown
     return IUPnPDescriptionDocumentCallback
 UPnPRegistrar = Guid('204810b9-73b2-11d4-bf42-00b0d0118b56')
 UPnPRemoteEndpointInfo = Guid('2e5e84e9-4049-4244-b728-2d24227157c7')
@@ -304,6 +322,7 @@ def _define_IUPnPEventSink():
     IUPnPEventSink = win32more.Devices.Enumeration.Pnp.IUPnPEventSink_head
     IUPnPEventSink.OnStateChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Int32), use_last_error=False)(3, 'OnStateChanged', ((1, 'cChanges'),(1, 'rgdispidChanges'),)))
     IUPnPEventSink.OnStateChangedSafe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(4, 'OnStateChangedSafe', ((1, 'varsadispidChanges'),)))
+    win32more.System.Com.IUnknown
     return IUPnPEventSink
 def _define_IUPnPEventSource_head():
     class IUPnPEventSource(win32more.System.Com.IUnknown_head):
@@ -313,6 +332,7 @@ def _define_IUPnPEventSource():
     IUPnPEventSource = win32more.Devices.Enumeration.Pnp.IUPnPEventSource_head
     IUPnPEventSource.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPEventSink_head, use_last_error=False)(3, 'Advise', ((1, 'pesSubscriber'),)))
     IUPnPEventSource.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Enumeration.Pnp.IUPnPEventSink_head, use_last_error=False)(4, 'Unadvise', ((1, 'pesSubscriber'),)))
+    win32more.System.Com.IUnknown
     return IUPnPEventSource
 def _define_IUPnPRegistrar_head():
     class IUPnPRegistrar(win32more.System.Com.IUnknown_head):
@@ -326,6 +346,7 @@ def _define_IUPnPRegistrar():
     IUPnPRegistrar.GetUniqueDeviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetUniqueDeviceName', ((1, 'bstrDeviceIdentifier'),(1, 'bstrTemplateUDN'),(1, 'pbstrUDN'),)))
     IUPnPRegistrar.UnregisterDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BOOL, use_last_error=False)(7, 'UnregisterDevice', ((1, 'bstrDeviceIdentifier'),(1, 'fPermanent'),)))
     IUPnPRegistrar.UnregisterDeviceProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'UnregisterDeviceProvider', ((1, 'bstrProviderName'),)))
+    win32more.System.Com.IUnknown
     return IUPnPRegistrar
 def _define_IUPnPReregistrar_head():
     class IUPnPReregistrar(win32more.System.Com.IUnknown_head):
@@ -335,6 +356,7 @@ def _define_IUPnPReregistrar():
     IUPnPReregistrar = win32more.Devices.Enumeration.Pnp.IUPnPReregistrar_head
     IUPnPReregistrar.ReregisterDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32, use_last_error=False)(3, 'ReregisterDevice', ((1, 'bstrDeviceIdentifier'),(1, 'bstrXMLDesc'),(1, 'bstrProgIDDeviceControlClass'),(1, 'bstrInitString'),(1, 'bstrContainerId'),(1, 'bstrResourcePath'),(1, 'nLifeTime'),)))
     IUPnPReregistrar.ReregisterRunningDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.Com.IUnknown_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32, use_last_error=False)(4, 'ReregisterRunningDevice', ((1, 'bstrDeviceIdentifier'),(1, 'bstrXMLDesc'),(1, 'punkDeviceControl'),(1, 'bstrInitString'),(1, 'bstrResourcePath'),(1, 'nLifeTime'),)))
+    win32more.System.Com.IUnknown
     return IUPnPReregistrar
 def _define_IUPnPDeviceControl_head():
     class IUPnPDeviceControl(win32more.System.Com.IUnknown_head):
@@ -344,6 +366,7 @@ def _define_IUPnPDeviceControl():
     IUPnPDeviceControl = win32more.Devices.Enumeration.Pnp.IUPnPDeviceControl_head
     IUPnPDeviceControl.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(3, 'Initialize', ((1, 'bstrXMLDesc'),(1, 'bstrDeviceIdentifier'),(1, 'bstrInitString'),)))
     IUPnPDeviceControl.GetServiceObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(4, 'GetServiceObject', ((1, 'bstrUDN'),(1, 'bstrServiceId'),(1, 'ppdispService'),)))
+    win32more.System.Com.IUnknown
     return IUPnPDeviceControl
 def _define_IUPnPDeviceControlHttpHeaders_head():
     class IUPnPDeviceControlHttpHeaders(win32more.System.Com.IUnknown_head):
@@ -352,6 +375,7 @@ def _define_IUPnPDeviceControlHttpHeaders_head():
 def _define_IUPnPDeviceControlHttpHeaders():
     IUPnPDeviceControlHttpHeaders = win32more.Devices.Enumeration.Pnp.IUPnPDeviceControlHttpHeaders_head
     IUPnPDeviceControlHttpHeaders.GetAdditionalResponseHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetAdditionalResponseHeaders', ((1, 'bstrHttpResponseHeaders'),)))
+    win32more.System.Com.IUnknown
     return IUPnPDeviceControlHttpHeaders
 def _define_IUPnPDeviceProvider_head():
     class IUPnPDeviceProvider(win32more.System.Com.IUnknown_head):
@@ -361,6 +385,7 @@ def _define_IUPnPDeviceProvider():
     IUPnPDeviceProvider = win32more.Devices.Enumeration.Pnp.IUPnPDeviceProvider_head
     IUPnPDeviceProvider.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(3, 'Start', ((1, 'bstrInitString'),)))
     IUPnPDeviceProvider.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Stop', ()))
+    win32more.System.Com.IUnknown
     return IUPnPDeviceProvider
 def _define_IUPnPRemoteEndpointInfo_head():
     class IUPnPRemoteEndpointInfo(win32more.System.Com.IUnknown_head):
@@ -371,6 +396,7 @@ def _define_IUPnPRemoteEndpointInfo():
     IUPnPRemoteEndpointInfo.GetDwordValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32), use_last_error=False)(3, 'GetDwordValue', ((1, 'bstrValueName'),(1, 'pdwValue'),)))
     IUPnPRemoteEndpointInfo.GetStringValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetStringValue', ((1, 'bstrValueName'),(1, 'pbstrValue'),)))
     IUPnPRemoteEndpointInfo.GetGuidValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Guid), use_last_error=False)(5, 'GetGuidValue', ((1, 'bstrValueName'),(1, 'pguidValue'),)))
+    win32more.System.Com.IUnknown
     return IUPnPRemoteEndpointInfo
 def _define_SwDeviceCreate():
     try:

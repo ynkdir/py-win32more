@@ -2591,6 +2591,7 @@ def _define_IDirectInputEffect():
     IDirectInputEffect.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Download', ()))
     IDirectInputEffect.Unload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Unload', ()))
     IDirectInputEffect.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head), use_last_error=False)(12, 'Escape', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputEffect
 def _define_DIDEVCAPS_DX3_head():
     class DIDEVCAPS_DX3(Structure):
@@ -3189,6 +3190,7 @@ def _define_IDirectInputDeviceW():
     IDirectInputDeviceW.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEW_head), use_last_error=False)(15, 'GetDeviceInfo', ((1, 'param0'),)))
     IDirectInputDeviceW.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
     IDirectInputDeviceW.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid), use_last_error=False)(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputDeviceW
 def _define_IDirectInputDeviceA_head():
     class IDirectInputDeviceA(win32more.System.Com.IUnknown_head):
@@ -3211,6 +3213,7 @@ def _define_IDirectInputDeviceA():
     IDirectInputDeviceA.GetDeviceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEINSTANCEA_head), use_last_error=False)(15, 'GetDeviceInfo', ((1, 'param0'),)))
     IDirectInputDeviceA.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(16, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
     IDirectInputDeviceA.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32,POINTER(Guid), use_last_error=False)(17, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputDeviceA
 def _define_DIEFFECTINFOA_head():
     class DIEFFECTINFOA(Structure):
@@ -3263,6 +3266,7 @@ def _define_IDirectInputDevice2W():
     IDirectInputDevice2W.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head), use_last_error=False)(24, 'Escape', ((1, 'param0'),)))
     IDirectInputDevice2W.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'Poll', ()))
     IDirectInputDevice2W.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceW
     return IDirectInputDevice2W
 def _define_IDirectInputDevice2A_head():
     class IDirectInputDevice2A(win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA_head):
@@ -3279,6 +3283,7 @@ def _define_IDirectInputDevice2A():
     IDirectInputDevice2A.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIEFFESCAPE_head), use_last_error=False)(24, 'Escape', ((1, 'param0'),)))
     IDirectInputDevice2A.Poll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'Poll', ()))
     IDirectInputDevice2A.SendDeviceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEOBJECTDATA_head),POINTER(UInt32),UInt32, use_last_error=False)(26, 'SendDeviceData', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputDeviceA
     return IDirectInputDevice2A
 def _define_IDirectInputDevice7W_head():
     class IDirectInputDevice7W(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2W_head):
@@ -3288,6 +3293,7 @@ def _define_IDirectInputDevice7W():
     IDirectInputDevice7W = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice7W_head
     IDirectInputDevice7W.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32, use_last_error=False)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
     IDirectInputDevice7W.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32, use_last_error=False)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2W
     return IDirectInputDevice7W
 def _define_IDirectInputDevice7A_head():
     class IDirectInputDevice7A(win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2A_head):
@@ -3297,6 +3303,7 @@ def _define_IDirectInputDevice7A():
     IDirectInputDevice7A = win32more.Devices.HumanInterfaceDevice.IDirectInputDevice7A_head
     IDirectInputDevice7A.EnumEffectsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Devices.HumanInterfaceDevice.LPDIENUMEFFECTSINFILECALLBACK,c_void_p,UInt32, use_last_error=False)(27, 'EnumEffectsInFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
     IDirectInputDevice7A.WriteEffectToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Devices.HumanInterfaceDevice.DIFILEEFFECT_head),UInt32, use_last_error=False)(28, 'WriteEffectToFile', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputDevice2A
     return IDirectInputDevice7A
 def _define_IDirectInputDevice8W_head():
     class IDirectInputDevice8W(win32more.System.Com.IUnknown_head):
@@ -3333,6 +3340,7 @@ def _define_IDirectInputDevice8W():
     IDirectInputDevice8W.BuildActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head),win32more.Foundation.PWSTR,UInt32, use_last_error=False)(29, 'BuildActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectInputDevice8W.SetActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head),win32more.Foundation.PWSTR,UInt32, use_last_error=False)(30, 'SetActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectInputDevice8W.GetImageInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERW_head), use_last_error=False)(31, 'GetImageInfo', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputDevice8W
 def _define_IDirectInputDevice8A_head():
     class IDirectInputDevice8A(win32more.System.Com.IUnknown_head):
@@ -3369,6 +3377,7 @@ def _define_IDirectInputDevice8A():
     IDirectInputDevice8A.BuildActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head),win32more.Foundation.PSTR,UInt32, use_last_error=False)(29, 'BuildActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectInputDevice8A.SetActionMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head),win32more.Foundation.PSTR,UInt32, use_last_error=False)(30, 'SetActionMap', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectInputDevice8A.GetImageInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.HumanInterfaceDevice.DIDEVICEIMAGEINFOHEADERA_head), use_last_error=False)(31, 'GetImageInfo', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputDevice8A
 def _define_DIMOUSESTATE_head():
     class DIMOUSESTATE(Structure):
@@ -3474,6 +3483,7 @@ def _define_IDirectInputW():
     IDirectInputW.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetDeviceStatus', ((1, 'param0'),)))
     IDirectInputW.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
     IDirectInputW.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32, use_last_error=False)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputW
 def _define_IDirectInputA_head():
     class IDirectInputA(win32more.System.Com.IUnknown_head):
@@ -3486,6 +3496,7 @@ def _define_IDirectInputA():
     IDirectInputA.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetDeviceStatus', ((1, 'param0'),)))
     IDirectInputA.RunControlPanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(6, 'RunControlPanel', ((1, 'param0'),(1, 'param1'),)))
     IDirectInputA.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,UInt32, use_last_error=False)(7, 'Initialize', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputA
 def _define_IDirectInput2W_head():
     class IDirectInput2W(win32more.Devices.HumanInterfaceDevice.IDirectInputW_head):
@@ -3494,6 +3505,7 @@ def _define_IDirectInput2W_head():
 def _define_IDirectInput2W():
     IDirectInput2W = win32more.Devices.HumanInterfaceDevice.IDirectInput2W_head
     IDirectInput2W.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputW
     return IDirectInput2W
 def _define_IDirectInput2A_head():
     class IDirectInput2A(win32more.Devices.HumanInterfaceDevice.IDirectInputA_head):
@@ -3502,6 +3514,7 @@ def _define_IDirectInput2A_head():
 def _define_IDirectInput2A():
     IDirectInput2A = win32more.Devices.HumanInterfaceDevice.IDirectInput2A_head
     IDirectInput2A.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PSTR,POINTER(Guid), use_last_error=False)(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInputA
     return IDirectInput2A
 def _define_IDirectInput7W_head():
     class IDirectInput7W(win32more.Devices.HumanInterfaceDevice.IDirectInput2W_head):
@@ -3510,6 +3523,7 @@ def _define_IDirectInput7W_head():
 def _define_IDirectInput7W():
     IDirectInput7W = win32more.Devices.HumanInterfaceDevice.IDirectInput7W_head
     IDirectInput7W.CreateDeviceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p),win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'CreateDeviceEx', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInput2W
     return IDirectInput7W
 def _define_IDirectInput7A_head():
     class IDirectInput7A(win32more.Devices.HumanInterfaceDevice.IDirectInput2A_head):
@@ -3518,6 +3532,7 @@ def _define_IDirectInput7A_head():
 def _define_IDirectInput7A():
     IDirectInput7A = win32more.Devices.HumanInterfaceDevice.IDirectInput7A_head
     IDirectInput7A.CreateDeviceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p),win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'CreateDeviceEx', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.Devices.HumanInterfaceDevice.IDirectInput2A
     return IDirectInput7A
 def _define_IDirectInput8W_head():
     class IDirectInput8W(win32more.System.Com.IUnknown_head):
@@ -3533,6 +3548,7 @@ def _define_IDirectInput8W():
     IDirectInput8W.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectInput8W.EnumDevicesBySemantics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATW_head),win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESBYSEMANTICSCBW,c_void_p,UInt32, use_last_error=False)(9, 'EnumDevicesBySemantics', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
     IDirectInput8W.ConfigureDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK,POINTER(win32more.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSW_head),UInt32,c_void_p, use_last_error=False)(10, 'ConfigureDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.System.Com.IUnknown
     return IDirectInput8W
 def _define_IDirectInput8A_head():
     class IDirectInput8A(win32more.System.Com.IUnknown_head):
@@ -3548,6 +3564,7 @@ def _define_IDirectInput8A():
     IDirectInput8A.FindDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PSTR,POINTER(Guid), use_last_error=False)(8, 'FindDevice', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectInput8A.EnumDevicesBySemantics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.Devices.HumanInterfaceDevice.DIACTIONFORMATA_head),win32more.Devices.HumanInterfaceDevice.LPDIENUMDEVICESBYSEMANTICSCBA,c_void_p,UInt32, use_last_error=False)(9, 'EnumDevicesBySemantics', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
     IDirectInput8A.ConfigureDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.HumanInterfaceDevice.LPDICONFIGUREDEVICESCALLBACK,POINTER(win32more.Devices.HumanInterfaceDevice.DICONFIGUREDEVICESPARAMSA_head),UInt32,c_void_p, use_last_error=False)(10, 'ConfigureDevices', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.System.Com.IUnknown
     return IDirectInput8A
 def _define_LPFNSHOWJOYCPL():
     return CFUNCTYPE(Void,win32more.Foundation.HWND, use_last_error=False)
@@ -3677,6 +3694,7 @@ def _define_IDirectInputEffectDriver():
     IDirectInputEffectDriver.StartEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(11, 'StartEffect', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
     IDirectInputEffectDriver.StopEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(12, 'StopEffect', ((1, 'param0'),(1, 'param1'),)))
     IDirectInputEffectDriver.GetEffectStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(13, 'GetEffectStatus', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputEffectDriver
 def _define_JOYPOS_head():
     class JOYPOS(Structure):
@@ -3885,6 +3903,7 @@ def _define_IDirectInputJoyConfig():
     IDirectInputJoyConfig.AddNewHardware = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid), use_last_error=False)(16, 'AddNewHardware', ((1, 'param0'),(1, 'param1'),)))
     IDirectInputJoyConfig.OpenTypeKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(17, 'OpenTypeKey', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectInputJoyConfig.OpenConfigKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(18, 'OpenConfigKey', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputJoyConfig
 def _define_IDirectInputJoyConfig8_head():
     class IDirectInputJoyConfig8(win32more.System.Com.IUnknown_head):
@@ -3908,6 +3927,7 @@ def _define_IDirectInputJoyConfig8():
     IDirectInputJoyConfig8.AddNewHardware = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid), use_last_error=False)(16, 'AddNewHardware', ((1, 'param0'),(1, 'param1'),)))
     IDirectInputJoyConfig8.OpenTypeKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(17, 'OpenTypeKey', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectInputJoyConfig8.OpenAppStatusKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(18, 'OpenAppStatusKey', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IDirectInputJoyConfig8
 def _define_KEYBOARD_INPUT_DATA_head():
     class KEYBOARD_INPUT_DATA(Structure):

@@ -447,6 +447,7 @@ def _define_ID2D1Resource_head():
 def _define_ID2D1Resource():
     ID2D1Resource = win32more.Graphics.Direct2D.ID2D1Resource_head
     ID2D1Resource.GetFactory = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Factory_head), use_last_error=False)(3, 'GetFactory', ((1, 'factory'),)))
+    win32more.System.Com.IUnknown
     return ID2D1Resource
 def _define_ID2D1Image_head():
     class ID2D1Image(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -454,6 +455,7 @@ def _define_ID2D1Image_head():
     return ID2D1Image
 def _define_ID2D1Image():
     ID2D1Image = win32more.Graphics.Direct2D.ID2D1Image_head
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1Image
 def _define_ID2D1Bitmap_head():
     class ID2D1Bitmap(win32more.Graphics.Direct2D.ID2D1Image_head):
@@ -468,6 +470,7 @@ def _define_ID2D1Bitmap():
     ID2D1Bitmap.CopyFromBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2U_head),win32more.Graphics.Direct2D.ID2D1Bitmap_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head), use_last_error=False)(8, 'CopyFromBitmap', ((1, 'destPoint'),(1, 'bitmap'),(1, 'srcRect'),)))
     ID2D1Bitmap.CopyFromRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2U_head),win32more.Graphics.Direct2D.ID2D1RenderTarget_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head), use_last_error=False)(9, 'CopyFromRenderTarget', ((1, 'destPoint'),(1, 'renderTarget'),(1, 'srcRect'),)))
     ID2D1Bitmap.CopyFromMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head),c_void_p,UInt32, use_last_error=False)(10, 'CopyFromMemory', ((1, 'dstRect'),(1, 'srcData'),(1, 'pitch'),)))
+    win32more.Graphics.Direct2D.ID2D1Image
     return ID2D1Bitmap
 def _define_ID2D1GradientStopCollection_head():
     class ID2D1GradientStopCollection(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -479,6 +482,7 @@ def _define_ID2D1GradientStopCollection():
     ID2D1GradientStopCollection.GetGradientStops = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_STOP),UInt32, use_last_error=False)(5, 'GetGradientStops', ((1, 'gradientStops'),(1, 'gradientStopsCount'),)))
     ID2D1GradientStopCollection.GetColorInterpolationGamma = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_GAMMA, use_last_error=False)(6, 'GetColorInterpolationGamma', ()))
     ID2D1GradientStopCollection.GetExtendMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, use_last_error=False)(7, 'GetExtendMode', ()))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1GradientStopCollection
 def _define_ID2D1Brush_head():
     class ID2D1Brush(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -490,6 +494,7 @@ def _define_ID2D1Brush():
     ID2D1Brush.SetTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), use_last_error=False)(5, 'SetTransform', ((1, 'transform'),)))
     ID2D1Brush.GetOpacity = COMMETHOD(WINFUNCTYPE(Single, use_last_error=False)(6, 'GetOpacity', ()))
     ID2D1Brush.GetTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), use_last_error=False)(7, 'GetTransform', ((1, 'transform'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1Brush
 def _define_ID2D1BitmapBrush_head():
     class ID2D1BitmapBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
@@ -505,6 +510,7 @@ def _define_ID2D1BitmapBrush():
     ID2D1BitmapBrush.GetExtendModeY = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, use_last_error=False)(13, 'GetExtendModeY', ()))
     ID2D1BitmapBrush.GetInterpolationMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE, use_last_error=False)(14, 'GetInterpolationMode', ()))
     ID2D1BitmapBrush.GetBitmap = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head), use_last_error=False)(15, 'GetBitmap', ((1, 'bitmap'),)))
+    win32more.Graphics.Direct2D.ID2D1Brush
     return ID2D1BitmapBrush
 def _define_ID2D1SolidColorBrush_head():
     class ID2D1SolidColorBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
@@ -514,6 +520,7 @@ def _define_ID2D1SolidColorBrush():
     ID2D1SolidColorBrush = win32more.Graphics.Direct2D.ID2D1SolidColorBrush_head
     ID2D1SolidColorBrush.SetColor = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head), use_last_error=False)(8, 'SetColor', ((1, 'color'),)))
     ID2D1SolidColorBrush.GetColor = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F, use_last_error=False)(9, 'GetColor', ()))
+    win32more.Graphics.Direct2D.ID2D1Brush
     return ID2D1SolidColorBrush
 def _define_ID2D1LinearGradientBrush_head():
     class ID2D1LinearGradientBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
@@ -526,6 +533,7 @@ def _define_ID2D1LinearGradientBrush():
     ID2D1LinearGradientBrush.GetStartPoint = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_POINT_2F, use_last_error=False)(10, 'GetStartPoint', ()))
     ID2D1LinearGradientBrush.GetEndPoint = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_POINT_2F, use_last_error=False)(11, 'GetEndPoint', ()))
     ID2D1LinearGradientBrush.GetGradientStopCollection = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head), use_last_error=False)(12, 'GetGradientStopCollection', ((1, 'gradientStopCollection'),)))
+    win32more.Graphics.Direct2D.ID2D1Brush
     return ID2D1LinearGradientBrush
 def _define_ID2D1RadialGradientBrush_head():
     class ID2D1RadialGradientBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
@@ -542,6 +550,7 @@ def _define_ID2D1RadialGradientBrush():
     ID2D1RadialGradientBrush.GetRadiusX = COMMETHOD(WINFUNCTYPE(Single, use_last_error=False)(14, 'GetRadiusX', ()))
     ID2D1RadialGradientBrush.GetRadiusY = COMMETHOD(WINFUNCTYPE(Single, use_last_error=False)(15, 'GetRadiusY', ()))
     ID2D1RadialGradientBrush.GetGradientStopCollection = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head), use_last_error=False)(16, 'GetGradientStopCollection', ((1, 'gradientStopCollection'),)))
+    win32more.Graphics.Direct2D.ID2D1Brush
     return ID2D1RadialGradientBrush
 def _define_ID2D1StrokeStyle_head():
     class ID2D1StrokeStyle(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -558,6 +567,7 @@ def _define_ID2D1StrokeStyle():
     ID2D1StrokeStyle.GetDashStyle = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_DASH_STYLE, use_last_error=False)(10, 'GetDashStyle', ()))
     ID2D1StrokeStyle.GetDashesCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(11, 'GetDashesCount', ()))
     ID2D1StrokeStyle.GetDashes = COMMETHOD(WINFUNCTYPE(Void,POINTER(Single),UInt32, use_last_error=False)(12, 'GetDashes', ((1, 'dashes'),(1, 'dashesCount'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1StrokeStyle
 def _define_ID2D1Geometry_head():
     class ID2D1Geometry(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -578,6 +588,7 @@ def _define_ID2D1Geometry():
     ID2D1Geometry.ComputeLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(Single), use_last_error=False)(14, 'ComputeLength', ((1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'length'),)))
     ID2D1Geometry.ComputePointAtLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), use_last_error=False)(15, 'ComputePointAtLength', ((1, 'length'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'point'),(1, 'unitTangentVector'),)))
     ID2D1Geometry.Widen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head, use_last_error=False)(16, 'Widen', ((1, 'strokeWidth'),(1, 'strokeStyle'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'geometrySink'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1Geometry
 def _define_ID2D1RectangleGeometry_head():
     class ID2D1RectangleGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
@@ -586,6 +597,7 @@ def _define_ID2D1RectangleGeometry_head():
 def _define_ID2D1RectangleGeometry():
     ID2D1RectangleGeometry = win32more.Graphics.Direct2D.ID2D1RectangleGeometry_head
     ID2D1RectangleGeometry.GetRect = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), use_last_error=False)(17, 'GetRect', ((1, 'rect'),)))
+    win32more.Graphics.Direct2D.ID2D1Geometry
     return ID2D1RectangleGeometry
 def _define_ID2D1RoundedRectangleGeometry_head():
     class ID2D1RoundedRectangleGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
@@ -594,6 +606,7 @@ def _define_ID2D1RoundedRectangleGeometry_head():
 def _define_ID2D1RoundedRectangleGeometry():
     ID2D1RoundedRectangleGeometry = win32more.Graphics.Direct2D.ID2D1RoundedRectangleGeometry_head
     ID2D1RoundedRectangleGeometry.GetRoundedRect = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ROUNDED_RECT_head), use_last_error=False)(17, 'GetRoundedRect', ((1, 'roundedRect'),)))
+    win32more.Graphics.Direct2D.ID2D1Geometry
     return ID2D1RoundedRectangleGeometry
 def _define_ID2D1EllipseGeometry_head():
     class ID2D1EllipseGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
@@ -602,6 +615,7 @@ def _define_ID2D1EllipseGeometry_head():
 def _define_ID2D1EllipseGeometry():
     ID2D1EllipseGeometry = win32more.Graphics.Direct2D.ID2D1EllipseGeometry_head
     ID2D1EllipseGeometry.GetEllipse = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ELLIPSE_head), use_last_error=False)(17, 'GetEllipse', ((1, 'ellipse'),)))
+    win32more.Graphics.Direct2D.ID2D1Geometry
     return ID2D1EllipseGeometry
 def _define_ID2D1GeometryGroup_head():
     class ID2D1GeometryGroup(win32more.Graphics.Direct2D.ID2D1Geometry_head):
@@ -612,6 +626,7 @@ def _define_ID2D1GeometryGroup():
     ID2D1GeometryGroup.GetFillMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D1_FILL_MODE, use_last_error=False)(17, 'GetFillMode', ()))
     ID2D1GeometryGroup.GetSourceGeometryCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(18, 'GetSourceGeometryCount', ()))
     ID2D1GeometryGroup.GetSourceGeometries = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head),UInt32, use_last_error=False)(19, 'GetSourceGeometries', ((1, 'geometries'),(1, 'geometriesCount'),)))
+    win32more.Graphics.Direct2D.ID2D1Geometry
     return ID2D1GeometryGroup
 def _define_ID2D1TransformedGeometry_head():
     class ID2D1TransformedGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
@@ -621,6 +636,7 @@ def _define_ID2D1TransformedGeometry():
     ID2D1TransformedGeometry = win32more.Graphics.Direct2D.ID2D1TransformedGeometry_head
     ID2D1TransformedGeometry.GetSourceGeometry = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head), use_last_error=False)(17, 'GetSourceGeometry', ((1, 'sourceGeometry'),)))
     ID2D1TransformedGeometry.GetTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), use_last_error=False)(18, 'GetTransform', ((1, 'transform'),)))
+    win32more.Graphics.Direct2D.ID2D1Geometry
     return ID2D1TransformedGeometry
 def _define_ID2D1GeometrySink_head():
     class ID2D1GeometrySink(win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head):
@@ -633,6 +649,7 @@ def _define_ID2D1GeometrySink():
     ID2D1GeometrySink.AddQuadraticBezier = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_QUADRATIC_BEZIER_SEGMENT_head), use_last_error=False)(12, 'AddQuadraticBezier', ((1, 'bezier'),)))
     ID2D1GeometrySink.AddQuadraticBeziers = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_QUADRATIC_BEZIER_SEGMENT),UInt32, use_last_error=False)(13, 'AddQuadraticBeziers', ((1, 'beziers'),(1, 'beziersCount'),)))
     ID2D1GeometrySink.AddArc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_ARC_SEGMENT_head), use_last_error=False)(14, 'AddArc', ((1, 'arc'),)))
+    win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink
     return ID2D1GeometrySink
 def _define_ID2D1TessellationSink_head():
     class ID2D1TessellationSink(win32more.System.Com.IUnknown_head):
@@ -642,6 +659,7 @@ def _define_ID2D1TessellationSink():
     ID2D1TessellationSink = win32more.Graphics.Direct2D.ID2D1TessellationSink_head
     ID2D1TessellationSink.AddTriangles = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_TRIANGLE),UInt32, use_last_error=False)(3, 'AddTriangles', ((1, 'triangles'),(1, 'trianglesCount'),)))
     ID2D1TessellationSink.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Close', ()))
+    win32more.System.Com.IUnknown
     return ID2D1TessellationSink
 def _define_ID2D1PathGeometry_head():
     class ID2D1PathGeometry(win32more.Graphics.Direct2D.ID2D1Geometry_head):
@@ -653,6 +671,7 @@ def _define_ID2D1PathGeometry():
     ID2D1PathGeometry.Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GeometrySink_head, use_last_error=False)(18, 'Stream', ((1, 'geometrySink'),)))
     ID2D1PathGeometry.GetSegmentCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(19, 'GetSegmentCount', ((1, 'count'),)))
     ID2D1PathGeometry.GetFigureCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(20, 'GetFigureCount', ((1, 'count'),)))
+    win32more.Graphics.Direct2D.ID2D1Geometry
     return ID2D1PathGeometry
 def _define_ID2D1Mesh_head():
     class ID2D1Mesh(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -661,6 +680,7 @@ def _define_ID2D1Mesh_head():
 def _define_ID2D1Mesh():
     ID2D1Mesh = win32more.Graphics.Direct2D.ID2D1Mesh_head
     ID2D1Mesh.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1TessellationSink_head), use_last_error=False)(4, 'Open', ((1, 'tessellationSink'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1Mesh
 def _define_ID2D1Layer_head():
     class ID2D1Layer(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -669,6 +689,7 @@ def _define_ID2D1Layer_head():
 def _define_ID2D1Layer():
     ID2D1Layer = win32more.Graphics.Direct2D.ID2D1Layer_head
     ID2D1Layer.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_SIZE_F, use_last_error=False)(4, 'GetSize', ()))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1Layer
 def _define_ID2D1DrawingStateBlock_head():
     class ID2D1DrawingStateBlock(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -680,6 +701,7 @@ def _define_ID2D1DrawingStateBlock():
     ID2D1DrawingStateBlock.SetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION_head), use_last_error=False)(5, 'SetDescription', ((1, 'stateDescription'),)))
     ID2D1DrawingStateBlock.SetTextRenderingParams = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.DirectWrite.IDWriteRenderingParams_head, use_last_error=False)(6, 'SetTextRenderingParams', ((1, 'textRenderingParams'),)))
     ID2D1DrawingStateBlock.GetTextRenderingParams = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.DirectWrite.IDWriteRenderingParams_head), use_last_error=False)(7, 'GetTextRenderingParams', ((1, 'textRenderingParams'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1DrawingStateBlock
 def _define_ID2D1RenderTarget_head():
     class ID2D1RenderTarget(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -740,6 +762,7 @@ def _define_ID2D1RenderTarget():
     ID2D1RenderTarget.GetPixelSize = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.Common.D2D_SIZE_U, use_last_error=False)(54, 'GetPixelSize', ()))
     ID2D1RenderTarget.GetMaximumBitmapSize = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(55, 'GetMaximumBitmapSize', ()))
     ID2D1RenderTarget.IsSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head), use_last_error=False)(56, 'IsSupported', ((1, 'renderTargetProperties'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1RenderTarget
 def _define_ID2D1BitmapRenderTarget_head():
     class ID2D1BitmapRenderTarget(win32more.Graphics.Direct2D.ID2D1RenderTarget_head):
@@ -748,6 +771,7 @@ def _define_ID2D1BitmapRenderTarget_head():
 def _define_ID2D1BitmapRenderTarget():
     ID2D1BitmapRenderTarget = win32more.Graphics.Direct2D.ID2D1BitmapRenderTarget_head
     ID2D1BitmapRenderTarget.GetBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1Bitmap_head), use_last_error=False)(57, 'GetBitmap', ((1, 'bitmap'),)))
+    win32more.Graphics.Direct2D.ID2D1RenderTarget
     return ID2D1BitmapRenderTarget
 def _define_ID2D1HwndRenderTarget_head():
     class ID2D1HwndRenderTarget(win32more.Graphics.Direct2D.ID2D1RenderTarget_head):
@@ -758,6 +782,7 @@ def _define_ID2D1HwndRenderTarget():
     ID2D1HwndRenderTarget.CheckWindowState = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_WINDOW_STATE, use_last_error=False)(57, 'CheckWindowState', ()))
     ID2D1HwndRenderTarget.Resize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_SIZE_U_head), use_last_error=False)(58, 'Resize', ((1, 'pixelSize'),)))
     ID2D1HwndRenderTarget.GetHwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HWND, use_last_error=False)(59, 'GetHwnd', ()))
+    win32more.Graphics.Direct2D.ID2D1RenderTarget
     return ID2D1HwndRenderTarget
 def _define_ID2D1GdiInteropRenderTarget_head():
     class ID2D1GdiInteropRenderTarget(win32more.System.Com.IUnknown_head):
@@ -767,6 +792,7 @@ def _define_ID2D1GdiInteropRenderTarget():
     ID2D1GdiInteropRenderTarget = win32more.Graphics.Direct2D.ID2D1GdiInteropRenderTarget_head
     ID2D1GdiInteropRenderTarget.GetDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DC_INITIALIZE_MODE,POINTER(win32more.Graphics.Gdi.HDC), use_last_error=False)(3, 'GetDC', ((1, 'mode'),(1, 'hdc'),)))
     ID2D1GdiInteropRenderTarget.ReleaseDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(4, 'ReleaseDC', ((1, 'update'),)))
+    win32more.System.Com.IUnknown
     return ID2D1GdiInteropRenderTarget
 def _define_ID2D1DCRenderTarget_head():
     class ID2D1DCRenderTarget(win32more.Graphics.Direct2D.ID2D1RenderTarget_head):
@@ -775,6 +801,7 @@ def _define_ID2D1DCRenderTarget_head():
 def _define_ID2D1DCRenderTarget():
     ID2D1DCRenderTarget = win32more.Graphics.Direct2D.ID2D1DCRenderTarget_head
     ID2D1DCRenderTarget.BindDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(57, 'BindDC', ((1, 'hDC'),(1, 'pSubRect'),)))
+    win32more.Graphics.Direct2D.ID2D1RenderTarget
     return ID2D1DCRenderTarget
 def _define_ID2D1Factory_head():
     class ID2D1Factory(win32more.System.Com.IUnknown_head):
@@ -796,6 +823,7 @@ def _define_ID2D1Factory():
     ID2D1Factory.CreateHwndRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.D2D1_HWND_RENDER_TARGET_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1HwndRenderTarget_head), use_last_error=False)(14, 'CreateHwndRenderTarget', ((1, 'renderTargetProperties'),(1, 'hwndRenderTargetProperties'),(1, 'hwndRenderTarget'),)))
     ID2D1Factory.CreateDxgiSurfaceRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISurface_head,POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1RenderTarget_head), use_last_error=False)(15, 'CreateDxgiSurfaceRenderTarget', ((1, 'dxgiSurface'),(1, 'renderTargetProperties'),(1, 'renderTarget'),)))
     ID2D1Factory.CreateDCRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_RENDER_TARGET_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1DCRenderTarget_head), use_last_error=False)(16, 'CreateDCRenderTarget', ((1, 'renderTargetProperties'),(1, 'dcRenderTarget'),)))
+    win32more.System.Com.IUnknown
     return ID2D1Factory
 D2D1_CHANNEL_SELECTOR = UInt32
 D2D1_CHANNEL_SELECTOR_R = 0
@@ -1495,6 +1523,7 @@ def _define_ID2D1GdiMetafileSink_head():
 def _define_ID2D1GdiMetafileSink():
     ID2D1GdiMetafileSink = win32more.Graphics.Direct2D.ID2D1GdiMetafileSink_head
     ID2D1GdiMetafileSink.ProcessRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32, use_last_error=False)(3, 'ProcessRecord', ((1, 'recordType'),(1, 'recordData'),(1, 'recordDataSize'),)))
+    win32more.System.Com.IUnknown
     return ID2D1GdiMetafileSink
 def _define_ID2D1GdiMetafile_head():
     class ID2D1GdiMetafile(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -1504,6 +1533,7 @@ def _define_ID2D1GdiMetafile():
     ID2D1GdiMetafile = win32more.Graphics.Direct2D.ID2D1GdiMetafile_head
     ID2D1GdiMetafile.Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GdiMetafileSink_head, use_last_error=False)(4, 'Stream', ((1, 'sink'),)))
     ID2D1GdiMetafile.GetBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), use_last_error=False)(5, 'GetBounds', ((1, 'bounds'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1GdiMetafile
 def _define_ID2D1CommandSink_head():
     class ID2D1CommandSink(win32more.System.Com.IUnknown_head):
@@ -1536,6 +1566,7 @@ def _define_ID2D1CommandSink():
     ID2D1CommandSink.PushLayer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_LAYER_PARAMETERS1_head),win32more.Graphics.Direct2D.ID2D1Layer_head, use_last_error=False)(25, 'PushLayer', ((1, 'layerParameters1'),(1, 'layer'),)))
     ID2D1CommandSink.PopAxisAlignedClip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(26, 'PopAxisAlignedClip', ()))
     ID2D1CommandSink.PopLayer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(27, 'PopLayer', ()))
+    win32more.System.Com.IUnknown
     return ID2D1CommandSink
 def _define_ID2D1CommandList_head():
     class ID2D1CommandList(win32more.Graphics.Direct2D.ID2D1Image_head):
@@ -1545,6 +1576,7 @@ def _define_ID2D1CommandList():
     ID2D1CommandList = win32more.Graphics.Direct2D.ID2D1CommandList_head
     ID2D1CommandList.Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1CommandSink_head, use_last_error=False)(4, 'Stream', ((1, 'sink'),)))
     ID2D1CommandList.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Close', ()))
+    win32more.Graphics.Direct2D.ID2D1Image
     return ID2D1CommandList
 def _define_ID2D1PrintControl_head():
     class ID2D1PrintControl(win32more.System.Com.IUnknown_head):
@@ -1554,6 +1586,7 @@ def _define_ID2D1PrintControl():
     ID2D1PrintControl = win32more.Graphics.Direct2D.ID2D1PrintControl_head
     ID2D1PrintControl.AddPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1CommandList_head,win32more.Graphics.Direct2D.Common.D2D_SIZE_F,win32more.System.Com.IStream_head,POINTER(UInt64),POINTER(UInt64), use_last_error=False)(3, 'AddPage', ((1, 'commandList'),(1, 'pageSize'),(1, 'pagePrintTicketStream'),(1, 'tag1'),(1, 'tag2'),)))
     ID2D1PrintControl.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Close', ()))
+    win32more.System.Com.IUnknown
     return ID2D1PrintControl
 def _define_ID2D1ImageBrush_head():
     class ID2D1ImageBrush(win32more.Graphics.Direct2D.ID2D1Brush_head):
@@ -1571,6 +1604,7 @@ def _define_ID2D1ImageBrush():
     ID2D1ImageBrush.GetExtendModeY = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, use_last_error=False)(15, 'GetExtendModeY', ()))
     ID2D1ImageBrush.GetInterpolationMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE, use_last_error=False)(16, 'GetInterpolationMode', ()))
     ID2D1ImageBrush.GetSourceRectangle = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), use_last_error=False)(17, 'GetSourceRectangle', ((1, 'sourceRectangle'),)))
+    win32more.Graphics.Direct2D.ID2D1Brush
     return ID2D1ImageBrush
 def _define_ID2D1BitmapBrush1_head():
     class ID2D1BitmapBrush1(win32more.Graphics.Direct2D.ID2D1BitmapBrush_head):
@@ -1580,6 +1614,7 @@ def _define_ID2D1BitmapBrush1():
     ID2D1BitmapBrush1 = win32more.Graphics.Direct2D.ID2D1BitmapBrush1_head
     ID2D1BitmapBrush1.SetInterpolationMode1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE, use_last_error=False)(16, 'SetInterpolationMode1', ((1, 'interpolationMode'),)))
     ID2D1BitmapBrush1.GetInterpolationMode1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE, use_last_error=False)(17, 'GetInterpolationMode1', ()))
+    win32more.Graphics.Direct2D.ID2D1BitmapBrush
     return ID2D1BitmapBrush1
 def _define_ID2D1StrokeStyle1_head():
     class ID2D1StrokeStyle1(win32more.Graphics.Direct2D.ID2D1StrokeStyle_head):
@@ -1588,6 +1623,7 @@ def _define_ID2D1StrokeStyle1_head():
 def _define_ID2D1StrokeStyle1():
     ID2D1StrokeStyle1 = win32more.Graphics.Direct2D.ID2D1StrokeStyle1_head
     ID2D1StrokeStyle1.GetStrokeTransformType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_STROKE_TRANSFORM_TYPE, use_last_error=False)(13, 'GetStrokeTransformType', ()))
+    win32more.Graphics.Direct2D.ID2D1StrokeStyle
     return ID2D1StrokeStyle1
 def _define_ID2D1PathGeometry1_head():
     class ID2D1PathGeometry1(win32more.Graphics.Direct2D.ID2D1PathGeometry_head):
@@ -1596,6 +1632,7 @@ def _define_ID2D1PathGeometry1_head():
 def _define_ID2D1PathGeometry1():
     ID2D1PathGeometry1 = win32more.Graphics.Direct2D.ID2D1PathGeometry1_head
     ID2D1PathGeometry1.ComputePointAndSegmentAtLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,UInt32,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,POINTER(win32more.Graphics.Direct2D.D2D1_POINT_DESCRIPTION_head), use_last_error=False)(21, 'ComputePointAndSegmentAtLength', ((1, 'length'),(1, 'startSegment'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'pointDescription'),)))
+    win32more.Graphics.Direct2D.ID2D1PathGeometry
     return ID2D1PathGeometry1
 def _define_ID2D1Properties_head():
     class ID2D1Properties(win32more.System.Com.IUnknown_head):
@@ -1614,6 +1651,7 @@ def _define_ID2D1Properties():
     ID2D1Properties.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct2D.D2D1_PROPERTY_TYPE,POINTER(Byte),UInt32, use_last_error=False)(11, 'GetValue', ((1, 'index'),(1, 'type'),(1, 'data'),(1, 'dataSize'),)))
     ID2D1Properties.GetValueSize = COMMETHOD(WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(12, 'GetValueSize', ((1, 'index'),)))
     ID2D1Properties.GetSubProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1Properties_head), use_last_error=False)(13, 'GetSubProperties', ((1, 'index'),(1, 'subProperties'),)))
+    win32more.System.Com.IUnknown
     return ID2D1Properties
 def _define_ID2D1Effect_head():
     class ID2D1Effect(win32more.Graphics.Direct2D.ID2D1Properties_head):
@@ -1626,6 +1664,7 @@ def _define_ID2D1Effect():
     ID2D1Effect.GetInput = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1Image_head), use_last_error=False)(16, 'GetInput', ((1, 'index'),(1, 'input'),)))
     ID2D1Effect.GetInputCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(17, 'GetInputCount', ()))
     ID2D1Effect.GetOutput = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Image_head), use_last_error=False)(18, 'GetOutput', ((1, 'outputImage'),)))
+    win32more.Graphics.Direct2D.ID2D1Properties
     return ID2D1Effect
 def _define_ID2D1Bitmap1_head():
     class ID2D1Bitmap1(win32more.Graphics.Direct2D.ID2D1Bitmap_head):
@@ -1638,6 +1677,7 @@ def _define_ID2D1Bitmap1():
     ID2D1Bitmap1.GetSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGISurface_head), use_last_error=False)(13, 'GetSurface', ((1, 'dxgiSurface'),)))
     ID2D1Bitmap1.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_MAP_OPTIONS,POINTER(win32more.Graphics.Direct2D.D2D1_MAPPED_RECT_head), use_last_error=False)(14, 'Map', ((1, 'options'),(1, 'mappedRect'),)))
     ID2D1Bitmap1.Unmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Unmap', ()))
+    win32more.Graphics.Direct2D.ID2D1Bitmap
     return ID2D1Bitmap1
 def _define_ID2D1ColorContext_head():
     class ID2D1ColorContext(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -1648,6 +1688,7 @@ def _define_ID2D1ColorContext():
     ID2D1ColorContext.GetColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_COLOR_SPACE, use_last_error=False)(4, 'GetColorSpace', ()))
     ID2D1ColorContext.GetProfileSize = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(5, 'GetProfileSize', ()))
     ID2D1ColorContext.GetProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(6, 'GetProfile', ((1, 'profile'),(1, 'profileSize'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1ColorContext
 def _define_ID2D1GradientStopCollection1_head():
     class ID2D1GradientStopCollection1(win32more.Graphics.Direct2D.ID2D1GradientStopCollection_head):
@@ -1660,6 +1701,7 @@ def _define_ID2D1GradientStopCollection1():
     ID2D1GradientStopCollection1.GetPostInterpolationSpace = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_COLOR_SPACE, use_last_error=False)(10, 'GetPostInterpolationSpace', ()))
     ID2D1GradientStopCollection1.GetBufferPrecision = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION, use_last_error=False)(11, 'GetBufferPrecision', ()))
     ID2D1GradientStopCollection1.GetColorInterpolationMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_COLOR_INTERPOLATION_MODE, use_last_error=False)(12, 'GetColorInterpolationMode', ()))
+    win32more.Graphics.Direct2D.ID2D1GradientStopCollection
     return ID2D1GradientStopCollection1
 def _define_ID2D1DrawingStateBlock1_head():
     class ID2D1DrawingStateBlock1(win32more.Graphics.Direct2D.ID2D1DrawingStateBlock_head):
@@ -1669,6 +1711,7 @@ def _define_ID2D1DrawingStateBlock1():
     ID2D1DrawingStateBlock1 = win32more.Graphics.Direct2D.ID2D1DrawingStateBlock1_head
     ID2D1DrawingStateBlock1.GetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head), use_last_error=False)(8, 'GetDescription', ((1, 'stateDescription'),)))
     ID2D1DrawingStateBlock1.SetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_DRAWING_STATE_DESCRIPTION1_head), use_last_error=False)(9, 'SetDescription', ((1, 'stateDescription'),)))
+    win32more.Graphics.Direct2D.ID2D1DrawingStateBlock
     return ID2D1DrawingStateBlock1
 def _define_ID2D1DeviceContext_head():
     class ID2D1DeviceContext(win32more.Graphics.Direct2D.ID2D1RenderTarget_head):
@@ -1711,6 +1754,7 @@ def _define_ID2D1DeviceContext():
     ID2D1DeviceContext.GetEffectInvalidRectangles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Effect_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F),UInt32, use_last_error=False)(89, 'GetEffectInvalidRectangles', ((1, 'effect'),(1, 'rectangles'),(1, 'rectanglesCount'),)))
     ID2D1DeviceContext.GetEffectRequiredInputRectangles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Effect_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.D2D1_EFFECT_INPUT_DESCRIPTION),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F),UInt32, use_last_error=False)(90, 'GetEffectRequiredInputRectangles', ((1, 'renderEffect'),(1, 'renderImageRectangle'),(1, 'inputDescriptions'),(1, 'requiredInputRects'),(1, 'inputCount'),)))
     ID2D1DeviceContext.FillOpacityMask = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Bitmap_head,win32more.Graphics.Direct2D.ID2D1Brush_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), use_last_error=False)(91, 'FillOpacityMask', ((1, 'opacityMask'),(1, 'brush'),(1, 'destinationRectangle'),(1, 'sourceRectangle'),)))
+    win32more.Graphics.Direct2D.ID2D1RenderTarget
     return ID2D1DeviceContext
 def _define_ID2D1Device_head():
     class ID2D1Device(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -1723,6 +1767,7 @@ def _define_ID2D1Device():
     ID2D1Device.SetMaximumTextureMemory = COMMETHOD(WINFUNCTYPE(Void,UInt64, use_last_error=False)(6, 'SetMaximumTextureMemory', ((1, 'maximumInBytes'),)))
     ID2D1Device.GetMaximumTextureMemory = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(7, 'GetMaximumTextureMemory', ()))
     ID2D1Device.ClearResources = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(8, 'ClearResources', ((1, 'millisecondsSinceUse'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1Device
 def _define_ID2D1Factory1_head():
     class ID2D1Factory1(win32more.Graphics.Direct2D.ID2D1Factory_head):
@@ -1740,6 +1785,7 @@ def _define_ID2D1Factory1():
     ID2D1Factory1.UnregisterEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(24, 'UnregisterEffect', ((1, 'classId'),)))
     ID2D1Factory1.GetRegisteredEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(25, 'GetRegisteredEffects', ((1, 'effects'),(1, 'effectsCount'),(1, 'effectsReturned'),(1, 'effectsRegistered'),)))
     ID2D1Factory1.GetEffectProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Graphics.Direct2D.ID2D1Properties_head), use_last_error=False)(26, 'GetEffectProperties', ((1, 'effectId'),(1, 'properties'),)))
+    win32more.Graphics.Direct2D.ID2D1Factory
     return ID2D1Factory1
 def _define_ID2D1Multithread_head():
     class ID2D1Multithread(win32more.System.Com.IUnknown_head):
@@ -1750,6 +1796,7 @@ def _define_ID2D1Multithread():
     ID2D1Multithread.GetMultithreadProtected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(3, 'GetMultithreadProtected', ()))
     ID2D1Multithread.Enter = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'Enter', ()))
     ID2D1Multithread.Leave = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(5, 'Leave', ()))
+    win32more.System.Com.IUnknown
     return ID2D1Multithread
 def _define_Matrix4x3F_head():
     class Matrix4x3F(Structure):
@@ -1981,6 +2028,7 @@ def _define_ID2D1VertexBuffer():
     ID2D1VertexBuffer = win32more.Graphics.Direct2D.ID2D1VertexBuffer_head
     ID2D1VertexBuffer.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),UInt32, use_last_error=False)(3, 'Map', ((1, 'data'),(1, 'bufferSize'),)))
     ID2D1VertexBuffer.Unmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Unmap', ()))
+    win32more.System.Com.IUnknown
     return ID2D1VertexBuffer
 def _define_ID2D1ResourceTexture_head():
     class ID2D1ResourceTexture(win32more.System.Com.IUnknown_head):
@@ -1989,6 +2037,7 @@ def _define_ID2D1ResourceTexture_head():
 def _define_ID2D1ResourceTexture():
     ID2D1ResourceTexture = win32more.Graphics.Direct2D.ID2D1ResourceTexture_head
     ID2D1ResourceTexture.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),UInt32,POINTER(Byte),UInt32, use_last_error=False)(3, 'Update', ((1, 'minimumExtents'),(1, 'maximimumExtents'),(1, 'strides'),(1, 'dimensions'),(1, 'data'),(1, 'dataCount'),)))
+    win32more.System.Com.IUnknown
     return ID2D1ResourceTexture
 def _define_ID2D1RenderInfo_head():
     class ID2D1RenderInfo(win32more.System.Com.IUnknown_head):
@@ -2000,6 +2049,7 @@ def _define_ID2D1RenderInfo():
     ID2D1RenderInfo.SetOutputBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION,win32more.Graphics.Direct2D.D2D1_CHANNEL_DEPTH, use_last_error=False)(4, 'SetOutputBuffer', ((1, 'bufferPrecision'),(1, 'channelDepth'),)))
     ID2D1RenderInfo.SetCached = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetCached', ((1, 'isCached'),)))
     ID2D1RenderInfo.SetInstructionCountHint = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(6, 'SetInstructionCountHint', ((1, 'instructionCount'),)))
+    win32more.System.Com.IUnknown
     return ID2D1RenderInfo
 def _define_ID2D1DrawInfo_head():
     class ID2D1DrawInfo(win32more.Graphics.Direct2D.ID2D1RenderInfo_head):
@@ -2012,6 +2062,7 @@ def _define_ID2D1DrawInfo():
     ID2D1DrawInfo.SetVertexShaderConstantBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(9, 'SetVertexShaderConstantBuffer', ((1, 'buffer'),(1, 'bufferCount'),)))
     ID2D1DrawInfo.SetPixelShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Graphics.Direct2D.D2D1_PIXEL_OPTIONS, use_last_error=False)(10, 'SetPixelShader', ((1, 'shaderId'),(1, 'pixelOptions'),)))
     ID2D1DrawInfo.SetVertexProcessing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1VertexBuffer_head,win32more.Graphics.Direct2D.D2D1_VERTEX_OPTIONS,POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head),POINTER(win32more.Graphics.Direct2D.D2D1_VERTEX_RANGE_head),POINTER(Guid), use_last_error=False)(11, 'SetVertexProcessing', ((1, 'vertexBuffer'),(1, 'vertexOptions'),(1, 'blendDescription'),(1, 'vertexRange'),(1, 'vertexShader'),)))
+    win32more.Graphics.Direct2D.ID2D1RenderInfo
     return ID2D1DrawInfo
 def _define_ID2D1ComputeInfo_head():
     class ID2D1ComputeInfo(win32more.Graphics.Direct2D.ID2D1RenderInfo_head):
@@ -2022,6 +2073,7 @@ def _define_ID2D1ComputeInfo():
     ID2D1ComputeInfo.SetComputeShaderConstantBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(7, 'SetComputeShaderConstantBuffer', ((1, 'buffer'),(1, 'bufferCount'),)))
     ID2D1ComputeInfo.SetComputeShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(8, 'SetComputeShader', ((1, 'shaderId'),)))
     ID2D1ComputeInfo.SetResourceTexture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct2D.ID2D1ResourceTexture_head, use_last_error=False)(9, 'SetResourceTexture', ((1, 'textureIndex'),(1, 'resourceTexture'),)))
+    win32more.Graphics.Direct2D.ID2D1RenderInfo
     return ID2D1ComputeInfo
 def _define_ID2D1TransformNode_head():
     class ID2D1TransformNode(win32more.System.Com.IUnknown_head):
@@ -2030,6 +2082,7 @@ def _define_ID2D1TransformNode_head():
 def _define_ID2D1TransformNode():
     ID2D1TransformNode = win32more.Graphics.Direct2D.ID2D1TransformNode_head
     ID2D1TransformNode.GetInputCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(3, 'GetInputCount', ()))
+    win32more.System.Com.IUnknown
     return ID2D1TransformNode
 def _define_ID2D1TransformGraph_head():
     class ID2D1TransformGraph(win32more.System.Com.IUnknown_head):
@@ -2046,6 +2099,7 @@ def _define_ID2D1TransformGraph():
     ID2D1TransformGraph.ConnectToEffectInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct2D.ID2D1TransformNode_head,UInt32, use_last_error=False)(9, 'ConnectToEffectInput', ((1, 'toEffectInputIndex'),(1, 'node'),(1, 'toNodeInputIndex'),)))
     ID2D1TransformGraph.Clear = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(10, 'Clear', ()))
     ID2D1TransformGraph.SetPassthroughGraph = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'SetPassthroughGraph', ((1, 'effectInputIndex'),)))
+    win32more.System.Com.IUnknown
     return ID2D1TransformGraph
 def _define_ID2D1Transform_head():
     class ID2D1Transform(win32more.Graphics.Direct2D.ID2D1TransformNode_head):
@@ -2056,6 +2110,7 @@ def _define_ID2D1Transform():
     ID2D1Transform.MapOutputRectToInputRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT),UInt32, use_last_error=False)(4, 'MapOutputRectToInputRects', ((1, 'outputRect'),(1, 'inputRects'),(1, 'inputRectsCount'),)))
     ID2D1Transform.MapInputRectsToOutputRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT),POINTER(win32more.Foundation.RECT),UInt32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head), use_last_error=False)(5, 'MapInputRectsToOutputRect', ((1, 'inputRects'),(1, 'inputOpaqueSubRects'),(1, 'inputRectCount'),(1, 'outputRect'),(1, 'outputOpaqueSubRect'),)))
     ID2D1Transform.MapInvalidRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.RECT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(6, 'MapInvalidRect', ((1, 'inputIndex'),(1, 'invalidInputRect'),(1, 'invalidOutputRect'),)))
+    win32more.Graphics.Direct2D.ID2D1TransformNode
     return ID2D1Transform
 def _define_ID2D1DrawTransform_head():
     class ID2D1DrawTransform(win32more.Graphics.Direct2D.ID2D1Transform_head):
@@ -2064,6 +2119,7 @@ def _define_ID2D1DrawTransform_head():
 def _define_ID2D1DrawTransform():
     ID2D1DrawTransform = win32more.Graphics.Direct2D.ID2D1DrawTransform_head
     ID2D1DrawTransform.SetDrawInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1DrawInfo_head, use_last_error=False)(7, 'SetDrawInfo', ((1, 'drawInfo'),)))
+    win32more.Graphics.Direct2D.ID2D1Transform
     return ID2D1DrawTransform
 def _define_ID2D1ComputeTransform_head():
     class ID2D1ComputeTransform(win32more.Graphics.Direct2D.ID2D1Transform_head):
@@ -2073,6 +2129,7 @@ def _define_ID2D1ComputeTransform():
     ID2D1ComputeTransform = win32more.Graphics.Direct2D.ID2D1ComputeTransform_head
     ID2D1ComputeTransform.SetComputeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1ComputeInfo_head, use_last_error=False)(7, 'SetComputeInfo', ((1, 'computeInfo'),)))
     ID2D1ComputeTransform.CalculateThreadgroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(8, 'CalculateThreadgroups', ((1, 'outputRect'),(1, 'dimensionX'),(1, 'dimensionY'),(1, 'dimensionZ'),)))
+    win32more.Graphics.Direct2D.ID2D1Transform
     return ID2D1ComputeTransform
 def _define_ID2D1AnalysisTransform_head():
     class ID2D1AnalysisTransform(win32more.System.Com.IUnknown_head):
@@ -2081,6 +2138,7 @@ def _define_ID2D1AnalysisTransform_head():
 def _define_ID2D1AnalysisTransform():
     ID2D1AnalysisTransform = win32more.Graphics.Direct2D.ID2D1AnalysisTransform_head
     ID2D1AnalysisTransform.ProcessAnalysisResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(3, 'ProcessAnalysisResults', ((1, 'analysisData'),(1, 'analysisDataCount'),)))
+    win32more.System.Com.IUnknown
     return ID2D1AnalysisTransform
 def _define_ID2D1SourceTransform_head():
     class ID2D1SourceTransform(win32more.Graphics.Direct2D.ID2D1Transform_head):
@@ -2090,6 +2148,7 @@ def _define_ID2D1SourceTransform():
     ID2D1SourceTransform = win32more.Graphics.Direct2D.ID2D1SourceTransform_head
     ID2D1SourceTransform.SetRenderInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1RenderInfo_head, use_last_error=False)(7, 'SetRenderInfo', ((1, 'renderInfo'),)))
     ID2D1SourceTransform.Draw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Bitmap1_head,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Direct2D.Common.D2D_POINT_2U, use_last_error=False)(8, 'Draw', ((1, 'target'),(1, 'drawRect'),(1, 'targetOrigin'),)))
+    win32more.Graphics.Direct2D.ID2D1Transform
     return ID2D1SourceTransform
 def _define_ID2D1ConcreteTransform_head():
     class ID2D1ConcreteTransform(win32more.Graphics.Direct2D.ID2D1TransformNode_head):
@@ -2099,6 +2158,7 @@ def _define_ID2D1ConcreteTransform():
     ID2D1ConcreteTransform = win32more.Graphics.Direct2D.ID2D1ConcreteTransform_head
     ID2D1ConcreteTransform.SetOutputBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION,win32more.Graphics.Direct2D.D2D1_CHANNEL_DEPTH, use_last_error=False)(4, 'SetOutputBuffer', ((1, 'bufferPrecision'),(1, 'channelDepth'),)))
     ID2D1ConcreteTransform.SetCached = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetCached', ((1, 'isCached'),)))
+    win32more.Graphics.Direct2D.ID2D1TransformNode
     return ID2D1ConcreteTransform
 def _define_ID2D1BlendTransform_head():
     class ID2D1BlendTransform(win32more.Graphics.Direct2D.ID2D1ConcreteTransform_head):
@@ -2108,6 +2168,7 @@ def _define_ID2D1BlendTransform():
     ID2D1BlendTransform = win32more.Graphics.Direct2D.ID2D1BlendTransform_head
     ID2D1BlendTransform.SetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head), use_last_error=False)(6, 'SetDescription', ((1, 'description'),)))
     ID2D1BlendTransform.GetDescription = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_BLEND_DESCRIPTION_head), use_last_error=False)(7, 'GetDescription', ((1, 'description'),)))
+    win32more.Graphics.Direct2D.ID2D1ConcreteTransform
     return ID2D1BlendTransform
 def _define_ID2D1BorderTransform_head():
     class ID2D1BorderTransform(win32more.Graphics.Direct2D.ID2D1ConcreteTransform_head):
@@ -2119,6 +2180,7 @@ def _define_ID2D1BorderTransform():
     ID2D1BorderTransform.SetExtendModeY = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, use_last_error=False)(7, 'SetExtendModeY', ((1, 'extendMode'),)))
     ID2D1BorderTransform.GetExtendModeX = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, use_last_error=False)(8, 'GetExtendModeX', ()))
     ID2D1BorderTransform.GetExtendModeY = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_EXTEND_MODE, use_last_error=False)(9, 'GetExtendModeY', ()))
+    win32more.Graphics.Direct2D.ID2D1ConcreteTransform
     return ID2D1BorderTransform
 def _define_ID2D1OffsetTransform_head():
     class ID2D1OffsetTransform(win32more.Graphics.Direct2D.ID2D1TransformNode_head):
@@ -2128,6 +2190,7 @@ def _define_ID2D1OffsetTransform():
     ID2D1OffsetTransform = win32more.Graphics.Direct2D.ID2D1OffsetTransform_head
     ID2D1OffsetTransform.SetOffset = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.POINT, use_last_error=False)(4, 'SetOffset', ((1, 'offset'),)))
     ID2D1OffsetTransform.GetOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.POINT, use_last_error=False)(5, 'GetOffset', ()))
+    win32more.Graphics.Direct2D.ID2D1TransformNode
     return ID2D1OffsetTransform
 def _define_ID2D1BoundsAdjustmentTransform_head():
     class ID2D1BoundsAdjustmentTransform(win32more.Graphics.Direct2D.ID2D1TransformNode_head):
@@ -2137,6 +2200,7 @@ def _define_ID2D1BoundsAdjustmentTransform():
     ID2D1BoundsAdjustmentTransform = win32more.Graphics.Direct2D.ID2D1BoundsAdjustmentTransform_head
     ID2D1BoundsAdjustmentTransform.SetOutputBounds = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(4, 'SetOutputBounds', ((1, 'outputBounds'),)))
     ID2D1BoundsAdjustmentTransform.GetOutputBounds = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(5, 'GetOutputBounds', ((1, 'outputBounds'),)))
+    win32more.Graphics.Direct2D.ID2D1TransformNode
     return ID2D1BoundsAdjustmentTransform
 def _define_ID2D1EffectImpl_head():
     class ID2D1EffectImpl(win32more.System.Com.IUnknown_head):
@@ -2147,6 +2211,7 @@ def _define_ID2D1EffectImpl():
     ID2D1EffectImpl.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1EffectContext_head,win32more.Graphics.Direct2D.ID2D1TransformGraph_head, use_last_error=False)(3, 'Initialize', ((1, 'effectContext'),(1, 'transformGraph'),)))
     ID2D1EffectImpl.PrepareForRender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_CHANGE_TYPE, use_last_error=False)(4, 'PrepareForRender', ((1, 'changeType'),)))
     ID2D1EffectImpl.SetGraph = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1TransformGraph_head, use_last_error=False)(5, 'SetGraph', ((1, 'transformGraph'),)))
+    win32more.System.Com.IUnknown
     return ID2D1EffectImpl
 def _define_ID2D1EffectContext_head():
     class ID2D1EffectContext(win32more.System.Com.IUnknown_head):
@@ -2175,6 +2240,7 @@ def _define_ID2D1EffectContext():
     ID2D1EffectContext.CreateColorContextFromWicColorContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICColorContext_head,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext_head), use_last_error=False)(21, 'CreateColorContextFromWicColorContext', ((1, 'wicColorContext'),(1, 'colorContext'),)))
     ID2D1EffectContext.CheckFeatureSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_FEATURE,c_void_p,UInt32, use_last_error=False)(22, 'CheckFeatureSupport', ((1, 'feature'),(1, 'featureSupportData'),(1, 'featureSupportDataSize'),)))
     ID2D1EffectContext.IsBufferPrecisionSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION, use_last_error=False)(23, 'IsBufferPrecisionSupported', ((1, 'bufferPrecision'),)))
+    win32more.System.Com.IUnknown
     return ID2D1EffectContext
 D2D1_YCBCR_PROP = UInt32
 D2D1_YCBCR_PROP_CHROMA_SUBSAMPLING = 0
@@ -2320,6 +2386,7 @@ def _define_ID2D1GeometryRealization_head():
     return ID2D1GeometryRealization
 def _define_ID2D1GeometryRealization():
     ID2D1GeometryRealization = win32more.Graphics.Direct2D.ID2D1GeometryRealization_head
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1GeometryRealization
 def _define_ID2D1DeviceContext1_head():
     class ID2D1DeviceContext1(win32more.Graphics.Direct2D.ID2D1DeviceContext_head):
@@ -2330,6 +2397,7 @@ def _define_ID2D1DeviceContext1():
     ID2D1DeviceContext1.CreateFilledGeometryRealization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Geometry_head,Single,POINTER(win32more.Graphics.Direct2D.ID2D1GeometryRealization_head), use_last_error=False)(92, 'CreateFilledGeometryRealization', ((1, 'geometry'),(1, 'flatteningTolerance'),(1, 'geometryRealization'),)))
     ID2D1DeviceContext1.CreateStrokedGeometryRealization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Geometry_head,Single,Single,win32more.Graphics.Direct2D.ID2D1StrokeStyle_head,POINTER(win32more.Graphics.Direct2D.ID2D1GeometryRealization_head), use_last_error=False)(93, 'CreateStrokedGeometryRealization', ((1, 'geometry'),(1, 'flatteningTolerance'),(1, 'strokeWidth'),(1, 'strokeStyle'),(1, 'geometryRealization'),)))
     ID2D1DeviceContext1.DrawGeometryRealization = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1GeometryRealization_head,win32more.Graphics.Direct2D.ID2D1Brush_head, use_last_error=False)(94, 'DrawGeometryRealization', ((1, 'geometryRealization'),(1, 'brush'),)))
+    win32more.Graphics.Direct2D.ID2D1DeviceContext
     return ID2D1DeviceContext1
 def _define_ID2D1Device1_head():
     class ID2D1Device1(win32more.Graphics.Direct2D.ID2D1Device_head):
@@ -2340,6 +2408,7 @@ def _define_ID2D1Device1():
     ID2D1Device1.GetRenderingPriority = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_RENDERING_PRIORITY, use_last_error=False)(9, 'GetRenderingPriority', ()))
     ID2D1Device1.SetRenderingPriority = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_RENDERING_PRIORITY, use_last_error=False)(10, 'SetRenderingPriority', ((1, 'renderingPriority'),)))
     ID2D1Device1.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext1_head), use_last_error=False)(11, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext1'),)))
+    win32more.Graphics.Direct2D.ID2D1Device
     return ID2D1Device1
 def _define_ID2D1Factory2_head():
     class ID2D1Factory2(win32more.Graphics.Direct2D.ID2D1Factory1_head):
@@ -2348,6 +2417,7 @@ def _define_ID2D1Factory2_head():
 def _define_ID2D1Factory2():
     ID2D1Factory2 = win32more.Graphics.Direct2D.ID2D1Factory2_head
     ID2D1Factory2.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device1_head), use_last_error=False)(27, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice1'),)))
+    win32more.Graphics.Direct2D.ID2D1Factory1
     return ID2D1Factory2
 def _define_ID2D1CommandSink1_head():
     class ID2D1CommandSink1(win32more.Graphics.Direct2D.ID2D1CommandSink_head):
@@ -2356,6 +2426,7 @@ def _define_ID2D1CommandSink1_head():
 def _define_ID2D1CommandSink1():
     ID2D1CommandSink1 = win32more.Graphics.Direct2D.ID2D1CommandSink1_head
     ID2D1CommandSink1.SetPrimitiveBlend1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND, use_last_error=False)(28, 'SetPrimitiveBlend1', ((1, 'primitiveBlend'),)))
+    win32more.Graphics.Direct2D.ID2D1CommandSink
     return ID2D1CommandSink1
 D2D1_SVG_PAINT_TYPE = UInt32
 D2D1_SVG_PAINT_TYPE_NONE = 0
@@ -2497,6 +2568,7 @@ def _define_ID2D1SvgAttribute():
     ID2D1SvgAttribute = win32more.Graphics.Direct2D.ID2D1SvgAttribute_head
     ID2D1SvgAttribute.GetElement = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1SvgElement_head), use_last_error=False)(4, 'GetElement', ((1, 'element'),)))
     ID2D1SvgAttribute.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head), use_last_error=False)(5, 'Clone', ((1, 'attribute'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1SvgAttribute
 def _define_ID2D1SvgPaint_head():
     class ID2D1SvgPaint(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head):
@@ -2511,6 +2583,7 @@ def _define_ID2D1SvgPaint():
     ID2D1SvgPaint.SetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'SetId', ((1, 'id'),)))
     ID2D1SvgPaint.GetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(11, 'GetId', ((1, 'id'),(1, 'idCount'),)))
     ID2D1SvgPaint.GetIdLength = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(12, 'GetIdLength', ()))
+    win32more.Graphics.Direct2D.ID2D1SvgAttribute
     return ID2D1SvgPaint
 def _define_ID2D1SvgStrokeDashArray_head():
     class ID2D1SvgStrokeDashArray(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head):
@@ -2524,6 +2597,7 @@ def _define_ID2D1SvgStrokeDashArray():
     ID2D1SvgStrokeDashArray.GetDashes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_LENGTH),UInt32,UInt32, use_last_error=False)(9, 'GetDashes', ((1, 'dashes'),(1, 'dashesCount'),(1, 'startIndex'),)))
     ID2D1SvgStrokeDashArray.GetDashes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,UInt32, use_last_error=False)(10, 'GetDashes', ((1, 'dashes'),(1, 'dashesCount'),(1, 'startIndex'),)))
     ID2D1SvgStrokeDashArray.GetDashesCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(11, 'GetDashesCount', ()))
+    win32more.Graphics.Direct2D.ID2D1SvgAttribute
     return ID2D1SvgStrokeDashArray
 def _define_ID2D1SvgPointCollection_head():
     class ID2D1SvgPointCollection(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head):
@@ -2535,6 +2609,7 @@ def _define_ID2D1SvgPointCollection():
     ID2D1SvgPointCollection.UpdatePoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F),UInt32,UInt32, use_last_error=False)(7, 'UpdatePoints', ((1, 'points'),(1, 'pointsCount'),(1, 'startIndex'),)))
     ID2D1SvgPointCollection.GetPoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F),UInt32,UInt32, use_last_error=False)(8, 'GetPoints', ((1, 'points'),(1, 'pointsCount'),(1, 'startIndex'),)))
     ID2D1SvgPointCollection.GetPointsCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(9, 'GetPointsCount', ()))
+    win32more.Graphics.Direct2D.ID2D1SvgAttribute
     return ID2D1SvgPointCollection
 def _define_ID2D1SvgPathData_head():
     class ID2D1SvgPathData(win32more.Graphics.Direct2D.ID2D1SvgAttribute_head):
@@ -2551,6 +2626,7 @@ def _define_ID2D1SvgPathData():
     ID2D1SvgPathData.GetCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND),UInt32,UInt32, use_last_error=False)(12, 'GetCommands', ((1, 'commands'),(1, 'commandsCount'),(1, 'startIndex'),)))
     ID2D1SvgPathData.GetCommandsCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(13, 'GetCommandsCount', ()))
     ID2D1SvgPathData.CreatePathGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D1_FILL_MODE,POINTER(win32more.Graphics.Direct2D.ID2D1PathGeometry1_head), use_last_error=False)(14, 'CreatePathGeometry', ((1, 'fillMode'),(1, 'pathGeometry'),)))
+    win32more.Graphics.Direct2D.ID2D1SvgAttribute
     return ID2D1SvgPathData
 def _define_ID2D1SvgElement_head():
     class ID2D1SvgElement(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -2588,6 +2664,7 @@ def _define_ID2D1SvgElement():
     ID2D1SvgElement.GetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_POD_TYPE,c_void_p,UInt32, use_last_error=False)(31, 'GetAttributeValue', ((1, 'name'),(1, 'type'),(1, 'value'),(1, 'valueSizeInBytes'),)))
     ID2D1SvgElement.GetAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_STRING_TYPE,POINTER(Char),UInt32, use_last_error=False)(32, 'GetAttributeValue', ((1, 'name'),(1, 'type'),(1, 'value'),(1, 'valueCount'),)))
     ID2D1SvgElement.GetAttributeValueLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct2D.D2D1_SVG_ATTRIBUTE_STRING_TYPE,POINTER(UInt32), use_last_error=False)(33, 'GetAttributeValueLength', ((1, 'name'),(1, 'type'),(1, 'valueLength'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1SvgElement
 def _define_ID2D1SvgDocument_head():
     class ID2D1SvgDocument(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -2606,6 +2683,7 @@ def _define_ID2D1SvgDocument():
     ID2D1SvgDocument.CreateStrokeDashArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_LENGTH),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1SvgStrokeDashArray_head), use_last_error=False)(12, 'CreateStrokeDashArray', ((1, 'dashes'),(1, 'dashesCount'),(1, 'strokeDashArray'),)))
     ID2D1SvgDocument.CreatePointCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1SvgPointCollection_head), use_last_error=False)(13, 'CreatePointCollection', ((1, 'points'),(1, 'pointsCount'),(1, 'pointCollection'),)))
     ID2D1SvgDocument.CreatePathData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_SVG_PATH_COMMAND),UInt32,POINTER(win32more.Graphics.Direct2D.ID2D1SvgPathData_head), use_last_error=False)(14, 'CreatePathData', ((1, 'segmentData'),(1, 'segmentDataCount'),(1, 'commands'),(1, 'commandsCount'),(1, 'pathData'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1SvgDocument
 D2D1_INK_NIB_SHAPE = UInt32
 D2D1_INK_NIB_SHAPE_ROUND = 0
@@ -2763,6 +2841,7 @@ def _define_ID2D1InkStyle():
     ID2D1InkStyle.GetNibTransform = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), use_last_error=False)(5, 'GetNibTransform', ((1, 'transform'),)))
     ID2D1InkStyle.SetNibShape = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.D2D1_INK_NIB_SHAPE, use_last_error=False)(6, 'SetNibShape', ((1, 'nibShape'),)))
     ID2D1InkStyle.GetNibShape = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_INK_NIB_SHAPE, use_last_error=False)(7, 'GetNibShape', ()))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1InkStyle
 def _define_ID2D1Ink_head():
     class ID2D1Ink(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -2780,6 +2859,7 @@ def _define_ID2D1Ink():
     ID2D1Ink.GetSegments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_INK_BEZIER_SEGMENT),UInt32, use_last_error=False)(11, 'GetSegments', ((1, 'startSegment'),(1, 'segments'),(1, 'segmentsCount'),)))
     ID2D1Ink.StreamAsGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1InkStyle_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,win32more.Graphics.Direct2D.Common.ID2D1SimplifiedGeometrySink_head, use_last_error=False)(12, 'StreamAsGeometry', ((1, 'inkStyle'),(1, 'worldTransform'),(1, 'flatteningTolerance'),(1, 'geometrySink'),)))
     ID2D1Ink.GetBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1InkStyle_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), use_last_error=False)(13, 'GetBounds', ((1, 'inkStyle'),(1, 'worldTransform'),(1, 'bounds'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1Ink
 def _define_ID2D1GradientMesh_head():
     class ID2D1GradientMesh(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -2789,6 +2869,7 @@ def _define_ID2D1GradientMesh():
     ID2D1GradientMesh = win32more.Graphics.Direct2D.ID2D1GradientMesh_head
     ID2D1GradientMesh.GetPatchCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(4, 'GetPatchCount', ()))
     ID2D1GradientMesh.GetPatches = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct2D.D2D1_GRADIENT_MESH_PATCH),UInt32, use_last_error=False)(5, 'GetPatches', ((1, 'startIndex'),(1, 'patches'),(1, 'patchesCount'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1GradientMesh
 def _define_ID2D1ImageSource_head():
     class ID2D1ImageSource(win32more.Graphics.Direct2D.ID2D1Image_head):
@@ -2798,6 +2879,7 @@ def _define_ID2D1ImageSource():
     ID2D1ImageSource = win32more.Graphics.Direct2D.ID2D1ImageSource_head
     ID2D1ImageSource.OfferResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'OfferResources', ()))
     ID2D1ImageSource.TryReclaimResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'TryReclaimResources', ((1, 'resourcesDiscarded'),)))
+    win32more.Graphics.Direct2D.ID2D1Image
     return ID2D1ImageSource
 def _define_ID2D1ImageSourceFromWic_head():
     class ID2D1ImageSourceFromWic(win32more.Graphics.Direct2D.ID2D1ImageSource_head):
@@ -2808,6 +2890,7 @@ def _define_ID2D1ImageSourceFromWic():
     ID2D1ImageSourceFromWic.EnsureCached = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head), use_last_error=False)(6, 'EnsureCached', ((1, 'rectangleToFill'),)))
     ID2D1ImageSourceFromWic.TrimCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U_head), use_last_error=False)(7, 'TrimCache', ((1, 'rectangleToPreserve'),)))
     ID2D1ImageSourceFromWic.GetSource = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head), use_last_error=False)(8, 'GetSource', ((1, 'wicBitmapSource'),)))
+    win32more.Graphics.Direct2D.ID2D1ImageSource
     return ID2D1ImageSourceFromWic
 def _define_ID2D1TransformedImageSource_head():
     class ID2D1TransformedImageSource(win32more.Graphics.Direct2D.ID2D1Image_head):
@@ -2817,6 +2900,7 @@ def _define_ID2D1TransformedImageSource():
     ID2D1TransformedImageSource = win32more.Graphics.Direct2D.ID2D1TransformedImageSource_head
     ID2D1TransformedImageSource.GetSource = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1ImageSource_head), use_last_error=False)(4, 'GetSource', ((1, 'imageSource'),)))
     ID2D1TransformedImageSource.GetProperties = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head), use_last_error=False)(5, 'GetProperties', ((1, 'properties'),)))
+    win32more.Graphics.Direct2D.ID2D1Image
     return ID2D1TransformedImageSource
 def _define_ID2D1LookupTable3D_head():
     class ID2D1LookupTable3D(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -2824,6 +2908,7 @@ def _define_ID2D1LookupTable3D_head():
     return ID2D1LookupTable3D
 def _define_ID2D1LookupTable3D():
     ID2D1LookupTable3D = win32more.Graphics.Direct2D.ID2D1LookupTable3D_head
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1LookupTable3D
 def _define_ID2D1DeviceContext2_head():
     class ID2D1DeviceContext2(win32more.Graphics.Direct2D.ID2D1DeviceContext1_head):
@@ -2842,6 +2927,7 @@ def _define_ID2D1DeviceContext2():
     ID2D1DeviceContext2.DrawGradientMesh = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1GradientMesh_head, use_last_error=False)(103, 'DrawGradientMesh', ((1, 'gradientMesh'),)))
     ID2D1DeviceContext2.DrawGdiMetafile = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1GdiMetafile_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), use_last_error=False)(104, 'DrawGdiMetafile', ((1, 'gdiMetafile'),(1, 'destinationRectangle'),(1, 'sourceRectangle'),)))
     ID2D1DeviceContext2.CreateTransformedImageSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1ImageSource_head,POINTER(win32more.Graphics.Direct2D.D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES_head),POINTER(win32more.Graphics.Direct2D.ID2D1TransformedImageSource_head), use_last_error=False)(105, 'CreateTransformedImageSource', ((1, 'imageSource'),(1, 'properties'),(1, 'transformedImageSource'),)))
+    win32more.Graphics.Direct2D.ID2D1DeviceContext1
     return ID2D1DeviceContext2
 def _define_ID2D1Device2_head():
     class ID2D1Device2(win32more.Graphics.Direct2D.ID2D1Device1_head):
@@ -2852,6 +2938,7 @@ def _define_ID2D1Device2():
     ID2D1Device2.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext2_head), use_last_error=False)(12, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext2'),)))
     ID2D1Device2.FlushDeviceContexts = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Bitmap_head, use_last_error=False)(13, 'FlushDeviceContexts', ((1, 'bitmap'),)))
     ID2D1Device2.GetDxgiDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGIDevice_head), use_last_error=False)(14, 'GetDxgiDevice', ((1, 'dxgiDevice'),)))
+    win32more.Graphics.Direct2D.ID2D1Device1
     return ID2D1Device2
 def _define_ID2D1Factory3_head():
     class ID2D1Factory3(win32more.Graphics.Direct2D.ID2D1Factory2_head):
@@ -2860,6 +2947,7 @@ def _define_ID2D1Factory3_head():
 def _define_ID2D1Factory3():
     ID2D1Factory3 = win32more.Graphics.Direct2D.ID2D1Factory3_head
     ID2D1Factory3.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device2_head), use_last_error=False)(28, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice2'),)))
+    win32more.Graphics.Direct2D.ID2D1Factory2
     return ID2D1Factory3
 def _define_ID2D1CommandSink2_head():
     class ID2D1CommandSink2(win32more.Graphics.Direct2D.ID2D1CommandSink1_head):
@@ -2870,6 +2958,7 @@ def _define_ID2D1CommandSink2():
     ID2D1CommandSink2.DrawInk = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Ink_head,win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1InkStyle_head, use_last_error=False)(29, 'DrawInk', ((1, 'ink'),(1, 'brush'),(1, 'inkStyle'),)))
     ID2D1CommandSink2.DrawGradientMesh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GradientMesh_head, use_last_error=False)(30, 'DrawGradientMesh', ((1, 'gradientMesh'),)))
     ID2D1CommandSink2.DrawGdiMetafile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1GdiMetafile_head,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), use_last_error=False)(31, 'DrawGdiMetafile', ((1, 'gdiMetafile'),(1, 'destinationRectangle'),(1, 'sourceRectangle'),)))
+    win32more.Graphics.Direct2D.ID2D1CommandSink1
     return ID2D1CommandSink2
 def _define_ID2D1GdiMetafile1_head():
     class ID2D1GdiMetafile1(win32more.Graphics.Direct2D.ID2D1GdiMetafile_head):
@@ -2879,6 +2968,7 @@ def _define_ID2D1GdiMetafile1():
     ID2D1GdiMetafile1 = win32more.Graphics.Direct2D.ID2D1GdiMetafile1_head
     ID2D1GdiMetafile1.GetDpi = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),POINTER(Single), use_last_error=False)(6, 'GetDpi', ((1, 'dpiX'),(1, 'dpiY'),)))
     ID2D1GdiMetafile1.GetSourceBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head), use_last_error=False)(7, 'GetSourceBounds', ((1, 'bounds'),)))
+    win32more.Graphics.Direct2D.ID2D1GdiMetafile
     return ID2D1GdiMetafile1
 def _define_ID2D1GdiMetafileSink1_head():
     class ID2D1GdiMetafileSink1(win32more.Graphics.Direct2D.ID2D1GdiMetafileSink_head):
@@ -2887,6 +2977,7 @@ def _define_ID2D1GdiMetafileSink1_head():
 def _define_ID2D1GdiMetafileSink1():
     ID2D1GdiMetafileSink1 = win32more.Graphics.Direct2D.ID2D1GdiMetafileSink1_head
     ID2D1GdiMetafileSink1.ProcessRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,UInt32, use_last_error=False)(4, 'ProcessRecord', ((1, 'recordType'),(1, 'recordData'),(1, 'recordDataSize'),(1, 'flags'),)))
+    win32more.Graphics.Direct2D.ID2D1GdiMetafileSink
     return ID2D1GdiMetafileSink1
 def _define_ID2D1SpriteBatch_head():
     class ID2D1SpriteBatch(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -2899,6 +2990,7 @@ def _define_ID2D1SpriteBatch():
     ID2D1SpriteBatch.GetSprites = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_U),POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F),POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F), use_last_error=False)(6, 'GetSprites', ((1, 'startIndex'),(1, 'spriteCount'),(1, 'destinationRectangles'),(1, 'sourceRectangles'),(1, 'colors'),(1, 'transforms'),)))
     ID2D1SpriteBatch.GetSpriteCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(7, 'GetSpriteCount', ()))
     ID2D1SpriteBatch.Clear = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(8, 'Clear', ()))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1SpriteBatch
 def _define_ID2D1DeviceContext3_head():
     class ID2D1DeviceContext3(win32more.Graphics.Direct2D.ID2D1DeviceContext2_head):
@@ -2908,6 +3000,7 @@ def _define_ID2D1DeviceContext3():
     ID2D1DeviceContext3 = win32more.Graphics.Direct2D.ID2D1DeviceContext3_head
     ID2D1DeviceContext3.CreateSpriteBatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1SpriteBatch_head), use_last_error=False)(106, 'CreateSpriteBatch', ((1, 'spriteBatch'),)))
     ID2D1DeviceContext3.DrawSpriteBatch = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1SpriteBatch_head,UInt32,UInt32,win32more.Graphics.Direct2D.ID2D1Bitmap_head,win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE,win32more.Graphics.Direct2D.D2D1_SPRITE_OPTIONS, use_last_error=False)(107, 'DrawSpriteBatch', ((1, 'spriteBatch'),(1, 'startIndex'),(1, 'spriteCount'),(1, 'bitmap'),(1, 'interpolationMode'),(1, 'spriteOptions'),)))
+    win32more.Graphics.Direct2D.ID2D1DeviceContext2
     return ID2D1DeviceContext3
 def _define_ID2D1Device3_head():
     class ID2D1Device3(win32more.Graphics.Direct2D.ID2D1Device2_head):
@@ -2916,6 +3009,7 @@ def _define_ID2D1Device3_head():
 def _define_ID2D1Device3():
     ID2D1Device3 = win32more.Graphics.Direct2D.ID2D1Device3_head
     ID2D1Device3.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext3_head), use_last_error=False)(15, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext3'),)))
+    win32more.Graphics.Direct2D.ID2D1Device2
     return ID2D1Device3
 def _define_ID2D1Factory4_head():
     class ID2D1Factory4(win32more.Graphics.Direct2D.ID2D1Factory3_head):
@@ -2924,6 +3018,7 @@ def _define_ID2D1Factory4_head():
 def _define_ID2D1Factory4():
     ID2D1Factory4 = win32more.Graphics.Direct2D.ID2D1Factory4_head
     ID2D1Factory4.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device3_head), use_last_error=False)(29, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice3'),)))
+    win32more.Graphics.Direct2D.ID2D1Factory3
     return ID2D1Factory4
 def _define_ID2D1CommandSink3_head():
     class ID2D1CommandSink3(win32more.Graphics.Direct2D.ID2D1CommandSink2_head):
@@ -2932,6 +3027,7 @@ def _define_ID2D1CommandSink3_head():
 def _define_ID2D1CommandSink3():
     ID2D1CommandSink3 = win32more.Graphics.Direct2D.ID2D1CommandSink3_head
     ID2D1CommandSink3.DrawSpriteBatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1SpriteBatch_head,UInt32,UInt32,win32more.Graphics.Direct2D.ID2D1Bitmap_head,win32more.Graphics.Direct2D.D2D1_BITMAP_INTERPOLATION_MODE,win32more.Graphics.Direct2D.D2D1_SPRITE_OPTIONS, use_last_error=False)(32, 'DrawSpriteBatch', ((1, 'spriteBatch'),(1, 'startIndex'),(1, 'spriteCount'),(1, 'bitmap'),(1, 'interpolationMode'),(1, 'spriteOptions'),)))
+    win32more.Graphics.Direct2D.ID2D1CommandSink2
     return ID2D1CommandSink3
 def _define_ID2D1SvgGlyphStyle_head():
     class ID2D1SvgGlyphStyle(win32more.Graphics.Direct2D.ID2D1Resource_head):
@@ -2944,6 +3040,7 @@ def _define_ID2D1SvgGlyphStyle():
     ID2D1SvgGlyphStyle.SetStroke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Brush_head,Single,POINTER(Single),UInt32,Single, use_last_error=False)(6, 'SetStroke', ((1, 'brush'),(1, 'strokeWidth'),(1, 'dashes'),(1, 'dashesCount'),(1, 'dashOffset'),)))
     ID2D1SvgGlyphStyle.GetStrokeDashesCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(7, 'GetStrokeDashesCount', ()))
     ID2D1SvgGlyphStyle.GetStroke = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.ID2D1Brush_head),POINTER(Single),POINTER(Single),UInt32,POINTER(Single), use_last_error=False)(8, 'GetStroke', ((1, 'brush'),(1, 'strokeWidth'),(1, 'dashes'),(1, 'dashesCount'),(1, 'dashOffset'),)))
+    win32more.Graphics.Direct2D.ID2D1Resource
     return ID2D1SvgGlyphStyle
 def _define_ID2D1DeviceContext4_head():
     class ID2D1DeviceContext4(win32more.Graphics.Direct2D.ID2D1DeviceContext3_head):
@@ -2958,6 +3055,7 @@ def _define_ID2D1DeviceContext4():
     ID2D1DeviceContext4.DrawSvgGlyphRun = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head,UInt32,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE, use_last_error=False)(112, 'DrawSvgGlyphRun', ((1, 'baselineOrigin'),(1, 'glyphRun'),(1, 'defaultFillBrush'),(1, 'svgGlyphStyle'),(1, 'colorPaletteIndex'),(1, 'measuringMode'),)))
     ID2D1DeviceContext4.GetColorBitmapGlyphImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.DirectWrite.IDWriteFontFace_head,Single,UInt16,win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),Single,Single,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),POINTER(win32more.Graphics.Direct2D.ID2D1Image_head), use_last_error=False)(113, 'GetColorBitmapGlyphImage', ((1, 'glyphImageFormat'),(1, 'glyphOrigin'),(1, 'fontFace'),(1, 'fontEmSize'),(1, 'glyphIndex'),(1, 'isSideways'),(1, 'worldTransform'),(1, 'dpiX'),(1, 'dpiY'),(1, 'glyphTransform'),(1, 'glyphImage'),)))
     ID2D1DeviceContext4.GetSvgGlyphImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,win32more.Graphics.DirectWrite.IDWriteFontFace_head,Single,UInt16,win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),win32more.Graphics.Direct2D.ID2D1Brush_head,win32more.Graphics.Direct2D.ID2D1SvgGlyphStyle_head,UInt32,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head),POINTER(win32more.Graphics.Direct2D.ID2D1CommandList_head), use_last_error=False)(114, 'GetSvgGlyphImage', ((1, 'glyphOrigin'),(1, 'fontFace'),(1, 'fontEmSize'),(1, 'glyphIndex'),(1, 'isSideways'),(1, 'worldTransform'),(1, 'defaultFillBrush'),(1, 'svgGlyphStyle'),(1, 'colorPaletteIndex'),(1, 'glyphTransform'),(1, 'glyphImage'),)))
+    win32more.Graphics.Direct2D.ID2D1DeviceContext3
     return ID2D1DeviceContext4
 def _define_ID2D1Device4_head():
     class ID2D1Device4(win32more.Graphics.Direct2D.ID2D1Device3_head):
@@ -2968,6 +3066,7 @@ def _define_ID2D1Device4():
     ID2D1Device4.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext4_head), use_last_error=False)(16, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext4'),)))
     ID2D1Device4.SetMaximumColorGlyphCacheMemory = COMMETHOD(WINFUNCTYPE(Void,UInt64, use_last_error=False)(17, 'SetMaximumColorGlyphCacheMemory', ((1, 'maximumInBytes'),)))
     ID2D1Device4.GetMaximumColorGlyphCacheMemory = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(18, 'GetMaximumColorGlyphCacheMemory', ()))
+    win32more.Graphics.Direct2D.ID2D1Device3
     return ID2D1Device4
 def _define_ID2D1Factory5_head():
     class ID2D1Factory5(win32more.Graphics.Direct2D.ID2D1Factory4_head):
@@ -2976,6 +3075,7 @@ def _define_ID2D1Factory5_head():
 def _define_ID2D1Factory5():
     ID2D1Factory5 = win32more.Graphics.Direct2D.ID2D1Factory5_head
     ID2D1Factory5.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device4_head), use_last_error=False)(30, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice4'),)))
+    win32more.Graphics.Direct2D.ID2D1Factory4
     return ID2D1Factory5
 def _define_ID2D1CommandSink4_head():
     class ID2D1CommandSink4(win32more.Graphics.Direct2D.ID2D1CommandSink3_head):
@@ -2984,6 +3084,7 @@ def _define_ID2D1CommandSink4_head():
 def _define_ID2D1CommandSink4():
     ID2D1CommandSink4 = win32more.Graphics.Direct2D.ID2D1CommandSink4_head
     ID2D1CommandSink4.SetPrimitiveBlend2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_PRIMITIVE_BLEND, use_last_error=False)(33, 'SetPrimitiveBlend2', ((1, 'primitiveBlend'),)))
+    win32more.Graphics.Direct2D.ID2D1CommandSink3
     return ID2D1CommandSink4
 def _define_ID2D1ColorContext1_head():
     class ID2D1ColorContext1(win32more.Graphics.Direct2D.ID2D1ColorContext_head):
@@ -2994,6 +3095,7 @@ def _define_ID2D1ColorContext1():
     ID2D1ColorContext1.GetColorContextType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct2D.D2D1_COLOR_CONTEXT_TYPE, use_last_error=False)(7, 'GetColorContextType', ()))
     ID2D1ColorContext1.GetDXGIColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE, use_last_error=False)(8, 'GetDXGIColorSpace', ()))
     ID2D1ColorContext1.GetSimpleColorProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head), use_last_error=False)(9, 'GetSimpleColorProfile', ((1, 'simpleProfile'),)))
+    win32more.Graphics.Direct2D.ID2D1ColorContext
     return ID2D1ColorContext1
 def _define_ID2D1DeviceContext5_head():
     class ID2D1DeviceContext5(win32more.Graphics.Direct2D.ID2D1DeviceContext4_head):
@@ -3005,6 +3107,7 @@ def _define_ID2D1DeviceContext5():
     ID2D1DeviceContext5.DrawSvgDocument = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1SvgDocument_head, use_last_error=False)(116, 'DrawSvgDocument', ((1, 'svgDocument'),)))
     ID2D1DeviceContext5.CreateColorContextFromDxgiColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head), use_last_error=False)(117, 'CreateColorContextFromDxgiColorSpace', ((1, 'colorSpace'),(1, 'colorContext'),)))
     ID2D1DeviceContext5.CreateColorContextFromSimpleColorProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head),POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head), use_last_error=False)(118, 'CreateColorContextFromSimpleColorProfile', ((1, 'simpleProfile'),(1, 'colorContext'),)))
+    win32more.Graphics.Direct2D.ID2D1DeviceContext4
     return ID2D1DeviceContext5
 def _define_ID2D1Device5_head():
     class ID2D1Device5(win32more.Graphics.Direct2D.ID2D1Device4_head):
@@ -3013,6 +3116,7 @@ def _define_ID2D1Device5_head():
 def _define_ID2D1Device5():
     ID2D1Device5 = win32more.Graphics.Direct2D.ID2D1Device5_head
     ID2D1Device5.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext5_head), use_last_error=False)(19, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext5'),)))
+    win32more.Graphics.Direct2D.ID2D1Device4
     return ID2D1Device5
 def _define_ID2D1Factory6_head():
     class ID2D1Factory6(win32more.Graphics.Direct2D.ID2D1Factory5_head):
@@ -3021,6 +3125,7 @@ def _define_ID2D1Factory6_head():
 def _define_ID2D1Factory6():
     ID2D1Factory6 = win32more.Graphics.Direct2D.ID2D1Factory6_head
     ID2D1Factory6.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device5_head), use_last_error=False)(31, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice5'),)))
+    win32more.Graphics.Direct2D.ID2D1Factory5
     return ID2D1Factory6
 def _define_ID2D1CommandSink5_head():
     class ID2D1CommandSink5(win32more.Graphics.Direct2D.ID2D1CommandSink4_head):
@@ -3029,6 +3134,7 @@ def _define_ID2D1CommandSink5_head():
 def _define_ID2D1CommandSink5():
     ID2D1CommandSink5 = win32more.Graphics.Direct2D.ID2D1CommandSink5_head
     ID2D1CommandSink5.BlendImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Image_head,win32more.Graphics.Direct2D.Common.D2D1_BLEND_MODE,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE, use_last_error=False)(34, 'BlendImage', ((1, 'image'),(1, 'blendMode'),(1, 'targetOffset'),(1, 'imageRectangle'),(1, 'interpolationMode'),)))
+    win32more.Graphics.Direct2D.ID2D1CommandSink4
     return ID2D1CommandSink5
 def _define_ID2D1DeviceContext6_head():
     class ID2D1DeviceContext6(win32more.Graphics.Direct2D.ID2D1DeviceContext5_head):
@@ -3037,6 +3143,7 @@ def _define_ID2D1DeviceContext6_head():
 def _define_ID2D1DeviceContext6():
     ID2D1DeviceContext6 = win32more.Graphics.Direct2D.ID2D1DeviceContext6_head
     ID2D1DeviceContext6.BlendImage = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.ID2D1Image_head,win32more.Graphics.Direct2D.Common.D2D1_BLEND_MODE,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_RECT_F_head),win32more.Graphics.Direct2D.D2D1_INTERPOLATION_MODE, use_last_error=False)(119, 'BlendImage', ((1, 'image'),(1, 'blendMode'),(1, 'targetOffset'),(1, 'imageRectangle'),(1, 'interpolationMode'),)))
+    win32more.Graphics.Direct2D.ID2D1DeviceContext5
     return ID2D1DeviceContext6
 def _define_ID2D1Device6_head():
     class ID2D1Device6(win32more.Graphics.Direct2D.ID2D1Device5_head):
@@ -3045,6 +3152,7 @@ def _define_ID2D1Device6_head():
 def _define_ID2D1Device6():
     ID2D1Device6 = win32more.Graphics.Direct2D.ID2D1Device6_head
     ID2D1Device6.CreateDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_DEVICE_CONTEXT_OPTIONS,POINTER(win32more.Graphics.Direct2D.ID2D1DeviceContext6_head), use_last_error=False)(20, 'CreateDeviceContext', ((1, 'options'),(1, 'deviceContext6'),)))
+    win32more.Graphics.Direct2D.ID2D1Device5
     return ID2D1Device6
 def _define_ID2D1Factory7_head():
     class ID2D1Factory7(win32more.Graphics.Direct2D.ID2D1Factory6_head):
@@ -3053,6 +3161,7 @@ def _define_ID2D1Factory7_head():
 def _define_ID2D1Factory7():
     ID2D1Factory7 = win32more.Graphics.Direct2D.ID2D1Factory7_head
     ID2D1Factory7.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head,POINTER(win32more.Graphics.Direct2D.ID2D1Device6_head), use_last_error=False)(32, 'CreateDevice', ((1, 'dxgiDevice'),(1, 'd2dDevice6'),)))
+    win32more.Graphics.Direct2D.ID2D1Factory6
     return ID2D1Factory7
 def _define_ID2D1EffectContext1_head():
     class ID2D1EffectContext1(win32more.Graphics.Direct2D.ID2D1EffectContext_head):
@@ -3061,6 +3170,7 @@ def _define_ID2D1EffectContext1_head():
 def _define_ID2D1EffectContext1():
     ID2D1EffectContext1 = win32more.Graphics.Direct2D.ID2D1EffectContext1_head
     ID2D1EffectContext1.CreateLookupTable3D = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.D2D1_BUFFER_PRECISION,POINTER(UInt32),POINTER(Byte),UInt32,POINTER(UInt32),POINTER(win32more.Graphics.Direct2D.ID2D1LookupTable3D_head), use_last_error=False)(24, 'CreateLookupTable3D', ((1, 'precision'),(1, 'extents'),(1, 'data'),(1, 'dataCount'),(1, 'strides'),(1, 'lookupTable'),)))
+    win32more.Graphics.Direct2D.ID2D1EffectContext
     return ID2D1EffectContext1
 def _define_ID2D1EffectContext2_head():
     class ID2D1EffectContext2(win32more.Graphics.Direct2D.ID2D1EffectContext1_head):
@@ -3070,6 +3180,7 @@ def _define_ID2D1EffectContext2():
     ID2D1EffectContext2 = win32more.Graphics.Direct2D.ID2D1EffectContext2_head
     ID2D1EffectContext2.CreateColorContextFromDxgiColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head), use_last_error=False)(25, 'CreateColorContextFromDxgiColorSpace', ((1, 'colorSpace'),(1, 'colorContext'),)))
     ID2D1EffectContext2.CreateColorContextFromSimpleColorProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.D2D1_SIMPLE_COLOR_PROFILE_head),POINTER(win32more.Graphics.Direct2D.ID2D1ColorContext1_head), use_last_error=False)(26, 'CreateColorContextFromSimpleColorProfile', ((1, 'simpleProfile'),(1, 'colorContext'),)))
+    win32more.Graphics.Direct2D.ID2D1EffectContext1
     return ID2D1EffectContext2
 def _define_D2D1CreateFactory():
     try:

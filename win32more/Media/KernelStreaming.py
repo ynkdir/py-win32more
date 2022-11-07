@@ -680,6 +680,7 @@ def _define_IKsControl():
     IKsControl.KsProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.KernelStreaming.KSIDENTIFIER_head),UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(3, 'KsProperty', ((1, 'Property'),(1, 'PropertyLength'),(1, 'PropertyData'),(1, 'DataLength'),(1, 'BytesReturned'),)))
     IKsControl.KsMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.KernelStreaming.KSIDENTIFIER_head),UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(4, 'KsMethod', ((1, 'Method'),(1, 'MethodLength'),(1, 'MethodData'),(1, 'DataLength'),(1, 'BytesReturned'),)))
     IKsControl.KsEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.KernelStreaming.KSIDENTIFIER_head),UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(5, 'KsEvent', ((1, 'Event'),(1, 'EventLength'),(1, 'EventData'),(1, 'DataLength'),(1, 'BytesReturned'),)))
+    win32more.System.Com.IUnknown
     return IKsControl
 def _define_IKsFormatSupport_head():
     class IKsFormatSupport(win32more.System.Com.IUnknown_head):
@@ -689,6 +690,7 @@ def _define_IKsFormatSupport():
     IKsFormatSupport = win32more.Media.KernelStreaming.IKsFormatSupport_head
     IKsFormatSupport.IsFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.KernelStreaming.KSDATAFORMAT_head),UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsFormatSupported', ((1, 'pKsFormat'),(1, 'cbFormat'),(1, 'pbSupported'),)))
     IKsFormatSupport.GetDevicePreferredFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.KernelStreaming.KSDATAFORMAT_head)), use_last_error=False)(4, 'GetDevicePreferredFormat', ((1, 'ppKsFormat'),)))
+    win32more.System.Com.IUnknown
     return IKsFormatSupport
 def _define_IKsJackDescription_head():
     class IKsJackDescription(win32more.System.Com.IUnknown_head):
@@ -698,6 +700,7 @@ def _define_IKsJackDescription():
     IKsJackDescription = win32more.Media.KernelStreaming.IKsJackDescription_head
     IKsJackDescription.GetJackCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetJackCount', ((1, 'pcJacks'),)))
     IKsJackDescription.GetJackDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.KernelStreaming.KSJACK_DESCRIPTION_head), use_last_error=False)(4, 'GetJackDescription', ((1, 'nJack'),(1, 'pDescription'),)))
+    win32more.System.Com.IUnknown
     return IKsJackDescription
 def _define_IKsJackDescription2_head():
     class IKsJackDescription2(win32more.System.Com.IUnknown_head):
@@ -707,6 +710,7 @@ def _define_IKsJackDescription2():
     IKsJackDescription2 = win32more.Media.KernelStreaming.IKsJackDescription2_head
     IKsJackDescription2.GetJackCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetJackCount', ((1, 'pcJacks'),)))
     IKsJackDescription2.GetJackDescription2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.KernelStreaming.KSJACK_DESCRIPTION2_head), use_last_error=False)(4, 'GetJackDescription2', ((1, 'nJack'),(1, 'pDescription2'),)))
+    win32more.System.Com.IUnknown
     return IKsJackDescription2
 def _define_IKsJackSinkInformation_head():
     class IKsJackSinkInformation(win32more.System.Com.IUnknown_head):
@@ -715,6 +719,7 @@ def _define_IKsJackSinkInformation_head():
 def _define_IKsJackSinkInformation():
     IKsJackSinkInformation = win32more.Media.KernelStreaming.IKsJackSinkInformation_head
     IKsJackSinkInformation.GetJackSinkInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.KernelStreaming.KSJACK_SINK_INFORMATION_head), use_last_error=False)(3, 'GetJackSinkInformation', ((1, 'pJackSinkInformation'),)))
+    win32more.System.Com.IUnknown
     return IKsJackSinkInformation
 def _define_IKsJackContainerId_head():
     class IKsJackContainerId(win32more.System.Com.IUnknown_head):
@@ -723,6 +728,7 @@ def _define_IKsJackContainerId_head():
 def _define_IKsJackContainerId():
     IKsJackContainerId = win32more.Media.KernelStreaming.IKsJackContainerId_head
     IKsJackContainerId.GetJackContainerId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetJackContainerId', ((1, 'pJackContainerId'),)))
+    win32more.System.Com.IUnknown
     return IKsJackContainerId
 GUID_NULL = Guid('00000000-0000-0000-0000-000000000000')
 KSRESET = Int32
@@ -7073,6 +7079,7 @@ def _define_IKsPropertySet():
     IKsPropertySet.Set = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p,UInt32,c_void_p,UInt32, use_last_error=False)(3, 'Set', ((1, 'PropSet'),(1, 'Id'),(1, 'InstanceData'),(1, 'InstanceLength'),(1, 'PropertyData'),(1, 'DataLength'),)))
     IKsPropertySet.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(4, 'Get', ((1, 'PropSet'),(1, 'Id'),(1, 'InstanceData'),(1, 'InstanceLength'),(1, 'PropertyData'),(1, 'DataLength'),(1, 'BytesReturned'),)))
     IKsPropertySet.QuerySupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(UInt32), use_last_error=False)(5, 'QuerySupported', ((1, 'PropSet'),(1, 'Id'),(1, 'TypeSupport'),)))
+    win32more.System.Com.IUnknown
     return IKsPropertySet
 def _define_IKsAggregateControl_head():
     class IKsAggregateControl(win32more.System.Com.IUnknown_head):
@@ -7082,6 +7089,7 @@ def _define_IKsAggregateControl():
     IKsAggregateControl = win32more.Media.KernelStreaming.IKsAggregateControl_head
     IKsAggregateControl.KsAddAggregate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'KsAddAggregate', ((1, 'AggregateClass'),)))
     IKsAggregateControl.KsRemoveAggregate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'KsRemoveAggregate', ((1, 'AggregateClass'),)))
+    win32more.System.Com.IUnknown
     return IKsAggregateControl
 def _define_IKsTopology_head():
     class IKsTopology(win32more.System.Com.IUnknown_head):
@@ -7090,6 +7098,7 @@ def _define_IKsTopology_head():
 def _define_IKsTopology():
     IKsTopology = win32more.Media.KernelStreaming.IKsTopology_head
     IKsTopology.CreateNodeInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateNodeInstance', ((1, 'NodeId'),(1, 'Flags'),(1, 'DesiredAccess'),(1, 'UnkOuter'),(1, 'InterfaceId'),(1, 'Interface'),)))
+    win32more.System.Com.IUnknown
     return IKsTopology
 def _define_KsCreateAllocator():
     try:

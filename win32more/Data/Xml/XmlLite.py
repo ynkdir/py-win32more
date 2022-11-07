@@ -183,6 +183,7 @@ def _define_IXmlReader():
     IXmlReader.GetAttributeCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(23, 'GetAttributeCount', ((1, 'pnAttributeCount'),)))
     IXmlReader.GetDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(24, 'GetDepth', ((1, 'pnDepth'),)))
     IXmlReader.IsEOF = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(25, 'IsEOF', ()))
+    win32more.System.Com.IUnknown
     return IXmlReader
 def _define_IXmlResolver_head():
     class IXmlResolver(win32more.System.Com.IUnknown_head):
@@ -191,6 +192,7 @@ def _define_IXmlResolver_head():
 def _define_IXmlResolver():
     IXmlResolver = win32more.Data.Xml.XmlLite.IXmlResolver_head
     IXmlResolver.ResolveUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'ResolveUri', ((1, 'pwszBaseUri'),(1, 'pwszPublicIdentifier'),(1, 'pwszSystemIdentifier'),(1, 'ppResolvedInput'),)))
+    win32more.System.Com.IUnknown
     return IXmlResolver
 def _define_IXmlWriter_head():
     class IXmlWriter(win32more.System.Com.IUnknown_head):
@@ -227,6 +229,7 @@ def _define_IXmlWriter():
     IXmlWriter.WriteSurrogateCharEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Char,Char, use_last_error=False)(29, 'WriteSurrogateCharEntity', ((1, 'wchLow'),(1, 'wchHigh'),)))
     IXmlWriter.WriteWhitespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(30, 'WriteWhitespace', ((1, 'pwszWhitespace'),)))
     IXmlWriter.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(31, 'Flush', ()))
+    win32more.System.Com.IUnknown
     return IXmlWriter
 def _define_IXmlWriterLite_head():
     class IXmlWriterLite(win32more.System.Com.IUnknown_head):
@@ -262,6 +265,7 @@ def _define_IXmlWriterLite():
     IXmlWriterLite.WriteSurrogateCharEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Char,Char, use_last_error=False)(28, 'WriteSurrogateCharEntity', ((1, 'wchLow'),(1, 'wchHigh'),)))
     IXmlWriterLite.WriteWhitespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(29, 'WriteWhitespace', ((1, 'pwszWhitespace'),)))
     IXmlWriterLite.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(30, 'Flush', ()))
+    win32more.System.Com.IUnknown
     return IXmlWriterLite
 def _define_CreateXmlReader():
     try:

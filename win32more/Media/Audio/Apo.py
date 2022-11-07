@@ -94,6 +94,7 @@ def _define_IAudioMediaType():
     IAudioMediaType.IsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.Apo.IAudioMediaType_head,POINTER(UInt32), use_last_error=False)(4, 'IsEqual', ((1, 'pIAudioType'),(1, 'pdwFlags'),)))
     IAudioMediaType.GetAudioFormat = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Media.Audio.WAVEFORMATEX_head), use_last_error=False)(5, 'GetAudioFormat', ()))
     IAudioMediaType.GetUncompressedAudioFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.Apo.UNCOMPRESSEDAUDIOFORMAT_head), use_last_error=False)(6, 'GetUncompressedAudioFormat', ((1, 'pUncompressedAudioFormat'),)))
+    win32more.System.Com.IUnknown
     return IAudioMediaType
 APO_BUFFER_FLAGS = Int32
 BUFFER_INVALID = 0
@@ -200,6 +201,7 @@ def _define_IAudioProcessingObjectRT():
     IAudioProcessingObjectRT.APOProcess = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head)),UInt32,POINTER(POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head)), use_last_error=False)(3, 'APOProcess', ((1, 'u32NumInputConnections'),(1, 'ppInputConnections'),(1, 'u32NumOutputConnections'),(1, 'ppOutputConnections'),)))
     IAudioProcessingObjectRT.CalcInputFrames = COMMETHOD(WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(4, 'CalcInputFrames', ((1, 'u32OutputFrameCount'),)))
     IAudioProcessingObjectRT.CalcOutputFrames = COMMETHOD(WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(5, 'CalcOutputFrames', ((1, 'u32InputFrameCount'),)))
+    win32more.System.Com.IUnknown
     return IAudioProcessingObjectRT
 def _define_IAudioProcessingObjectVBR_head():
     class IAudioProcessingObjectVBR(win32more.System.Com.IUnknown_head):
@@ -209,6 +211,7 @@ def _define_IAudioProcessingObjectVBR():
     IAudioProcessingObjectVBR = win32more.Media.Audio.Apo.IAudioProcessingObjectVBR_head
     IAudioProcessingObjectVBR.CalcMaxInputFrames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(3, 'CalcMaxInputFrames', ((1, 'u32MaxOutputFrameCount'),(1, 'pu32InputFrameCount'),)))
     IAudioProcessingObjectVBR.CalcMaxOutputFrames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(4, 'CalcMaxOutputFrames', ((1, 'u32MaxInputFrameCount'),(1, 'pu32OutputFrameCount'),)))
+    win32more.System.Com.IUnknown
     return IAudioProcessingObjectVBR
 def _define_IAudioProcessingObjectConfiguration_head():
     class IAudioProcessingObjectConfiguration(win32more.System.Com.IUnknown_head):
@@ -218,6 +221,7 @@ def _define_IAudioProcessingObjectConfiguration():
     IAudioProcessingObjectConfiguration = win32more.Media.Audio.Apo.IAudioProcessingObjectConfiguration_head
     IAudioProcessingObjectConfiguration.LockForProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_DESCRIPTOR_head)),UInt32,POINTER(POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_DESCRIPTOR_head)), use_last_error=False)(3, 'LockForProcess', ((1, 'u32NumInputConnections'),(1, 'ppInputConnections'),(1, 'u32NumOutputConnections'),(1, 'ppOutputConnections'),)))
     IAudioProcessingObjectConfiguration.UnlockForProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnlockForProcess', ()))
+    win32more.System.Com.IUnknown
     return IAudioProcessingObjectConfiguration
 def _define_IAudioProcessingObject_head():
     class IAudioProcessingObject(win32more.System.Com.IUnknown_head):
@@ -232,6 +236,7 @@ def _define_IAudioProcessingObject():
     IAudioProcessingObject.IsInputFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.Apo.IAudioMediaType_head,win32more.Media.Audio.Apo.IAudioMediaType_head,POINTER(win32more.Media.Audio.Apo.IAudioMediaType_head), use_last_error=False)(7, 'IsInputFormatSupported', ((1, 'pOppositeFormat'),(1, 'pRequestedInputFormat'),(1, 'ppSupportedInputFormat'),)))
     IAudioProcessingObject.IsOutputFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.Apo.IAudioMediaType_head,win32more.Media.Audio.Apo.IAudioMediaType_head,POINTER(win32more.Media.Audio.Apo.IAudioMediaType_head), use_last_error=False)(8, 'IsOutputFormatSupported', ((1, 'pOppositeFormat'),(1, 'pRequestedOutputFormat'),(1, 'ppSupportedOutputFormat'),)))
     IAudioProcessingObject.GetInputChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetInputChannelCount', ((1, 'pu32ChannelCount'),)))
+    win32more.System.Com.IUnknown
     return IAudioProcessingObject
 def _define_IAudioDeviceModulesClient_head():
     class IAudioDeviceModulesClient(win32more.System.Com.IUnknown_head):
@@ -240,6 +245,7 @@ def _define_IAudioDeviceModulesClient_head():
 def _define_IAudioDeviceModulesClient():
     IAudioDeviceModulesClient = win32more.Media.Audio.Apo.IAudioDeviceModulesClient_head
     IAudioDeviceModulesClient.SetAudioDeviceModulesManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetAudioDeviceModulesManager', ((1, 'pAudioDeviceModulesManager'),)))
+    win32more.System.Com.IUnknown
     return IAudioDeviceModulesClient
 def _define_FNAPONOTIFICATIONCALLBACK():
     return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.Apo.APO_REG_PROPERTIES_head),c_void_p, use_last_error=False)
@@ -249,6 +255,7 @@ def _define_IAudioSystemEffects_head():
     return IAudioSystemEffects
 def _define_IAudioSystemEffects():
     IAudioSystemEffects = win32more.Media.Audio.Apo.IAudioSystemEffects_head
+    win32more.System.Com.IUnknown
     return IAudioSystemEffects
 def _define_IAudioSystemEffects2_head():
     class IAudioSystemEffects2(win32more.Media.Audio.Apo.IAudioSystemEffects_head):
@@ -257,6 +264,7 @@ def _define_IAudioSystemEffects2_head():
 def _define_IAudioSystemEffects2():
     IAudioSystemEffects2 = win32more.Media.Audio.Apo.IAudioSystemEffects2_head
     IAudioSystemEffects2.GetEffectsList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(Guid)),POINTER(UInt32),win32more.Foundation.HANDLE, use_last_error=False)(3, 'GetEffectsList', ((1, 'ppEffectsIds'),(1, 'pcEffects'),(1, 'Event'),)))
+    win32more.Media.Audio.Apo.IAudioSystemEffects
     return IAudioSystemEffects2
 def _define_IAudioSystemEffectsCustomFormats_head():
     class IAudioSystemEffectsCustomFormats(win32more.System.Com.IUnknown_head):
@@ -267,6 +275,7 @@ def _define_IAudioSystemEffectsCustomFormats():
     IAudioSystemEffectsCustomFormats.GetFormatCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetFormatCount', ((1, 'pcFormats'),)))
     IAudioSystemEffectsCustomFormats.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.Apo.IAudioMediaType_head), use_last_error=False)(4, 'GetFormat', ((1, 'nFormat'),(1, 'ppFormat'),)))
     IAudioSystemEffectsCustomFormats.GetFormatRepresentation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetFormatRepresentation', ((1, 'nFormat'),(1, 'ppwstrFormatRep'),)))
+    win32more.System.Com.IUnknown
     return IAudioSystemEffectsCustomFormats
 def _define_IApoAuxiliaryInputConfiguration_head():
     class IApoAuxiliaryInputConfiguration(win32more.System.Com.IUnknown_head):
@@ -277,6 +286,7 @@ def _define_IApoAuxiliaryInputConfiguration():
     IApoAuxiliaryInputConfiguration.AddAuxiliaryInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Byte),POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_DESCRIPTOR_head), use_last_error=False)(3, 'AddAuxiliaryInput', ((1, 'dwInputId'),(1, 'cbDataSize'),(1, 'pbyData'),(1, 'pInputConnection'),)))
     IApoAuxiliaryInputConfiguration.RemoveAuxiliaryInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'RemoveAuxiliaryInput', ((1, 'dwInputId'),)))
     IApoAuxiliaryInputConfiguration.IsInputFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.Apo.IAudioMediaType_head,POINTER(win32more.Media.Audio.Apo.IAudioMediaType_head), use_last_error=False)(5, 'IsInputFormatSupported', ((1, 'pRequestedInputFormat'),(1, 'ppSupportedInputFormat'),)))
+    win32more.System.Com.IUnknown
     return IApoAuxiliaryInputConfiguration
 def _define_IApoAuxiliaryInputRT_head():
     class IApoAuxiliaryInputRT(win32more.System.Com.IUnknown_head):
@@ -285,6 +295,7 @@ def _define_IApoAuxiliaryInputRT_head():
 def _define_IApoAuxiliaryInputRT():
     IApoAuxiliaryInputRT = win32more.Media.Audio.Apo.IApoAuxiliaryInputRT_head
     IApoAuxiliaryInputRT.AcceptInput = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head), use_last_error=False)(3, 'AcceptInput', ((1, 'dwInputId'),(1, 'pInputConnection'),)))
+    win32more.System.Com.IUnknown
     return IApoAuxiliaryInputRT
 def _define_IApoAcousticEchoCancellation_head():
     class IApoAcousticEchoCancellation(win32more.System.Com.IUnknown_head):
@@ -292,6 +303,7 @@ def _define_IApoAcousticEchoCancellation_head():
     return IApoAcousticEchoCancellation
 def _define_IApoAcousticEchoCancellation():
     IApoAcousticEchoCancellation = win32more.Media.Audio.Apo.IApoAcousticEchoCancellation_head
+    win32more.System.Com.IUnknown
     return IApoAcousticEchoCancellation
 def _define_APOInitSystemEffects_head():
     class APOInitSystemEffects(Structure):
@@ -360,6 +372,7 @@ def _define_IAudioSystemEffects3():
     IAudioSystemEffects3 = win32more.Media.Audio.Apo.IAudioSystemEffects3_head
     IAudioSystemEffects3.GetControllableSystemEffectsList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_head)),POINTER(UInt32),win32more.Foundation.HANDLE, use_last_error=False)(4, 'GetControllableSystemEffectsList', ((1, 'effects'),(1, 'numEffects'),(1, 'event'),)))
     IAudioSystemEffects3.SetAudioSystemEffectState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Media.Audio.Apo.AUDIO_SYSTEMEFFECT_STATE, use_last_error=False)(5, 'SetAudioSystemEffectState', ((1, 'effectId'),(1, 'state'),)))
+    win32more.Media.Audio.Apo.IAudioSystemEffects2
     return IAudioSystemEffects3
 def _define_APOInitSystemEffects3_head():
     class APOInitSystemEffects3(Structure):
@@ -385,6 +398,7 @@ def _define_IAudioProcessingObjectRTQueueService_head():
 def _define_IAudioProcessingObjectRTQueueService():
     IAudioProcessingObjectRTQueueService = win32more.Media.Audio.Apo.IAudioProcessingObjectRTQueueService_head
     IAudioProcessingObjectRTQueueService.GetRealTimeWorkQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetRealTimeWorkQueue', ((1, 'workQueueId'),)))
+    win32more.System.Com.IUnknown
     return IAudioProcessingObjectRTQueueService
 APO_LOG_LEVEL = Int32
 APO_LOG_LEVEL_ALWAYS = 0
@@ -400,6 +414,7 @@ def _define_IAudioProcessingObjectLoggingService_head():
 def _define_IAudioProcessingObjectLoggingService():
     IAudioProcessingObjectLoggingService = win32more.Media.Audio.Apo.IAudioProcessingObjectLoggingService_head
     IAudioProcessingObjectLoggingService.ApoLog = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.Audio.Apo.APO_LOG_LEVEL,win32more.Foundation.PWSTR, use_last_error=False)(3, 'ApoLog', ((1, 'level'),(1, 'format'),)))
+    win32more.System.Com.IUnknown
     return IAudioProcessingObjectLoggingService
 APO_NOTIFICATION_TYPE = Int32
 APO_NOTIFICATION_TYPE_NONE = 0
@@ -524,6 +539,7 @@ def _define_IAudioProcessingObjectNotifications():
     IAudioProcessingObjectNotifications = win32more.Media.Audio.Apo.IAudioProcessingObjectNotifications_head
     IAudioProcessingObjectNotifications.GetApoNotificationRegistrationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Audio.Apo.APO_NOTIFICATION_DESCRIPTOR_head)),POINTER(UInt32), use_last_error=False)(3, 'GetApoNotificationRegistrationInfo', ((1, 'apoNotifications'),(1, 'count'),)))
     IAudioProcessingObjectNotifications.HandleNotification = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.Apo.APO_NOTIFICATION_head), use_last_error=False)(4, 'HandleNotification', ((1, 'apoNotification'),)))
+    win32more.System.Com.IUnknown
     return IAudioProcessingObjectNotifications
 __all__ = [
     "APOERR_ALREADY_INITIALIZED",

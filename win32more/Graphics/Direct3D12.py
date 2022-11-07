@@ -767,6 +767,7 @@ def _define_ID3D12Object():
     ID3D12Object.SetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p, use_last_error=False)(4, 'SetPrivateData', ((1, 'guid'),(1, 'DataSize'),(1, 'pData'),)))
     ID3D12Object.SetPrivateDataInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'SetPrivateDataInterface', ((1, 'guid'),(1, 'pData'),)))
     ID3D12Object.SetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'SetName', ((1, 'Name'),)))
+    win32more.System.Com.IUnknown
     return ID3D12Object
 def _define_ID3D12DeviceChild_head():
     class ID3D12DeviceChild(win32more.Graphics.Direct3D12.ID3D12Object_head):
@@ -775,6 +776,7 @@ def _define_ID3D12DeviceChild_head():
 def _define_ID3D12DeviceChild():
     ID3D12DeviceChild = win32more.Graphics.Direct3D12.ID3D12DeviceChild_head
     ID3D12DeviceChild.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'GetDevice', ((1, 'riid'),(1, 'ppvDevice'),)))
+    win32more.Graphics.Direct3D12.ID3D12Object
     return ID3D12DeviceChild
 def _define_ID3D12RootSignature_head():
     class ID3D12RootSignature(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
@@ -782,6 +784,7 @@ def _define_ID3D12RootSignature_head():
     return ID3D12RootSignature
 def _define_ID3D12RootSignature():
     ID3D12RootSignature = win32more.Graphics.Direct3D12.ID3D12RootSignature_head
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
     return ID3D12RootSignature
 def _define_D3D12_SHADER_BYTECODE_head():
     class D3D12_SHADER_BYTECODE(Structure):
@@ -2841,6 +2844,7 @@ def _define_ID3D12RootSignatureDeserializer_head():
 def _define_ID3D12RootSignatureDeserializer():
     ID3D12RootSignatureDeserializer = win32more.Graphics.Direct3D12.ID3D12RootSignatureDeserializer_head
     ID3D12RootSignatureDeserializer.GetRootSignatureDesc = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head), use_last_error=False)(3, 'GetRootSignatureDesc', ()))
+    win32more.System.Com.IUnknown
     return ID3D12RootSignatureDeserializer
 def _define_ID3D12VersionedRootSignatureDeserializer_head():
     class ID3D12VersionedRootSignatureDeserializer(win32more.System.Com.IUnknown_head):
@@ -2850,6 +2854,7 @@ def _define_ID3D12VersionedRootSignatureDeserializer():
     ID3D12VersionedRootSignatureDeserializer = win32more.Graphics.Direct3D12.ID3D12VersionedRootSignatureDeserializer_head
     ID3D12VersionedRootSignatureDeserializer.GetRootSignatureDescAtVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION,POINTER(POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head)), use_last_error=False)(3, 'GetRootSignatureDescAtVersion', ((1, 'convertToVersion'),(1, 'ppDesc'),)))
     ID3D12VersionedRootSignatureDeserializer.GetUnconvertedRootSignatureDesc = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Graphics.Direct3D12.D3D12_VERSIONED_ROOT_SIGNATURE_DESC_head), use_last_error=False)(4, 'GetUnconvertedRootSignatureDesc', ()))
+    win32more.System.Com.IUnknown
     return ID3D12VersionedRootSignatureDeserializer
 def _define_PFN_D3D12_SERIALIZE_ROOT_SIGNATURE():
     return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_ROOT_SIGNATURE_DESC_head),win32more.Graphics.Direct3D12.D3D_ROOT_SIGNATURE_VERSION,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)
@@ -3136,6 +3141,7 @@ def _define_ID3D12Pageable_head():
     return ID3D12Pageable
 def _define_ID3D12Pageable():
     ID3D12Pageable = win32more.Graphics.Direct3D12.ID3D12Pageable_head
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
     return ID3D12Pageable
 def _define_ID3D12Heap_head():
     class ID3D12Heap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3144,6 +3150,7 @@ def _define_ID3D12Heap_head():
 def _define_ID3D12Heap():
     ID3D12Heap = win32more.Graphics.Direct3D12.ID3D12Heap_head
     ID3D12Heap.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_HEAP_DESC, use_last_error=False)(8, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12Heap
 def _define_ID3D12Resource_head():
     class ID3D12Resource(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3158,6 +3165,7 @@ def _define_ID3D12Resource():
     ID3D12Resource.WriteToSubresource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_BOX_head),c_void_p,UInt32,UInt32, use_last_error=False)(12, 'WriteToSubresource', ((1, 'DstSubresource'),(1, 'pDstBox'),(1, 'pSrcData'),(1, 'SrcRowPitch'),(1, 'SrcDepthPitch'),)))
     ID3D12Resource.ReadFromSubresource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_BOX_head), use_last_error=False)(13, 'ReadFromSubresource', ((1, 'pDstData'),(1, 'DstRowPitch'),(1, 'DstDepthPitch'),(1, 'SrcSubresource'),(1, 'pSrcBox'),)))
     ID3D12Resource.GetHeapProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_PROPERTIES_head),POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_FLAGS), use_last_error=False)(14, 'GetHeapProperties', ((1, 'pHeapProperties'),(1, 'pHeapFlags'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12Resource
 def _define_ID3D12CommandAllocator_head():
     class ID3D12CommandAllocator(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3166,6 +3174,7 @@ def _define_ID3D12CommandAllocator_head():
 def _define_ID3D12CommandAllocator():
     ID3D12CommandAllocator = win32more.Graphics.Direct3D12.ID3D12CommandAllocator_head
     ID3D12CommandAllocator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12CommandAllocator
 def _define_ID3D12Fence_head():
     class ID3D12Fence(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3176,6 +3185,7 @@ def _define_ID3D12Fence():
     ID3D12Fence.GetCompletedValue = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(8, 'GetCompletedValue', ()))
     ID3D12Fence.SetEventOnCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.HANDLE, use_last_error=False)(9, 'SetEventOnCompletion', ((1, 'Value'),(1, 'hEvent'),)))
     ID3D12Fence.Signal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(10, 'Signal', ((1, 'Value'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12Fence
 def _define_ID3D12Fence1_head():
     class ID3D12Fence1(win32more.Graphics.Direct3D12.ID3D12Fence_head):
@@ -3184,6 +3194,7 @@ def _define_ID3D12Fence1_head():
 def _define_ID3D12Fence1():
     ID3D12Fence1 = win32more.Graphics.Direct3D12.ID3D12Fence1_head
     ID3D12Fence1.GetCreationFlags = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_FENCE_FLAGS, use_last_error=False)(11, 'GetCreationFlags', ()))
+    win32more.Graphics.Direct3D12.ID3D12Fence
     return ID3D12Fence1
 def _define_ID3D12PipelineState_head():
     class ID3D12PipelineState(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3192,6 +3203,7 @@ def _define_ID3D12PipelineState_head():
 def _define_ID3D12PipelineState():
     ID3D12PipelineState = win32more.Graphics.Direct3D12.ID3D12PipelineState_head
     ID3D12PipelineState.GetCachedBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)(8, 'GetCachedBlob', ((1, 'ppBlob'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12PipelineState
 def _define_ID3D12DescriptorHeap_head():
     class ID3D12DescriptorHeap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3202,6 +3214,7 @@ def _define_ID3D12DescriptorHeap():
     ID3D12DescriptorHeap.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DESCRIPTOR_HEAP_DESC, use_last_error=False)(8, 'GetDesc', ()))
     ID3D12DescriptorHeap.GetCPUDescriptorHandleForHeapStart = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(9, 'GetCPUDescriptorHandleForHeapStart', ()))
     ID3D12DescriptorHeap.GetGPUDescriptorHandleForHeapStart = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_GPU_DESCRIPTOR_HANDLE, use_last_error=False)(10, 'GetGPUDescriptorHandleForHeapStart', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12DescriptorHeap
 def _define_ID3D12QueryHeap_head():
     class ID3D12QueryHeap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3209,6 +3222,7 @@ def _define_ID3D12QueryHeap_head():
     return ID3D12QueryHeap
 def _define_ID3D12QueryHeap():
     ID3D12QueryHeap = win32more.Graphics.Direct3D12.ID3D12QueryHeap_head
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12QueryHeap
 def _define_ID3D12CommandSignature_head():
     class ID3D12CommandSignature(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3216,6 +3230,7 @@ def _define_ID3D12CommandSignature_head():
     return ID3D12CommandSignature
 def _define_ID3D12CommandSignature():
     ID3D12CommandSignature = win32more.Graphics.Direct3D12.ID3D12CommandSignature_head
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12CommandSignature
 def _define_ID3D12CommandList_head():
     class ID3D12CommandList(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
@@ -3224,6 +3239,7 @@ def _define_ID3D12CommandList_head():
 def _define_ID3D12CommandList():
     ID3D12CommandList = win32more.Graphics.Direct3D12.ID3D12CommandList_head
     ID3D12CommandList.GetType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_COMMAND_LIST_TYPE, use_last_error=False)(8, 'GetType', ()))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
     return ID3D12CommandList
 def _define_ID3D12GraphicsCommandList_head():
     class ID3D12GraphicsCommandList(win32more.Graphics.Direct3D12.ID3D12CommandList_head):
@@ -3282,6 +3298,7 @@ def _define_ID3D12GraphicsCommandList():
     ID3D12GraphicsCommandList.BeginEvent = COMMETHOD(WINFUNCTYPE(Void,UInt32,c_void_p,UInt32, use_last_error=False)(57, 'BeginEvent', ((1, 'Metadata'),(1, 'pData'),(1, 'Size'),)))
     ID3D12GraphicsCommandList.EndEvent = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(58, 'EndEvent', ()))
     ID3D12GraphicsCommandList.ExecuteIndirect = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12CommandSignature_head,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt64, use_last_error=False)(59, 'ExecuteIndirect', ((1, 'pCommandSignature'),(1, 'MaxCommandCount'),(1, 'pArgumentBuffer'),(1, 'ArgumentBufferOffset'),(1, 'pCountBuffer'),(1, 'CountBufferOffset'),)))
+    win32more.Graphics.Direct3D12.ID3D12CommandList
     return ID3D12GraphicsCommandList
 def _define_ID3D12GraphicsCommandList1_head():
     class ID3D12GraphicsCommandList1(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList_head):
@@ -3295,6 +3312,7 @@ def _define_ID3D12GraphicsCommandList1():
     ID3D12GraphicsCommandList1.SetSamplePositions = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SAMPLE_POSITION_head), use_last_error=False)(63, 'SetSamplePositions', ((1, 'NumSamplesPerPixel'),(1, 'NumPixels'),(1, 'pSamplePositions'),)))
     ID3D12GraphicsCommandList1.ResolveSubresourceRegion = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32,UInt32,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Graphics.Direct3D12.D3D12_RESOLVE_MODE, use_last_error=False)(64, 'ResolveSubresourceRegion', ((1, 'pDstResource'),(1, 'DstSubresource'),(1, 'DstX'),(1, 'DstY'),(1, 'pSrcResource'),(1, 'SrcSubresource'),(1, 'pSrcRect'),(1, 'Format'),(1, 'ResolveMode'),)))
     ID3D12GraphicsCommandList1.SetViewInstanceMask = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(65, 'SetViewInstanceMask', ((1, 'Mask'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList
     return ID3D12GraphicsCommandList1
 def _define_D3D12_WRITEBUFFERIMMEDIATE_PARAMETER_head():
     class D3D12_WRITEBUFFERIMMEDIATE_PARAMETER(Structure):
@@ -3318,6 +3336,7 @@ def _define_ID3D12GraphicsCommandList2_head():
 def _define_ID3D12GraphicsCommandList2():
     ID3D12GraphicsCommandList2 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList2_head
     ID3D12GraphicsCommandList2.WriteBufferImmediate = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER),POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE), use_last_error=False)(66, 'WriteBufferImmediate', ((1, 'Count'),(1, 'pParams'),(1, 'pModes'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList1
     return ID3D12GraphicsCommandList2
 def _define_ID3D12CommandQueue_head():
     class ID3D12CommandQueue(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3336,6 +3355,7 @@ def _define_ID3D12CommandQueue():
     ID3D12CommandQueue.GetTimestampFrequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(16, 'GetTimestampFrequency', ((1, 'pFrequency'),)))
     ID3D12CommandQueue.GetClockCalibration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64), use_last_error=False)(17, 'GetClockCalibration', ((1, 'pGpuTimestamp'),(1, 'pCpuTimestamp'),)))
     ID3D12CommandQueue.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC, use_last_error=False)(18, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12CommandQueue
 def _define_ID3D12Device_head():
     class ID3D12Device(win32more.Graphics.Direct3D12.ID3D12Object_head):
@@ -3380,6 +3400,7 @@ def _define_ID3D12Device():
     ID3D12Device.CreateCommandSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMMAND_SIGNATURE_DESC_head),win32more.Graphics.Direct3D12.ID3D12RootSignature_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(41, 'CreateCommandSignature', ((1, 'pDesc'),(1, 'pRootSignature'),(1, 'riid'),(1, 'ppvCommandSignature'),)))
     ID3D12Device.GetResourceTiling = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(UInt32),POINTER(win32more.Graphics.Direct3D12.D3D12_PACKED_MIP_INFO_head),POINTER(win32more.Graphics.Direct3D12.D3D12_TILE_SHAPE_head),POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_SUBRESOURCE_TILING), use_last_error=False)(42, 'GetResourceTiling', ((1, 'pTiledResource'),(1, 'pNumTilesForEntireResource'),(1, 'pPackedMipDesc'),(1, 'pStandardTileShapeForNonPackedMips'),(1, 'pNumSubresourceTilings'),(1, 'FirstSubresourceTilingToGet'),(1, 'pSubresourceTilingsForNonPackedMips'),)))
     ID3D12Device.GetAdapterLuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.LUID, use_last_error=False)(43, 'GetAdapterLuid', ()))
+    win32more.Graphics.Direct3D12.ID3D12Object
     return ID3D12Device
 def _define_ID3D12PipelineLibrary_head():
     class ID3D12PipelineLibrary(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
@@ -3392,6 +3413,7 @@ def _define_ID3D12PipelineLibrary():
     ID3D12PipelineLibrary.LoadComputePipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_COMPUTE_PIPELINE_STATE_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(10, 'LoadComputePipeline', ((1, 'pName'),(1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
     ID3D12PipelineLibrary.GetSerializedSize = COMMETHOD(WINFUNCTYPE(UIntPtr, use_last_error=False)(11, 'GetSerializedSize', ()))
     ID3D12PipelineLibrary.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Void),UIntPtr, use_last_error=False)(12, 'Serialize', ((1, 'pData'),(1, 'DataSizeInBytes'),)))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
     return ID3D12PipelineLibrary
 def _define_ID3D12PipelineLibrary1_head():
     class ID3D12PipelineLibrary1(win32more.Graphics.Direct3D12.ID3D12PipelineLibrary_head):
@@ -3400,6 +3422,7 @@ def _define_ID3D12PipelineLibrary1_head():
 def _define_ID3D12PipelineLibrary1():
     ID3D12PipelineLibrary1 = win32more.Graphics.Direct3D12.ID3D12PipelineLibrary1_head
     ID3D12PipelineLibrary1.LoadPipeline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(13, 'LoadPipeline', ((1, 'pName'),(1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
+    win32more.Graphics.Direct3D12.ID3D12PipelineLibrary
     return ID3D12PipelineLibrary1
 D3D12_MULTIPLE_FENCE_WAIT_FLAGS = UInt32
 D3D12_MULTIPLE_FENCE_WAIT_FLAG_NONE = 0
@@ -3420,6 +3443,7 @@ def _define_ID3D12Device1():
     ID3D12Device1.CreatePipelineLibrary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Void),UIntPtr,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(44, 'CreatePipelineLibrary', ((1, 'pLibraryBlob'),(1, 'BlobLength'),(1, 'riid'),(1, 'ppPipelineLibrary'),)))
     ID3D12Device1.SetEventOnMultipleFenceCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.ID3D12Fence_head),POINTER(UInt64),UInt32,win32more.Graphics.Direct3D12.D3D12_MULTIPLE_FENCE_WAIT_FLAGS,win32more.Foundation.HANDLE, use_last_error=False)(45, 'SetEventOnMultipleFenceCompletion', ((1, 'ppFences'),(1, 'pFenceValues'),(1, 'NumFences'),(1, 'Flags'),(1, 'hEvent'),)))
     ID3D12Device1.SetResidencyPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head),POINTER(win32more.Graphics.Direct3D12.D3D12_RESIDENCY_PRIORITY), use_last_error=False)(46, 'SetResidencyPriority', ((1, 'NumObjects'),(1, 'ppObjects'),(1, 'pPriorities'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device
     return ID3D12Device1
 def _define_ID3D12Device2_head():
     class ID3D12Device2(win32more.Graphics.Direct3D12.ID3D12Device1_head):
@@ -3428,6 +3452,7 @@ def _define_ID3D12Device2_head():
 def _define_ID3D12Device2():
     ID3D12Device2 = win32more.Graphics.Direct3D12.ID3D12Device2_head
     ID3D12Device2.CreatePipelineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PIPELINE_STATE_STREAM_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(47, 'CreatePipelineState', ((1, 'pDesc'),(1, 'riid'),(1, 'ppPipelineState'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device1
     return ID3D12Device2
 D3D12_RESIDENCY_FLAGS = UInt32
 D3D12_RESIDENCY_FLAG_NONE = 0
@@ -3441,6 +3466,7 @@ def _define_ID3D12Device3():
     ID3D12Device3.OpenExistingHeapFromAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(48, 'OpenExistingHeapFromAddress', ((1, 'pAddress'),(1, 'riid'),(1, 'ppvHeap'),)))
     ID3D12Device3.OpenExistingHeapFromFileMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(49, 'OpenExistingHeapFromFileMapping', ((1, 'hFileMapping'),(1, 'riid'),(1, 'ppvHeap'),)))
     ID3D12Device3.EnqueueMakeResident = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_RESIDENCY_FLAGS,UInt32,POINTER(win32more.Graphics.Direct3D12.ID3D12Pageable_head),win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64, use_last_error=False)(50, 'EnqueueMakeResident', ((1, 'Flags'),(1, 'NumObjects'),(1, 'ppObjects'),(1, 'pFenceToSignal'),(1, 'FenceValueToSignal'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device2
     return ID3D12Device3
 D3D12_COMMAND_LIST_FLAGS = UInt32
 D3D12_COMMAND_LIST_FLAG_NONE = 0
@@ -3459,6 +3485,7 @@ def _define_ID3D12ProtectedSession():
     ID3D12ProtectedSession = win32more.Graphics.Direct3D12.ID3D12ProtectedSession_head
     ID3D12ProtectedSession.GetStatusFence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'GetStatusFence', ((1, 'riid'),(1, 'ppFence'),)))
     ID3D12ProtectedSession.GetSessionStatus = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_PROTECTED_SESSION_STATUS, use_last_error=False)(9, 'GetSessionStatus', ()))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
     return ID3D12ProtectedSession
 D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAGS = UInt32
 D3D12_PROTECTED_RESOURCE_SESSION_SUPPORT_FLAG_NONE = 0
@@ -3494,6 +3521,7 @@ def _define_ID3D12ProtectedResourceSession_head():
 def _define_ID3D12ProtectedResourceSession():
     ID3D12ProtectedResourceSession = win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head
     ID3D12ProtectedResourceSession.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC, use_last_error=False)(10, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12ProtectedSession
     return ID3D12ProtectedResourceSession
 def _define_ID3D12Device4_head():
     class ID3D12Device4(win32more.Graphics.Direct3D12.ID3D12Device3_head):
@@ -3507,6 +3535,7 @@ def _define_ID3D12Device4():
     ID3D12Device4.CreateHeap1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_HEAP_DESC_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(54, 'CreateHeap1', ((1, 'pDesc'),(1, 'pProtectedSession'),(1, 'riid'),(1, 'ppvHeap'),)))
     ID3D12Device4.CreateReservedResource1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(55, 'CreateReservedResource1', ((1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'pProtectedSession'),(1, 'riid'),(1, 'ppvResource'),)))
     ID3D12Device4.GetResourceAllocationInfo1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC),POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_ALLOCATION_INFO1), use_last_error=False)(56, 'GetResourceAllocationInfo1', ((1, 'visibleMask'),(1, 'numResourceDescs'),(1, 'pResourceDescs'),(1, 'pResourceAllocationInfo1'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device3
     return ID3D12Device4
 D3D12_LIFETIME_STATE = Int32
 D3D12_LIFETIME_STATE_IN_USE = 0
@@ -3518,6 +3547,7 @@ def _define_ID3D12LifetimeOwner_head():
 def _define_ID3D12LifetimeOwner():
     ID3D12LifetimeOwner = win32more.Graphics.Direct3D12.ID3D12LifetimeOwner_head
     ID3D12LifetimeOwner.LifetimeStateUpdated = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_LIFETIME_STATE, use_last_error=False)(3, 'LifetimeStateUpdated', ((1, 'NewState'),)))
+    win32more.System.Com.IUnknown
     return ID3D12LifetimeOwner
 def _define_ID3D12SwapChainAssistant_head():
     class ID3D12SwapChainAssistant(win32more.System.Com.IUnknown_head):
@@ -3529,6 +3559,7 @@ def _define_ID3D12SwapChainAssistant():
     ID3D12SwapChainAssistant.GetSwapChainObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetSwapChainObject', ((1, 'riid'),(1, 'ppv'),)))
     ID3D12SwapChainAssistant.GetCurrentResourceAndCommandQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'GetCurrentResourceAndCommandQueue', ((1, 'riidResource'),(1, 'ppvResource'),(1, 'riidQueue'),(1, 'ppvQueue'),)))
     ID3D12SwapChainAssistant.InsertImplicitSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'InsertImplicitSync', ()))
+    win32more.System.Com.IUnknown
     return ID3D12SwapChainAssistant
 def _define_ID3D12LifetimeTracker_head():
     class ID3D12LifetimeTracker(win32more.Graphics.Direct3D12.ID3D12DeviceChild_head):
@@ -3537,6 +3568,7 @@ def _define_ID3D12LifetimeTracker_head():
 def _define_ID3D12LifetimeTracker():
     ID3D12LifetimeTracker = win32more.Graphics.Direct3D12.ID3D12LifetimeTracker_head
     ID3D12LifetimeTracker.DestroyOwnedObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12DeviceChild_head, use_last_error=False)(8, 'DestroyOwnedObject', ((1, 'pObject'),)))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
     return ID3D12LifetimeTracker
 D3D12_META_COMMAND_PARAMETER_TYPE = Int32
 D3D12_META_COMMAND_PARAMETER_TYPE_FLOAT = 0
@@ -3603,6 +3635,7 @@ def _define_ID3D12StateObject_head():
     return ID3D12StateObject
 def _define_ID3D12StateObject():
     ID3D12StateObject = win32more.Graphics.Direct3D12.ID3D12StateObject_head
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12StateObject
 def _define_ID3D12StateObjectProperties_head():
     class ID3D12StateObjectProperties(win32more.System.Com.IUnknown_head):
@@ -3614,6 +3647,7 @@ def _define_ID3D12StateObjectProperties():
     ID3D12StateObjectProperties.GetShaderStackSize = COMMETHOD(WINFUNCTYPE(UInt64,win32more.Foundation.PWSTR, use_last_error=False)(4, 'GetShaderStackSize', ((1, 'pExportName'),)))
     ID3D12StateObjectProperties.GetPipelineStackSize = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(5, 'GetPipelineStackSize', ()))
     ID3D12StateObjectProperties.SetPipelineStackSize = COMMETHOD(WINFUNCTYPE(Void,UInt64, use_last_error=False)(6, 'SetPipelineStackSize', ((1, 'PipelineStackSizeInBytes'),)))
+    win32more.System.Com.IUnknown
     return ID3D12StateObjectProperties
 D3D12_STATE_SUBOBJECT_TYPE = Int32
 D3D12_STATE_SUBOBJECT_TYPE_STATE_OBJECT_CONFIG = 0
@@ -4136,6 +4170,7 @@ def _define_ID3D12Device5():
     ID3D12Device5.CreateStateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(62, 'CreateStateObject', ((1, 'pDesc'),(1, 'riid'),(1, 'ppStateObject'),)))
     ID3D12Device5.GetRaytracingAccelerationStructurePrebuildInfo = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS_head),POINTER(win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO_head), use_last_error=False)(63, 'GetRaytracingAccelerationStructurePrebuildInfo', ((1, 'pDesc'),(1, 'pInfo'),)))
     ID3D12Device5.CheckDriverMatchingIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS,win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_TYPE,POINTER(win32more.Graphics.Direct3D12.D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER_head), use_last_error=False)(64, 'CheckDriverMatchingIdentifier', ((1, 'SerializedDataType'),(1, 'pIdentifierToCheck'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device4
     return ID3D12Device5
 D3D12_AUTO_BREADCRUMB_OP = Int32
 D3D12_AUTO_BREADCRUMB_OP_SETMARKER = 0
@@ -4447,6 +4482,7 @@ def _define_ID3D12DeviceRemovedExtendedDataSettings():
     ID3D12DeviceRemovedExtendedDataSettings.SetAutoBreadcrumbsEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT, use_last_error=False)(3, 'SetAutoBreadcrumbsEnablement', ((1, 'Enablement'),)))
     ID3D12DeviceRemovedExtendedDataSettings.SetPageFaultEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT, use_last_error=False)(4, 'SetPageFaultEnablement', ((1, 'Enablement'),)))
     ID3D12DeviceRemovedExtendedDataSettings.SetWatsonDumpEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT, use_last_error=False)(5, 'SetWatsonDumpEnablement', ((1, 'Enablement'),)))
+    win32more.System.Com.IUnknown
     return ID3D12DeviceRemovedExtendedDataSettings
 def _define_ID3D12DeviceRemovedExtendedDataSettings1_head():
     class ID3D12DeviceRemovedExtendedDataSettings1(win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings_head):
@@ -4455,6 +4491,7 @@ def _define_ID3D12DeviceRemovedExtendedDataSettings1_head():
 def _define_ID3D12DeviceRemovedExtendedDataSettings1():
     ID3D12DeviceRemovedExtendedDataSettings1 = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings1_head
     ID3D12DeviceRemovedExtendedDataSettings1.SetBreadcrumbContextEnablement = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_DRED_ENABLEMENT, use_last_error=False)(6, 'SetBreadcrumbContextEnablement', ((1, 'Enablement'),)))
+    win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedDataSettings
     return ID3D12DeviceRemovedExtendedDataSettings1
 def _define_ID3D12DeviceRemovedExtendedData_head():
     class ID3D12DeviceRemovedExtendedData(win32more.System.Com.IUnknown_head):
@@ -4464,6 +4501,7 @@ def _define_ID3D12DeviceRemovedExtendedData():
     ID3D12DeviceRemovedExtendedData = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData_head
     ID3D12DeviceRemovedExtendedData.GetAutoBreadcrumbsOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT_head), use_last_error=False)(3, 'GetAutoBreadcrumbsOutput', ((1, 'pOutput'),)))
     ID3D12DeviceRemovedExtendedData.GetPageFaultAllocationOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT_head), use_last_error=False)(4, 'GetPageFaultAllocationOutput', ((1, 'pOutput'),)))
+    win32more.System.Com.IUnknown
     return ID3D12DeviceRemovedExtendedData
 def _define_ID3D12DeviceRemovedExtendedData1_head():
     class ID3D12DeviceRemovedExtendedData1(win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData_head):
@@ -4473,6 +4511,7 @@ def _define_ID3D12DeviceRemovedExtendedData1():
     ID3D12DeviceRemovedExtendedData1 = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1_head
     ID3D12DeviceRemovedExtendedData1.GetAutoBreadcrumbsOutput1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1_head), use_last_error=False)(5, 'GetAutoBreadcrumbsOutput1', ((1, 'pOutput'),)))
     ID3D12DeviceRemovedExtendedData1.GetPageFaultAllocationOutput1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT1_head), use_last_error=False)(6, 'GetPageFaultAllocationOutput1', ((1, 'pOutput'),)))
+    win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData
     return ID3D12DeviceRemovedExtendedData1
 def _define_ID3D12DeviceRemovedExtendedData2_head():
     class ID3D12DeviceRemovedExtendedData2(win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1_head):
@@ -4482,6 +4521,7 @@ def _define_ID3D12DeviceRemovedExtendedData2():
     ID3D12DeviceRemovedExtendedData2 = win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData2_head
     ID3D12DeviceRemovedExtendedData2.GetPageFaultAllocationOutput2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_DRED_PAGE_FAULT_OUTPUT2_head), use_last_error=False)(7, 'GetPageFaultAllocationOutput2', ((1, 'pOutput'),)))
     ID3D12DeviceRemovedExtendedData2.GetDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DRED_DEVICE_STATE, use_last_error=False)(8, 'GetDeviceState', ()))
+    win32more.Graphics.Direct3D12.ID3D12DeviceRemovedExtendedData1
     return ID3D12DeviceRemovedExtendedData2
 D3D12_BACKGROUND_PROCESSING_MODE = Int32
 D3D12_BACKGROUND_PROCESSING_MODE_ALLOWED = 0
@@ -4500,6 +4540,7 @@ def _define_ID3D12Device6_head():
 def _define_ID3D12Device6():
     ID3D12Device6 = win32more.Graphics.Direct3D12.ID3D12Device6_head
     ID3D12Device6.SetBackgroundProcessingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_BACKGROUND_PROCESSING_MODE,win32more.Graphics.Direct3D12.D3D12_MEASUREMENTS_ACTION,win32more.Foundation.HANDLE,POINTER(win32more.Foundation.BOOL), use_last_error=False)(65, 'SetBackgroundProcessingMode', ((1, 'Mode'),(1, 'MeasurementsAction'),(1, 'hEventToSignalUponCompletion'),(1, 'pbFurtherMeasurementsDesired'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device5
     return ID3D12Device6
 def _define_D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT_head():
     class D3D12_FEATURE_DATA_PROTECTED_RESOURCE_SESSION_TYPE_COUNT(Structure):
@@ -4543,6 +4584,7 @@ def _define_ID3D12ProtectedResourceSession1_head():
 def _define_ID3D12ProtectedResourceSession1():
     ID3D12ProtectedResourceSession1 = win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession1_head
     ID3D12ProtectedResourceSession1.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1, use_last_error=False)(11, 'GetDesc1', ()))
+    win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession
     return ID3D12ProtectedResourceSession1
 def _define_ID3D12Device7_head():
     class ID3D12Device7(win32more.Graphics.Direct3D12.ID3D12Device6_head):
@@ -4552,6 +4594,7 @@ def _define_ID3D12Device7():
     ID3D12Device7 = win32more.Graphics.Direct3D12.ID3D12Device7_head
     ID3D12Device7.AddToStateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_STATE_OBJECT_DESC_head),win32more.Graphics.Direct3D12.ID3D12StateObject_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(66, 'AddToStateObject', ((1, 'pAddition'),(1, 'pStateObjectToGrowFrom'),(1, 'riid'),(1, 'ppNewStateObject'),)))
     ID3D12Device7.CreateProtectedResourceSession1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_PROTECTED_RESOURCE_SESSION_DESC1_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(67, 'CreateProtectedResourceSession1', ((1, 'pDesc'),(1, 'riid'),(1, 'ppSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device6
     return ID3D12Device7
 def _define_ID3D12Device8_head():
     class ID3D12Device8(win32more.Graphics.Direct3D12.ID3D12Device7_head):
@@ -4564,6 +4607,7 @@ def _define_ID3D12Device8():
     ID3D12Device8.CreatePlacedResource1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Heap_head,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(win32more.Graphics.Direct3D12.D3D12_CLEAR_VALUE_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(70, 'CreatePlacedResource1', ((1, 'pHeap'),(1, 'HeapOffset'),(1, 'pDesc'),(1, 'InitialState'),(1, 'pOptimizedClearValue'),(1, 'riid'),(1, 'ppvResource'),)))
     ID3D12Device8.CreateSamplerFeedbackUnorderedAccessView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.ID3D12Resource_head,win32more.Graphics.Direct3D12.D3D12_CPU_DESCRIPTOR_HANDLE, use_last_error=False)(71, 'CreateSamplerFeedbackUnorderedAccessView', ((1, 'pTargetedResource'),(1, 'pFeedbackResource'),(1, 'DestDescriptor'),)))
     ID3D12Device8.GetCopyableFootprints1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1_head),UInt32,UInt32,UInt64,POINTER(win32more.Graphics.Direct3D12.D3D12_PLACED_SUBRESOURCE_FOOTPRINT),POINTER(UInt32),POINTER(UInt64),POINTER(UInt64), use_last_error=False)(72, 'GetCopyableFootprints1', ((1, 'pResourceDesc'),(1, 'FirstSubresource'),(1, 'NumSubresources'),(1, 'BaseOffset'),(1, 'pLayouts'),(1, 'pNumRows'),(1, 'pRowSizeInBytes'),(1, 'pTotalBytes'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device7
     return ID3D12Device8
 def _define_ID3D12Resource1_head():
     class ID3D12Resource1(win32more.Graphics.Direct3D12.ID3D12Resource_head):
@@ -4572,6 +4616,7 @@ def _define_ID3D12Resource1_head():
 def _define_ID3D12Resource1():
     ID3D12Resource1 = win32more.Graphics.Direct3D12.ID3D12Resource1_head
     ID3D12Resource1.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(15, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12Resource
     return ID3D12Resource1
 def _define_ID3D12Resource2_head():
     class ID3D12Resource2(win32more.Graphics.Direct3D12.ID3D12Resource1_head):
@@ -4580,6 +4625,7 @@ def _define_ID3D12Resource2_head():
 def _define_ID3D12Resource2():
     ID3D12Resource2 = win32more.Graphics.Direct3D12.ID3D12Resource2_head
     ID3D12Resource2.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_RESOURCE_DESC1, use_last_error=False)(16, 'GetDesc1', ()))
+    win32more.Graphics.Direct3D12.ID3D12Resource1
     return ID3D12Resource2
 def _define_ID3D12Heap1_head():
     class ID3D12Heap1(win32more.Graphics.Direct3D12.ID3D12Heap_head):
@@ -4588,6 +4634,7 @@ def _define_ID3D12Heap1_head():
 def _define_ID3D12Heap1():
     ID3D12Heap1 = win32more.Graphics.Direct3D12.ID3D12Heap1_head
     ID3D12Heap1.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12Heap
     return ID3D12Heap1
 def _define_ID3D12GraphicsCommandList3_head():
     class ID3D12GraphicsCommandList3(win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList2_head):
@@ -4596,6 +4643,7 @@ def _define_ID3D12GraphicsCommandList3_head():
 def _define_ID3D12GraphicsCommandList3():
     ID3D12GraphicsCommandList3 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList3_head
     ID3D12GraphicsCommandList3.SetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, use_last_error=False)(67, 'SetProtectedResourceSession', ((1, 'pProtectedResourceSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList2
     return ID3D12GraphicsCommandList3
 D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE = Int32
 D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE_DISCARD = 0
@@ -4723,6 +4771,7 @@ def _define_ID3D12MetaCommand_head():
 def _define_ID3D12MetaCommand():
     ID3D12MetaCommand = win32more.Graphics.Direct3D12.ID3D12MetaCommand_head
     ID3D12MetaCommand.GetRequiredParameterResourceSize = COMMETHOD(WINFUNCTYPE(UInt64,win32more.Graphics.Direct3D12.D3D12_META_COMMAND_PARAMETER_STAGE,UInt32, use_last_error=False)(8, 'GetRequiredParameterResourceSize', ((1, 'Stage'),(1, 'ParameterIndex'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12MetaCommand
 def _define_D3D12_DISPATCH_RAYS_DESC_head():
     class D3D12_DISPATCH_RAYS_DESC(Structure):
@@ -4755,6 +4804,7 @@ def _define_ID3D12GraphicsCommandList4():
     ID3D12GraphicsCommandList4.CopyRaytracingAccelerationStructure = COMMETHOD(WINFUNCTYPE(Void,UInt64,UInt64,win32more.Graphics.Direct3D12.D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE, use_last_error=False)(74, 'CopyRaytracingAccelerationStructure', ((1, 'DestAccelerationStructureData'),(1, 'SourceAccelerationStructureData'),(1, 'Mode'),)))
     ID3D12GraphicsCommandList4.SetPipelineState1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12StateObject_head, use_last_error=False)(75, 'SetPipelineState1', ((1, 'pStateObject'),)))
     ID3D12GraphicsCommandList4.DispatchRays = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D12.D3D12_DISPATCH_RAYS_DESC_head), use_last_error=False)(76, 'DispatchRays', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList3
     return ID3D12GraphicsCommandList4
 D3D12_SHADER_CACHE_MODE = Int32
 D3D12_SHADER_CACHE_MODE_MEMORY = 0
@@ -4789,6 +4839,7 @@ def _define_ID3D12ShaderCacheSession():
     ID3D12ShaderCacheSession.StoreValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,c_void_p,UInt32, use_last_error=False)(9, 'StoreValue', ((1, 'pKey'),(1, 'KeySize'),(1, 'pValue'),(1, 'ValueSize'),)))
     ID3D12ShaderCacheSession.SetDeleteOnDestroy = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(10, 'SetDeleteOnDestroy', ()))
     ID3D12ShaderCacheSession.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC, use_last_error=False)(11, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12DeviceChild
     return ID3D12ShaderCacheSession
 D3D12_SHADER_CACHE_KIND_FLAGS = UInt32
 D3D12_SHADER_CACHE_KIND_FLAG_IMPLICIT_D3D_CACHE_FOR_DRIVER = 1
@@ -4808,6 +4859,7 @@ def _define_ID3D12Device9():
     ID3D12Device9.CreateShaderCacheSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_SESSION_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(73, 'CreateShaderCacheSession', ((1, 'pDesc'),(1, 'riid'),(1, 'ppvSession'),)))
     ID3D12Device9.ShaderCacheControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_KIND_FLAGS,win32more.Graphics.Direct3D12.D3D12_SHADER_CACHE_CONTROL_FLAGS, use_last_error=False)(74, 'ShaderCacheControl', ((1, 'Kinds'),(1, 'Control'),)))
     ID3D12Device9.CreateCommandQueue1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_COMMAND_QUEUE_DESC_head),POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(75, 'CreateCommandQueue1', ((1, 'pDesc'),(1, 'CreatorID'),(1, 'riid'),(1, 'ppCommandQueue'),)))
+    win32more.Graphics.Direct3D12.ID3D12Device8
     return ID3D12Device9
 def _define_ID3D12Tools_head():
     class ID3D12Tools(win32more.System.Com.IUnknown_head):
@@ -4817,6 +4869,7 @@ def _define_ID3D12Tools():
     ID3D12Tools = win32more.Graphics.Direct3D12.ID3D12Tools_head
     ID3D12Tools.EnableShaderInstrumentation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(3, 'EnableShaderInstrumentation', ((1, 'bEnable'),)))
     ID3D12Tools.ShaderInstrumentationEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(4, 'ShaderInstrumentationEnabled', ()))
+    win32more.System.Com.IUnknown
     return ID3D12Tools
 def _define_D3D12_SUBRESOURCE_DATA_head():
     class D3D12_SUBRESOURCE_DATA(Structure):
@@ -4849,6 +4902,7 @@ def _define_ID3D12Debug_head():
 def _define_ID3D12Debug():
     ID3D12Debug = win32more.Graphics.Direct3D12.ID3D12Debug_head
     ID3D12Debug.EnableDebugLayer = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(3, 'EnableDebugLayer', ()))
+    win32more.System.Com.IUnknown
     return ID3D12Debug
 D3D12_GPU_BASED_VALIDATION_FLAGS = Int32
 D3D12_GPU_BASED_VALIDATION_FLAGS_NONE = 0
@@ -4862,6 +4916,7 @@ def _define_ID3D12Debug1():
     ID3D12Debug1.EnableDebugLayer = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(3, 'EnableDebugLayer', ()))
     ID3D12Debug1.SetEnableGPUBasedValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetEnableGPUBasedValidation', ((1, 'Enable'),)))
     ID3D12Debug1.SetEnableSynchronizedCommandQueueValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetEnableSynchronizedCommandQueueValidation', ((1, 'Enable'),)))
+    win32more.System.Com.IUnknown
     return ID3D12Debug1
 def _define_ID3D12Debug2_head():
     class ID3D12Debug2(win32more.System.Com.IUnknown_head):
@@ -4870,6 +4925,7 @@ def _define_ID3D12Debug2_head():
 def _define_ID3D12Debug2():
     ID3D12Debug2 = win32more.Graphics.Direct3D12.ID3D12Debug2_head
     ID3D12Debug2.SetGPUBasedValidationFlags = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_FLAGS, use_last_error=False)(3, 'SetGPUBasedValidationFlags', ((1, 'Flags'),)))
+    win32more.System.Com.IUnknown
     return ID3D12Debug2
 def _define_ID3D12Debug3_head():
     class ID3D12Debug3(win32more.Graphics.Direct3D12.ID3D12Debug_head):
@@ -4880,6 +4936,7 @@ def _define_ID3D12Debug3():
     ID3D12Debug3.SetEnableGPUBasedValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetEnableGPUBasedValidation', ((1, 'Enable'),)))
     ID3D12Debug3.SetEnableSynchronizedCommandQueueValidation = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetEnableSynchronizedCommandQueueValidation', ((1, 'Enable'),)))
     ID3D12Debug3.SetGPUBasedValidationFlags = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_GPU_BASED_VALIDATION_FLAGS, use_last_error=False)(6, 'SetGPUBasedValidationFlags', ((1, 'Flags'),)))
+    win32more.Graphics.Direct3D12.ID3D12Debug
     return ID3D12Debug3
 def _define_ID3D12Debug4_head():
     class ID3D12Debug4(win32more.Graphics.Direct3D12.ID3D12Debug3_head):
@@ -4888,6 +4945,7 @@ def _define_ID3D12Debug4_head():
 def _define_ID3D12Debug4():
     ID3D12Debug4 = win32more.Graphics.Direct3D12.ID3D12Debug4_head
     ID3D12Debug4.DisableDebugLayer = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(7, 'DisableDebugLayer', ()))
+    win32more.Graphics.Direct3D12.ID3D12Debug3
     return ID3D12Debug4
 def _define_ID3D12Debug5_head():
     class ID3D12Debug5(win32more.Graphics.Direct3D12.ID3D12Debug4_head):
@@ -4896,6 +4954,7 @@ def _define_ID3D12Debug5_head():
 def _define_ID3D12Debug5():
     ID3D12Debug5 = win32more.Graphics.Direct3D12.ID3D12Debug5_head
     ID3D12Debug5.SetEnableAutoName = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(8, 'SetEnableAutoName', ((1, 'Enable'),)))
+    win32more.Graphics.Direct3D12.ID3D12Debug4
     return ID3D12Debug5
 D3D12_RLDO_FLAGS = Int32
 D3D12_RLDO_NONE = 0
@@ -4955,6 +5014,7 @@ def _define_ID3D12DebugDevice1():
     ID3D12DebugDevice1.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(3, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
     ID3D12DebugDevice1.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(4, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
     ID3D12DebugDevice1.ReportLiveDeviceObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_RLDO_FLAGS, use_last_error=False)(5, 'ReportLiveDeviceObjects', ((1, 'Flags'),)))
+    win32more.System.Com.IUnknown
     return ID3D12DebugDevice1
 def _define_ID3D12DebugDevice_head():
     class ID3D12DebugDevice(win32more.System.Com.IUnknown_head):
@@ -4965,6 +5025,7 @@ def _define_ID3D12DebugDevice():
     ID3D12DebugDevice.SetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE, use_last_error=False)(3, 'SetFeatureMask', ((1, 'Mask'),)))
     ID3D12DebugDevice.GetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE, use_last_error=False)(4, 'GetFeatureMask', ()))
     ID3D12DebugDevice.ReportLiveDeviceObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_RLDO_FLAGS, use_last_error=False)(5, 'ReportLiveDeviceObjects', ((1, 'Flags'),)))
+    win32more.System.Com.IUnknown
     return ID3D12DebugDevice
 def _define_ID3D12DebugDevice2_head():
     class ID3D12DebugDevice2(win32more.Graphics.Direct3D12.ID3D12DebugDevice_head):
@@ -4974,6 +5035,7 @@ def _define_ID3D12DebugDevice2():
     ID3D12DebugDevice2 = win32more.Graphics.Direct3D12.ID3D12DebugDevice2_head
     ID3D12DebugDevice2.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(6, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
     ID3D12DebugDevice2.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_DEVICE_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(7, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    win32more.Graphics.Direct3D12.ID3D12DebugDevice
     return ID3D12DebugDevice2
 def _define_ID3D12DebugCommandQueue_head():
     class ID3D12DebugCommandQueue(win32more.System.Com.IUnknown_head):
@@ -4982,6 +5044,7 @@ def _define_ID3D12DebugCommandQueue_head():
 def _define_ID3D12DebugCommandQueue():
     ID3D12DebugCommandQueue = win32more.Graphics.Direct3D12.ID3D12DebugCommandQueue_head
     ID3D12DebugCommandQueue.AssertResourceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32, use_last_error=False)(3, 'AssertResourceState', ((1, 'pResource'),(1, 'Subresource'),(1, 'State'),)))
+    win32more.System.Com.IUnknown
     return ID3D12DebugCommandQueue
 D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE = Int32
 D3D12_DEBUG_COMMAND_LIST_PARAMETER_GPU_BASED_VALIDATION_SETTINGS = 0
@@ -5004,6 +5067,7 @@ def _define_ID3D12DebugCommandList1():
     ID3D12DebugCommandList1.AssertResourceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32, use_last_error=False)(3, 'AssertResourceState', ((1, 'pResource'),(1, 'Subresource'),(1, 'State'),)))
     ID3D12DebugCommandList1.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(4, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
     ID3D12DebugCommandList1.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(5, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    win32more.System.Com.IUnknown
     return ID3D12DebugCommandList1
 def _define_ID3D12DebugCommandList_head():
     class ID3D12DebugCommandList(win32more.System.Com.IUnknown_head):
@@ -5014,6 +5078,7 @@ def _define_ID3D12DebugCommandList():
     ID3D12DebugCommandList.AssertResourceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.ID3D12Resource_head,UInt32,UInt32, use_last_error=False)(3, 'AssertResourceState', ((1, 'pResource'),(1, 'Subresource'),(1, 'State'),)))
     ID3D12DebugCommandList.SetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE, use_last_error=False)(4, 'SetFeatureMask', ((1, 'Mask'),)))
     ID3D12DebugCommandList.GetFeatureMask = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.D3D12_DEBUG_FEATURE, use_last_error=False)(5, 'GetFeatureMask', ()))
+    win32more.System.Com.IUnknown
     return ID3D12DebugCommandList
 def _define_ID3D12DebugCommandList2_head():
     class ID3D12DebugCommandList2(win32more.Graphics.Direct3D12.ID3D12DebugCommandList_head):
@@ -5023,6 +5088,7 @@ def _define_ID3D12DebugCommandList2():
     ID3D12DebugCommandList2 = win32more.Graphics.Direct3D12.ID3D12DebugCommandList2_head
     ID3D12DebugCommandList2.SetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(6, 'SetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
     ID3D12DebugCommandList2.GetDebugParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12_DEBUG_COMMAND_LIST_PARAMETER_TYPE,c_void_p,UInt32, use_last_error=False)(7, 'GetDebugParameter', ((1, 'Type'),(1, 'pData'),(1, 'DataSize'),)))
+    win32more.Graphics.Direct3D12.ID3D12DebugCommandList
     return ID3D12DebugCommandList2
 def _define_ID3D12SharingContract_head():
     class ID3D12SharingContract(win32more.System.Com.IUnknown_head):
@@ -5034,6 +5100,7 @@ def _define_ID3D12SharingContract():
     ID3D12SharingContract.SharedFenceSignal = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Fence_head,UInt64, use_last_error=False)(4, 'SharedFenceSignal', ((1, 'pFence'),(1, 'FenceValue'),)))
     ID3D12SharingContract.BeginCapturableWork = COMMETHOD(WINFUNCTYPE(Void,POINTER(Guid), use_last_error=False)(5, 'BeginCapturableWork', ((1, 'guid'),)))
     ID3D12SharingContract.EndCapturableWork = COMMETHOD(WINFUNCTYPE(Void,POINTER(Guid), use_last_error=False)(6, 'EndCapturableWork', ((1, 'guid'),)))
+    win32more.System.Com.IUnknown
     return ID3D12SharingContract
 D3D12_MESSAGE_CATEGORY = Int32
 D3D12_MESSAGE_CATEGORY_APPLICATION_DEFINED = 0
@@ -6027,6 +6094,7 @@ def _define_ID3D12InfoQueue():
     ID3D12InfoQueue.GetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D12.D3D12_MESSAGE_ID, use_last_error=False)(35, 'GetBreakOnID', ((1, 'ID'),)))
     ID3D12InfoQueue.SetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(36, 'SetMuteDebugOutput', ((1, 'bMute'),)))
     ID3D12InfoQueue.GetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(37, 'GetMuteDebugOutput', ()))
+    win32more.System.Com.IUnknown
     return ID3D12InfoQueue
 D3D12_MESSAGE_CALLBACK_FLAGS = Int32
 D3D12_MESSAGE_CALLBACK_FLAG_NONE = 0
@@ -6041,6 +6109,7 @@ def _define_ID3D12InfoQueue1():
     ID3D12InfoQueue1 = win32more.Graphics.Direct3D12.ID3D12InfoQueue1_head
     ID3D12InfoQueue1.RegisterMessageCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.D3D12MessageFunc,win32more.Graphics.Direct3D12.D3D12_MESSAGE_CALLBACK_FLAGS,c_void_p,POINTER(UInt32), use_last_error=False)(38, 'RegisterMessageCallback', ((1, 'CallbackFunc'),(1, 'CallbackFilterFlags'),(1, 'pContext'),(1, 'pCallbackCookie'),)))
     ID3D12InfoQueue1.UnregisterMessageCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(39, 'UnregisterMessageCallback', ((1, 'CallbackCookie'),)))
+    win32more.Graphics.Direct3D12.ID3D12InfoQueue
     return ID3D12InfoQueue1
 def _define_PFN_D3D12_CREATE_DEVICE():
     return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL,POINTER(Guid),POINTER(c_void_p), use_last_error=False)
@@ -6055,6 +6124,7 @@ def _define_ID3D12SDKConfiguration_head():
 def _define_ID3D12SDKConfiguration():
     ID3D12SDKConfiguration = win32more.Graphics.Direct3D12.ID3D12SDKConfiguration_head
     ID3D12SDKConfiguration.SetSDKVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR, use_last_error=False)(3, 'SetSDKVersion', ((1, 'SDKVersion'),(1, 'SDKPath'),)))
+    win32more.System.Com.IUnknown
     return ID3D12SDKConfiguration
 D3D12_AXIS_SHADING_RATE = Int32
 D3D12_AXIS_SHADING_RATE_1X = 0
@@ -6082,6 +6152,7 @@ def _define_ID3D12GraphicsCommandList5():
     ID3D12GraphicsCommandList5 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList5_head
     ID3D12GraphicsCommandList5.RSSetShadingRate = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.D3D12_SHADING_RATE,POINTER(win32more.Graphics.Direct3D12.D3D12_SHADING_RATE_COMBINER), use_last_error=False)(77, 'RSSetShadingRate', ((1, 'baseShadingRate'),(1, 'combiners'),)))
     ID3D12GraphicsCommandList5.RSSetShadingRateImage = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12Resource_head, use_last_error=False)(78, 'RSSetShadingRateImage', ((1, 'shadingRateImage'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList4
     return ID3D12GraphicsCommandList5
 def _define_D3D12_DISPATCH_MESH_ARGUMENTS_head():
     class D3D12_DISPATCH_MESH_ARGUMENTS(Structure):
@@ -6102,6 +6173,7 @@ def _define_ID3D12GraphicsCommandList6_head():
 def _define_ID3D12GraphicsCommandList6():
     ID3D12GraphicsCommandList6 = win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList6_head
     ID3D12GraphicsCommandList6.DispatchMesh = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32,UInt32, use_last_error=False)(79, 'DispatchMesh', ((1, 'ThreadGroupCountX'),(1, 'ThreadGroupCountY'),(1, 'ThreadGroupCountZ'),)))
+    win32more.Graphics.Direct3D12.ID3D12GraphicsCommandList5
     return ID3D12GraphicsCommandList6
 D3D12_SHADER_VERSION_TYPE = Int32
 D3D12_SHVER_PIXEL_SHADER = 0
@@ -6383,6 +6455,7 @@ def _define_ID3D12ShaderReflection():
     ID3D12ShaderReflection.GetMinFeatureLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL), use_last_error=False)(19, 'GetMinFeatureLevel', ((1, 'pLevel'),)))
     ID3D12ShaderReflection.GetThreadGroupSize = COMMETHOD(WINFUNCTYPE(UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(20, 'GetThreadGroupSize', ((1, 'pSizeX'),(1, 'pSizeY'),(1, 'pSizeZ'),)))
     ID3D12ShaderReflection.GetRequiresFlags = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(21, 'GetRequiresFlags', ()))
+    win32more.System.Com.IUnknown
     return ID3D12ShaderReflection
 def _define_ID3D12LibraryReflection_head():
     class ID3D12LibraryReflection(win32more.System.Com.IUnknown_head):
@@ -6392,6 +6465,7 @@ def _define_ID3D12LibraryReflection():
     ID3D12LibraryReflection = win32more.Graphics.Direct3D12.ID3D12LibraryReflection_head
     ID3D12LibraryReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.D3D12_LIBRARY_DESC_head), use_last_error=False)(3, 'GetDesc', ((1, 'pDesc'),)))
     ID3D12LibraryReflection.GetFunctionByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D12.ID3D12FunctionReflection_head,Int32, use_last_error=False)(4, 'GetFunctionByIndex', ((1, 'FunctionIndex'),)))
+    win32more.System.Com.IUnknown
     return ID3D12LibraryReflection
 def _define_ID3D12FunctionReflection_head():
     class ID3D12FunctionReflection(c_void_p):

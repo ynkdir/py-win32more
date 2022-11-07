@@ -26,6 +26,7 @@ def _define_IDDEInitializer_head():
 def _define_IDDEInitializer():
     IDDEInitializer = win32more.System.WinRT.Shell.IDDEInitializer_head
     IDDEInitializer.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.WinRT.Shell.CreateProcessMethod,win32more.Foundation.PWSTR,win32more.UI.Shell.IShellItem_head,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Initialize', ((1, 'fileExtensionOrProtocol'),(1, 'method'),(1, 'currentDirectory'),(1, 'execTarget'),(1, 'site'),(1, 'application'),(1, 'targetFile'),(1, 'arguments'),(1, 'verb'),)))
+    win32more.System.Com.IUnknown
     return IDDEInitializer
 __all__ = [
     "CreateProcessMethod",

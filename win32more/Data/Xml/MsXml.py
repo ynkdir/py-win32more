@@ -617,6 +617,7 @@ def _define_IXMLDOMImplementation_head():
 def _define_IXMLDOMImplementation():
     IXMLDOMImplementation = win32more.Data.Xml.MsXml.IXMLDOMImplementation_head
     IXMLDOMImplementation.hasFeature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(7, 'hasFeature', ((1, 'feature'),(1, 'version'),(1, 'hasFeature'),)))
+    win32more.System.Com.IDispatch
     return IXMLDOMImplementation
 def _define_IXMLDOMNode_head():
     class IXMLDOMNode(win32more.System.Com.IDispatch_head):
@@ -660,6 +661,7 @@ def _define_IXMLDOMNode():
     IXMLDOMNode.get_prefix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(40, 'get_prefix', ((1, 'prefixString'),)))
     IXMLDOMNode.get_baseName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(41, 'get_baseName', ((1, 'nameString'),)))
     IXMLDOMNode.transformNodeToObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMNode_head,win32more.System.Com.VARIANT, use_last_error=False)(42, 'transformNodeToObject', ((1, 'stylesheet'),(1, 'outputObject'),)))
+    win32more.System.Com.IDispatch
     return IXMLDOMNode
 def _define_IXMLDOMDocumentFragment_head():
     class IXMLDOMDocumentFragment(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -667,6 +669,7 @@ def _define_IXMLDOMDocumentFragment_head():
     return IXMLDOMDocumentFragment
 def _define_IXMLDOMDocumentFragment():
     IXMLDOMDocumentFragment = win32more.Data.Xml.MsXml.IXMLDOMDocumentFragment_head
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMDocumentFragment
 def _define_IXMLDOMDocument_head():
     class IXMLDOMDocument(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -707,6 +710,7 @@ def _define_IXMLDOMDocument():
     IXMLDOMDocument.put_onreadystatechange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(73, 'put_onreadystatechange', ((1, 'readystatechangeSink'),)))
     IXMLDOMDocument.put_ondataavailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(74, 'put_ondataavailable', ((1, 'ondataavailableSink'),)))
     IXMLDOMDocument.put_ontransformnode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(75, 'put_ontransformnode', ((1, 'ontransformnodeSink'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMDocument
 def _define_IXMLDOMNodeList_head():
     class IXMLDOMNodeList(win32more.System.Com.IDispatch_head):
@@ -719,6 +723,7 @@ def _define_IXMLDOMNodeList():
     IXMLDOMNodeList.nextNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNode_head), use_last_error=False)(9, 'nextNode', ((1, 'nextItem'),)))
     IXMLDOMNodeList.reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'reset', ()))
     IXMLDOMNodeList.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, 'get__newEnum', ((1, 'ppUnk'),)))
+    win32more.System.Com.IDispatch
     return IXMLDOMNodeList
 def _define_IXMLDOMNamedNodeMap_head():
     class IXMLDOMNamedNodeMap(win32more.System.Com.IDispatch_head):
@@ -736,6 +741,7 @@ def _define_IXMLDOMNamedNodeMap():
     IXMLDOMNamedNodeMap.nextNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNode_head), use_last_error=False)(14, 'nextNode', ((1, 'nextItem'),)))
     IXMLDOMNamedNodeMap.reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'reset', ()))
     IXMLDOMNamedNodeMap.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(16, 'get__newEnum', ((1, 'ppUnk'),)))
+    win32more.System.Com.IDispatch
     return IXMLDOMNamedNodeMap
 def _define_IXMLDOMCharacterData_head():
     class IXMLDOMCharacterData(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -751,6 +757,7 @@ def _define_IXMLDOMCharacterData():
     IXMLDOMCharacterData.insertData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(48, 'insertData', ((1, 'offset'),(1, 'data'),)))
     IXMLDOMCharacterData.deleteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(49, 'deleteData', ((1, 'offset'),(1, 'count'),)))
     IXMLDOMCharacterData.replaceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(50, 'replaceData', ((1, 'offset'),(1, 'count'),(1, 'data'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMCharacterData
 def _define_IXMLDOMAttribute_head():
     class IXMLDOMAttribute(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -761,6 +768,7 @@ def _define_IXMLDOMAttribute():
     IXMLDOMAttribute.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(43, 'get_name', ((1, 'attributeName'),)))
     IXMLDOMAttribute.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(44, 'get_value', ((1, 'attributeValue'),)))
     IXMLDOMAttribute.put_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(45, 'put_value', ((1, 'attributeValue'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMAttribute
 def _define_IXMLDOMElement_head():
     class IXMLDOMElement(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -777,6 +785,7 @@ def _define_IXMLDOMElement():
     IXMLDOMElement.removeAttributeNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMAttribute_head,POINTER(win32more.Data.Xml.MsXml.IXMLDOMAttribute_head), use_last_error=False)(49, 'removeAttributeNode', ((1, 'DOMAttribute'),(1, 'attributeNode'),)))
     IXMLDOMElement.getElementsByTagName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNodeList_head), use_last_error=False)(50, 'getElementsByTagName', ((1, 'tagName'),(1, 'resultList'),)))
     IXMLDOMElement.normalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(51, 'normalize', ()))
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMElement
 def _define_IXMLDOMText_head():
     class IXMLDOMText(win32more.Data.Xml.MsXml.IXMLDOMCharacterData_head):
@@ -785,6 +794,7 @@ def _define_IXMLDOMText_head():
 def _define_IXMLDOMText():
     IXMLDOMText = win32more.Data.Xml.MsXml.IXMLDOMText_head
     IXMLDOMText.splitText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Data.Xml.MsXml.IXMLDOMText_head), use_last_error=False)(51, 'splitText', ((1, 'offset'),(1, 'rightHandTextNode'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMCharacterData
     return IXMLDOMText
 def _define_IXMLDOMComment_head():
     class IXMLDOMComment(win32more.Data.Xml.MsXml.IXMLDOMCharacterData_head):
@@ -792,6 +802,7 @@ def _define_IXMLDOMComment_head():
     return IXMLDOMComment
 def _define_IXMLDOMComment():
     IXMLDOMComment = win32more.Data.Xml.MsXml.IXMLDOMComment_head
+    win32more.Data.Xml.MsXml.IXMLDOMCharacterData
     return IXMLDOMComment
 def _define_IXMLDOMProcessingInstruction_head():
     class IXMLDOMProcessingInstruction(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -802,6 +813,7 @@ def _define_IXMLDOMProcessingInstruction():
     IXMLDOMProcessingInstruction.get_target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(43, 'get_target', ((1, 'name'),)))
     IXMLDOMProcessingInstruction.get_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(44, 'get_data', ((1, 'value'),)))
     IXMLDOMProcessingInstruction.put_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(45, 'put_data', ((1, 'value'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMProcessingInstruction
 def _define_IXMLDOMCDATASection_head():
     class IXMLDOMCDATASection(win32more.Data.Xml.MsXml.IXMLDOMText_head):
@@ -809,6 +821,7 @@ def _define_IXMLDOMCDATASection_head():
     return IXMLDOMCDATASection
 def _define_IXMLDOMCDATASection():
     IXMLDOMCDATASection = win32more.Data.Xml.MsXml.IXMLDOMCDATASection_head
+    win32more.Data.Xml.MsXml.IXMLDOMText
     return IXMLDOMCDATASection
 def _define_IXMLDOMDocumentType_head():
     class IXMLDOMDocumentType(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -819,6 +832,7 @@ def _define_IXMLDOMDocumentType():
     IXMLDOMDocumentType.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(43, 'get_name', ((1, 'rootName'),)))
     IXMLDOMDocumentType.get_entities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNamedNodeMap_head), use_last_error=False)(44, 'get_entities', ((1, 'entityMap'),)))
     IXMLDOMDocumentType.get_notations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNamedNodeMap_head), use_last_error=False)(45, 'get_notations', ((1, 'notationMap'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMDocumentType
 def _define_IXMLDOMNotation_head():
     class IXMLDOMNotation(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -828,6 +842,7 @@ def _define_IXMLDOMNotation():
     IXMLDOMNotation = win32more.Data.Xml.MsXml.IXMLDOMNotation_head
     IXMLDOMNotation.get_publicId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(43, 'get_publicId', ((1, 'publicID'),)))
     IXMLDOMNotation.get_systemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(44, 'get_systemId', ((1, 'systemID'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMNotation
 def _define_IXMLDOMEntity_head():
     class IXMLDOMEntity(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -838,6 +853,7 @@ def _define_IXMLDOMEntity():
     IXMLDOMEntity.get_publicId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(43, 'get_publicId', ((1, 'publicID'),)))
     IXMLDOMEntity.get_systemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(44, 'get_systemId', ((1, 'systemID'),)))
     IXMLDOMEntity.get_notationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(45, 'get_notationName', ((1, 'name'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMEntity
 def _define_IXMLDOMEntityReference_head():
     class IXMLDOMEntityReference(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -845,6 +861,7 @@ def _define_IXMLDOMEntityReference_head():
     return IXMLDOMEntityReference
 def _define_IXMLDOMEntityReference():
     IXMLDOMEntityReference = win32more.Data.Xml.MsXml.IXMLDOMEntityReference_head
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXMLDOMEntityReference
 def _define_IXMLDOMParseError_head():
     class IXMLDOMParseError(win32more.System.Com.IDispatch_head):
@@ -859,6 +876,7 @@ def _define_IXMLDOMParseError():
     IXMLDOMParseError.get_line = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_line', ((1, 'lineNumber'),)))
     IXMLDOMParseError.get_linepos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_linepos', ((1, 'linePosition'),)))
     IXMLDOMParseError.get_filepos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_filepos', ((1, 'filePosition'),)))
+    win32more.System.Com.IDispatch
     return IXMLDOMParseError
 def _define_IXTLRuntime_head():
     class IXTLRuntime(win32more.Data.Xml.MsXml.IXMLDOMNode_head):
@@ -875,6 +893,7 @@ def _define_IXTLRuntime():
     IXTLRuntime.formatNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(49, 'formatNumber', ((1, 'dblNumber'),(1, 'bstrFormat'),(1, 'pbstrFormattedString'),)))
     IXTLRuntime.formatDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(50, 'formatDate', ((1, 'varDate'),(1, 'bstrFormat'),(1, 'varDestLocale'),(1, 'pbstrFormattedString'),)))
     IXTLRuntime.formatTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(51, 'formatTime', ((1, 'varTime'),(1, 'bstrFormat'),(1, 'varDestLocale'),(1, 'pbstrFormattedString'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMNode
     return IXTLRuntime
 def _define_XMLDOMDocumentEvents_head():
     class XMLDOMDocumentEvents(win32more.System.Com.IDispatch_head):
@@ -882,6 +901,7 @@ def _define_XMLDOMDocumentEvents_head():
     return XMLDOMDocumentEvents
 def _define_XMLDOMDocumentEvents():
     XMLDOMDocumentEvents = win32more.Data.Xml.MsXml.XMLDOMDocumentEvents_head
+    win32more.System.Com.IDispatch
     return XMLDOMDocumentEvents
 def _define_IXMLHttpRequest_head():
     class IXMLHttpRequest(win32more.System.Com.IDispatch_head):
@@ -903,6 +923,7 @@ def _define_IXMLHttpRequest():
     IXMLHttpRequest.get_responseStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'get_responseStream', ((1, 'pvarBody'),)))
     IXMLHttpRequest.get_readyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'get_readyState', ((1, 'plState'),)))
     IXMLHttpRequest.put_onreadystatechange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(20, 'put_onreadystatechange', ((1, 'pReadyStateSink'),)))
+    win32more.System.Com.IDispatch
     return IXMLHttpRequest
 def _define_IXMLDSOControl_head():
     class IXMLDSOControl(win32more.System.Com.IDispatch_head):
@@ -915,6 +936,7 @@ def _define_IXMLDSOControl():
     IXMLDSOControl.get_JavaDSOCompatible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'get_JavaDSOCompatible', ((1, 'fJavaDSOCompatible'),)))
     IXMLDSOControl.put_JavaDSOCompatible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(10, 'put_JavaDSOCompatible', ((1, 'fJavaDSOCompatible'),)))
     IXMLDSOControl.get_readyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_readyState', ((1, 'state'),)))
+    win32more.System.Com.IDispatch
     return IXMLDSOControl
 def _define_IXMLElementCollection_head():
     class IXMLElementCollection(win32more.System.Com.IDispatch_head):
@@ -926,6 +948,7 @@ def _define_IXMLElementCollection():
     IXMLElementCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_length', ((1, 'p'),)))
     IXMLElementCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__newEnum', ((1, 'ppUnk'),)))
     IXMLElementCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'item', ((1, 'var1'),(1, 'var2'),(1, 'ppDisp'),)))
+    win32more.System.Com.IDispatch
     return IXMLElementCollection
 def _define_IXMLDocument_head():
     class IXMLDocument(win32more.System.Com.IDispatch_head):
@@ -947,6 +970,7 @@ def _define_IXMLDocument():
     IXMLDocument.get_doctype = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_doctype', ((1, 'p'),)))
     IXMLDocument.get_dtdURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_dtdURL', ((1, 'p'),)))
     IXMLDocument.createElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.Data.Xml.MsXml.IXMLElement_head), use_last_error=False)(20, 'createElement', ((1, 'vType'),(1, 'var1'),(1, 'ppElem'),)))
+    win32more.System.Com.IDispatch
     return IXMLDocument
 def _define_IXMLDocument2_head():
     class IXMLDocument2(win32more.System.Com.IDispatch_head):
@@ -970,6 +994,7 @@ def _define_IXMLDocument2():
     IXMLDocument2.createElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.Data.Xml.MsXml.IXMLElement2_head), use_last_error=False)(20, 'createElement', ((1, 'vType'),(1, 'var1'),(1, 'ppElem'),)))
     IXMLDocument2.get_async = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(21, 'get_async', ((1, 'pf'),)))
     IXMLDocument2.put_async = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(22, 'put_async', ((1, 'f'),)))
+    win32more.System.Com.IDispatch
     return IXMLDocument2
 def _define_IXMLElement_head():
     class IXMLElement(win32more.System.Com.IDispatch_head):
@@ -989,6 +1014,7 @@ def _define_IXMLElement():
     IXMLElement.put_text = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(16, 'put_text', ((1, 'p'),)))
     IXMLElement.addChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLElement_head,Int32,Int32, use_last_error=False)(17, 'addChild', ((1, 'pChildElem'),(1, 'lIndex'),(1, 'lReserved'),)))
     IXMLElement.removeChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLElement_head, use_last_error=False)(18, 'removeChild', ((1, 'pChildElem'),)))
+    win32more.System.Com.IDispatch
     return IXMLElement
 def _define_IXMLElement2_head():
     class IXMLElement2(win32more.System.Com.IDispatch_head):
@@ -1009,6 +1035,7 @@ def _define_IXMLElement2():
     IXMLElement2.addChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLElement2_head,Int32,Int32, use_last_error=False)(17, 'addChild', ((1, 'pChildElem'),(1, 'lIndex'),(1, 'lReserved'),)))
     IXMLElement2.removeChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLElement2_head, use_last_error=False)(18, 'removeChild', ((1, 'pChildElem'),)))
     IXMLElement2.get_attributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLElementCollection_head), use_last_error=False)(19, 'get_attributes', ((1, 'pp'),)))
+    win32more.System.Com.IDispatch
     return IXMLElement2
 def _define_IXMLAttribute_head():
     class IXMLAttribute(win32more.System.Com.IDispatch_head):
@@ -1018,6 +1045,7 @@ def _define_IXMLAttribute():
     IXMLAttribute = win32more.Data.Xml.MsXml.IXMLAttribute_head
     IXMLAttribute.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_name', ((1, 'n'),)))
     IXMLAttribute.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_value', ((1, 'v'),)))
+    win32more.System.Com.IDispatch
     return IXMLAttribute
 def _define_IXMLError_head():
     class IXMLError(win32more.System.Com.IUnknown_head):
@@ -1026,6 +1054,7 @@ def _define_IXMLError_head():
 def _define_IXMLError():
     IXMLError = win32more.Data.Xml.MsXml.IXMLError_head
     IXMLError.GetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.XML_ERROR_head), use_last_error=False)(3, 'GetErrorInfo', ((1, 'pErrorReturn'),)))
+    win32more.System.Com.IUnknown
     return IXMLError
 DOMDocument60 = Guid('88d96a05-f192-11d4-a65f-0040963251e5')
 FreeThreadedDOMDocument60 = Guid('88d96a06-f192-11d4-a65f-0040963251e5')
@@ -1051,6 +1080,7 @@ def _define_IXMLDOMDocument2():
     IXMLDOMDocument2.validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMParseError_head), use_last_error=False)(79, 'validate', ((1, 'errorObj'),)))
     IXMLDOMDocument2.setProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(80, 'setProperty', ((1, 'name'),(1, 'value'),)))
     IXMLDOMDocument2.getProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(81, 'getProperty', ((1, 'name'),(1, 'value'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMDocument
     return IXMLDOMDocument2
 def _define_IXMLDOMDocument3_head():
     class IXMLDOMDocument3(win32more.Data.Xml.MsXml.IXMLDOMDocument2_head):
@@ -1060,6 +1090,7 @@ def _define_IXMLDOMDocument3():
     IXMLDOMDocument3 = win32more.Data.Xml.MsXml.IXMLDOMDocument3_head
     IXMLDOMDocument3.validateNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMNode_head,POINTER(win32more.Data.Xml.MsXml.IXMLDOMParseError_head), use_last_error=False)(82, 'validateNode', ((1, 'node'),(1, 'errorObj'),)))
     IXMLDOMDocument3.importNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMNode_head,Int16,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNode_head), use_last_error=False)(83, 'importNode', ((1, 'node'),(1, 'deep'),(1, 'clone'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMDocument2
     return IXMLDOMDocument3
 def _define_IXMLDOMSchemaCollection_head():
     class IXMLDOMSchemaCollection(win32more.System.Com.IDispatch_head):
@@ -1074,6 +1105,7 @@ def _define_IXMLDOMSchemaCollection():
     IXMLDOMSchemaCollection.get_namespaceURI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_namespaceURI', ((1, 'index'),(1, 'length'),)))
     IXMLDOMSchemaCollection.addCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMSchemaCollection_head, use_last_error=False)(12, 'addCollection', ((1, 'otherCollection'),)))
     IXMLDOMSchemaCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(13, 'get__newEnum', ((1, 'ppUnk'),)))
+    win32more.System.Com.IDispatch
     return IXMLDOMSchemaCollection
 def _define_IXMLDOMSelection_head():
     class IXMLDOMSelection(win32more.Data.Xml.MsXml.IXMLDOMNodeList_head):
@@ -1092,6 +1124,7 @@ def _define_IXMLDOMSelection():
     IXMLDOMSelection.clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMSelection_head), use_last_error=False)(20, 'clone', ((1, 'ppNode'),)))
     IXMLDOMSelection.getProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(21, 'getProperty', ((1, 'name'),(1, 'value'),)))
     IXMLDOMSelection.setProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(22, 'setProperty', ((1, 'name'),(1, 'value'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMNodeList
     return IXMLDOMSelection
 def _define_IXMLDOMParseError2_head():
     class IXMLDOMParseError2(win32more.Data.Xml.MsXml.IXMLDOMParseError_head):
@@ -1103,6 +1136,7 @@ def _define_IXMLDOMParseError2():
     IXMLDOMParseError2.get_allErrors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMParseErrorCollection_head), use_last_error=False)(15, 'get_allErrors', ((1, 'allErrors'),)))
     IXMLDOMParseError2.errorParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'errorParameters', ((1, 'index'),(1, 'param1'),)))
     IXMLDOMParseError2.get_errorParametersCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_errorParametersCount', ((1, 'count'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMParseError
     return IXMLDOMParseError2
 def _define_IXMLDOMParseErrorCollection_head():
     class IXMLDOMParseErrorCollection(win32more.System.Com.IDispatch_head):
@@ -1115,6 +1149,7 @@ def _define_IXMLDOMParseErrorCollection():
     IXMLDOMParseErrorCollection.get_next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMParseError2_head), use_last_error=False)(9, 'get_next', ((1, 'error'),)))
     IXMLDOMParseErrorCollection.reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'reset', ()))
     IXMLDOMParseErrorCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, 'get__newEnum', ((1, 'ppunk'),)))
+    win32more.System.Com.IDispatch
     return IXMLDOMParseErrorCollection
 def _define_IXSLProcessor_head():
     class IXSLProcessor(win32more.System.Com.IDispatch_head):
@@ -1136,6 +1171,7 @@ def _define_IXSLProcessor():
     IXSLProcessor.addParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,win32more.Foundation.BSTR, use_last_error=False)(18, 'addParameter', ((1, 'baseName'),(1, 'parameter'),(1, 'namespaceURI'),)))
     IXSLProcessor.addObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.Foundation.BSTR, use_last_error=False)(19, 'addObject', ((1, 'obj'),(1, 'namespaceURI'),)))
     IXSLProcessor.get_stylesheet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNode_head), use_last_error=False)(20, 'get_stylesheet', ((1, 'stylesheet'),)))
+    win32more.System.Com.IDispatch
     return IXSLProcessor
 def _define_IXSLTemplate_head():
     class IXSLTemplate(win32more.System.Com.IDispatch_head):
@@ -1146,6 +1182,7 @@ def _define_IXSLTemplate():
     IXSLTemplate.putref_stylesheet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMNode_head, use_last_error=False)(7, 'putref_stylesheet', ((1, 'stylesheet'),)))
     IXSLTemplate.get_stylesheet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNode_head), use_last_error=False)(8, 'get_stylesheet', ((1, 'stylesheet'),)))
     IXSLTemplate.createProcessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IXSLProcessor_head), use_last_error=False)(9, 'createProcessor', ((1, 'ppProcessor'),)))
+    win32more.System.Com.IDispatch
     return IXSLTemplate
 def _define_IXMLHTTPRequest_head():
     class IXMLHTTPRequest(win32more.System.Com.IDispatch_head):
@@ -1167,6 +1204,7 @@ def _define_IXMLHTTPRequest():
     IXMLHTTPRequest.get_responseStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'get_responseStream', ((1, 'pvarBody'),)))
     IXMLHTTPRequest.get_readyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'get_readyState', ((1, 'plState'),)))
     IXMLHTTPRequest.put_onreadystatechange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(20, 'put_onreadystatechange', ((1, 'pReadyStateSink'),)))
+    win32more.System.Com.IDispatch
     return IXMLHTTPRequest
 SERVERXMLHTTP_OPTION = Int32
 SXH_OPTION_URL = -1
@@ -1195,6 +1233,7 @@ def _define_IServerXMLHTTPRequest():
     IServerXMLHTTPRequest.waitForResponse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(Int16), use_last_error=False)(22, 'waitForResponse', ((1, 'timeoutInSeconds'),(1, 'isSuccessful'),)))
     IServerXMLHTTPRequest.getOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.SERVERXMLHTTP_OPTION,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(23, 'getOption', ((1, 'option'),(1, 'value'),)))
     IServerXMLHTTPRequest.setOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.SERVERXMLHTTP_OPTION,win32more.System.Com.VARIANT, use_last_error=False)(24, 'setOption', ((1, 'option'),(1, 'value'),)))
+    win32more.Data.Xml.MsXml.IXMLHTTPRequest
     return IServerXMLHTTPRequest
 def _define_IServerXMLHTTPRequest2_head():
     class IServerXMLHTTPRequest2(win32more.Data.Xml.MsXml.IServerXMLHTTPRequest_head):
@@ -1204,6 +1243,7 @@ def _define_IServerXMLHTTPRequest2():
     IServerXMLHTTPRequest2 = win32more.Data.Xml.MsXml.IServerXMLHTTPRequest2_head
     IServerXMLHTTPRequest2.setProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.SXH_PROXY_SETTING,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(25, 'setProxy', ((1, 'proxySetting'),(1, 'varProxyServer'),(1, 'varBypassList'),)))
     IServerXMLHTTPRequest2.setProxyCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(26, 'setProxyCredentials', ((1, 'bstrUserName'),(1, 'bstrPassword'),)))
+    win32more.Data.Xml.MsXml.IServerXMLHTTPRequest
     return IServerXMLHTTPRequest2
 def _define_ISAXXMLReader_head():
     class ISAXXMLReader(win32more.System.Com.IUnknown_head):
@@ -1229,6 +1269,7 @@ def _define_ISAXXMLReader():
     ISAXXMLReader.putSecureBaseURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(18, 'putSecureBaseURL', ((1, 'pwchSecureBaseUrl'),)))
     ISAXXMLReader.parse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(19, 'parse', ((1, 'varInput'),)))
     ISAXXMLReader.parseURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(20, 'parseURL', ((1, 'pwchUrl'),)))
+    win32more.System.Com.IUnknown
     return ISAXXMLReader
 def _define_ISAXXMLFilter_head():
     class ISAXXMLFilter(win32more.Data.Xml.MsXml.ISAXXMLReader_head):
@@ -1238,6 +1279,7 @@ def _define_ISAXXMLFilter():
     ISAXXMLFilter = win32more.Data.Xml.MsXml.ISAXXMLFilter_head
     ISAXXMLFilter.getParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISAXXMLReader_head), use_last_error=False)(21, 'getParent', ((1, 'ppReader'),)))
     ISAXXMLFilter.putParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.ISAXXMLReader_head, use_last_error=False)(22, 'putParent', ((1, 'pReader'),)))
+    win32more.Data.Xml.MsXml.ISAXXMLReader
     return ISAXXMLFilter
 def _define_ISAXLocator_head():
     class ISAXLocator(win32more.System.Com.IUnknown_head):
@@ -1249,6 +1291,7 @@ def _define_ISAXLocator():
     ISAXLocator.getLineNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'getLineNumber', ((1, 'pnLine'),)))
     ISAXLocator.getPublicId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(5, 'getPublicId', ((1, 'ppwchPublicId'),)))
     ISAXLocator.getSystemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(6, 'getSystemId', ((1, 'ppwchSystemId'),)))
+    win32more.System.Com.IUnknown
     return ISAXLocator
 def _define_ISAXEntityResolver_head():
     class ISAXEntityResolver(win32more.System.Com.IUnknown_head):
@@ -1257,6 +1300,7 @@ def _define_ISAXEntityResolver_head():
 def _define_ISAXEntityResolver():
     ISAXEntityResolver = win32more.Data.Xml.MsXml.ISAXEntityResolver_head
     ISAXEntityResolver.resolveEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(3, 'resolveEntity', ((1, 'pwchPublicId'),(1, 'pwchSystemId'),(1, 'pvarInput'),)))
+    win32more.System.Com.IUnknown
     return ISAXEntityResolver
 def _define_ISAXContentHandler_head():
     class ISAXContentHandler(win32more.System.Com.IUnknown_head):
@@ -1275,6 +1319,7 @@ def _define_ISAXContentHandler():
     ISAXContentHandler.ignorableWhitespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(11, 'ignorableWhitespace', ((1, 'pwchChars'),(1, 'cchChars'),)))
     ISAXContentHandler.processingInstruction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32, use_last_error=False)(12, 'processingInstruction', ((1, 'pwchTarget'),(1, 'cchTarget'),(1, 'pwchData'),(1, 'cchData'),)))
     ISAXContentHandler.skippedEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(13, 'skippedEntity', ((1, 'pwchName'),(1, 'cchName'),)))
+    win32more.System.Com.IUnknown
     return ISAXContentHandler
 def _define_ISAXDTDHandler_head():
     class ISAXDTDHandler(win32more.System.Com.IUnknown_head):
@@ -1284,6 +1329,7 @@ def _define_ISAXDTDHandler():
     ISAXDTDHandler = win32more.Data.Xml.MsXml.ISAXDTDHandler_head
     ISAXDTDHandler.notationDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32, use_last_error=False)(3, 'notationDecl', ((1, 'pwchName'),(1, 'cchName'),(1, 'pwchPublicId'),(1, 'cchPublicId'),(1, 'pwchSystemId'),(1, 'cchSystemId'),)))
     ISAXDTDHandler.unparsedEntityDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32, use_last_error=False)(4, 'unparsedEntityDecl', ((1, 'pwchName'),(1, 'cchName'),(1, 'pwchPublicId'),(1, 'cchPublicId'),(1, 'pwchSystemId'),(1, 'cchSystemId'),(1, 'pwchNotationName'),(1, 'cchNotationName'),)))
+    win32more.System.Com.IUnknown
     return ISAXDTDHandler
 def _define_ISAXErrorHandler_head():
     class ISAXErrorHandler(win32more.System.Com.IUnknown_head):
@@ -1294,6 +1340,7 @@ def _define_ISAXErrorHandler():
     ISAXErrorHandler.error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.ISAXLocator_head,win32more.Foundation.PWSTR,win32more.Foundation.HRESULT, use_last_error=False)(3, 'error', ((1, 'pLocator'),(1, 'pwchErrorMessage'),(1, 'hrErrorCode'),)))
     ISAXErrorHandler.fatalError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.ISAXLocator_head,win32more.Foundation.PWSTR,win32more.Foundation.HRESULT, use_last_error=False)(4, 'fatalError', ((1, 'pLocator'),(1, 'pwchErrorMessage'),(1, 'hrErrorCode'),)))
     ISAXErrorHandler.ignorableWarning = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.ISAXLocator_head,win32more.Foundation.PWSTR,win32more.Foundation.HRESULT, use_last_error=False)(5, 'ignorableWarning', ((1, 'pLocator'),(1, 'pwchErrorMessage'),(1, 'hrErrorCode'),)))
+    win32more.System.Com.IUnknown
     return ISAXErrorHandler
 def _define_ISAXLexicalHandler_head():
     class ISAXLexicalHandler(win32more.System.Com.IUnknown_head):
@@ -1308,6 +1355,7 @@ def _define_ISAXLexicalHandler():
     ISAXLexicalHandler.startCDATA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'startCDATA', ()))
     ISAXLexicalHandler.endCDATA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'endCDATA', ()))
     ISAXLexicalHandler.comment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(9, 'comment', ((1, 'pwchChars'),(1, 'cchChars'),)))
+    win32more.System.Com.IUnknown
     return ISAXLexicalHandler
 def _define_ISAXDeclHandler_head():
     class ISAXDeclHandler(win32more.System.Com.IUnknown_head):
@@ -1319,6 +1367,7 @@ def _define_ISAXDeclHandler():
     ISAXDeclHandler.attributeDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32, use_last_error=False)(4, 'attributeDecl', ((1, 'pwchElementName'),(1, 'cchElementName'),(1, 'pwchAttributeName'),(1, 'cchAttributeName'),(1, 'pwchType'),(1, 'cchType'),(1, 'pwchValueDefault'),(1, 'cchValueDefault'),(1, 'pwchValue'),(1, 'cchValue'),)))
     ISAXDeclHandler.internalEntityDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32, use_last_error=False)(5, 'internalEntityDecl', ((1, 'pwchName'),(1, 'cchName'),(1, 'pwchValue'),(1, 'cchValue'),)))
     ISAXDeclHandler.externalEntityDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32, use_last_error=False)(6, 'externalEntityDecl', ((1, 'pwchName'),(1, 'cchName'),(1, 'pwchPublicId'),(1, 'cchPublicId'),(1, 'pwchSystemId'),(1, 'cchSystemId'),)))
+    win32more.System.Com.IUnknown
     return ISAXDeclHandler
 def _define_ISAXAttributes_head():
     class ISAXAttributes(win32more.System.Com.IUnknown_head):
@@ -1339,6 +1388,7 @@ def _define_ISAXAttributes():
     ISAXAttributes.getValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(POINTER(UInt16)),POINTER(Int32), use_last_error=False)(13, 'getValue', ((1, 'nIndex'),(1, 'ppwchValue'),(1, 'pcchValue'),)))
     ISAXAttributes.getValueFromName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,Int32,POINTER(POINTER(UInt16)),POINTER(Int32), use_last_error=False)(14, 'getValueFromName', ((1, 'pwchUri'),(1, 'cchUri'),(1, 'pwchLocalName'),(1, 'cchLocalName'),(1, 'ppwchValue'),(1, 'pcchValue'),)))
     ISAXAttributes.getValueFromQName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,POINTER(POINTER(UInt16)),POINTER(Int32), use_last_error=False)(15, 'getValueFromQName', ((1, 'pwchQName'),(1, 'cchQName'),(1, 'ppwchValue'),(1, 'pcchValue'),)))
+    win32more.System.Com.IUnknown
     return ISAXAttributes
 def _define_IVBSAXXMLReader_head():
     class IVBSAXXMLReader(win32more.System.Com.IDispatch_head):
@@ -1364,6 +1414,7 @@ def _define_IVBSAXXMLReader():
     IVBSAXXMLReader.put_secureBaseURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(22, 'put_secureBaseURL', ((1, 'strSecureBaseURL'),)))
     IVBSAXXMLReader.parse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(23, 'parse', ((1, 'varInput'),)))
     IVBSAXXMLReader.parseURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(24, 'parseURL', ((1, 'strURL'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXXMLReader
 def _define_IVBSAXXMLFilter_head():
     class IVBSAXXMLFilter(win32more.System.Com.IDispatch_head):
@@ -1373,6 +1424,7 @@ def _define_IVBSAXXMLFilter():
     IVBSAXXMLFilter = win32more.Data.Xml.MsXml.IVBSAXXMLFilter_head
     IVBSAXXMLFilter.get_parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IVBSAXXMLReader_head), use_last_error=False)(7, 'get_parent', ((1, 'oReader'),)))
     IVBSAXXMLFilter.putref_parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IVBSAXXMLReader_head, use_last_error=False)(8, 'putref_parent', ((1, 'oReader'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXXMLFilter
 def _define_IVBSAXLocator_head():
     class IVBSAXLocator(win32more.System.Com.IDispatch_head):
@@ -1384,6 +1436,7 @@ def _define_IVBSAXLocator():
     IVBSAXLocator.get_lineNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_lineNumber', ((1, 'nLine'),)))
     IVBSAXLocator.get_publicId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_publicId', ((1, 'strPublicId'),)))
     IVBSAXLocator.get_systemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_systemId', ((1, 'strSystemId'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXLocator
 def _define_IVBSAXEntityResolver_head():
     class IVBSAXEntityResolver(win32more.System.Com.IDispatch_head):
@@ -1392,6 +1445,7 @@ def _define_IVBSAXEntityResolver_head():
 def _define_IVBSAXEntityResolver():
     IVBSAXEntityResolver = win32more.Data.Xml.MsXml.IVBSAXEntityResolver_head
     IVBSAXEntityResolver.resolveEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'resolveEntity', ((1, 'strPublicId'),(1, 'strSystemId'),(1, 'varInput'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXEntityResolver
 def _define_IVBSAXContentHandler_head():
     class IVBSAXContentHandler(win32more.System.Com.IDispatch_head):
@@ -1410,6 +1464,7 @@ def _define_IVBSAXContentHandler():
     IVBSAXContentHandler.ignorableWhitespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'ignorableWhitespace', ((1, 'strChars'),)))
     IVBSAXContentHandler.processingInstruction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'processingInstruction', ((1, 'strTarget'),(1, 'strData'),)))
     IVBSAXContentHandler.skippedEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'skippedEntity', ((1, 'strName'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXContentHandler
 def _define_IVBSAXDTDHandler_head():
     class IVBSAXDTDHandler(win32more.System.Com.IDispatch_head):
@@ -1419,6 +1474,7 @@ def _define_IVBSAXDTDHandler():
     IVBSAXDTDHandler = win32more.Data.Xml.MsXml.IVBSAXDTDHandler_head
     IVBSAXDTDHandler.notationDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'notationDecl', ((1, 'strName'),(1, 'strPublicId'),(1, 'strSystemId'),)))
     IVBSAXDTDHandler.unparsedEntityDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'unparsedEntityDecl', ((1, 'strName'),(1, 'strPublicId'),(1, 'strSystemId'),(1, 'strNotationName'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXDTDHandler
 def _define_IVBSAXErrorHandler_head():
     class IVBSAXErrorHandler(win32more.System.Com.IDispatch_head):
@@ -1429,6 +1485,7 @@ def _define_IVBSAXErrorHandler():
     IVBSAXErrorHandler.error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IVBSAXLocator_head,POINTER(win32more.Foundation.BSTR),Int32, use_last_error=False)(7, 'error', ((1, 'oLocator'),(1, 'strErrorMessage'),(1, 'nErrorCode'),)))
     IVBSAXErrorHandler.fatalError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IVBSAXLocator_head,POINTER(win32more.Foundation.BSTR),Int32, use_last_error=False)(8, 'fatalError', ((1, 'oLocator'),(1, 'strErrorMessage'),(1, 'nErrorCode'),)))
     IVBSAXErrorHandler.ignorableWarning = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IVBSAXLocator_head,POINTER(win32more.Foundation.BSTR),Int32, use_last_error=False)(9, 'ignorableWarning', ((1, 'oLocator'),(1, 'strErrorMessage'),(1, 'nErrorCode'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXErrorHandler
 def _define_IVBSAXLexicalHandler_head():
     class IVBSAXLexicalHandler(win32more.System.Com.IDispatch_head):
@@ -1443,6 +1500,7 @@ def _define_IVBSAXLexicalHandler():
     IVBSAXLexicalHandler.startCDATA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'startCDATA', ()))
     IVBSAXLexicalHandler.endCDATA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'endCDATA', ()))
     IVBSAXLexicalHandler.comment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'comment', ((1, 'strChars'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXLexicalHandler
 def _define_IVBSAXDeclHandler_head():
     class IVBSAXDeclHandler(win32more.System.Com.IDispatch_head):
@@ -1454,6 +1512,7 @@ def _define_IVBSAXDeclHandler():
     IVBSAXDeclHandler.attributeDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'attributeDecl', ((1, 'strElementName'),(1, 'strAttributeName'),(1, 'strType'),(1, 'strValueDefault'),(1, 'strValue'),)))
     IVBSAXDeclHandler.internalEntityDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'internalEntityDecl', ((1, 'strName'),(1, 'strValue'),)))
     IVBSAXDeclHandler.externalEntityDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'externalEntityDecl', ((1, 'strName'),(1, 'strPublicId'),(1, 'strSystemId'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXDeclHandler
 def _define_IVBSAXAttributes_head():
     class IVBSAXAttributes(win32more.System.Com.IDispatch_head):
@@ -1473,6 +1532,7 @@ def _define_IVBSAXAttributes():
     IVBSAXAttributes.getValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'getValue', ((1, 'nIndex'),(1, 'strValue'),)))
     IVBSAXAttributes.getValueFromName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'getValueFromName', ((1, 'strURI'),(1, 'strLocalName'),(1, 'strValue'),)))
     IVBSAXAttributes.getValueFromQName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'getValueFromQName', ((1, 'strQName'),(1, 'strValue'),)))
+    win32more.System.Com.IDispatch
     return IVBSAXAttributes
 def _define_IMXWriter_head():
     class IMXWriter(win32more.System.Com.IDispatch_head):
@@ -1497,6 +1557,7 @@ def _define_IMXWriter():
     IMXWriter.put_disableOutputEscaping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(21, 'put_disableOutputEscaping', ((1, 'fValue'),)))
     IMXWriter.get_disableOutputEscaping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(22, 'get_disableOutputEscaping', ((1, 'fValue'),)))
     IMXWriter.flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(23, 'flush', ()))
+    win32more.System.Com.IDispatch
     return IMXWriter
 def _define_IMXAttributes_head():
     class IMXAttributes(win32more.System.Com.IDispatch_head):
@@ -1515,6 +1576,7 @@ def _define_IMXAttributes():
     IMXAttributes.setType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(15, 'setType', ((1, 'nIndex'),(1, 'strType'),)))
     IMXAttributes.setURI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(16, 'setURI', ((1, 'nIndex'),(1, 'strURI'),)))
     IMXAttributes.setValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(17, 'setValue', ((1, 'nIndex'),(1, 'strValue'),)))
+    win32more.System.Com.IDispatch
     return IMXAttributes
 def _define_IMXReaderControl_head():
     class IMXReaderControl(win32more.System.Com.IDispatch_head):
@@ -1525,6 +1587,7 @@ def _define_IMXReaderControl():
     IMXReaderControl.abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'abort', ()))
     IMXReaderControl.resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'resume', ()))
     IMXReaderControl.suspend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'suspend', ()))
+    win32more.System.Com.IDispatch
     return IMXReaderControl
 def _define_IMXSchemaDeclHandler_head():
     class IMXSchemaDeclHandler(win32more.System.Com.IDispatch_head):
@@ -1533,6 +1596,7 @@ def _define_IMXSchemaDeclHandler_head():
 def _define_IMXSchemaDeclHandler():
     IMXSchemaDeclHandler = win32more.Data.Xml.MsXml.IMXSchemaDeclHandler_head
     IMXSchemaDeclHandler.schemaElementDecl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.ISchemaElement_head, use_last_error=False)(7, 'schemaElementDecl', ((1, 'oSchemaElement'),)))
+    win32more.System.Com.IDispatch
     return IMXSchemaDeclHandler
 def _define_IMXNamespacePrefixes_head():
     class IMXNamespacePrefixes(win32more.System.Com.IDispatch_head):
@@ -1543,6 +1607,7 @@ def _define_IMXNamespacePrefixes():
     IMXNamespacePrefixes.get_item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_item', ((1, 'index'),(1, 'prefix'),)))
     IMXNamespacePrefixes.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_length', ((1, 'length'),)))
     IMXNamespacePrefixes.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__newEnum', ((1, 'ppUnk'),)))
+    win32more.System.Com.IDispatch
     return IMXNamespacePrefixes
 def _define_IVBMXNamespaceManager_head():
     class IVBMXNamespaceManager(win32more.System.Com.IDispatch_head):
@@ -1561,6 +1626,7 @@ def _define_IVBMXNamespaceManager():
     IVBMXNamespaceManager.getPrefixes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Data.Xml.MsXml.IMXNamespacePrefixes_head), use_last_error=False)(15, 'getPrefixes', ((1, 'namespaceURI'),(1, 'prefixes'),)))
     IVBMXNamespaceManager.getURI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'getURI', ((1, 'prefix'),(1, 'uri'),)))
     IVBMXNamespaceManager.getURIFromNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Data.Xml.MsXml.IXMLDOMNode_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'getURIFromNode', ((1, 'strPrefix'),(1, 'contextNode'),(1, 'uri'),)))
+    win32more.System.Com.IDispatch
     return IVBMXNamespaceManager
 def _define_IMXNamespaceManager_head():
     class IMXNamespaceManager(win32more.System.Com.IUnknown_head):
@@ -1578,6 +1644,7 @@ def _define_IMXNamespaceManager():
     IMXNamespaceManager.getDeclaredPrefix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Char),POINTER(Int32), use_last_error=False)(10, 'getDeclaredPrefix', ((1, 'nIndex'),(1, 'pwchPrefix'),(1, 'pcchPrefix'),)))
     IMXNamespaceManager.getPrefix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,POINTER(Char),POINTER(Int32), use_last_error=False)(11, 'getPrefix', ((1, 'pwszNamespaceURI'),(1, 'nIndex'),(1, 'pwchPrefix'),(1, 'pcchPrefix'),)))
     IMXNamespaceManager.getURI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Data.Xml.MsXml.IXMLDOMNode_head,POINTER(Char),POINTER(Int32), use_last_error=False)(12, 'getURI', ((1, 'pwchPrefix'),(1, 'pContextNode'),(1, 'pwchUri'),(1, 'pcchUri'),)))
+    win32more.System.Com.IUnknown
     return IMXNamespaceManager
 def _define_IMXXMLFilter_head():
     class IMXXMLFilter(win32more.System.Com.IDispatch_head):
@@ -1597,6 +1664,7 @@ def _define_IMXXMLFilter():
     IMXXMLFilter.putref_dtdHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(16, 'putref_dtdHandler', ((1, 'oHandler'),)))
     IMXXMLFilter.get_errorHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(17, 'get_errorHandler', ((1, 'oHandler'),)))
     IMXXMLFilter.putref_errorHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(18, 'putref_errorHandler', ((1, 'oHandler'),)))
+    win32more.System.Com.IDispatch
     return IMXXMLFilter
 SOMITEMTYPE = Int32
 SOMITEM_SCHEMA = 4096
@@ -1716,6 +1784,7 @@ def _define_IXMLDOMSchemaCollection2():
     IXMLDOMSchemaCollection2.get_validateOnLoad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(16, 'get_validateOnLoad', ((1, 'validateOnLoad'),)))
     IXMLDOMSchemaCollection2.getSchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Data.Xml.MsXml.ISchema_head), use_last_error=False)(17, 'getSchema', ((1, 'namespaceURI'),(1, 'schema'),)))
     IXMLDOMSchemaCollection2.getDeclaration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMNode_head,POINTER(win32more.Data.Xml.MsXml.ISchemaItem_head), use_last_error=False)(18, 'getDeclaration', ((1, 'node'),(1, 'item'),)))
+    win32more.Data.Xml.MsXml.IXMLDOMSchemaCollection
     return IXMLDOMSchemaCollection2
 def _define_ISchemaStringCollection_head():
     class ISchemaStringCollection(win32more.System.Com.IDispatch_head):
@@ -1726,6 +1795,7 @@ def _define_ISchemaStringCollection():
     ISchemaStringCollection.get_item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_item', ((1, 'index'),(1, 'bstr'),)))
     ISchemaStringCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_length', ((1, 'length'),)))
     ISchemaStringCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__newEnum', ((1, 'ppunk'),)))
+    win32more.System.Com.IDispatch
     return ISchemaStringCollection
 def _define_ISchemaItemCollection_head():
     class ISchemaItemCollection(win32more.System.Com.IDispatch_head):
@@ -1738,6 +1808,7 @@ def _define_ISchemaItemCollection():
     ISchemaItemCollection.itemByQName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Data.Xml.MsXml.ISchemaItem_head), use_last_error=False)(9, 'itemByQName', ((1, 'name'),(1, 'namespaceURI'),(1, 'item'),)))
     ISchemaItemCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_length', ((1, 'length'),)))
     ISchemaItemCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, 'get__newEnum', ((1, 'ppunk'),)))
+    win32more.System.Com.IDispatch
     return ISchemaItemCollection
 def _define_ISchemaItem_head():
     class ISchemaItem(win32more.System.Com.IDispatch_head):
@@ -1752,6 +1823,7 @@ def _define_ISchemaItem():
     ISchemaItem.get_itemType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.SOMITEMTYPE), use_last_error=False)(11, 'get_itemType', ((1, 'itemType'),)))
     ISchemaItem.get_unhandledAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.IVBSAXAttributes_head), use_last_error=False)(12, 'get_unhandledAttributes', ((1, 'attributes'),)))
     ISchemaItem.writeAnnotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Int16), use_last_error=False)(13, 'writeAnnotation', ((1, 'annotationSink'),(1, 'isWritten'),)))
+    win32more.System.Com.IDispatch
     return ISchemaItem
 def _define_ISchema_head():
     class ISchema(win32more.Data.Xml.MsXml.ISchemaItem_head):
@@ -1768,6 +1840,7 @@ def _define_ISchema():
     ISchema.get_modelGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaItemCollection_head), use_last_error=False)(20, 'get_modelGroups', ((1, 'modelGroups'),)))
     ISchema.get_notations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaItemCollection_head), use_last_error=False)(21, 'get_notations', ((1, 'notations'),)))
     ISchema.get_schemaLocations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaStringCollection_head), use_last_error=False)(22, 'get_schemaLocations', ((1, 'schemaLocations'),)))
+    win32more.Data.Xml.MsXml.ISchemaItem
     return ISchema
 def _define_ISchemaParticle_head():
     class ISchemaParticle(win32more.Data.Xml.MsXml.ISchemaItem_head):
@@ -1777,6 +1850,7 @@ def _define_ISchemaParticle():
     ISchemaParticle = win32more.Data.Xml.MsXml.ISchemaParticle_head
     ISchemaParticle.get_minOccurs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'get_minOccurs', ((1, 'minOccurs'),)))
     ISchemaParticle.get_maxOccurs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_maxOccurs', ((1, 'maxOccurs'),)))
+    win32more.Data.Xml.MsXml.ISchemaItem
     return ISchemaParticle
 def _define_ISchemaAttribute_head():
     class ISchemaAttribute(win32more.Data.Xml.MsXml.ISchemaItem_head):
@@ -1790,6 +1864,7 @@ def _define_ISchemaAttribute():
     ISchemaAttribute.get_fixedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_fixedValue', ((1, 'fixedValue'),)))
     ISchemaAttribute.get_use = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.SCHEMAUSE), use_last_error=False)(18, 'get_use', ((1, 'use'),)))
     ISchemaAttribute.get_isReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(19, 'get_isReference', ((1, 'reference'),)))
+    win32more.Data.Xml.MsXml.ISchemaItem
     return ISchemaAttribute
 def _define_ISchemaElement_head():
     class ISchemaElement(win32more.Data.Xml.MsXml.ISchemaParticle_head):
@@ -1808,6 +1883,7 @@ def _define_ISchemaElement():
     ISchemaElement.get_disallowedSubstitutions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.SCHEMADERIVATIONMETHOD), use_last_error=False)(24, 'get_disallowedSubstitutions', ((1, 'disallowed'),)))
     ISchemaElement.get_isAbstract = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(25, 'get_isAbstract', ((1, 'abstract'),)))
     ISchemaElement.get_isReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(26, 'get_isReference', ((1, 'reference'),)))
+    win32more.Data.Xml.MsXml.ISchemaParticle
     return ISchemaElement
 def _define_ISchemaType_head():
     class ISchemaType(win32more.Data.Xml.MsXml.ISchemaItem_head):
@@ -1832,6 +1908,7 @@ def _define_ISchemaType():
     ISchemaType.get_enumeration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaStringCollection_head), use_last_error=False)(28, 'get_enumeration', ((1, 'enumeration'),)))
     ISchemaType.get_whitespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.SCHEMAWHITESPACE), use_last_error=False)(29, 'get_whitespace', ((1, 'whitespace'),)))
     ISchemaType.get_patterns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaStringCollection_head), use_last_error=False)(30, 'get_patterns', ((1, 'patterns'),)))
+    win32more.Data.Xml.MsXml.ISchemaItem
     return ISchemaType
 def _define_ISchemaComplexType_head():
     class ISchemaComplexType(win32more.Data.Xml.MsXml.ISchemaType_head):
@@ -1845,6 +1922,7 @@ def _define_ISchemaComplexType():
     ISchemaComplexType.get_contentType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.SCHEMACONTENTTYPE), use_last_error=False)(34, 'get_contentType', ((1, 'contentType'),)))
     ISchemaComplexType.get_contentModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaModelGroup_head), use_last_error=False)(35, 'get_contentModel', ((1, 'contentModel'),)))
     ISchemaComplexType.get_prohibitedSubstitutions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.SCHEMADERIVATIONMETHOD), use_last_error=False)(36, 'get_prohibitedSubstitutions', ((1, 'prohibited'),)))
+    win32more.Data.Xml.MsXml.ISchemaType
     return ISchemaComplexType
 def _define_ISchemaAttributeGroup_head():
     class ISchemaAttributeGroup(win32more.Data.Xml.MsXml.ISchemaItem_head):
@@ -1854,6 +1932,7 @@ def _define_ISchemaAttributeGroup():
     ISchemaAttributeGroup = win32more.Data.Xml.MsXml.ISchemaAttributeGroup_head
     ISchemaAttributeGroup.get_anyAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaAny_head), use_last_error=False)(14, 'get_anyAttribute', ((1, 'anyAttribute'),)))
     ISchemaAttributeGroup.get_attributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaItemCollection_head), use_last_error=False)(15, 'get_attributes', ((1, 'attributes'),)))
+    win32more.Data.Xml.MsXml.ISchemaItem
     return ISchemaAttributeGroup
 def _define_ISchemaModelGroup_head():
     class ISchemaModelGroup(win32more.Data.Xml.MsXml.ISchemaParticle_head):
@@ -1862,6 +1941,7 @@ def _define_ISchemaModelGroup_head():
 def _define_ISchemaModelGroup():
     ISchemaModelGroup = win32more.Data.Xml.MsXml.ISchemaModelGroup_head
     ISchemaModelGroup.get_particles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaItemCollection_head), use_last_error=False)(16, 'get_particles', ((1, 'particles'),)))
+    win32more.Data.Xml.MsXml.ISchemaParticle
     return ISchemaModelGroup
 def _define_ISchemaAny_head():
     class ISchemaAny(win32more.Data.Xml.MsXml.ISchemaParticle_head):
@@ -1871,6 +1951,7 @@ def _define_ISchemaAny():
     ISchemaAny = win32more.Data.Xml.MsXml.ISchemaAny_head
     ISchemaAny.get_namespaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaStringCollection_head), use_last_error=False)(16, 'get_namespaces', ((1, 'namespaces'),)))
     ISchemaAny.get_processContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.SCHEMAPROCESSCONTENTS), use_last_error=False)(17, 'get_processContents', ((1, 'processContents'),)))
+    win32more.Data.Xml.MsXml.ISchemaParticle
     return ISchemaAny
 def _define_ISchemaIdentityConstraint_head():
     class ISchemaIdentityConstraint(win32more.Data.Xml.MsXml.ISchemaItem_head):
@@ -1881,6 +1962,7 @@ def _define_ISchemaIdentityConstraint():
     ISchemaIdentityConstraint.get_selector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_selector', ((1, 'selector'),)))
     ISchemaIdentityConstraint.get_fields = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaStringCollection_head), use_last_error=False)(15, 'get_fields', ((1, 'fields'),)))
     ISchemaIdentityConstraint.get_referencedKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.Xml.MsXml.ISchemaIdentityConstraint_head), use_last_error=False)(16, 'get_referencedKey', ((1, 'key'),)))
+    win32more.Data.Xml.MsXml.ISchemaItem
     return ISchemaIdentityConstraint
 def _define_ISchemaNotation_head():
     class ISchemaNotation(win32more.Data.Xml.MsXml.ISchemaItem_head):
@@ -1890,6 +1972,7 @@ def _define_ISchemaNotation():
     ISchemaNotation = win32more.Data.Xml.MsXml.ISchemaNotation_head
     ISchemaNotation.get_systemIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_systemIdentifier', ((1, 'uri'),)))
     ISchemaNotation.get_publicIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_publicIdentifier', ((1, 'uri'),)))
+    win32more.Data.Xml.MsXml.ISchemaItem
     return ISchemaNotation
 def _define___msxml6_ReferenceRemainingTypes___head():
     class __msxml6_ReferenceRemainingTypes__(Structure):
@@ -2001,6 +2084,7 @@ def _define_IXMLHTTPRequest2Callback():
     IXMLHTTPRequest2Callback.OnDataAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLHTTPRequest2_head,win32more.System.Com.ISequentialStream_head, use_last_error=False)(5, 'OnDataAvailable', ((1, 'pXHR'),(1, 'pResponseStream'),)))
     IXMLHTTPRequest2Callback.OnResponseReceived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLHTTPRequest2_head,win32more.System.Com.ISequentialStream_head, use_last_error=False)(6, 'OnResponseReceived', ((1, 'pXHR'),(1, 'pResponseStream'),)))
     IXMLHTTPRequest2Callback.OnError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLHTTPRequest2_head,win32more.Foundation.HRESULT, use_last_error=False)(7, 'OnError', ((1, 'pXHR'),(1, 'hrError'),)))
+    win32more.System.Com.IUnknown
     return IXMLHTTPRequest2Callback
 def _define_IXMLHTTPRequest2_head():
     class IXMLHTTPRequest2(win32more.System.Com.IUnknown_head):
@@ -2018,6 +2102,7 @@ def _define_IXMLHTTPRequest2():
     IXMLHTTPRequest2.GetAllResponseHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(10, 'GetAllResponseHeaders', ((1, 'ppwszHeaders'),)))
     IXMLHTTPRequest2.GetCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.Data.Xml.MsXml.XHR_COOKIE_head)), use_last_error=False)(11, 'GetCookie', ((1, 'pwszUrl'),(1, 'pwszName'),(1, 'dwFlags'),(1, 'pcCookies'),(1, 'ppCookies'),)))
     IXMLHTTPRequest2.GetResponseHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(UInt16)), use_last_error=False)(12, 'GetResponseHeader', ((1, 'pwszHeader'),(1, 'ppwszValue'),)))
+    win32more.System.Com.IUnknown
     return IXMLHTTPRequest2
 def _define_XHR_CERT_head():
     class XHR_CERT(Structure):
@@ -2038,6 +2123,7 @@ def _define_IXMLHTTPRequest3Callback():
     IXMLHTTPRequest3Callback = win32more.Data.Xml.MsXml.IXMLHTTPRequest3Callback_head
     IXMLHTTPRequest3Callback.OnServerCertificateReceived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLHTTPRequest3_head,UInt32,UInt32,POINTER(win32more.Data.Xml.MsXml.XHR_CERT), use_last_error=False)(8, 'OnServerCertificateReceived', ((1, 'pXHR'),(1, 'dwCertificateErrors'),(1, 'cServerCertificateChain'),(1, 'rgServerCertificateChain'),)))
     IXMLHTTPRequest3Callback.OnClientCertificateRequested = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLHTTPRequest3_head,UInt32,POINTER(POINTER(UInt16)), use_last_error=False)(9, 'OnClientCertificateRequested', ((1, 'pXHR'),(1, 'cIssuerList'),(1, 'rgpwszIssuerList'),)))
+    win32more.Data.Xml.MsXml.IXMLHTTPRequest2Callback
     return IXMLHTTPRequest3Callback
 def _define_IXMLHTTPRequest3_head():
     class IXMLHTTPRequest3(win32more.Data.Xml.MsXml.IXMLHTTPRequest2_head):
@@ -2046,6 +2132,7 @@ def _define_IXMLHTTPRequest3_head():
 def _define_IXMLHTTPRequest3():
     IXMLHTTPRequest3 = win32more.Data.Xml.MsXml.IXMLHTTPRequest3_head
     IXMLHTTPRequest3.SetClientCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),win32more.Foundation.PWSTR, use_last_error=False)(13, 'SetClientCertificate', ((1, 'cbClientCertificateHash'),(1, 'pbClientCertificateHash'),(1, 'pwszPin'),)))
+    win32more.Data.Xml.MsXml.IXMLHTTPRequest2
     return IXMLHTTPRequest3
 __all__ = [
     "E_XML_NOTWF",

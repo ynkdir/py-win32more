@@ -23,6 +23,7 @@ def _define_IGraphicsCaptureItemInterop():
     IGraphicsCaptureItemInterop = win32more.System.WinRT.Graphics.Capture.IGraphicsCaptureItemInterop_head
     IGraphicsCaptureItemInterop.CreateForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateForWindow', ((1, 'window'),(1, 'riid'),(1, 'result'),)))
     IGraphicsCaptureItemInterop.CreateForMonitor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HMONITOR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'CreateForMonitor', ((1, 'monitor'),(1, 'riid'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return IGraphicsCaptureItemInterop
 __all__ = [
     "IGraphicsCaptureItemInterop",

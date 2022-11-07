@@ -69,10 +69,15 @@ def __dir__():
                 raise RuntimeError(f"unknown type {mt['Kind']}")
 
     def visit_com(self, mt) -> None:
-        base = f"{mt['Interface']['Api']}.{mt['Interface']['Name']}_head" if mt["Interface"] else "c_void_p"
+        if mt["Interface"]:
+            base = f"{mt['Interface']['Api']}.{mt['Interface']['Name']}"
+            base_head = f"{base}_head"
+        else:
+            base = "c_void_p"
+            base_head = base
         guid = repr(mt["Guid"])
         self.writeline(f"def _define_{mt['Name']}_head():")
-        self.writeline(f"    class {mt['Name']}({base}):")
+        self.writeline(f"    class {mt['Name']}({base_head}):")
         self.writeline(f"        Guid = Guid({guid})")
         self.writeline(f"    return {mt['Name']}")
         self.writeline(f"def _define_{mt['Name']}():")
@@ -90,6 +95,9 @@ def __dir__():
             else:
                 ps = "()"
             self.writeline(f"    {mt['Name']}.{m['Name']} = COMMETHOD(WINFUNCTYPE({ts}, use_last_error={m['SetLastError']})({m['_vtbl_index']}, '{m['Name']}', {ps}))")
+        # ensure base is defined
+        if base != base_head:
+            self.writeline(f"    {base}")
         self.writeline(f"    return {mt['Name']}")
 
     def visit_com_class_id(self, mt) -> None:

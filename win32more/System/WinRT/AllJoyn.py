@@ -21,6 +21,7 @@ def _define_IWindowsDevicesAllJoynBusAttachmentInterop_head():
 def _define_IWindowsDevicesAllJoynBusAttachmentInterop():
     IWindowsDevicesAllJoynBusAttachmentInterop = win32more.System.WinRT.AllJoyn.IWindowsDevicesAllJoynBusAttachmentInterop_head
     IWindowsDevicesAllJoynBusAttachmentInterop.get_Win32Handle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(6, 'get_Win32Handle', ((1, 'value'),)))
+    win32more.System.WinRT.IInspectable
     return IWindowsDevicesAllJoynBusAttachmentInterop
 def _define_IWindowsDevicesAllJoynBusAttachmentFactoryInterop_head():
     class IWindowsDevicesAllJoynBusAttachmentFactoryInterop(win32more.System.WinRT.IInspectable_head):
@@ -29,6 +30,7 @@ def _define_IWindowsDevicesAllJoynBusAttachmentFactoryInterop_head():
 def _define_IWindowsDevicesAllJoynBusAttachmentFactoryInterop():
     IWindowsDevicesAllJoynBusAttachmentFactoryInterop = win32more.System.WinRT.AllJoyn.IWindowsDevicesAllJoynBusAttachmentFactoryInterop_head
     IWindowsDevicesAllJoynBusAttachmentFactoryInterop.CreateFromWin32Handle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,Byte,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'CreateFromWin32Handle', ((1, 'win32handle'),(1, 'enableAboutData'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.WinRT.IInspectable
     return IWindowsDevicesAllJoynBusAttachmentFactoryInterop
 def _define_IWindowsDevicesAllJoynBusObjectInterop_head():
     class IWindowsDevicesAllJoynBusObjectInterop(win32more.System.WinRT.IInspectable_head):
@@ -39,6 +41,7 @@ def _define_IWindowsDevicesAllJoynBusObjectInterop():
     IWindowsDevicesAllJoynBusObjectInterop.AddPropertyGetHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.WinRT.HSTRING,IntPtr, use_last_error=False)(6, 'AddPropertyGetHandler', ((1, 'context'),(1, 'interfaceName'),(1, 'callback'),)))
     IWindowsDevicesAllJoynBusObjectInterop.AddPropertySetHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.WinRT.HSTRING,IntPtr, use_last_error=False)(7, 'AddPropertySetHandler', ((1, 'context'),(1, 'interfaceName'),(1, 'callback'),)))
     IWindowsDevicesAllJoynBusObjectInterop.get_Win32Handle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(8, 'get_Win32Handle', ((1, 'value'),)))
+    win32more.System.WinRT.IInspectable
     return IWindowsDevicesAllJoynBusObjectInterop
 def _define_IWindowsDevicesAllJoynBusObjectFactoryInterop_head():
     class IWindowsDevicesAllJoynBusObjectFactoryInterop(win32more.System.WinRT.IInspectable_head):
@@ -47,6 +50,7 @@ def _define_IWindowsDevicesAllJoynBusObjectFactoryInterop_head():
 def _define_IWindowsDevicesAllJoynBusObjectFactoryInterop():
     IWindowsDevicesAllJoynBusObjectFactoryInterop = win32more.System.WinRT.AllJoyn.IWindowsDevicesAllJoynBusObjectFactoryInterop_head
     IWindowsDevicesAllJoynBusObjectFactoryInterop.CreateFromWin32Handle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'CreateFromWin32Handle', ((1, 'win32handle'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.WinRT.IInspectable
     return IWindowsDevicesAllJoynBusObjectFactoryInterop
 __all__ = [
     "IWindowsDevicesAllJoynBusAttachmentInterop",

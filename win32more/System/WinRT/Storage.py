@@ -21,6 +21,7 @@ def _define_IRandomAccessStreamFileAccessMode_head():
 def _define_IRandomAccessStreamFileAccessMode():
     IRandomAccessStreamFileAccessMode = win32more.System.WinRT.Storage.IRandomAccessStreamFileAccessMode_head
     IRandomAccessStreamFileAccessMode.GetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetMode', ((1, 'fileAccessMode'),)))
+    win32more.System.Com.IUnknown
     return IRandomAccessStreamFileAccessMode
 def _define_IUnbufferedFileHandleOplockCallback_head():
     class IUnbufferedFileHandleOplockCallback(win32more.System.Com.IUnknown_head):
@@ -29,6 +30,7 @@ def _define_IUnbufferedFileHandleOplockCallback_head():
 def _define_IUnbufferedFileHandleOplockCallback():
     IUnbufferedFileHandleOplockCallback = win32more.System.WinRT.Storage.IUnbufferedFileHandleOplockCallback_head
     IUnbufferedFileHandleOplockCallback.OnBrokenCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnBrokenCallback', ()))
+    win32more.System.Com.IUnknown
     return IUnbufferedFileHandleOplockCallback
 def _define_IUnbufferedFileHandleProvider_head():
     class IUnbufferedFileHandleProvider(win32more.System.Com.IUnknown_head):
@@ -38,6 +40,7 @@ def _define_IUnbufferedFileHandleProvider():
     IUnbufferedFileHandleProvider = win32more.System.WinRT.Storage.IUnbufferedFileHandleProvider_head
     IUnbufferedFileHandleProvider.OpenUnbufferedFileHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.Storage.IUnbufferedFileHandleOplockCallback_head,POINTER(UIntPtr), use_last_error=False)(3, 'OpenUnbufferedFileHandle', ((1, 'oplockBreakCallback'),(1, 'fileHandle'),)))
     IUnbufferedFileHandleProvider.CloseUnbufferedFileHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'CloseUnbufferedFileHandle', ()))
+    win32more.System.Com.IUnknown
     return IUnbufferedFileHandleProvider
 HANDLE_OPTIONS = UInt32
 HO_NONE = 0
@@ -72,6 +75,7 @@ def _define_IOplockBreakingHandler_head():
 def _define_IOplockBreakingHandler():
     IOplockBreakingHandler = win32more.System.WinRT.Storage.IOplockBreakingHandler_head
     IOplockBreakingHandler.OplockBreaking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OplockBreaking', ()))
+    win32more.System.Com.IUnknown
     return IOplockBreakingHandler
 def _define_IStorageItemHandleAccess_head():
     class IStorageItemHandleAccess(win32more.System.Com.IUnknown_head):
@@ -80,6 +84,7 @@ def _define_IStorageItemHandleAccess_head():
 def _define_IStorageItemHandleAccess():
     IStorageItemHandleAccess = win32more.System.WinRT.Storage.IStorageItemHandleAccess_head
     IStorageItemHandleAccess.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS,win32more.System.WinRT.Storage.HANDLE_SHARING_OPTIONS,win32more.System.WinRT.Storage.HANDLE_OPTIONS,win32more.System.WinRT.Storage.IOplockBreakingHandler_head,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(3, 'Create', ((1, 'accessOptions'),(1, 'sharingOptions'),(1, 'options'),(1, 'oplockBreakingHandler'),(1, 'interopHandle'),)))
+    win32more.System.Com.IUnknown
     return IStorageItemHandleAccess
 def _define_IStorageFolderHandleAccess_head():
     class IStorageFolderHandleAccess(win32more.System.Com.IUnknown_head):
@@ -88,6 +93,7 @@ def _define_IStorageFolderHandleAccess_head():
 def _define_IStorageFolderHandleAccess():
     IStorageFolderHandleAccess = win32more.System.WinRT.Storage.IStorageFolderHandleAccess_head
     IStorageFolderHandleAccess.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.WinRT.Storage.HANDLE_CREATION_OPTIONS,win32more.System.WinRT.Storage.HANDLE_ACCESS_OPTIONS,win32more.System.WinRT.Storage.HANDLE_SHARING_OPTIONS,win32more.System.WinRT.Storage.HANDLE_OPTIONS,win32more.System.WinRT.Storage.IOplockBreakingHandler_head,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(3, 'Create', ((1, 'fileName'),(1, 'creationOptions'),(1, 'accessOptions'),(1, 'sharingOptions'),(1, 'options'),(1, 'oplockBreakingHandler'),(1, 'interopHandle'),)))
+    win32more.System.Com.IUnknown
     return IStorageFolderHandleAccess
 __all__ = [
     "IRandomAccessStreamFileAccessMode",

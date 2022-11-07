@@ -1964,6 +1964,7 @@ def _define_INotifyReplica_head():
 def _define_INotifyReplica():
     INotifyReplica = win32more.UI.Shell.INotifyReplica_head
     INotifyReplica.YouAreAReplica = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IMoniker_head), use_last_error=False)(3, 'YouAreAReplica', ((1, 'ulcOtherReplicas'),(1, 'rgpmkOtherReplicas'),)))
+    win32more.System.Com.IUnknown
     return INotifyReplica
 def _define_APPCATEGORYINFO_head():
     class APPCATEGORYINFO(Structure):
@@ -2207,6 +2208,7 @@ def _define_IContextMenu():
     IContextMenu.QueryContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HMENU,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(3, 'QueryContextMenu', ((1, 'hmenu'),(1, 'indexMenu'),(1, 'idCmdFirst'),(1, 'idCmdLast'),(1, 'uFlags'),)))
     IContextMenu.InvokeCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.CMINVOKECOMMANDINFO_head), use_last_error=False)(4, 'InvokeCommand', ((1, 'pici'),)))
     IContextMenu.GetCommandString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,POINTER(UInt32),win32more.Foundation.PSTR,UInt32, use_last_error=False)(5, 'GetCommandString', ((1, 'idCmd'),(1, 'uType'),(1, 'pReserved'),(1, 'pszName'),(1, 'cchMax'),)))
+    win32more.System.Com.IUnknown
     return IContextMenu
 def _define_IContextMenu2_head():
     class IContextMenu2(win32more.UI.Shell.IContextMenu_head):
@@ -2215,6 +2217,7 @@ def _define_IContextMenu2_head():
 def _define_IContextMenu2():
     IContextMenu2 = win32more.UI.Shell.IContextMenu2_head
     IContextMenu2.HandleMenuMsg = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(6, 'HandleMenuMsg', ((1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),)))
+    win32more.UI.Shell.IContextMenu
     return IContextMenu2
 def _define_IContextMenu3_head():
     class IContextMenu3(win32more.UI.Shell.IContextMenu2_head):
@@ -2223,6 +2226,7 @@ def _define_IContextMenu3_head():
 def _define_IContextMenu3():
     IContextMenu3 = win32more.UI.Shell.IContextMenu3_head
     IContextMenu3.HandleMenuMsg2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT), use_last_error=False)(7, 'HandleMenuMsg2', ((1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),(1, 'plResult'),)))
+    win32more.UI.Shell.IContextMenu2
     return IContextMenu3
 def _define_IExecuteCommand_head():
     class IExecuteCommand(win32more.System.Com.IUnknown_head):
@@ -2237,6 +2241,7 @@ def _define_IExecuteCommand():
     IExecuteCommand.SetNoShowUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(7, 'SetNoShowUI', ((1, 'fNoShowUI'),)))
     IExecuteCommand.SetDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'SetDirectory', ((1, 'pszDirectory'),)))
     IExecuteCommand.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Execute', ()))
+    win32more.System.Com.IUnknown
     return IExecuteCommand
 def _define_IPersistFolder_head():
     class IPersistFolder(win32more.System.Com.IPersist_head):
@@ -2245,6 +2250,7 @@ def _define_IPersistFolder_head():
 def _define_IPersistFolder():
     IPersistFolder = win32more.UI.Shell.IPersistFolder_head
     IPersistFolder.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(4, 'Initialize', ((1, 'pidl'),)))
+    win32more.System.Com.IPersist
     return IPersistFolder
 def _define_IRunnableTask_head():
     class IRunnableTask(win32more.System.Com.IUnknown_head):
@@ -2257,6 +2263,7 @@ def _define_IRunnableTask():
     IRunnableTask.Suspend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Suspend', ()))
     IRunnableTask.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Resume', ()))
     IRunnableTask.IsRunning = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(7, 'IsRunning', ()))
+    win32more.System.Com.IUnknown
     return IRunnableTask
 def _define_IShellTaskScheduler_head():
     class IShellTaskScheduler(win32more.System.Com.IUnknown_head):
@@ -2268,6 +2275,7 @@ def _define_IShellTaskScheduler():
     IShellTaskScheduler.RemoveTasks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UIntPtr,win32more.Foundation.BOOL, use_last_error=False)(4, 'RemoveTasks', ((1, 'rtoid'),(1, 'lParam'),(1, 'bWaitIfRunning'),)))
     IShellTaskScheduler.CountTasks = COMMETHOD(WINFUNCTYPE(UInt32,POINTER(Guid), use_last_error=False)(5, 'CountTasks', ((1, 'rtoid'),)))
     IShellTaskScheduler.Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(6, 'Status', ((1, 'dwReleaseStatus'),(1, 'dwThreadTimeout'),)))
+    win32more.System.Com.IUnknown
     return IShellTaskScheduler
 def _define_IPersistFolder2_head():
     class IPersistFolder2(win32more.UI.Shell.IPersistFolder_head):
@@ -2276,6 +2284,7 @@ def _define_IPersistFolder2_head():
 def _define_IPersistFolder2():
     IPersistFolder2 = win32more.UI.Shell.IPersistFolder2_head
     IPersistFolder2.GetCurFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(5, 'GetCurFolder', ((1, 'ppidl'),)))
+    win32more.UI.Shell.IPersistFolder
     return IPersistFolder2
 def _define_PERSIST_FOLDER_TARGET_INFO_head():
     class PERSIST_FOLDER_TARGET_INFO(Structure):
@@ -2299,6 +2308,7 @@ def _define_IPersistFolder3():
     IPersistFolder3 = win32more.UI.Shell.IPersistFolder3_head
     IPersistFolder3.InitializeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(win32more.UI.Shell.PERSIST_FOLDER_TARGET_INFO_head), use_last_error=False)(6, 'InitializeEx', ((1, 'pbc'),(1, 'pidlRoot'),(1, 'ppfti'),)))
     IPersistFolder3.GetFolderTargetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PERSIST_FOLDER_TARGET_INFO_head), use_last_error=False)(7, 'GetFolderTargetInfo', ((1, 'ppfti'),)))
+    win32more.UI.Shell.IPersistFolder2
     return IPersistFolder3
 def _define_IPersistIDList_head():
     class IPersistIDList(win32more.System.Com.IPersist_head):
@@ -2308,6 +2318,7 @@ def _define_IPersistIDList():
     IPersistIDList = win32more.UI.Shell.IPersistIDList_head
     IPersistIDList.SetIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(4, 'SetIDList', ((1, 'pidl'),)))
     IPersistIDList.GetIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(5, 'GetIDList', ((1, 'ppidl'),)))
+    win32more.System.Com.IPersist
     return IPersistIDList
 def _define_IEnumIDList_head():
     class IEnumIDList(win32more.System.Com.IUnknown_head):
@@ -2319,6 +2330,7 @@ def _define_IEnumIDList():
     IEnumIDList.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumIDList.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumIDList.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumIDList_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumIDList
 def _define_IEnumFullIDList_head():
     class IEnumFullIDList(win32more.System.Com.IUnknown_head):
@@ -2330,6 +2342,7 @@ def _define_IEnumFullIDList():
     IEnumFullIDList.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumFullIDList.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumFullIDList.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumFullIDList_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumFullIDList
 _SHGDNF = Int32
 SHGDN_NORMAL = 0
@@ -2367,6 +2380,7 @@ def _define_IFileSyncMergeHandler():
     IFileSyncMergeHandler = win32more.UI.Shell.IFileSyncMergeHandler_head
     IFileSyncMergeHandler.Merge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.MERGE_UPDATE_STATUS), use_last_error=False)(3, 'Merge', ((1, 'localFilePath'),(1, 'serverFilePath'),(1, 'updateStatus'),)))
     IFileSyncMergeHandler.ShowResolveConflictUIAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Gdi.HMONITOR, use_last_error=False)(4, 'ShowResolveConflictUIAsync', ((1, 'localFilePath'),(1, 'monitorToDisplayOn'),)))
+    win32more.System.Com.IUnknown
     return IFileSyncMergeHandler
 FOLDER_ENUM_MODE = Int32
 FEM_VIEWRESULT = 0
@@ -2379,6 +2393,7 @@ def _define_IObjectWithFolderEnumMode():
     IObjectWithFolderEnumMode = win32more.UI.Shell.IObjectWithFolderEnumMode_head
     IObjectWithFolderEnumMode.SetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.FOLDER_ENUM_MODE, use_last_error=False)(3, 'SetMode', ((1, 'feMode'),)))
     IObjectWithFolderEnumMode.GetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.FOLDER_ENUM_MODE), use_last_error=False)(4, 'GetMode', ((1, 'pfeMode'),)))
+    win32more.System.Com.IUnknown
     return IObjectWithFolderEnumMode
 def _define_IParseAndCreateItem_head():
     class IParseAndCreateItem(win32more.System.Com.IUnknown_head):
@@ -2388,6 +2403,7 @@ def _define_IParseAndCreateItem():
     IParseAndCreateItem = win32more.UI.Shell.IParseAndCreateItem_head
     IParseAndCreateItem.SetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(3, 'SetItem', ((1, 'psi'),)))
     IParseAndCreateItem.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetItem', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IParseAndCreateItem
 def _define_IShellFolder_head():
     class IShellFolder(win32more.System.Com.IUnknown_head):
@@ -2405,6 +2421,7 @@ def _define_IShellFolder():
     IShellFolder.GetUIObjectOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)),POINTER(Guid),POINTER(UInt32),POINTER(c_void_p), use_last_error=False)(10, 'GetUIObjectOf', ((1, 'hwndOwner'),(1, 'cidl'),(1, 'apidl'),(1, 'riid'),(1, 'rgfReserved'),(1, 'ppv'),)))
     IShellFolder.GetDisplayNameOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),UInt32,POINTER(win32more.UI.Shell.Common.STRRET_head), use_last_error=False)(11, 'GetDisplayNameOf', ((1, 'pidl'),(1, 'uFlags'),(1, 'pName'),)))
     IShellFolder.SetNameOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(12, 'SetNameOf', ((1, 'hwnd'),(1, 'pidl'),(1, 'pszName'),(1, 'uFlags'),(1, 'ppidlOut'),)))
+    win32more.System.Com.IUnknown
     return IShellFolder
 def _define_EXTRASEARCH_head():
     class EXTRASEARCH(Structure):
@@ -2428,6 +2445,7 @@ def _define_IEnumExtraSearch():
     IEnumExtraSearch.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumExtraSearch.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumExtraSearch.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumExtraSearch_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumExtraSearch
 def _define_IShellFolder2_head():
     class IShellFolder2(win32more.UI.Shell.IShellFolder_head):
@@ -2442,6 +2460,7 @@ def _define_IShellFolder2():
     IShellFolder2.GetDetailsEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'GetDetailsEx', ((1, 'pidl'),(1, 'pscid'),(1, 'pv'),)))
     IShellFolder2.GetDetailsOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),UInt32,POINTER(win32more.UI.Shell.Common.SHELLDETAILS_head), use_last_error=False)(18, 'GetDetailsOf', ((1, 'pidl'),(1, 'iColumn'),(1, 'psd'),)))
     IShellFolder2.MapColumnToSCID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(19, 'MapColumnToSCID', ((1, 'iColumn'),(1, 'pscid'),)))
+    win32more.UI.Shell.IShellFolder
     return IShellFolder2
 FOLDERFLAGS = Int32
 FWF_NONE = 0
@@ -2552,6 +2571,7 @@ def _define_IShellView():
     IShellView.SaveViewState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'SaveViewState', ()))
     IShellView.SelectItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),UInt32, use_last_error=False)(14, 'SelectItem', ((1, 'pidlItem'),(1, 'uFlags'),)))
     IShellView.GetItemObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(15, 'GetItemObject', ((1, 'uItem'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Ole.IOleWindow
     return IShellView
 def _define_SV2CVW2_PARAMS_head():
     class SV2CVW2_PARAMS(Structure):
@@ -2579,6 +2599,7 @@ def _define_IShellView2():
     IShellView2.CreateViewWindow2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SV2CVW2_PARAMS_head), use_last_error=False)(17, 'CreateViewWindow2', ((1, 'lpParams'),)))
     IShellView2.HandleRename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(18, 'HandleRename', ((1, 'pidlNew'),)))
     IShellView2.SelectAndPositionItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),UInt32,POINTER(win32more.Foundation.POINT_head), use_last_error=False)(19, 'SelectAndPositionItem', ((1, 'pidlItem'),(1, 'uFlags'),(1, 'ppt'),)))
+    win32more.UI.Shell.IShellView
     return IShellView2
 def _define_IFolderView_head():
     class IFolderView(win32more.System.Com.IUnknown_head):
@@ -2600,6 +2621,7 @@ def _define_IFolderView():
     IFolderView.GetAutoArrange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'GetAutoArrange', ()))
     IFolderView.SelectItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32, use_last_error=False)(15, 'SelectItem', ((1, 'iItem'),(1, 'dwFlags'),)))
     IFolderView.SelectAndPositionItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)),POINTER(win32more.Foundation.POINT),UInt32, use_last_error=False)(16, 'SelectAndPositionItems', ((1, 'cidl'),(1, 'apidl'),(1, 'apt'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IFolderView
 SORTDIRECTION = Int32
 SORT_DESCENDING = -1
@@ -2648,6 +2670,7 @@ def _define_IFolderView2():
     IFolderView2.SetRedraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(39, 'SetRedraw', ((1, 'fRedrawOn'),)))
     IFolderView2.IsMoveInSameFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(40, 'IsMoveInSameFolder', ()))
     IFolderView2.DoRename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(41, 'DoRename', ()))
+    win32more.UI.Shell.IFolderView
     return IFolderView2
 def _define_IFolderViewSettings_head():
     class IFolderViewSettings(win32more.System.Com.IUnknown_head):
@@ -2662,6 +2685,7 @@ def _define_IFolderViewSettings():
     IFolderViewSettings.GetFolderFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.FOLDERFLAGS),POINTER(win32more.UI.Shell.FOLDERFLAGS), use_last_error=False)(7, 'GetFolderFlags', ((1, 'pfolderMask'),(1, 'pfolderFlags'),)))
     IFolderViewSettings.GetSortColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SORTCOLUMN),UInt32,POINTER(UInt32), use_last_error=False)(8, 'GetSortColumns', ((1, 'rgSortColumns'),(1, 'cColumnsIn'),(1, 'pcColumnsOut'),)))
     IFolderViewSettings.GetGroupSubsetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetGroupSubsetCount', ((1, 'pcVisibleRows'),)))
+    win32more.System.Com.IUnknown
     return IFolderViewSettings
 def _define_IInitializeNetworkFolder_head():
     class IInitializeNetworkFolder(win32more.System.Com.IUnknown_head):
@@ -2670,6 +2694,7 @@ def _define_IInitializeNetworkFolder_head():
 def _define_IInitializeNetworkFolder():
     IInitializeNetworkFolder = win32more.UI.Shell.IInitializeNetworkFolder_head
     IInitializeNetworkFolder.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Initialize', ((1, 'pidl'),(1, 'pidlTarget'),(1, 'uDisplayType'),(1, 'pszResName'),(1, 'pszProvider'),)))
+    win32more.System.Com.IUnknown
     return IInitializeNetworkFolder
 def _define_INetworkFolderInternal_head():
     class INetworkFolderInternal(win32more.System.Com.IUnknown_head):
@@ -2680,6 +2705,7 @@ def _define_INetworkFolderInternal():
     INetworkFolderInternal.GetResourceDisplayType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetResourceDisplayType', ((1, 'displayType'),)))
     INetworkFolderInternal.GetIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(4, 'GetIDList', ((1, 'idList'),)))
     INetworkFolderInternal.GetProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)),UInt32,POINTER(Char), use_last_error=False)(5, 'GetProvider', ((1, 'itemIdCount'),(1, 'itemIds'),(1, 'providerMaxLength'),(1, 'provider'),)))
+    win32more.System.Com.IUnknown
     return INetworkFolderInternal
 def _define_IPreviewHandlerVisuals_head():
     class IPreviewHandlerVisuals(win32more.System.Com.IUnknown_head):
@@ -2690,6 +2716,7 @@ def _define_IPreviewHandlerVisuals():
     IPreviewHandlerVisuals.SetBackgroundColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'SetBackgroundColor', ((1, 'color'),)))
     IPreviewHandlerVisuals.SetFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.LOGFONTW_head), use_last_error=False)(4, 'SetFont', ((1, 'plf'),)))
     IPreviewHandlerVisuals.SetTextColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'SetTextColor', ((1, 'color'),)))
+    win32more.System.Com.IUnknown
     return IPreviewHandlerVisuals
 def _define_ICommDlgBrowser_head():
     class ICommDlgBrowser(win32more.System.Com.IUnknown_head):
@@ -2700,6 +2727,7 @@ def _define_ICommDlgBrowser():
     ICommDlgBrowser.OnDefaultCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head, use_last_error=False)(3, 'OnDefaultCommand', ((1, 'ppshv'),)))
     ICommDlgBrowser.OnStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head,UInt32, use_last_error=False)(4, 'OnStateChange', ((1, 'ppshv'),(1, 'uChange'),)))
     ICommDlgBrowser.IncludeObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(5, 'IncludeObject', ((1, 'ppshv'),(1, 'pidl'),)))
+    win32more.System.Com.IUnknown
     return ICommDlgBrowser
 def _define_ICommDlgBrowser2_head():
     class ICommDlgBrowser2(win32more.UI.Shell.ICommDlgBrowser_head):
@@ -2710,6 +2738,7 @@ def _define_ICommDlgBrowser2():
     ICommDlgBrowser2.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head,UInt32, use_last_error=False)(6, 'Notify', ((1, 'ppshv'),(1, 'dwNotifyType'),)))
     ICommDlgBrowser2.GetDefaultMenuText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head,POINTER(Char),Int32, use_last_error=False)(7, 'GetDefaultMenuText', ((1, 'ppshv'),(1, 'pszText'),(1, 'cchMax'),)))
     ICommDlgBrowser2.GetViewFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetViewFlags', ((1, 'pdwFlags'),)))
+    win32more.UI.Shell.ICommDlgBrowser
     return ICommDlgBrowser2
 CM_MASK = Int32
 CM_MASK_WIDTH = 1
@@ -2756,6 +2785,7 @@ def _define_IColumnManager():
     IColumnManager.GetColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.CM_ENUM_FLAGS,POINTER(UInt32), use_last_error=False)(5, 'GetColumnCount', ((1, 'dwFlags'),(1, 'puCount'),)))
     IColumnManager.GetColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.CM_ENUM_FLAGS,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY),UInt32, use_last_error=False)(6, 'GetColumns', ((1, 'dwFlags'),(1, 'rgkeyOrder'),(1, 'cColumns'),)))
     IColumnManager.SetColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY),UInt32, use_last_error=False)(7, 'SetColumns', ((1, 'rgkeyOrder'),(1, 'cVisible'),)))
+    win32more.System.Com.IUnknown
     return IColumnManager
 def _define_IFolderFilterSite_head():
     class IFolderFilterSite(win32more.System.Com.IUnknown_head):
@@ -2764,6 +2794,7 @@ def _define_IFolderFilterSite_head():
 def _define_IFolderFilterSite():
     IFolderFilterSite = win32more.UI.Shell.IFolderFilterSite_head
     IFolderFilterSite.SetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetFilter', ((1, 'punk'),)))
+    win32more.System.Com.IUnknown
     return IFolderFilterSite
 def _define_IFolderFilter_head():
     class IFolderFilter(win32more.System.Com.IUnknown_head):
@@ -2773,6 +2804,7 @@ def _define_IFolderFilter():
     IFolderFilter = win32more.UI.Shell.IFolderFilter_head
     IFolderFilter.ShouldShow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellFolder_head,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(3, 'ShouldShow', ((1, 'psf'),(1, 'pidlFolder'),(1, 'pidlItem'),)))
     IFolderFilter.GetEnumFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellFolder_head,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(win32more.Foundation.HWND),POINTER(UInt32), use_last_error=False)(4, 'GetEnumFlags', ((1, 'psf'),(1, 'pidlFolder'),(1, 'phwnd'),(1, 'pgrfFlags'),)))
+    win32more.System.Com.IUnknown
     return IFolderFilter
 def _define_IInputObjectSite_head():
     class IInputObjectSite(win32more.System.Com.IUnknown_head):
@@ -2781,6 +2813,7 @@ def _define_IInputObjectSite_head():
 def _define_IInputObjectSite():
     IInputObjectSite = win32more.UI.Shell.IInputObjectSite_head
     IInputObjectSite.OnFocusChangeIS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL, use_last_error=False)(3, 'OnFocusChangeIS', ((1, 'punkObj'),(1, 'fSetFocus'),)))
+    win32more.System.Com.IUnknown
     return IInputObjectSite
 def _define_IInputObject_head():
     class IInputObject(win32more.System.Com.IUnknown_head):
@@ -2791,6 +2824,7 @@ def _define_IInputObject():
     IInputObject.UIActivateIO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(3, 'UIActivateIO', ((1, 'fActivate'),(1, 'pMsg'),)))
     IInputObject.HasFocusIO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'HasFocusIO', ()))
     IInputObject.TranslateAcceleratorIO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(5, 'TranslateAcceleratorIO', ((1, 'pMsg'),)))
+    win32more.System.Com.IUnknown
     return IInputObject
 def _define_IInputObject2_head():
     class IInputObject2(win32more.UI.Shell.IInputObject_head):
@@ -2799,6 +2833,7 @@ def _define_IInputObject2_head():
 def _define_IInputObject2():
     IInputObject2 = win32more.UI.Shell.IInputObject2_head
     IInputObject2.TranslateAcceleratorGlobal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(6, 'TranslateAcceleratorGlobal', ((1, 'pMsg'),)))
+    win32more.UI.Shell.IInputObject
     return IInputObject2
 def _define_IShellIcon_head():
     class IShellIcon(win32more.System.Com.IUnknown_head):
@@ -2807,6 +2842,7 @@ def _define_IShellIcon_head():
 def _define_IShellIcon():
     IShellIcon = win32more.UI.Shell.IShellIcon_head
     IShellIcon.GetIconOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),UInt32,POINTER(Int32), use_last_error=False)(3, 'GetIconOf', ((1, 'pidl'),(1, 'flags'),(1, 'pIconIndex'),)))
+    win32more.System.Com.IUnknown
     return IShellIcon
 def _define_IShellBrowser_head():
     class IShellBrowser(win32more.System.Ole.IOleWindow_head):
@@ -2827,6 +2863,7 @@ def _define_IShellBrowser():
     IShellBrowser.QueryActiveShellView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IShellView_head), use_last_error=False)(15, 'QueryActiveShellView', ((1, 'ppshv'),)))
     IShellBrowser.OnViewWindowActive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head, use_last_error=False)(16, 'OnViewWindowActive', ((1, 'pshv'),)))
     IShellBrowser.SetToolbarItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.TBBUTTON),UInt32,UInt32, use_last_error=False)(17, 'SetToolbarItems', ((1, 'lpButtons'),(1, 'nButtons'),(1, 'uFlags'),)))
+    win32more.System.Ole.IOleWindow
     return IShellBrowser
 def _define_IProfferService_head():
     class IProfferService(win32more.System.Com.IUnknown_head):
@@ -2836,6 +2873,7 @@ def _define_IProfferService():
     IProfferService = win32more.UI.Shell.IProfferService_head
     IProfferService.ProfferService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IServiceProvider_head,POINTER(UInt32), use_last_error=False)(3, 'ProfferService', ((1, 'serviceId'),(1, 'serviceProvider'),(1, 'cookie'),)))
     IProfferService.RevokeService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'RevokeService', ((1, 'cookie'),)))
+    win32more.System.Com.IUnknown
     return IProfferService
 def _define_IGetServiceIds_head():
     class IGetServiceIds(win32more.System.Com.IUnknown_head):
@@ -2844,6 +2882,7 @@ def _define_IGetServiceIds_head():
 def _define_IGetServiceIds():
     IGetServiceIds = win32more.UI.Shell.IGetServiceIds_head
     IGetServiceIds.GetServiceIds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(3, 'GetServiceIds', ((1, 'serviceIdCount'),(1, 'serviceIds'),)))
+    win32more.System.Com.IUnknown
     return IGetServiceIds
 SIGDN = Int32
 SIGDN_NORMALDISPLAY = 0
@@ -2872,6 +2911,7 @@ def _define_IShellItem():
     IShellItem.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.SIGDN,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetDisplayName', ((1, 'sigdnName'),(1, 'ppszName'),)))
     IShellItem.GetAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(6, 'GetAttributes', ((1, 'sfgaoMask'),(1, 'psfgaoAttribs'),)))
     IShellItem.Compare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,UInt32,POINTER(Int32), use_last_error=False)(7, 'Compare', ((1, 'psi'),(1, 'hint'),(1, 'piOrder'),)))
+    win32more.System.Com.IUnknown
     return IShellItem
 DATAOBJ_GET_ITEM_FLAGS = Int32
 DOGIF_DEFAULT = 0
@@ -2898,6 +2938,7 @@ def _define_IShellItem2():
     IShellItem2.GetUInt32 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(UInt32), use_last_error=False)(18, 'GetUInt32', ((1, 'key'),(1, 'pui'),)))
     IShellItem2.GetUInt64 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(UInt64), use_last_error=False)(19, 'GetUInt64', ((1, 'key'),(1, 'pull'),)))
     IShellItem2.GetBool = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(20, 'GetBool', ((1, 'key'),(1, 'pf'),)))
+    win32more.UI.Shell.IShellItem
     return IShellItem2
 SIIGBF = Int32
 SIIGBF_RESIZETOFIT = 0
@@ -2917,6 +2958,7 @@ def _define_IShellItemImageFactory_head():
 def _define_IShellItemImageFactory():
     IShellItemImageFactory = win32more.UI.Shell.IShellItemImageFactory_head
     IShellItemImageFactory.GetImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.SIZE,win32more.UI.Shell.SIIGBF,POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(3, 'GetImage', ((1, 'size'),(1, 'flags'),(1, 'phbm'),)))
+    win32more.System.Com.IUnknown
     return IShellItemImageFactory
 def _define_IEnumShellItems_head():
     class IEnumShellItems(win32more.System.Com.IUnknown_head):
@@ -2928,6 +2970,7 @@ def _define_IEnumShellItems():
     IEnumShellItems.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumShellItems.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumShellItems.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumShellItems_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumShellItems
 STGOP = Int32
 STGOP_MOVE = 1
@@ -2970,6 +3013,7 @@ def _define_ITransferAdviseSink():
     ITransferAdviseSink.FileFailure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,win32more.Foundation.PWSTR,win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(7, 'FileFailure', ((1, 'psi'),(1, 'pszItem'),(1, 'hrError'),(1, 'pszRename'),(1, 'cchRename'),)))
     ITransferAdviseSink.SubStreamFailure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,win32more.Foundation.PWSTR,win32more.Foundation.HRESULT, use_last_error=False)(8, 'SubStreamFailure', ((1, 'psi'),(1, 'pszStreamName'),(1, 'hrError'),)))
     ITransferAdviseSink.PropertyFailure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.Foundation.HRESULT, use_last_error=False)(9, 'PropertyFailure', ((1, 'psi'),(1, 'pkey'),(1, 'hrError'),)))
+    win32more.System.Com.IUnknown
     return ITransferAdviseSink
 def _define_ITransferSource_head():
     class ITransferSource(win32more.System.Com.IUnknown_head):
@@ -2990,6 +3034,7 @@ def _define_ITransferSource():
     ITransferSource.GetDefaultDestinationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,win32more.UI.Shell.IShellItem_head,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(13, 'GetDefaultDestinationName', ((1, 'psiSource'),(1, 'psiParentDest'),(1, 'ppszDestinationName'),)))
     ITransferSource.EnterFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(14, 'EnterFolder', ((1, 'psiChildFolderDest'),)))
     ITransferSource.LeaveFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(15, 'LeaveFolder', ((1, 'psiChildFolderDest'),)))
+    win32more.System.Com.IUnknown
     return ITransferSource
 def _define_SHELL_ITEM_RESOURCE_head():
     class SHELL_ITEM_RESOURCE(Structure):
@@ -3012,6 +3057,7 @@ def _define_IEnumResources():
     IEnumResources.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumResources.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumResources.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumResources_head), use_last_error=False)(6, 'Clone', ((1, 'ppenumr'),)))
+    win32more.System.Com.IUnknown
     return IEnumResources
 def _define_IShellItemResources_head():
     class IShellItemResources(win32more.System.Com.IUnknown_head):
@@ -3029,6 +3075,7 @@ def _define_IShellItemResources():
     IShellItemResources.OpenResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SHELL_ITEM_RESOURCE_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(10, 'OpenResource', ((1, 'pcsir'),(1, 'riid'),(1, 'ppv'),)))
     IShellItemResources.CreateResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SHELL_ITEM_RESOURCE_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'CreateResource', ((1, 'pcsir'),(1, 'riid'),(1, 'ppv'),)))
     IShellItemResources.MarkForDelete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'MarkForDelete', ()))
+    win32more.System.Com.IUnknown
     return IShellItemResources
 def _define_ITransferDestination_head():
     class ITransferDestination(win32more.System.Com.IUnknown_head):
@@ -3039,6 +3086,7 @@ def _define_ITransferDestination():
     ITransferDestination.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ITransferAdviseSink_head,POINTER(UInt32), use_last_error=False)(3, 'Advise', ((1, 'psink'),(1, 'pdwCookie'),)))
     ITransferDestination.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Unadvise', ((1, 'dwCookie'),)))
     ITransferDestination.CreateItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt64,UInt32,POINTER(Guid),POINTER(c_void_p),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'CreateItem', ((1, 'pszName'),(1, 'dwAttributes'),(1, 'ullSize'),(1, 'flags'),(1, 'riidItem'),(1, 'ppvItem'),(1, 'riidResources'),(1, 'ppvResources'),)))
+    win32more.System.Com.IUnknown
     return ITransferDestination
 def _define_IFileOperationProgressSink_head():
     class IFileOperationProgressSink(win32more.System.Com.IUnknown_head):
@@ -3062,6 +3110,7 @@ def _define_IFileOperationProgressSink():
     IFileOperationProgressSink.ResetTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'ResetTimer', ()))
     IFileOperationProgressSink.PauseTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'PauseTimer', ()))
     IFileOperationProgressSink.ResumeTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'ResumeTimer', ()))
+    win32more.System.Com.IUnknown
     return IFileOperationProgressSink
 SIATTRIBFLAGS = Int32
 SIATTRIBFLAGS_AND = 1
@@ -3082,6 +3131,7 @@ def _define_IShellItemArray():
     IShellItemArray.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'pdwNumItems'),)))
     IShellItemArray.GetItemAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.IShellItem_head), use_last_error=False)(8, 'GetItemAt', ((1, 'dwIndex'),(1, 'ppsi'),)))
     IShellItemArray.EnumItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumShellItems_head), use_last_error=False)(9, 'EnumItems', ((1, 'ppenumShellItems'),)))
+    win32more.System.Com.IUnknown
     return IShellItemArray
 def _define_IInitializeWithItem_head():
     class IInitializeWithItem(win32more.System.Com.IUnknown_head):
@@ -3090,6 +3140,7 @@ def _define_IInitializeWithItem_head():
 def _define_IInitializeWithItem():
     IInitializeWithItem = win32more.UI.Shell.IInitializeWithItem_head
     IInitializeWithItem.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,UInt32, use_last_error=False)(3, 'Initialize', ((1, 'psi'),(1, 'grfMode'),)))
+    win32more.System.Com.IUnknown
     return IInitializeWithItem
 def _define_IObjectWithSelection_head():
     class IObjectWithSelection(win32more.System.Com.IUnknown_head):
@@ -3099,6 +3150,7 @@ def _define_IObjectWithSelection():
     IObjectWithSelection = win32more.UI.Shell.IObjectWithSelection_head
     IObjectWithSelection.SetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItemArray_head, use_last_error=False)(3, 'SetSelection', ((1, 'psia'),)))
     IObjectWithSelection.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetSelection', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IObjectWithSelection
 def _define_IObjectWithBackReferences_head():
     class IObjectWithBackReferences(win32more.System.Com.IUnknown_head):
@@ -3107,6 +3159,7 @@ def _define_IObjectWithBackReferences_head():
 def _define_IObjectWithBackReferences():
     IObjectWithBackReferences = win32more.UI.Shell.IObjectWithBackReferences_head
     IObjectWithBackReferences.RemoveBackReferences = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'RemoveBackReferences', ()))
+    win32more.System.Com.IUnknown
     return IObjectWithBackReferences
 def _define_ICategoryProvider_head():
     class ICategoryProvider(win32more.System.Com.IUnknown_head):
@@ -3120,6 +3173,7 @@ def _define_ICategoryProvider():
     ICategoryProvider.EnumCategories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumGUID_head), use_last_error=False)(6, 'EnumCategories', ((1, 'penum'),)))
     ICategoryProvider.GetCategoryName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Char),UInt32, use_last_error=False)(7, 'GetCategoryName', ((1, 'pguid'),(1, 'pszName'),(1, 'cch'),)))
     ICategoryProvider.CreateCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'CreateCategory', ((1, 'pguid'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return ICategoryProvider
 CATEGORYINFO_FLAGS = Int32
 CATINFO_NORMAL = 0
@@ -3156,6 +3210,7 @@ def _define_ICategorizer():
     ICategorizer.GetCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)),POINTER(UInt32), use_last_error=False)(4, 'GetCategory', ((1, 'cidl'),(1, 'apidl'),(1, 'rgCategoryIds'),)))
     ICategorizer.GetCategoryInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.CATEGORY_INFO_head), use_last_error=False)(5, 'GetCategoryInfo', ((1, 'dwCategoryId'),(1, 'pci'),)))
     ICategorizer.CompareCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.CATSORT_FLAGS,UInt32,UInt32, use_last_error=False)(6, 'CompareCategory', ((1, 'csfFlags'),(1, 'dwCategoryId1'),(1, 'dwCategoryId2'),)))
+    win32more.System.Com.IUnknown
     return ICategorizer
 def _define_SHDRAGIMAGE_head():
     class SHDRAGIMAGE(Structure):
@@ -3181,6 +3236,7 @@ def _define_IDropTargetHelper():
     IDropTargetHelper.DragOver = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head),UInt32, use_last_error=False)(5, 'DragOver', ((1, 'ppt'),(1, 'dwEffect'),)))
     IDropTargetHelper.Drop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,POINTER(win32more.Foundation.POINT_head),UInt32, use_last_error=False)(6, 'Drop', ((1, 'pDataObject'),(1, 'ppt'),(1, 'dwEffect'),)))
     IDropTargetHelper.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(7, 'Show', ((1, 'fShow'),)))
+    win32more.System.Com.IUnknown
     return IDropTargetHelper
 def _define_IDragSourceHelper_head():
     class IDragSourceHelper(win32more.System.Com.IUnknown_head):
@@ -3190,6 +3246,7 @@ def _define_IDragSourceHelper():
     IDragSourceHelper = win32more.UI.Shell.IDragSourceHelper_head
     IDragSourceHelper.InitializeFromBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SHDRAGIMAGE_head),win32more.System.Com.IDataObject_head, use_last_error=False)(3, 'InitializeFromBitmap', ((1, 'pshdi'),(1, 'pDataObject'),)))
     IDragSourceHelper.InitializeFromWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.POINT_head),win32more.System.Com.IDataObject_head, use_last_error=False)(4, 'InitializeFromWindow', ((1, 'hwnd'),(1, 'ppt'),(1, 'pDataObject'),)))
+    win32more.System.Com.IUnknown
     return IDragSourceHelper
 SLR_FLAGS = Int32
 SLR_NONE = 0
@@ -3236,6 +3293,7 @@ def _define_IShellLinkA():
     IShellLinkA.SetRelativePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32, use_last_error=False)(18, 'SetRelativePath', ((1, 'pszPathRel'),(1, 'dwReserved'),)))
     IShellLinkA.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(19, 'Resolve', ((1, 'hwnd'),(1, 'fFlags'),)))
     IShellLinkA.SetPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR, use_last_error=False)(20, 'SetPath', ((1, 'pszFile'),)))
+    win32more.System.Com.IUnknown
     return IShellLinkA
 def _define_IShellLinkW_head():
     class IShellLinkW(win32more.System.Com.IUnknown_head):
@@ -3261,6 +3319,7 @@ def _define_IShellLinkW():
     IShellLinkW.SetRelativePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(18, 'SetRelativePath', ((1, 'pszPathRel'),(1, 'dwReserved'),)))
     IShellLinkW.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(19, 'Resolve', ((1, 'hwnd'),(1, 'fFlags'),)))
     IShellLinkW.SetPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(20, 'SetPath', ((1, 'pszFile'),)))
+    win32more.System.Com.IUnknown
     return IShellLinkW
 def _define_IShellLinkDataList_head():
     class IShellLinkDataList(win32more.System.Com.IUnknown_head):
@@ -3273,6 +3332,7 @@ def _define_IShellLinkDataList():
     IShellLinkDataList.RemoveDataBlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'RemoveDataBlock', ((1, 'dwSig'),)))
     IShellLinkDataList.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetFlags', ((1, 'pdwFlags'),)))
     IShellLinkDataList.SetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'SetFlags', ((1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IShellLinkDataList
 def _define_IResolveShellLink_head():
     class IResolveShellLink(win32more.System.Com.IUnknown_head):
@@ -3281,6 +3341,7 @@ def _define_IResolveShellLink_head():
 def _define_IResolveShellLink():
     IResolveShellLink = win32more.UI.Shell.IResolveShellLink_head
     IResolveShellLink.ResolveShellLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.HWND,UInt32, use_last_error=False)(3, 'ResolveShellLink', ((1, 'punkLink'),(1, 'hwnd'),(1, 'fFlags'),)))
+    win32more.System.Com.IUnknown
     return IResolveShellLink
 _SPINITF = Int32
 SPINITF_NORMAL = 0
@@ -3294,6 +3355,7 @@ def _define_IActionProgressDialog():
     IActionProgressDialog = win32more.UI.Shell.IActionProgressDialog_head
     IActionProgressDialog.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Initialize', ((1, 'flags'),(1, 'pszTitle'),(1, 'pszCancel'),)))
     IActionProgressDialog.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Stop', ()))
+    win32more.System.Com.IUnknown
     return IActionProgressDialog
 _SPBEGINF = Int32
 SPBEGINF_NORMAL = 0
@@ -3331,6 +3393,7 @@ def _define_IActionProgress():
     IActionProgress.QueryCancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'QueryCancel', ((1, 'pfCancelled'),)))
     IActionProgress.ResetCancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'ResetCancel', ()))
     IActionProgress.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'End', ()))
+    win32more.System.Com.IUnknown
     return IActionProgress
 def _define_IShellExtInit_head():
     class IShellExtInit(win32more.System.Com.IUnknown_head):
@@ -3339,6 +3402,7 @@ def _define_IShellExtInit_head():
 def _define_IShellExtInit():
     IShellExtInit = win32more.UI.Shell.IShellExtInit_head
     IShellExtInit.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),win32more.System.Com.IDataObject_head,win32more.System.Registry.HKEY, use_last_error=False)(3, 'Initialize', ((1, 'pidlFolder'),(1, 'pdtobj'),(1, 'hkeyProgID'),)))
+    win32more.System.Com.IUnknown
     return IShellExtInit
 _EXPPS = Int32
 EXPPS_FILETYPES = 1
@@ -3350,6 +3414,7 @@ def _define_IShellPropSheetExt():
     IShellPropSheetExt = win32more.UI.Shell.IShellPropSheetExt_head
     IShellPropSheetExt.AddPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Controls.LPFNSVADDPROPSHEETPAGE,win32more.Foundation.LPARAM, use_last_error=False)(3, 'AddPages', ((1, 'pfnAddPage'),(1, 'lParam'),)))
     IShellPropSheetExt.ReplacePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Controls.LPFNSVADDPROPSHEETPAGE,win32more.Foundation.LPARAM, use_last_error=False)(4, 'ReplacePage', ((1, 'uPageID'),(1, 'pfnReplaceWith'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
     return IShellPropSheetExt
 def _define_IRemoteComputer_head():
     class IRemoteComputer(win32more.System.Com.IUnknown_head):
@@ -3358,6 +3423,7 @@ def _define_IRemoteComputer_head():
 def _define_IRemoteComputer():
     IRemoteComputer = win32more.UI.Shell.IRemoteComputer_head
     IRemoteComputer.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL, use_last_error=False)(3, 'Initialize', ((1, 'pszMachine'),(1, 'bEnumerating'),)))
+    win32more.System.Com.IUnknown
     return IRemoteComputer
 def _define_IQueryContinue_head():
     class IQueryContinue(win32more.System.Com.IUnknown_head):
@@ -3366,6 +3432,7 @@ def _define_IQueryContinue_head():
 def _define_IQueryContinue():
     IQueryContinue = win32more.UI.Shell.IQueryContinue_head
     IQueryContinue.QueryContinue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'QueryContinue', ()))
+    win32more.System.Com.IUnknown
     return IQueryContinue
 def _define_IObjectWithCancelEvent_head():
     class IObjectWithCancelEvent(win32more.System.Com.IUnknown_head):
@@ -3374,6 +3441,7 @@ def _define_IObjectWithCancelEvent_head():
 def _define_IObjectWithCancelEvent():
     IObjectWithCancelEvent = win32more.UI.Shell.IObjectWithCancelEvent_head
     IObjectWithCancelEvent.GetCancelEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(3, 'GetCancelEvent', ((1, 'phEvent'),)))
+    win32more.System.Com.IUnknown
     return IObjectWithCancelEvent
 def _define_IUserNotification_head():
     class IUserNotification(win32more.System.Com.IUnknown_head):
@@ -3386,6 +3454,7 @@ def _define_IUserNotification():
     IUserNotification.SetIconInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HICON,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SetIconInfo', ((1, 'hIcon'),(1, 'pszToolTip'),)))
     IUserNotification.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IQueryContinue_head,UInt32, use_last_error=False)(6, 'Show', ((1, 'pqc'),(1, 'dwContinuePollInterval'),)))
     IUserNotification.PlaySound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'PlaySound', ((1, 'pszSoundName'),)))
+    win32more.System.Com.IUnknown
     return IUserNotification
 def _define_IItemNameLimits_head():
     class IItemNameLimits(win32more.System.Com.IUnknown_head):
@@ -3395,6 +3464,7 @@ def _define_IItemNameLimits():
     IItemNameLimits = win32more.UI.Shell.IItemNameLimits_head
     IItemNameLimits.GetValidCharacters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetValidCharacters', ((1, 'ppwszValidChars'),(1, 'ppwszInvalidChars'),)))
     IItemNameLimits.GetMaxLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int32), use_last_error=False)(4, 'GetMaxLength', ((1, 'pszName'),(1, 'piMaxNameLen'),)))
+    win32more.System.Com.IUnknown
     return IItemNameLimits
 def _define_ISearchFolderItemFactory_head():
     class ISearchFolderItemFactory(win32more.System.Com.IUnknown_head):
@@ -3414,6 +3484,7 @@ def _define_ISearchFolderItemFactory():
     ISearchFolderItemFactory.SetCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head, use_last_error=False)(12, 'SetCondition', ((1, 'pCondition'),)))
     ISearchFolderItemFactory.GetShellItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(13, 'GetShellItem', ((1, 'riid'),(1, 'ppv'),)))
     ISearchFolderItemFactory.GetIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(14, 'GetIDList', ((1, 'ppidl'),)))
+    win32more.System.Com.IUnknown
     return ISearchFolderItemFactory
 def _define_IExtractImage_head():
     class IExtractImage(win32more.System.Com.IUnknown_head):
@@ -3423,6 +3494,7 @@ def _define_IExtractImage():
     IExtractImage = win32more.UI.Shell.IExtractImage_head
     IExtractImage.GetLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32),POINTER(win32more.Foundation.SIZE_head),UInt32,POINTER(UInt32), use_last_error=False)(3, 'GetLocation', ((1, 'pszPathBuffer'),(1, 'cch'),(1, 'pdwPriority'),(1, 'prgSize'),(1, 'dwRecClrDepth'),(1, 'pdwFlags'),)))
     IExtractImage.Extract = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(4, 'Extract', ((1, 'phBmpThumbnail'),)))
+    win32more.System.Com.IUnknown
     return IExtractImage
 def _define_IExtractImage2_head():
     class IExtractImage2(win32more.UI.Shell.IExtractImage_head):
@@ -3431,6 +3503,7 @@ def _define_IExtractImage2_head():
 def _define_IExtractImage2():
     IExtractImage2 = win32more.UI.Shell.IExtractImage2_head
     IExtractImage2.GetDateStamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(5, 'GetDateStamp', ((1, 'pDateStamp'),)))
+    win32more.UI.Shell.IExtractImage
     return IExtractImage2
 def _define_IThumbnailHandlerFactory_head():
     class IThumbnailHandlerFactory(win32more.System.Com.IUnknown_head):
@@ -3439,6 +3512,7 @@ def _define_IThumbnailHandlerFactory_head():
 def _define_IThumbnailHandlerFactory():
     IThumbnailHandlerFactory = win32more.UI.Shell.IThumbnailHandlerFactory_head
     IThumbnailHandlerFactory.GetThumbnailHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),win32more.System.Com.IBindCtx_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetThumbnailHandler', ((1, 'pidlChild'),(1, 'pbc'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IThumbnailHandlerFactory
 def _define_IParentAndItem_head():
     class IParentAndItem(win32more.System.Com.IUnknown_head):
@@ -3448,6 +3522,7 @@ def _define_IParentAndItem():
     IParentAndItem = win32more.UI.Shell.IParentAndItem_head
     IParentAndItem.SetParentAndItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),win32more.UI.Shell.IShellFolder_head,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(3, 'SetParentAndItem', ((1, 'pidlParent'),(1, 'psf'),(1, 'pidlChild'),)))
     IParentAndItem.GetParentAndItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)),POINTER(win32more.UI.Shell.IShellFolder_head),POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(4, 'GetParentAndItem', ((1, 'ppidlParent'),(1, 'ppsf'),(1, 'ppidlChild'),)))
+    win32more.System.Com.IUnknown
     return IParentAndItem
 def _define_IDockingWindow_head():
     class IDockingWindow(win32more.System.Ole.IOleWindow_head):
@@ -3458,6 +3533,7 @@ def _define_IDockingWindow():
     IDockingWindow.ShowDW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'ShowDW', ((1, 'fShow'),)))
     IDockingWindow.CloseDW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'CloseDW', ((1, 'dwReserved'),)))
     IDockingWindow.ResizeBorderDW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL, use_last_error=False)(7, 'ResizeBorderDW', ((1, 'prcBorder'),(1, 'punkToolbarSite'),(1, 'fReserved'),)))
+    win32more.System.Ole.IOleWindow
     return IDockingWindow
 def _define_DESKBANDINFO_head():
     class DESKBANDINFO(Structure):
@@ -3492,6 +3568,7 @@ def _define_IDeskBand_head():
 def _define_IDeskBand():
     IDeskBand = win32more.UI.Shell.IDeskBand_head
     IDeskBand.GetBandInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.UI.Shell.DESKBANDINFO_head), use_last_error=False)(8, 'GetBandInfo', ((1, 'dwBandID'),(1, 'dwViewMode'),(1, 'pdbi'),)))
+    win32more.UI.Shell.IDockingWindow
     return IDeskBand
 def _define_IDeskBandInfo_head():
     class IDeskBandInfo(win32more.System.Com.IUnknown_head):
@@ -3500,6 +3577,7 @@ def _define_IDeskBandInfo_head():
 def _define_IDeskBandInfo():
     IDeskBandInfo = win32more.UI.Shell.IDeskBandInfo_head
     IDeskBandInfo.GetDefaultBandWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Int32), use_last_error=False)(3, 'GetDefaultBandWidth', ((1, 'dwBandID'),(1, 'dwViewMode'),(1, 'pnWidth'),)))
+    win32more.System.Com.IUnknown
     return IDeskBandInfo
 def _define_ITaskbarList_head():
     class ITaskbarList(win32more.System.Com.IUnknown_head):
@@ -3512,6 +3590,7 @@ def _define_ITaskbarList():
     ITaskbarList.DeleteTab = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(5, 'DeleteTab', ((1, 'hwnd'),)))
     ITaskbarList.ActivateTab = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(6, 'ActivateTab', ((1, 'hwnd'),)))
     ITaskbarList.SetActiveAlt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(7, 'SetActiveAlt', ((1, 'hwnd'),)))
+    win32more.System.Com.IUnknown
     return ITaskbarList
 def _define_ITaskbarList2_head():
     class ITaskbarList2(win32more.UI.Shell.ITaskbarList_head):
@@ -3520,6 +3599,7 @@ def _define_ITaskbarList2_head():
 def _define_ITaskbarList2():
     ITaskbarList2 = win32more.UI.Shell.ITaskbarList2_head
     ITaskbarList2.MarkFullscreenWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BOOL, use_last_error=False)(8, 'MarkFullscreenWindow', ((1, 'hwnd'),(1, 'fFullscreen'),)))
+    win32more.UI.Shell.ITaskbarList
     return ITaskbarList2
 THUMBBUTTONFLAGS = Int32
 THBF_ENABLED = 0
@@ -3572,6 +3652,7 @@ def _define_ITaskbarList3():
     ITaskbarList3.SetOverlayIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.UI.WindowsAndMessaging.HICON,win32more.Foundation.PWSTR, use_last_error=False)(18, 'SetOverlayIcon', ((1, 'hwnd'),(1, 'hIcon'),(1, 'pszDescription'),)))
     ITaskbarList3.SetThumbnailTooltip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=False)(19, 'SetThumbnailTooltip', ((1, 'hwnd'),(1, 'pszTip'),)))
     ITaskbarList3.SetThumbnailClip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(20, 'SetThumbnailClip', ((1, 'hwnd'),(1, 'prcClip'),)))
+    win32more.UI.Shell.ITaskbarList2
     return ITaskbarList3
 STPFLAG = Int32
 STPF_NONE = 0
@@ -3586,6 +3667,7 @@ def _define_ITaskbarList4_head():
 def _define_ITaskbarList4():
     ITaskbarList4 = win32more.UI.Shell.ITaskbarList4_head
     ITaskbarList4.SetTabProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.UI.Shell.STPFLAG, use_last_error=False)(21, 'SetTabProperties', ((1, 'hwndTab'),(1, 'stpFlags'),)))
+    win32more.UI.Shell.ITaskbarList3
     return ITaskbarList4
 def _define_IExplorerBrowserEvents_head():
     class IExplorerBrowserEvents(win32more.System.Com.IUnknown_head):
@@ -3597,6 +3679,7 @@ def _define_IExplorerBrowserEvents():
     IExplorerBrowserEvents.OnViewCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head, use_last_error=False)(4, 'OnViewCreated', ((1, 'psv'),)))
     IExplorerBrowserEvents.OnNavigationComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(5, 'OnNavigationComplete', ((1, 'pidlFolder'),)))
     IExplorerBrowserEvents.OnNavigationFailed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(6, 'OnNavigationFailed', ((1, 'pidlFolder'),)))
+    win32more.System.Com.IUnknown
     return IExplorerBrowserEvents
 EXPLORER_BROWSER_OPTIONS = Int32
 EBO_NONE = 0
@@ -3633,6 +3716,7 @@ def _define_IExplorerBrowser():
     IExplorerBrowser.FillFromObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.UI.Shell.EXPLORER_BROWSER_FILL_FLAGS, use_last_error=False)(15, 'FillFromObject', ((1, 'punk'),(1, 'dwFlags'),)))
     IExplorerBrowser.RemoveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'RemoveAll', ()))
     IExplorerBrowser.GetCurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(17, 'GetCurrentView', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IExplorerBrowser
 def _define_IEnumObjects_head():
     class IEnumObjects(win32more.System.Com.IUnknown_head):
@@ -3644,6 +3728,7 @@ def _define_IEnumObjects():
     IEnumObjects.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumObjects.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumObjects.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumObjects_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumObjects
 _OPPROGDLGF = Int32
 OPPROGDLG_DEFAULT = 0
@@ -3677,6 +3762,7 @@ def _define_IOperationsProgressDialog():
     IOperationsProgressDialog.ResumeTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'ResumeTimer', ()))
     IOperationsProgressDialog.GetMilliseconds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64), use_last_error=False)(12, 'GetMilliseconds', ((1, 'pullElapsed'),(1, 'pullRemaining'),)))
     IOperationsProgressDialog.GetOperationStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PDOPSTATUS), use_last_error=False)(13, 'GetOperationStatus', ((1, 'popstatus'),)))
+    win32more.System.Com.IUnknown
     return IOperationsProgressDialog
 def _define_IIOCancelInformation_head():
     class IIOCancelInformation(win32more.System.Com.IUnknown_head):
@@ -3686,6 +3772,7 @@ def _define_IIOCancelInformation():
     IIOCancelInformation = win32more.UI.Shell.IIOCancelInformation_head
     IIOCancelInformation.SetCancelInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(3, 'SetCancelInformation', ((1, 'dwThreadID'),(1, 'uMsgCancel'),)))
     IIOCancelInformation.GetCancelInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'GetCancelInformation', ((1, 'pdwThreadID'),(1, 'puMsgCancel'),)))
+    win32more.System.Com.IUnknown
     return IIOCancelInformation
 def _define_IFileOperation_head():
     class IFileOperation(win32more.System.Com.IUnknown_head):
@@ -3713,6 +3800,7 @@ def _define_IFileOperation():
     IFileOperation.NewItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.Shell.IFileOperationProgressSink_head, use_last_error=False)(20, 'NewItem', ((1, 'psiDestinationFolder'),(1, 'dwFileAttributes'),(1, 'pszName'),(1, 'pszTemplateName'),(1, 'pfopsItem'),)))
     IFileOperation.PerformOperations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'PerformOperations', ()))
     IFileOperation.GetAnyOperationsAborted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(22, 'GetAnyOperationsAborted', ((1, 'pfAnyOperationsAborted'),)))
+    win32more.System.Com.IUnknown
     return IFileOperation
 FILE_OPERATION_FLAGS2 = Int32
 FOF2_NONE = 0
@@ -3724,6 +3812,7 @@ def _define_IFileOperation2_head():
 def _define_IFileOperation2():
     IFileOperation2 = win32more.UI.Shell.IFileOperation2_head
     IFileOperation2.SetOperationFlags2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.FILE_OPERATION_FLAGS2, use_last_error=False)(23, 'SetOperationFlags2', ((1, 'operationFlags2'),)))
+    win32more.UI.Shell.IFileOperation
     return IFileOperation2
 def _define_IObjectProvider_head():
     class IObjectProvider(win32more.System.Com.IUnknown_head):
@@ -3732,6 +3821,7 @@ def _define_IObjectProvider_head():
 def _define_IObjectProvider():
     IObjectProvider = win32more.UI.Shell.IObjectProvider_head
     IObjectProvider.QueryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'QueryObject', ((1, 'guidObject'),(1, 'riid'),(1, 'ppvOut'),)))
+    win32more.System.Com.IUnknown
     return IObjectProvider
 def _define_INamespaceWalkCB_head():
     class INamespaceWalkCB(win32more.System.Com.IUnknown_head):
@@ -3743,6 +3833,7 @@ def _define_INamespaceWalkCB():
     INamespaceWalkCB.EnterFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellFolder_head,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(4, 'EnterFolder', ((1, 'psf'),(1, 'pidl'),)))
     INamespaceWalkCB.LeaveFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellFolder_head,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(5, 'LeaveFolder', ((1, 'psf'),(1, 'pidl'),)))
     INamespaceWalkCB.InitializeProgressDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'InitializeProgressDialog', ((1, 'ppszTitle'),(1, 'ppszCancel'),)))
+    win32more.System.Com.IUnknown
     return INamespaceWalkCB
 def _define_INamespaceWalkCB2_head():
     class INamespaceWalkCB2(win32more.UI.Shell.INamespaceWalkCB_head):
@@ -3751,6 +3842,7 @@ def _define_INamespaceWalkCB2_head():
 def _define_INamespaceWalkCB2():
     INamespaceWalkCB2 = win32more.UI.Shell.INamespaceWalkCB2_head
     INamespaceWalkCB2.WalkComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(7, 'WalkComplete', ((1, 'hr'),)))
+    win32more.UI.Shell.INamespaceWalkCB
     return INamespaceWalkCB2
 NAMESPACEWALKFLAG = Int32
 NSWF_DEFAULT = 0
@@ -3778,6 +3870,7 @@ def _define_INamespaceWalk():
     INamespaceWalk = win32more.UI.Shell.INamespaceWalk_head
     INamespaceWalk.Walk = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,Int32,win32more.UI.Shell.INamespaceWalkCB_head, use_last_error=False)(3, 'Walk', ((1, 'punkToWalk'),(1, 'dwFlags'),(1, 'cDepth'),(1, 'pnswcb'),)))
     INamespaceWalk.GetIDArrayResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head))), use_last_error=False)(4, 'GetIDArrayResult', ((1, 'pcItems'),(1, 'prgpidl'),)))
+    win32more.System.Com.IUnknown
     return INamespaceWalk
 def _define_BANDSITEINFO_head():
     class BANDSITEINFO(Structure):
@@ -3808,6 +3901,7 @@ def _define_IBandSite():
     IBandSite.GetBandObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'GetBandObject', ((1, 'dwBandID'),(1, 'riid'),(1, 'ppv'),)))
     IBandSite.SetBandSiteInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.BANDSITEINFO_head), use_last_error=False)(9, 'SetBandSiteInfo', ((1, 'pbsinfo'),)))
     IBandSite.GetBandSiteInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.BANDSITEINFO_head), use_last_error=False)(10, 'GetBandSiteInfo', ((1, 'pbsinfo'),)))
+    win32more.System.Com.IUnknown
     return IBandSite
 def _define_IModalWindow_head():
     class IModalWindow(win32more.System.Com.IUnknown_head):
@@ -3816,6 +3910,7 @@ def _define_IModalWindow_head():
 def _define_IModalWindow():
     IModalWindow = win32more.UI.Shell.IModalWindow_head
     IModalWindow.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(3, 'Show', ((1, 'hwndOwner'),)))
+    win32more.System.Com.IUnknown
     return IModalWindow
 def _define_IContextMenuSite_head():
     class IContextMenuSite(win32more.System.Com.IUnknown_head):
@@ -3824,6 +3919,7 @@ def _define_IContextMenuSite_head():
 def _define_IContextMenuSite():
     IContextMenuSite = win32more.UI.Shell.IContextMenuSite_head
     IContextMenuSite.DoContextMenuPopup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,win32more.Foundation.POINT, use_last_error=False)(3, 'DoContextMenuPopup', ((1, 'punkContextMenu'),(1, 'fFlags'),(1, 'pt'),)))
+    win32more.System.Com.IUnknown
     return IContextMenuSite
 MENUBANDHANDLERCID = Int32
 MBHANDCID_PIDLSELECT = 0
@@ -3835,6 +3931,7 @@ def _define_IMenuBand():
     IMenuBand = win32more.UI.Shell.IMenuBand_head
     IMenuBand.IsMenuMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(3, 'IsMenuMessage', ((1, 'pmsg'),)))
     IMenuBand.TranslateMenuMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),POINTER(win32more.Foundation.LRESULT), use_last_error=False)(4, 'TranslateMenuMessage', ((1, 'pmsg'),(1, 'plRet'),)))
+    win32more.System.Com.IUnknown
     return IMenuBand
 def _define_IRegTreeItem_head():
     class IRegTreeItem(win32more.System.Com.IUnknown_head):
@@ -3844,6 +3941,7 @@ def _define_IRegTreeItem():
     IRegTreeItem = win32more.UI.Shell.IRegTreeItem_head
     IRegTreeItem.GetCheckState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetCheckState', ((1, 'pbCheck'),)))
     IRegTreeItem.SetCheckState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetCheckState', ((1, 'bCheck'),)))
+    win32more.System.Com.IUnknown
     return IRegTreeItem
 def _define_IDeskBar_head():
     class IDeskBar(win32more.System.Ole.IOleWindow_head):
@@ -3854,6 +3952,7 @@ def _define_IDeskBar():
     IDeskBar.SetClient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'SetClient', ((1, 'punkClient'),)))
     IDeskBar.GetClient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'GetClient', ((1, 'ppunkClient'),)))
     IDeskBar.OnPosRectChangeDB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(7, 'OnPosRectChangeDB', ((1, 'prc'),)))
+    win32more.System.Ole.IOleWindow
     return IDeskBar
 MENUPOPUPSELECT = Int32
 MPOS_EXECUTE = 0
@@ -3886,6 +3985,7 @@ def _define_IMenuPopup():
     IMenuPopup.Popup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINTL_head),POINTER(win32more.Foundation.RECTL_head),Int32, use_last_error=False)(8, 'Popup', ((1, 'ppt'),(1, 'prcExclude'),(1, 'dwFlags'),)))
     IMenuPopup.OnSelect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'OnSelect', ((1, 'dwSelectType'),)))
     IMenuPopup.SetSubMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IMenuPopup_head,win32more.Foundation.BOOL, use_last_error=False)(10, 'SetSubMenu', ((1, 'pmp'),(1, 'fSet'),)))
+    win32more.UI.Shell.IDeskBar
     return IMenuPopup
 FILE_USAGE_TYPE = Int32
 FUT_PLAYING = 0
@@ -3902,6 +4002,7 @@ def _define_IFileIsInUse():
     IFileIsInUse.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetCapabilities', ((1, 'pdwCapFlags'),)))
     IFileIsInUse.GetSwitchToHWND = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(6, 'GetSwitchToHWND', ((1, 'phwnd'),)))
     IFileIsInUse.CloseFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'CloseFile', ()))
+    win32more.System.Com.IUnknown
     return IFileIsInUse
 FDE_OVERWRITE_RESPONSE = Int32
 FDEOR_DEFAULT = 0
@@ -3927,6 +4028,7 @@ def _define_IFileDialogEvents():
     IFileDialogEvents.OnShareViolation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IFileDialog_head,win32more.UI.Shell.IShellItem_head,POINTER(win32more.UI.Shell.FDE_SHAREVIOLATION_RESPONSE), use_last_error=False)(7, 'OnShareViolation', ((1, 'pfd'),(1, 'psi'),(1, 'pResponse'),)))
     IFileDialogEvents.OnTypeChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IFileDialog_head, use_last_error=False)(8, 'OnTypeChange', ((1, 'pfd'),)))
     IFileDialogEvents.OnOverwrite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IFileDialog_head,win32more.UI.Shell.IShellItem_head,POINTER(win32more.UI.Shell.FDE_OVERWRITE_RESPONSE), use_last_error=False)(9, 'OnOverwrite', ((1, 'pfd'),(1, 'psi'),(1, 'pResponse'),)))
+    win32more.System.Com.IUnknown
     return IFileDialogEvents
 _FILEOPENDIALOGOPTIONS = Int32
 FOS_OVERWRITEPROMPT = 2
@@ -3981,6 +4083,7 @@ def _define_IFileDialog():
     IFileDialog.SetClientGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(24, 'SetClientGuid', ((1, 'guid'),)))
     IFileDialog.ClearClientData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'ClearClientData', ()))
     IFileDialog.SetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItemFilter_head, use_last_error=False)(26, 'SetFilter', ((1, 'pFilter'),)))
+    win32more.UI.Shell.IModalWindow
     return IFileDialog
 def _define_IFileSaveDialog_head():
     class IFileSaveDialog(win32more.UI.Shell.IFileDialog_head):
@@ -3993,6 +4096,7 @@ def _define_IFileSaveDialog():
     IFileSaveDialog.SetCollectedProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyDescriptionList_head,win32more.Foundation.BOOL, use_last_error=False)(29, 'SetCollectedProperties', ((1, 'pList'),(1, 'fAppendDefault'),)))
     IFileSaveDialog.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(30, 'GetProperties', ((1, 'ppStore'),)))
     IFileSaveDialog.ApplyProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,win32more.Foundation.HWND,win32more.UI.Shell.IFileOperationProgressSink_head, use_last_error=False)(31, 'ApplyProperties', ((1, 'psi'),(1, 'pStore'),(1, 'hwnd'),(1, 'pSink'),)))
+    win32more.UI.Shell.IFileDialog
     return IFileSaveDialog
 def _define_IFileOpenDialog_head():
     class IFileOpenDialog(win32more.UI.Shell.IFileDialog_head):
@@ -4002,6 +4106,7 @@ def _define_IFileOpenDialog():
     IFileOpenDialog = win32more.UI.Shell.IFileOpenDialog_head
     IFileOpenDialog.GetResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IShellItemArray_head), use_last_error=False)(27, 'GetResults', ((1, 'ppenum'),)))
     IFileOpenDialog.GetSelectedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IShellItemArray_head), use_last_error=False)(28, 'GetSelectedItems', ((1, 'ppsai'),)))
+    win32more.UI.Shell.IFileDialog
     return IFileOpenDialog
 CDCONTROLSTATEF = Int32
 CDCS_INACTIVE = 0
@@ -4041,6 +4146,7 @@ def _define_IFileDialogCustomize():
     IFileDialogCustomize.EndVisualGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(27, 'EndVisualGroup', ()))
     IFileDialogCustomize.MakeProminent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(28, 'MakeProminent', ((1, 'dwIDCtl'),)))
     IFileDialogCustomize.SetControlItemText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(29, 'SetControlItemText', ((1, 'dwIDCtl'),(1, 'dwIDItem'),(1, 'pszLabel'),)))
+    win32more.System.Com.IUnknown
     return IFileDialogCustomize
 ASSOCIATIONLEVEL = Int32
 AL_MACHINE = 0
@@ -4063,6 +4169,7 @@ def _define_IApplicationAssociationRegistration():
     IApplicationAssociationRegistration.SetAppAsDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.Shell.ASSOCIATIONTYPE, use_last_error=False)(6, 'SetAppAsDefault', ((1, 'pszAppRegistryName'),(1, 'pszSet'),(1, 'atSetType'),)))
     IApplicationAssociationRegistration.SetAppAsDefaultAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'SetAppAsDefaultAll', ((1, 'pszAppRegistryName'),)))
     IApplicationAssociationRegistration.ClearUserAssociations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'ClearUserAssociations', ()))
+    win32more.System.Com.IUnknown
     return IApplicationAssociationRegistration
 def _define_DELEGATEITEMID_head():
     class DELEGATEITEMID(Structure):
@@ -4085,6 +4192,7 @@ def _define_IDelegateFolder_head():
 def _define_IDelegateFolder():
     IDelegateFolder = win32more.UI.Shell.IDelegateFolder_head
     IDelegateFolder.SetItemAlloc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMalloc_head, use_last_error=False)(3, 'SetItemAlloc', ((1, 'pmalloc'),)))
+    win32more.System.Com.IUnknown
     return IDelegateFolder
 _BROWSERFRAMEOPTIONS = Int32
 BFO_NONE = 0
@@ -4114,6 +4222,7 @@ def _define_IBrowserFrameOptions_head():
 def _define_IBrowserFrameOptions():
     IBrowserFrameOptions = win32more.UI.Shell.IBrowserFrameOptions_head
     IBrowserFrameOptions.GetFrameOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(3, 'GetFrameOptions', ((1, 'dwMask'),(1, 'pdwOptions'),)))
+    win32more.System.Com.IUnknown
     return IBrowserFrameOptions
 NWMF = Int32
 NWMF_UNLOADING = 1
@@ -4137,6 +4246,7 @@ def _define_INewWindowManager_head():
 def _define_INewWindowManager():
     INewWindowManager = win32more.UI.Shell.INewWindowManager_head
     INewWindowManager.EvaluateNewWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,UInt32,UInt32, use_last_error=False)(3, 'EvaluateNewWindow', ((1, 'pszUrl'),(1, 'pszName'),(1, 'pszUrlContext'),(1, 'pszFeatures'),(1, 'fReplace'),(1, 'dwFlags'),(1, 'dwUserActionTime'),)))
+    win32more.System.Com.IUnknown
     return INewWindowManager
 ATTACHMENT_PROMPT = Int32
 ATTACHMENT_PROMPT_NONE = 0
@@ -4165,6 +4275,7 @@ def _define_IAttachmentExecute():
     IAttachmentExecute.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(12, 'Execute', ((1, 'hwnd'),(1, 'pszVerb'),(1, 'phProcess'),)))
     IAttachmentExecute.SaveWithUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(13, 'SaveWithUI', ((1, 'hwnd'),)))
     IAttachmentExecute.ClearClientState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'ClearClientState', ()))
+    win32more.System.Com.IUnknown
     return IAttachmentExecute
 def _define_SMDATA_head():
     class SMDATA(Structure):
@@ -4240,6 +4351,7 @@ def _define_IShellMenuCallback_head():
 def _define_IShellMenuCallback():
     IShellMenuCallback = win32more.UI.Shell.IShellMenuCallback_head
     IShellMenuCallback.CallbackSM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SMDATA_head),UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(3, 'CallbackSM', ((1, 'psmd'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
     return IShellMenuCallback
 def _define_IShellMenu_head():
     class IShellMenu(win32more.System.Com.IUnknown_head):
@@ -4256,6 +4368,7 @@ def _define_IShellMenu():
     IShellMenu.InvalidateItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SMDATA_head),UInt32, use_last_error=False)(9, 'InvalidateItem', ((1, 'psmd'),(1, 'dwFlags'),)))
     IShellMenu.GetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SMDATA_head), use_last_error=False)(10, 'GetState', ((1, 'psmd'),)))
     IShellMenu.SetMenuToolbar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(11, 'SetMenuToolbar', ((1, 'punk'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IShellMenu
 KF_CATEGORY = Int32
 KF_CATEGORY_VIRTUAL = 1
@@ -4325,6 +4438,7 @@ def _define_IKnownFolder():
     IKnownFolder.GetFolderType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(9, 'GetFolderType', ((1, 'pftid'),)))
     IKnownFolder.GetRedirectionCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'GetRedirectionCapabilities', ((1, 'pCapabilities'),)))
     IKnownFolder.GetFolderDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.KNOWNFOLDER_DEFINITION_head), use_last_error=False)(11, 'GetFolderDefinition', ((1, 'pKFD'),)))
+    win32more.System.Com.IUnknown
     return IKnownFolder
 FFFP_MODE = Int32
 FFFP_EXACTMATCH = 0
@@ -4345,6 +4459,7 @@ def _define_IKnownFolderManager():
     IKnownFolderManager.FindFolderFromPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.Shell.FFFP_MODE,POINTER(win32more.UI.Shell.IKnownFolder_head), use_last_error=False)(10, 'FindFolderFromPath', ((1, 'pszPath'),(1, 'mode'),(1, 'ppkf'),)))
     IKnownFolderManager.FindFolderFromIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(win32more.UI.Shell.IKnownFolder_head), use_last_error=False)(11, 'FindFolderFromIDList', ((1, 'pidl'),(1, 'ppkf'),)))
     IKnownFolderManager.Redirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.HWND,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(12, 'Redirect', ((1, 'rfid'),(1, 'hwnd'),(1, 'flags'),(1, 'pszTargetPath'),(1, 'cFolders'),(1, 'pExclusion'),(1, 'ppszError'),)))
+    win32more.System.Com.IUnknown
     return IKnownFolderManager
 SHARE_ROLE = Int32
 SHARE_ROLE_INVALID = -1
@@ -4370,6 +4485,7 @@ def _define_ISharingConfigurationManager():
     ISharingConfigurationManager.SharePrinters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'SharePrinters', ()))
     ISharingConfigurationManager.StopSharingPrinters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'StopSharingPrinters', ()))
     ISharingConfigurationManager.ArePrintersShared = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'ArePrintersShared', ()))
+    win32more.System.Com.IUnknown
     return ISharingConfigurationManager
 def _define_IRelatedItem_head():
     class IRelatedItem(win32more.System.Com.IUnknown_head):
@@ -4379,6 +4495,7 @@ def _define_IRelatedItem():
     IRelatedItem = win32more.UI.Shell.IRelatedItem_head
     IRelatedItem.GetItemIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(3, 'GetItemIDList', ((1, 'ppidl'),)))
     IRelatedItem.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IShellItem_head), use_last_error=False)(4, 'GetItem', ((1, 'ppsi'),)))
+    win32more.System.Com.IUnknown
     return IRelatedItem
 def _define_IIdentityName_head():
     class IIdentityName(win32more.UI.Shell.IRelatedItem_head):
@@ -4386,6 +4503,7 @@ def _define_IIdentityName_head():
     return IIdentityName
 def _define_IIdentityName():
     IIdentityName = win32more.UI.Shell.IIdentityName_head
+    win32more.UI.Shell.IRelatedItem
     return IIdentityName
 def _define_IDelegateItem_head():
     class IDelegateItem(win32more.UI.Shell.IRelatedItem_head):
@@ -4393,6 +4511,7 @@ def _define_IDelegateItem_head():
     return IDelegateItem
 def _define_IDelegateItem():
     IDelegateItem = win32more.UI.Shell.IDelegateItem_head
+    win32more.UI.Shell.IRelatedItem
     return IDelegateItem
 def _define_ICurrentItem_head():
     class ICurrentItem(win32more.UI.Shell.IRelatedItem_head):
@@ -4400,6 +4519,7 @@ def _define_ICurrentItem_head():
     return ICurrentItem
 def _define_ICurrentItem():
     ICurrentItem = win32more.UI.Shell.ICurrentItem_head
+    win32more.UI.Shell.IRelatedItem
     return ICurrentItem
 def _define_ITransferMediumItem_head():
     class ITransferMediumItem(win32more.UI.Shell.IRelatedItem_head):
@@ -4407,6 +4527,7 @@ def _define_ITransferMediumItem_head():
     return ITransferMediumItem
 def _define_ITransferMediumItem():
     ITransferMediumItem = win32more.UI.Shell.ITransferMediumItem_head
+    win32more.UI.Shell.IRelatedItem
     return ITransferMediumItem
 def _define_IDisplayItem_head():
     class IDisplayItem(win32more.UI.Shell.IRelatedItem_head):
@@ -4414,6 +4535,7 @@ def _define_IDisplayItem_head():
     return IDisplayItem
 def _define_IDisplayItem():
     IDisplayItem = win32more.UI.Shell.IDisplayItem_head
+    win32more.UI.Shell.IRelatedItem
     return IDisplayItem
 def _define_IViewStateIdentityItem_head():
     class IViewStateIdentityItem(win32more.UI.Shell.IRelatedItem_head):
@@ -4421,6 +4543,7 @@ def _define_IViewStateIdentityItem_head():
     return IViewStateIdentityItem
 def _define_IViewStateIdentityItem():
     IViewStateIdentityItem = win32more.UI.Shell.IViewStateIdentityItem_head
+    win32more.UI.Shell.IRelatedItem
     return IViewStateIdentityItem
 def _define_IPreviewItem_head():
     class IPreviewItem(win32more.UI.Shell.IRelatedItem_head):
@@ -4428,6 +4551,7 @@ def _define_IPreviewItem_head():
     return IPreviewItem
 def _define_IPreviewItem():
     IPreviewItem = win32more.UI.Shell.IPreviewItem_head
+    win32more.UI.Shell.IRelatedItem
     return IPreviewItem
 def _define_IDestinationStreamFactory_head():
     class IDestinationStreamFactory(win32more.System.Com.IUnknown_head):
@@ -4436,6 +4560,7 @@ def _define_IDestinationStreamFactory_head():
 def _define_IDestinationStreamFactory():
     IDestinationStreamFactory = win32more.UI.Shell.IDestinationStreamFactory_head
     IDestinationStreamFactory.GetDestinationStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(3, 'GetDestinationStream', ((1, 'ppstm'),)))
+    win32more.System.Com.IUnknown
     return IDestinationStreamFactory
 def _define_ICreateProcessInputs_head():
     class ICreateProcessInputs(win32more.System.Com.IUnknown_head):
@@ -4450,6 +4575,7 @@ def _define_ICreateProcessInputs():
     ICreateProcessInputs.AddStartupFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'AddStartupFlags', ((1, 'dwStartupInfoFlags'),)))
     ICreateProcessInputs.SetTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'SetTitle', ((1, 'pszTitle'),)))
     ICreateProcessInputs.SetEnvironmentVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(9, 'SetEnvironmentVariable', ((1, 'pszName'),(1, 'pszValue'),)))
+    win32more.System.Com.IUnknown
     return ICreateProcessInputs
 def _define_ICreatingProcess_head():
     class ICreatingProcess(win32more.System.Com.IUnknown_head):
@@ -4458,6 +4584,7 @@ def _define_ICreatingProcess_head():
 def _define_ICreatingProcess():
     ICreatingProcess = win32more.UI.Shell.ICreatingProcess_head
     ICreatingProcess.OnCreating = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ICreateProcessInputs_head, use_last_error=False)(3, 'OnCreating', ((1, 'pcpi'),)))
+    win32more.System.Com.IUnknown
     return ICreatingProcess
 def _define_ILaunchUIContext_head():
     class ILaunchUIContext(win32more.System.Com.IUnknown_head):
@@ -4467,6 +4594,7 @@ def _define_ILaunchUIContext():
     ILaunchUIContext = win32more.UI.Shell.ILaunchUIContext_head
     ILaunchUIContext.SetAssociatedWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(3, 'SetAssociatedWindow', ((1, 'value'),)))
     ILaunchUIContext.SetTabGroupingPreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetTabGroupingPreference', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return ILaunchUIContext
 def _define_ILaunchUIContextProvider_head():
     class ILaunchUIContextProvider(win32more.System.Com.IUnknown_head):
@@ -4475,6 +4603,7 @@ def _define_ILaunchUIContextProvider_head():
 def _define_ILaunchUIContextProvider():
     ILaunchUIContextProvider = win32more.UI.Shell.ILaunchUIContextProvider_head
     ILaunchUIContextProvider.UpdateContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ILaunchUIContext_head, use_last_error=False)(3, 'UpdateContext', ((1, 'context'),)))
+    win32more.System.Com.IUnknown
     return ILaunchUIContextProvider
 _NMCII_FLAGS = Int32
 NMCII_NONE = 0
@@ -4491,6 +4620,7 @@ def _define_INewMenuClient():
     INewMenuClient = win32more.UI.Shell.INewMenuClient_head
     INewMenuClient.IncludeItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'IncludeItems', ((1, 'pflags'),)))
     INewMenuClient.SelectAndEditItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),Int32, use_last_error=False)(4, 'SelectAndEditItem', ((1, 'pidlItem'),(1, 'flags'),)))
+    win32more.System.Com.IUnknown
     return INewMenuClient
 def _define_IInitializeWithBindCtx_head():
     class IInitializeWithBindCtx(win32more.System.Com.IUnknown_head):
@@ -4499,6 +4629,7 @@ def _define_IInitializeWithBindCtx_head():
 def _define_IInitializeWithBindCtx():
     IInitializeWithBindCtx = win32more.UI.Shell.IInitializeWithBindCtx_head
     IInitializeWithBindCtx.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head, use_last_error=False)(3, 'Initialize', ((1, 'pbc'),)))
+    win32more.System.Com.IUnknown
     return IInitializeWithBindCtx
 def _define_IShellItemFilter_head():
     class IShellItemFilter(win32more.System.Com.IUnknown_head):
@@ -4508,6 +4639,7 @@ def _define_IShellItemFilter():
     IShellItemFilter = win32more.UI.Shell.IShellItemFilter_head
     IShellItemFilter.IncludeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(3, 'IncludeItem', ((1, 'psi'),)))
     IShellItemFilter.GetEnumFlagsForItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,POINTER(UInt32), use_last_error=False)(4, 'GetEnumFlagsForItem', ((1, 'psi'),(1, 'pgrfFlags'),)))
+    win32more.System.Com.IUnknown
     return IShellItemFilter
 _NSTCSTYLE = Int32
 NSTCS_HASEXPANDOS = 1
@@ -4585,6 +4717,7 @@ def _define_INameSpaceTreeControl():
     INameSpaceTreeControl.HitTest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head),POINTER(win32more.UI.Shell.IShellItem_head), use_last_error=False)(19, 'HitTest', ((1, 'ppt'),(1, 'ppsiOut'),)))
     INameSpaceTreeControl.GetItemRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(20, 'GetItemRect', ((1, 'psi'),(1, 'prect'),)))
     INameSpaceTreeControl.CollapseAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'CollapseAll', ()))
+    win32more.System.Com.IUnknown
     return INameSpaceTreeControl
 NSTCFOLDERCAPABILITIES = Int32
 NSTCFC_NONE = 0
@@ -4597,6 +4730,7 @@ def _define_INameSpaceTreeControlFolderCapabilities_head():
 def _define_INameSpaceTreeControlFolderCapabilities():
     INameSpaceTreeControlFolderCapabilities = win32more.UI.Shell.INameSpaceTreeControlFolderCapabilities_head
     INameSpaceTreeControlFolderCapabilities.GetFolderCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.NSTCFOLDERCAPABILITIES,POINTER(win32more.UI.Shell.NSTCFOLDERCAPABILITIES), use_last_error=False)(3, 'GetFolderCapabilities', ((1, 'nfcMask'),(1, 'pnfcValue'),)))
+    win32more.System.Com.IUnknown
     return INameSpaceTreeControlFolderCapabilities
 def _define_IPreviewHandler_head():
     class IPreviewHandler(win32more.System.Com.IUnknown_head):
@@ -4611,6 +4745,7 @@ def _define_IPreviewHandler():
     IPreviewHandler.SetFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'SetFocus', ()))
     IPreviewHandler.QueryFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(8, 'QueryFocus', ((1, 'phwnd'),)))
     IPreviewHandler.TranslateAccelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(9, 'TranslateAccelerator', ((1, 'pmsg'),)))
+    win32more.System.Com.IUnknown
     return IPreviewHandler
 def _define_PREVIEWHANDLERFRAMEINFO_head():
     class PREVIEWHANDLERFRAMEINFO(Structure):
@@ -4631,6 +4766,7 @@ def _define_IPreviewHandlerFrame():
     IPreviewHandlerFrame = win32more.UI.Shell.IPreviewHandlerFrame_head
     IPreviewHandlerFrame.GetWindowContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PREVIEWHANDLERFRAMEINFO_head), use_last_error=False)(3, 'GetWindowContext', ((1, 'pinfo'),)))
     IPreviewHandlerFrame.TranslateAccelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(4, 'TranslateAccelerator', ((1, 'pmsg'),)))
+    win32more.System.Com.IUnknown
     return IPreviewHandlerFrame
 _EXPLORERPANESTATE = Int32
 EPS_DONTCARE = 0
@@ -4646,6 +4782,7 @@ def _define_IExplorerPaneVisibility_head():
 def _define_IExplorerPaneVisibility():
     IExplorerPaneVisibility = win32more.UI.Shell.IExplorerPaneVisibility_head
     IExplorerPaneVisibility.GetPaneState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32), use_last_error=False)(3, 'GetPaneState', ((1, 'ep'),(1, 'peps'),)))
+    win32more.System.Com.IUnknown
     return IExplorerPaneVisibility
 def _define_IContextMenuCB_head():
     class IContextMenuCB(win32more.System.Com.IUnknown_head):
@@ -4654,6 +4791,7 @@ def _define_IContextMenuCB_head():
 def _define_IContextMenuCB():
     IContextMenuCB = win32more.UI.Shell.IContextMenuCB_head
     IContextMenuCB.CallBack = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellFolder_head,win32more.Foundation.HWND,win32more.System.Com.IDataObject_head,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(3, 'CallBack', ((1, 'psf'),(1, 'hwndOwner'),(1, 'pdtobj'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
     return IContextMenuCB
 def _define_IDefaultExtractIconInit_head():
     class IDefaultExtractIconInit(win32more.System.Com.IUnknown_head):
@@ -4667,6 +4805,7 @@ def _define_IDefaultExtractIconInit():
     IDefaultExtractIconInit.SetOpenIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(6, 'SetOpenIcon', ((1, 'pszFile'),(1, 'iIcon'),)))
     IDefaultExtractIconInit.SetShortcutIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(7, 'SetShortcutIcon', ((1, 'pszFile'),(1, 'iIcon'),)))
     IDefaultExtractIconInit.SetDefaultIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(8, 'SetDefaultIcon', ((1, 'pszFile'),(1, 'iIcon'),)))
+    win32more.System.Com.IUnknown
     return IDefaultExtractIconInit
 _EXPCMDSTATE = Int32
 ECS_ENABLED = 0
@@ -4701,6 +4840,7 @@ def _define_IExplorerCommand():
     IExplorerCommand.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItemArray_head,win32more.System.Com.IBindCtx_head, use_last_error=False)(8, 'Invoke', ((1, 'psiItemArray'),(1, 'pbc'),)))
     IExplorerCommand.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetFlags', ((1, 'pFlags'),)))
     IExplorerCommand.EnumSubCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumExplorerCommand_head), use_last_error=False)(10, 'EnumSubCommands', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IExplorerCommand
 def _define_IExplorerCommandState_head():
     class IExplorerCommandState(win32more.System.Com.IUnknown_head):
@@ -4709,6 +4849,7 @@ def _define_IExplorerCommandState_head():
 def _define_IExplorerCommandState():
     IExplorerCommandState = win32more.UI.Shell.IExplorerCommandState_head
     IExplorerCommandState.GetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItemArray_head,win32more.Foundation.BOOL,POINTER(UInt32), use_last_error=False)(3, 'GetState', ((1, 'psiItemArray'),(1, 'fOkToBeSlow'),(1, 'pCmdState'),)))
+    win32more.System.Com.IUnknown
     return IExplorerCommandState
 def _define_IInitializeCommand_head():
     class IInitializeCommand(win32more.System.Com.IUnknown_head):
@@ -4717,6 +4858,7 @@ def _define_IInitializeCommand_head():
 def _define_IInitializeCommand():
     IInitializeCommand = win32more.UI.Shell.IInitializeCommand_head
     IInitializeCommand.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.StructuredStorage.IPropertyBag_head, use_last_error=False)(3, 'Initialize', ((1, 'pszCommandName'),(1, 'ppb'),)))
+    win32more.System.Com.IUnknown
     return IInitializeCommand
 def _define_IEnumExplorerCommand_head():
     class IEnumExplorerCommand(win32more.System.Com.IUnknown_head):
@@ -4728,6 +4870,7 @@ def _define_IEnumExplorerCommand():
     IEnumExplorerCommand.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumExplorerCommand.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumExplorerCommand.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumExplorerCommand_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumExplorerCommand
 def _define_IExplorerCommandProvider_head():
     class IExplorerCommandProvider(win32more.System.Com.IUnknown_head):
@@ -4737,6 +4880,7 @@ def _define_IExplorerCommandProvider():
     IExplorerCommandProvider = win32more.UI.Shell.IExplorerCommandProvider_head
     IExplorerCommandProvider.GetCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetCommands', ((1, 'punkSite'),(1, 'riid'),(1, 'ppv'),)))
     IExplorerCommandProvider.GetCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetCommand', ((1, 'rguidCommandId'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IExplorerCommandProvider
 CPVIEW = Int32
 CPVIEW_CLASSIC = 0
@@ -4752,6 +4896,7 @@ def _define_IOpenControlPanel():
     IOpenControlPanel.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Open', ((1, 'pszName'),(1, 'pszPage'),(1, 'punkSite'),)))
     IOpenControlPanel.GetPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Char),UInt32, use_last_error=False)(4, 'GetPath', ((1, 'pszName'),(1, 'pszPath'),(1, 'cchPath'),)))
     IOpenControlPanel.GetCurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.CPVIEW), use_last_error=False)(5, 'GetCurrentView', ((1, 'pView'),)))
+    win32more.System.Com.IUnknown
     return IOpenControlPanel
 def _define_IFileSystemBindData_head():
     class IFileSystemBindData(win32more.System.Com.IUnknown_head):
@@ -4761,6 +4906,7 @@ def _define_IFileSystemBindData():
     IFileSystemBindData = win32more.UI.Shell.IFileSystemBindData_head
     IFileSystemBindData.SetFindData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileSystem.WIN32_FIND_DATAW_head), use_last_error=False)(3, 'SetFindData', ((1, 'pfd'),)))
     IFileSystemBindData.GetFindData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileSystem.WIN32_FIND_DATAW_head), use_last_error=False)(4, 'GetFindData', ((1, 'pfd'),)))
+    win32more.System.Com.IUnknown
     return IFileSystemBindData
 def _define_IFileSystemBindData2_head():
     class IFileSystemBindData2(win32more.UI.Shell.IFileSystemBindData_head):
@@ -4772,6 +4918,7 @@ def _define_IFileSystemBindData2():
     IFileSystemBindData2.GetFileID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.LARGE_INTEGER_head), use_last_error=False)(6, 'GetFileID', ((1, 'pliFileID'),)))
     IFileSystemBindData2.SetJunctionCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(7, 'SetJunctionCLSID', ((1, 'clsid'),)))
     IFileSystemBindData2.GetJunctionCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(8, 'GetJunctionCLSID', ((1, 'pclsid'),)))
+    win32more.UI.Shell.IFileSystemBindData
     return IFileSystemBindData2
 KNOWNDESTCATEGORY = Int32
 KDC_FREQUENT = 1
@@ -4791,6 +4938,7 @@ def _define_ICustomDestinationList():
     ICustomDestinationList.GetRemovedDestinations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetRemovedDestinations', ((1, 'riid'),(1, 'ppv'),)))
     ICustomDestinationList.DeleteList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'DeleteList', ((1, 'pszAppID'),)))
     ICustomDestinationList.AbortList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'AbortList', ()))
+    win32more.System.Com.IUnknown
     return ICustomDestinationList
 def _define_IApplicationDestinations_head():
     class IApplicationDestinations(win32more.System.Com.IUnknown_head):
@@ -4801,6 +4949,7 @@ def _define_IApplicationDestinations():
     IApplicationDestinations.SetAppID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetAppID', ((1, 'pszAppID'),)))
     IApplicationDestinations.RemoveDestination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'RemoveDestination', ((1, 'punk'),)))
     IApplicationDestinations.RemoveAllDestinations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'RemoveAllDestinations', ()))
+    win32more.System.Com.IUnknown
     return IApplicationDestinations
 APPDOCLISTTYPE = Int32
 ADLT_RECENT = 0
@@ -4813,6 +4962,7 @@ def _define_IApplicationDocumentLists():
     IApplicationDocumentLists = win32more.UI.Shell.IApplicationDocumentLists_head
     IApplicationDocumentLists.SetAppID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetAppID', ((1, 'pszAppID'),)))
     IApplicationDocumentLists.GetList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.APPDOCLISTTYPE,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetList', ((1, 'listtype'),(1, 'cItemsDesired'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IApplicationDocumentLists
 def _define_IObjectWithAppUserModelID_head():
     class IObjectWithAppUserModelID(win32more.System.Com.IUnknown_head):
@@ -4822,6 +4972,7 @@ def _define_IObjectWithAppUserModelID():
     IObjectWithAppUserModelID = win32more.UI.Shell.IObjectWithAppUserModelID_head
     IObjectWithAppUserModelID.SetAppID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetAppID', ((1, 'pszAppID'),)))
     IObjectWithAppUserModelID.GetAppID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetAppID', ((1, 'ppszAppID'),)))
+    win32more.System.Com.IUnknown
     return IObjectWithAppUserModelID
 def _define_IObjectWithProgID_head():
     class IObjectWithProgID(win32more.System.Com.IUnknown_head):
@@ -4831,6 +4982,7 @@ def _define_IObjectWithProgID():
     IObjectWithProgID = win32more.UI.Shell.IObjectWithProgID_head
     IObjectWithProgID.SetProgID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetProgID', ((1, 'pszProgID'),)))
     IObjectWithProgID.GetProgID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetProgID', ((1, 'ppszProgID'),)))
+    win32more.System.Com.IUnknown
     return IObjectWithProgID
 def _define_IUpdateIDList_head():
     class IUpdateIDList(win32more.System.Com.IUnknown_head):
@@ -4839,6 +4991,7 @@ def _define_IUpdateIDList_head():
 def _define_IUpdateIDList():
     IUpdateIDList = win32more.UI.Shell.IUpdateIDList_head
     IUpdateIDList.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(3, 'Update', ((1, 'pbc'),(1, 'pidlIn'),(1, 'ppidlOut'),)))
+    win32more.System.Com.IUnknown
     return IUpdateIDList
 DESKTOP_SLIDESHOW_OPTIONS = Int32
 DSO_SHUFFLEIMAGES = 1
@@ -4878,6 +5031,7 @@ def _define_IDesktopWallpaper():
     IDesktopWallpaper.AdvanceSlideshow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.Shell.DESKTOP_SLIDESHOW_DIRECTION, use_last_error=False)(16, 'AdvanceSlideshow', ((1, 'monitorID'),(1, 'direction'),)))
     IDesktopWallpaper.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.DESKTOP_SLIDESHOW_STATE), use_last_error=False)(17, 'GetStatus', ((1, 'state'),)))
     IDesktopWallpaper.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(18, 'Enable', ((1, 'enable'),)))
+    win32more.System.Com.IUnknown
     return IDesktopWallpaper
 HOMEGROUPSHARINGCHOICES = Int32
 HGSC_NONE = 0
@@ -4894,6 +5048,7 @@ def _define_IHomeGroup():
     IHomeGroup = win32more.UI.Shell.IHomeGroup_head
     IHomeGroup.IsMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsMember', ((1, 'member'),)))
     IHomeGroup.ShowSharingWizard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Shell.HOMEGROUPSHARINGCHOICES), use_last_error=False)(4, 'ShowSharingWizard', ((1, 'owner'),(1, 'sharingchoices'),)))
+    win32more.System.Com.IUnknown
     return IHomeGroup
 def _define_IInitializeWithPropertyStore_head():
     class IInitializeWithPropertyStore(win32more.System.Com.IUnknown_head):
@@ -4902,6 +5057,7 @@ def _define_IInitializeWithPropertyStore_head():
 def _define_IInitializeWithPropertyStore():
     IInitializeWithPropertyStore = win32more.UI.Shell.IInitializeWithPropertyStore_head
     IInitializeWithPropertyStore.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, use_last_error=False)(3, 'Initialize', ((1, 'pps'),)))
+    win32more.System.Com.IUnknown
     return IInitializeWithPropertyStore
 def _define_IOpenSearchSource_head():
     class IOpenSearchSource(win32more.System.Com.IUnknown_head):
@@ -4910,6 +5066,7 @@ def _define_IOpenSearchSource_head():
 def _define_IOpenSearchSource():
     IOpenSearchSource = win32more.UI.Shell.IOpenSearchSource_head
     IOpenSearchSource.GetResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetResults', ((1, 'hwnd'),(1, 'pszQuery'),(1, 'dwStartIndex'),(1, 'dwCount'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IOpenSearchSource
 LIBRARYFOLDERFILTER = Int32
 LFF_FORCEFILESYSTEM = 1
@@ -4950,6 +5107,7 @@ def _define_IShellLibrary():
     IShellLibrary.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'Commit', ()))
     IShellLibrary.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,win32more.Foundation.PWSTR,win32more.UI.Shell.LIBRARYSAVEFLAGS,POINTER(win32more.UI.Shell.IShellItem_head), use_last_error=False)(18, 'Save', ((1, 'psiFolderToSaveIn'),(1, 'pszLibraryName'),(1, 'lsf'),(1, 'ppsiSavedTo'),)))
     IShellLibrary.SaveInKnownFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,win32more.UI.Shell.LIBRARYSAVEFLAGS,POINTER(win32more.UI.Shell.IShellItem_head), use_last_error=False)(19, 'SaveInKnownFolder', ((1, 'kfidToSaveIn'),(1, 'pszLibraryName'),(1, 'lsf'),(1, 'ppsiSavedTo'),)))
+    win32more.System.Com.IUnknown
     return IShellLibrary
 DEFAULT_FOLDER_MENU_RESTRICTIONS = Int32
 DFMR_DEFAULT = 0
@@ -4973,6 +5131,7 @@ def _define_IDefaultFolderMenuInitialize():
     IDefaultFolderMenuInitialize.SetMenuRestrictions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.DEFAULT_FOLDER_MENU_RESTRICTIONS, use_last_error=False)(4, 'SetMenuRestrictions', ((1, 'dfmrValues'),)))
     IDefaultFolderMenuInitialize.GetMenuRestrictions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.DEFAULT_FOLDER_MENU_RESTRICTIONS,POINTER(win32more.UI.Shell.DEFAULT_FOLDER_MENU_RESTRICTIONS), use_last_error=False)(5, 'GetMenuRestrictions', ((1, 'dfmrMask'),(1, 'pdfmrValues'),)))
     IDefaultFolderMenuInitialize.SetHandlerClsid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(6, 'SetHandlerClsid', ((1, 'rclsid'),)))
+    win32more.System.Com.IUnknown
     return IDefaultFolderMenuInitialize
 ACTIVATEOPTIONS = Int32
 AO_NONE = 0
@@ -4989,6 +5148,7 @@ def _define_IApplicationActivationManager():
     IApplicationActivationManager.ActivateApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.Shell.ACTIVATEOPTIONS,POINTER(UInt32), use_last_error=False)(3, 'ActivateApplication', ((1, 'appUserModelId'),(1, 'arguments'),(1, 'options'),(1, 'processId'),)))
     IApplicationActivationManager.ActivateForFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.Shell.IShellItemArray_head,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(4, 'ActivateForFile', ((1, 'appUserModelId'),(1, 'itemArray'),(1, 'verb'),(1, 'processId'),)))
     IApplicationActivationManager.ActivateForProtocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.Shell.IShellItemArray_head,POINTER(UInt32), use_last_error=False)(5, 'ActivateForProtocol', ((1, 'appUserModelId'),(1, 'itemArray'),(1, 'processId'),)))
+    win32more.System.Com.IUnknown
     return IApplicationActivationManager
 def _define_IVirtualDesktopManager_head():
     class IVirtualDesktopManager(win32more.System.Com.IUnknown_head):
@@ -4999,6 +5159,7 @@ def _define_IVirtualDesktopManager():
     IVirtualDesktopManager.IsWindowOnCurrentVirtualDesktop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsWindowOnCurrentVirtualDesktop', ((1, 'topLevelWindow'),(1, 'onCurrentDesktop'),)))
     IVirtualDesktopManager.GetWindowDesktopId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid), use_last_error=False)(4, 'GetWindowDesktopId', ((1, 'topLevelWindow'),(1, 'desktopId'),)))
     IVirtualDesktopManager.MoveWindowToDesktop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid), use_last_error=False)(5, 'MoveWindowToDesktop', ((1, 'topLevelWindow'),(1, 'desktopId'),)))
+    win32more.System.Com.IUnknown
     return IVirtualDesktopManager
 LIBRARYMANAGEDIALOGOPTIONS = Int32
 LMD_DEFAULT = 0
@@ -5011,6 +5172,7 @@ def _define_IAssocHandlerInvoker():
     IAssocHandlerInvoker = win32more.UI.Shell.IAssocHandlerInvoker_head
     IAssocHandlerInvoker.SupportsSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'SupportsSelection', ()))
     IAssocHandlerInvoker.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Invoke', ()))
+    win32more.System.Com.IUnknown
     return IAssocHandlerInvoker
 AHTYPE = Int32
 AHTYPE_UNDEFINED = 0
@@ -5034,6 +5196,7 @@ def _define_IAssocHandler():
     IAssocHandler.MakeDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'MakeDefault', ((1, 'pszDescription'),)))
     IAssocHandler.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head, use_last_error=False)(8, 'Invoke', ((1, 'pdo'),)))
     IAssocHandler.CreateInvoker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,POINTER(win32more.UI.Shell.IAssocHandlerInvoker_head), use_last_error=False)(9, 'CreateInvoker', ((1, 'pdo'),(1, 'ppInvoker'),)))
+    win32more.System.Com.IUnknown
     return IAssocHandler
 def _define_IEnumAssocHandlers_head():
     class IEnumAssocHandlers(win32more.System.Com.IUnknown_head):
@@ -5042,6 +5205,7 @@ def _define_IEnumAssocHandlers_head():
 def _define_IEnumAssocHandlers():
     IEnumAssocHandlers = win32more.UI.Shell.IEnumAssocHandlers_head
     IEnumAssocHandlers.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.IAssocHandler_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'celt'),(1, 'rgelt'),(1, 'pceltFetched'),)))
+    win32more.System.Com.IUnknown
     return IEnumAssocHandlers
 ASSOC_FILTER = Int32
 ASSOC_FILTER_NONE = 0
@@ -5054,6 +5218,7 @@ def _define_IDataObjectProvider():
     IDataObjectProvider = win32more.UI.Shell.IDataObjectProvider_head
     IDataObjectProvider.GetDataObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDataObject_head), use_last_error=False)(3, 'GetDataObject', ((1, 'dataObject'),)))
     IDataObjectProvider.SetDataObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head, use_last_error=False)(4, 'SetDataObject', ((1, 'dataObject'),)))
+    win32more.System.Com.IUnknown
     return IDataObjectProvider
 def _define_IDataTransferManagerInterop_head():
     class IDataTransferManagerInterop(win32more.System.Com.IUnknown_head):
@@ -5063,6 +5228,7 @@ def _define_IDataTransferManagerInterop():
     IDataTransferManagerInterop = win32more.UI.Shell.IDataTransferManagerInterop_head
     IDataTransferManagerInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetForWindow', ((1, 'appWindow'),(1, 'riid'),(1, 'dataTransferManager'),)))
     IDataTransferManagerInterop.ShowShareUIForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(4, 'ShowShareUIForWindow', ((1, 'appWindow'),)))
+    win32more.System.Com.IUnknown
     return IDataTransferManagerInterop
 def _define_IFrameworkInputPaneHandler_head():
     class IFrameworkInputPaneHandler(win32more.System.Com.IUnknown_head):
@@ -5072,6 +5238,7 @@ def _define_IFrameworkInputPaneHandler():
     IFrameworkInputPaneHandler = win32more.UI.Shell.IFrameworkInputPaneHandler_head
     IFrameworkInputPaneHandler.Showing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.BOOL, use_last_error=False)(3, 'Showing', ((1, 'prcInputPaneScreenLocation'),(1, 'fEnsureFocusedElementInView'),)))
     IFrameworkInputPaneHandler.Hiding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'Hiding', ((1, 'fEnsureFocusedElementInView'),)))
+    win32more.System.Com.IUnknown
     return IFrameworkInputPaneHandler
 def _define_IFrameworkInputPane_head():
     class IFrameworkInputPane(win32more.System.Com.IUnknown_head):
@@ -5083,6 +5250,7 @@ def _define_IFrameworkInputPane():
     IFrameworkInputPane.AdviseWithHWND = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.UI.Shell.IFrameworkInputPaneHandler_head,POINTER(UInt32), use_last_error=False)(4, 'AdviseWithHWND', ((1, 'hwnd'),(1, 'pHandler'),(1, 'pdwCookie'),)))
     IFrameworkInputPane.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Unadvise', ((1, 'dwCookie'),)))
     IFrameworkInputPane.Location = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(6, 'Location', ((1, 'prcInputPaneScreenLocation'),)))
+    win32more.System.Com.IUnknown
     return IFrameworkInputPane
 MONITOR_APP_VISIBILITY = Int32
 MAV_UNKNOWN = 0
@@ -5096,6 +5264,7 @@ def _define_IAppVisibilityEvents():
     IAppVisibilityEvents = win32more.UI.Shell.IAppVisibilityEvents_head
     IAppVisibilityEvents.AppVisibilityOnMonitorChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HMONITOR,win32more.UI.Shell.MONITOR_APP_VISIBILITY,win32more.UI.Shell.MONITOR_APP_VISIBILITY, use_last_error=False)(3, 'AppVisibilityOnMonitorChanged', ((1, 'hMonitor'),(1, 'previousMode'),(1, 'currentMode'),)))
     IAppVisibilityEvents.LauncherVisibilityChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'LauncherVisibilityChange', ((1, 'currentVisibleState'),)))
+    win32more.System.Com.IUnknown
     return IAppVisibilityEvents
 def _define_IAppVisibility_head():
     class IAppVisibility(win32more.System.Com.IUnknown_head):
@@ -5107,6 +5276,7 @@ def _define_IAppVisibility():
     IAppVisibility.IsLauncherVisible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsLauncherVisible', ((1, 'pfVisible'),)))
     IAppVisibility.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IAppVisibilityEvents_head,POINTER(UInt32), use_last_error=False)(5, 'Advise', ((1, 'pCallback'),(1, 'pdwCookie'),)))
     IAppVisibility.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Unadvise', ((1, 'dwCookie'),)))
+    win32more.System.Com.IUnknown
     return IAppVisibility
 PACKAGE_EXECUTION_STATE = Int32
 PES_UNKNOWN = 0
@@ -5121,6 +5291,7 @@ def _define_IPackageExecutionStateChangeNotification_head():
 def _define_IPackageExecutionStateChangeNotification():
     IPackageExecutionStateChangeNotification = win32more.UI.Shell.IPackageExecutionStateChangeNotification_head
     IPackageExecutionStateChangeNotification.OnStateChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.Shell.PACKAGE_EXECUTION_STATE, use_last_error=False)(3, 'OnStateChanged', ((1, 'pszPackageFullName'),(1, 'pesNewState'),)))
+    win32more.System.Com.IUnknown
     return IPackageExecutionStateChangeNotification
 def _define_IPackageDebugSettings_head():
     class IPackageDebugSettings(win32more.System.Com.IUnknown_head):
@@ -5143,6 +5314,7 @@ def _define_IPackageDebugSettings():
     IPackageDebugSettings.GetPackageExecutionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.PACKAGE_EXECUTION_STATE), use_last_error=False)(15, 'GetPackageExecutionState', ((1, 'packageFullName'),(1, 'packageExecutionState'),)))
     IPackageDebugSettings.RegisterForPackageStateChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.Shell.IPackageExecutionStateChangeNotification_head,POINTER(UInt32), use_last_error=False)(16, 'RegisterForPackageStateChanges', ((1, 'packageFullName'),(1, 'pPackageExecutionStateChangeNotification'),(1, 'pdwCookie'),)))
     IPackageDebugSettings.UnregisterForPackageStateChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(17, 'UnregisterForPackageStateChanges', ((1, 'dwCookie'),)))
+    win32more.System.Com.IUnknown
     return IPackageDebugSettings
 def _define_IPackageDebugSettings2_head():
     class IPackageDebugSettings2(win32more.UI.Shell.IPackageDebugSettings_head):
@@ -5151,6 +5323,7 @@ def _define_IPackageDebugSettings2_head():
 def _define_IPackageDebugSettings2():
     IPackageDebugSettings2 = win32more.UI.Shell.IPackageDebugSettings2_head
     IPackageDebugSettings2.EnumerateApps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(POINTER(win32more.Foundation.PWSTR)), use_last_error=False)(18, 'EnumerateApps', ((1, 'packageFullName'),(1, 'appCount'),(1, 'appUserModelIds'),(1, 'appDisplayNames'),)))
+    win32more.UI.Shell.IPackageDebugSettings
     return IPackageDebugSettings2
 def _define_ISuspensionDependencyManager_head():
     class ISuspensionDependencyManager(win32more.System.Com.IUnknown_head):
@@ -5161,6 +5334,7 @@ def _define_ISuspensionDependencyManager():
     ISuspensionDependencyManager.RegisterAsChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(3, 'RegisterAsChild', ((1, 'processHandle'),)))
     ISuspensionDependencyManager.GroupChildWithParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(4, 'GroupChildWithParent', ((1, 'childProcessHandle'),)))
     ISuspensionDependencyManager.UngroupChildFromParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(5, 'UngroupChildFromParent', ((1, 'childProcessHandle'),)))
+    win32more.System.Com.IUnknown
     return ISuspensionDependencyManager
 AHE_TYPE = Int32
 AHE_DESKTOP = 0
@@ -5172,6 +5346,7 @@ def _define_IExecuteCommandApplicationHostEnvironment_head():
 def _define_IExecuteCommandApplicationHostEnvironment():
     IExecuteCommandApplicationHostEnvironment = win32more.UI.Shell.IExecuteCommandApplicationHostEnvironment_head
     IExecuteCommandApplicationHostEnvironment.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.AHE_TYPE), use_last_error=False)(3, 'GetValue', ((1, 'pahe'),)))
+    win32more.System.Com.IUnknown
     return IExecuteCommandApplicationHostEnvironment
 EC_HOST_UI_MODE = Int32
 ECHUIM_DESKTOP = 0
@@ -5184,6 +5359,7 @@ def _define_IExecuteCommandHost_head():
 def _define_IExecuteCommandHost():
     IExecuteCommandHost = win32more.UI.Shell.IExecuteCommandHost_head
     IExecuteCommandHost.GetUIMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.EC_HOST_UI_MODE), use_last_error=False)(3, 'GetUIMode', ((1, 'pUIMode'),)))
+    win32more.System.Com.IUnknown
     return IExecuteCommandHost
 APPLICATION_VIEW_STATE = Int32
 AVS_FULLSCREEN_LANDSCAPE = 0
@@ -5206,6 +5382,7 @@ def _define_IApplicationDesignModeSettings():
     IApplicationDesignModeSettings.ComputeApplicationSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(6, 'ComputeApplicationSize', ((1, 'applicationSizePixels'),)))
     IApplicationDesignModeSettings.IsApplicationViewStateSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.APPLICATION_VIEW_STATE,win32more.Foundation.SIZE,win32more.UI.Shell.Common.DEVICE_SCALE_FACTOR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'IsApplicationViewStateSupported', ((1, 'viewState'),(1, 'nativeDisplaySizePixels'),(1, 'scaleFactor'),(1, 'supported'),)))
     IApplicationDesignModeSettings.TriggerEdgeGesture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.EDGE_GESTURE_KIND, use_last_error=False)(8, 'TriggerEdgeGesture', ((1, 'edgeGestureKind'),)))
+    win32more.System.Com.IUnknown
     return IApplicationDesignModeSettings
 NATIVE_DISPLAY_ORIENTATION = Int32
 NDO_LANDSCAPE = 0
@@ -5234,6 +5411,7 @@ def _define_IApplicationDesignModeSettings2():
     IApplicationDesignModeSettings2.SetApplicationViewMinWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.APPLICATION_VIEW_MIN_WIDTH, use_last_error=False)(13, 'SetApplicationViewMinWidth', ((1, 'viewMinWidth'),)))
     IApplicationDesignModeSettings2.GetApplicationSizeBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head),POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(14, 'GetApplicationSizeBounds', ((1, 'minApplicationSizePixels'),(1, 'maxApplicationSizePixels'),)))
     IApplicationDesignModeSettings2.GetApplicationViewOrientation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.SIZE,POINTER(win32more.UI.Shell.APPLICATION_VIEW_ORIENTATION), use_last_error=False)(15, 'GetApplicationViewOrientation', ((1, 'applicationSizePixels'),(1, 'viewOrientation'),)))
+    win32more.UI.Shell.IApplicationDesignModeSettings
     return IApplicationDesignModeSettings2
 def _define_ILaunchTargetMonitor_head():
     class ILaunchTargetMonitor(win32more.System.Com.IUnknown_head):
@@ -5242,6 +5420,7 @@ def _define_ILaunchTargetMonitor_head():
 def _define_ILaunchTargetMonitor():
     ILaunchTargetMonitor = win32more.UI.Shell.ILaunchTargetMonitor_head
     ILaunchTargetMonitor.GetMonitor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.HMONITOR), use_last_error=False)(3, 'GetMonitor', ((1, 'monitor'),)))
+    win32more.System.Com.IUnknown
     return ILaunchTargetMonitor
 APPLICATION_VIEW_SIZE_PREFERENCE = Int32
 AVSP_DEFAULT = 0
@@ -5259,6 +5438,7 @@ def _define_ILaunchSourceViewSizePreference():
     ILaunchSourceViewSizePreference = win32more.UI.Shell.ILaunchSourceViewSizePreference_head
     ILaunchSourceViewSizePreference.GetSourceViewToPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(3, 'GetSourceViewToPosition', ((1, 'hwnd'),)))
     ILaunchSourceViewSizePreference.GetSourceViewSizePreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.APPLICATION_VIEW_SIZE_PREFERENCE), use_last_error=False)(4, 'GetSourceViewSizePreference', ((1, 'sourceSizeAfterLaunch'),)))
+    win32more.System.Com.IUnknown
     return ILaunchSourceViewSizePreference
 def _define_ILaunchTargetViewSizePreference_head():
     class ILaunchTargetViewSizePreference(win32more.System.Com.IUnknown_head):
@@ -5267,6 +5447,7 @@ def _define_ILaunchTargetViewSizePreference_head():
 def _define_ILaunchTargetViewSizePreference():
     ILaunchTargetViewSizePreference = win32more.UI.Shell.ILaunchTargetViewSizePreference_head
     ILaunchTargetViewSizePreference.GetTargetViewSizePreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.APPLICATION_VIEW_SIZE_PREFERENCE), use_last_error=False)(3, 'GetTargetViewSizePreference', ((1, 'targetSizeOnLaunch'),)))
+    win32more.System.Com.IUnknown
     return ILaunchTargetViewSizePreference
 def _define_ILaunchSourceAppUserModelId_head():
     class ILaunchSourceAppUserModelId(win32more.System.Com.IUnknown_head):
@@ -5275,6 +5456,7 @@ def _define_ILaunchSourceAppUserModelId_head():
 def _define_ILaunchSourceAppUserModelId():
     ILaunchSourceAppUserModelId = win32more.UI.Shell.ILaunchSourceAppUserModelId_head
     ILaunchSourceAppUserModelId.GetAppUserModelId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetAppUserModelId', ((1, 'launchingApp'),)))
+    win32more.System.Com.IUnknown
     return ILaunchSourceAppUserModelId
 def _define_IInitializeWithWindow_head():
     class IInitializeWithWindow(win32more.System.Com.IUnknown_head):
@@ -5283,6 +5465,7 @@ def _define_IInitializeWithWindow_head():
 def _define_IInitializeWithWindow():
     IInitializeWithWindow = win32more.UI.Shell.IInitializeWithWindow_head
     IInitializeWithWindow.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(3, 'Initialize', ((1, 'hwnd'),)))
+    win32more.System.Com.IUnknown
     return IInitializeWithWindow
 def _define_IHandlerInfo_head():
     class IHandlerInfo(win32more.System.Com.IUnknown_head):
@@ -5293,6 +5476,7 @@ def _define_IHandlerInfo():
     IHandlerInfo.GetApplicationDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetApplicationDisplayName', ((1, 'value'),)))
     IHandlerInfo.GetApplicationPublisher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetApplicationPublisher', ((1, 'value'),)))
     IHandlerInfo.GetApplicationIconReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetApplicationIconReference', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IHandlerInfo
 def _define_IHandlerInfo2_head():
     class IHandlerInfo2(win32more.UI.Shell.IHandlerInfo_head):
@@ -5301,6 +5485,7 @@ def _define_IHandlerInfo2_head():
 def _define_IHandlerInfo2():
     IHandlerInfo2 = win32more.UI.Shell.IHandlerInfo2_head
     IHandlerInfo2.GetApplicationId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetApplicationId', ((1, 'value'),)))
+    win32more.UI.Shell.IHandlerInfo
     return IHandlerInfo2
 def _define_IHandlerActivationHost_head():
     class IHandlerActivationHost(win32more.System.Com.IUnknown_head):
@@ -5310,6 +5495,7 @@ def _define_IHandlerActivationHost():
     IHandlerActivationHost = win32more.UI.Shell.IHandlerActivationHost_head
     IHandlerActivationHost.BeforeCoCreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.UI.Shell.IShellItemArray_head,win32more.UI.Shell.IHandlerInfo_head, use_last_error=False)(3, 'BeforeCoCreateInstance', ((1, 'clsidHandler'),(1, 'itemsBeingActivated'),(1, 'handlerInfo'),)))
     IHandlerActivationHost.BeforeCreateProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.UI.Shell.IHandlerInfo_head, use_last_error=False)(4, 'BeforeCreateProcess', ((1, 'applicationPath'),(1, 'commandLine'),(1, 'handlerInfo'),)))
+    win32more.System.Com.IUnknown
     return IHandlerActivationHost
 def _define_IAppActivationUIInfo_head():
     class IAppActivationUIInfo(win32more.System.Com.IUnknown_head):
@@ -5322,6 +5508,7 @@ def _define_IAppActivationUIInfo():
     IAppActivationUIInfo.GetShowCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'GetShowCommand', ((1, 'value'),)))
     IAppActivationUIInfo.GetShowUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetShowUI', ((1, 'value'),)))
     IAppActivationUIInfo.GetKeyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetKeyState', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IAppActivationUIInfo
 FLYOUT_PLACEMENT = Int32
 FP_DEFAULT = 0
@@ -5336,6 +5523,7 @@ def _define_IContactManagerInterop_head():
 def _define_IContactManagerInterop():
     IContactManagerInterop = win32more.UI.Shell.IContactManagerInterop_head
     IContactManagerInterop.ShowContactCardForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.Com.IUnknown_head,POINTER(win32more.Foundation.RECT_head),win32more.UI.Shell.FLYOUT_PLACEMENT, use_last_error=False)(3, 'ShowContactCardForWindow', ((1, 'appWindow'),(1, 'contact'),(1, 'selection'),(1, 'preferredPlacement'),)))
+    win32more.System.Com.IUnknown
     return IContactManagerInterop
 def _define_IShellIconOverlayIdentifier_head():
     class IShellIconOverlayIdentifier(win32more.System.Com.IUnknown_head):
@@ -5346,6 +5534,7 @@ def _define_IShellIconOverlayIdentifier():
     IShellIconOverlayIdentifier.IsMemberOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'IsMemberOf', ((1, 'pwszPath'),(1, 'dwAttrib'),)))
     IShellIconOverlayIdentifier.GetOverlayInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),Int32,POINTER(Int32),POINTER(UInt32), use_last_error=False)(4, 'GetOverlayInfo', ((1, 'pwszIconFile'),(1, 'cchMax'),(1, 'pIndex'),(1, 'pdwFlags'),)))
     IShellIconOverlayIdentifier.GetPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'GetPriority', ((1, 'pPriority'),)))
+    win32more.System.Com.IUnknown
     return IShellIconOverlayIdentifier
 BANNER_NOTIFICATION_EVENT = Int32
 BNE_Rendered = 0
@@ -5373,6 +5562,7 @@ def _define_IBannerNotificationHandler_head():
 def _define_IBannerNotificationHandler():
     IBannerNotificationHandler = win32more.UI.Shell.IBannerNotificationHandler_head
     IBannerNotificationHandler.OnBannerEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.BANNER_NOTIFICATION_head), use_last_error=False)(3, 'OnBannerEvent', ((1, 'notification'),)))
+    win32more.System.Com.IUnknown
     return IBannerNotificationHandler
 SORT_ORDER_TYPE = Int32
 SOT_DEFAULT = 0
@@ -5386,6 +5576,7 @@ def _define_ISortColumnArray():
     ISortColumnArray.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'columnCount'),)))
     ISortColumnArray.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.SORTCOLUMN_head), use_last_error=False)(4, 'GetAt', ((1, 'index'),(1, 'sortcolumn'),)))
     ISortColumnArray.GetSortType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SORT_ORDER_TYPE), use_last_error=False)(5, 'GetSortType', ((1, 'type'),)))
+    win32more.System.Com.IUnknown
     return ISortColumnArray
 def _define_IPropertyKeyStore_head():
     class IPropertyKeyStore(win32more.System.Com.IUnknown_head):
@@ -5399,6 +5590,7 @@ def _define_IPropertyKeyStore():
     IPropertyKeyStore.DeleteKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(6, 'DeleteKey', ((1, 'index'),)))
     IPropertyKeyStore.IsKeyInStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(7, 'IsKeyInStore', ((1, 'key'),)))
     IPropertyKeyStore.RemoveKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(8, 'RemoveKey', ((1, 'key'),)))
+    win32more.System.Com.IUnknown
     return IPropertyKeyStore
 def _define_IQueryCodePage_head():
     class IQueryCodePage(win32more.System.Com.IUnknown_head):
@@ -5408,6 +5600,7 @@ def _define_IQueryCodePage():
     IQueryCodePage = win32more.UI.Shell.IQueryCodePage_head
     IQueryCodePage.GetCodePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCodePage', ((1, 'puiCodePage'),)))
     IQueryCodePage.SetCodePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetCodePage', ((1, 'uiCodePage'),)))
+    win32more.System.Com.IUnknown
     return IQueryCodePage
 FOLDERVIEWOPTIONS = Int32
 FVO_DEFAULT = 0
@@ -5425,6 +5618,7 @@ def _define_IFolderViewOptions():
     IFolderViewOptions = win32more.UI.Shell.IFolderViewOptions_head
     IFolderViewOptions.SetFolderViewOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.FOLDERVIEWOPTIONS,win32more.UI.Shell.FOLDERVIEWOPTIONS, use_last_error=False)(3, 'SetFolderViewOptions', ((1, 'fvoMask'),(1, 'fvoFlags'),)))
     IFolderViewOptions.GetFolderViewOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.FOLDERVIEWOPTIONS), use_last_error=False)(4, 'GetFolderViewOptions', ((1, 'pfvoFlags'),)))
+    win32more.System.Com.IUnknown
     return IFolderViewOptions
 _SV3CVW3_FLAGS = Int32
 SV3CVW3_DEFAULT = 0
@@ -5438,6 +5632,7 @@ def _define_IShellView3_head():
 def _define_IShellView3():
     IShellView3 = win32more.UI.Shell.IShellView3_head
     IShellView3.CreateViewWindow3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellBrowser_head,win32more.UI.Shell.IShellView_head,UInt32,win32more.UI.Shell.FOLDERFLAGS,win32more.UI.Shell.FOLDERFLAGS,win32more.UI.Shell.FOLDERVIEWMODE,POINTER(Guid),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.HWND), use_last_error=False)(20, 'CreateViewWindow3', ((1, 'psbOwner'),(1, 'psvPrev'),(1, 'dwViewFlags'),(1, 'dwMask'),(1, 'dwFlags'),(1, 'fvMode'),(1, 'pvid'),(1, 'prcView'),(1, 'phwndView'),)))
+    win32more.UI.Shell.IShellView2
     return IShellView3
 def _define_ISearchBoxInfo_head():
     class ISearchBoxInfo(win32more.System.Com.IUnknown_head):
@@ -5447,6 +5642,7 @@ def _define_ISearchBoxInfo():
     ISearchBoxInfo = win32more.UI.Shell.ISearchBoxInfo_head
     ISearchBoxInfo.GetCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetCondition', ((1, 'riid'),(1, 'ppv'),)))
     ISearchBoxInfo.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetText', ((1, 'ppsz'),)))
+    win32more.System.Com.IUnknown
     return ISearchBoxInfo
 VPWATERMARKFLAGS = Int32
 VPWF_DEFAULT = 0
@@ -5471,6 +5667,7 @@ def _define_IVisualProperties():
     IVisualProperties.SetFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.LOGFONTW_head),win32more.Foundation.BOOL, use_last_error=False)(8, 'SetFont', ((1, 'plf'),(1, 'bRedraw'),)))
     IVisualProperties.GetFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.LOGFONTW_head), use_last_error=False)(9, 'GetFont', ((1, 'plf'),)))
     IVisualProperties.SetTheme = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(10, 'SetTheme', ((1, 'pszSubAppName'),(1, 'pszSubIdList'),)))
+    win32more.System.Com.IUnknown
     return IVisualProperties
 def _define_ICommDlgBrowser3_head():
     class ICommDlgBrowser3(win32more.UI.Shell.ICommDlgBrowser2_head):
@@ -5481,6 +5678,7 @@ def _define_ICommDlgBrowser3():
     ICommDlgBrowser3.OnColumnClicked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head,Int32, use_last_error=False)(9, 'OnColumnClicked', ((1, 'ppshv'),(1, 'iColumn'),)))
     ICommDlgBrowser3.GetCurrentFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),Int32, use_last_error=False)(10, 'GetCurrentFilter', ((1, 'pszFileSpec'),(1, 'cchFileSpec'),)))
     ICommDlgBrowser3.OnPreViewCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head, use_last_error=False)(11, 'OnPreViewCreated', ((1, 'ppshv'),)))
+    win32more.UI.Shell.ICommDlgBrowser2
     return ICommDlgBrowser3
 def _define_IUserAccountChangeCallback_head():
     class IUserAccountChangeCallback(win32more.System.Com.IUnknown_head):
@@ -5489,6 +5687,7 @@ def _define_IUserAccountChangeCallback_head():
 def _define_IUserAccountChangeCallback():
     IUserAccountChangeCallback = win32more.UI.Shell.IUserAccountChangeCallback_head
     IUserAccountChangeCallback.OnPictureChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'OnPictureChange', ((1, 'pszUserName'),)))
+    win32more.System.Com.IUnknown
     return IUserAccountChangeCallback
 def _define_IStreamAsync_head():
     class IStreamAsync(win32more.System.Com.IStream_head):
@@ -5500,6 +5699,7 @@ def _define_IStreamAsync():
     IStreamAsync.WriteAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.System.IO.OVERLAPPED_head), use_last_error=False)(15, 'WriteAsync', ((1, 'lpBuffer'),(1, 'cb'),(1, 'pcbWritten'),(1, 'lpOverlapped'),)))
     IStreamAsync.OverlappedResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.IO.OVERLAPPED_head),POINTER(UInt32),win32more.Foundation.BOOL, use_last_error=False)(16, 'OverlappedResult', ((1, 'lpOverlapped'),(1, 'lpNumberOfBytesTransferred'),(1, 'bWait'),)))
     IStreamAsync.CancelIo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'CancelIo', ()))
+    win32more.System.Com.IStream
     return IStreamAsync
 def _define_IStreamUnbufferedInfo_head():
     class IStreamUnbufferedInfo(win32more.System.Com.IUnknown_head):
@@ -5508,6 +5708,7 @@ def _define_IStreamUnbufferedInfo_head():
 def _define_IStreamUnbufferedInfo():
     IStreamUnbufferedInfo = win32more.UI.Shell.IStreamUnbufferedInfo_head
     IStreamUnbufferedInfo.GetSectorSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetSectorSize', ((1, 'pcbSectorSize'),)))
+    win32more.System.Com.IUnknown
     return IStreamUnbufferedInfo
 DSH_FLAGS = Int32
 DSH_ALLOWDROPDESCRIPTIONTEXT = 1
@@ -5518,6 +5719,7 @@ def _define_IDragSourceHelper2_head():
 def _define_IDragSourceHelper2():
     IDragSourceHelper2 = win32more.UI.Shell.IDragSourceHelper2_head
     IDragSourceHelper2.SetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'SetFlags', ((1, 'dwFlags'),)))
+    win32more.UI.Shell.IDragSourceHelper
     return IDragSourceHelper2
 def _define_IHWEventHandler_head():
     class IHWEventHandler(win32more.System.Com.IUnknown_head):
@@ -5528,6 +5730,7 @@ def _define_IHWEventHandler():
     IHWEventHandler.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Initialize', ((1, 'pszParams'),)))
     IHWEventHandler.HandleEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'HandleEvent', ((1, 'pszDeviceID'),(1, 'pszAltDeviceID'),(1, 'pszEventType'),)))
     IHWEventHandler.HandleEventWithContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IDataObject_head, use_last_error=False)(5, 'HandleEventWithContent', ((1, 'pszDeviceID'),(1, 'pszAltDeviceID'),(1, 'pszEventType'),(1, 'pszContentTypeHandler'),(1, 'pdataobject'),)))
+    win32more.System.Com.IUnknown
     return IHWEventHandler
 def _define_IHWEventHandler2_head():
     class IHWEventHandler2(win32more.UI.Shell.IHWEventHandler_head):
@@ -5536,6 +5739,7 @@ def _define_IHWEventHandler2_head():
 def _define_IHWEventHandler2():
     IHWEventHandler2 = win32more.UI.Shell.IHWEventHandler2_head
     IHWEventHandler2.HandleEventWithHWND = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.HWND, use_last_error=False)(6, 'HandleEventWithHWND', ((1, 'pszDeviceID'),(1, 'pszAltDeviceID'),(1, 'pszEventType'),(1, 'hwndOwner'),)))
+    win32more.UI.Shell.IHWEventHandler
     return IHWEventHandler2
 def _define_IQueryCancelAutoPlay_head():
     class IQueryCancelAutoPlay(win32more.System.Com.IUnknown_head):
@@ -5544,6 +5748,7 @@ def _define_IQueryCancelAutoPlay_head():
 def _define_IQueryCancelAutoPlay():
     IQueryCancelAutoPlay = win32more.UI.Shell.IQueryCancelAutoPlay_head
     IQueryCancelAutoPlay.AllowAutoPlay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'AllowAutoPlay', ((1, 'pszPath'),(1, 'dwContentType'),(1, 'pszLabel'),(1, 'dwSerialNumber'),)))
+    win32more.System.Com.IUnknown
     return IQueryCancelAutoPlay
 def _define_IDynamicHWHandler_head():
     class IDynamicHWHandler(win32more.System.Com.IUnknown_head):
@@ -5552,6 +5757,7 @@ def _define_IDynamicHWHandler_head():
 def _define_IDynamicHWHandler():
     IDynamicHWHandler = win32more.UI.Shell.IDynamicHWHandler_head
     IDynamicHWHandler.GetDynamicInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetDynamicInfo', ((1, 'pszDeviceID'),(1, 'dwContentType'),(1, 'ppszAction'),)))
+    win32more.System.Com.IUnknown
     return IDynamicHWHandler
 def _define_IUserNotificationCallback_head():
     class IUserNotificationCallback(win32more.System.Com.IUnknown_head):
@@ -5562,6 +5768,7 @@ def _define_IUserNotificationCallback():
     IUserNotificationCallback.OnBalloonUserClick = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head), use_last_error=False)(3, 'OnBalloonUserClick', ((1, 'pt'),)))
     IUserNotificationCallback.OnLeftClick = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head), use_last_error=False)(4, 'OnLeftClick', ((1, 'pt'),)))
     IUserNotificationCallback.OnContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head), use_last_error=False)(5, 'OnContextMenu', ((1, 'pt'),)))
+    win32more.System.Com.IUnknown
     return IUserNotificationCallback
 def _define_IUserNotification2_head():
     class IUserNotification2(win32more.System.Com.IUnknown_head):
@@ -5574,6 +5781,7 @@ def _define_IUserNotification2():
     IUserNotification2.SetIconInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HICON,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SetIconInfo', ((1, 'hIcon'),(1, 'pszToolTip'),)))
     IUserNotification2.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IQueryContinue_head,UInt32,win32more.UI.Shell.IUserNotificationCallback_head, use_last_error=False)(6, 'Show', ((1, 'pqc'),(1, 'dwContinuePollInterval'),(1, 'pSink'),)))
     IUserNotification2.PlaySound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'PlaySound', ((1, 'pszSoundName'),)))
+    win32more.System.Com.IUnknown
     return IUserNotification2
 def _define_IDeskBand2_head():
     class IDeskBand2(win32more.UI.Shell.IDeskBand_head):
@@ -5584,6 +5792,7 @@ def _define_IDeskBand2():
     IDeskBand2.CanRenderComposited = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'CanRenderComposited', ((1, 'pfCanRenderComposited'),)))
     IDeskBand2.SetCompositionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(10, 'SetCompositionState', ((1, 'fCompositionEnabled'),)))
     IDeskBand2.GetCompositionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'GetCompositionState', ((1, 'pfCompositionEnabled'),)))
+    win32more.UI.Shell.IDeskBand
     return IDeskBand2
 def _define_IStartMenuPinnedList_head():
     class IStartMenuPinnedList(win32more.System.Com.IUnknown_head):
@@ -5592,6 +5801,7 @@ def _define_IStartMenuPinnedList_head():
 def _define_IStartMenuPinnedList():
     IStartMenuPinnedList = win32more.UI.Shell.IStartMenuPinnedList_head
     IStartMenuPinnedList.RemoveFromList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(3, 'RemoveFromList', ((1, 'pitem'),)))
+    win32more.System.Com.IUnknown
     return IStartMenuPinnedList
 def _define_ICDBurn_head():
     class ICDBurn(win32more.System.Com.IUnknown_head):
@@ -5602,6 +5812,7 @@ def _define_ICDBurn():
     ICDBurn.GetRecorderDriveLetter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(3, 'GetRecorderDriveLetter', ((1, 'pszDrive'),(1, 'cch'),)))
     ICDBurn.Burn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(4, 'Burn', ((1, 'hwnd'),)))
     ICDBurn.HasRecordableDrive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'HasRecordableDrive', ((1, 'pfHasRecorder'),)))
+    win32more.System.Com.IUnknown
     return ICDBurn
 def _define_IWizardSite_head():
     class IWizardSite(win32more.System.Com.IUnknown_head):
@@ -5612,6 +5823,7 @@ def _define_IWizardSite():
     IWizardSite.GetPreviousPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.HPROPSHEETPAGE), use_last_error=False)(3, 'GetPreviousPage', ((1, 'phpage'),)))
     IWizardSite.GetNextPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.HPROPSHEETPAGE), use_last_error=False)(4, 'GetNextPage', ((1, 'phpage'),)))
     IWizardSite.GetCancelledPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.HPROPSHEETPAGE), use_last_error=False)(5, 'GetCancelledPage', ((1, 'phpage'),)))
+    win32more.System.Com.IUnknown
     return IWizardSite
 def _define_IWizardExtension_head():
     class IWizardExtension(win32more.System.Com.IUnknown_head):
@@ -5622,6 +5834,7 @@ def _define_IWizardExtension():
     IWizardExtension.AddPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.HPROPSHEETPAGE),UInt32,POINTER(UInt32), use_last_error=False)(3, 'AddPages', ((1, 'aPages'),(1, 'cPages'),(1, 'pnPagesAdded'),)))
     IWizardExtension.GetFirstPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.HPROPSHEETPAGE), use_last_error=False)(4, 'GetFirstPage', ((1, 'phpage'),)))
     IWizardExtension.GetLastPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Controls.HPROPSHEETPAGE), use_last_error=False)(5, 'GetLastPage', ((1, 'phpage'),)))
+    win32more.System.Com.IUnknown
     return IWizardExtension
 def _define_IWebWizardExtension_head():
     class IWebWizardExtension(win32more.UI.Shell.IWizardExtension_head):
@@ -5631,6 +5844,7 @@ def _define_IWebWizardExtension():
     IWebWizardExtension = win32more.UI.Shell.IWebWizardExtension_head
     IWebWizardExtension.SetInitialURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'SetInitialURL', ((1, 'pszURL'),)))
     IWebWizardExtension.SetErrorURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'SetErrorURL', ((1, 'pszErrorURL'),)))
+    win32more.UI.Shell.IWizardExtension
     return IWebWizardExtension
 def _define_IPublishingWizard_head():
     class IPublishingWizard(win32more.UI.Shell.IWizardExtension_head):
@@ -5640,6 +5854,7 @@ def _define_IPublishingWizard():
     IPublishingWizard = win32more.UI.Shell.IPublishingWizard_head
     IPublishingWizard.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(6, 'Initialize', ((1, 'pdo'),(1, 'dwOptions'),(1, 'pszServiceScope'),)))
     IPublishingWizard.GetTransferManifest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.Data.Xml.MsXml.IXMLDOMDocument_head), use_last_error=False)(7, 'GetTransferManifest', ((1, 'phrFromTransfer'),(1, 'pdocManifest'),)))
+    win32more.UI.Shell.IWizardExtension
     return IPublishingWizard
 def _define_IFolderViewHost_head():
     class IFolderViewHost(win32more.System.Com.IUnknown_head):
@@ -5648,6 +5863,7 @@ def _define_IFolderViewHost_head():
 def _define_IFolderViewHost():
     IFolderViewHost = win32more.UI.Shell.IFolderViewHost_head
     IFolderViewHost.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.Com.IDataObject_head,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(3, 'Initialize', ((1, 'hwndParent'),(1, 'pdo'),(1, 'prc'),)))
+    win32more.System.Com.IUnknown
     return IFolderViewHost
 def _define_IAccessibleObject_head():
     class IAccessibleObject(win32more.System.Com.IUnknown_head):
@@ -5656,6 +5872,7 @@ def _define_IAccessibleObject_head():
 def _define_IAccessibleObject():
     IAccessibleObject = win32more.UI.Shell.IAccessibleObject_head
     IAccessibleObject.SetAccessibleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetAccessibleName', ((1, 'pszName'),)))
+    win32more.System.Com.IUnknown
     return IAccessibleObject
 def _define_IResultsFolder_head():
     class IResultsFolder(win32more.System.Com.IUnknown_head):
@@ -5668,6 +5885,7 @@ def _define_IResultsFolder():
     IResultsFolder.RemoveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(5, 'RemoveItem', ((1, 'psi'),)))
     IResultsFolder.RemoveIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(6, 'RemoveIDList', ((1, 'pidl'),)))
     IResultsFolder.RemoveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'RemoveAll', ()))
+    win32more.System.Com.IUnknown
     return IResultsFolder
 def _define_IAutoCompleteDropDown_head():
     class IAutoCompleteDropDown(win32more.System.Com.IUnknown_head):
@@ -5677,6 +5895,7 @@ def _define_IAutoCompleteDropDown():
     IAutoCompleteDropDown = win32more.UI.Shell.IAutoCompleteDropDown_head
     IAutoCompleteDropDown.GetDropDownStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetDropDownStatus', ((1, 'pdwFlags'),(1, 'ppwszString'),)))
     IAutoCompleteDropDown.ResetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ResetEnumerator', ()))
+    win32more.System.Com.IUnknown
     return IAutoCompleteDropDown
 CDBURNINGEXTENSIONRET = Int32
 CDBE_RET_DEFAULT = 0
@@ -5693,6 +5912,7 @@ def _define_ICDBurnExt_head():
 def _define_ICDBurnExt():
     ICDBurnExt = win32more.UI.Shell.ICDBurnExt_head
     ICDBurnExt.GetSupportedActionTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetSupportedActionTypes', ((1, 'pdwActions'),)))
+    win32more.System.Com.IUnknown
     return ICDBurnExt
 def _define_IEnumReadyCallback_head():
     class IEnumReadyCallback(win32more.System.Com.IUnknown_head):
@@ -5701,6 +5921,7 @@ def _define_IEnumReadyCallback_head():
 def _define_IEnumReadyCallback():
     IEnumReadyCallback = win32more.UI.Shell.IEnumReadyCallback_head
     IEnumReadyCallback.EnumReady = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'EnumReady', ()))
+    win32more.System.Com.IUnknown
     return IEnumReadyCallback
 def _define_IEnumerableView_head():
     class IEnumerableView(win32more.System.Com.IUnknown_head):
@@ -5710,6 +5931,7 @@ def _define_IEnumerableView():
     IEnumerableView = win32more.UI.Shell.IEnumerableView_head
     IEnumerableView.SetEnumReadyCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IEnumReadyCallback_head, use_last_error=False)(3, 'SetEnumReadyCallback', ((1, 'percb'),)))
     IEnumerableView.CreateEnumIDListFromContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),UInt32,POINTER(win32more.UI.Shell.IEnumIDList_head), use_last_error=False)(4, 'CreateEnumIDListFromContents', ((1, 'pidlFolder'),(1, 'dwEnumFlags'),(1, 'ppEnumIDList'),)))
+    win32more.System.Com.IUnknown
     return IEnumerableView
 def _define_IInsertItem_head():
     class IInsertItem(win32more.System.Com.IUnknown_head):
@@ -5718,6 +5940,7 @@ def _define_IInsertItem_head():
 def _define_IInsertItem():
     IInsertItem = win32more.UI.Shell.IInsertItem_head
     IInsertItem.InsertItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(3, 'InsertItem', ((1, 'pidl'),)))
+    win32more.System.Com.IUnknown
     return IInsertItem
 def _define_IFolderBandPriv_head():
     class IFolderBandPriv(win32more.System.Com.IUnknown_head):
@@ -5729,6 +5952,7 @@ def _define_IFolderBandPriv():
     IFolderBandPriv.SetAccelerators = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetAccelerators', ((1, 'fAccelerators'),)))
     IFolderBandPriv.SetNoIcons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetNoIcons', ((1, 'fNoIcons'),)))
     IFolderBandPriv.SetNoText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(6, 'SetNoText', ((1, 'fNoText'),)))
+    win32more.System.Com.IUnknown
     return IFolderBandPriv
 def _define_IImageRecompress_head():
     class IImageRecompress(win32more.System.Com.IUnknown_head):
@@ -5737,6 +5961,7 @@ def _define_IImageRecompress_head():
 def _define_IImageRecompress():
     IImageRecompress = win32more.UI.Shell.IImageRecompress_head
     IImageRecompress.RecompressImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,Int32,Int32,Int32,win32more.System.Com.StructuredStorage.IStorage_head,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(3, 'RecompressImage', ((1, 'psi'),(1, 'cx'),(1, 'cy'),(1, 'iQuality'),(1, 'pstg'),(1, 'ppstrmOut'),)))
+    win32more.System.Com.IUnknown
     return IImageRecompress
 def _define_IFileDialogControlEvents_head():
     class IFileDialogControlEvents(win32more.System.Com.IUnknown_head):
@@ -5748,6 +5973,7 @@ def _define_IFileDialogControlEvents():
     IFileDialogControlEvents.OnButtonClicked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IFileDialogCustomize_head,UInt32, use_last_error=False)(4, 'OnButtonClicked', ((1, 'pfdc'),(1, 'dwIDCtl'),)))
     IFileDialogControlEvents.OnCheckButtonToggled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IFileDialogCustomize_head,UInt32,win32more.Foundation.BOOL, use_last_error=False)(5, 'OnCheckButtonToggled', ((1, 'pfdc'),(1, 'dwIDCtl'),(1, 'bChecked'),)))
     IFileDialogControlEvents.OnControlActivating = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IFileDialogCustomize_head,UInt32, use_last_error=False)(6, 'OnControlActivating', ((1, 'pfdc'),(1, 'dwIDCtl'),)))
+    win32more.System.Com.IUnknown
     return IFileDialogControlEvents
 def _define_IFileDialog2_head():
     class IFileDialog2(win32more.UI.Shell.IFileDialog_head):
@@ -5757,6 +5983,7 @@ def _define_IFileDialog2():
     IFileDialog2 = win32more.UI.Shell.IFileDialog2_head
     IFileDialog2.SetCancelButtonLabel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(27, 'SetCancelButtonLabel', ((1, 'pszLabel'),)))
     IFileDialog2.SetNavigationRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(28, 'SetNavigationRoot', ((1, 'psi'),)))
+    win32more.UI.Shell.IFileDialog
     return IFileDialog2
 def _define_IApplicationAssociationRegistrationUI_head():
     class IApplicationAssociationRegistrationUI(win32more.System.Com.IUnknown_head):
@@ -5765,6 +5992,7 @@ def _define_IApplicationAssociationRegistrationUI_head():
 def _define_IApplicationAssociationRegistrationUI():
     IApplicationAssociationRegistrationUI = win32more.UI.Shell.IApplicationAssociationRegistrationUI_head
     IApplicationAssociationRegistrationUI.LaunchAdvancedAssociationUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'LaunchAdvancedAssociationUI', ((1, 'pszAppRegistryName'),)))
+    win32more.System.Com.IUnknown
     return IApplicationAssociationRegistrationUI
 def _define_IShellRunDll_head():
     class IShellRunDll(win32more.System.Com.IUnknown_head):
@@ -5773,6 +6001,7 @@ def _define_IShellRunDll_head():
 def _define_IShellRunDll():
     IShellRunDll = win32more.UI.Shell.IShellRunDll_head
     IShellRunDll.Run = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Run', ((1, 'pszArgs'),)))
+    win32more.System.Com.IUnknown
     return IShellRunDll
 def _define_IPreviousVersionsInfo_head():
     class IPreviousVersionsInfo(win32more.System.Com.IUnknown_head):
@@ -5781,6 +6010,7 @@ def _define_IPreviousVersionsInfo_head():
 def _define_IPreviousVersionsInfo():
     IPreviousVersionsInfo = win32more.UI.Shell.IPreviousVersionsInfo_head
     IPreviousVersionsInfo.AreSnapshotsAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'AreSnapshotsAvailable', ((1, 'pszPath'),(1, 'fOkToBeSlow'),(1, 'pfAvailable'),)))
+    win32more.System.Com.IUnknown
     return IPreviousVersionsInfo
 def _define_IUseToBrowseItem_head():
     class IUseToBrowseItem(win32more.UI.Shell.IRelatedItem_head):
@@ -5788,6 +6018,7 @@ def _define_IUseToBrowseItem_head():
     return IUseToBrowseItem
 def _define_IUseToBrowseItem():
     IUseToBrowseItem = win32more.UI.Shell.IUseToBrowseItem_head
+    win32more.UI.Shell.IRelatedItem
     return IUseToBrowseItem
 NSTCSTYLE2 = Int32
 NSTCS2_DEFAULT = 0
@@ -5807,6 +6038,7 @@ def _define_INameSpaceTreeControl2():
     INameSpaceTreeControl2.GetControlStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(23, 'GetControlStyle', ((1, 'nstcsMask'),(1, 'pnstcsStyle'),)))
     INameSpaceTreeControl2.SetControlStyle2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.NSTCSTYLE2,win32more.UI.Shell.NSTCSTYLE2, use_last_error=False)(24, 'SetControlStyle2', ((1, 'nstcsMask'),(1, 'nstcsStyle'),)))
     INameSpaceTreeControl2.GetControlStyle2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.NSTCSTYLE2,POINTER(win32more.UI.Shell.NSTCSTYLE2), use_last_error=False)(25, 'GetControlStyle2', ((1, 'nstcsMask'),(1, 'pnstcsStyle'),)))
+    win32more.UI.Shell.INameSpaceTreeControl
     return INameSpaceTreeControl2
 _NSTCEHITTEST = Int32
 NSTCEHT_NOWHERE = 1
@@ -5848,6 +6080,7 @@ def _define_INameSpaceTreeControlEvents():
     INameSpaceTreeControlEvents.OnAfterContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,win32more.UI.Shell.IContextMenu_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(18, 'OnAfterContextMenu', ((1, 'psi'),(1, 'pcmIn'),(1, 'riid'),(1, 'ppv'),)))
     INameSpaceTreeControlEvents.OnBeforeStateImageChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(19, 'OnBeforeStateImageChange', ((1, 'psi'),)))
     INameSpaceTreeControlEvents.OnGetDefaultIconIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,POINTER(Int32),POINTER(Int32), use_last_error=False)(20, 'OnGetDefaultIconIndex', ((1, 'psi'),(1, 'piDefaultIcon'),(1, 'piOpenIcon'),)))
+    win32more.System.Com.IUnknown
     return INameSpaceTreeControlEvents
 def _define_INameSpaceTreeControlDropHandler_head():
     class INameSpaceTreeControlDropHandler(win32more.System.Com.IUnknown_head):
@@ -5861,6 +6094,7 @@ def _define_INameSpaceTreeControlDropHandler():
     INameSpaceTreeControlDropHandler.OnDrop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,win32more.UI.Shell.IShellItemArray_head,Int32,UInt32,POINTER(UInt32), use_last_error=False)(6, 'OnDrop', ((1, 'psiOver'),(1, 'psiaData'),(1, 'iPosition'),(1, 'grfKeyState'),(1, 'pdwEffect'),)))
     INameSpaceTreeControlDropHandler.OnDropPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,win32more.UI.Shell.IShellItemArray_head,Int32,Int32, use_last_error=False)(7, 'OnDropPosition', ((1, 'psiOver'),(1, 'psiaData'),(1, 'iNewPosition'),(1, 'iOldPosition'),)))
     INameSpaceTreeControlDropHandler.OnDragLeave = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(8, 'OnDragLeave', ((1, 'psiOver'),)))
+    win32more.System.Com.IUnknown
     return INameSpaceTreeControlDropHandler
 def _define_INameSpaceTreeAccessible_head():
     class INameSpaceTreeAccessible(win32more.System.Com.IUnknown_head):
@@ -5871,6 +6105,7 @@ def _define_INameSpaceTreeAccessible():
     INameSpaceTreeAccessible.OnGetDefaultAccessibilityAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'OnGetDefaultAccessibilityAction', ((1, 'psi'),(1, 'pbstrDefaultAction'),)))
     INameSpaceTreeAccessible.OnDoDefaultAccessibilityAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head, use_last_error=False)(4, 'OnDoDefaultAccessibilityAction', ((1, 'psi'),)))
     INameSpaceTreeAccessible.OnGetAccessibilityRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(5, 'OnGetAccessibilityRole', ((1, 'psi'),(1, 'pvarRole'),)))
+    win32more.System.Com.IUnknown
     return INameSpaceTreeAccessible
 def _define_NSTCCUSTOMDRAW_head():
     class NSTCCUSTOMDRAW(Structure):
@@ -5899,6 +6134,7 @@ def _define_INameSpaceTreeControlCustomDraw():
     INameSpaceTreeControlCustomDraw.PostPaint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(4, 'PostPaint', ((1, 'hdc'),(1, 'prc'),)))
     INameSpaceTreeControlCustomDraw.ItemPrePaint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.UI.Shell.NSTCCUSTOMDRAW_head),POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.LRESULT), use_last_error=False)(5, 'ItemPrePaint', ((1, 'hdc'),(1, 'prc'),(1, 'pnstccdItem'),(1, 'pclrText'),(1, 'pclrTextBk'),(1, 'plres'),)))
     INameSpaceTreeControlCustomDraw.ItemPostPaint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.UI.Shell.NSTCCUSTOMDRAW_head), use_last_error=False)(6, 'ItemPostPaint', ((1, 'hdc'),(1, 'prc'),(1, 'pnstccdItem'),)))
+    win32more.System.Com.IUnknown
     return INameSpaceTreeControlCustomDraw
 def _define_ITrayDeskBand_head():
     class ITrayDeskBand(win32more.System.Com.IUnknown_head):
@@ -5910,6 +6146,7 @@ def _define_ITrayDeskBand():
     ITrayDeskBand.HideDeskBand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'HideDeskBand', ((1, 'clsid'),)))
     ITrayDeskBand.IsDeskBandShown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'IsDeskBandShown', ((1, 'clsid'),)))
     ITrayDeskBand.DeskBandRegistrationChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'DeskBandRegistrationChanged', ()))
+    win32more.System.Com.IUnknown
     return ITrayDeskBand
 def _define_IBandHost_head():
     class IBandHost(win32more.System.Com.IUnknown_head):
@@ -5920,6 +6157,7 @@ def _define_IBandHost():
     IBandHost.CreateBand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateBand', ((1, 'rclsidBand'),(1, 'fAvailable'),(1, 'fVisible'),(1, 'riid'),(1, 'ppv'),)))
     IBandHost.SetBandAvailability = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.BOOL, use_last_error=False)(4, 'SetBandAvailability', ((1, 'rclsidBand'),(1, 'fAvailable'),)))
     IBandHost.DestroyBand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'DestroyBand', ((1, 'rclsidBand'),)))
+    win32more.System.Com.IUnknown
     return IBandHost
 def _define_IComputerInfoChangeNotify_head():
     class IComputerInfoChangeNotify(win32more.System.Com.IUnknown_head):
@@ -5928,6 +6166,7 @@ def _define_IComputerInfoChangeNotify_head():
 def _define_IComputerInfoChangeNotify():
     IComputerInfoChangeNotify = win32more.UI.Shell.IComputerInfoChangeNotify_head
     IComputerInfoChangeNotify.ComputerInfoChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'ComputerInfoChanged', ()))
+    win32more.System.Com.IUnknown
     return IComputerInfoChangeNotify
 def _define_IDesktopGadget_head():
     class IDesktopGadget(win32more.System.Com.IUnknown_head):
@@ -5936,6 +6175,7 @@ def _define_IDesktopGadget_head():
 def _define_IDesktopGadget():
     IDesktopGadget = win32more.UI.Shell.IDesktopGadget_head
     IDesktopGadget.RunGadget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'RunGadget', ((1, 'gadgetPath'),)))
+    win32more.System.Com.IUnknown
     return IDesktopGadget
 UNDOCK_REASON = Int32
 UR_RESOLUTION_CHANGE = 0
@@ -5947,6 +6187,7 @@ def _define_IAccessibilityDockingServiceCallback_head():
 def _define_IAccessibilityDockingServiceCallback():
     IAccessibilityDockingServiceCallback = win32more.UI.Shell.IAccessibilityDockingServiceCallback_head
     IAccessibilityDockingServiceCallback.Undocked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.UNDOCK_REASON, use_last_error=False)(3, 'Undocked', ((1, 'undockReason'),)))
+    win32more.System.Com.IUnknown
     return IAccessibilityDockingServiceCallback
 def _define_IAccessibilityDockingService_head():
     class IAccessibilityDockingService(win32more.System.Com.IUnknown_head):
@@ -5957,6 +6198,7 @@ def _define_IAccessibilityDockingService():
     IAccessibilityDockingService.GetAvailableSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HMONITOR,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetAvailableSize', ((1, 'hMonitor'),(1, 'pcxFixed'),(1, 'pcyMax'),)))
     IAccessibilityDockingService.DockWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Graphics.Gdi.HMONITOR,UInt32,win32more.UI.Shell.IAccessibilityDockingServiceCallback_head, use_last_error=False)(4, 'DockWindow', ((1, 'hwnd'),(1, 'hMonitor'),(1, 'cyRequested'),(1, 'pCallback'),)))
     IAccessibilityDockingService.UndockWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(5, 'UndockWindow', ((1, 'hwnd'),)))
+    win32more.System.Com.IUnknown
     return IAccessibilityDockingService
 def _define_IStorageProviderBanners_head():
     class IStorageProviderBanners(win32more.System.Com.IUnknown_head):
@@ -5968,6 +6210,7 @@ def _define_IStorageProviderBanners():
     IStorageProviderBanners.ClearBanner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'ClearBanner', ((1, 'providerIdentity'),(1, 'subscriptionId'),)))
     IStorageProviderBanners.ClearAllBanners = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'ClearAllBanners', ((1, 'providerIdentity'),)))
     IStorageProviderBanners.GetBanner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetBanner', ((1, 'providerIdentity'),(1, 'subscriptionId'),(1, 'contentId'),)))
+    win32more.System.Com.IUnknown
     return IStorageProviderBanners
 def _define_IStorageProviderCopyHook_head():
     class IStorageProviderCopyHook(win32more.System.Com.IUnknown_head):
@@ -5976,6 +6219,7 @@ def _define_IStorageProviderCopyHook_head():
 def _define_IStorageProviderCopyHook():
     IStorageProviderCopyHook = win32more.UI.Shell.IStorageProviderCopyHook_head
     IStorageProviderCopyHook.CopyCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32), use_last_error=False)(3, 'CopyCallback', ((1, 'hwnd'),(1, 'operation'),(1, 'flags'),(1, 'srcFile'),(1, 'srcAttribs'),(1, 'destFile'),(1, 'destAttribs'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return IStorageProviderCopyHook
 WebBrowser_V1 = Guid('eab22ac3-30c1-11cf-a7eb-0000c05bae0b')
 WebBrowser = Guid('8856f961-340a-11d0-a96b-00c04fd705a2')
@@ -6078,6 +6322,7 @@ def _define_IWebBrowser():
     IWebBrowser.get_LocationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(29, 'get_LocationName', ((1, 'LocationName'),)))
     IWebBrowser.get_LocationURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(30, 'get_LocationURL', ((1, 'LocationURL'),)))
     IWebBrowser.get_Busy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(31, 'get_Busy', ((1, 'pBool'),)))
+    win32more.System.Com.IDispatch
     return IWebBrowser
 def _define_DWebBrowserEvents_head():
     class DWebBrowserEvents(win32more.System.Com.IDispatch_head):
@@ -6085,6 +6330,7 @@ def _define_DWebBrowserEvents_head():
     return DWebBrowserEvents
 def _define_DWebBrowserEvents():
     DWebBrowserEvents = win32more.UI.Shell.DWebBrowserEvents_head
+    win32more.System.Com.IDispatch
     return DWebBrowserEvents
 def _define_IWebBrowserApp_head():
     class IWebBrowserApp(win32more.UI.Shell.IWebBrowser_head):
@@ -6112,6 +6358,7 @@ def _define_IWebBrowserApp():
     IWebBrowserApp.put_MenuBar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(49, 'put_MenuBar', ((1, 'Value'),)))
     IWebBrowserApp.get_FullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(50, 'get_FullScreen', ((1, 'pbFullScreen'),)))
     IWebBrowserApp.put_FullScreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(51, 'put_FullScreen', ((1, 'bFullScreen'),)))
+    win32more.UI.Shell.IWebBrowser
     return IWebBrowserApp
 def _define_IWebBrowser2_head():
     class IWebBrowser2(win32more.UI.Shell.IWebBrowserApp_head):
@@ -6138,6 +6385,7 @@ def _define_IWebBrowser2():
     IWebBrowser2.put_AddressBar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(68, 'put_AddressBar', ((1, 'Value'),)))
     IWebBrowser2.get_Resizable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(69, 'get_Resizable', ((1, 'Value'),)))
     IWebBrowser2.put_Resizable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(70, 'put_Resizable', ((1, 'Value'),)))
+    win32more.UI.Shell.IWebBrowserApp
     return IWebBrowser2
 def _define_DWebBrowserEvents2_head():
     class DWebBrowserEvents2(win32more.System.Com.IDispatch_head):
@@ -6145,6 +6393,7 @@ def _define_DWebBrowserEvents2_head():
     return DWebBrowserEvents2
 def _define_DWebBrowserEvents2():
     DWebBrowserEvents2 = win32more.UI.Shell.DWebBrowserEvents2_head
+    win32more.System.Com.IDispatch
     return DWebBrowserEvents2
 def _define_DShellWindowsEvents_head():
     class DShellWindowsEvents(win32more.System.Com.IDispatch_head):
@@ -6152,6 +6401,7 @@ def _define_DShellWindowsEvents_head():
     return DShellWindowsEvents
 def _define_DShellWindowsEvents():
     DShellWindowsEvents = win32more.UI.Shell.DShellWindowsEvents_head
+    win32more.System.Com.IDispatch
     return DShellWindowsEvents
 def _define_IShellWindows_head():
     class IShellWindows(win32more.System.Com.IDispatch_head):
@@ -6170,6 +6420,7 @@ def _define_IShellWindows():
     IShellWindows.FindWindowSW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),Int32,POINTER(Int32),Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(15, 'FindWindowSW', ((1, 'pvarLoc'),(1, 'pvarLocRoot'),(1, 'swClass'),(1, 'phwnd'),(1, 'swfwOptions'),(1, 'ppdispOut'),)))
     IShellWindows.OnCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.IUnknown_head, use_last_error=False)(16, 'OnCreated', ((1, 'lCookie'),(1, 'punk'),)))
     IShellWindows.ProcessAttachDetach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'ProcessAttachDetach', ((1, 'fAttach'),)))
+    win32more.System.Com.IDispatch
     return IShellWindows
 def _define_IShellUIHelper_head():
     class IShellUIHelper(win32more.System.Com.IDispatch_head):
@@ -6190,6 +6441,7 @@ def _define_IShellUIHelper():
     IShellUIHelper.AutoScan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'AutoScan', ((1, 'strSearch'),(1, 'strFailureUrl'),(1, 'pvarTargetFrame'),)))
     IShellUIHelper.AutoCompleteAttach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'AutoCompleteAttach', ((1, 'Reserved'),)))
     IShellUIHelper.ShowBrowserUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'ShowBrowserUI', ((1, 'bstrName'),(1, 'pvarIn'),(1, 'pvarOut'),)))
+    win32more.System.Com.IDispatch
     return IShellUIHelper
 def _define_IShellUIHelper2_head():
     class IShellUIHelper2(win32more.UI.Shell.IShellUIHelper_head):
@@ -6213,6 +6465,7 @@ def _define_IShellUIHelper2():
     IShellUIHelper2.RunOnceRequiredSettingsComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(33, 'RunOnceRequiredSettingsComplete', ((1, 'fComplete'),)))
     IShellUIHelper2.RunOnceHasShown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(34, 'RunOnceHasShown', ((1, 'pfShown'),)))
     IShellUIHelper2.SearchGuideUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(35, 'SearchGuideUrl', ((1, 'pbstrUrl'),)))
+    win32more.UI.Shell.IShellUIHelper
     return IShellUIHelper2
 def _define_IShellUIHelper3_head():
     class IShellUIHelper3(win32more.UI.Shell.IShellUIHelper2_head):
@@ -6233,6 +6486,7 @@ def _define_IShellUIHelper3():
     IShellUIHelper3.NavigateToSuggestedSites = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(46, 'NavigateToSuggestedSites', ((1, 'bstrRelativeUrl'),)))
     IShellUIHelper3.ShowTabsHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(47, 'ShowTabsHelp', ()))
     IShellUIHelper3.ShowInPrivateHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(48, 'ShowInPrivateHelp', ()))
+    win32more.UI.Shell.IShellUIHelper2
     return IShellUIHelper3
 def _define_IShellUIHelper4_head():
     class IShellUIHelper4(win32more.UI.Shell.IShellUIHelper3_head):
@@ -6258,6 +6512,7 @@ def _define_IShellUIHelper4():
     IShellUIHelper4.msAddTrackingProtectionList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(64, 'msAddTrackingProtectionList', ((1, 'URL'),(1, 'bstrFilterName'),)))
     IShellUIHelper4.msTrackingProtectionEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(65, 'msTrackingProtectionEnabled', ((1, 'pfEnabled'),)))
     IShellUIHelper4.msActiveXFilteringEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(66, 'msActiveXFilteringEnabled', ((1, 'pfEnabled'),)))
+    win32more.UI.Shell.IShellUIHelper3
     return IShellUIHelper4
 def _define_IShellUIHelper5_head():
     class IShellUIHelper5(win32more.UI.Shell.IShellUIHelper4_head):
@@ -6272,6 +6527,7 @@ def _define_IShellUIHelper5():
     IShellUIHelper5.msDiagnoseConnectionUILess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(71, 'msDiagnoseConnectionUILess', ()))
     IShellUIHelper5.msLaunchNetworkClientHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(72, 'msLaunchNetworkClientHelp', ()))
     IShellUIHelper5.msChangeDefaultBrowser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(73, 'msChangeDefaultBrowser', ((1, 'fChange'),)))
+    win32more.UI.Shell.IShellUIHelper4
     return IShellUIHelper5
 def _define_IShellUIHelper6_head():
     class IShellUIHelper6(win32more.UI.Shell.IShellUIHelper5_head):
@@ -6293,6 +6549,7 @@ def _define_IShellUIHelper6():
     IShellUIHelper6.msStartPeriodicBadgeUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(85, 'msStartPeriodicBadgeUpdate', ((1, 'pollingUri'),(1, 'startTime'),(1, 'uiUpdateRecurrence'),)))
     IShellUIHelper6.msStopPeriodicBadgeUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(86, 'msStopPeriodicBadgeUpdate', ()))
     IShellUIHelper6.msLaunchInternetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(87, 'msLaunchInternetOptions', ()))
+    win32more.UI.Shell.IShellUIHelper5
     return IShellUIHelper6
 def _define_IShellUIHelper7_head():
     class IShellUIHelper7(win32more.UI.Shell.IShellUIHelper6_head):
@@ -6309,6 +6566,7 @@ def _define_IShellUIHelper7():
     IShellUIHelper7.SetNeedIEAutoLaunchFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(94, 'SetNeedIEAutoLaunchFlag', ((1, 'bstrUrl'),(1, 'flag'),)))
     IShellUIHelper7.HasNeedIEAutoLaunchFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(95, 'HasNeedIEAutoLaunchFlag', ((1, 'bstrUrl'),(1, 'exists'),)))
     IShellUIHelper7.LaunchIE = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(96, 'LaunchIE', ((1, 'bstrUrl'),(1, 'automated'),)))
+    win32more.UI.Shell.IShellUIHelper6
     return IShellUIHelper7
 def _define_IShellUIHelper8_head():
     class IShellUIHelper8(win32more.UI.Shell.IShellUIHelper7_head):
@@ -6323,6 +6581,7 @@ def _define_IShellUIHelper8():
     IShellUIHelper8.OpenFavoritesPane = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(101, 'OpenFavoritesPane', ()))
     IShellUIHelper8.OpenFavoritesSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(102, 'OpenFavoritesSettings', ()))
     IShellUIHelper8.LaunchInHVSI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(103, 'LaunchInHVSI', ((1, 'bstrUrl'),)))
+    win32more.UI.Shell.IShellUIHelper7
     return IShellUIHelper8
 def _define_IShellUIHelper9_head():
     class IShellUIHelper9(win32more.UI.Shell.IShellUIHelper8_head):
@@ -6331,6 +6590,7 @@ def _define_IShellUIHelper9_head():
 def _define_IShellUIHelper9():
     IShellUIHelper9 = win32more.UI.Shell.IShellUIHelper9_head
     IShellUIHelper9.GetOSSku = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(104, 'GetOSSku', ((1, 'pdwResult'),)))
+    win32more.UI.Shell.IShellUIHelper8
     return IShellUIHelper9
 def _define_DShellNameSpaceEvents_head():
     class DShellNameSpaceEvents(win32more.System.Com.IDispatch_head):
@@ -6338,6 +6598,7 @@ def _define_DShellNameSpaceEvents_head():
     return DShellNameSpaceEvents
 def _define_DShellNameSpaceEvents():
     DShellNameSpaceEvents = win32more.UI.Shell.DShellNameSpaceEvents_head
+    win32more.System.Com.IDispatch
     return DShellNameSpaceEvents
 def _define_IShellFavoritesNameSpace_head():
     class IShellFavoritesNameSpace(win32more.System.Com.IDispatch_head):
@@ -6358,6 +6619,7 @@ def _define_IShellFavoritesNameSpace():
     IShellFavoritesNameSpace.CreateSubscriptionForSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(17, 'CreateSubscriptionForSelection', ((1, 'pBool'),)))
     IShellFavoritesNameSpace.DeleteSubscriptionForSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(18, 'DeleteSubscriptionForSelection', ((1, 'pBool'),)))
     IShellFavoritesNameSpace.SetRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(19, 'SetRoot', ((1, 'bstrFullPath'),)))
+    win32more.System.Com.IDispatch
     return IShellFavoritesNameSpace
 def _define_IShellNameSpace_head():
     class IShellNameSpace(win32more.UI.Shell.IShellFavoritesNameSpace_head):
@@ -6386,6 +6648,7 @@ def _define_IShellNameSpace():
     IShellNameSpace.SelectedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(38, 'SelectedItems', ((1, 'ppid'),)))
     IShellNameSpace.Expand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,Int32, use_last_error=False)(39, 'Expand', ((1, 'var'),(1, 'iDepth'),)))
     IShellNameSpace.UnselectAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(40, 'UnselectAll', ()))
+    win32more.UI.Shell.IShellFavoritesNameSpace
     return IShellNameSpace
 def _define_IScriptErrorList_head():
     class IScriptErrorList(win32more.System.Com.IDispatch_head):
@@ -6407,6 +6670,7 @@ def _define_IScriptErrorList():
     IScriptErrorList.setDetailsPaneOpen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(18, 'setDetailsPaneOpen', ((1, 'fDetailsPaneOpen'),)))
     IScriptErrorList.getPerErrorDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(19, 'getPerErrorDisplay', ((1, 'pfPerErrorDisplay'),)))
     IScriptErrorList.setPerErrorDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(20, 'setPerErrorDisplay', ((1, 'fPerErrorDisplay'),)))
+    win32more.System.Com.IDispatch
     return IScriptErrorList
 ShellFolderViewOC = Guid('9ba05971-f6a8-11cf-a442-00a0c90a8f39')
 ShellFolderItem = Guid('2fe352ea-fd1f-11d2-b1f4-00c04f8eeb3e')
@@ -6475,6 +6739,7 @@ def _define_IFolderViewOC_head():
 def _define_IFolderViewOC():
     IFolderViewOC = win32more.UI.Shell.IFolderViewOC_head
     IFolderViewOC.SetFolderView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(7, 'SetFolderView', ((1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IFolderViewOC
 def _define_DShellFolderViewEvents_head():
     class DShellFolderViewEvents(win32more.System.Com.IDispatch_head):
@@ -6482,6 +6747,7 @@ def _define_DShellFolderViewEvents_head():
     return DShellFolderViewEvents
 def _define_DShellFolderViewEvents():
     DShellFolderViewEvents = win32more.UI.Shell.DShellFolderViewEvents_head
+    win32more.System.Com.IDispatch
     return DShellFolderViewEvents
 def _define_DFConstraint_head():
     class DFConstraint(win32more.System.Com.IDispatch_head):
@@ -6491,6 +6757,7 @@ def _define_DFConstraint():
     DFConstraint = win32more.UI.Shell.DFConstraint_head
     DFConstraint.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'pbs'),)))
     DFConstraint.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Value', ((1, 'pv'),)))
+    win32more.System.Com.IDispatch
     return DFConstraint
 def _define_FolderItem_head():
     class FolderItem(win32more.System.Com.IDispatch_head):
@@ -6515,6 +6782,7 @@ def _define_FolderItem():
     FolderItem.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'get_Type', ((1, 'pbs'),)))
     FolderItem.Verbs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.FolderItemVerbs_head), use_last_error=False)(22, 'Verbs', ((1, 'ppfic'),)))
     FolderItem.InvokeVerb = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(23, 'InvokeVerb', ((1, 'vVerb'),)))
+    win32more.System.Com.IDispatch
     return FolderItem
 def _define_FolderItems_head():
     class FolderItems(win32more.System.Com.IDispatch_head):
@@ -6527,6 +6795,7 @@ def _define_FolderItems():
     FolderItems.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'get_Parent', ((1, 'ppid'),)))
     FolderItems.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.UI.Shell.FolderItem_head), use_last_error=False)(10, 'Item', ((1, 'index'),(1, 'ppid'),)))
     FolderItems._NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, '_NewEnum', ((1, 'ppunk'),)))
+    win32more.System.Com.IDispatch
     return FolderItems
 def _define_FolderItemVerb_head():
     class FolderItemVerb(win32more.System.Com.IDispatch_head):
@@ -6538,6 +6807,7 @@ def _define_FolderItemVerb():
     FolderItemVerb.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Parent', ((1, 'ppid'),)))
     FolderItemVerb.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Name', ((1, 'pbs'),)))
     FolderItemVerb.DoIt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'DoIt', ()))
+    win32more.System.Com.IDispatch
     return FolderItemVerb
 def _define_FolderItemVerbs_head():
     class FolderItemVerbs(win32more.System.Com.IDispatch_head):
@@ -6550,6 +6820,7 @@ def _define_FolderItemVerbs():
     FolderItemVerbs.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'get_Parent', ((1, 'ppid'),)))
     FolderItemVerbs.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.UI.Shell.FolderItemVerb_head), use_last_error=False)(10, 'Item', ((1, 'index'),(1, 'ppid'),)))
     FolderItemVerbs._NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, '_NewEnum', ((1, 'ppunk'),)))
+    win32more.System.Com.IDispatch
     return FolderItemVerbs
 def _define_Folder_head():
     class Folder(win32more.System.Com.IDispatch_head):
@@ -6567,6 +6838,7 @@ def _define_Folder():
     Folder.MoveHere = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(14, 'MoveHere', ((1, 'vItem'),(1, 'vOptions'),)))
     Folder.CopyHere = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(15, 'CopyHere', ((1, 'vItem'),(1, 'vOptions'),)))
     Folder.GetDetailsOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'GetDetailsOf', ((1, 'vItem'),(1, 'iColumn'),(1, 'pbs'),)))
+    win32more.System.Com.IDispatch
     return Folder
 def _define_Folder2_head():
     class Folder2(win32more.UI.Shell.Folder_head):
@@ -6579,6 +6851,7 @@ def _define_Folder2():
     Folder2.Synchronize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'Synchronize', ()))
     Folder2.get_HaveToShowWebViewBarricade = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(20, 'get_HaveToShowWebViewBarricade', ((1, 'pbHaveToShowWebViewBarricade'),)))
     Folder2.DismissedWebViewBarricade = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'DismissedWebViewBarricade', ()))
+    win32more.UI.Shell.Folder
     return Folder2
 def _define_Folder3_head():
     class Folder3(win32more.UI.Shell.Folder2_head):
@@ -6588,6 +6861,7 @@ def _define_Folder3():
     Folder3 = win32more.UI.Shell.Folder3_head
     Folder3.get_ShowWebViewBarricade = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(22, 'get_ShowWebViewBarricade', ((1, 'pbShowWebViewBarricade'),)))
     Folder3.put_ShowWebViewBarricade = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(23, 'put_ShowWebViewBarricade', ((1, 'bShowWebViewBarricade'),)))
+    win32more.UI.Shell.Folder2
     return Folder3
 def _define_FolderItem2_head():
     class FolderItem2(win32more.UI.Shell.FolderItem_head):
@@ -6597,6 +6871,7 @@ def _define_FolderItem2():
     FolderItem2 = win32more.UI.Shell.FolderItem2_head
     FolderItem2.InvokeVerbEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(24, 'InvokeVerbEx', ((1, 'vVerb'),(1, 'vArgs'),)))
     FolderItem2.ExtendedProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(25, 'ExtendedProperty', ((1, 'bstrPropName'),(1, 'pvRet'),)))
+    win32more.UI.Shell.FolderItem
     return FolderItem2
 def _define_FolderItems2_head():
     class FolderItems2(win32more.UI.Shell.FolderItems_head):
@@ -6605,6 +6880,7 @@ def _define_FolderItems2_head():
 def _define_FolderItems2():
     FolderItems2 = win32more.UI.Shell.FolderItems2_head
     FolderItems2.InvokeVerbEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'InvokeVerbEx', ((1, 'vVerb'),(1, 'vArgs'),)))
+    win32more.UI.Shell.FolderItems
     return FolderItems2
 def _define_FolderItems3_head():
     class FolderItems3(win32more.UI.Shell.FolderItems2_head):
@@ -6614,6 +6890,7 @@ def _define_FolderItems3():
     FolderItems3 = win32more.UI.Shell.FolderItems3_head
     FolderItems3.Filter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(13, 'Filter', ((1, 'grfFlags'),(1, 'bstrFileSpec'),)))
     FolderItems3.get_Verbs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.FolderItemVerbs_head), use_last_error=False)(14, 'get_Verbs', ((1, 'ppfic'),)))
+    win32more.UI.Shell.FolderItems2
     return FolderItems3
 def _define_IShellLinkDual_head():
     class IShellLinkDual(win32more.System.Com.IDispatch_head):
@@ -6637,6 +6914,7 @@ def _define_IShellLinkDual():
     IShellLinkDual.GetIconLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(Int32), use_last_error=False)(20, 'GetIconLocation', ((1, 'pbs'),(1, 'piIcon'),)))
     IShellLinkDual.SetIconLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(21, 'SetIconLocation', ((1, 'bs'),(1, 'iIcon'),)))
     IShellLinkDual.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(22, 'Save', ((1, 'vWhere'),)))
+    win32more.System.Com.IDispatch
     return IShellLinkDual
 def _define_IShellLinkDual2_head():
     class IShellLinkDual2(win32more.UI.Shell.IShellLinkDual_head):
@@ -6645,6 +6923,7 @@ def _define_IShellLinkDual2_head():
 def _define_IShellLinkDual2():
     IShellLinkDual2 = win32more.UI.Shell.IShellLinkDual2_head
     IShellLinkDual2.get_Target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.FolderItem_head), use_last_error=False)(23, 'get_Target', ((1, 'ppfi'),)))
+    win32more.UI.Shell.IShellLinkDual
     return IShellLinkDual2
 def _define_IShellFolderViewDual_head():
     class IShellFolderViewDual(win32more.System.Com.IDispatch_head):
@@ -6661,6 +6940,7 @@ def _define_IShellFolderViewDual():
     IShellFolderViewDual.PopupItemMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.FolderItem_head,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'PopupItemMenu', ((1, 'pfi'),(1, 'vx'),(1, 'vy'),(1, 'pbs'),)))
     IShellFolderViewDual.get_Script = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(14, 'get_Script', ((1, 'ppDisp'),)))
     IShellFolderViewDual.get_ViewOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_ViewOptions', ((1, 'plViewOptions'),)))
+    win32more.System.Com.IDispatch
     return IShellFolderViewDual
 def _define_IShellFolderViewDual2_head():
     class IShellFolderViewDual2(win32more.UI.Shell.IShellFolderViewDual_head):
@@ -6671,6 +6951,7 @@ def _define_IShellFolderViewDual2():
     IShellFolderViewDual2.get_CurrentViewMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(16, 'get_CurrentViewMode', ((1, 'pViewMode'),)))
     IShellFolderViewDual2.put_CurrentViewMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(17, 'put_CurrentViewMode', ((1, 'ViewMode'),)))
     IShellFolderViewDual2.SelectItemRelative = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(18, 'SelectItemRelative', ((1, 'iRelative'),)))
+    win32more.UI.Shell.IShellFolderViewDual
     return IShellFolderViewDual2
 def _define_IShellFolderViewDual3_head():
     class IShellFolderViewDual3(win32more.UI.Shell.IShellFolderViewDual2_head):
@@ -6687,6 +6968,7 @@ def _define_IShellFolderViewDual3():
     IShellFolderViewDual3.put_IconSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(25, 'put_IconSize', ((1, 'iIconSize'),)))
     IShellFolderViewDual3.get_IconSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(26, 'get_IconSize', ((1, 'piIconSize'),)))
     IShellFolderViewDual3.FilterView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(27, 'FilterView', ((1, 'bstrFilterText'),)))
+    win32more.UI.Shell.IShellFolderViewDual2
     return IShellFolderViewDual3
 def _define_IShellDispatch_head():
     class IShellDispatch(win32more.System.Com.IDispatch_head):
@@ -6717,6 +6999,7 @@ def _define_IShellDispatch():
     IShellDispatch.FindComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(27, 'FindComputer', ()))
     IShellDispatch.RefreshMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(28, 'RefreshMenu', ()))
     IShellDispatch.ControlPanelItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(29, 'ControlPanelItem', ((1, 'bstrDir'),)))
+    win32more.System.Com.IDispatch
     return IShellDispatch
 def _define_IShellDispatch2_head():
     class IShellDispatch2(win32more.UI.Shell.IShellDispatch_head):
@@ -6733,6 +7016,7 @@ def _define_IShellDispatch2():
     IShellDispatch2.IsServiceRunning = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(36, 'IsServiceRunning', ((1, 'ServiceName'),(1, 'pRunning'),)))
     IShellDispatch2.CanStartStopService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(37, 'CanStartStopService', ((1, 'ServiceName'),(1, 'pCanStartStop'),)))
     IShellDispatch2.ShowBrowserBar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(38, 'ShowBrowserBar', ((1, 'bstrClsid'),(1, 'bShow'),(1, 'pSuccess'),)))
+    win32more.UI.Shell.IShellDispatch
     return IShellDispatch2
 def _define_IShellDispatch3_head():
     class IShellDispatch3(win32more.UI.Shell.IShellDispatch2_head):
@@ -6741,6 +7025,7 @@ def _define_IShellDispatch3_head():
 def _define_IShellDispatch3():
     IShellDispatch3 = win32more.UI.Shell.IShellDispatch3_head
     IShellDispatch3.AddToRecent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR, use_last_error=False)(39, 'AddToRecent', ((1, 'varFile'),(1, 'bstrCategory'),)))
+    win32more.UI.Shell.IShellDispatch2
     return IShellDispatch3
 def _define_IShellDispatch4_head():
     class IShellDispatch4(win32more.UI.Shell.IShellDispatch3_head):
@@ -6752,6 +7037,7 @@ def _define_IShellDispatch4():
     IShellDispatch4.ToggleDesktop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(41, 'ToggleDesktop', ()))
     IShellDispatch4.ExplorerPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(42, 'ExplorerPolicy', ((1, 'bstrPolicyName'),(1, 'pValue'),)))
     IShellDispatch4.GetSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int16), use_last_error=False)(43, 'GetSetting', ((1, 'lSetting'),(1, 'pResult'),)))
+    win32more.UI.Shell.IShellDispatch3
     return IShellDispatch4
 def _define_IShellDispatch5_head():
     class IShellDispatch5(win32more.UI.Shell.IShellDispatch4_head):
@@ -6760,6 +7046,7 @@ def _define_IShellDispatch5_head():
 def _define_IShellDispatch5():
     IShellDispatch5 = win32more.UI.Shell.IShellDispatch5_head
     IShellDispatch5.WindowSwitcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(44, 'WindowSwitcher', ()))
+    win32more.UI.Shell.IShellDispatch4
     return IShellDispatch5
 def _define_IShellDispatch6_head():
     class IShellDispatch6(win32more.UI.Shell.IShellDispatch5_head):
@@ -6768,6 +7055,7 @@ def _define_IShellDispatch6_head():
 def _define_IShellDispatch6():
     IShellDispatch6 = win32more.UI.Shell.IShellDispatch6_head
     IShellDispatch6.SearchCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(45, 'SearchCommand', ()))
+    win32more.UI.Shell.IShellDispatch5
     return IShellDispatch6
 def _define_IFileSearchBand_head():
     class IFileSearchBand(win32more.System.Com.IDispatch_head):
@@ -6780,6 +7068,7 @@ def _define_IFileSearchBand():
     IFileSearchBand.get_SearchID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_SearchID', ((1, 'pbstrSearchID'),)))
     IFileSearchBand.get_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_Scope', ((1, 'pvarScope'),)))
     IFileSearchBand.get_QueryFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'get_QueryFile', ((1, 'pvarFile'),)))
+    win32more.System.Com.IDispatch
     return IFileSearchBand
 def _define_IWebWizardHost_head():
     class IWebWizardHost(win32more.System.Com.IDispatch_head):
@@ -6796,6 +7085,7 @@ def _define_IWebWizardHost():
     IWebWizardHost.get_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_Property', ((1, 'bstrPropertyName'),(1, 'pvProperty'),)))
     IWebWizardHost.SetWizardButtons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,Int16,Int16, use_last_error=False)(14, 'SetWizardButtons', ((1, 'vfEnableBack'),(1, 'vfEnableNext'),(1, 'vfLastPage'),)))
     IWebWizardHost.SetHeaderText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(15, 'SetHeaderText', ((1, 'bstrHeaderTitle'),(1, 'bstrHeaderSubtitle'),)))
+    win32more.System.Com.IDispatch
     return IWebWizardHost
 def _define_IWebWizardHost2_head():
     class IWebWizardHost2(win32more.UI.Shell.IWebWizardHost_head):
@@ -6804,6 +7094,7 @@ def _define_IWebWizardHost2_head():
 def _define_IWebWizardHost2():
     IWebWizardHost2 = win32more.UI.Shell.IWebWizardHost2_head
     IWebWizardHost2.SignString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'SignString', ((1, 'value'),(1, 'signedValue'),)))
+    win32more.UI.Shell.IWebWizardHost
     return IWebWizardHost2
 def _define_INewWDEvents_head():
     class INewWDEvents(win32more.UI.Shell.IWebWizardHost_head):
@@ -6812,6 +7103,7 @@ def _define_INewWDEvents_head():
 def _define_INewWDEvents():
     INewWDEvents = win32more.UI.Shell.INewWDEvents_head
     INewWDEvents.PassportAuthenticate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(16, 'PassportAuthenticate', ((1, 'bstrSignInUrl'),(1, 'pvfAuthenitcated'),)))
+    win32more.UI.Shell.IWebWizardHost
     return INewWDEvents
 def _define_IAutoComplete_head():
     class IAutoComplete(win32more.System.Com.IUnknown_head):
@@ -6821,6 +7113,7 @@ def _define_IAutoComplete():
     IAutoComplete = win32more.UI.Shell.IAutoComplete_head
     IAutoComplete.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Init', ((1, 'hwndEdit'),(1, 'punkACL'),(1, 'pwszRegKeyPath'),(1, 'pwszQuickComplete'),)))
     IAutoComplete.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'Enable', ((1, 'fEnable'),)))
+    win32more.System.Com.IUnknown
     return IAutoComplete
 AUTOCOMPLETEOPTIONS = Int32
 ACO_NONE = 0
@@ -6841,6 +7134,7 @@ def _define_IAutoComplete2():
     IAutoComplete2 = win32more.UI.Shell.IAutoComplete2_head
     IAutoComplete2.SetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'SetOptions', ((1, 'dwFlag'),)))
     IAutoComplete2.GetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetOptions', ((1, 'pdwFlag'),)))
+    win32more.UI.Shell.IAutoComplete
     return IAutoComplete2
 ACENUMOPTION = Int32
 ACEO_NONE = 0
@@ -6855,6 +7149,7 @@ def _define_IEnumACString():
     IEnumACString.NextItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(7, 'NextItem', ((1, 'pszUrl'),(1, 'cchMax'),(1, 'pulSortIndex'),)))
     IEnumACString.SetEnumOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'SetEnumOptions', ((1, 'dwOptions'),)))
     IEnumACString.GetEnumOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetEnumOptions', ((1, 'pdwOptions'),)))
+    win32more.System.Com.IEnumString
     return IEnumACString
 def _define_IDataObjectAsyncCapability_head():
     class IDataObjectAsyncCapability(win32more.System.Com.IUnknown_head):
@@ -6867,6 +7162,7 @@ def _define_IDataObjectAsyncCapability():
     IDataObjectAsyncCapability.StartOperation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head, use_last_error=False)(5, 'StartOperation', ((1, 'pbcReserved'),)))
     IDataObjectAsyncCapability.InOperation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'InOperation', ((1, 'pfInAsyncOp'),)))
     IDataObjectAsyncCapability.EndOperation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,UInt32, use_last_error=False)(7, 'EndOperation', ((1, 'hResult'),(1, 'pbcReserved'),(1, 'dwEffects'),)))
+    win32more.System.Com.IUnknown
     return IDataObjectAsyncCapability
 def _define_IExtractIconA_head():
     class IExtractIconA(win32more.System.Com.IUnknown_head):
@@ -6876,6 +7172,7 @@ def _define_IExtractIconA():
     IExtractIconA = win32more.UI.Shell.IExtractIconA_head
     IExtractIconA.GetIconLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,POINTER(Int32),POINTER(UInt32), use_last_error=False)(3, 'GetIconLocation', ((1, 'uFlags'),(1, 'pszIconFile'),(1, 'cchMax'),(1, 'piIndex'),(1, 'pwFlags'),)))
     IExtractIconA.Extract = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(win32more.UI.WindowsAndMessaging.HICON),POINTER(win32more.UI.WindowsAndMessaging.HICON),UInt32, use_last_error=False)(4, 'Extract', ((1, 'pszFile'),(1, 'nIconIndex'),(1, 'phiconLarge'),(1, 'phiconSmall'),(1, 'nIconSize'),)))
+    win32more.System.Com.IUnknown
     return IExtractIconA
 def _define_IExtractIconW_head():
     class IExtractIconW(win32more.System.Com.IUnknown_head):
@@ -6885,6 +7182,7 @@ def _define_IExtractIconW():
     IExtractIconW = win32more.UI.Shell.IExtractIconW_head
     IExtractIconW.GetIconLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32,POINTER(Int32),POINTER(UInt32), use_last_error=False)(3, 'GetIconLocation', ((1, 'uFlags'),(1, 'pszIconFile'),(1, 'cchMax'),(1, 'piIndex'),(1, 'pwFlags'),)))
     IExtractIconW.Extract = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.UI.WindowsAndMessaging.HICON),POINTER(win32more.UI.WindowsAndMessaging.HICON),UInt32, use_last_error=False)(4, 'Extract', ((1, 'pszFile'),(1, 'nIconIndex'),(1, 'phiconLarge'),(1, 'phiconSmall'),(1, 'nIconSize'),)))
+    win32more.System.Com.IUnknown
     return IExtractIconW
 def _define_IShellIconOverlayManager_head():
     class IShellIconOverlayManager(win32more.System.Com.IUnknown_head):
@@ -6897,6 +7195,7 @@ def _define_IShellIconOverlayManager():
     IShellIconOverlayManager.RefreshOverlayImages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'RefreshOverlayImages', ((1, 'dwFlags'),)))
     IShellIconOverlayManager.LoadNonloadedOverlayIdentifiers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'LoadNonloadedOverlayIdentifiers', ()))
     IShellIconOverlayManager.OverlayIndexFromImageIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32),win32more.Foundation.BOOL, use_last_error=False)(7, 'OverlayIndexFromImageIndex', ((1, 'iImage'),(1, 'piIndex'),(1, 'fAdd'),)))
+    win32more.System.Com.IUnknown
     return IShellIconOverlayManager
 def _define_IShellIconOverlay_head():
     class IShellIconOverlay(win32more.System.Com.IUnknown_head):
@@ -6906,6 +7205,7 @@ def _define_IShellIconOverlay():
     IShellIconOverlay = win32more.UI.Shell.IShellIconOverlay_head
     IShellIconOverlay.GetOverlayIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(Int32), use_last_error=False)(3, 'GetOverlayIndex', ((1, 'pidl'),(1, 'pIndex'),)))
     IShellIconOverlay.GetOverlayIconIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(Int32), use_last_error=False)(4, 'GetOverlayIconIndex', ((1, 'pidl'),(1, 'pIconIndex'),)))
+    win32more.System.Com.IUnknown
     return IShellIconOverlay
 SHELL_LINK_DATA_FLAGS = Int32
 SLDF_DEFAULT = 0
@@ -7054,6 +7354,7 @@ def _define_IURLSearchHook_head():
 def _define_IURLSearchHook():
     IURLSearchHook = win32more.UI.Shell.IURLSearchHook_head
     IURLSearchHook.Translate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(3, 'Translate', ((1, 'pwszSearchURL'),(1, 'cchBufferSize'),)))
+    win32more.System.Com.IUnknown
     return IURLSearchHook
 def _define_ISearchContext_head():
     class ISearchContext(win32more.System.Com.IUnknown_head):
@@ -7064,6 +7365,7 @@ def _define_ISearchContext():
     ISearchContext.GetSearchUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetSearchUrl', ((1, 'pbstrSearchUrl'),)))
     ISearchContext.GetSearchText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetSearchText', ((1, 'pbstrSearchText'),)))
     ISearchContext.GetSearchStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetSearchStyle', ((1, 'pdwSearchStyle'),)))
+    win32more.System.Com.IUnknown
     return ISearchContext
 def _define_IURLSearchHook2_head():
     class IURLSearchHook2(win32more.UI.Shell.IURLSearchHook_head):
@@ -7072,6 +7374,7 @@ def _define_IURLSearchHook2_head():
 def _define_IURLSearchHook2():
     IURLSearchHook2 = win32more.UI.Shell.IURLSearchHook2_head
     IURLSearchHook2.TranslateWithSearchContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,win32more.UI.Shell.ISearchContext_head, use_last_error=False)(4, 'TranslateWithSearchContext', ((1, 'pwszSearchURL'),(1, 'cchBufferSize'),(1, 'pSearchContext'),)))
+    win32more.UI.Shell.IURLSearchHook
     return IURLSearchHook2
 SHGFP_TYPE = Int32
 SHGFP_TYPE_CURRENT = 0
@@ -7161,6 +7464,7 @@ def _define_IShellDetails():
     IShellDetails = win32more.UI.Shell.IShellDetails_head
     IShellDetails.GetDetailsOf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),UInt32,POINTER(win32more.UI.Shell.Common.SHELLDETAILS_head), use_last_error=False)(3, 'GetDetailsOf', ((1, 'pidl'),(1, 'iColumn'),(1, 'pDetails'),)))
     IShellDetails.ColumnClick = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'ColumnClick', ((1, 'iColumn'),)))
+    win32more.System.Com.IUnknown
     return IShellDetails
 def _define_IObjMgr_head():
     class IObjMgr(win32more.System.Com.IUnknown_head):
@@ -7170,6 +7474,7 @@ def _define_IObjMgr():
     IObjMgr = win32more.UI.Shell.IObjMgr_head
     IObjMgr.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Append', ((1, 'punk'),)))
     IObjMgr.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'Remove', ((1, 'punk'),)))
+    win32more.System.Com.IUnknown
     return IObjMgr
 def _define_IACList_head():
     class IACList(win32more.System.Com.IUnknown_head):
@@ -7178,6 +7483,7 @@ def _define_IACList_head():
 def _define_IACList():
     IACList = win32more.UI.Shell.IACList_head
     IACList.Expand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Expand', ((1, 'pszExpand'),)))
+    win32more.System.Com.IUnknown
     return IACList
 AUTOCOMPLETELISTOPTIONS = Int32
 ACLO_NONE = 0
@@ -7196,6 +7502,7 @@ def _define_IACList2():
     IACList2 = win32more.UI.Shell.IACList2_head
     IACList2.SetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetOptions', ((1, 'dwFlag'),)))
     IACList2.GetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetOptions', ((1, 'pdwFlag'),)))
+    win32more.UI.Shell.IACList
     return IACList2
 def _define_IProgressDialog_head():
     class IProgressDialog(win32more.System.Com.IUnknown_head):
@@ -7213,6 +7520,7 @@ def _define_IProgressDialog():
     IProgressDialog.SetLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,c_void_p, use_last_error=False)(10, 'SetLine', ((1, 'dwLineNum'),(1, 'pwzString'),(1, 'fCompactPath'),(1, 'pvResevered'),)))
     IProgressDialog.SetCancelMsg = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_void_p, use_last_error=False)(11, 'SetCancelMsg', ((1, 'pwzCancelMsg'),(1, 'pvResevered'),)))
     IProgressDialog.Timer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p, use_last_error=False)(12, 'Timer', ((1, 'dwTimerAction'),(1, 'pvResevered'),)))
+    win32more.System.Com.IUnknown
     return IProgressDialog
 def _define_IDockingWindowSite_head():
     class IDockingWindowSite(win32more.System.Ole.IOleWindow_head):
@@ -7223,6 +7531,7 @@ def _define_IDockingWindowSite():
     IDockingWindowSite.GetBorderDW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(5, 'GetBorderDW', ((1, 'punkObj'),(1, 'prcBorder'),)))
     IDockingWindowSite.RequestBorderSpaceDW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(6, 'RequestBorderSpaceDW', ((1, 'punkObj'),(1, 'pbw'),)))
     IDockingWindowSite.SetBorderSpaceDW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(7, 'SetBorderSpaceDW', ((1, 'punkObj'),(1, 'pbw'),)))
+    win32more.System.Ole.IOleWindow
     return IDockingWindowSite
 def _define_NRESARRAY_head():
     class NRESARRAY(Structure):
@@ -7393,6 +7702,7 @@ def _define_IShellChangeNotify_head():
 def _define_IShellChangeNotify():
     IShellChangeNotify = win32more.UI.Shell.IShellChangeNotify_head
     IShellChangeNotify.OnChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(3, 'OnChange', ((1, 'lEvent'),(1, 'pidl1'),(1, 'pidl2'),)))
+    win32more.System.Com.IUnknown
     return IShellChangeNotify
 def _define_IQueryInfo_head():
     class IQueryInfo(win32more.System.Com.IUnknown_head):
@@ -7402,6 +7712,7 @@ def _define_IQueryInfo():
     IQueryInfo = win32more.UI.Shell.IQueryInfo_head
     IQueryInfo.GetInfoTip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.QITIPF_FLAGS,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetInfoTip', ((1, 'dwFlags'),(1, 'ppwszTip'),)))
     IQueryInfo.GetInfoFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetInfoFlags', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IUnknown
     return IQueryInfo
 SHARD = Int32
 SHARD_PIDL = 1
@@ -7714,6 +8025,7 @@ def _define_IShellFolderViewCB_head():
 def _define_IShellFolderViewCB():
     IShellFolderViewCB = win32more.UI.Shell.IShellFolderViewCB_head
     IShellFolderViewCB.MessageSFVCB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.SFVM_MESSAGE_ID,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(3, 'MessageSFVCB', ((1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
     return IShellFolderViewCB
 def _define_QCMINFO_IDMAP_PLACEMENT_head():
     class QCMINFO_IDMAP_PLACEMENT(Structure):
@@ -7835,6 +8147,7 @@ def _define_IShellFolderView():
     IShellFolderView.Select = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.SFVS_SELECT, use_last_error=False)(28, 'Select', ((1, 'dwFlags'),)))
     IShellFolderView.QuerySupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(29, 'QuerySupport', ((1, 'pdwSupport'),)))
     IShellFolderView.SetAutomationObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(30, 'SetAutomationObject', ((1, 'pdisp'),)))
+    win32more.System.Com.IUnknown
     return IShellFolderView
 def _define_SFV_CREATE_head():
     class SFV_CREATE(Structure):
@@ -7959,6 +8272,7 @@ def _define_INamedPropertyBag():
     INamedPropertyBag.ReadPropertyNPB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(3, 'ReadPropertyNPB', ((1, 'pszBagname'),(1, 'pszPropName'),(1, 'pVar'),)))
     INamedPropertyBag.WritePropertyNPB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(4, 'WritePropertyNPB', ((1, 'pszBagname'),(1, 'pszPropName'),(1, 'pVar'),)))
     INamedPropertyBag.RemovePropertyNPB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(5, 'RemovePropertyNPB', ((1, 'pszBagname'),(1, 'pszPropName'),)))
+    win32more.System.Com.IUnknown
     return INamedPropertyBag
 IESHORTCUTFLAGS = Int32
 IESHORTCUT_NEWBROWSER = 1
@@ -7977,6 +8291,7 @@ def _define_INewShortcutHookA():
     INewShortcutHookA.GetFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),Int32, use_last_error=False)(6, 'GetFolder', ((1, 'pszFolder'),(1, 'cchFolder'),)))
     INewShortcutHookA.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),Int32, use_last_error=False)(7, 'GetName', ((1, 'pszName'),(1, 'cchName'),)))
     INewShortcutHookA.GetExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),Int32, use_last_error=False)(8, 'GetExtension', ((1, 'pszExtension'),(1, 'cchExtension'),)))
+    win32more.System.Com.IUnknown
     return INewShortcutHookA
 def _define_INewShortcutHookW_head():
     class INewShortcutHookW(win32more.System.Com.IUnknown_head):
@@ -7990,6 +8305,7 @@ def _define_INewShortcutHookW():
     INewShortcutHookW.GetFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),Int32, use_last_error=False)(6, 'GetFolder', ((1, 'pszFolder'),(1, 'cchFolder'),)))
     INewShortcutHookW.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),Int32, use_last_error=False)(7, 'GetName', ((1, 'pszName'),(1, 'cchName'),)))
     INewShortcutHookW.GetExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),Int32, use_last_error=False)(8, 'GetExtension', ((1, 'pszExtension'),(1, 'cchExtension'),)))
+    win32more.System.Com.IUnknown
     return INewShortcutHookW
 def _define_ICopyHookA_head():
     class ICopyHookA(win32more.System.Com.IUnknown_head):
@@ -7998,6 +8314,7 @@ def _define_ICopyHookA_head():
 def _define_ICopyHookA():
     ICopyHookA = win32more.UI.Shell.ICopyHookA_head
     ICopyHookA.CopyCallback = COMMETHOD(WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,win32more.Foundation.PSTR,UInt32, use_last_error=False)(3, 'CopyCallback', ((1, 'hwnd'),(1, 'wFunc'),(1, 'wFlags'),(1, 'pszSrcFile'),(1, 'dwSrcAttribs'),(1, 'pszDestFile'),(1, 'dwDestAttribs'),)))
+    win32more.System.Com.IUnknown
     return ICopyHookA
 def _define_ICopyHookW_head():
     class ICopyHookW(win32more.System.Com.IUnknown_head):
@@ -8006,6 +8323,7 @@ def _define_ICopyHookW_head():
 def _define_ICopyHookW():
     ICopyHookW = win32more.UI.Shell.ICopyHookW_head
     ICopyHookW.CopyCallback = COMMETHOD(WINFUNCTYPE(UInt32,win32more.Foundation.HWND,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'CopyCallback', ((1, 'hwnd'),(1, 'wFunc'),(1, 'wFlags'),(1, 'pszSrcFile'),(1, 'dwSrcAttribs'),(1, 'pszDestFile'),(1, 'dwDestAttribs'),)))
+    win32more.System.Com.IUnknown
     return ICopyHookW
 def _define_ICurrentWorkingDirectory_head():
     class ICurrentWorkingDirectory(win32more.System.Com.IUnknown_head):
@@ -8015,6 +8333,7 @@ def _define_ICurrentWorkingDirectory():
     ICurrentWorkingDirectory = win32more.UI.Shell.ICurrentWorkingDirectory_head
     ICurrentWorkingDirectory.GetDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(3, 'GetDirectory', ((1, 'pwzPath'),(1, 'cchSize'),)))
     ICurrentWorkingDirectory.SetDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'SetDirectory', ((1, 'pwzPath'),)))
+    win32more.System.Com.IUnknown
     return ICurrentWorkingDirectory
 def _define_IDockingWindowFrame_head():
     class IDockingWindowFrame(win32more.System.Ole.IOleWindow_head):
@@ -8025,6 +8344,7 @@ def _define_IDockingWindowFrame():
     IDockingWindowFrame.AddToolbar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(5, 'AddToolbar', ((1, 'punkSrc'),(1, 'pwszItem'),(1, 'dwAddFlags'),)))
     IDockingWindowFrame.RemoveToolbar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(6, 'RemoveToolbar', ((1, 'punkSrc'),(1, 'dwRemoveFlags'),)))
     IDockingWindowFrame.FindToolbar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'FindToolbar', ((1, 'pwszItem'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Ole.IOleWindow
     return IDockingWindowFrame
 def _define_IThumbnailCapture_head():
     class IThumbnailCapture(win32more.System.Com.IUnknown_head):
@@ -8033,6 +8353,7 @@ def _define_IThumbnailCapture_head():
 def _define_IThumbnailCapture():
     IThumbnailCapture = win32more.UI.Shell.IThumbnailCapture_head
     IThumbnailCapture.CaptureThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head),win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(3, 'CaptureThumbnail', ((1, 'pMaxSize'),(1, 'pHTMLDoc2'),(1, 'phbmThumbnail'),)))
+    win32more.System.Com.IUnknown
     return IThumbnailCapture
 def _define_BANDINFOSFB_head():
     class BANDINFOSFB(Structure):
@@ -8062,6 +8383,7 @@ def _define_IShellFolderBand():
     IShellFolderBand.InitializeSFB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellFolder_head,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(3, 'InitializeSFB', ((1, 'psf'),(1, 'pidl'),)))
     IShellFolderBand.SetBandInfoSFB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.BANDINFOSFB_head), use_last_error=False)(4, 'SetBandInfoSFB', ((1, 'pbi'),)))
     IShellFolderBand.GetBandInfoSFB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.BANDINFOSFB_head), use_last_error=False)(5, 'GetBandInfoSFB', ((1, 'pbi'),)))
+    win32more.System.Com.IUnknown
     return IShellFolderBand
 def _define_IDeskBarClient_head():
     class IDeskBarClient(win32more.System.Ole.IOleWindow_head):
@@ -8073,6 +8395,7 @@ def _define_IDeskBarClient():
     IDeskBarClient.SetModeDBC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'SetModeDBC', ((1, 'dwMode'),)))
     IDeskBarClient.UIActivateDBC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'UIActivateDBC', ((1, 'dwState'),)))
     IDeskBarClient.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(8, 'GetSize', ((1, 'dwWhich'),(1, 'prc'),)))
+    win32more.System.Ole.IOleWindow
     return IDeskBarClient
 def _define_SHCOLUMNINFO_head():
     class SHCOLUMNINFO(Structure):
@@ -8126,6 +8449,7 @@ def _define_IColumnProvider():
     IColumnProvider.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SHCOLUMNINIT_head), use_last_error=False)(3, 'Initialize', ((1, 'psci'),)))
     IColumnProvider.GetColumnInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.SHCOLUMNINFO_head), use_last_error=False)(4, 'GetColumnInfo', ((1, 'dwIndex'),(1, 'psci'),)))
     IColumnProvider.GetItemData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.UI.Shell.SHCOLUMNDATA_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(5, 'GetItemData', ((1, 'pscid'),(1, 'pscd'),(1, 'pvarData'),)))
+    win32more.System.Com.IUnknown
     return IColumnProvider
 def _define_SHChangeProductKeyAsIDList_head():
     class SHChangeProductKeyAsIDList(Structure):
@@ -8147,6 +8471,7 @@ def _define_IDocViewSite_head():
 def _define_IDocViewSite():
     IDocViewSite = win32more.UI.Shell.IDocViewSite_head
     IDocViewSite.OnSetTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(3, 'OnSetTitle', ((1, 'pvTitle'),)))
+    win32more.System.Com.IUnknown
     return IDocViewSite
 def _define_IInitializeObject_head():
     class IInitializeObject(win32more.System.Com.IUnknown_head):
@@ -8155,6 +8480,7 @@ def _define_IInitializeObject_head():
 def _define_IInitializeObject():
     IInitializeObject = win32more.UI.Shell.IInitializeObject_head
     IInitializeObject.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Initialize', ()))
+    win32more.System.Com.IUnknown
     return IInitializeObject
 def _define_IBanneredBar_head():
     class IBanneredBar(win32more.System.Com.IUnknown_head):
@@ -8166,6 +8492,7 @@ def _define_IBanneredBar():
     IBanneredBar.GetIconSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetIconSize', ((1, 'piIcon'),)))
     IBanneredBar.SetBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HBITMAP, use_last_error=False)(5, 'SetBitmap', ((1, 'hBitmap'),)))
     IBanneredBar.GetBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(6, 'GetBitmap', ((1, 'phBitmap'),)))
+    win32more.System.Com.IUnknown
     return IBanneredBar
 def _define_TBINFO_head():
     class TBINFO(Structure):
@@ -8887,6 +9214,7 @@ def _define_IQueryAssociations():
     IQueryAssociations.GetKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Shell.ASSOCKEY,win32more.Foundation.PWSTR,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(5, 'GetKey', ((1, 'flags'),(1, 'key'),(1, 'pszExtra'),(1, 'phkeyOut'),)))
     IQueryAssociations.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Shell.ASSOCDATA,win32more.Foundation.PWSTR,c_void_p,POINTER(UInt32), use_last_error=False)(6, 'GetData', ((1, 'flags'),(1, 'data'),(1, 'pszExtra'),(1, 'pvOut'),(1, 'pcbOut'),)))
     IQueryAssociations.GetEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Shell.ASSOCENUM,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'GetEnum', ((1, 'flags'),(1, 'assocenum'),(1, 'pszExtra'),(1, 'riid'),(1, 'ppvOut'),)))
+    win32more.System.Com.IUnknown
     return IQueryAssociations
 SHGLOBALCOUNTER = Int32
 GLOBALCOUNTER_SEARCHMANAGER = 0
@@ -9070,6 +9398,7 @@ def _define_IShellApp():
     IShellApp.GetSlowAppInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SLOWAPPINFO_head), use_last_error=False)(5, 'GetSlowAppInfo', ((1, 'psaid'),)))
     IShellApp.GetCachedSlowAppInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SLOWAPPINFO_head), use_last_error=False)(6, 'GetCachedSlowAppInfo', ((1, 'psaid'),)))
     IShellApp.IsInstalled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'IsInstalled', ()))
+    win32more.System.Com.IUnknown
     return IShellApp
 PUBAPPINFOFLAGS = Int32
 PAI_SOURCE = 1
@@ -9102,6 +9431,7 @@ def _define_IPublishedApp():
     IPublishedApp.Install = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(8, 'Install', ((1, 'pstInstall'),)))
     IPublishedApp.GetPublishedAppInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PUBAPPINFO_head), use_last_error=False)(9, 'GetPublishedAppInfo', ((1, 'ppai'),)))
     IPublishedApp.Unschedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Unschedule', ()))
+    win32more.UI.Shell.IShellApp
     return IPublishedApp
 def _define_IPublishedApp2_head():
     class IPublishedApp2(win32more.UI.Shell.IPublishedApp_head):
@@ -9110,6 +9440,7 @@ def _define_IPublishedApp2_head():
 def _define_IPublishedApp2():
     IPublishedApp2 = win32more.UI.Shell.IPublishedApp2_head
     IPublishedApp2.Install2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head),win32more.Foundation.HWND, use_last_error=False)(11, 'Install2', ((1, 'pstInstall'),(1, 'hwndParent'),)))
+    win32more.UI.Shell.IPublishedApp
     return IPublishedApp2
 def _define_IEnumPublishedApps_head():
     class IEnumPublishedApps(win32more.System.Com.IUnknown_head):
@@ -9119,6 +9450,7 @@ def _define_IEnumPublishedApps():
     IEnumPublishedApps = win32more.UI.Shell.IEnumPublishedApps_head
     IEnumPublishedApps.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IPublishedApp_head), use_last_error=False)(3, 'Next', ((1, 'pia'),)))
     IEnumPublishedApps.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IEnumPublishedApps
 def _define_IAppPublisher_head():
     class IAppPublisher(win32more.System.Com.IUnknown_head):
@@ -9130,6 +9462,7 @@ def _define_IAppPublisher():
     IAppPublisher.GetCategories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.APPCATEGORYINFOLIST_head), use_last_error=False)(4, 'GetCategories', ((1, 'pAppCategoryList'),)))
     IAppPublisher.GetNumberOfApps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetNumberOfApps', ((1, 'pdwApps'),)))
     IAppPublisher.EnumApps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.Shell.IEnumPublishedApps_head), use_last_error=False)(6, 'EnumApps', ((1, 'pAppCategoryId'),(1, 'ppepa'),)))
+    win32more.System.Com.IUnknown
     return IAppPublisher
 PasswordCredentialProvider = Guid('60b78e88-ead8-445c-9cfd-0b87f74ea6cd')
 V1PasswordCredentialProvider = Guid('6f45dc1e-5384-457a-bc13-2cd81b0d28ed')
@@ -9245,6 +9578,7 @@ def _define_ICredentialProviderCredential():
     ICredentialProviderCredential.CommandLinkClicked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(17, 'CommandLinkClicked', ((1, 'dwFieldID'),)))
     ICredentialProviderCredential.GetSerialization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.CREDENTIAL_PROVIDER_GET_SERIALIZATION_RESPONSE),POINTER(win32more.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION_head),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.UI.Shell.CREDENTIAL_PROVIDER_STATUS_ICON), use_last_error=False)(18, 'GetSerialization', ((1, 'pcpgsr'),(1, 'pcpcs'),(1, 'ppszOptionalStatusText'),(1, 'pcpsiOptionalStatusIcon'),)))
     ICredentialProviderCredential.ReportResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.NTSTATUS,win32more.Foundation.NTSTATUS,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.UI.Shell.CREDENTIAL_PROVIDER_STATUS_ICON), use_last_error=False)(19, 'ReportResult', ((1, 'ntsStatus'),(1, 'ntsSubstatus'),(1, 'ppszOptionalStatusText'),(1, 'pcpsiOptionalStatusIcon'),)))
+    win32more.System.Com.IUnknown
     return ICredentialProviderCredential
 def _define_IQueryContinueWithStatus_head():
     class IQueryContinueWithStatus(win32more.UI.Shell.IQueryContinue_head):
@@ -9253,6 +9587,7 @@ def _define_IQueryContinueWithStatus_head():
 def _define_IQueryContinueWithStatus():
     IQueryContinueWithStatus = win32more.UI.Shell.IQueryContinueWithStatus_head
     IQueryContinueWithStatus.SetStatusMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'SetStatusMessage', ((1, 'psz'),)))
+    win32more.UI.Shell.IQueryContinue
     return IQueryContinueWithStatus
 def _define_IConnectableCredentialProviderCredential_head():
     class IConnectableCredentialProviderCredential(win32more.UI.Shell.ICredentialProviderCredential_head):
@@ -9262,6 +9597,7 @@ def _define_IConnectableCredentialProviderCredential():
     IConnectableCredentialProviderCredential = win32more.UI.Shell.IConnectableCredentialProviderCredential_head
     IConnectableCredentialProviderCredential.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IQueryContinueWithStatus_head, use_last_error=False)(20, 'Connect', ((1, 'pqcws'),)))
     IConnectableCredentialProviderCredential.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'Disconnect', ()))
+    win32more.UI.Shell.ICredentialProviderCredential
     return IConnectableCredentialProviderCredential
 def _define_ICredentialProviderCredentialEvents_head():
     class ICredentialProviderCredentialEvents(win32more.System.Com.IUnknown_head):
@@ -9279,6 +9615,7 @@ def _define_ICredentialProviderCredentialEvents():
     ICredentialProviderCredentialEvents.AppendFieldComboBoxItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ICredentialProviderCredential_head,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(10, 'AppendFieldComboBoxItem', ((1, 'pcpc'),(1, 'dwFieldID'),(1, 'pszItem'),)))
     ICredentialProviderCredentialEvents.SetFieldSubmitButton = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ICredentialProviderCredential_head,UInt32,UInt32, use_last_error=False)(11, 'SetFieldSubmitButton', ((1, 'pcpc'),(1, 'dwFieldID'),(1, 'dwAdjacentTo'),)))
     ICredentialProviderCredentialEvents.OnCreatingWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(12, 'OnCreatingWindow', ((1, 'phwndOwner'),)))
+    win32more.System.Com.IUnknown
     return ICredentialProviderCredentialEvents
 def _define_ICredentialProvider_head():
     class ICredentialProvider(win32more.System.Com.IUnknown_head):
@@ -9294,6 +9631,7 @@ def _define_ICredentialProvider():
     ICredentialProvider.GetFieldDescriptorAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.UI.Shell.CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR_head)), use_last_error=False)(8, 'GetFieldDescriptorAt', ((1, 'dwIndex'),(1, 'ppcpfd'),)))
     ICredentialProvider.GetCredentialCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'GetCredentialCount', ((1, 'pdwCount'),(1, 'pdwDefault'),(1, 'pbAutoLogonWithDefault'),)))
     ICredentialProvider.GetCredentialAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.ICredentialProviderCredential_head), use_last_error=False)(10, 'GetCredentialAt', ((1, 'dwIndex'),(1, 'ppcpc'),)))
+    win32more.System.Com.IUnknown
     return ICredentialProvider
 def _define_ICredentialProviderEvents_head():
     class ICredentialProviderEvents(win32more.System.Com.IUnknown_head):
@@ -9302,6 +9640,7 @@ def _define_ICredentialProviderEvents_head():
 def _define_ICredentialProviderEvents():
     ICredentialProviderEvents = win32more.UI.Shell.ICredentialProviderEvents_head
     ICredentialProviderEvents.CredentialsChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(3, 'CredentialsChanged', ((1, 'upAdviseContext'),)))
+    win32more.System.Com.IUnknown
     return ICredentialProviderEvents
 def _define_ICredentialProviderFilter_head():
     class ICredentialProviderFilter(win32more.System.Com.IUnknown_head):
@@ -9311,6 +9650,7 @@ def _define_ICredentialProviderFilter():
     ICredentialProviderFilter = win32more.UI.Shell.ICredentialProviderFilter_head
     ICredentialProviderFilter.Filter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.CREDENTIAL_PROVIDER_USAGE_SCENARIO,UInt32,POINTER(Guid),POINTER(win32more.Foundation.BOOL),UInt32, use_last_error=False)(3, 'Filter', ((1, 'cpus'),(1, 'dwFlags'),(1, 'rgclsidProviders'),(1, 'rgbAllow'),(1, 'cProviders'),)))
     ICredentialProviderFilter.UpdateRemoteCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION_head),POINTER(win32more.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION_head), use_last_error=False)(4, 'UpdateRemoteCredential', ((1, 'pcpcsIn'),(1, 'pcpcsOut'),)))
+    win32more.System.Com.IUnknown
     return ICredentialProviderFilter
 def _define_ICredentialProviderCredential2_head():
     class ICredentialProviderCredential2(win32more.UI.Shell.ICredentialProviderCredential_head):
@@ -9319,6 +9659,7 @@ def _define_ICredentialProviderCredential2_head():
 def _define_ICredentialProviderCredential2():
     ICredentialProviderCredential2 = win32more.UI.Shell.ICredentialProviderCredential2_head
     ICredentialProviderCredential2.GetUserSid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(20, 'GetUserSid', ((1, 'sid'),)))
+    win32more.UI.Shell.ICredentialProviderCredential
     return ICredentialProviderCredential2
 def _define_ICredentialProviderCredentialWithFieldOptions_head():
     class ICredentialProviderCredentialWithFieldOptions(win32more.System.Com.IUnknown_head):
@@ -9327,6 +9668,7 @@ def _define_ICredentialProviderCredentialWithFieldOptions_head():
 def _define_ICredentialProviderCredentialWithFieldOptions():
     ICredentialProviderCredentialWithFieldOptions = win32more.UI.Shell.ICredentialProviderCredentialWithFieldOptions_head
     ICredentialProviderCredentialWithFieldOptions.GetFieldOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS), use_last_error=False)(3, 'GetFieldOptions', ((1, 'fieldID'),(1, 'options'),)))
+    win32more.System.Com.IUnknown
     return ICredentialProviderCredentialWithFieldOptions
 def _define_ICredentialProviderCredentialEvents2_head():
     class ICredentialProviderCredentialEvents2(win32more.UI.Shell.ICredentialProviderCredentialEvents_head):
@@ -9337,6 +9679,7 @@ def _define_ICredentialProviderCredentialEvents2():
     ICredentialProviderCredentialEvents2.BeginFieldUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'BeginFieldUpdates', ()))
     ICredentialProviderCredentialEvents2.EndFieldUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'EndFieldUpdates', ()))
     ICredentialProviderCredentialEvents2.SetFieldOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ICredentialProviderCredential_head,UInt32,win32more.UI.Shell.CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS, use_last_error=False)(15, 'SetFieldOptions', ((1, 'credential'),(1, 'fieldID'),(1, 'options'),)))
+    win32more.UI.Shell.ICredentialProviderCredentialEvents
     return ICredentialProviderCredentialEvents2
 def _define_ICredentialProviderUser_head():
     class ICredentialProviderUser(win32more.System.Com.IUnknown_head):
@@ -9348,6 +9691,7 @@ def _define_ICredentialProviderUser():
     ICredentialProviderUser.GetProviderID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetProviderID', ((1, 'providerID'),)))
     ICredentialProviderUser.GetStringValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetStringValue', ((1, 'key'),(1, 'stringValue'),)))
     ICredentialProviderUser.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'GetValue', ((1, 'key'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return ICredentialProviderUser
 def _define_ICredentialProviderUserArray_head():
     class ICredentialProviderUserArray(win32more.System.Com.IUnknown_head):
@@ -9359,6 +9703,7 @@ def _define_ICredentialProviderUserArray():
     ICredentialProviderUserArray.GetAccountOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.CREDENTIAL_PROVIDER_ACCOUNT_OPTIONS), use_last_error=False)(4, 'GetAccountOptions', ((1, 'credentialProviderAccountOptions'),)))
     ICredentialProviderUserArray.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetCount', ((1, 'userCount'),)))
     ICredentialProviderUserArray.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.ICredentialProviderUser_head), use_last_error=False)(6, 'GetAt', ((1, 'userIndex'),(1, 'user'),)))
+    win32more.System.Com.IUnknown
     return ICredentialProviderUserArray
 def _define_ICredentialProviderSetUserArray_head():
     class ICredentialProviderSetUserArray(win32more.System.Com.IUnknown_head):
@@ -9367,6 +9712,7 @@ def _define_ICredentialProviderSetUserArray_head():
 def _define_ICredentialProviderSetUserArray():
     ICredentialProviderSetUserArray = win32more.UI.Shell.ICredentialProviderSetUserArray_head
     ICredentialProviderSetUserArray.SetUserArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ICredentialProviderUserArray_head, use_last_error=False)(3, 'SetUserArray', ((1, 'users'),)))
+    win32more.System.Com.IUnknown
     return ICredentialProviderSetUserArray
 SyncMgrClient = Guid('1202db60-1dac-42c5-aed5-1abdd432248e')
 SyncMgrControl = Guid('1a1f4206-0688-4e7f-be03-d82ec69df9a5')
@@ -9384,6 +9730,7 @@ def _define_ISyncMgrHandlerCollection():
     ISyncMgrHandlerCollection = win32more.UI.Shell.ISyncMgrHandlerCollection_head
     ISyncMgrHandlerCollection.GetHandlerEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head), use_last_error=False)(3, 'GetHandlerEnumerator', ((1, 'ppenum'),)))
     ISyncMgrHandlerCollection.BindToHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'BindToHandler', ((1, 'pszHandlerID'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrHandlerCollection
 SYNCMGR_HANDLER_CAPABILITIES = Int32
 SYNCMGR_HCM_NONE = 0
@@ -9429,6 +9776,7 @@ def _define_ISyncMgrHandler():
     ISyncMgrHandler.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(8, 'Activate', ((1, 'fActivate'),)))
     ISyncMgrHandler.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(9, 'Enable', ((1, 'fEnable'),)))
     ISyncMgrHandler.Synchronize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),UInt32,win32more.Foundation.HWND,win32more.UI.Shell.ISyncMgrSessionCreator_head,win32more.System.Com.IUnknown_head, use_last_error=False)(10, 'Synchronize', ((1, 'ppszItemIDs'),(1, 'cItems'),(1, 'hwndOwner'),(1, 'pSessionCreator'),(1, 'punk'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrHandler
 SYNCMGR_HANDLER_TYPE = Int32
 SYNCMGR_HT_UNSPECIFIED = 0
@@ -9452,6 +9800,7 @@ def _define_ISyncMgrHandlerInfo():
     ISyncMgrHandlerInfo.IsActive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'IsActive', ()))
     ISyncMgrHandlerInfo.IsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'IsEnabled', ()))
     ISyncMgrHandlerInfo.IsConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'IsConnected', ()))
+    win32more.System.Com.IUnknown
     return ISyncMgrHandlerInfo
 def _define_ISyncMgrSyncItemContainer_head():
     class ISyncMgrSyncItemContainer(win32more.System.Com.IUnknown_head):
@@ -9462,6 +9811,7 @@ def _define_ISyncMgrSyncItemContainer():
     ISyncMgrSyncItemContainer.GetSyncItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.ISyncMgrSyncItem_head), use_last_error=False)(3, 'GetSyncItem', ((1, 'pszItemID'),(1, 'ppItem'),)))
     ISyncMgrSyncItemContainer.GetSyncItemEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumSyncMgrSyncItems_head), use_last_error=False)(4, 'GetSyncItemEnumerator', ((1, 'ppenum'),)))
     ISyncMgrSyncItemContainer.GetSyncItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetSyncItemCount', ((1, 'pcItems'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrSyncItemContainer
 SYNCMGR_ITEM_CAPABILITIES = Int32
 SYNCMGR_ICM_NONE = 0
@@ -9502,6 +9852,7 @@ def _define_ISyncMgrSyncItem():
     ISyncMgrSyncItem.GetPolicies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SYNCMGR_ITEM_POLICIES), use_last_error=False)(8, 'GetPolicies', ((1, 'pmPolicies'),)))
     ISyncMgrSyncItem.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(9, 'Enable', ((1, 'fEnable'),)))
     ISyncMgrSyncItem.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Delete', ()))
+    win32more.System.Com.IUnknown
     return ISyncMgrSyncItem
 def _define_ISyncMgrSyncItemInfo_head():
     class ISyncMgrSyncItemInfo(win32more.System.Com.IUnknown_head):
@@ -9514,6 +9865,7 @@ def _define_ISyncMgrSyncItemInfo():
     ISyncMgrSyncItemInfo.GetLastSyncTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(5, 'GetLastSyncTime', ((1, 'pftLastSync'),)))
     ISyncMgrSyncItemInfo.IsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'IsEnabled', ()))
     ISyncMgrSyncItemInfo.IsConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'IsConnected', ()))
+    win32more.System.Com.IUnknown
     return ISyncMgrSyncItemInfo
 def _define_IEnumSyncMgrSyncItems_head():
     class IEnumSyncMgrSyncItems(win32more.System.Com.IUnknown_head):
@@ -9525,6 +9877,7 @@ def _define_IEnumSyncMgrSyncItems():
     IEnumSyncMgrSyncItems.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumSyncMgrSyncItems.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSyncMgrSyncItems.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumSyncMgrSyncItems_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSyncMgrSyncItems
 SYNCMGR_PROGRESS_STATUS = Int32
 SYNCMGR_PS_UPDATING = 1
@@ -9554,6 +9907,7 @@ def _define_ISyncMgrSessionCreator_head():
 def _define_ISyncMgrSessionCreator():
     ISyncMgrSessionCreator = win32more.UI.Shell.ISyncMgrSessionCreator_head
     ISyncMgrSessionCreator.CreateSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.UI.Shell.ISyncMgrSyncCallback_head), use_last_error=False)(3, 'CreateSession', ((1, 'pszHandlerID'),(1, 'ppszItemIDs'),(1, 'cItems'),(1, 'ppCallback'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrSessionCreator
 def _define_ISyncMgrSyncCallback_head():
     class ISyncMgrSyncCallback(win32more.System.Com.IUnknown_head):
@@ -9571,6 +9925,7 @@ def _define_ISyncMgrSyncCallback():
     ISyncMgrSyncCallback.ProposeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ISyncMgrSyncItem_head, use_last_error=False)(10, 'ProposeItem', ((1, 'pNewItem'),)))
     ISyncMgrSyncCallback.CommitItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(11, 'CommitItem', ((1, 'pszItemID'),)))
     ISyncMgrSyncCallback.ReportManualSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'ReportManualSync', ()))
+    win32more.System.Com.IUnknown
     return ISyncMgrSyncCallback
 def _define_ISyncMgrUIOperation_head():
     class ISyncMgrUIOperation(win32more.System.Com.IUnknown_head):
@@ -9579,6 +9934,7 @@ def _define_ISyncMgrUIOperation_head():
 def _define_ISyncMgrUIOperation():
     ISyncMgrUIOperation = win32more.UI.Shell.ISyncMgrUIOperation_head
     ISyncMgrUIOperation.Run = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(3, 'Run', ((1, 'hwndOwner'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrUIOperation
 def _define_ISyncMgrEventLinkUIOperation_head():
     class ISyncMgrEventLinkUIOperation(win32more.UI.Shell.ISyncMgrUIOperation_head):
@@ -9587,6 +9943,7 @@ def _define_ISyncMgrEventLinkUIOperation_head():
 def _define_ISyncMgrEventLinkUIOperation():
     ISyncMgrEventLinkUIOperation = win32more.UI.Shell.ISyncMgrEventLinkUIOperation_head
     ISyncMgrEventLinkUIOperation.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.UI.Shell.ISyncMgrEvent_head, use_last_error=False)(4, 'Init', ((1, 'rguidEventID'),(1, 'pEvent'),)))
+    win32more.UI.Shell.ISyncMgrUIOperation
     return ISyncMgrEventLinkUIOperation
 def _define_ISyncMgrScheduleWizardUIOperation_head():
     class ISyncMgrScheduleWizardUIOperation(win32more.UI.Shell.ISyncMgrUIOperation_head):
@@ -9595,6 +9952,7 @@ def _define_ISyncMgrScheduleWizardUIOperation_head():
 def _define_ISyncMgrScheduleWizardUIOperation():
     ISyncMgrScheduleWizardUIOperation = win32more.UI.Shell.ISyncMgrScheduleWizardUIOperation_head
     ISyncMgrScheduleWizardUIOperation.InitWizard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'InitWizard', ((1, 'pszHandlerID'),)))
+    win32more.UI.Shell.ISyncMgrUIOperation
     return ISyncMgrScheduleWizardUIOperation
 def _define_ISyncMgrSyncResult_head():
     class ISyncMgrSyncResult(win32more.System.Com.IUnknown_head):
@@ -9603,6 +9961,7 @@ def _define_ISyncMgrSyncResult_head():
 def _define_ISyncMgrSyncResult():
     ISyncMgrSyncResult = win32more.UI.Shell.ISyncMgrSyncResult_head
     ISyncMgrSyncResult.Result = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.SYNCMGR_PROGRESS_STATUS,UInt32,UInt32, use_last_error=False)(3, 'Result', ((1, 'nStatus'),(1, 'cError'),(1, 'cConflicts'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrSyncResult
 SYNCMGR_CONTROL_FLAGS = Int32
 SYNCMGR_CF_NONE = 0
@@ -9640,6 +9999,7 @@ def _define_ISyncMgrControl():
     ISyncMgrControl.ActivateHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.HWND,win32more.UI.Shell.SYNCMGR_CONTROL_FLAGS, use_last_error=False)(15, 'ActivateHandler', ((1, 'fActivate'),(1, 'pszHandlerID'),(1, 'hwndOwner'),(1, 'nControlFlags'),)))
     ISyncMgrControl.EnableHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.HWND,win32more.UI.Shell.SYNCMGR_CONTROL_FLAGS, use_last_error=False)(16, 'EnableHandler', ((1, 'fEnable'),(1, 'pszHandlerID'),(1, 'hwndOwner'),(1, 'nControlFlags'),)))
     ISyncMgrControl.EnableItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.HWND,win32more.UI.Shell.SYNCMGR_CONTROL_FLAGS, use_last_error=False)(17, 'EnableItem', ((1, 'fEnable'),(1, 'pszHandlerID'),(1, 'pszItemID'),(1, 'hwndOwner'),(1, 'nControlFlags'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrControl
 def _define_ISyncMgrEventStore_head():
     class ISyncMgrEventStore(win32more.System.Com.IUnknown_head):
@@ -9651,6 +10011,7 @@ def _define_ISyncMgrEventStore():
     ISyncMgrEventStore.GetEventCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetEventCount', ((1, 'pcEvents'),)))
     ISyncMgrEventStore.GetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.Shell.ISyncMgrEvent_head), use_last_error=False)(5, 'GetEvent', ((1, 'rguidEventID'),(1, 'ppEvent'),)))
     ISyncMgrEventStore.RemoveEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32, use_last_error=False)(6, 'RemoveEvent', ((1, 'pguidEventIDs'),(1, 'cEvents'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrEventStore
 def _define_ISyncMgrEvent_head():
     class ISyncMgrEvent(win32more.System.Com.IUnknown_head):
@@ -9669,6 +10030,7 @@ def _define_ISyncMgrEvent():
     ISyncMgrEvent.GetLinkText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(11, 'GetLinkText', ((1, 'ppszLinkText'),)))
     ISyncMgrEvent.GetLinkReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(12, 'GetLinkReference', ((1, 'ppszLinkReference'),)))
     ISyncMgrEvent.GetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(13, 'GetContext', ((1, 'ppszContext'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrEvent
 def _define_IEnumSyncMgrEvents_head():
     class IEnumSyncMgrEvents(win32more.System.Com.IUnknown_head):
@@ -9680,6 +10042,7 @@ def _define_IEnumSyncMgrEvents():
     IEnumSyncMgrEvents.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumSyncMgrEvents.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSyncMgrEvents.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumSyncMgrEvents_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSyncMgrEvents
 def _define_SYNCMGR_CONFLICT_ID_INFO_head():
     class SYNCMGR_CONFLICT_ID_INFO(Structure):
@@ -9702,6 +10065,7 @@ def _define_ISyncMgrConflictStore():
     ISyncMgrConflictStore.BindToConflict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SYNCMGR_CONFLICT_ID_INFO_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'BindToConflict', ((1, 'pConflictIdInfo'),(1, 'riid'),(1, 'ppv'),)))
     ISyncMgrConflictStore.RemoveConflicts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SYNCMGR_CONFLICT_ID_INFO),UInt32, use_last_error=False)(5, 'RemoveConflicts', ((1, 'rgConflictIdInfo'),(1, 'cConflicts'),)))
     ISyncMgrConflictStore.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(6, 'GetCount', ((1, 'pszHandlerID'),(1, 'pszItemID'),(1, 'pnConflicts'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrConflictStore
 def _define_IEnumSyncMgrConflict_head():
     class IEnumSyncMgrConflict(win32more.System.Com.IUnknown_head):
@@ -9713,6 +10077,7 @@ def _define_IEnumSyncMgrConflict():
     IEnumSyncMgrConflict.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumSyncMgrConflict.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSyncMgrConflict.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumSyncMgrConflict_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSyncMgrConflict
 SYNCMGR_CONFLICT_ITEM_TYPE = Int32
 SYNCMGR_CIT_UPDATED = 1
@@ -9728,6 +10093,7 @@ def _define_ISyncMgrConflict():
     ISyncMgrConflict.GetItemsArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.ISyncMgrConflictItems_head), use_last_error=False)(5, 'GetItemsArray', ((1, 'ppArray'),)))
     ISyncMgrConflict.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ISyncMgrConflictResolveInfo_head, use_last_error=False)(6, 'Resolve', ((1, 'pResolveInfo'),)))
     ISyncMgrConflict.GetResolutionHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'GetResolutionHandler', ((1, 'riid'),(1, 'ppvResolutionHandler'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrConflict
 SYNCMGR_RESOLUTION_ABILITIES = Int32
 SYNCMGR_RA_KEEPOTHER = 1
@@ -9751,6 +10117,7 @@ def _define_ISyncMgrResolutionHandler():
     ISyncMgrResolutionHandler.KeepRecent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SYNCMGR_RESOLUTION_FEEDBACK), use_last_error=False)(5, 'KeepRecent', ((1, 'pFeedback'),)))
     ISyncMgrResolutionHandler.RemoveFromSyncSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.SYNCMGR_RESOLUTION_FEEDBACK), use_last_error=False)(6, 'RemoveFromSyncSet', ((1, 'pFeedback'),)))
     ISyncMgrResolutionHandler.KeepItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ISyncMgrConflictResolutionItems_head,POINTER(win32more.UI.Shell.SYNCMGR_RESOLUTION_FEEDBACK), use_last_error=False)(7, 'KeepItems', ((1, 'pArray'),(1, 'pFeedback'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrResolutionHandler
 def _define_ISyncMgrConflictPresenter_head():
     class ISyncMgrConflictPresenter(win32more.System.Com.IUnknown_head):
@@ -9759,6 +10126,7 @@ def _define_ISyncMgrConflictPresenter_head():
 def _define_ISyncMgrConflictPresenter():
     ISyncMgrConflictPresenter = win32more.UI.Shell.ISyncMgrConflictPresenter_head
     ISyncMgrConflictPresenter.PresentConflict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ISyncMgrConflict_head,win32more.UI.Shell.ISyncMgrConflictResolveInfo_head, use_last_error=False)(3, 'PresentConflict', ((1, 'pConflict'),(1, 'pResolveInfo'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrConflictPresenter
 SYNCMGR_PRESENTER_NEXT_STEP = Int32
 SYNCMGR_PNS_CONTINUE = 0
@@ -9785,6 +10153,7 @@ def _define_ISyncMgrConflictResolveInfo():
     ISyncMgrConflictResolveInfo.SetPresenterNextStep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.SYNCMGR_PRESENTER_NEXT_STEP, use_last_error=False)(8, 'SetPresenterNextStep', ((1, 'nPresenterNextStep'),)))
     ISyncMgrConflictResolveInfo.SetPresenterChoice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.SYNCMGR_PRESENTER_CHOICE,win32more.Foundation.BOOL, use_last_error=False)(9, 'SetPresenterChoice', ((1, 'nPresenterChoice'),(1, 'fApplyToAll'),)))
     ISyncMgrConflictResolveInfo.SetItemChoices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32, use_last_error=False)(10, 'SetItemChoices', ((1, 'prgiConflictItemIndexes'),(1, 'cChoices'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrConflictResolveInfo
 def _define_ISyncMgrConflictFolder_head():
     class ISyncMgrConflictFolder(win32more.System.Com.IUnknown_head):
@@ -9793,6 +10162,7 @@ def _define_ISyncMgrConflictFolder_head():
 def _define_ISyncMgrConflictFolder():
     ISyncMgrConflictFolder = win32more.UI.Shell.ISyncMgrConflictFolder_head
     ISyncMgrConflictFolder.GetConflictIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ISyncMgrConflict_head,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(3, 'GetConflictIDList', ((1, 'pConflict'),(1, 'ppidlConflict'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrConflictFolder
 def _define_CONFIRM_CONFLICT_ITEM_head():
     class CONFIRM_CONFLICT_ITEM(Structure):
@@ -9828,6 +10198,7 @@ def _define_ISyncMgrConflictItems():
     ISyncMgrConflictItems = win32more.UI.Shell.ISyncMgrConflictItems_head
     ISyncMgrConflictItems.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pCount'),)))
     ISyncMgrConflictItems.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.CONFIRM_CONFLICT_ITEM_head), use_last_error=False)(4, 'GetItem', ((1, 'iIndex'),(1, 'pItemInfo'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrConflictItems
 def _define_ISyncMgrConflictResolutionItems_head():
     class ISyncMgrConflictResolutionItems(win32more.System.Com.IUnknown_head):
@@ -9837,6 +10208,7 @@ def _define_ISyncMgrConflictResolutionItems():
     ISyncMgrConflictResolutionItems = win32more.UI.Shell.ISyncMgrConflictResolutionItems_head
     ISyncMgrConflictResolutionItems.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pCount'),)))
     ISyncMgrConflictResolutionItems.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.CONFIRM_CONFLICT_RESULT_INFO_head), use_last_error=False)(4, 'GetItem', ((1, 'iIndex'),(1, 'pItemInfo'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrConflictResolutionItems
 InputPanelConfiguration = Guid('2853add3-f096-4c63-a78f-7fa3ea837fb7')
 def _define_IInputPanelConfiguration_head():
@@ -9846,6 +10218,7 @@ def _define_IInputPanelConfiguration_head():
 def _define_IInputPanelConfiguration():
     IInputPanelConfiguration = win32more.UI.Shell.IInputPanelConfiguration_head
     IInputPanelConfiguration.EnableFocusTracking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'EnableFocusTracking', ()))
+    win32more.System.Com.IUnknown
     return IInputPanelConfiguration
 def _define_IInputPanelInvocationConfiguration_head():
     class IInputPanelInvocationConfiguration(win32more.System.Com.IUnknown_head):
@@ -9854,6 +10227,7 @@ def _define_IInputPanelInvocationConfiguration_head():
 def _define_IInputPanelInvocationConfiguration():
     IInputPanelInvocationConfiguration = win32more.UI.Shell.IInputPanelInvocationConfiguration_head
     IInputPanelInvocationConfiguration.RequireTouchInEditControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'RequireTouchInEditControl', ()))
+    win32more.System.Com.IUnknown
     return IInputPanelInvocationConfiguration
 LocalThumbnailCache = Guid('50ef4544-ac9f-4a8e-b21b-8a26180db13f')
 SharedBitmap = Guid('4db26476-6787-4046-b836-e8412a9e8a27')
@@ -9910,6 +10284,7 @@ def _define_ISharedBitmap():
     ISharedBitmap.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.WTS_ALPHATYPE), use_last_error=False)(5, 'GetFormat', ((1, 'pat'),)))
     ISharedBitmap.InitializeBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HBITMAP,win32more.UI.Shell.WTS_ALPHATYPE, use_last_error=False)(6, 'InitializeBitmap', ((1, 'hbm'),(1, 'wtsAT'),)))
     ISharedBitmap.Detach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(7, 'Detach', ((1, 'phbm'),)))
+    win32more.System.Com.IUnknown
     return ISharedBitmap
 def _define_IThumbnailCache_head():
     class IThumbnailCache(win32more.System.Com.IUnknown_head):
@@ -9919,6 +10294,7 @@ def _define_IThumbnailCache():
     IThumbnailCache = win32more.UI.Shell.IThumbnailCache_head
     IThumbnailCache.GetThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,UInt32,win32more.UI.Shell.WTS_FLAGS,POINTER(win32more.UI.Shell.ISharedBitmap_head),POINTER(win32more.UI.Shell.WTS_CACHEFLAGS),POINTER(win32more.UI.Shell.WTS_THUMBNAILID_head), use_last_error=False)(3, 'GetThumbnail', ((1, 'pShellItem'),(1, 'cxyRequestedThumbSize'),(1, 'flags'),(1, 'ppvThumb'),(1, 'pOutFlags'),(1, 'pThumbnailID'),)))
     IThumbnailCache.GetThumbnailByID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.WTS_THUMBNAILID,UInt32,POINTER(win32more.UI.Shell.ISharedBitmap_head),POINTER(win32more.UI.Shell.WTS_CACHEFLAGS), use_last_error=False)(4, 'GetThumbnailByID', ((1, 'thumbnailID'),(1, 'cxyRequestedThumbSize'),(1, 'ppvThumb'),(1, 'pOutFlags'),)))
+    win32more.System.Com.IUnknown
     return IThumbnailCache
 def _define_IThumbnailProvider_head():
     class IThumbnailProvider(win32more.System.Com.IUnknown_head):
@@ -9927,6 +10303,7 @@ def _define_IThumbnailProvider_head():
 def _define_IThumbnailProvider():
     IThumbnailProvider = win32more.UI.Shell.IThumbnailProvider_head
     IThumbnailProvider.GetThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Gdi.HBITMAP),POINTER(win32more.UI.Shell.WTS_ALPHATYPE), use_last_error=False)(3, 'GetThumbnail', ((1, 'cx'),(1, 'phbmp'),(1, 'pdwAlpha'),)))
+    win32more.System.Com.IUnknown
     return IThumbnailProvider
 def _define_IThumbnailSettings_head():
     class IThumbnailSettings(win32more.System.Com.IUnknown_head):
@@ -9935,6 +10312,7 @@ def _define_IThumbnailSettings_head():
 def _define_IThumbnailSettings():
     IThumbnailSettings = win32more.UI.Shell.IThumbnailSettings_head
     IThumbnailSettings.SetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.WTS_CONTEXTFLAGS, use_last_error=False)(3, 'SetContext', ((1, 'dwContext'),)))
+    win32more.System.Com.IUnknown
     return IThumbnailSettings
 def _define_IThumbnailCachePrimer_head():
     class IThumbnailCachePrimer(win32more.System.Com.IUnknown_head):
@@ -9943,6 +10321,7 @@ def _define_IThumbnailCachePrimer_head():
 def _define_IThumbnailCachePrimer():
     IThumbnailCachePrimer = win32more.UI.Shell.IThumbnailCachePrimer_head
     IThumbnailCachePrimer.PageInThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,win32more.UI.Shell.WTS_FLAGS,UInt32, use_last_error=False)(3, 'PageInThumbnail', ((1, 'psi'),(1, 'wtsFlags'),(1, 'cxyRequestedThumbSize'),)))
+    win32more.System.Com.IUnknown
     return IThumbnailCachePrimer
 ShellImageDataFactory = Guid('66e4e4fb-f385-4dd0-8d74-a2efd1bc6178')
 def _define_IShellImageDataFactory_head():
@@ -9955,6 +10334,7 @@ def _define_IShellImageDataFactory():
     IShellImageDataFactory.CreateImageFromFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.IShellImageData_head), use_last_error=False)(4, 'CreateImageFromFile', ((1, 'pszPath'),(1, 'ppshimg'),)))
     IShellImageDataFactory.CreateImageFromStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.UI.Shell.IShellImageData_head), use_last_error=False)(5, 'CreateImageFromStream', ((1, 'pStream'),(1, 'ppshimg'),)))
     IShellImageDataFactory.GetDataFormatFromPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(6, 'GetDataFormatFromPath', ((1, 'pszPath'),(1, 'pDataFormat'),)))
+    win32more.System.Com.IUnknown
     return IShellImageDataFactory
 def _define_IShellImageData_head():
     class IShellImageData(win32more.System.Com.IUnknown_head):
@@ -9992,6 +10372,7 @@ def _define_IShellImageData():
     IShellImageData.RegisterAbort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellImageDataAbort_head,POINTER(win32more.UI.Shell.IShellImageDataAbort_head), use_last_error=False)(30, 'RegisterAbort', ((1, 'pAbort'),(1, 'ppAbortPrev'),)))
     IShellImageData.CloneFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no), use_last_error=False)(31, 'CloneFrame', ((1, 'ppImg'),)))
     IShellImageData.ReplaceFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(32, 'ReplaceFrame', ((1, 'pImg'),)))
+    win32more.System.Com.IUnknown
     return IShellImageData
 def _define_IShellImageDataAbort_head():
     class IShellImageDataAbort(win32more.System.Com.IUnknown_head):
@@ -10000,6 +10381,7 @@ def _define_IShellImageDataAbort_head():
 def _define_IShellImageDataAbort():
     IShellImageDataAbort = win32more.UI.Shell.IShellImageDataAbort_head
     IShellImageDataAbort.QueryAbort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'QueryAbort', ()))
+    win32more.System.Com.IUnknown
     return IShellImageDataAbort
 def _define_IStorageProviderPropertyHandler_head():
     class IStorageProviderPropertyHandler(win32more.System.Com.IUnknown_head):
@@ -10009,6 +10391,7 @@ def _define_IStorageProviderPropertyHandler():
     IStorageProviderPropertyHandler = win32more.UI.Shell.IStorageProviderPropertyHandler_head
     IStorageProviderPropertyHandler.RetrieveProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY),UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(3, 'RetrieveProperties', ((1, 'propertiesToRetrieve'),(1, 'propertiesToRetrieveCount'),(1, 'retrievedProperties'),)))
     IStorageProviderPropertyHandler.SaveProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, use_last_error=False)(4, 'SaveProperties', ((1, 'propertiesToSave'),)))
+    win32more.System.Com.IUnknown
     return IStorageProviderPropertyHandler
 def _define_IStorageProviderHandler_head():
     class IStorageProviderHandler(win32more.System.Com.IUnknown_head):
@@ -10019,6 +10402,7 @@ def _define_IStorageProviderHandler():
     IStorageProviderHandler.GetPropertyHandlerFromPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.IStorageProviderPropertyHandler_head), use_last_error=False)(3, 'GetPropertyHandlerFromPath', ((1, 'path'),(1, 'propertyHandler'),)))
     IStorageProviderHandler.GetPropertyHandlerFromUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.IStorageProviderPropertyHandler_head), use_last_error=False)(4, 'GetPropertyHandlerFromUri', ((1, 'uri'),(1, 'propertyHandler'),)))
     IStorageProviderHandler.GetPropertyHandlerFromFileId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.IStorageProviderPropertyHandler_head), use_last_error=False)(5, 'GetPropertyHandlerFromFileId', ((1, 'fileId'),(1, 'propertyHandler'),)))
+    win32more.System.Com.IUnknown
     return IStorageProviderHandler
 SyncMgr = Guid('6295df27-35ee-11d1-8707-00c04fd93327')
 SYNCMGRSTATUS = Int32
@@ -10083,6 +10467,7 @@ def _define_ISyncMgrSynchronizeCallback():
     ISyncMgrSynchronizeCallback.LogError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.SYNCMGRLOGERRORINFO_head), use_last_error=False)(9, 'LogError', ((1, 'dwErrorLevel'),(1, 'pszErrorText'),(1, 'pSyncLogError'),)))
     ISyncMgrSynchronizeCallback.DeleteLogError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32, use_last_error=False)(10, 'DeleteLogError', ((1, 'ErrorID'),(1, 'dwReserved'),)))
     ISyncMgrSynchronizeCallback.EstablishConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(11, 'EstablishConnection', ((1, 'pwszConnection'),(1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrSynchronizeCallback
 SYNCMGRITEMFLAGS = Int32
 SYNCMGRITEM_HASPROPERTIES = 1
@@ -10117,6 +10502,7 @@ def _define_ISyncMgrEnumItems():
     ISyncMgrEnumItems.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     ISyncMgrEnumItems.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     ISyncMgrEnumItems.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.ISyncMgrEnumItems_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrEnumItems
 SYNCMGRFLAG = Int32
 SYNCMGRFLAG_CONNECT = 1
@@ -10165,6 +10551,7 @@ def _define_ISyncMgrSynchronize():
     ISyncMgrSynchronize.Synchronize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(10, 'Synchronize', ((1, 'hWndParent'),)))
     ISyncMgrSynchronize.SetItemStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32, use_last_error=False)(11, 'SetItemStatus', ((1, 'pItemID'),(1, 'dwSyncMgrStatus'),)))
     ISyncMgrSynchronize.ShowError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid), use_last_error=False)(12, 'ShowError', ((1, 'hWndParent'),(1, 'ErrorID'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrSynchronize
 SYNCMGRINVOKEFLAGS = Int32
 SYNCMGRINVOKE_STARTSYNC = 2
@@ -10177,6 +10564,7 @@ def _define_ISyncMgrSynchronizeInvoke():
     ISyncMgrSynchronizeInvoke = win32more.UI.Shell.ISyncMgrSynchronizeInvoke_head
     ISyncMgrSynchronizeInvoke.UpdateItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),UInt32,POINTER(Byte), use_last_error=False)(3, 'UpdateItems', ((1, 'dwInvokeFlags'),(1, 'clsid'),(1, 'cbCookie'),(1, 'pCookie'),)))
     ISyncMgrSynchronizeInvoke.UpdateAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UpdateAll', ()))
+    win32more.System.Com.IUnknown
     return ISyncMgrSynchronizeInvoke
 SYNCMGRREGISTERFLAGS = Int32
 SYNCMGRREGISTERFLAG_CONNECT = 1
@@ -10191,6 +10579,7 @@ def _define_ISyncMgrRegister():
     ISyncMgrRegister.RegisterSyncMgrHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'RegisterSyncMgrHandler', ((1, 'clsidHandler'),(1, 'pwszDescription'),(1, 'dwSyncMgrRegisterFlags'),)))
     ISyncMgrRegister.UnregisterSyncMgrHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32, use_last_error=False)(4, 'UnregisterSyncMgrHandler', ((1, 'clsidHandler'),(1, 'dwReserved'),)))
     ISyncMgrRegister.GetHandlerRegistrationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32), use_last_error=False)(5, 'GetHandlerRegistrationInfo', ((1, 'clsidHandler'),(1, 'pdwSyncMgrRegisterFlags'),)))
+    win32more.System.Com.IUnknown
     return ISyncMgrRegister
 ThumbnailStreamCache = Guid('cbe0fed3-4b91-4e90-8354-8a8c84ec6872')
 ThumbnailStreamCacheOptions = Int32
@@ -10206,6 +10595,7 @@ def _define_IThumbnailStreamCache():
     IThumbnailStreamCache = win32more.UI.Shell.IThumbnailStreamCache_head
     IThumbnailStreamCache.GetThumbnailStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt64,win32more.UI.Shell.ThumbnailStreamCacheOptions,UInt32,POINTER(win32more.Foundation.SIZE_head),POINTER(win32more.System.Com.IStream_head), use_last_error=False)(3, 'GetThumbnailStream', ((1, 'path'),(1, 'cacheId'),(1, 'options'),(1, 'requestedThumbnailSize'),(1, 'thumbnailSize'),(1, 'thumbnailStream'),)))
     IThumbnailStreamCache.SetThumbnailStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt64,win32more.Foundation.SIZE,win32more.System.Com.IStream_head, use_last_error=False)(4, 'SetThumbnailStream', ((1, 'path'),(1, 'cacheId'),(1, 'thumbnailSize'),(1, 'thumbnailStream'),)))
+    win32more.System.Com.IUnknown
     return IThumbnailStreamCache
 TrackShellMenu = Guid('8278f931-2a3e-11d2-838f-00c04fd918d0')
 def _define_WINDOWDATA_head():
@@ -10231,6 +10621,7 @@ def _define_ITravelLogEntry():
     ITravelLogEntry = win32more.UI.Shell.ITravelLogEntry_head
     ITravelLogEntry.GetTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetTitle', ((1, 'ppszTitle'),)))
     ITravelLogEntry.GetURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetURL', ((1, 'ppszURL'),)))
+    win32more.System.Com.IUnknown
     return ITravelLogEntry
 def _define_ITravelLogClient_head():
     class ITravelLogClient(win32more.System.Com.IUnknown_head):
@@ -10241,6 +10632,7 @@ def _define_ITravelLogClient():
     ITravelLogClient.FindWindowByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'FindWindowByIndex', ((1, 'dwID'),(1, 'ppunk'),)))
     ITravelLogClient.GetWindowData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.UI.Shell.WINDOWDATA_head), use_last_error=False)(4, 'GetWindowData', ((1, 'pStream'),(1, 'pWinData'),)))
     ITravelLogClient.LoadHistoryPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(5, 'LoadHistoryPosition', ((1, 'pszUrlLocation'),(1, 'dwPosition'),)))
+    win32more.System.Com.IUnknown
     return ITravelLogClient
 def _define_IEnumTravelLogEntry_head():
     class IEnumTravelLogEntry(win32more.System.Com.IUnknown_head):
@@ -10252,6 +10644,7 @@ def _define_IEnumTravelLogEntry():
     IEnumTravelLogEntry.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cElt'),)))
     IEnumTravelLogEntry.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTravelLogEntry.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumTravelLogEntry_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumTravelLogEntry
 TLENUMF = Int32
 TLEF_RELATIVE_INCLUDE_CURRENT = 1
@@ -10274,6 +10667,7 @@ def _define_ITravelLogStg():
     ITravelLogStg.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.TLENUMF,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'flags'),(1, 'pcEntries'),)))
     ITravelLogStg.RemoveEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.ITravelLogEntry_head, use_last_error=False)(8, 'RemoveEntry', ((1, 'ptle'),)))
     ITravelLogStg.GetRelativeEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Shell.ITravelLogEntry_head), use_last_error=False)(9, 'GetRelativeEntry', ((1, 'iOffset'),(1, 'ptle'),)))
+    win32more.System.Com.IUnknown
     return ITravelLogStg
 _HLSR_NOREDEF10 = Int32
 HLSR_HOME = 0
@@ -10330,6 +10724,7 @@ def _define_IHlink():
     IHlink.Navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IBindCtx_head,win32more.System.Com.IBindStatusCallback_head,win32more.UI.Shell.IHlinkBrowseContext_head, use_last_error=False)(14, 'Navigate', ((1, 'grfHLNF'),(1, 'pibc'),(1, 'pibsc'),(1, 'pihlbc'),)))
     IHlink.SetAdditionalParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(15, 'SetAdditionalParams', ((1, 'pwzAdditionalParams'),)))
     IHlink.GetAdditionalParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(16, 'GetAdditionalParams', ((1, 'ppwzAdditionalParams'),)))
+    win32more.System.Com.IUnknown
     return IHlink
 HLINKWHICHMK = Int32
 HLINKWHICHMK_CONTAINER = 1
@@ -10344,6 +10739,7 @@ def _define_IHlinkSite():
     IHlinkSite.GetMoniker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.System.Com.IMoniker_head), use_last_error=False)(4, 'GetMoniker', ((1, 'dwSiteData'),(1, 'dwAssign'),(1, 'dwWhich'),(1, 'ppimk'),)))
     IHlinkSite.ReadyToNavigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(5, 'ReadyToNavigate', ((1, 'dwSiteData'),(1, 'dwReserved'),)))
     IHlinkSite.OnNavigationComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'OnNavigationComplete', ((1, 'dwSiteData'),(1, 'dwreserved'),(1, 'hrError'),(1, 'pwzError'),)))
+    win32more.System.Com.IUnknown
     return IHlinkSite
 def _define_IHlinkTarget_head():
     class IHlinkTarget(win32more.System.Com.IUnknown_head):
@@ -10356,6 +10752,7 @@ def _define_IHlinkTarget():
     IHlinkTarget.Navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(5, 'Navigate', ((1, 'grfHLNF'),(1, 'pwzJumpLocation'),)))
     IHlinkTarget.GetMoniker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Com.IMoniker_head), use_last_error=False)(6, 'GetMoniker', ((1, 'pwzLocation'),(1, 'dwAssign'),(1, 'ppimkLocation'),)))
     IHlinkTarget.GetFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetFriendlyName', ((1, 'pwzLocation'),(1, 'ppwzFriendlyName'),)))
+    win32more.System.Com.IUnknown
     return IHlinkTarget
 def _define_IHlinkFrame_head():
     class IHlinkFrame(win32more.System.Com.IUnknown_head):
@@ -10368,6 +10765,7 @@ def _define_IHlinkFrame():
     IHlinkFrame.Navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IBindCtx_head,win32more.System.Com.IBindStatusCallback_head,win32more.UI.Shell.IHlink_head, use_last_error=False)(5, 'Navigate', ((1, 'grfHLNF'),(1, 'pbc'),(1, 'pibsc'),(1, 'pihlNavigate'),)))
     IHlinkFrame.OnNavigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IMoniker_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(6, 'OnNavigate', ((1, 'grfHLNF'),(1, 'pimkTarget'),(1, 'pwzLocation'),(1, 'pwzFriendlyName'),(1, 'dwreserved'),)))
     IHlinkFrame.UpdateHlink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IMoniker_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(7, 'UpdateHlink', ((1, 'uHLID'),(1, 'pimkTarget'),(1, 'pwzLocation'),(1, 'pwzFriendlyName'),)))
+    win32more.System.Com.IUnknown
     return IHlinkFrame
 def _define_HLITEM_head():
     class HLITEM(Structure):
@@ -10390,6 +10788,7 @@ def _define_IEnumHLITEM():
     IEnumHLITEM.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumHLITEM.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumHLITEM.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.IEnumHLITEM_head), use_last_error=False)(6, 'Clone', ((1, 'ppienumhlitem'),)))
+    win32more.System.Com.IUnknown
     return IEnumHLITEM
 HLTB_INFO = Int32
 HLTB_DOCKEDLEFT = 0
@@ -10459,6 +10858,7 @@ def _define_IHlinkBrowseContext():
     IHlinkBrowseContext.SetCurrentHlink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(14, 'SetCurrentHlink', ((1, 'uHLID'),)))
     IHlinkBrowseContext.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(15, 'Clone', ((1, 'piunkOuter'),(1, 'riid'),(1, 'ppiunkObj'),)))
     IHlinkBrowseContext.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(16, 'Close', ((1, 'reserved'),)))
+    win32more.System.Com.IUnknown
     return IHlinkBrowseContext
 def _define_IExtensionServices_head():
     class IExtensionServices(win32more.System.Com.IUnknown_head):
@@ -10468,6 +10868,7 @@ def _define_IExtensionServices():
     IExtensionServices = win32more.UI.Shell.IExtensionServices_head
     IExtensionServices.SetAdditionalHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetAdditionalHeaders', ((1, 'pwzAdditionalHeaders'),)))
     IExtensionServices.SetAuthenticateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'SetAuthenticateData', ((1, 'phwnd'),(1, 'pwzUsername'),(1, 'pwzPassword'),)))
+    win32more.System.Com.IUnknown
     return IExtensionServices
 def _define_ITravelEntry_head():
     class ITravelEntry(win32more.System.Com.IUnknown_head):
@@ -10478,6 +10879,7 @@ def _define_ITravelEntry():
     ITravelEntry.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Invoke', ((1, 'punk'),)))
     ITravelEntry.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL, use_last_error=False)(4, 'Update', ((1, 'punk'),(1, 'fIsLocalAnchor'),)))
     ITravelEntry.GetPidl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(5, 'GetPidl', ((1, 'ppidl'),)))
+    win32more.System.Com.IUnknown
     return ITravelEntry
 def _define_ITravelLog_head():
     class ITravelLog(win32more.System.Com.IUnknown_head):
@@ -10496,6 +10898,7 @@ def _define_ITravelLog():
     ITravelLog.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.ITravelLog_head), use_last_error=False)(11, 'Clone', ((1, 'pptl'),)))
     ITravelLog.CountEntries = COMMETHOD(WINFUNCTYPE(UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(12, 'CountEntries', ((1, 'punk'),)))
     ITravelLog.Revert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Revert', ()))
+    win32more.System.Com.IUnknown
     return ITravelLog
 def _define_CIE4ConnectionPoint_head():
     class CIE4ConnectionPoint(win32more.System.Com.IConnectionPoint_head):
@@ -10505,6 +10908,7 @@ def _define_CIE4ConnectionPoint():
     CIE4ConnectionPoint = win32more.UI.Shell.CIE4ConnectionPoint_head
     CIE4ConnectionPoint.DoInvokeIE4 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(c_void_p),Int32,POINTER(win32more.System.Com.DISPPARAMS_head), use_last_error=False)(8, 'DoInvokeIE4', ((1, 'pf'),(1, 'ppv'),(1, 'dispid'),(1, 'pdispparams'),)))
     CIE4ConnectionPoint.DoInvokePIDLIE4 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head),win32more.Foundation.BOOL, use_last_error=False)(9, 'DoInvokePIDLIE4', ((1, 'dispid'),(1, 'pidl'),(1, 'fCanCancel'),)))
+    win32more.System.Com.IConnectionPoint
     return CIE4ConnectionPoint
 def _define_IExpDispSupportXP_head():
     class IExpDispSupportXP(win32more.System.Com.IUnknown_head):
@@ -10515,6 +10919,7 @@ def _define_IExpDispSupportXP():
     IExpDispSupportXP.FindCIE4ConnectionPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.Shell.CIE4ConnectionPoint_head), use_last_error=False)(3, 'FindCIE4ConnectionPoint', ((1, 'riid'),(1, 'ppccp'),)))
     IExpDispSupportXP.OnTranslateAccelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),UInt32, use_last_error=False)(4, 'OnTranslateAccelerator', ((1, 'pMsg'),(1, 'grfModifiers'),)))
     IExpDispSupportXP.OnInvoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Guid),UInt32,UInt16,POINTER(win32more.System.Com.DISPPARAMS_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.EXCEPINFO_head),POINTER(UInt32), use_last_error=False)(5, 'OnInvoke', ((1, 'dispidMember'),(1, 'iid'),(1, 'lcid'),(1, 'wFlags'),(1, 'pdispparams'),(1, 'pVarResult'),(1, 'pexcepinfo'),(1, 'puArgErr'),)))
+    win32more.System.Com.IUnknown
     return IExpDispSupportXP
 def _define_IExpDispSupport_head():
     class IExpDispSupport(win32more.System.Com.IUnknown_head):
@@ -10525,6 +10930,7 @@ def _define_IExpDispSupport():
     IExpDispSupport.FindConnectionPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IConnectionPoint_head), use_last_error=False)(3, 'FindConnectionPoint', ((1, 'riid'),(1, 'ppccp'),)))
     IExpDispSupport.OnTranslateAccelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),UInt32, use_last_error=False)(4, 'OnTranslateAccelerator', ((1, 'pMsg'),(1, 'grfModifiers'),)))
     IExpDispSupport.OnInvoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Guid),UInt32,UInt16,POINTER(win32more.System.Com.DISPPARAMS_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.EXCEPINFO_head),POINTER(UInt32), use_last_error=False)(5, 'OnInvoke', ((1, 'dispidMember'),(1, 'iid'),(1, 'lcid'),(1, 'wFlags'),(1, 'pdispparams'),(1, 'pVarResult'),(1, 'pexcepinfo'),(1, 'puArgErr'),)))
+    win32more.System.Com.IUnknown
     return IExpDispSupport
 BNSTATE = Int32
 BNS_NORMAL = 0
@@ -10571,6 +10977,7 @@ def _define_IBrowserService():
     IBrowserService.OnHttpEquiv = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellView_head,win32more.Foundation.BOOL,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(30, 'OnHttpEquiv', ((1, 'psv'),(1, 'fDone'),(1, 'pvarargIn'),(1, 'pvarargOut'),)))
     IBrowserService.GetPalette = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.HPALETTE), use_last_error=False)(31, 'GetPalette', ((1, 'hpal'),)))
     IBrowserService.RegisterWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,Int32, use_last_error=False)(32, 'RegisterWindow', ((1, 'fForceRegister'),(1, 'swc'),)))
+    win32more.System.Com.IUnknown
     return IBrowserService
 def _define_IShellService_head():
     class IShellService(win32more.System.Com.IUnknown_head):
@@ -10579,6 +10986,7 @@ def _define_IShellService_head():
 def _define_IShellService():
     IShellService = win32more.UI.Shell.IShellService_head
     IShellService.SetOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetOwner', ((1, 'punkOwner'),)))
+    win32more.System.Com.IUnknown
     return IShellService
 SECURELOCKCODE = Int32
 SECURELOCK_NOCHANGE = -1
@@ -10762,6 +11170,7 @@ def _define_IBrowserService2():
     IBrowserService2.v_MayTranslateAccelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(92, 'v_MayTranslateAccelerator', ((1, 'pmsg'),)))
     IBrowserService2._GetBorderDWHelper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.BOOL, use_last_error=False)(93, '_GetBorderDWHelper', ((1, 'punkSrc'),(1, 'lprectBorder'),(1, 'bUseHmonitor'),)))
     IBrowserService2.v_CheckZoneCrossing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head), use_last_error=False)(94, 'v_CheckZoneCrossing', ((1, 'pidl'),)))
+    win32more.UI.Shell.IBrowserService
     return IBrowserService2
 IEPDNFLAGS = Int32
 IEPDN_BINDINGUI = 1
@@ -10773,6 +11182,7 @@ def _define_IBrowserService3():
     IBrowserService3 = win32more.UI.Shell.IBrowserService3_head
     IBrowserService3._PositionViewWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(95, '_PositionViewWindow', ((1, 'hwnd'),(1, 'prc'),)))
     IBrowserService3.IEParseDisplayNameEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(POINTER(win32more.UI.Shell.Common.ITEMIDLIST_head)), use_last_error=False)(96, 'IEParseDisplayNameEx', ((1, 'uiCP'),(1, 'pwszPath'),(1, 'dwFlags'),(1, 'ppidlOut'),)))
+    win32more.UI.Shell.IBrowserService2
     return IBrowserService3
 def _define_IBrowserService4_head():
     class IBrowserService4(win32more.UI.Shell.IBrowserService3_head):
@@ -10783,6 +11193,7 @@ def _define_IBrowserService4():
     IBrowserService4.ActivateView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(97, 'ActivateView', ((1, 'fPendingView'),)))
     IBrowserService4.SaveViewState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(98, 'SaveViewState', ()))
     IBrowserService4._ResizeAllBorders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(99, '_ResizeAllBorders', ()))
+    win32more.UI.Shell.IBrowserService3
     return IBrowserService4
 def _define_ITrackShellMenu_head():
     class ITrackShellMenu(win32more.UI.Shell.IShellMenu_head):
@@ -10792,6 +11203,7 @@ def _define_ITrackShellMenu():
     ITrackShellMenu = win32more.UI.Shell.ITrackShellMenu_head
     ITrackShellMenu.SetObscured = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(12, 'SetObscured', ((1, 'hwndTB'),(1, 'punkBand'),(1, 'dwSMSetFlags'),)))
     ITrackShellMenu.Popup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.POINTL_head),POINTER(win32more.Foundation.RECTL_head),Int32, use_last_error=False)(13, 'Popup', ((1, 'hwnd'),(1, 'ppt'),(1, 'prcExclude'),(1, 'dwFlags'),)))
+    win32more.UI.Shell.IShellMenu
     return ITrackShellMenu
 ImageTranscode = Guid('17b75166-928f-417d-9685-64aa135565c1')
 TI_FLAGS = Int32
@@ -10804,6 +11216,7 @@ def _define_ITranscodeImage_head():
 def _define_ITranscodeImage():
     ITranscodeImage = win32more.UI.Shell.ITranscodeImage_head
     ITranscodeImage.TranscodeImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.IShellItem_head,UInt32,UInt32,UInt32,win32more.System.Com.IStream_head,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'TranscodeImage', ((1, 'pShellItem'),(1, 'uiMaxWidth'),(1, 'uiMaxHeight'),(1, 'flags'),(1, 'pvImage'),(1, 'puiWidth'),(1, 'puiHeight'),)))
+    win32more.System.Com.IUnknown
     return ITranscodeImage
 PATHCCH_OPTIONS = Int32
 PATHCCH_NONE = 0
@@ -10944,6 +11357,7 @@ def _define_IUniformResourceLocatorA():
     IUniformResourceLocatorA.SetURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32, use_last_error=False)(3, 'SetURL', ((1, 'pcszURL'),(1, 'dwInFlags'),)))
     IUniformResourceLocatorA.GetURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PSTR), use_last_error=False)(4, 'GetURL', ((1, 'ppszURL'),)))
     IUniformResourceLocatorA.InvokeCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.urlinvokecommandinfoA_head), use_last_error=False)(5, 'InvokeCommand', ((1, 'purlici'),)))
+    win32more.System.Com.IUnknown
     return IUniformResourceLocatorA
 def _define_IUniformResourceLocatorW_head():
     class IUniformResourceLocatorW(win32more.System.Com.IUnknown_head):
@@ -10954,6 +11368,7 @@ def _define_IUniformResourceLocatorW():
     IUniformResourceLocatorW.SetURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'SetURL', ((1, 'pcszURL'),(1, 'dwInFlags'),)))
     IUniformResourceLocatorW.GetURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetURL', ((1, 'ppszURL'),)))
     IUniformResourceLocatorW.InvokeCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.urlinvokecommandinfoW_head), use_last_error=False)(5, 'InvokeCommand', ((1, 'purlici'),)))
+    win32more.System.Com.IUnknown
     return IUniformResourceLocatorW
 translateurl_in_flags = Int32
 TRANSLATEURL_FL_GUESS_PROTOCOL = 1
@@ -10976,6 +11391,7 @@ def _define_IInputPaneAnimationCoordinator_head():
 def _define_IInputPaneAnimationCoordinator():
     IInputPaneAnimationCoordinator = win32more.UI.Shell.IInputPaneAnimationCoordinator_head
     IInputPaneAnimationCoordinator.AddAnimation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(3, 'AddAnimation', ((1, 'device'),(1, 'animation'),)))
+    win32more.System.Com.IUnknown
     return IInputPaneAnimationCoordinator
 def _define_LoadUserProfileA():
     try:

@@ -4414,6 +4414,7 @@ def _define_IContentPrefetcherTaskTrigger():
     IContentPrefetcherTaskTrigger = win32more.Networking.WindowsWebServices.IContentPrefetcherTaskTrigger_head
     IContentPrefetcherTaskTrigger.TriggerContentPrefetcherTask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'TriggerContentPrefetcherTask', ((1, 'packageFullName'),)))
     IContentPrefetcherTaskTrigger.IsRegisteredForContentPrefetch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_char_p_no, use_last_error=False)(7, 'IsRegisteredForContentPrefetch', ((1, 'packageFullName'),(1, 'isRegistered'),)))
+    win32more.System.WinRT.IInspectable
     return IContentPrefetcherTaskTrigger
 def _define_WEBAUTHN_RP_ENTITY_INFORMATION_head():
     class WEBAUTHN_RP_ENTITY_INFORMATION(Structure):

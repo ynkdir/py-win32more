@@ -1394,6 +1394,7 @@ def _define_IEnumEnhancedStorageACT():
     IEnumEnhancedStorageACT = win32more.Storage.EnhancedStorage.IEnumEnhancedStorageACT_head
     IEnumEnhancedStorageACT.GetACTs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head)),POINTER(UInt32), use_last_error=False)(3, 'GetACTs', ((1, 'pppIEnhancedStorageACTs'),(1, 'pcEnhancedStorageACTs'),)))
     IEnumEnhancedStorageACT.GetMatchingACT = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head), use_last_error=False)(4, 'GetMatchingACT', ((1, 'szVolume'),(1, 'ppIEnhancedStorageACT'),)))
+    win32more.System.Com.IUnknown
     return IEnumEnhancedStorageACT
 def _define_IEnhancedStorageACT_head():
     class IEnhancedStorageACT(win32more.System.Com.IUnknown_head):
@@ -1407,6 +1408,7 @@ def _define_IEnhancedStorageACT():
     IEnhancedStorageACT.GetMatchingVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetMatchingVolume', ((1, 'ppwszVolume'),)))
     IEnhancedStorageACT.GetUniqueIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetUniqueIdentity', ((1, 'ppwszIdentity'),)))
     IEnhancedStorageACT.GetSilos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.EnhancedStorage.IEnhancedStorageSilo_head)),POINTER(UInt32), use_last_error=False)(8, 'GetSilos', ((1, 'pppIEnhancedStorageSilos'),(1, 'pcEnhancedStorageSilos'),)))
+    win32more.System.Com.IUnknown
     return IEnhancedStorageACT
 def _define_IEnhancedStorageACT2_head():
     class IEnhancedStorageACT2(win32more.Storage.EnhancedStorage.IEnhancedStorageACT_head):
@@ -1416,6 +1418,7 @@ def _define_IEnhancedStorageACT2():
     IEnhancedStorageACT2 = win32more.Storage.EnhancedStorage.IEnhancedStorageACT2_head
     IEnhancedStorageACT2.GetDeviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'GetDeviceName', ((1, 'ppwszDeviceName'),)))
     IEnhancedStorageACT2.IsDeviceRemovable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(10, 'IsDeviceRemovable', ((1, 'pIsDeviceRemovable'),)))
+    win32more.Storage.EnhancedStorage.IEnhancedStorageACT
     return IEnhancedStorageACT2
 def _define_IEnhancedStorageACT3_head():
     class IEnhancedStorageACT3(win32more.Storage.EnhancedStorage.IEnhancedStorageACT2_head):
@@ -1426,6 +1429,7 @@ def _define_IEnhancedStorageACT3():
     IEnhancedStorageACT3.UnauthorizeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'UnauthorizeEx', ((1, 'dwFlags'),)))
     IEnhancedStorageACT3.IsQueueFrozen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'IsQueueFrozen', ((1, 'pIsQueueFrozen'),)))
     IEnhancedStorageACT3.GetShellExtSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(13, 'GetShellExtSupport', ((1, 'pShellExtSupport'),)))
+    win32more.Storage.EnhancedStorage.IEnhancedStorageACT2
     return IEnhancedStorageACT3
 def _define_IEnhancedStorageSilo_head():
     class IEnhancedStorageSilo(win32more.System.Com.IUnknown_head):
@@ -1438,6 +1442,7 @@ def _define_IEnhancedStorageSilo():
     IEnhancedStorageSilo.SendCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte,POINTER(Byte),UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(5, 'SendCommand', ((1, 'Command'),(1, 'pbCommandBuffer'),(1, 'cbCommandBuffer'),(1, 'pbResponseBuffer'),(1, 'pcbResponseBuffer'),)))
     IEnhancedStorageSilo.GetPortableDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.PortableDevices.IPortableDevice_head), use_last_error=False)(6, 'GetPortableDevice', ((1, 'ppIPortableDevice'),)))
     IEnhancedStorageSilo.GetDevicePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetDevicePath', ((1, 'ppwszSiloDevicePath'),)))
+    win32more.System.Com.IUnknown
     return IEnhancedStorageSilo
 def _define_IEnhancedStorageSiloAction_head():
     class IEnhancedStorageSiloAction(win32more.System.Com.IUnknown_head):
@@ -1448,6 +1453,7 @@ def _define_IEnhancedStorageSiloAction():
     IEnhancedStorageSiloAction.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'ppwszActionName'),)))
     IEnhancedStorageSiloAction.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetDescription', ((1, 'ppwszActionDescription'),)))
     IEnhancedStorageSiloAction.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Invoke', ()))
+    win32more.System.Com.IUnknown
     return IEnhancedStorageSiloAction
 __all__ = [
     "GUID_DEVINTERFACE_ENHANCED_STORAGE_SILO",

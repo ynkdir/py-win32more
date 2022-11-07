@@ -47,6 +47,7 @@ def _define_IWscProduct():
     IWscProduct.get_ProductStateTimestamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_ProductStateTimestamp', ((1, 'pVal'),)))
     IWscProduct.get_ProductGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_ProductGuid', ((1, 'pVal'),)))
     IWscProduct.get_ProductIsDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(13, 'get_ProductIsDefault', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IWscProduct
 def _define_IWscProduct2_head():
     class IWscProduct2(win32more.System.SecurityCenter.IWscProduct_head):
@@ -60,6 +61,7 @@ def _define_IWscProduct2():
     IWscProduct2.get_FirewallDomainProfileSubstatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.SecurityCenter.WSC_SECURITY_PRODUCT_SUBSTATUS), use_last_error=False)(17, 'get_FirewallDomainProfileSubstatus', ((1, 'peStatus'),)))
     IWscProduct2.get_FirewallPrivateProfileSubstatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.SecurityCenter.WSC_SECURITY_PRODUCT_SUBSTATUS), use_last_error=False)(18, 'get_FirewallPrivateProfileSubstatus', ((1, 'peStatus'),)))
     IWscProduct2.get_FirewallPublicProfileSubstatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.SecurityCenter.WSC_SECURITY_PRODUCT_SUBSTATUS), use_last_error=False)(19, 'get_FirewallPublicProfileSubstatus', ((1, 'peStatus'),)))
+    win32more.System.SecurityCenter.IWscProduct
     return IWscProduct2
 def _define_IWscProduct3_head():
     class IWscProduct3(win32more.System.SecurityCenter.IWscProduct2_head):
@@ -68,6 +70,7 @@ def _define_IWscProduct3_head():
 def _define_IWscProduct3():
     IWscProduct3 = win32more.System.SecurityCenter.IWscProduct3_head
     IWscProduct3.get_AntivirusDaysUntilExpired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(20, 'get_AntivirusDaysUntilExpired', ((1, 'pdwDays'),)))
+    win32more.System.SecurityCenter.IWscProduct2
     return IWscProduct3
 def _define_IWSCProductList_head():
     class IWSCProductList(win32more.System.Com.IDispatch_head):
@@ -78,6 +81,7 @@ def _define_IWSCProductList():
     IWSCProductList.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SecurityCenter.WSC_SECURITY_PROVIDER, use_last_error=False)(7, 'Initialize', ((1, 'provider'),)))
     IWSCProductList.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'pVal'),)))
     IWSCProductList.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.SecurityCenter.IWscProduct_head), use_last_error=False)(9, 'get_Item', ((1, 'index'),(1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IWSCProductList
 def _define_IWSCDefaultProduct_head():
     class IWSCDefaultProduct(win32more.System.Com.IDispatch_head):
@@ -86,6 +90,7 @@ def _define_IWSCDefaultProduct_head():
 def _define_IWSCDefaultProduct():
     IWSCDefaultProduct = win32more.System.SecurityCenter.IWSCDefaultProduct_head
     IWSCDefaultProduct.SetDefaultProduct = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SecurityCenter.SECURITY_PRODUCT_TYPE,win32more.Foundation.BSTR, use_last_error=False)(7, 'SetDefaultProduct', ((1, 'eType'),(1, 'pGuid'),)))
+    win32more.System.Com.IDispatch
     return IWSCDefaultProduct
 WSC_SECURITY_PROVIDER = Int32
 WSC_SECURITY_PROVIDER_FIREWALL = 1

@@ -340,6 +340,7 @@ def _define_IVssEnumObject():
     IVssEnumObject.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IVssEnumObject.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IVssEnumObject.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Vss.IVssEnumObject_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IVssEnumObject
 def _define_IVssAsync_head():
     class IVssAsync(win32more.System.Com.IUnknown_head):
@@ -350,6 +351,7 @@ def _define_IVssAsync():
     IVssAsync.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Cancel', ()))
     IVssAsync.Wait = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Wait', ((1, 'dwMilliseconds'),)))
     IVssAsync.QueryStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(Int32), use_last_error=False)(5, 'QueryStatus', ((1, 'pHrResult'),(1, 'pReserved'),)))
+    win32more.System.Com.IUnknown
     return IVssAsync
 VSS_USAGE_TYPE = Int32
 VSS_UT_UNDEFINED = 0
@@ -425,6 +427,7 @@ def _define_IVssWMFiledesc():
     IVssWMFiledesc.GetRecursive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Boolean), use_last_error=False)(5, 'GetRecursive', ((1, 'pbRecursive'),)))
     IVssWMFiledesc.GetAlternateLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetAlternateLocation', ((1, 'pbstrAlternateLocation'),)))
     IVssWMFiledesc.GetBackupTypeMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetBackupTypeMask', ((1, 'pdwTypeMask'),)))
+    win32more.System.Com.IUnknown
     return IVssWMFiledesc
 def _define_IVssWMDependency_head():
     class IVssWMDependency(win32more.System.Com.IUnknown_head):
@@ -435,6 +438,7 @@ def _define_IVssWMDependency():
     IVssWMDependency.GetWriterId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetWriterId', ((1, 'pWriterId'),)))
     IVssWMDependency.GetLogicalPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetLogicalPath', ((1, 'pbstrLogicalPath'),)))
     IVssWMDependency.GetComponentName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetComponentName', ((1, 'pbstrComponentName'),)))
+    win32more.System.Com.IUnknown
     return IVssWMDependency
 def _define_IVssComponent_head():
     class IVssComponent(win32more.System.Com.IUnknown_head):
@@ -480,6 +484,7 @@ def _define_IVssComponent():
     IVssComponent.AddDifferencedFilesByLastModifyLSN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.BSTR, use_last_error=False)(38, 'AddDifferencedFilesByLastModifyLSN', ((1, 'wszPath'),(1, 'wszFilespec'),(1, 'bRecursive'),(1, 'bstrLsnString'),)))
     IVssComponent.GetDifferencedFilesCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(39, 'GetDifferencedFilesCount', ((1, 'pcDifferencedFiles'),)))
     IVssComponent.GetDifferencedFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(40, 'GetDifferencedFile', ((1, 'iDifferencedFile'),(1, 'pbstrPath'),(1, 'pbstrFilespec'),(1, 'pbRecursive'),(1, 'pbstrLsnString'),(1, 'pftLastModifyTime'),)))
+    win32more.System.Com.IUnknown
     return IVssComponent
 def _define_IVssWriterComponents_head():
     class IVssWriterComponents(c_void_p):
@@ -504,6 +509,7 @@ def _define_IVssComponentEx():
     IVssComponentEx.GetAuthoritativeRestore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Boolean), use_last_error=False)(45, 'GetAuthoritativeRestore', ((1, 'pbAuth'),)))
     IVssComponentEx.GetRollForward = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Vss.VSS_ROLLFORWARD_TYPE),POINTER(win32more.Foundation.BSTR), use_last_error=False)(46, 'GetRollForward', ((1, 'pRollType'),(1, 'pbstrPoint'),)))
     IVssComponentEx.GetRestoreName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(47, 'GetRestoreName', ((1, 'pbstrName'),)))
+    win32more.Storage.Vss.IVssComponent
     return IVssComponentEx
 def _define_IVssComponentEx2_head():
     class IVssComponentEx2(win32more.Storage.Vss.IVssComponentEx_head):
@@ -513,6 +519,7 @@ def _define_IVssComponentEx2():
     IVssComponentEx2 = win32more.Storage.Vss.IVssComponentEx2_head
     IVssComponentEx2.SetFailure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(48, 'SetFailure', ((1, 'hr'),(1, 'hrApplication'),(1, 'wszApplicationMessage'),(1, 'dwReserved'),)))
     IVssComponentEx2.GetFailure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.Foundation.HRESULT),POINTER(win32more.Foundation.BSTR),POINTER(UInt32), use_last_error=False)(49, 'GetFailure', ((1, 'phr'),(1, 'phrApplication'),(1, 'pbstrApplicationMessage'),(1, 'pdwReserved'),)))
+    win32more.Storage.Vss.IVssComponentEx
     return IVssComponentEx2
 def _define_IVssCreateWriterMetadata_head():
     class IVssCreateWriterMetadata(c_void_p):
@@ -561,6 +568,7 @@ def _define_IVssWriterImpl():
     IVssWriterImpl.SetWriterFailureEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(22, 'SetWriterFailureEx', ((1, 'hr'),(1, 'hrApplication'),(1, 'wszApplicationMessage'),)))
     IVssWriterImpl.GetSessionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(23, 'GetSessionId', ((1, 'idSession'),)))
     IVssWriterImpl.IsWriterShuttingDown = COMMETHOD(WINFUNCTYPE(Boolean, use_last_error=False)(24, 'IsWriterShuttingDown', ()))
+    win32more.System.Com.IUnknown
     return IVssWriterImpl
 def _define_IVssCreateExpressWriterMetadata_head():
     class IVssCreateExpressWriterMetadata(win32more.System.Com.IUnknown_head):
@@ -575,6 +583,7 @@ def _define_IVssCreateExpressWriterMetadata():
     IVssCreateExpressWriterMetadata.AddComponentDependency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Guid,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(7, 'AddComponentDependency', ((1, 'wszForLogicalPath'),(1, 'wszForComponentName'),(1, 'onWriterId'),(1, 'wszOnLogicalPath'),(1, 'wszOnComponentName'),)))
     IVssCreateExpressWriterMetadata.SetBackupSchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'SetBackupSchema', ((1, 'dwSchemaMask'),)))
     IVssCreateExpressWriterMetadata.SaveAsXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'SaveAsXML', ((1, 'pbstrXML'),)))
+    win32more.System.Com.IUnknown
     return IVssCreateExpressWriterMetadata
 def _define_IVssExpressWriter_head():
     class IVssExpressWriter(win32more.System.Com.IUnknown_head):
@@ -586,6 +595,7 @@ def _define_IVssExpressWriter():
     IVssExpressWriter.LoadMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(4, 'LoadMetadata', ((1, 'metadata'),(1, 'reserved'),)))
     IVssExpressWriter.Register = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Register', ()))
     IVssExpressWriter.Unregister = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(6, 'Unregister', ((1, 'writerId'),)))
+    win32more.System.Com.IUnknown
     return IVssExpressWriter
 VssSnapshotMgmt = Guid('0b5a2c52-3eb9-470a-96e2-6c6d4570e40f')
 VSS_MGMT_OBJECT_TYPE = Int32
@@ -699,6 +709,7 @@ def _define_IVssSnapshotMgmt():
     IVssSnapshotMgmt.GetProviderMgmtInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetProviderMgmtInterface', ((1, 'ProviderId'),(1, 'InterfaceId'),(1, 'ppItf'),)))
     IVssSnapshotMgmt.QueryVolumesSupportedForSnapshots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Int32,POINTER(win32more.Storage.Vss.IVssEnumMgmtObject_head), use_last_error=False)(4, 'QueryVolumesSupportedForSnapshots', ((1, 'ProviderId'),(1, 'lContext'),(1, 'ppEnum'),)))
     IVssSnapshotMgmt.QuerySnapshotsByVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),Guid,POINTER(win32more.Storage.Vss.IVssEnumObject_head), use_last_error=False)(5, 'QuerySnapshotsByVolume', ((1, 'pwszVolumeName'),(1, 'ProviderId'),(1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IVssSnapshotMgmt
 def _define_IVssSnapshotMgmt2_head():
     class IVssSnapshotMgmt2(win32more.System.Com.IUnknown_head):
@@ -707,6 +718,7 @@ def _define_IVssSnapshotMgmt2_head():
 def _define_IVssSnapshotMgmt2():
     IVssSnapshotMgmt2 = win32more.Storage.Vss.IVssSnapshotMgmt2_head
     IVssSnapshotMgmt2.GetMinDiffAreaSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(3, 'GetMinDiffAreaSize', ((1, 'pllMinDiffAreaSize'),)))
+    win32more.System.Com.IUnknown
     return IVssSnapshotMgmt2
 def _define_IVssDifferentialSoftwareSnapshotMgmt_head():
     class IVssDifferentialSoftwareSnapshotMgmt(win32more.System.Com.IUnknown_head):
@@ -720,6 +732,7 @@ def _define_IVssDifferentialSoftwareSnapshotMgmt():
     IVssDifferentialSoftwareSnapshotMgmt.QueryDiffAreasForVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(win32more.Storage.Vss.IVssEnumMgmtObject_head), use_last_error=False)(6, 'QueryDiffAreasForVolume', ((1, 'pwszVolumeName'),(1, 'ppEnum'),)))
     IVssDifferentialSoftwareSnapshotMgmt.QueryDiffAreasOnVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(win32more.Storage.Vss.IVssEnumMgmtObject_head), use_last_error=False)(7, 'QueryDiffAreasOnVolume', ((1, 'pwszVolumeName'),(1, 'ppEnum'),)))
     IVssDifferentialSoftwareSnapshotMgmt.QueryDiffAreasForSnapshot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Storage.Vss.IVssEnumMgmtObject_head), use_last_error=False)(8, 'QueryDiffAreasForSnapshot', ((1, 'SnapshotId'),(1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IVssDifferentialSoftwareSnapshotMgmt
 def _define_IVssDifferentialSoftwareSnapshotMgmt2_head():
     class IVssDifferentialSoftwareSnapshotMgmt2(win32more.Storage.Vss.IVssDifferentialSoftwareSnapshotMgmt_head):
@@ -731,6 +744,7 @@ def _define_IVssDifferentialSoftwareSnapshotMgmt2():
     IVssDifferentialSoftwareSnapshotMgmt2.MigrateDiffAreas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(UInt16),POINTER(UInt16), use_last_error=False)(10, 'MigrateDiffAreas', ((1, 'pwszVolumeName'),(1, 'pwszDiffAreaVolumeName'),(1, 'pwszNewDiffAreaVolumeName'),)))
     IVssDifferentialSoftwareSnapshotMgmt2.QueryMigrationStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(UInt16),POINTER(win32more.Storage.Vss.IVssAsync_head), use_last_error=False)(11, 'QueryMigrationStatus', ((1, 'pwszVolumeName'),(1, 'pwszDiffAreaVolumeName'),(1, 'ppAsync'),)))
     IVssDifferentialSoftwareSnapshotMgmt2.SetSnapshotPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Byte, use_last_error=False)(12, 'SetSnapshotPriority', ((1, 'idSnapshot'),(1, 'priority'),)))
+    win32more.Storage.Vss.IVssDifferentialSoftwareSnapshotMgmt
     return IVssDifferentialSoftwareSnapshotMgmt2
 def _define_IVssDifferentialSoftwareSnapshotMgmt3_head():
     class IVssDifferentialSoftwareSnapshotMgmt3(win32more.Storage.Vss.IVssDifferentialSoftwareSnapshotMgmt2_head):
@@ -743,6 +757,7 @@ def _define_IVssDifferentialSoftwareSnapshotMgmt3():
     IVssDifferentialSoftwareSnapshotMgmt3.ClearVolumeProtectFault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(15, 'ClearVolumeProtectFault', ((1, 'pwszVolumeName'),)))
     IVssDifferentialSoftwareSnapshotMgmt3.DeleteUnusedDiffAreas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(16, 'DeleteUnusedDiffAreas', ((1, 'pwszDiffAreaVolumeName'),)))
     IVssDifferentialSoftwareSnapshotMgmt3.QuerySnapshotDeltaBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid,POINTER(UInt32),POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(17, 'QuerySnapshotDeltaBitmap', ((1, 'idSnapshotOlder'),(1, 'idSnapshotYounger'),(1, 'pcBlockSizePerBit'),(1, 'pcBitmapLength'),(1, 'ppbBitmap'),)))
+    win32more.Storage.Vss.IVssDifferentialSoftwareSnapshotMgmt2
     return IVssDifferentialSoftwareSnapshotMgmt3
 def _define_IVssEnumMgmtObject_head():
     class IVssEnumMgmtObject(win32more.System.Com.IUnknown_head):
@@ -754,6 +769,7 @@ def _define_IVssEnumMgmtObject():
     IVssEnumMgmtObject.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IVssEnumMgmtObject.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IVssEnumMgmtObject.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Vss.IVssEnumMgmtObject_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IVssEnumMgmtObject
 VSSCoordinator = Guid('e579ab5f-1cc4-44b4-bed9-de0991ff0623')
 def _define_IVssAdmin_head():
@@ -766,6 +782,7 @@ def _define_IVssAdmin():
     IVssAdmin.UnregisterProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(4, 'UnregisterProvider', ((1, 'ProviderId'),)))
     IVssAdmin.QueryProviders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Vss.IVssEnumObject_head), use_last_error=False)(5, 'QueryProviders', ((1, 'ppEnum'),)))
     IVssAdmin.AbortAllSnapshotsInProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'AbortAllSnapshotsInProgress', ()))
+    win32more.System.Com.IUnknown
     return IVssAdmin
 def _define_IVssAdminEx_head():
     class IVssAdminEx(win32more.Storage.Vss.IVssAdmin_head):
@@ -776,6 +793,7 @@ def _define_IVssAdminEx():
     IVssAdminEx.GetProviderCapability = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(UInt64), use_last_error=False)(7, 'GetProviderCapability', ((1, 'pProviderId'),(1, 'pllOriginalCapabilityMask'),)))
     IVssAdminEx.GetProviderContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(Int32), use_last_error=False)(8, 'GetProviderContext', ((1, 'ProviderId'),(1, 'plContext'),)))
     IVssAdminEx.SetProviderContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Int32, use_last_error=False)(9, 'SetProviderContext', ((1, 'ProviderId'),(1, 'lContext'),)))
+    win32more.Storage.Vss.IVssAdmin
     return IVssAdminEx
 def _define_IVssSoftwareSnapshotProvider_head():
     class IVssSoftwareSnapshotProvider(win32more.System.Com.IUnknown_head):
@@ -793,6 +811,7 @@ def _define_IVssSoftwareSnapshotProvider():
     IVssSoftwareSnapshotProvider.SetSnapshotProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Storage.Vss.VSS_SNAPSHOT_PROPERTY_ID,win32more.System.Com.VARIANT, use_last_error=False)(10, 'SetSnapshotProperty', ((1, 'SnapshotId'),(1, 'eSnapshotPropertyId'),(1, 'vProperty'),)))
     IVssSoftwareSnapshotProvider.RevertToSnapshot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(11, 'RevertToSnapshot', ((1, 'SnapshotId'),)))
     IVssSoftwareSnapshotProvider.QueryRevertStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(win32more.Storage.Vss.IVssAsync_head), use_last_error=False)(12, 'QueryRevertStatus', ((1, 'pwszVolume'),(1, 'ppAsync'),)))
+    win32more.System.Com.IUnknown
     return IVssSoftwareSnapshotProvider
 def _define_IVssProviderCreateSnapshotSet_head():
     class IVssProviderCreateSnapshotSet(win32more.System.Com.IUnknown_head):
@@ -807,6 +826,7 @@ def _define_IVssProviderCreateSnapshotSet():
     IVssProviderCreateSnapshotSet.PreFinalCommitSnapshots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(7, 'PreFinalCommitSnapshots', ((1, 'SnapshotSetId'),)))
     IVssProviderCreateSnapshotSet.PostFinalCommitSnapshots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(8, 'PostFinalCommitSnapshots', ((1, 'SnapshotSetId'),)))
     IVssProviderCreateSnapshotSet.AbortSnapshots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(9, 'AbortSnapshots', ((1, 'SnapshotSetId'),)))
+    win32more.System.Com.IUnknown
     return IVssProviderCreateSnapshotSet
 def _define_IVssProviderNotifications_head():
     class IVssProviderNotifications(win32more.System.Com.IUnknown_head):
@@ -816,6 +836,7 @@ def _define_IVssProviderNotifications():
     IVssProviderNotifications = win32more.Storage.Vss.IVssProviderNotifications_head
     IVssProviderNotifications.OnLoad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'OnLoad', ((1, 'pCallback'),)))
     IVssProviderNotifications.OnUnload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'OnUnload', ((1, 'bForceUnload'),)))
+    win32more.System.Com.IUnknown
     return IVssProviderNotifications
 def _define_IVssHardwareSnapshotProvider_head():
     class IVssHardwareSnapshotProvider(win32more.System.Com.IUnknown_head):
@@ -829,6 +850,7 @@ def _define_IVssHardwareSnapshotProvider():
     IVssHardwareSnapshotProvider.GetTargetLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(POINTER(UInt16)),POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION),POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION), use_last_error=False)(6, 'GetTargetLuns', ((1, 'lLunCount'),(1, 'rgDeviceNames'),(1, 'rgSourceLuns'),(1, 'rgDestinationLuns'),)))
     IVssHardwareSnapshotProvider.LocateLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION), use_last_error=False)(7, 'LocateLuns', ((1, 'lLunCount'),(1, 'rgSourceLuns'),)))
     IVssHardwareSnapshotProvider.OnLunEmpty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head), use_last_error=False)(8, 'OnLunEmpty', ((1, 'wszDeviceName'),(1, 'pInformation'),)))
+    win32more.System.Com.IUnknown
     return IVssHardwareSnapshotProvider
 def _define_IVssHardwareSnapshotProviderEx_head():
     class IVssHardwareSnapshotProviderEx(win32more.Storage.Vss.IVssHardwareSnapshotProvider_head):
@@ -840,6 +862,7 @@ def _define_IVssHardwareSnapshotProviderEx():
     IVssHardwareSnapshotProviderEx.OnLunStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION),POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION),UInt32,UInt32, use_last_error=False)(10, 'OnLunStateChange', ((1, 'pSnapshotLuns'),(1, 'pOriginalLuns'),(1, 'dwCount'),(1, 'dwFlags'),)))
     IVssHardwareSnapshotProviderEx.ResyncLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION),POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION),UInt32,POINTER(win32more.Storage.Vss.IVssAsync_head), use_last_error=False)(11, 'ResyncLuns', ((1, 'pSourceLuns'),(1, 'pTargetLuns'),(1, 'dwCount'),(1, 'ppAsync'),)))
     IVssHardwareSnapshotProviderEx.OnReuseLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION),POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION),UInt32, use_last_error=False)(12, 'OnReuseLuns', ((1, 'pSnapshotLuns'),(1, 'pOriginalLuns'),(1, 'dwCount'),)))
+    win32more.Storage.Vss.IVssHardwareSnapshotProvider
     return IVssHardwareSnapshotProviderEx
 def _define_IVssFileShareSnapshotProvider_head():
     class IVssFileShareSnapshotProvider(win32more.System.Com.IUnknown_head):
@@ -855,6 +878,7 @@ def _define_IVssFileShareSnapshotProvider():
     IVssFileShareSnapshotProvider.IsPathSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'IsPathSupported', ((1, 'pwszSharePath'),(1, 'pbSupportedByThisProvider'),)))
     IVssFileShareSnapshotProvider.IsPathSnapshotted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(win32more.Foundation.BOOL),POINTER(Int32), use_last_error=False)(9, 'IsPathSnapshotted', ((1, 'pwszSharePath'),(1, 'pbSnapshotsPresent'),(1, 'plSnapshotCompatibility'),)))
     IVssFileShareSnapshotProvider.SetSnapshotProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Storage.Vss.VSS_SNAPSHOT_PROPERTY_ID,win32more.System.Com.VARIANT, use_last_error=False)(10, 'SetSnapshotProperty', ((1, 'SnapshotId'),(1, 'eSnapshotPropertyId'),(1, 'vProperty'),)))
+    win32more.System.Com.IUnknown
     return IVssFileShareSnapshotProvider
 def _define_CreateVssExpressWriterInternal():
     try:

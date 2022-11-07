@@ -327,6 +327,7 @@ def _define_IFunctionDiscoveryNotification():
     IFunctionDiscoveryNotification.OnUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.QueryUpdateAction,UInt64,win32more.Devices.FunctionDiscovery.IFunctionInstance_head, use_last_error=False)(3, 'OnUpdate', ((1, 'enumQueryUpdateAction'),(1, 'fdqcQueryContext'),(1, 'pIFunctionInstance'),)))
     IFunctionDiscoveryNotification.OnError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt64,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OnError', ((1, 'hr'),(1, 'fdqcQueryContext'),(1, 'pszProvider'),)))
     IFunctionDiscoveryNotification.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,win32more.Foundation.PWSTR, use_last_error=False)(5, 'OnEvent', ((1, 'dwEventID'),(1, 'fdqcQueryContext'),(1, 'pszProvider'),)))
+    win32more.System.Com.IUnknown
     return IFunctionDiscoveryNotification
 def _define_IFunctionDiscovery_head():
     class IFunctionDiscovery(win32more.System.Com.IUnknown_head):
@@ -340,6 +341,7 @@ def _define_IFunctionDiscovery():
     IFunctionDiscovery.CreateInstanceQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head,POINTER(UInt64),POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceQuery_head), use_last_error=False)(6, 'CreateInstanceQuery', ((1, 'pszFunctionInstanceIdentity'),(1, 'pIFunctionDiscoveryNotification'),(1, 'pfdqcQueryContext'),(1, 'ppIFunctionInstanceQuery'),)))
     IFunctionDiscovery.AddInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(7, 'AddInstance', ((1, 'enumSystemVisibility'),(1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'pszCategoryIdentity'),(1, 'ppIFunctionInstance'),)))
     IFunctionDiscovery.RemoveInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(8, 'RemoveInstance', ((1, 'enumSystemVisibility'),(1, 'pszCategory'),(1, 'pszSubCategory'),(1, 'pszCategoryIdentity'),)))
+    win32more.System.Com.IUnknown
     return IFunctionDiscovery
 def _define_IFunctionInstance_head():
     class IFunctionInstance(win32more.System.Com.IServiceProvider_head):
@@ -351,6 +353,7 @@ def _define_IFunctionInstance():
     IFunctionInstance.GetProviderInstanceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(5, 'GetProviderInstanceID', ((1, 'ppszCoMemProviderInstanceIdentity'),)))
     IFunctionInstance.OpenPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(6, 'OpenPropertyStore', ((1, 'dwStgAccess'),(1, 'ppIPropertyStore'),)))
     IFunctionInstance.GetCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)),POINTER(POINTER(UInt16)), use_last_error=False)(7, 'GetCategory', ((1, 'ppszCoMemCategory'),(1, 'ppszCoMemSubCategory'),)))
+    win32more.System.Com.IServiceProvider
     return IFunctionInstance
 def _define_IFunctionInstanceCollection_head():
     class IFunctionInstanceCollection(win32more.System.Com.IUnknown_head):
@@ -365,6 +368,7 @@ def _define_IFunctionInstanceCollection():
     IFunctionInstanceCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(7, 'Remove', ((1, 'dwIndex'),(1, 'ppIFunctionInstance'),)))
     IFunctionInstanceCollection.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'Delete', ((1, 'dwIndex'),)))
     IFunctionInstanceCollection.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'DeleteAll', ()))
+    win32more.System.Com.IUnknown
     return IFunctionInstanceCollection
 def _define_IPropertyStoreCollection_head():
     class IPropertyStoreCollection(win32more.System.Com.IUnknown_head):
@@ -379,6 +383,7 @@ def _define_IPropertyStoreCollection():
     IPropertyStoreCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(7, 'Remove', ((1, 'dwIndex'),(1, 'pIPropertyStore'),)))
     IPropertyStoreCollection.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'Delete', ((1, 'dwIndex'),)))
     IPropertyStoreCollection.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'DeleteAll', ()))
+    win32more.System.Com.IUnknown
     return IPropertyStoreCollection
 def _define_IFunctionInstanceQuery_head():
     class IFunctionInstanceQuery(win32more.System.Com.IUnknown_head):
@@ -387,6 +392,7 @@ def _define_IFunctionInstanceQuery_head():
 def _define_IFunctionInstanceQuery():
     IFunctionInstanceQuery = win32more.Devices.FunctionDiscovery.IFunctionInstanceQuery_head
     IFunctionInstanceQuery.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(3, 'Execute', ((1, 'ppIFunctionInstance'),)))
+    win32more.System.Com.IUnknown
     return IFunctionInstanceQuery
 def _define_IFunctionInstanceCollectionQuery_head():
     class IFunctionInstanceCollectionQuery(win32more.System.Com.IUnknown_head):
@@ -397,6 +403,7 @@ def _define_IFunctionInstanceCollectionQuery():
     IFunctionInstanceCollectionQuery.AddQueryConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'AddQueryConstraint', ((1, 'pszConstraintName'),(1, 'pszConstraintValue'),)))
     IFunctionInstanceCollectionQuery.AddPropertyConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Devices.FunctionDiscovery.PropertyConstraint, use_last_error=False)(4, 'AddPropertyConstraint', ((1, 'Key'),(1, 'pv'),(1, 'enumPropertyConstraint'),)))
     IFunctionInstanceCollectionQuery.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head), use_last_error=False)(5, 'Execute', ((1, 'ppIFunctionInstanceCollection'),)))
+    win32more.System.Com.IUnknown
     return IFunctionInstanceCollectionQuery
 def _define_IFunctionDiscoveryProvider_head():
     class IFunctionDiscoveryProvider(win32more.System.Com.IUnknown_head):
@@ -412,6 +419,7 @@ def _define_IFunctionDiscoveryProvider():
     IFunctionDiscoveryProvider.InstancePropertyStoreFlush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr, use_last_error=False)(8, 'InstancePropertyStoreFlush', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),)))
     IFunctionDiscoveryProvider.InstanceQueryService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(Guid),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'InstanceQueryService', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'guidService'),(1, 'riid'),(1, 'ppIUnknown'),)))
     IFunctionDiscoveryProvider.InstanceReleased = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr, use_last_error=False)(10, 'InstanceReleased', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),)))
+    win32more.System.Com.IUnknown
     return IFunctionDiscoveryProvider
 def _define_IProviderProperties_head():
     class IProviderProperties(win32more.System.Com.IUnknown_head):
@@ -423,6 +431,7 @@ def _define_IProviderProperties():
     IProviderProperties.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(4, 'GetAt', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'dwIndex'),(1, 'pKey'),)))
     IProviderProperties.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'GetValue', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'Key'),(1, 'ppropVar'),)))
     IProviderProperties.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,IntPtr,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'SetValue', ((1, 'pIFunctionInstance'),(1, 'iProviderInstanceContext'),(1, 'Key'),(1, 'ppropVar'),)))
+    win32more.System.Com.IUnknown
     return IProviderProperties
 def _define_IProviderPublishing_head():
     class IProviderPublishing(win32more.System.Com.IUnknown_head):
@@ -432,6 +441,7 @@ def _define_IProviderPublishing():
     IProviderPublishing = win32more.Devices.FunctionDiscovery.IProviderPublishing_head
     IProviderPublishing.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(3, 'CreateInstance', ((1, 'enumVisibilityFlags'),(1, 'pszSubCategory'),(1, 'pszProviderInstanceIdentity'),(1, 'ppIFunctionInstance'),)))
     IProviderPublishing.RemoveInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.SystemVisibilityFlags,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'RemoveInstance', ((1, 'enumVisibilityFlags'),(1, 'pszSubCategory'),(1, 'pszProviderInstanceIdentity'),)))
+    win32more.System.Com.IUnknown
     return IProviderPublishing
 def _define_IFunctionDiscoveryProviderFactory_head():
     class IFunctionDiscoveryProviderFactory(win32more.System.Com.IUnknown_head):
@@ -442,6 +452,7 @@ def _define_IFunctionDiscoveryProviderFactory():
     IFunctionDiscoveryProviderFactory.CreatePropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(3, 'CreatePropertyStore', ((1, 'ppIPropertyStore'),)))
     IFunctionDiscoveryProviderFactory.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,IntPtr,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryProvider_head,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstance_head), use_last_error=False)(4, 'CreateInstance', ((1, 'pszSubCategory'),(1, 'pszProviderInstanceIdentity'),(1, 'iProviderInstanceContext'),(1, 'pIPropertyStore'),(1, 'pIFunctionDiscoveryProvider'),(1, 'ppIFunctionInstance'),)))
     IFunctionDiscoveryProviderFactory.CreateFunctionInstanceCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IFunctionInstanceCollection_head), use_last_error=False)(5, 'CreateFunctionInstanceCollection', ((1, 'ppIFunctionInstanceCollection'),)))
+    win32more.System.Com.IUnknown
     return IFunctionDiscoveryProviderFactory
 def _define_IFunctionDiscoveryProviderQuery_head():
     class IFunctionDiscoveryProviderQuery(win32more.System.Com.IUnknown_head):
@@ -453,6 +464,7 @@ def _define_IFunctionDiscoveryProviderQuery():
     IFunctionDiscoveryProviderQuery.IsSubcategoryQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(POINTER(UInt16)), use_last_error=False)(4, 'IsSubcategoryQuery', ((1, 'pisSubcategoryQuery'),(1, 'ppszConstraintValue'),)))
     IFunctionDiscoveryProviderQuery.GetQueryConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IProviderQueryConstraintCollection_head), use_last_error=False)(5, 'GetQueryConstraints', ((1, 'ppIProviderQueryConstraints'),)))
     IFunctionDiscoveryProviderQuery.GetPropertyConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.FunctionDiscovery.IProviderPropertyConstraintCollection_head), use_last_error=False)(6, 'GetPropertyConstraints', ((1, 'ppIProviderPropertyConstraints'),)))
+    win32more.System.Com.IUnknown
     return IFunctionDiscoveryProviderQuery
 def _define_IProviderQueryConstraintCollection_head():
     class IProviderQueryConstraintCollection(win32more.System.Com.IUnknown_head):
@@ -466,6 +478,7 @@ def _define_IProviderQueryConstraintCollection():
     IProviderQueryConstraintCollection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)),POINTER(POINTER(UInt16)), use_last_error=False)(6, 'Next', ((1, 'ppszConstraintName'),(1, 'ppszConstraintValue'),)))
     IProviderQueryConstraintCollection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Skip', ()))
     IProviderQueryConstraintCollection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IProviderQueryConstraintCollection
 def _define_IProviderPropertyConstraintCollection_head():
     class IProviderPropertyConstraintCollection(win32more.System.Com.IUnknown_head):
@@ -479,6 +492,7 @@ def _define_IProviderPropertyConstraintCollection():
     IProviderPropertyConstraintCollection.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32), use_last_error=False)(6, 'Next', ((1, 'pKey'),(1, 'pPropVar'),(1, 'pdwPropertyConstraint'),)))
     IProviderPropertyConstraintCollection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Skip', ()))
     IProviderPropertyConstraintCollection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IProviderPropertyConstraintCollection
 def _define_IFunctionDiscoveryServiceProvider_head():
     class IFunctionDiscoveryServiceProvider(win32more.System.Com.IUnknown_head):
@@ -487,6 +501,7 @@ def _define_IFunctionDiscoveryServiceProvider_head():
 def _define_IFunctionDiscoveryServiceProvider():
     IFunctionDiscoveryServiceProvider = win32more.Devices.FunctionDiscovery.IFunctionDiscoveryServiceProvider_head
     IFunctionDiscoveryServiceProvider.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.FunctionDiscovery.IFunctionInstance_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'Initialize', ((1, 'pIFunctionInstance'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IFunctionDiscoveryServiceProvider
 PNPXAssociation = Guid('cee8ccc9-4f6b-4469-a235-5a22869eef03')
 PNPXPairingHandler = Guid('b8a27942-ade7-4085-aa6e-4fadc7ada1ef')
@@ -499,6 +514,7 @@ def _define_IPNPXAssociation():
     IPNPXAssociation.Associate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Associate', ((1, 'pszSubcategory'),)))
     IPNPXAssociation.Unassociate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'Unassociate', ((1, 'pszSubcategory'),)))
     IPNPXAssociation.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'Delete', ((1, 'pszSubcategory'),)))
+    win32more.System.Com.IUnknown
     return IPNPXAssociation
 def _define_IPNPXDeviceAssociation_head():
     class IPNPXDeviceAssociation(win32more.System.Com.IUnknown_head):
@@ -509,6 +525,7 @@ def _define_IPNPXDeviceAssociation():
     IPNPXDeviceAssociation.Associate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head, use_last_error=False)(3, 'Associate', ((1, 'pszSubCategory'),(1, 'pIFunctionDiscoveryNotification'),)))
     IPNPXDeviceAssociation.Unassociate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head, use_last_error=False)(4, 'Unassociate', ((1, 'pszSubCategory'),(1, 'pIFunctionDiscoveryNotification'),)))
     IPNPXDeviceAssociation.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.FunctionDiscovery.IFunctionDiscoveryNotification_head, use_last_error=False)(5, 'Delete', ((1, 'pszSubcategory'),(1, 'pIFunctionDiscoveryNotification'),)))
+    win32more.System.Com.IUnknown
     return IPNPXDeviceAssociation
 FunctionDiscovery = Guid('c72be2ec-8e90-452c-b29a-ab8ff1c071fc')
 PropertyStore = Guid('e4796550-df61-448b-9193-13fc1341b163')

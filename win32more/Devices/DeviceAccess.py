@@ -66,6 +66,7 @@ def _define_IDeviceRequestCompletionCallback_head():
 def _define_IDeviceRequestCompletionCallback():
     IDeviceRequestCompletionCallback = win32more.Devices.DeviceAccess.IDeviceRequestCompletionCallback_head
     IDeviceRequestCompletionCallback.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'Invoke', ((1, 'requestResult'),(1, 'bytesReturned'),)))
+    win32more.System.Com.IUnknown
     return IDeviceRequestCompletionCallback
 def _define_IDeviceIoControl_head():
     class IDeviceIoControl(win32more.System.Com.IUnknown_head):
@@ -76,6 +77,7 @@ def _define_IDeviceIoControl():
     IDeviceIoControl.DeviceIoControlSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(3, 'DeviceIoControlSync', ((1, 'ioControlCode'),(1, 'inputBuffer'),(1, 'inputBufferSize'),(1, 'outputBuffer'),(1, 'outputBufferSize'),(1, 'bytesReturned'),)))
     IDeviceIoControl.DeviceIoControlAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Devices.DeviceAccess.IDeviceRequestCompletionCallback_head,POINTER(UIntPtr), use_last_error=False)(4, 'DeviceIoControlAsync', ((1, 'ioControlCode'),(1, 'inputBuffer'),(1, 'inputBufferSize'),(1, 'outputBuffer'),(1, 'outputBufferSize'),(1, 'requestCompletionCallback'),(1, 'cancelContext'),)))
     IDeviceIoControl.CancelOperation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(5, 'CancelOperation', ((1, 'cancelContext'),)))
+    win32more.System.Com.IUnknown
     return IDeviceIoControl
 def _define_ICreateDeviceAccessAsync_head():
     class ICreateDeviceAccessAsync(win32more.System.Com.IUnknown_head):
@@ -87,6 +89,7 @@ def _define_ICreateDeviceAccessAsync():
     ICreateDeviceAccessAsync.Wait = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Wait', ((1, 'timeout'),)))
     ICreateDeviceAccessAsync.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Close', ()))
     ICreateDeviceAccessAsync.GetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetResult', ((1, 'riid'),(1, 'deviceAccess'),)))
+    win32more.System.Com.IUnknown
     return ICreateDeviceAccessAsync
 def _define_CreateDeviceAccessInstance():
     try:

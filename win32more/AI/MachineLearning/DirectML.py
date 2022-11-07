@@ -2442,6 +2442,7 @@ def _define_IDMLObject():
     IDMLObject.SetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p, use_last_error=False)(4, 'SetPrivateData', ((1, 'guid'),(1, 'dataSize'),(1, 'data'),)))
     IDMLObject.SetPrivateDataInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'SetPrivateDataInterface', ((1, 'guid'),(1, 'data'),)))
     IDMLObject.SetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'SetName', ((1, 'name'),)))
+    win32more.System.Com.IUnknown
     return IDMLObject
 def _define_IDMLDevice_head():
     class IDMLDevice(win32more.AI.MachineLearning.DirectML.IDMLObject_head):
@@ -2459,6 +2460,7 @@ def _define_IDMLDevice():
     IDMLDevice.MakeResident = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.AI.MachineLearning.DirectML.IDMLPageable_head), use_last_error=False)(14, 'MakeResident', ((1, 'count'),(1, 'ppObjects'),)))
     IDMLDevice.GetDeviceRemovedReason = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'GetDeviceRemovedReason', ()))
     IDMLDevice.GetParentDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(16, 'GetParentDevice', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.AI.MachineLearning.DirectML.IDMLObject
     return IDMLDevice
 def _define_IDMLDeviceChild_head():
     class IDMLDeviceChild(win32more.AI.MachineLearning.DirectML.IDMLObject_head):
@@ -2467,6 +2469,7 @@ def _define_IDMLDeviceChild_head():
 def _define_IDMLDeviceChild():
     IDMLDeviceChild = win32more.AI.MachineLearning.DirectML.IDMLDeviceChild_head
     IDMLDeviceChild.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'GetDevice', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.AI.MachineLearning.DirectML.IDMLObject
     return IDMLDeviceChild
 def _define_IDMLPageable_head():
     class IDMLPageable(win32more.AI.MachineLearning.DirectML.IDMLDeviceChild_head):
@@ -2474,6 +2477,7 @@ def _define_IDMLPageable_head():
     return IDMLPageable
 def _define_IDMLPageable():
     IDMLPageable = win32more.AI.MachineLearning.DirectML.IDMLPageable_head
+    win32more.AI.MachineLearning.DirectML.IDMLDeviceChild
     return IDMLPageable
 def _define_IDMLOperator_head():
     class IDMLOperator(win32more.AI.MachineLearning.DirectML.IDMLDeviceChild_head):
@@ -2481,6 +2485,7 @@ def _define_IDMLOperator_head():
     return IDMLOperator
 def _define_IDMLOperator():
     IDMLOperator = win32more.AI.MachineLearning.DirectML.IDMLOperator_head
+    win32more.AI.MachineLearning.DirectML.IDMLDeviceChild
     return IDMLOperator
 def _define_DML_BINDING_PROPERTIES_head():
     class DML_BINDING_PROPERTIES(Structure):
@@ -2501,6 +2506,7 @@ def _define_IDMLDispatchable_head():
 def _define_IDMLDispatchable():
     IDMLDispatchable = win32more.AI.MachineLearning.DirectML.IDMLDispatchable_head
     IDMLDispatchable.GetBindingProperties = COMMETHOD(WINFUNCTYPE(win32more.AI.MachineLearning.DirectML.DML_BINDING_PROPERTIES, use_last_error=False)(8, 'GetBindingProperties', ()))
+    win32more.AI.MachineLearning.DirectML.IDMLPageable
     return IDMLDispatchable
 def _define_IDMLCompiledOperator_head():
     class IDMLCompiledOperator(win32more.AI.MachineLearning.DirectML.IDMLDispatchable_head):
@@ -2508,6 +2514,7 @@ def _define_IDMLCompiledOperator_head():
     return IDMLCompiledOperator
 def _define_IDMLCompiledOperator():
     IDMLCompiledOperator = win32more.AI.MachineLearning.DirectML.IDMLCompiledOperator_head
+    win32more.AI.MachineLearning.DirectML.IDMLDispatchable
     return IDMLCompiledOperator
 def _define_IDMLOperatorInitializer_head():
     class IDMLOperatorInitializer(win32more.AI.MachineLearning.DirectML.IDMLDispatchable_head):
@@ -2516,6 +2523,7 @@ def _define_IDMLOperatorInitializer_head():
 def _define_IDMLOperatorInitializer():
     IDMLOperatorInitializer = win32more.AI.MachineLearning.DirectML.IDMLOperatorInitializer_head
     IDMLOperatorInitializer.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.AI.MachineLearning.DirectML.IDMLCompiledOperator_head), use_last_error=False)(9, 'Reset', ((1, 'operatorCount'),(1, 'operators'),)))
+    win32more.AI.MachineLearning.DirectML.IDMLDispatchable
     return IDMLOperatorInitializer
 DML_BINDING_TYPE = Int32
 DML_BINDING_TYPE_NONE = 0
@@ -2566,6 +2574,7 @@ def _define_IDMLBindingTable():
     IDMLBindingTable.BindTemporaryResource = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.AI.MachineLearning.DirectML.DML_BINDING_DESC_head), use_last_error=False)(10, 'BindTemporaryResource', ((1, 'binding'),)))
     IDMLBindingTable.BindPersistentResource = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.AI.MachineLearning.DirectML.DML_BINDING_DESC_head), use_last_error=False)(11, 'BindPersistentResource', ((1, 'binding'),)))
     IDMLBindingTable.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.AI.MachineLearning.DirectML.DML_BINDING_TABLE_DESC_head), use_last_error=False)(12, 'Reset', ((1, 'desc'),)))
+    win32more.AI.MachineLearning.DirectML.IDMLDeviceChild
     return IDMLBindingTable
 def _define_IDMLCommandRecorder_head():
     class IDMLCommandRecorder(win32more.AI.MachineLearning.DirectML.IDMLDeviceChild_head):
@@ -2574,6 +2583,7 @@ def _define_IDMLCommandRecorder_head():
 def _define_IDMLCommandRecorder():
     IDMLCommandRecorder = win32more.AI.MachineLearning.DirectML.IDMLCommandRecorder_head
     IDMLCommandRecorder.RecordDispatch = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12CommandList_head,win32more.AI.MachineLearning.DirectML.IDMLDispatchable_head,win32more.AI.MachineLearning.DirectML.IDMLBindingTable_head, use_last_error=False)(8, 'RecordDispatch', ((1, 'commandList'),(1, 'dispatchable'),(1, 'bindings'),)))
+    win32more.AI.MachineLearning.DirectML.IDMLDeviceChild
     return IDMLCommandRecorder
 def _define_IDMLDebugDevice_head():
     class IDMLDebugDevice(win32more.System.Com.IUnknown_head):
@@ -2582,6 +2592,7 @@ def _define_IDMLDebugDevice_head():
 def _define_IDMLDebugDevice():
     IDMLDebugDevice = win32more.AI.MachineLearning.DirectML.IDMLDebugDevice_head
     IDMLDebugDevice.SetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(3, 'SetMuteDebugOutput', ((1, 'mute'),)))
+    win32more.System.Com.IUnknown
     return IDMLDebugDevice
 DML_GRAPH_EDGE_TYPE = Int32
 DML_GRAPH_EDGE_TYPE_INVALID = 0
@@ -2690,6 +2701,7 @@ def _define_IDMLDevice1_head():
 def _define_IDMLDevice1():
     IDMLDevice1 = win32more.AI.MachineLearning.DirectML.IDMLDevice1_head
     IDMLDevice1.CompileGraph = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.AI.MachineLearning.DirectML.DML_GRAPH_DESC_head),win32more.AI.MachineLearning.DirectML.DML_EXECUTION_FLAGS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(17, 'CompileGraph', ((1, 'desc'),(1, 'flags'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.AI.MachineLearning.DirectML.IDMLDevice
     return IDMLDevice1
 def _define_DMLCreateDevice():
     try:

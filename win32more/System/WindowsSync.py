@@ -184,6 +184,7 @@ def _define_IClockVectorElement():
     IClockVectorElement = win32more.System.WindowsSync.IClockVectorElement_head
     IClockVectorElement.GetReplicaKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetReplicaKey', ((1, 'pdwReplicaKey'),)))
     IClockVectorElement.GetTickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(4, 'GetTickCount', ((1, 'pullTickCount'),)))
+    win32more.System.Com.IUnknown
     return IClockVectorElement
 def _define_IFeedClockVectorElement_head():
     class IFeedClockVectorElement(win32more.System.WindowsSync.IClockVectorElement_head):
@@ -193,6 +194,7 @@ def _define_IFeedClockVectorElement():
     IFeedClockVectorElement = win32more.System.WindowsSync.IFeedClockVectorElement_head
     IFeedClockVectorElement.GetSyncTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.SYNC_TIME_head), use_last_error=False)(5, 'GetSyncTime', ((1, 'pSyncTime'),)))
     IFeedClockVectorElement.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(6, 'GetFlags', ((1, 'pbFlags'),)))
+    win32more.System.WindowsSync.IClockVectorElement
     return IFeedClockVectorElement
 def _define_IClockVector_head():
     class IClockVector(win32more.System.Com.IUnknown_head):
@@ -202,6 +204,7 @@ def _define_IClockVector():
     IClockVector = win32more.System.WindowsSync.IClockVector_head
     IClockVector.GetClockVectorElements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetClockVectorElements', ((1, 'riid'),(1, 'ppiEnumClockVector'),)))
     IClockVector.GetClockVectorElementCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetClockVectorElementCount', ((1, 'pdwCount'),)))
+    win32more.System.Com.IUnknown
     return IClockVector
 def _define_IFeedClockVector_head():
     class IFeedClockVector(win32more.System.WindowsSync.IClockVector_head):
@@ -211,6 +214,7 @@ def _define_IFeedClockVector():
     IFeedClockVector = win32more.System.WindowsSync.IFeedClockVector_head
     IFeedClockVector.GetUpdateCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetUpdateCount', ((1, 'pdwUpdateCount'),)))
     IFeedClockVector.IsNoConflictsSpecified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'IsNoConflictsSpecified', ((1, 'pfIsNoConflictsSpecified'),)))
+    win32more.System.WindowsSync.IClockVector
     return IFeedClockVector
 def _define_IEnumClockVector_head():
     class IEnumClockVector(win32more.System.Com.IUnknown_head):
@@ -222,6 +226,7 @@ def _define_IEnumClockVector():
     IEnumClockVector.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cSyncVersions'),)))
     IEnumClockVector.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumClockVector.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IEnumClockVector_head), use_last_error=False)(6, 'Clone', ((1, 'ppiEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumClockVector
 def _define_IEnumFeedClockVector_head():
     class IEnumFeedClockVector(win32more.System.Com.IUnknown_head):
@@ -233,6 +238,7 @@ def _define_IEnumFeedClockVector():
     IEnumFeedClockVector.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cSyncVersions'),)))
     IEnumFeedClockVector.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumFeedClockVector.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IEnumFeedClockVector_head), use_last_error=False)(6, 'Clone', ((1, 'ppiEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumFeedClockVector
 def _define_ICoreFragment_head():
     class ICoreFragment(win32more.System.Com.IUnknown_head):
@@ -245,6 +251,7 @@ def _define_ICoreFragment():
     ICoreFragment.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     ICoreFragment.GetColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetColumnCount', ((1, 'pColumnCount'),)))
     ICoreFragment.GetRangeCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetRangeCount', ((1, 'pRangeCount'),)))
+    win32more.System.Com.IUnknown
     return ICoreFragment
 def _define_ICoreFragmentInspector_head():
     class ICoreFragmentInspector(win32more.System.Com.IUnknown_head):
@@ -254,6 +261,7 @@ def _define_ICoreFragmentInspector():
     ICoreFragmentInspector = win32more.System.WindowsSync.ICoreFragmentInspector_head
     ICoreFragmentInspector.NextCoreFragments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.WindowsSync.ICoreFragment_head),POINTER(UInt32), use_last_error=False)(3, 'NextCoreFragments', ((1, 'requestedCount'),(1, 'ppiCoreFragments'),(1, 'pFetchedCount'),)))
     ICoreFragmentInspector.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return ICoreFragmentInspector
 def _define_IRangeException_head():
     class IRangeException(win32more.System.Com.IUnknown_head):
@@ -264,6 +272,7 @@ def _define_IRangeException():
     IRangeException.GetClosedRangeStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(3, 'GetClosedRangeStart', ((1, 'pbClosedRangeStart'),(1, 'pcbIdSize'),)))
     IRangeException.GetClosedRangeEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(4, 'GetClosedRangeEnd', ((1, 'pbClosedRangeEnd'),(1, 'pcbIdSize'),)))
     IRangeException.GetClockVector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'GetClockVector', ((1, 'riid'),(1, 'ppUnk'),)))
+    win32more.System.Com.IUnknown
     return IRangeException
 def _define_IEnumRangeExceptions_head():
     class IEnumRangeExceptions(win32more.System.Com.IUnknown_head):
@@ -275,6 +284,7 @@ def _define_IEnumRangeExceptions():
     IEnumRangeExceptions.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cExceptions'),)))
     IEnumRangeExceptions.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumRangeExceptions.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IEnumRangeExceptions_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumRangeExceptions
 def _define_ISingleItemException_head():
     class ISingleItemException(win32more.System.Com.IUnknown_head):
@@ -284,6 +294,7 @@ def _define_ISingleItemException():
     ISingleItemException = win32more.System.WindowsSync.ISingleItemException_head
     ISingleItemException.GetItemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(3, 'GetItemId', ((1, 'pbItemId'),(1, 'pcbIdSize'),)))
     ISingleItemException.GetClockVector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetClockVector', ((1, 'riid'),(1, 'ppUnk'),)))
+    win32more.System.Com.IUnknown
     return ISingleItemException
 def _define_IEnumSingleItemExceptions_head():
     class IEnumSingleItemExceptions(win32more.System.Com.IUnknown_head):
@@ -295,6 +306,7 @@ def _define_IEnumSingleItemExceptions():
     IEnumSingleItemExceptions.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cExceptions'),)))
     IEnumSingleItemExceptions.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSingleItemExceptions.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IEnumSingleItemExceptions_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSingleItemExceptions
 def _define_IChangeUnitException_head():
     class IChangeUnitException(win32more.System.Com.IUnknown_head):
@@ -305,6 +317,7 @@ def _define_IChangeUnitException():
     IChangeUnitException.GetItemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(3, 'GetItemId', ((1, 'pbItemId'),(1, 'pcbIdSize'),)))
     IChangeUnitException.GetChangeUnitId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(4, 'GetChangeUnitId', ((1, 'pbChangeUnitId'),(1, 'pcbIdSize'),)))
     IChangeUnitException.GetClockVector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'GetClockVector', ((1, 'riid'),(1, 'ppUnk'),)))
+    win32more.System.Com.IUnknown
     return IChangeUnitException
 def _define_IEnumChangeUnitExceptions_head():
     class IEnumChangeUnitExceptions(win32more.System.Com.IUnknown_head):
@@ -316,6 +329,7 @@ def _define_IEnumChangeUnitExceptions():
     IEnumChangeUnitExceptions.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cExceptions'),)))
     IEnumChangeUnitExceptions.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumChangeUnitExceptions.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IEnumChangeUnitExceptions_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumChangeUnitExceptions
 def _define_IReplicaKeyMap_head():
     class IReplicaKeyMap(win32more.System.Com.IUnknown_head):
@@ -326,6 +340,7 @@ def _define_IReplicaKeyMap():
     IReplicaKeyMap.LookupReplicaKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(3, 'LookupReplicaKey', ((1, 'pbReplicaId'),(1, 'pdwReplicaKey'),)))
     IReplicaKeyMap.LookupReplicaId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,POINTER(UInt32), use_last_error=False)(4, 'LookupReplicaId', ((1, 'dwReplicaKey'),(1, 'pbReplicaId'),(1, 'pcbIdSize'),)))
     IReplicaKeyMap.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(5, 'Serialize', ((1, 'pbReplicaKeyMap'),(1, 'pcbReplicaKeyMap'),)))
+    win32more.System.Com.IUnknown
     return IReplicaKeyMap
 def _define_IConstructReplicaKeyMap_head():
     class IConstructReplicaKeyMap(win32more.System.Com.IUnknown_head):
@@ -334,6 +349,7 @@ def _define_IConstructReplicaKeyMap_head():
 def _define_IConstructReplicaKeyMap():
     IConstructReplicaKeyMap = win32more.System.WindowsSync.IConstructReplicaKeyMap_head
     IConstructReplicaKeyMap.FindOrAddReplica = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(3, 'FindOrAddReplica', ((1, 'pbReplicaId'),(1, 'pdwReplicaKey'),)))
+    win32more.System.Com.IUnknown
     return IConstructReplicaKeyMap
 def _define_ISyncKnowledge_head():
     class ISyncKnowledge(win32more.System.Com.IUnknown_head):
@@ -365,6 +381,7 @@ def _define_ISyncKnowledge():
     ISyncKnowledge.FindClockVectorForItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(24, 'FindClockVectorForItem', ((1, 'pbItemId'),(1, 'riid'),(1, 'ppUnk'),)))
     ISyncKnowledge.FindClockVectorForChangeUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_char_p_no,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(25, 'FindClockVectorForChangeUnit', ((1, 'pbItemId'),(1, 'pbChangeUnitId'),(1, 'riid'),(1, 'ppUnk'),)))
     ISyncKnowledge.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(26, 'GetVersion', ((1, 'pdwVersion'),)))
+    win32more.System.Com.IUnknown
     return ISyncKnowledge
 def _define_IForgottenKnowledge_head():
     class IForgottenKnowledge(win32more.System.WindowsSync.ISyncKnowledge_head):
@@ -373,6 +390,7 @@ def _define_IForgottenKnowledge_head():
 def _define_IForgottenKnowledge():
     IForgottenKnowledge = win32more.System.WindowsSync.IForgottenKnowledge_head
     IForgottenKnowledge.ForgetToVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,POINTER(win32more.System.WindowsSync.SYNC_VERSION_head), use_last_error=False)(27, 'ForgetToVersion', ((1, 'pKnowledge'),(1, 'pVersion'),)))
+    win32more.System.WindowsSync.ISyncKnowledge
     return IForgottenKnowledge
 def _define_ISyncKnowledge2_head():
     class ISyncKnowledge2(win32more.System.WindowsSync.ISyncKnowledge_head):
@@ -394,6 +412,7 @@ def _define_ISyncKnowledge2():
     ISyncKnowledge2.IntersectsWithKnowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head, use_last_error=False)(38, 'IntersectsWithKnowledge', ((1, 'pSyncKnowledge'),)))
     ISyncKnowledge2.GetKnowledgeCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(39, 'GetKnowledgeCookie', ((1, 'ppKnowledgeCookie'),)))
     ISyncKnowledge2.CompareToKnowledgeCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.System.WindowsSync.KNOWLEDGE_COOKIE_COMPARISON_RESULT), use_last_error=False)(40, 'CompareToKnowledgeCookie', ((1, 'pKnowledgeCookie'),(1, 'pResult'),)))
+    win32more.System.WindowsSync.ISyncKnowledge
     return ISyncKnowledge2
 def _define_IRecoverableErrorData_head():
     class IRecoverableErrorData(win32more.System.Com.IUnknown_head):
@@ -404,6 +423,7 @@ def _define_IRecoverableErrorData():
     IRecoverableErrorData.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Initialize', ((1, 'pcszItemDisplayName'),(1, 'pcszErrorDescription'),)))
     IRecoverableErrorData.GetItemDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(4, 'GetItemDisplayName', ((1, 'pszItemDisplayName'),(1, 'pcchItemDisplayName'),)))
     IRecoverableErrorData.GetErrorDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(5, 'GetErrorDescription', ((1, 'pszErrorDescription'),(1, 'pcchErrorDescription'),)))
+    win32more.System.Com.IUnknown
     return IRecoverableErrorData
 def _define_IRecoverableError_head():
     class IRecoverableError(win32more.System.Com.IUnknown_head):
@@ -416,6 +436,7 @@ def _define_IRecoverableError():
     IRecoverableError.GetChangeWithRecoverableError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncChange_head), use_last_error=False)(5, 'GetChangeWithRecoverableError', ((1, 'ppChangeWithRecoverableError'),)))
     IRecoverableError.GetRecoverableErrorDataForChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.System.WindowsSync.IRecoverableErrorData_head), use_last_error=False)(6, 'GetRecoverableErrorDataForChange', ((1, 'phrError'),(1, 'ppErrorData'),)))
     IRecoverableError.GetRecoverableErrorDataForChangeUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncChangeUnit_head,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.System.WindowsSync.IRecoverableErrorData_head), use_last_error=False)(7, 'GetRecoverableErrorDataForChangeUnit', ((1, 'pChangeUnit'),(1, 'phrError'),(1, 'ppErrorData'),)))
+    win32more.System.Com.IUnknown
     return IRecoverableError
 def _define_IChangeConflict_head():
     class IChangeConflict(win32more.System.Com.IUnknown_head):
@@ -431,6 +452,7 @@ def _define_IChangeConflict():
     IChangeConflict.SetResolveActionForChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.SYNC_RESOLVE_ACTION, use_last_error=False)(8, 'SetResolveActionForChange', ((1, 'resolveAction'),)))
     IChangeConflict.GetResolveActionForChangeUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncChangeUnit_head,POINTER(win32more.System.WindowsSync.SYNC_RESOLVE_ACTION), use_last_error=False)(9, 'GetResolveActionForChangeUnit', ((1, 'pChangeUnit'),(1, 'pResolveAction'),)))
     IChangeConflict.SetResolveActionForChangeUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncChangeUnit_head,win32more.System.WindowsSync.SYNC_RESOLVE_ACTION, use_last_error=False)(10, 'SetResolveActionForChangeUnit', ((1, 'pChangeUnit'),(1, 'resolveAction'),)))
+    win32more.System.Com.IUnknown
     return IChangeConflict
 def _define_IConstraintConflict_head():
     class IConstraintConflict(win32more.System.Com.IUnknown_head):
@@ -450,6 +472,7 @@ def _define_IConstraintConflict():
     IConstraintConflict.SetConstraintResolveActionForChangeUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncChangeUnit_head,win32more.System.WindowsSync.SYNC_CONSTRAINT_RESOLVE_ACTION, use_last_error=False)(12, 'SetConstraintResolveActionForChangeUnit', ((1, 'pChangeUnit'),(1, 'constraintResolveAction'),)))
     IConstraintConflict.GetConstraintConflictReason = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.CONSTRAINT_CONFLICT_REASON), use_last_error=False)(13, 'GetConstraintConflictReason', ((1, 'pConstraintConflictReason'),)))
     IConstraintConflict.IsTemporary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'IsTemporary', ()))
+    win32more.System.Com.IUnknown
     return IConstraintConflict
 def _define_ISyncCallback_head():
     class ISyncCallback(win32more.System.Com.IUnknown_head):
@@ -462,6 +485,7 @@ def _define_ISyncCallback():
     ISyncCallback.OnConflict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.IChangeConflict_head, use_last_error=False)(5, 'OnConflict', ((1, 'pConflict'),)))
     ISyncCallback.OnFullEnumerationNeeded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.SYNC_FULL_ENUMERATION_ACTION), use_last_error=False)(6, 'OnFullEnumerationNeeded', ((1, 'pFullEnumerationAction'),)))
     ISyncCallback.OnRecoverableError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.IRecoverableError_head, use_last_error=False)(7, 'OnRecoverableError', ((1, 'pRecoverableError'),)))
+    win32more.System.Com.IUnknown
     return ISyncCallback
 def _define_ISyncCallback2_head():
     class ISyncCallback2(win32more.System.WindowsSync.ISyncCallback_head):
@@ -471,6 +495,7 @@ def _define_ISyncCallback2():
     ISyncCallback2 = win32more.System.WindowsSync.ISyncCallback2_head
     ISyncCallback2.OnChangeApplied = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(8, 'OnChangeApplied', ((1, 'dwChangesApplied'),(1, 'dwChangesFailed'),)))
     ISyncCallback2.OnChangeFailed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(9, 'OnChangeFailed', ((1, 'dwChangesApplied'),(1, 'dwChangesFailed'),)))
+    win32more.System.WindowsSync.ISyncCallback
     return ISyncCallback2
 def _define_ISyncConstraintCallback_head():
     class ISyncConstraintCallback(win32more.System.Com.IUnknown_head):
@@ -479,6 +504,7 @@ def _define_ISyncConstraintCallback_head():
 def _define_ISyncConstraintCallback():
     ISyncConstraintCallback = win32more.System.WindowsSync.ISyncConstraintCallback_head
     ISyncConstraintCallback.OnConstraintConflict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.IConstraintConflict_head, use_last_error=False)(3, 'OnConstraintConflict', ((1, 'pConflict'),)))
+    win32more.System.Com.IUnknown
     return ISyncConstraintCallback
 def _define_ISyncProvider_head():
     class ISyncProvider(win32more.System.Com.IUnknown_head):
@@ -487,6 +513,7 @@ def _define_ISyncProvider_head():
 def _define_ISyncProvider():
     ISyncProvider = win32more.System.WindowsSync.ISyncProvider_head
     ISyncProvider.GetIdParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ID_PARAMETERS_head), use_last_error=False)(3, 'GetIdParameters', ((1, 'pIdParameters'),)))
+    win32more.System.Com.IUnknown
     return ISyncProvider
 def _define_ISyncSessionState_head():
     class ISyncSessionState(win32more.System.Com.IUnknown_head):
@@ -501,6 +528,7 @@ def _define_ISyncSessionState():
     ISyncSessionState.GetForgottenKnowledgeRecoveryRangeEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(7, 'GetForgottenKnowledgeRecoveryRangeEnd', ((1, 'pbRangeEnd'),(1, 'pcbRangeEnd'),)))
     ISyncSessionState.SetForgottenKnowledgeRecoveryRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.SYNC_RANGE_head), use_last_error=False)(8, 'SetForgottenKnowledgeRecoveryRange', ((1, 'pRange'),)))
     ISyncSessionState.OnProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.SYNC_PROVIDER_ROLE,win32more.System.WindowsSync.SYNC_PROGRESS_STAGE,UInt32,UInt32, use_last_error=False)(9, 'OnProgress', ((1, 'provider'),(1, 'syncStage'),(1, 'dwCompletedWork'),(1, 'dwTotalWork'),)))
+    win32more.System.Com.IUnknown
     return ISyncSessionState
 def _define_ISyncSessionExtendedErrorInfo_head():
     class ISyncSessionExtendedErrorInfo(win32more.System.Com.IUnknown_head):
@@ -509,6 +537,7 @@ def _define_ISyncSessionExtendedErrorInfo_head():
 def _define_ISyncSessionExtendedErrorInfo():
     ISyncSessionExtendedErrorInfo = win32more.System.WindowsSync.ISyncSessionExtendedErrorInfo_head
     ISyncSessionExtendedErrorInfo.GetSyncProviderWithError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncProvider_head), use_last_error=False)(3, 'GetSyncProviderWithError', ((1, 'ppProviderWithError'),)))
+    win32more.System.Com.IUnknown
     return ISyncSessionExtendedErrorInfo
 def _define_ISyncSessionState2_head():
     class ISyncSessionState2(win32more.System.WindowsSync.ISyncSessionState_head):
@@ -518,6 +547,7 @@ def _define_ISyncSessionState2():
     ISyncSessionState2 = win32more.System.WindowsSync.ISyncSessionState2_head
     ISyncSessionState2.SetProviderWithError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(10, 'SetProviderWithError', ((1, 'fSelf'),)))
     ISyncSessionState2.GetSessionErrorStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(11, 'GetSessionErrorStatus', ((1, 'phrSessionError'),)))
+    win32more.System.WindowsSync.ISyncSessionState
     return ISyncSessionState2
 def _define_ISyncFilterInfo_head():
     class ISyncFilterInfo(win32more.System.Com.IUnknown_head):
@@ -526,6 +556,7 @@ def _define_ISyncFilterInfo_head():
 def _define_ISyncFilterInfo():
     ISyncFilterInfo = win32more.System.WindowsSync.ISyncFilterInfo_head
     ISyncFilterInfo.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(3, 'Serialize', ((1, 'pbBuffer'),(1, 'pcbBuffer'),)))
+    win32more.System.Com.IUnknown
     return ISyncFilterInfo
 def _define_ISyncFilterInfo2_head():
     class ISyncFilterInfo2(win32more.System.WindowsSync.ISyncFilterInfo_head):
@@ -534,6 +565,7 @@ def _define_ISyncFilterInfo2_head():
 def _define_ISyncFilterInfo2():
     ISyncFilterInfo2 = win32more.System.WindowsSync.ISyncFilterInfo2_head
     ISyncFilterInfo2.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetFlags', ((1, 'pdwFlags'),)))
+    win32more.System.WindowsSync.ISyncFilterInfo
     return ISyncFilterInfo2
 def _define_IChangeUnitListFilterInfo_head():
     class IChangeUnitListFilterInfo(win32more.System.WindowsSync.ISyncFilterInfo_head):
@@ -544,6 +576,7 @@ def _define_IChangeUnitListFilterInfo():
     IChangeUnitListFilterInfo.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),UInt32, use_last_error=False)(4, 'Initialize', ((1, 'ppbChangeUnitIds'),(1, 'dwChangeUnitCount'),)))
     IChangeUnitListFilterInfo.GetChangeUnitIdCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetChangeUnitIdCount', ((1, 'pdwChangeUnitIdCount'),)))
     IChangeUnitListFilterInfo.GetChangeUnitId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,POINTER(UInt32), use_last_error=False)(6, 'GetChangeUnitId', ((1, 'dwChangeUnitIdIndex'),(1, 'pbChangeUnitId'),(1, 'pcbIdSize'),)))
+    win32more.System.WindowsSync.ISyncFilterInfo
     return IChangeUnitListFilterInfo
 def _define_ISyncFilter_head():
     class ISyncFilter(win32more.System.Com.IUnknown_head):
@@ -553,6 +586,7 @@ def _define_ISyncFilter():
     ISyncFilter = win32more.System.WindowsSync.ISyncFilter_head
     ISyncFilter.IsIdentical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncFilter_head, use_last_error=False)(3, 'IsIdentical', ((1, 'pSyncFilter'),)))
     ISyncFilter.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(4, 'Serialize', ((1, 'pbSyncFilter'),(1, 'pcbSyncFilter'),)))
+    win32more.System.Com.IUnknown
     return ISyncFilter
 def _define_ISyncFilterDeserializer_head():
     class ISyncFilterDeserializer(win32more.System.Com.IUnknown_head):
@@ -561,6 +595,7 @@ def _define_ISyncFilterDeserializer_head():
 def _define_ISyncFilterDeserializer():
     ISyncFilterDeserializer = win32more.System.WindowsSync.ISyncFilterDeserializer_head
     ISyncFilterDeserializer.DeserializeSyncFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(win32more.System.WindowsSync.ISyncFilter_head), use_last_error=False)(3, 'DeserializeSyncFilter', ((1, 'pbSyncFilter'),(1, 'dwCbSyncFilter'),(1, 'ppISyncFilter'),)))
+    win32more.System.Com.IUnknown
     return ISyncFilterDeserializer
 def _define_ICustomFilterInfo_head():
     class ICustomFilterInfo(win32more.System.WindowsSync.ISyncFilterInfo_head):
@@ -569,6 +604,7 @@ def _define_ICustomFilterInfo_head():
 def _define_ICustomFilterInfo():
     ICustomFilterInfo = win32more.System.WindowsSync.ICustomFilterInfo_head
     ICustomFilterInfo.GetSyncFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncFilter_head), use_last_error=False)(4, 'GetSyncFilter', ((1, 'pISyncFilter'),)))
+    win32more.System.WindowsSync.ISyncFilterInfo
     return ICustomFilterInfo
 FILTER_COMBINATION_TYPE = Int32
 FCT_INTERSECTION = 0
@@ -581,6 +617,7 @@ def _define_ICombinedFilterInfo():
     ICombinedFilterInfo.GetFilterCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetFilterCount', ((1, 'pdwFilterCount'),)))
     ICombinedFilterInfo.GetFilterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.WindowsSync.ISyncFilterInfo_head), use_last_error=False)(5, 'GetFilterInfo', ((1, 'dwFilterIndex'),(1, 'ppIFilterInfo'),)))
     ICombinedFilterInfo.GetFilterCombinationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.FILTER_COMBINATION_TYPE), use_last_error=False)(6, 'GetFilterCombinationType', ((1, 'pFilterCombinationType'),)))
+    win32more.System.WindowsSync.ISyncFilterInfo
     return ICombinedFilterInfo
 def _define_IEnumSyncChanges_head():
     class IEnumSyncChanges(win32more.System.Com.IUnknown_head):
@@ -592,6 +629,7 @@ def _define_IEnumSyncChanges():
     IEnumSyncChanges.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cChanges'),)))
     IEnumSyncChanges.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSyncChanges.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IEnumSyncChanges_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSyncChanges
 def _define_ISyncChangeBuilder_head():
     class ISyncChangeBuilder(win32more.System.Com.IUnknown_head):
@@ -600,6 +638,7 @@ def _define_ISyncChangeBuilder_head():
 def _define_ISyncChangeBuilder():
     ISyncChangeBuilder = win32more.System.WindowsSync.ISyncChangeBuilder_head
     ISyncChangeBuilder.AddChangeUnitMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(win32more.System.WindowsSync.SYNC_VERSION_head), use_last_error=False)(3, 'AddChangeUnitMetadata', ((1, 'pbChangeUnitId'),(1, 'pChangeUnitVersion'),)))
+    win32more.System.Com.IUnknown
     return ISyncChangeBuilder
 def _define_IFilterTrackingSyncChangeBuilder_head():
     class IFilterTrackingSyncChangeBuilder(win32more.System.Com.IUnknown_head):
@@ -609,6 +648,7 @@ def _define_IFilterTrackingSyncChangeBuilder():
     IFilterTrackingSyncChangeBuilder = win32more.System.WindowsSync.IFilterTrackingSyncChangeBuilder_head
     IFilterTrackingSyncChangeBuilder.AddFilterChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.WindowsSync.SYNC_FILTER_CHANGE_head), use_last_error=False)(3, 'AddFilterChange', ((1, 'dwFilterKey'),(1, 'pFilterChange'),)))
     IFilterTrackingSyncChangeBuilder.SetAllChangeUnitsPresentFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'SetAllChangeUnitsPresentFlag', ()))
+    win32more.System.Com.IUnknown
     return IFilterTrackingSyncChangeBuilder
 def _define_ISyncChangeBatchBase_head():
     class ISyncChangeBatchBase(win32more.System.Com.IUnknown_head):
@@ -630,6 +670,7 @@ def _define_ISyncChangeBatchBase():
     ISyncChangeBatchBase.SetWorkEstimateForBatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(14, 'SetWorkEstimateForBatch', ((1, 'dwWorkForBatch'),)))
     ISyncChangeBatchBase.SetRemainingWorkEstimateForSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(15, 'SetRemainingWorkEstimateForSession', ((1, 'dwRemainingWorkForSession'),)))
     ISyncChangeBatchBase.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(16, 'Serialize', ((1, 'pbChangeBatch'),(1, 'pcbChangeBatch'),)))
+    win32more.System.Com.IUnknown
     return ISyncChangeBatchBase
 def _define_ISyncChangeBatch_head():
     class ISyncChangeBatch(win32more.System.WindowsSync.ISyncChangeBatchBase_head):
@@ -640,6 +681,7 @@ def _define_ISyncChangeBatch():
     ISyncChangeBatch.BeginUnorderedGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'BeginUnorderedGroup', ()))
     ISyncChangeBatch.EndUnorderedGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,win32more.Foundation.BOOL, use_last_error=False)(18, 'EndUnorderedGroup', ((1, 'pMadeWithKnowledge'),(1, 'fAllChangesForKnowledge'),)))
     ISyncChangeBatch.AddLoggedConflict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_char_p_no,POINTER(win32more.System.WindowsSync.SYNC_VERSION_head),POINTER(win32more.System.WindowsSync.SYNC_VERSION_head),UInt32,UInt32,win32more.System.WindowsSync.ISyncKnowledge_head,POINTER(win32more.System.WindowsSync.ISyncChangeBuilder_head), use_last_error=False)(19, 'AddLoggedConflict', ((1, 'pbOwnerReplicaId'),(1, 'pbItemId'),(1, 'pChangeVersion'),(1, 'pCreationVersion'),(1, 'dwFlags'),(1, 'dwWorkForChange'),(1, 'pConflictKnowledge'),(1, 'ppChangeBuilder'),)))
+    win32more.System.WindowsSync.ISyncChangeBatchBase
     return ISyncChangeBatch
 def _define_ISyncFullEnumerationChangeBatch_head():
     class ISyncFullEnumerationChangeBatch(win32more.System.WindowsSync.ISyncChangeBatchBase_head):
@@ -650,6 +692,7 @@ def _define_ISyncFullEnumerationChangeBatch():
     ISyncFullEnumerationChangeBatch.GetLearnedKnowledgeAfterRecoveryComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(17, 'GetLearnedKnowledgeAfterRecoveryComplete', ((1, 'ppLearnedKnowledgeAfterRecoveryComplete'),)))
     ISyncFullEnumerationChangeBatch.GetClosedLowerBoundItemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(18, 'GetClosedLowerBoundItemId', ((1, 'pbClosedLowerBoundItemId'),(1, 'pcbIdSize'),)))
     ISyncFullEnumerationChangeBatch.GetClosedUpperBoundItemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(19, 'GetClosedUpperBoundItemId', ((1, 'pbClosedUpperBoundItemId'),(1, 'pcbIdSize'),)))
+    win32more.System.WindowsSync.ISyncChangeBatchBase
     return ISyncFullEnumerationChangeBatch
 def _define_ISyncChangeBatchWithPrerequisite_head():
     class ISyncChangeBatchWithPrerequisite(win32more.System.WindowsSync.ISyncChangeBatchBase_head):
@@ -660,6 +703,7 @@ def _define_ISyncChangeBatchWithPrerequisite():
     ISyncChangeBatchWithPrerequisite.SetPrerequisiteKnowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head, use_last_error=False)(17, 'SetPrerequisiteKnowledge', ((1, 'pPrerequisiteKnowledge'),)))
     ISyncChangeBatchWithPrerequisite.GetLearnedKnowledgeWithPrerequisite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(18, 'GetLearnedKnowledgeWithPrerequisite', ((1, 'pDestinationKnowledge'),(1, 'ppLearnedWithPrerequisiteKnowledge'),)))
     ISyncChangeBatchWithPrerequisite.GetLearnedForgottenKnowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IForgottenKnowledge_head), use_last_error=False)(19, 'GetLearnedForgottenKnowledge', ((1, 'ppLearnedForgottenKnowledge'),)))
+    win32more.System.WindowsSync.ISyncChangeBatchBase
     return ISyncChangeBatchWithPrerequisite
 def _define_ISyncChangeBatchBase2_head():
     class ISyncChangeBatchBase2(win32more.System.WindowsSync.ISyncChangeBatchBase_head):
@@ -668,6 +712,7 @@ def _define_ISyncChangeBatchBase2_head():
 def _define_ISyncChangeBatchBase2():
     ISyncChangeBatchBase2 = win32more.System.WindowsSync.ISyncChangeBatchBase2_head
     ISyncChangeBatchBase2.SerializeWithOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.SYNC_SERIALIZATION_VERSION,UInt32,c_char_p_no,POINTER(UInt32), use_last_error=False)(17, 'SerializeWithOptions', ((1, 'targetFormatVersion'),(1, 'dwFlags'),(1, 'pbBuffer'),(1, 'pdwSerializedSize'),)))
+    win32more.System.WindowsSync.ISyncChangeBatchBase
     return ISyncChangeBatchBase2
 def _define_ISyncChangeBatchAdvanced_head():
     class ISyncChangeBatchAdvanced(win32more.System.Com.IUnknown_head):
@@ -679,6 +724,7 @@ def _define_ISyncChangeBatchAdvanced():
     ISyncChangeBatchAdvanced.ConvertFullEnumerationChangeBatchToRegularChangeBatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncChangeBatch_head), use_last_error=False)(4, 'ConvertFullEnumerationChangeBatchToRegularChangeBatch', ((1, 'ppChangeBatch'),)))
     ISyncChangeBatchAdvanced.GetUpperBoundItemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(5, 'GetUpperBoundItemId', ((1, 'pbItemId'),(1, 'pcbIdSize'),)))
     ISyncChangeBatchAdvanced.GetBatchLevelKnowledgeShouldBeApplied = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetBatchLevelKnowledgeShouldBeApplied', ((1, 'pfBatchKnowledgeShouldBeApplied'),)))
+    win32more.System.Com.IUnknown
     return ISyncChangeBatchAdvanced
 def _define_ISyncChangeBatch2_head():
     class ISyncChangeBatch2(win32more.System.WindowsSync.ISyncChangeBatch_head):
@@ -688,6 +734,7 @@ def _define_ISyncChangeBatch2():
     ISyncChangeBatch2 = win32more.System.WindowsSync.ISyncChangeBatch2_head
     ISyncChangeBatch2.AddMergeTombstoneMetadataToGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_char_p_no,c_char_p_no,POINTER(win32more.System.WindowsSync.SYNC_VERSION_head),POINTER(win32more.System.WindowsSync.SYNC_VERSION_head),UInt32,POINTER(win32more.System.WindowsSync.ISyncChangeBuilder_head), use_last_error=False)(20, 'AddMergeTombstoneMetadataToGroup', ((1, 'pbOwnerReplicaId'),(1, 'pbWinnerItemId'),(1, 'pbItemId'),(1, 'pChangeVersion'),(1, 'pCreationVersion'),(1, 'dwWorkForChange'),(1, 'ppChangeBuilder'),)))
     ISyncChangeBatch2.AddMergeTombstoneLoggedConflict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_char_p_no,c_char_p_no,POINTER(win32more.System.WindowsSync.SYNC_VERSION_head),POINTER(win32more.System.WindowsSync.SYNC_VERSION_head),UInt32,win32more.System.WindowsSync.ISyncKnowledge_head,POINTER(win32more.System.WindowsSync.ISyncChangeBuilder_head), use_last_error=False)(21, 'AddMergeTombstoneLoggedConflict', ((1, 'pbOwnerReplicaId'),(1, 'pbWinnerItemId'),(1, 'pbItemId'),(1, 'pChangeVersion'),(1, 'pCreationVersion'),(1, 'dwWorkForChange'),(1, 'pConflictKnowledge'),(1, 'ppChangeBuilder'),)))
+    win32more.System.WindowsSync.ISyncChangeBatch
     return ISyncChangeBatch2
 def _define_ISyncFullEnumerationChangeBatch2_head():
     class ISyncFullEnumerationChangeBatch2(win32more.System.WindowsSync.ISyncFullEnumerationChangeBatch_head):
@@ -696,6 +743,7 @@ def _define_ISyncFullEnumerationChangeBatch2_head():
 def _define_ISyncFullEnumerationChangeBatch2():
     ISyncFullEnumerationChangeBatch2 = win32more.System.WindowsSync.ISyncFullEnumerationChangeBatch2_head
     ISyncFullEnumerationChangeBatch2.AddMergeTombstoneMetadataToGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_char_p_no,c_char_p_no,POINTER(win32more.System.WindowsSync.SYNC_VERSION_head),POINTER(win32more.System.WindowsSync.SYNC_VERSION_head),UInt32,POINTER(win32more.System.WindowsSync.ISyncChangeBuilder_head), use_last_error=False)(20, 'AddMergeTombstoneMetadataToGroup', ((1, 'pbOwnerReplicaId'),(1, 'pbWinnerItemId'),(1, 'pbItemId'),(1, 'pChangeVersion'),(1, 'pCreationVersion'),(1, 'dwWorkForChange'),(1, 'ppChangeBuilder'),)))
+    win32more.System.WindowsSync.ISyncFullEnumerationChangeBatch
     return ISyncFullEnumerationChangeBatch2
 def _define_IKnowledgeSyncProvider_head():
     class IKnowledgeSyncProvider(win32more.System.WindowsSync.ISyncProvider_head):
@@ -710,6 +758,7 @@ def _define_IKnowledgeSyncProvider():
     IKnowledgeSyncProvider.ProcessChangeBatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.CONFLICT_RESOLUTION_POLICY,win32more.System.WindowsSync.ISyncChangeBatch_head,win32more.System.Com.IUnknown_head,win32more.System.WindowsSync.ISyncCallback_head,POINTER(win32more.System.WindowsSync.SYNC_SESSION_STATISTICS_head), use_last_error=False)(8, 'ProcessChangeBatch', ((1, 'resolutionPolicy'),(1, 'pSourceChangeBatch'),(1, 'pUnkDataRetriever'),(1, 'pCallback'),(1, 'pSyncSessionStatistics'),)))
     IKnowledgeSyncProvider.ProcessFullEnumerationChangeBatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.CONFLICT_RESOLUTION_POLICY,win32more.System.WindowsSync.ISyncFullEnumerationChangeBatch_head,win32more.System.Com.IUnknown_head,win32more.System.WindowsSync.ISyncCallback_head,POINTER(win32more.System.WindowsSync.SYNC_SESSION_STATISTICS_head), use_last_error=False)(9, 'ProcessFullEnumerationChangeBatch', ((1, 'resolutionPolicy'),(1, 'pSourceChangeBatch'),(1, 'pUnkDataRetriever'),(1, 'pCallback'),(1, 'pSyncSessionStatistics'),)))
     IKnowledgeSyncProvider.EndSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncSessionState_head, use_last_error=False)(10, 'EndSession', ((1, 'pSessionState'),)))
+    win32more.System.WindowsSync.ISyncProvider
     return IKnowledgeSyncProvider
 def _define_ISyncChangeUnit_head():
     class ISyncChangeUnit(win32more.System.Com.IUnknown_head):
@@ -720,6 +769,7 @@ def _define_ISyncChangeUnit():
     ISyncChangeUnit.GetItemChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncChange_head), use_last_error=False)(3, 'GetItemChange', ((1, 'ppSyncChange'),)))
     ISyncChangeUnit.GetChangeUnitId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(4, 'GetChangeUnitId', ((1, 'pbChangeUnitId'),(1, 'pcbIdSize'),)))
     ISyncChangeUnit.GetChangeUnitVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(win32more.System.WindowsSync.SYNC_VERSION_head), use_last_error=False)(5, 'GetChangeUnitVersion', ((1, 'pbCurrentReplicaId'),(1, 'pVersion'),)))
+    win32more.System.Com.IUnknown
     return ISyncChangeUnit
 def _define_IEnumSyncChangeUnits_head():
     class IEnumSyncChangeUnits(win32more.System.Com.IUnknown_head):
@@ -731,6 +781,7 @@ def _define_IEnumSyncChangeUnits():
     IEnumSyncChangeUnits.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cChanges'),)))
     IEnumSyncChangeUnits.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSyncChangeUnits.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IEnumSyncChangeUnits_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSyncChangeUnits
 def _define_ISyncChange_head():
     class ISyncChange(win32more.System.Com.IUnknown_head):
@@ -748,6 +799,7 @@ def _define_ISyncChange():
     ISyncChange.GetMadeWithKnowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(10, 'GetMadeWithKnowledge', ((1, 'ppMadeWithKnowledge'),)))
     ISyncChange.GetLearnedKnowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(11, 'GetLearnedKnowledge', ((1, 'ppLearnedKnowledge'),)))
     ISyncChange.SetWorkEstimate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(12, 'SetWorkEstimate', ((1, 'dwWork'),)))
+    win32more.System.Com.IUnknown
     return ISyncChange
 def _define_ISyncChangeWithPrerequisite_head():
     class ISyncChangeWithPrerequisite(win32more.System.Com.IUnknown_head):
@@ -757,6 +809,7 @@ def _define_ISyncChangeWithPrerequisite():
     ISyncChangeWithPrerequisite = win32more.System.WindowsSync.ISyncChangeWithPrerequisite_head
     ISyncChangeWithPrerequisite.GetPrerequisiteKnowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(3, 'GetPrerequisiteKnowledge', ((1, 'ppPrerequisiteKnowledge'),)))
     ISyncChangeWithPrerequisite.GetLearnedKnowledgeWithPrerequisite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(4, 'GetLearnedKnowledgeWithPrerequisite', ((1, 'pDestinationKnowledge'),(1, 'ppLearnedKnowledgeWithPrerequisite'),)))
+    win32more.System.Com.IUnknown
     return ISyncChangeWithPrerequisite
 def _define_ISyncFullEnumerationChange_head():
     class ISyncFullEnumerationChange(win32more.System.Com.IUnknown_head):
@@ -766,6 +819,7 @@ def _define_ISyncFullEnumerationChange():
     ISyncFullEnumerationChange = win32more.System.WindowsSync.ISyncFullEnumerationChange_head
     ISyncFullEnumerationChange.GetLearnedKnowledgeAfterRecoveryComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(3, 'GetLearnedKnowledgeAfterRecoveryComplete', ((1, 'ppLearnedKnowledge'),)))
     ISyncFullEnumerationChange.GetLearnedForgottenKnowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IForgottenKnowledge_head), use_last_error=False)(4, 'GetLearnedForgottenKnowledge', ((1, 'ppLearnedForgottenKnowledge'),)))
+    win32more.System.Com.IUnknown
     return ISyncFullEnumerationChange
 def _define_ISyncMergeTombstoneChange_head():
     class ISyncMergeTombstoneChange(win32more.System.Com.IUnknown_head):
@@ -774,6 +828,7 @@ def _define_ISyncMergeTombstoneChange_head():
 def _define_ISyncMergeTombstoneChange():
     ISyncMergeTombstoneChange = win32more.System.WindowsSync.ISyncMergeTombstoneChange_head
     ISyncMergeTombstoneChange.GetWinnerItemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(3, 'GetWinnerItemId', ((1, 'pbWinnerItemId'),(1, 'pcbIdSize'),)))
+    win32more.System.Com.IUnknown
     return ISyncMergeTombstoneChange
 def _define_IEnumItemIds_head():
     class IEnumItemIds(win32more.System.Com.IUnknown_head):
@@ -782,6 +837,7 @@ def _define_IEnumItemIds_head():
 def _define_IEnumItemIds():
     IEnumItemIds = win32more.System.WindowsSync.IEnumItemIds_head
     IEnumItemIds.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'pbItemId'),(1, 'pcbItemIdSize'),)))
+    win32more.System.Com.IUnknown
     return IEnumItemIds
 def _define_IFilterKeyMap_head():
     class IFilterKeyMap(win32more.System.Com.IUnknown_head):
@@ -793,6 +849,7 @@ def _define_IFilterKeyMap():
     IFilterKeyMap.AddFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncFilter_head,POINTER(UInt32), use_last_error=False)(4, 'AddFilter', ((1, 'pISyncFilter'),(1, 'pdwFilterKey'),)))
     IFilterKeyMap.GetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.WindowsSync.ISyncFilter_head), use_last_error=False)(5, 'GetFilter', ((1, 'dwFilterKey'),(1, 'ppISyncFilter'),)))
     IFilterKeyMap.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(6, 'Serialize', ((1, 'pbFilterKeyMap'),(1, 'pcbFilterKeyMap'),)))
+    win32more.System.Com.IUnknown
     return IFilterKeyMap
 def _define_ISyncChangeWithFilterKeyMap_head():
     class ISyncChangeWithFilterKeyMap(win32more.System.Com.IUnknown_head):
@@ -809,6 +866,7 @@ def _define_ISyncChangeWithFilterKeyMap():
     ISyncChangeWithFilterKeyMap.GetFilteredReplicaLearnedForgottenKnowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,win32more.System.WindowsSync.IEnumItemIds_head,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(9, 'GetFilteredReplicaLearnedForgottenKnowledge', ((1, 'pDestinationKnowledge'),(1, 'pNewMoveins'),(1, 'ppLearnedForgottenKnowledge'),)))
     ISyncChangeWithFilterKeyMap.GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,win32more.System.WindowsSync.IEnumItemIds_head,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(10, 'GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete', ((1, 'pDestinationKnowledge'),(1, 'pNewMoveins'),(1, 'ppLearnedForgottenKnowledge'),)))
     ISyncChangeWithFilterKeyMap.GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,win32more.System.WindowsSync.IEnumItemIds_head,UInt32,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(11, 'GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete', ((1, 'pDestinationKnowledge'),(1, 'pNewMoveins'),(1, 'dwFilterKey'),(1, 'ppLearnedFilterForgottenKnowledge'),)))
+    win32more.System.Com.IUnknown
     return ISyncChangeWithFilterKeyMap
 def _define_ISyncChangeBatchWithFilterKeyMap_head():
     class ISyncChangeBatchWithFilterKeyMap(win32more.System.Com.IUnknown_head):
@@ -824,6 +882,7 @@ def _define_ISyncChangeBatchWithFilterKeyMap():
     ISyncChangeBatchWithFilterKeyMap.GetFilteredReplicaLearnedForgottenKnowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,win32more.System.WindowsSync.IEnumItemIds_head,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(8, 'GetFilteredReplicaLearnedForgottenKnowledge', ((1, 'pDestinationKnowledge'),(1, 'pNewMoveins'),(1, 'ppLearnedForgottenKnowledge'),)))
     ISyncChangeBatchWithFilterKeyMap.GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,win32more.System.WindowsSync.IEnumItemIds_head,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(9, 'GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete', ((1, 'pDestinationKnowledge'),(1, 'pNewMoveins'),(1, 'ppLearnedForgottenKnowledge'),)))
     ISyncChangeBatchWithFilterKeyMap.GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncKnowledge_head,win32more.System.WindowsSync.IEnumItemIds_head,UInt32,POINTER(win32more.System.WindowsSync.ISyncKnowledge_head), use_last_error=False)(10, 'GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete', ((1, 'pDestinationKnowledge'),(1, 'pNewMoveins'),(1, 'dwFilterKey'),(1, 'ppLearnedFilterForgottenKnowledge'),)))
+    win32more.System.Com.IUnknown
     return ISyncChangeBatchWithFilterKeyMap
 def _define_IDataRetrieverCallback_head():
     class IDataRetrieverCallback(win32more.System.Com.IUnknown_head):
@@ -833,6 +892,7 @@ def _define_IDataRetrieverCallback():
     IDataRetrieverCallback = win32more.System.WindowsSync.IDataRetrieverCallback_head
     IDataRetrieverCallback.LoadChangeDataComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'LoadChangeDataComplete', ((1, 'pUnkData'),)))
     IDataRetrieverCallback.LoadChangeDataError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'LoadChangeDataError', ((1, 'hrError'),)))
+    win32more.System.Com.IUnknown
     return IDataRetrieverCallback
 def _define_ILoadChangeContext_head():
     class ILoadChangeContext(win32more.System.Com.IUnknown_head):
@@ -843,6 +903,7 @@ def _define_ILoadChangeContext():
     ILoadChangeContext.GetSyncChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ISyncChange_head), use_last_error=False)(3, 'GetSyncChange', ((1, 'ppSyncChange'),)))
     ILoadChangeContext.SetRecoverableErrorOnChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.System.WindowsSync.IRecoverableErrorData_head, use_last_error=False)(4, 'SetRecoverableErrorOnChange', ((1, 'hrError'),(1, 'pErrorData'),)))
     ILoadChangeContext.SetRecoverableErrorOnChangeUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncChangeUnit_head,win32more.System.WindowsSync.IRecoverableErrorData_head, use_last_error=False)(5, 'SetRecoverableErrorOnChangeUnit', ((1, 'hrError'),(1, 'pChangeUnit'),(1, 'pErrorData'),)))
+    win32more.System.Com.IUnknown
     return ILoadChangeContext
 def _define_ISynchronousDataRetriever_head():
     class ISynchronousDataRetriever(win32more.System.Com.IUnknown_head):
@@ -852,6 +913,7 @@ def _define_ISynchronousDataRetriever():
     ISynchronousDataRetriever = win32more.System.WindowsSync.ISynchronousDataRetriever_head
     ISynchronousDataRetriever.GetIdParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.ID_PARAMETERS_head), use_last_error=False)(3, 'GetIdParameters', ((1, 'pIdParameters'),)))
     ISynchronousDataRetriever.LoadChangeData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ILoadChangeContext_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'LoadChangeData', ((1, 'pLoadChangeContext'),(1, 'ppUnkData'),)))
+    win32more.System.Com.IUnknown
     return ISynchronousDataRetriever
 def _define_IAsynchronousDataRetriever_head():
     class IAsynchronousDataRetriever(win32more.System.Com.IUnknown_head):
@@ -863,6 +925,7 @@ def _define_IAsynchronousDataRetriever():
     IAsynchronousDataRetriever.RegisterCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.IDataRetrieverCallback_head, use_last_error=False)(4, 'RegisterCallback', ((1, 'pDataRetrieverCallback'),)))
     IAsynchronousDataRetriever.RevokeCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.IDataRetrieverCallback_head, use_last_error=False)(5, 'RevokeCallback', ((1, 'pDataRetrieverCallback'),)))
     IAsynchronousDataRetriever.LoadChangeData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ILoadChangeContext_head, use_last_error=False)(6, 'LoadChangeData', ((1, 'pLoadChangeContext'),)))
+    win32more.System.Com.IUnknown
     return IAsynchronousDataRetriever
 def _define_IFilterRequestCallback_head():
     class IFilterRequestCallback(win32more.System.Com.IUnknown_head):
@@ -871,6 +934,7 @@ def _define_IFilterRequestCallback_head():
 def _define_IFilterRequestCallback():
     IFilterRequestCallback = win32more.System.WindowsSync.IFilterRequestCallback_head
     IFilterRequestCallback.RequestFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.WindowsSync.FILTERING_TYPE, use_last_error=False)(3, 'RequestFilter', ((1, 'pFilter'),(1, 'filteringType'),)))
+    win32more.System.Com.IUnknown
     return IFilterRequestCallback
 def _define_IRequestFilteredSync_head():
     class IRequestFilteredSync(win32more.System.Com.IUnknown_head):
@@ -879,6 +943,7 @@ def _define_IRequestFilteredSync_head():
 def _define_IRequestFilteredSync():
     IRequestFilteredSync = win32more.System.WindowsSync.IRequestFilteredSync_head
     IRequestFilteredSync.SpecifyFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.IFilterRequestCallback_head, use_last_error=False)(3, 'SpecifyFilter', ((1, 'pCallback'),)))
+    win32more.System.Com.IUnknown
     return IRequestFilteredSync
 def _define_ISupportFilteredSync_head():
     class ISupportFilteredSync(win32more.System.Com.IUnknown_head):
@@ -887,6 +952,7 @@ def _define_ISupportFilteredSync_head():
 def _define_ISupportFilteredSync():
     ISupportFilteredSync = win32more.System.WindowsSync.ISupportFilteredSync_head
     ISupportFilteredSync.AddFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.WindowsSync.FILTERING_TYPE, use_last_error=False)(3, 'AddFilter', ((1, 'pFilter'),(1, 'filteringType'),)))
+    win32more.System.Com.IUnknown
     return ISupportFilteredSync
 def _define_IFilterTrackingRequestCallback_head():
     class IFilterTrackingRequestCallback(win32more.System.Com.IUnknown_head):
@@ -895,6 +961,7 @@ def _define_IFilterTrackingRequestCallback_head():
 def _define_IFilterTrackingRequestCallback():
     IFilterTrackingRequestCallback = win32more.System.WindowsSync.IFilterTrackingRequestCallback_head
     IFilterTrackingRequestCallback.RequestTrackedFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncFilter_head, use_last_error=False)(3, 'RequestTrackedFilter', ((1, 'pFilter'),)))
+    win32more.System.Com.IUnknown
     return IFilterTrackingRequestCallback
 def _define_IFilterTrackingProvider_head():
     class IFilterTrackingProvider(win32more.System.Com.IUnknown_head):
@@ -904,6 +971,7 @@ def _define_IFilterTrackingProvider():
     IFilterTrackingProvider = win32more.System.WindowsSync.IFilterTrackingProvider_head
     IFilterTrackingProvider.SpecifyTrackedFilters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.IFilterTrackingRequestCallback_head, use_last_error=False)(3, 'SpecifyTrackedFilters', ((1, 'pCallback'),)))
     IFilterTrackingProvider.AddTrackedFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncFilter_head, use_last_error=False)(4, 'AddTrackedFilter', ((1, 'pFilter'),)))
+    win32more.System.Com.IUnknown
     return IFilterTrackingProvider
 def _define_ISupportLastWriteTime_head():
     class ISupportLastWriteTime(win32more.System.Com.IUnknown_head):
@@ -913,6 +981,7 @@ def _define_ISupportLastWriteTime():
     ISupportLastWriteTime = win32more.System.WindowsSync.ISupportLastWriteTime_head
     ISupportLastWriteTime.GetItemChangeTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt64), use_last_error=False)(3, 'GetItemChangeTime', ((1, 'pbItemId'),(1, 'pullTimestamp'),)))
     ISupportLastWriteTime.GetChangeUnitChangeTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_char_p_no,POINTER(UInt64), use_last_error=False)(4, 'GetChangeUnitChangeTime', ((1, 'pbItemId'),(1, 'pbChangeUnitId'),(1, 'pullTimestamp'),)))
+    win32more.System.Com.IUnknown
     return ISupportLastWriteTime
 def _define_IProviderConverter_head():
     class IProviderConverter(win32more.System.Com.IUnknown_head):
@@ -921,6 +990,7 @@ def _define_IProviderConverter_head():
 def _define_IProviderConverter():
     IProviderConverter = win32more.System.WindowsSync.IProviderConverter_head
     IProviderConverter.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ISyncProvider_head, use_last_error=False)(3, 'Initialize', ((1, 'pISyncProvider'),)))
+    win32more.System.Com.IUnknown
     return IProviderConverter
 def _define_ISyncDataConverter_head():
     class ISyncDataConverter(win32more.System.Com.IUnknown_head):
@@ -932,6 +1002,7 @@ def _define_ISyncDataConverter():
     ISyncDataConverter.ConvertDataRetrieverToProviderFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.WindowsSync.IEnumSyncChanges_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'ConvertDataRetrieverToProviderFormat', ((1, 'pUnkDataRetrieverIn'),(1, 'pEnumSyncChanges'),(1, 'ppUnkDataOut'),)))
     ISyncDataConverter.ConvertDataFromProviderFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ILoadChangeContext_head,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'ConvertDataFromProviderFormat', ((1, 'pDataContext'),(1, 'pUnkDataIn'),(1, 'ppUnkDataOut'),)))
     ISyncDataConverter.ConvertDataToProviderFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WindowsSync.ILoadChangeContext_head,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'ConvertDataToProviderFormat', ((1, 'pDataContext'),(1, 'pUnkDataOut'),(1, 'ppUnkDataout'),)))
+    win32more.System.Com.IUnknown
     return ISyncDataConverter
 SyncProviderRegistration = Guid('f82b4ef1-93a9-4dde-8015-f7950a1a6e31')
 def _define_SyncProviderConfiguration_head():
@@ -988,6 +1059,7 @@ def _define_ISyncProviderRegistration():
     ISyncProviderRegistration.RegisterForEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(16, 'RegisterForEvent', ((1, 'phEvent'),)))
     ISyncProviderRegistration.RevokeEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(17, 'RevokeEvent', ((1, 'hEvent'),)))
     ISyncProviderRegistration.GetChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.System.WindowsSync.ISyncRegistrationChange_head), use_last_error=False)(18, 'GetChange', ((1, 'hEvent'),(1, 'ppChange'),)))
+    win32more.System.Com.IUnknown
     return ISyncProviderRegistration
 def _define_IEnumSyncProviderConfigUIInfos_head():
     class IEnumSyncProviderConfigUIInfos(win32more.System.Com.IUnknown_head):
@@ -999,6 +1071,7 @@ def _define_IEnumSyncProviderConfigUIInfos():
     IEnumSyncProviderConfigUIInfos.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cFactories'),)))
     IEnumSyncProviderConfigUIInfos.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSyncProviderConfigUIInfos.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IEnumSyncProviderConfigUIInfos_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSyncProviderConfigUIInfos
 def _define_IEnumSyncProviderInfos_head():
     class IEnumSyncProviderInfos(win32more.System.Com.IUnknown_head):
@@ -1010,6 +1083,7 @@ def _define_IEnumSyncProviderInfos():
     IEnumSyncProviderInfos.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cInstances'),)))
     IEnumSyncProviderInfos.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSyncProviderInfos.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.IEnumSyncProviderInfos_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSyncProviderInfos
 def _define_ISyncProviderInfo_head():
     class ISyncProviderInfo(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head):
@@ -1018,6 +1092,7 @@ def _define_ISyncProviderInfo_head():
 def _define_ISyncProviderInfo():
     ISyncProviderInfo = win32more.System.WindowsSync.ISyncProviderInfo_head
     ISyncProviderInfo.GetSyncProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.WindowsSync.IRegisteredSyncProvider_head), use_last_error=False)(8, 'GetSyncProvider', ((1, 'dwClsContext'),(1, 'ppSyncProvider'),)))
+    win32more.UI.Shell.PropertiesSystem.IPropertyStore
     return ISyncProviderInfo
 def _define_ISyncProviderConfigUIInfo_head():
     class ISyncProviderConfigUIInfo(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head):
@@ -1026,6 +1101,7 @@ def _define_ISyncProviderConfigUIInfo_head():
 def _define_ISyncProviderConfigUIInfo():
     ISyncProviderConfigUIInfo = win32more.System.WindowsSync.ISyncProviderConfigUIInfo_head
     ISyncProviderConfigUIInfo.GetSyncProviderConfigUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.WindowsSync.ISyncProviderConfigUI_head), use_last_error=False)(8, 'GetSyncProviderConfigUI', ((1, 'dwClsContext'),(1, 'ppSyncProviderConfigUI'),)))
+    win32more.UI.Shell.PropertiesSystem.IPropertyStore
     return ISyncProviderConfigUIInfo
 def _define_ISyncProviderConfigUI_head():
     class ISyncProviderConfigUI(win32more.System.Com.IUnknown_head):
@@ -1037,6 +1113,7 @@ def _define_ISyncProviderConfigUI():
     ISyncProviderConfigUI.GetRegisteredProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(4, 'GetRegisteredProperties', ((1, 'ppConfigUIProperties'),)))
     ISyncProviderConfigUI.CreateAndRegisterNewSyncProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.Com.IUnknown_head,POINTER(win32more.System.WindowsSync.ISyncProviderInfo_head), use_last_error=False)(5, 'CreateAndRegisterNewSyncProvider', ((1, 'hwndParent'),(1, 'pUnkContext'),(1, 'ppProviderInfo'),)))
     ISyncProviderConfigUI.ModifySyncProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.Com.IUnknown_head,win32more.System.WindowsSync.ISyncProviderInfo_head, use_last_error=False)(6, 'ModifySyncProvider', ((1, 'hwndParent'),(1, 'pUnkContext'),(1, 'pProviderInfo'),)))
+    win32more.System.Com.IUnknown
     return ISyncProviderConfigUI
 def _define_IRegisteredSyncProvider_head():
     class IRegisteredSyncProvider(win32more.System.Com.IUnknown_head):
@@ -1047,6 +1124,7 @@ def _define_IRegisteredSyncProvider():
     IRegisteredSyncProvider.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, use_last_error=False)(3, 'Init', ((1, 'pguidInstanceId'),(1, 'pguidContentType'),(1, 'pContextPropertyStore'),)))
     IRegisteredSyncProvider.GetInstanceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetInstanceId', ((1, 'pguidInstanceId'),)))
     IRegisteredSyncProvider.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IRegisteredSyncProvider
 SYNC_REGISTRATION_EVENT = Int32
 SRE_PROVIDER_ADDED = 0
@@ -1064,6 +1142,7 @@ def _define_ISyncRegistrationChange():
     ISyncRegistrationChange = win32more.System.WindowsSync.ISyncRegistrationChange_head
     ISyncRegistrationChange.GetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WindowsSync.SYNC_REGISTRATION_EVENT), use_last_error=False)(3, 'GetEvent', ((1, 'psreEvent'),)))
     ISyncRegistrationChange.GetInstanceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetInstanceId', ((1, 'pguidInstanceId'),)))
+    win32more.System.Com.IUnknown
     return ISyncRegistrationChange
 __all__ = [
     "SYNC_VERSION_FLAG_FROM_FEED",

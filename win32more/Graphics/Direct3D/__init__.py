@@ -330,6 +330,7 @@ def _define_ID3DBlob():
     ID3DBlob = win32more.Graphics.Direct3D.ID3DBlob_head
     ID3DBlob.GetBufferPointer = COMMETHOD(WINFUNCTYPE(c_void_p, use_last_error=False)(3, 'GetBufferPointer', ()))
     ID3DBlob.GetBufferSize = COMMETHOD(WINFUNCTYPE(UIntPtr, use_last_error=False)(4, 'GetBufferSize', ()))
+    win32more.System.Com.IUnknown
     return ID3DBlob
 def _define_PFN_DESTRUCTION_CALLBACK():
     return CFUNCTYPE(Void,c_void_p, use_last_error=False)
@@ -341,6 +342,7 @@ def _define_ID3DDestructionNotifier():
     ID3DDestructionNotifier = win32more.Graphics.Direct3D.ID3DDestructionNotifier_head
     ID3DDestructionNotifier.RegisterDestructionCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.PFN_DESTRUCTION_CALLBACK,c_void_p,POINTER(UInt32), use_last_error=False)(3, 'RegisterDestructionCallback', ((1, 'callbackFn'),(1, 'pData'),(1, 'pCallbackID'),)))
     ID3DDestructionNotifier.UnregisterDestructionCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'UnregisterDestructionCallback', ((1, 'callbackID'),)))
+    win32more.System.Com.IUnknown
     return ID3DDestructionNotifier
 D3D_INCLUDE_TYPE = Int32
 D3D_INCLUDE_LOCAL = 0

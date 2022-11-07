@@ -21,6 +21,7 @@ def _define_IRadialControllerInterop_head():
 def _define_IRadialControllerInterop():
     IRadialControllerInterop = win32more.UI.Input.Radial.IRadialControllerInterop_head
     IRadialControllerInterop.CreateForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'CreateForWindow', ((1, 'hwnd'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.WinRT.IInspectable
     return IRadialControllerInterop
 def _define_IRadialControllerConfigurationInterop_head():
     class IRadialControllerConfigurationInterop(win32more.System.WinRT.IInspectable_head):
@@ -29,6 +30,7 @@ def _define_IRadialControllerConfigurationInterop_head():
 def _define_IRadialControllerConfigurationInterop():
     IRadialControllerConfigurationInterop = win32more.UI.Input.Radial.IRadialControllerConfigurationInterop_head
     IRadialControllerConfigurationInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'hwnd'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.WinRT.IInspectable
     return IRadialControllerConfigurationInterop
 def _define_IRadialControllerIndependentInputSourceInterop_head():
     class IRadialControllerIndependentInputSourceInterop(win32more.System.WinRT.IInspectable_head):
@@ -37,6 +39,7 @@ def _define_IRadialControllerIndependentInputSourceInterop_head():
 def _define_IRadialControllerIndependentInputSourceInterop():
     IRadialControllerIndependentInputSourceInterop = win32more.UI.Input.Radial.IRadialControllerIndependentInputSourceInterop_head
     IRadialControllerIndependentInputSourceInterop.CreateForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'CreateForWindow', ((1, 'hwnd'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.WinRT.IInspectable
     return IRadialControllerIndependentInputSourceInterop
 __all__ = [
     "IRadialControllerInterop",

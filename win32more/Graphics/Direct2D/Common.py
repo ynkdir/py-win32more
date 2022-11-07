@@ -376,6 +376,7 @@ def _define_ID2D1SimplifiedGeometrySink():
     ID2D1SimplifiedGeometrySink.AddBeziers = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct2D.Common.D2D1_BEZIER_SEGMENT),UInt32, use_last_error=False)(7, 'AddBeziers', ((1, 'beziers'),(1, 'beziersCount'),)))
     ID2D1SimplifiedGeometrySink.EndFigure = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct2D.Common.D2D1_FIGURE_END, use_last_error=False)(8, 'EndFigure', ((1, 'figureEnd'),)))
     ID2D1SimplifiedGeometrySink.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Close', ()))
+    win32more.System.Com.IUnknown
     return ID2D1SimplifiedGeometrySink
 D2D1_BORDER_MODE = UInt32
 D2D1_BORDER_MODE_SOFT = 0

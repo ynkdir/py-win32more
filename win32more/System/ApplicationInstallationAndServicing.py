@@ -411,6 +411,7 @@ def _define_IValidate():
     IValidate.SetDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.LPDISPLAYVAL,c_void_p, use_last_error=False)(7, 'SetDisplay', ((1, 'pDisplayFunction'),(1, 'pContext'),)))
     IValidate.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.LPEVALCOMCALLBACK,c_void_p, use_last_error=False)(8, 'SetStatus', ((1, 'pStatusFunction'),(1, 'pContext'),)))
     IValidate.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(9, 'Validate', ((1, 'wzICEs'),)))
+    win32more.System.Com.IUnknown
     return IValidate
 MsmMerge = Guid('0adda830-2c26-11d2-ad65-00a0c9af11a6')
 msmErrorType = Int32
@@ -432,6 +433,7 @@ def _define_IEnumMsmString():
     IEnumMsmString.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cSkip'),)))
     IEnumMsmString.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumMsmString.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IEnumMsmString_head), use_last_error=False)(6, 'Clone', ((1, 'pemsmStrings'),)))
+    win32more.System.Com.IUnknown
     return IEnumMsmString
 def _define_IMsmStrings_head():
     class IMsmStrings(win32more.System.Com.IDispatch_head):
@@ -442,6 +444,7 @@ def _define_IMsmStrings():
     IMsmStrings.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Item', ((1, 'Item'),(1, 'Return'),)))
     IMsmStrings.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'Count'),)))
     IMsmStrings.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'NewEnum'),)))
+    win32more.System.Com.IDispatch
     return IMsmStrings
 def _define_IMsmError_head():
     class IMsmError(win32more.System.Com.IDispatch_head):
@@ -456,6 +459,7 @@ def _define_IMsmError():
     IMsmError.get_DatabaseKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head), use_last_error=False)(11, 'get_DatabaseKeys', ((1, 'ErrorKeys'),)))
     IMsmError.get_ModuleTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_ModuleTable', ((1, 'ErrorTable'),)))
     IMsmError.get_ModuleKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head), use_last_error=False)(13, 'get_ModuleKeys', ((1, 'ErrorKeys'),)))
+    win32more.System.Com.IDispatch
     return IMsmError
 def _define_IEnumMsmError_head():
     class IEnumMsmError(win32more.System.Com.IUnknown_head):
@@ -467,6 +471,7 @@ def _define_IEnumMsmError():
     IEnumMsmError.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cSkip'),)))
     IEnumMsmError.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumMsmError.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IEnumMsmError_head), use_last_error=False)(6, 'Clone', ((1, 'pemsmErrors'),)))
+    win32more.System.Com.IUnknown
     return IEnumMsmError
 def _define_IMsmErrors_head():
     class IMsmErrors(win32more.System.Com.IDispatch_head):
@@ -477,6 +482,7 @@ def _define_IMsmErrors():
     IMsmErrors.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmError_head), use_last_error=False)(7, 'get_Item', ((1, 'Item'),(1, 'Return'),)))
     IMsmErrors.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'Count'),)))
     IMsmErrors.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'NewEnum'),)))
+    win32more.System.Com.IDispatch
     return IMsmErrors
 def _define_IMsmDependency_head():
     class IMsmDependency(win32more.System.Com.IDispatch_head):
@@ -487,6 +493,7 @@ def _define_IMsmDependency():
     IMsmDependency.get_Module = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Module', ((1, 'Module'),)))
     IMsmDependency.get_Language = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_Language', ((1, 'Language'),)))
     IMsmDependency.get_Version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Version', ((1, 'Version'),)))
+    win32more.System.Com.IDispatch
     return IMsmDependency
 def _define_IEnumMsmDependency_head():
     class IEnumMsmDependency(win32more.System.Com.IUnknown_head):
@@ -498,6 +505,7 @@ def _define_IEnumMsmDependency():
     IEnumMsmDependency.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cSkip'),)))
     IEnumMsmDependency.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumMsmDependency.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IEnumMsmDependency_head), use_last_error=False)(6, 'Clone', ((1, 'pemsmDependencies'),)))
+    win32more.System.Com.IUnknown
     return IEnumMsmDependency
 def _define_IMsmDependencies_head():
     class IMsmDependencies(win32more.System.Com.IDispatch_head):
@@ -508,6 +516,7 @@ def _define_IMsmDependencies():
     IMsmDependencies.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmDependency_head), use_last_error=False)(7, 'get_Item', ((1, 'Item'),(1, 'Return'),)))
     IMsmDependencies.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'Count'),)))
     IMsmDependencies.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'NewEnum'),)))
+    win32more.System.Com.IDispatch
     return IMsmDependencies
 def _define_IMsmMerge_head():
     class IMsmMerge(win32more.System.Com.IDispatch_head):
@@ -528,6 +537,7 @@ def _define_IMsmMerge():
     IMsmMerge.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'Connect', ((1, 'Feature'),)))
     IMsmMerge.ExtractCAB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(18, 'ExtractCAB', ((1, 'FileName'),)))
     IMsmMerge.ExtractFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(19, 'ExtractFiles', ((1, 'Path'),)))
+    win32more.System.Com.IDispatch
     return IMsmMerge
 def _define_IMsmGetFiles_head():
     class IMsmGetFiles(win32more.System.Com.IDispatch_head):
@@ -536,6 +546,7 @@ def _define_IMsmGetFiles_head():
 def _define_IMsmGetFiles():
     IMsmGetFiles = win32more.System.ApplicationInstallationAndServicing.IMsmGetFiles_head
     IMsmGetFiles.get_ModuleFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IMsmStrings_head), use_last_error=False)(7, 'get_ModuleFiles', ((1, 'Files'),)))
+    win32more.System.Com.IDispatch
     return IMsmGetFiles
 def _define_PMSIHANDLE_head():
     class PMSIHANDLE(Structure):
@@ -956,6 +967,7 @@ def _define_IAssemblyName():
     IAssemblyName.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(9, 'GetVersion', ((1, 'pdwVersionHi'),(1, 'pdwVersionLow'),)))
     IAssemblyName.IsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.IAssemblyName_head,UInt32, use_last_error=False)(10, 'IsEqual', ((1, 'pName'),(1, 'dwCmpFlags'),)))
     IAssemblyName.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IAssemblyName_head), use_last_error=False)(11, 'Clone', ((1, 'pName'),)))
+    win32more.System.Com.IUnknown
     return IAssemblyName
 def _define_IAssemblyCacheItem_head():
     class IAssemblyCacheItem(win32more.System.Com.IUnknown_head):
@@ -966,6 +978,7 @@ def _define_IAssemblyCacheItem():
     IAssemblyCacheItem.CreateStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(win32more.System.Com.IStream_head),POINTER(win32more.Foundation.ULARGE_INTEGER_head), use_last_error=False)(3, 'CreateStream', ((1, 'dwFlags'),(1, 'pszStreamName'),(1, 'dwFormat'),(1, 'dwFormatFlags'),(1, 'ppIStream'),(1, 'puliMaxSize'),)))
     IAssemblyCacheItem.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(4, 'Commit', ((1, 'dwFlags'),(1, 'pulDisposition'),)))
     IAssemblyCacheItem.AbortItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'AbortItem', ()))
+    win32more.System.Com.IUnknown
     return IAssemblyCacheItem
 def _define_IAssemblyCache_head():
     class IAssemblyCache(win32more.System.Com.IUnknown_head):
@@ -978,6 +991,7 @@ def _define_IAssemblyCache():
     IAssemblyCache.CreateAssemblyCacheItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(win32more.System.ApplicationInstallationAndServicing.IAssemblyCacheItem_head),win32more.Foundation.PWSTR, use_last_error=False)(5, 'CreateAssemblyCacheItem', ((1, 'dwFlags'),(1, 'pvReserved'),(1, 'ppAsmItem'),(1, 'pszAssemblyName'),)))
     IAssemblyCache.Reserved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'Reserved', ((1, 'ppUnk'),)))
     IAssemblyCache.InstallAssembly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.FUSION_INSTALL_REFERENCE_head), use_last_error=False)(7, 'InstallAssembly', ((1, 'dwFlags'),(1, 'pszManifestFilePath'),(1, 'pRefData'),)))
+    win32more.System.Com.IUnknown
     return IAssemblyCache
 CREATE_ASM_NAME_OBJ_FLAGS = Int32
 CANOF_PARSE_DISPLAY_NAME = 1
@@ -1621,6 +1635,7 @@ def _define_IPMApplicationInfo():
     IPMApplicationInfo.get_IsFullyPreInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(55, 'get_IsFullyPreInstall', ((1, 'pfIsFullyPreInstall'),)))
     IPMApplicationInfo.set_IsMdilMaintenanceNeeded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(56, 'set_IsMdilMaintenanceNeeded', ((1, 'fIsMdilMaintenanceNeeded'),)))
     IPMApplicationInfo.set_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(57, 'set_Title', ((1, 'AppTitle'),)))
+    win32more.System.Com.IUnknown
     return IPMApplicationInfo
 def _define_IPMTilePropertyInfo_head():
     class IPMTilePropertyInfo(win32more.System.Com.IUnknown_head):
@@ -1631,6 +1646,7 @@ def _define_IPMTilePropertyInfo():
     IPMTilePropertyInfo.get_PropertyID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'get_PropertyID', ((1, 'pPropID'),)))
     IPMTilePropertyInfo.get_PropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_PropertyValue', ((1, 'pPropValue'),)))
     IPMTilePropertyInfo.set_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(5, 'set_Property', ((1, 'PropValue'),)))
+    win32more.System.Com.IUnknown
     return IPMTilePropertyInfo
 def _define_IPMTilePropertyEnumerator_head():
     class IPMTilePropertyEnumerator(win32more.System.Com.IUnknown_head):
@@ -1639,6 +1655,7 @@ def _define_IPMTilePropertyEnumerator_head():
 def _define_IPMTilePropertyEnumerator():
     IPMTilePropertyEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyEnumerator_head
     IPMTilePropertyEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTilePropertyInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppPropInfo'),)))
+    win32more.System.Com.IUnknown
     return IPMTilePropertyEnumerator
 def _define_IPMTileInfo_head():
     class IPMTileInfo(win32more.System.Com.IUnknown_head):
@@ -1670,6 +1687,7 @@ def _define_IPMTileInfo():
     IPMTileInfo.get_IsAutoRestoreDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(24, 'get_IsAutoRestoreDisabled', ((1, 'pIsAutoRestoreDisabled'),)))
     IPMTileInfo.set_IsRestoring = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(25, 'set_IsRestoring', ((1, 'Restoring'),)))
     IPMTileInfo.set_IsAutoRestoreDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(26, 'set_IsAutoRestoreDisabled', ((1, 'AutoRestoreDisabled'),)))
+    win32more.System.Com.IUnknown
     return IPMTileInfo
 def _define_IPMTileInfoEnumerator_head():
     class IPMTileInfoEnumerator(win32more.System.Com.IUnknown_head):
@@ -1678,6 +1696,7 @@ def _define_IPMTileInfoEnumerator_head():
 def _define_IPMTileInfoEnumerator():
     IPMTileInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMTileInfoEnumerator_head
     IPMTileInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTileInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppTileInfo'),)))
+    win32more.System.Com.IUnknown
     return IPMTileInfoEnumerator
 def _define_IPMApplicationInfoEnumerator_head():
     class IPMApplicationInfoEnumerator(win32more.System.Com.IUnknown_head):
@@ -1686,6 +1705,7 @@ def _define_IPMApplicationInfoEnumerator_head():
 def _define_IPMApplicationInfoEnumerator():
     IPMApplicationInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfoEnumerator_head
     IPMApplicationInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppAppInfo'),)))
+    win32more.System.Com.IUnknown
     return IPMApplicationInfoEnumerator
 def _define_IPMLiveTileJobInfo_head():
     class IPMLiveTileJobInfo(win32more.System.Com.IUnknown_head):
@@ -1717,6 +1737,7 @@ def _define_IPMLiveTileJobInfo():
     IPMLiveTileJobInfo.set_AttemptCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(24, 'set_AttemptCount', ((1, 'ulAttemptCount'),)))
     IPMLiveTileJobInfo.get_DownloadState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(25, 'get_DownloadState', ((1, 'pDownloadState'),)))
     IPMLiveTileJobInfo.set_DownloadState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(26, 'set_DownloadState', ((1, 'ulDownloadState'),)))
+    win32more.System.Com.IUnknown
     return IPMLiveTileJobInfo
 def _define_IPMLiveTileJobInfoEnumerator_head():
     class IPMLiveTileJobInfoEnumerator(win32more.System.Com.IUnknown_head):
@@ -1725,6 +1746,7 @@ def _define_IPMLiveTileJobInfoEnumerator_head():
 def _define_IPMLiveTileJobInfoEnumerator():
     IPMLiveTileJobInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfoEnumerator_head
     IPMLiveTileJobInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMLiveTileJobInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppLiveTileJobInfo'),)))
+    win32more.System.Com.IUnknown
     return IPMLiveTileJobInfoEnumerator
 def _define_IPMDeploymentManager_head():
     class IPMDeploymentManager(win32more.System.Com.IUnknown_head):
@@ -1767,6 +1789,7 @@ def _define_IPMDeploymentManager():
     IPMDeploymentManager.GenerateXamlLightupXbfForCurrentLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(35, 'GenerateXamlLightupXbfForCurrentLocale', ((1, 'PackageFamilyName'),)))
     IPMDeploymentManager.AddLicenseForAppx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(Byte),UInt32,POINTER(Byte),UInt32, use_last_error=False)(36, 'AddLicenseForAppx', ((1, 'productID'),(1, 'pbLicense'),(1, 'cbLicense'),(1, 'pbPlayReadyHeader'),(1, 'cbPlayReadyHeader'),)))
     IPMDeploymentManager.FixJunctionsForAppsOnSDCard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(37, 'FixJunctionsForAppsOnSDCard', ()))
+    win32more.System.Com.IUnknown
     return IPMDeploymentManager
 def _define_IPMEnumerationManager_head():
     class IPMEnumerationManager(win32more.System.Com.IUnknown_head):
@@ -1792,6 +1815,7 @@ def _define_IPMEnumerationManager():
     IPMEnumerationManager.get_ApplicationInfoFromAccessClaims = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMApplicationInfo_head), use_last_error=False)(18, 'get_ApplicationInfoFromAccessClaims', ((1, 'SysAppID0'),(1, 'SysAppID1'),(1, 'ppAppInfo'),)))
     IPMEnumerationManager.get_StartTileEnumeratorBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTTILEBLOB_head)), use_last_error=False)(19, 'get_StartTileEnumeratorBlob', ((1, 'Filter'),(1, 'pcTiles'),(1, 'ppTileBlobs'),)))
     IPMEnumerationManager.get_StartAppEnumeratorBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.ApplicationInstallationAndServicing.PM_ENUM_FILTER,POINTER(UInt32),POINTER(POINTER(win32more.System.ApplicationInstallationAndServicing.PM_STARTAPPBLOB_head)), use_last_error=False)(20, 'get_StartAppEnumeratorBlob', ((1, 'Filter'),(1, 'pcApps'),(1, 'ppAppBlobs'),)))
+    win32more.System.Com.IUnknown
     return IPMEnumerationManager
 def _define_IPMTaskInfo_head():
     class IPMTaskInfo(win32more.System.Com.IUnknown_head):
@@ -1820,6 +1844,7 @@ def _define_IPMTaskInfo():
     IPMTaskInfo.get_SuppressesDehydration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(21, 'get_SuppressesDehydration', ((1, 'pSuppressesDehydration'),)))
     IPMTaskInfo.get_BackgroundExecutionAbilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_BackgroundExecutionAbilities', ((1, 'pBackgroundExecutionAbilities'),)))
     IPMTaskInfo.get_IsOptedForExtendedMem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(23, 'get_IsOptedForExtendedMem', ((1, 'pIsOptedIn'),)))
+    win32more.System.Com.IUnknown
     return IPMTaskInfo
 def _define_IPMTaskInfoEnumerator_head():
     class IPMTaskInfoEnumerator(win32more.System.Com.IUnknown_head):
@@ -1828,6 +1853,7 @@ def _define_IPMTaskInfoEnumerator_head():
 def _define_IPMTaskInfoEnumerator():
     IPMTaskInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMTaskInfoEnumerator_head
     IPMTaskInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMTaskInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppTaskInfo'),)))
+    win32more.System.Com.IUnknown
     return IPMTaskInfoEnumerator
 def _define_IPMExtensionInfo_head():
     class IPMExtensionInfo(win32more.System.Com.IUnknown_head):
@@ -1841,6 +1867,7 @@ def _define_IPMExtensionInfo():
     IPMExtensionInfo.get_IconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_IconPath', ((1, 'pIconPath'),)))
     IPMExtensionInfo.get_ExtraFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_ExtraFile', ((1, 'pFilePath'),)))
     IPMExtensionInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
+    win32more.System.Com.IUnknown
     return IPMExtensionInfo
 def _define_IPMExtensionFileExtensionInfo_head():
     class IPMExtensionFileExtensionInfo(win32more.System.Com.IUnknown_head):
@@ -1855,6 +1882,7 @@ def _define_IPMExtensionFileExtensionInfo():
     IPMExtensionFileExtensionInfo.get_FileType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_FileType', ((1, 'ContentType'),(1, 'pFileType'),)))
     IPMExtensionFileExtensionInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
     IPMExtensionFileExtensionInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(9, 'get_AllFileTypes', ((1, 'pcbTypes'),(1, 'ppTypes'),)))
+    win32more.System.Com.IUnknown
     return IPMExtensionFileExtensionInfo
 def _define_IPMExtensionProtocolInfo_head():
     class IPMExtensionProtocolInfo(win32more.System.Com.IUnknown_head):
@@ -1864,6 +1892,7 @@ def _define_IPMExtensionProtocolInfo():
     IPMExtensionProtocolInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionProtocolInfo_head
     IPMExtensionProtocolInfo.get_Protocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_Protocol', ((1, 'pProtocol'),)))
     IPMExtensionProtocolInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_InvocationInfo', ((1, 'pImageUrn'),(1, 'pParameters'),)))
+    win32more.System.Com.IUnknown
     return IPMExtensionProtocolInfo
 def _define_IPMExtensionShareTargetInfo_head():
     class IPMExtensionShareTargetInfo(win32more.System.Com.IUnknown_head):
@@ -1874,6 +1903,7 @@ def _define_IPMExtensionShareTargetInfo():
     IPMExtensionShareTargetInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(3, 'get_AllFileTypes', ((1, 'pcTypes'),(1, 'ppTypes'),)))
     IPMExtensionShareTargetInfo.get_AllDataFormats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(4, 'get_AllDataFormats', ((1, 'pcDataFormats'),(1, 'ppDataFormats'),)))
     IPMExtensionShareTargetInfo.get_SupportsAllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'get_SupportsAllFileTypes', ((1, 'pSupportsAllTypes'),)))
+    win32more.System.Com.IUnknown
     return IPMExtensionShareTargetInfo
 def _define_IPMExtensionContractInfo_head():
     class IPMExtensionContractInfo(win32more.System.Com.IUnknown_head):
@@ -1882,6 +1912,7 @@ def _define_IPMExtensionContractInfo_head():
 def _define_IPMExtensionContractInfo():
     IPMExtensionContractInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionContractInfo_head
     IPMExtensionContractInfo.get_InvocationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_InvocationInfo', ((1, 'pAUMID'),(1, 'pArgs'),)))
+    win32more.System.Com.IUnknown
     return IPMExtensionContractInfo
 def _define_IPMExtensionFileOpenPickerInfo_head():
     class IPMExtensionFileOpenPickerInfo(win32more.System.Com.IUnknown_head):
@@ -1891,6 +1922,7 @@ def _define_IPMExtensionFileOpenPickerInfo():
     IPMExtensionFileOpenPickerInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionFileOpenPickerInfo_head
     IPMExtensionFileOpenPickerInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(3, 'get_AllFileTypes', ((1, 'pcTypes'),(1, 'ppTypes'),)))
     IPMExtensionFileOpenPickerInfo.get_SupportsAllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'get_SupportsAllFileTypes', ((1, 'pSupportsAllTypes'),)))
+    win32more.System.Com.IUnknown
     return IPMExtensionFileOpenPickerInfo
 def _define_IPMExtensionFileSavePickerInfo_head():
     class IPMExtensionFileSavePickerInfo(win32more.System.Com.IUnknown_head):
@@ -1900,6 +1932,7 @@ def _define_IPMExtensionFileSavePickerInfo():
     IPMExtensionFileSavePickerInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionFileSavePickerInfo_head
     IPMExtensionFileSavePickerInfo.get_AllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Foundation.BSTR)), use_last_error=False)(3, 'get_AllFileTypes', ((1, 'pcTypes'),(1, 'ppTypes'),)))
     IPMExtensionFileSavePickerInfo.get_SupportsAllFileTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'get_SupportsAllFileTypes', ((1, 'pSupportsAllTypes'),)))
+    win32more.System.Com.IUnknown
     return IPMExtensionFileSavePickerInfo
 def _define_IPMExtensionCachedFileUpdaterInfo_head():
     class IPMExtensionCachedFileUpdaterInfo(win32more.System.Com.IUnknown_head):
@@ -1908,6 +1941,7 @@ def _define_IPMExtensionCachedFileUpdaterInfo_head():
 def _define_IPMExtensionCachedFileUpdaterInfo():
     IPMExtensionCachedFileUpdaterInfo = win32more.System.ApplicationInstallationAndServicing.IPMExtensionCachedFileUpdaterInfo_head
     IPMExtensionCachedFileUpdaterInfo.get_SupportsUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'get_SupportsUpdates', ((1, 'pSupportsUpdates'),)))
+    win32more.System.Com.IUnknown
     return IPMExtensionCachedFileUpdaterInfo
 def _define_IPMExtensionInfoEnumerator_head():
     class IPMExtensionInfoEnumerator(win32more.System.Com.IUnknown_head):
@@ -1916,6 +1950,7 @@ def _define_IPMExtensionInfoEnumerator_head():
 def _define_IPMExtensionInfoEnumerator():
     IPMExtensionInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfoEnumerator_head
     IPMExtensionInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMExtensionInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppExtensionInfo'),)))
+    win32more.System.Com.IUnknown
     return IPMExtensionInfoEnumerator
 def _define_IPMBackgroundServiceAgentInfo_head():
     class IPMBackgroundServiceAgentInfo(win32more.System.Com.IUnknown_head):
@@ -1937,6 +1972,7 @@ def _define_IPMBackgroundServiceAgentInfo():
     IPMBackgroundServiceAgentInfo.get_IsLaunchOnBoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(14, 'get_IsLaunchOnBoot', ((1, 'pLaunchOnBoot'),)))
     IPMBackgroundServiceAgentInfo.set_IsScheduled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(15, 'set_IsScheduled', ((1, 'IsScheduled'),)))
     IPMBackgroundServiceAgentInfo.set_IsScheduleAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(16, 'set_IsScheduleAllowed', ((1, 'IsScheduleAllowed'),)))
+    win32more.System.Com.IUnknown
     return IPMBackgroundServiceAgentInfo
 def _define_IPMBackgroundWorkerInfo_head():
     class IPMBackgroundWorkerInfo(win32more.System.Com.IUnknown_head):
@@ -1950,6 +1986,7 @@ def _define_IPMBackgroundWorkerInfo():
     IPMBackgroundWorkerInfo.get_MaxStartupLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'get_MaxStartupLatency', ((1, 'pMaxStartupLatency'),)))
     IPMBackgroundWorkerInfo.get_ExpectedRuntime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'get_ExpectedRuntime', ((1, 'pExpectedRuntime'),)))
     IPMBackgroundWorkerInfo.get_IsBootWorker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'get_IsBootWorker', ((1, 'pIsBootWorker'),)))
+    win32more.System.Com.IUnknown
     return IPMBackgroundWorkerInfo
 def _define_IPMBackgroundServiceAgentInfoEnumerator_head():
     class IPMBackgroundServiceAgentInfoEnumerator(win32more.System.Com.IUnknown_head):
@@ -1958,6 +1995,7 @@ def _define_IPMBackgroundServiceAgentInfoEnumerator_head():
 def _define_IPMBackgroundServiceAgentInfoEnumerator():
     IPMBackgroundServiceAgentInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfoEnumerator_head
     IPMBackgroundServiceAgentInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundServiceAgentInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppBSAInfo'),)))
+    win32more.System.Com.IUnknown
     return IPMBackgroundServiceAgentInfoEnumerator
 def _define_IPMBackgroundWorkerInfoEnumerator_head():
     class IPMBackgroundWorkerInfoEnumerator(win32more.System.Com.IUnknown_head):
@@ -1966,6 +2004,7 @@ def _define_IPMBackgroundWorkerInfoEnumerator_head():
 def _define_IPMBackgroundWorkerInfoEnumerator():
     IPMBackgroundWorkerInfoEnumerator = win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfoEnumerator_head
     IPMBackgroundWorkerInfoEnumerator.get_Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ApplicationInstallationAndServicing.IPMBackgroundWorkerInfo_head), use_last_error=False)(3, 'get_Next', ((1, 'ppBWInfo'),)))
+    win32more.System.Com.IUnknown
     return IPMBackgroundWorkerInfoEnumerator
 def _define_PPATCH_PROGRESS_CALLBACK():
     return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p,UInt32,UInt32, use_last_error=False)

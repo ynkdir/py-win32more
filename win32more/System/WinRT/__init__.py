@@ -48,6 +48,7 @@ def _define_IAgileReference_head():
 def _define_IAgileReference():
     IAgileReference = win32more.System.WinRT.IAgileReference_head
     IAgileReference.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'Resolve', ((1, 'riid'),(1, 'ppvObjectReference'),)))
+    win32more.System.Com.IUnknown
     return IAgileReference
 def _define_IApartmentShutdown_head():
     class IApartmentShutdown(win32more.System.Com.IUnknown_head):
@@ -56,6 +57,7 @@ def _define_IApartmentShutdown_head():
 def _define_IApartmentShutdown():
     IApartmentShutdown = win32more.System.WinRT.IApartmentShutdown_head
     IApartmentShutdown.OnUninitialize = COMMETHOD(WINFUNCTYPE(Void,UInt64, use_last_error=False)(3, 'OnUninitialize', ((1, 'ui64ApartmentIdentifier'),)))
+    win32more.System.Com.IUnknown
     return IApartmentShutdown
 def _define_ServerInformation_head():
     class ServerInformation(Structure):
@@ -79,6 +81,7 @@ def _define_ISpatialInteractionManagerInterop_head():
 def _define_ISpatialInteractionManagerInterop():
     ISpatialInteractionManagerInterop = win32more.System.WinRT.ISpatialInteractionManagerInterop_head
     ISpatialInteractionManagerInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'window'),(1, 'riid'),(1, 'spatialInteractionManager'),)))
+    win32more.System.WinRT.IInspectable
     return ISpatialInteractionManagerInterop
 def _define_IHolographicSpaceInterop_head():
     class IHolographicSpaceInterop(win32more.System.WinRT.IInspectable_head):
@@ -87,6 +90,7 @@ def _define_IHolographicSpaceInterop_head():
 def _define_IHolographicSpaceInterop():
     IHolographicSpaceInterop = win32more.System.WinRT.IHolographicSpaceInterop_head
     IHolographicSpaceInterop.CreateForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'CreateForWindow', ((1, 'window'),(1, 'riid'),(1, 'holographicSpace'),)))
+    win32more.System.WinRT.IInspectable
     return IHolographicSpaceInterop
 def _define_HSTRING_HEADER_head():
     class HSTRING_HEADER(Structure):
@@ -117,6 +121,7 @@ def _define_IInspectable():
     IInspectable.GetIids = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(3, 'GetIids', ((1, 'iidCount'),(1, 'iids'),)))
     IInspectable.GetRuntimeClassName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.HSTRING), use_last_error=False)(4, 'GetRuntimeClassName', ((1, 'className'),)))
     IInspectable.GetTrustLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.TrustLevel), use_last_error=False)(5, 'GetTrustLevel', ((1, 'trustLevel'),)))
+    win32more.System.Com.IUnknown
     return IInspectable
 def _define_PINSPECT_HSTRING_CALLBACK():
     return CFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UIntPtr,UInt32,POINTER(Byte), use_last_error=False)
@@ -150,6 +155,7 @@ def _define_IAccountsSettingsPaneInterop():
     IAccountsSettingsPaneInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'appWindow'),(1, 'riid'),(1, 'accountsSettingsPane'),)))
     IAccountsSettingsPaneInterop.ShowManageAccountsForWindowAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'ShowManageAccountsForWindowAsync', ((1, 'appWindow'),(1, 'riid'),(1, 'asyncAction'),)))
     IAccountsSettingsPaneInterop.ShowAddAccountForWindowAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'ShowAddAccountForWindowAsync', ((1, 'appWindow'),(1, 'riid'),(1, 'asyncAction'),)))
+    win32more.System.WinRT.IInspectable
     return IAccountsSettingsPaneInterop
 def _define_IAppServiceConnectionExtendedExecution_head():
     class IAppServiceConnectionExtendedExecution(win32more.System.Com.IUnknown_head):
@@ -158,6 +164,7 @@ def _define_IAppServiceConnectionExtendedExecution_head():
 def _define_IAppServiceConnectionExtendedExecution():
     IAppServiceConnectionExtendedExecution = win32more.System.WinRT.IAppServiceConnectionExtendedExecution_head
     IAppServiceConnectionExtendedExecution.OpenForExtendedExecutionAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'OpenForExtendedExecutionAsync', ((1, 'riid'),(1, 'operation'),)))
+    win32more.System.Com.IUnknown
     return IAppServiceConnectionExtendedExecution
 def _define_ICorrelationVectorSource_head():
     class ICorrelationVectorSource(win32more.System.Com.IUnknown_head):
@@ -166,6 +173,7 @@ def _define_ICorrelationVectorSource_head():
 def _define_ICorrelationVectorSource():
     ICorrelationVectorSource = win32more.System.WinRT.ICorrelationVectorSource_head
     ICorrelationVectorSource.get_CorrelationVector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.HSTRING), use_last_error=False)(3, 'get_CorrelationVector', ((1, 'cv'),)))
+    win32more.System.Com.IUnknown
     return ICorrelationVectorSource
 CASTING_CONNECTION_ERROR_STATUS = Int32
 CASTING_CONNECTION_ERROR_STATUS_SUCCEEDED = 0
@@ -189,6 +197,7 @@ def _define_ICastingEventHandler():
     ICastingEventHandler = win32more.System.WinRT.ICastingEventHandler_head
     ICastingEventHandler.OnStateChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.CASTING_CONNECTION_STATE, use_last_error=False)(3, 'OnStateChanged', ((1, 'newState'),)))
     ICastingEventHandler.OnError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.CASTING_CONNECTION_ERROR_STATUS,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OnError', ((1, 'errorStatus'),(1, 'errorMessage'),)))
+    win32more.System.Com.IUnknown
     return ICastingEventHandler
 def _define_ICastingController_head():
     class ICastingController(win32more.System.Com.IUnknown_head):
@@ -201,6 +210,7 @@ def _define_ICastingController():
     ICastingController.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Disconnect', ()))
     ICastingController.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.ICastingEventHandler_head,POINTER(UInt32), use_last_error=False)(6, 'Advise', ((1, 'eventHandler'),(1, 'cookie'),)))
     ICastingController.UnAdvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'UnAdvise', ((1, 'cookie'),)))
+    win32more.System.Com.IUnknown
     return ICastingController
 def _define_ICastingSourceInfo_head():
     class ICastingSourceInfo(win32more.System.Com.IUnknown_head):
@@ -210,6 +220,7 @@ def _define_ICastingSourceInfo():
     ICastingSourceInfo = win32more.System.WinRT.ICastingSourceInfo_head
     ICastingSourceInfo.GetController = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.ICastingController_head), use_last_error=False)(3, 'GetController', ((1, 'controller'),)))
     ICastingSourceInfo.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.INamedPropertyStore_head), use_last_error=False)(4, 'GetProperties', ((1, 'props'),)))
+    win32more.System.Com.IUnknown
     return ICastingSourceInfo
 def _define_IDragDropManagerInterop_head():
     class IDragDropManagerInterop(win32more.System.WinRT.IInspectable_head):
@@ -218,6 +229,7 @@ def _define_IDragDropManagerInterop_head():
 def _define_IDragDropManagerInterop():
     IDragDropManagerInterop = win32more.System.WinRT.IDragDropManagerInterop_head
     IDragDropManagerInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'hwnd'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.WinRT.IInspectable
     return IDragDropManagerInterop
 def _define_IInputPaneInterop_head():
     class IInputPaneInterop(win32more.System.WinRT.IInspectable_head):
@@ -226,6 +238,7 @@ def _define_IInputPaneInterop_head():
 def _define_IInputPaneInterop():
     IInputPaneInterop = win32more.System.WinRT.IInputPaneInterop_head
     IInputPaneInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'appWindow'),(1, 'riid'),(1, 'inputPane'),)))
+    win32more.System.WinRT.IInspectable
     return IInputPaneInterop
 def _define_IPlayToManagerInterop_head():
     class IPlayToManagerInterop(win32more.System.WinRT.IInspectable_head):
@@ -235,6 +248,7 @@ def _define_IPlayToManagerInterop():
     IPlayToManagerInterop = win32more.System.WinRT.IPlayToManagerInterop_head
     IPlayToManagerInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'appWindow'),(1, 'riid'),(1, 'playToManager'),)))
     IPlayToManagerInterop.ShowPlayToUIForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(7, 'ShowPlayToUIForWindow', ((1, 'appWindow'),)))
+    win32more.System.WinRT.IInspectable
     return IPlayToManagerInterop
 def _define_ICorrelationVectorInformation_head():
     class ICorrelationVectorInformation(win32more.System.WinRT.IInspectable_head):
@@ -245,6 +259,7 @@ def _define_ICorrelationVectorInformation():
     ICorrelationVectorInformation.get_LastCorrelationVectorForThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.HSTRING), use_last_error=False)(6, 'get_LastCorrelationVectorForThread', ((1, 'cv'),)))
     ICorrelationVectorInformation.get_NextCorrelationVectorForThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.HSTRING), use_last_error=False)(7, 'get_NextCorrelationVectorForThread', ((1, 'cv'),)))
     ICorrelationVectorInformation.put_NextCorrelationVectorForThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.HSTRING, use_last_error=False)(8, 'put_NextCorrelationVectorForThread', ((1, 'cv'),)))
+    win32more.System.WinRT.IInspectable
     return ICorrelationVectorInformation
 def _define_IUIViewSettingsInterop_head():
     class IUIViewSettingsInterop(win32more.System.WinRT.IInspectable_head):
@@ -253,6 +268,7 @@ def _define_IUIViewSettingsInterop_head():
 def _define_IUIViewSettingsInterop():
     IUIViewSettingsInterop = win32more.System.WinRT.IUIViewSettingsInterop_head
     IUIViewSettingsInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'hwnd'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.WinRT.IInspectable
     return IUIViewSettingsInterop
 def _define_IUserActivityInterop_head():
     class IUserActivityInterop(win32more.System.WinRT.IInspectable_head):
@@ -261,6 +277,7 @@ def _define_IUserActivityInterop_head():
 def _define_IUserActivityInterop():
     IUserActivityInterop = win32more.System.WinRT.IUserActivityInterop_head
     IUserActivityInterop.CreateSessionForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'CreateSessionForWindow', ((1, 'window'),(1, 'iid'),(1, 'value'),)))
+    win32more.System.WinRT.IInspectable
     return IUserActivityInterop
 def _define_IUserActivitySourceHostInterop_head():
     class IUserActivitySourceHostInterop(win32more.System.WinRT.IInspectable_head):
@@ -269,6 +286,7 @@ def _define_IUserActivitySourceHostInterop_head():
 def _define_IUserActivitySourceHostInterop():
     IUserActivitySourceHostInterop = win32more.System.WinRT.IUserActivitySourceHostInterop_head
     IUserActivitySourceHostInterop.SetActivitySourceHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.HSTRING, use_last_error=False)(6, 'SetActivitySourceHost', ((1, 'activitySourceHost'),)))
+    win32more.System.WinRT.IInspectable
     return IUserActivitySourceHostInterop
 def _define_IUserActivityRequestManagerInterop_head():
     class IUserActivityRequestManagerInterop(win32more.System.WinRT.IInspectable_head):
@@ -277,6 +295,7 @@ def _define_IUserActivityRequestManagerInterop_head():
 def _define_IUserActivityRequestManagerInterop():
     IUserActivityRequestManagerInterop = win32more.System.WinRT.IUserActivityRequestManagerInterop_head
     IUserActivityRequestManagerInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'window'),(1, 'iid'),(1, 'value'),)))
+    win32more.System.WinRT.IInspectable
     return IUserActivityRequestManagerInterop
 def _define_IUserConsentVerifierInterop_head():
     class IUserConsentVerifierInterop(win32more.System.WinRT.IInspectable_head):
@@ -285,6 +304,7 @@ def _define_IUserConsentVerifierInterop_head():
 def _define_IUserConsentVerifierInterop():
     IUserConsentVerifierInterop = win32more.System.WinRT.IUserConsentVerifierInterop_head
     IUserConsentVerifierInterop.RequestVerificationForWindowAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.WinRT.HSTRING,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'RequestVerificationForWindowAsync', ((1, 'appWindow'),(1, 'message'),(1, 'riid'),(1, 'asyncOperation'),)))
+    win32more.System.WinRT.IInspectable
     return IUserConsentVerifierInterop
 def _define_IWebAuthenticationCoreManagerInterop_head():
     class IWebAuthenticationCoreManagerInterop(win32more.System.WinRT.IInspectable_head):
@@ -294,6 +314,7 @@ def _define_IWebAuthenticationCoreManagerInterop():
     IWebAuthenticationCoreManagerInterop = win32more.System.WinRT.IWebAuthenticationCoreManagerInterop_head
     IWebAuthenticationCoreManagerInterop.RequestTokenForWindowAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.WinRT.IInspectable_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'RequestTokenForWindowAsync', ((1, 'appWindow'),(1, 'request'),(1, 'riid'),(1, 'asyncInfo'),)))
     IWebAuthenticationCoreManagerInterop.RequestTokenWithWebAccountForWindowAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.WinRT.IInspectable_head,win32more.System.WinRT.IInspectable_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'RequestTokenWithWebAccountForWindowAsync', ((1, 'appWindow'),(1, 'request'),(1, 'webAccount'),(1, 'riid'),(1, 'asyncInfo'),)))
+    win32more.System.WinRT.IInspectable
     return IWebAuthenticationCoreManagerInterop
 def _define_IRestrictedErrorInfo_head():
     class IRestrictedErrorInfo(win32more.System.Com.IUnknown_head):
@@ -303,6 +324,7 @@ def _define_IRestrictedErrorInfo():
     IRestrictedErrorInfo = win32more.System.WinRT.IRestrictedErrorInfo_head
     IRestrictedErrorInfo.GetErrorDetails = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.HRESULT),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetErrorDetails', ((1, 'description'),(1, 'error'),(1, 'restrictedDescription'),(1, 'capabilitySid'),)))
     IRestrictedErrorInfo.GetReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetReference', ((1, 'reference'),)))
+    win32more.System.Com.IUnknown
     return IRestrictedErrorInfo
 def _define_ILanguageExceptionErrorInfo_head():
     class ILanguageExceptionErrorInfo(win32more.System.Com.IUnknown_head):
@@ -311,6 +333,7 @@ def _define_ILanguageExceptionErrorInfo_head():
 def _define_ILanguageExceptionErrorInfo():
     ILanguageExceptionErrorInfo = win32more.System.WinRT.ILanguageExceptionErrorInfo_head
     ILanguageExceptionErrorInfo.GetLanguageException = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetLanguageException', ((1, 'languageException'),)))
+    win32more.System.Com.IUnknown
     return ILanguageExceptionErrorInfo
 def _define_ILanguageExceptionTransform_head():
     class ILanguageExceptionTransform(win32more.System.Com.IUnknown_head):
@@ -319,6 +342,7 @@ def _define_ILanguageExceptionTransform_head():
 def _define_ILanguageExceptionTransform():
     ILanguageExceptionTransform = win32more.System.WinRT.ILanguageExceptionTransform_head
     ILanguageExceptionTransform.GetTransformedRestrictedErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.IRestrictedErrorInfo_head), use_last_error=False)(3, 'GetTransformedRestrictedErrorInfo', ((1, 'restrictedErrorInfo'),)))
+    win32more.System.Com.IUnknown
     return ILanguageExceptionTransform
 def _define_ILanguageExceptionStackBackTrace_head():
     class ILanguageExceptionStackBackTrace(win32more.System.Com.IUnknown_head):
@@ -327,6 +351,7 @@ def _define_ILanguageExceptionStackBackTrace_head():
 def _define_ILanguageExceptionStackBackTrace():
     ILanguageExceptionStackBackTrace = win32more.System.WinRT.ILanguageExceptionStackBackTrace_head
     ILanguageExceptionStackBackTrace.GetStackBackTrace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(3, 'GetStackBackTrace', ((1, 'maxFramesToCapture'),(1, 'stackBackTrace'),(1, 'framesCaptured'),)))
+    win32more.System.Com.IUnknown
     return ILanguageExceptionStackBackTrace
 def _define_ILanguageExceptionErrorInfo2_head():
     class ILanguageExceptionErrorInfo2(win32more.System.WinRT.ILanguageExceptionErrorInfo_head):
@@ -337,6 +362,7 @@ def _define_ILanguageExceptionErrorInfo2():
     ILanguageExceptionErrorInfo2.GetPreviousLanguageExceptionErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.ILanguageExceptionErrorInfo2_head), use_last_error=False)(4, 'GetPreviousLanguageExceptionErrorInfo', ((1, 'previousLanguageExceptionErrorInfo'),)))
     ILanguageExceptionErrorInfo2.CapturePropagationContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'CapturePropagationContext', ((1, 'languageException'),)))
     ILanguageExceptionErrorInfo2.GetPropagationContextHead = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.ILanguageExceptionErrorInfo2_head), use_last_error=False)(6, 'GetPropagationContextHead', ((1, 'propagatedLanguageExceptionErrorInfoHead'),)))
+    win32more.System.WinRT.ILanguageExceptionErrorInfo
     return ILanguageExceptionErrorInfo2
 def _define_IActivationFactory_head():
     class IActivationFactory(win32more.System.WinRT.IInspectable_head):
@@ -345,6 +371,7 @@ def _define_IActivationFactory_head():
 def _define_IActivationFactory():
     IActivationFactory = win32more.System.WinRT.IActivationFactory_head
     IActivationFactory.ActivateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.IInspectable_head), use_last_error=False)(6, 'ActivateInstance', ((1, 'instance'),)))
+    win32more.System.WinRT.IInspectable
     return IActivationFactory
 RO_INIT_TYPE = Int32
 RO_INIT_SINGLETHREADED = 0
@@ -363,6 +390,7 @@ def _define_IBufferByteAccess_head():
 def _define_IBufferByteAccess():
     IBufferByteAccess = win32more.System.WinRT.IBufferByteAccess_head
     IBufferByteAccess.Buffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no), use_last_error=False)(3, 'Buffer', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IBufferByteAccess
 RO_ERROR_REPORTING_FLAGS = UInt32
 RO_ERROR_REPORTING_NONE = 0
@@ -407,6 +435,7 @@ def _define_IMemoryBufferByteAccess_head():
 def _define_IMemoryBufferByteAccess():
     IMemoryBufferByteAccess = win32more.System.WinRT.IMemoryBufferByteAccess_head
     IMemoryBufferByteAccess.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(3, 'GetBuffer', ((1, 'value'),(1, 'capacity'),)))
+    win32more.System.Com.IUnknown
     return IMemoryBufferByteAccess
 def _define_IWeakReference_head():
     class IWeakReference(win32more.System.Com.IUnknown_head):
@@ -415,6 +444,7 @@ def _define_IWeakReference_head():
 def _define_IWeakReference():
     IWeakReference = win32more.System.WinRT.IWeakReference_head
     IWeakReference.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'Resolve', ((1, 'riid'),(1, 'objectReference'),)))
+    win32more.System.Com.IUnknown
     return IWeakReference
 def _define_IWeakReferenceSource_head():
     class IWeakReferenceSource(win32more.System.Com.IUnknown_head):
@@ -423,6 +453,7 @@ def _define_IWeakReferenceSource_head():
 def _define_IWeakReferenceSource():
     IWeakReferenceSource = win32more.System.WinRT.IWeakReferenceSource_head
     IWeakReferenceSource.GetWeakReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.IWeakReference_head), use_last_error=False)(3, 'GetWeakReference', ((1, 'weakReference'),)))
+    win32more.System.Com.IUnknown
     return IWeakReferenceSource
 def _define_ISystemMediaTransportControlsInterop_head():
     class ISystemMediaTransportControlsInterop(win32more.System.WinRT.IInspectable_head):
@@ -431,6 +462,7 @@ def _define_ISystemMediaTransportControlsInterop_head():
 def _define_ISystemMediaTransportControlsInterop():
     ISystemMediaTransportControlsInterop = win32more.System.WinRT.ISystemMediaTransportControlsInterop_head
     ISystemMediaTransportControlsInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'appWindow'),(1, 'riid'),(1, 'mediaTransportControl'),)))
+    win32more.System.WinRT.IInspectable
     return ISystemMediaTransportControlsInterop
 def _define_IShareWindowCommandEventArgsInterop_head():
     class IShareWindowCommandEventArgsInterop(win32more.System.Com.IUnknown_head):
@@ -439,6 +471,7 @@ def _define_IShareWindowCommandEventArgsInterop_head():
 def _define_IShareWindowCommandEventArgsInterop():
     IShareWindowCommandEventArgsInterop = win32more.System.WinRT.IShareWindowCommandEventArgsInterop_head
     IShareWindowCommandEventArgsInterop.GetWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(3, 'GetWindow', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IShareWindowCommandEventArgsInterop
 def _define_IShareWindowCommandSourceInterop_head():
     class IShareWindowCommandSourceInterop(win32more.System.Com.IUnknown_head):
@@ -447,6 +480,7 @@ def _define_IShareWindowCommandSourceInterop_head():
 def _define_IShareWindowCommandSourceInterop():
     IShareWindowCommandSourceInterop = win32more.System.WinRT.IShareWindowCommandSourceInterop_head
     IShareWindowCommandSourceInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetForWindow', ((1, 'appWindow'),(1, 'riid'),(1, 'shareWindowCommandSource'),)))
+    win32more.System.Com.IUnknown
     return IShareWindowCommandSourceInterop
 def _define_IMessageDispatcher_head():
     class IMessageDispatcher(win32more.System.WinRT.IInspectable_head):
@@ -455,6 +489,7 @@ def _define_IMessageDispatcher_head():
 def _define_IMessageDispatcher():
     IMessageDispatcher = win32more.System.WinRT.IMessageDispatcher_head
     IMessageDispatcher.PumpMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'PumpMessages', ()))
+    win32more.System.WinRT.IInspectable
     return IMessageDispatcher
 def _define_CoDecodeProxy():
     try:

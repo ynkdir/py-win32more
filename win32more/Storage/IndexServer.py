@@ -253,6 +253,7 @@ def _define_IFilter():
     IFilter.GetText = COMMETHOD(WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(Char), use_last_error=False)(5, 'GetText', ((1, 'pcwcBuffer'),(1, 'awcBuffer'),)))
     IFilter.GetValue = COMMETHOD(WINFUNCTYPE(Int32,POINTER(POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head)), use_last_error=False)(6, 'GetValue', ((1, 'ppPropValue'),)))
     IFilter.BindRegion = COMMETHOD(WINFUNCTYPE(Int32,win32more.Storage.IndexServer.FILTERREGION,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'BindRegion', ((1, 'origPos'),(1, 'riid'),(1, 'ppunk'),)))
+    win32more.System.Com.IUnknown
     return IFilter
 def _define_IPhraseSink_head():
     class IPhraseSink(win32more.System.Com.IUnknown_head):
@@ -262,6 +263,7 @@ def _define_IPhraseSink():
     IPhraseSink = win32more.Storage.IndexServer.IPhraseSink_head
     IPhraseSink.PutSmallPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(3, 'PutSmallPhrase', ((1, 'pwcNoun'),(1, 'cwcNoun'),(1, 'pwcModifier'),(1, 'cwcModifier'),(1, 'ulAttachmentType'),)))
     IPhraseSink.PutPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(4, 'PutPhrase', ((1, 'pwcPhrase'),(1, 'cwcPhrase'),)))
+    win32more.System.Com.IUnknown
     return IPhraseSink
 WORDREP_BREAK_TYPE = Int32
 WORDREP_BREAK_EOW = 0

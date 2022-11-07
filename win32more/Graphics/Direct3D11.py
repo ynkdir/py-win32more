@@ -694,6 +694,7 @@ def _define_ID3D11DeviceChild():
     ID3D11DeviceChild.GetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),c_void_p, use_last_error=False)(4, 'GetPrivateData', ((1, 'guid'),(1, 'pDataSize'),(1, 'pData'),)))
     ID3D11DeviceChild.SetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p, use_last_error=False)(5, 'SetPrivateData', ((1, 'guid'),(1, 'DataSize'),(1, 'pData'),)))
     ID3D11DeviceChild.SetPrivateDataInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'SetPrivateDataInterface', ((1, 'guid'),(1, 'pData'),)))
+    win32more.System.Com.IUnknown
     return ID3D11DeviceChild
 D3D11_COMPARISON_FUNC = Int32
 D3D11_COMPARISON_NEVER = 1
@@ -753,6 +754,7 @@ def _define_ID3D11DepthStencilState_head():
 def _define_ID3D11DepthStencilState():
     ID3D11DepthStencilState = win32more.Graphics.Direct3D11.ID3D11DepthStencilState_head
     ID3D11DepthStencilState.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_DEPTH_STENCIL_DESC_head), use_last_error=False)(7, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11DepthStencilState
 D3D11_BLEND = Int32
 D3D11_BLEND_ZERO = 1
@@ -820,6 +822,7 @@ def _define_ID3D11BlendState_head():
 def _define_ID3D11BlendState():
     ID3D11BlendState = win32more.Graphics.Direct3D11.ID3D11BlendState_head
     ID3D11BlendState.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_BLEND_DESC_head), use_last_error=False)(7, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11BlendState
 def _define_D3D11_RASTERIZER_DESC_head():
     class D3D11_RASTERIZER_DESC(Structure):
@@ -847,6 +850,7 @@ def _define_ID3D11RasterizerState_head():
 def _define_ID3D11RasterizerState():
     ID3D11RasterizerState = win32more.Graphics.Direct3D11.ID3D11RasterizerState_head
     ID3D11RasterizerState.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_RASTERIZER_DESC_head), use_last_error=False)(7, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11RasterizerState
 def _define_D3D11_SUBRESOURCE_DATA_head():
     class D3D11_SUBRESOURCE_DATA(Structure):
@@ -881,6 +885,7 @@ def _define_ID3D11Resource():
     ID3D11Resource.GetType = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_RESOURCE_DIMENSION), use_last_error=False)(7, 'GetType', ((1, 'pResourceDimension'),)))
     ID3D11Resource.SetEvictionPriority = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(8, 'SetEvictionPriority', ((1, 'EvictionPriority'),)))
     ID3D11Resource.GetEvictionPriority = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(9, 'GetEvictionPriority', ()))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11Resource
 def _define_D3D11_BUFFER_DESC_head():
     class D3D11_BUFFER_DESC(Structure):
@@ -904,6 +909,7 @@ def _define_ID3D11Buffer_head():
 def _define_ID3D11Buffer():
     ID3D11Buffer = win32more.Graphics.Direct3D11.ID3D11Buffer_head
     ID3D11Buffer.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_BUFFER_DESC_head), use_last_error=False)(10, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11Resource
     return ID3D11Buffer
 def _define_D3D11_TEXTURE1D_DESC_head():
     class D3D11_TEXTURE1D_DESC(Structure):
@@ -929,6 +935,7 @@ def _define_ID3D11Texture1D_head():
 def _define_ID3D11Texture1D():
     ID3D11Texture1D = win32more.Graphics.Direct3D11.ID3D11Texture1D_head
     ID3D11Texture1D.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_TEXTURE1D_DESC_head), use_last_error=False)(10, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11Resource
     return ID3D11Texture1D
 def _define_D3D11_TEXTURE2D_DESC_head():
     class D3D11_TEXTURE2D_DESC(Structure):
@@ -956,6 +963,7 @@ def _define_ID3D11Texture2D_head():
 def _define_ID3D11Texture2D():
     ID3D11Texture2D = win32more.Graphics.Direct3D11.ID3D11Texture2D_head
     ID3D11Texture2D.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_TEXTURE2D_DESC_head), use_last_error=False)(10, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11Resource
     return ID3D11Texture2D
 def _define_D3D11_TEXTURE3D_DESC_head():
     class D3D11_TEXTURE3D_DESC(Structure):
@@ -982,6 +990,7 @@ def _define_ID3D11Texture3D_head():
 def _define_ID3D11Texture3D():
     ID3D11Texture3D = win32more.Graphics.Direct3D11.ID3D11Texture3D_head
     ID3D11Texture3D.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_TEXTURE3D_DESC_head), use_last_error=False)(10, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11Resource
     return ID3D11Texture3D
 D3D11_TEXTURECUBE_FACE = Int32
 D3D11_TEXTURECUBE_FACE_POSITIVE_X = 0
@@ -997,6 +1006,7 @@ def _define_ID3D11View_head():
 def _define_ID3D11View():
     ID3D11View = win32more.Graphics.Direct3D11.ID3D11View_head
     ID3D11View.GetResource = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.ID3D11Resource_head), use_last_error=False)(7, 'GetResource', ((1, 'ppResource'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11View
 def _define_D3D11_BUFFER_SRV_head():
     class D3D11_BUFFER_SRV(Structure):
@@ -1180,6 +1190,7 @@ def _define_ID3D11ShaderResourceView_head():
 def _define_ID3D11ShaderResourceView():
     ID3D11ShaderResourceView = win32more.Graphics.Direct3D11.ID3D11ShaderResourceView_head
     ID3D11ShaderResourceView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_SHADER_RESOURCE_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11View
     return ID3D11ShaderResourceView
 def _define_D3D11_BUFFER_RTV_head():
     class D3D11_BUFFER_RTV(Structure):
@@ -1319,6 +1330,7 @@ def _define_ID3D11RenderTargetView_head():
 def _define_ID3D11RenderTargetView():
     ID3D11RenderTargetView = win32more.Graphics.Direct3D11.ID3D11RenderTargetView_head
     ID3D11RenderTargetView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_RENDER_TARGET_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11View
     return ID3D11RenderTargetView
 def _define_D3D11_TEX1D_DSV_head():
     class D3D11_TEX1D_DSV(Structure):
@@ -1421,6 +1433,7 @@ def _define_ID3D11DepthStencilView_head():
 def _define_ID3D11DepthStencilView():
     ID3D11DepthStencilView = win32more.Graphics.Direct3D11.ID3D11DepthStencilView_head
     ID3D11DepthStencilView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_DEPTH_STENCIL_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11View
     return ID3D11DepthStencilView
 D3D11_BUFFER_UAV_FLAG = Int32
 D3D11_BUFFER_UAV_FLAG_RAW = 1
@@ -1526,6 +1539,7 @@ def _define_ID3D11UnorderedAccessView_head():
 def _define_ID3D11UnorderedAccessView():
     ID3D11UnorderedAccessView = win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head
     ID3D11UnorderedAccessView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_UNORDERED_ACCESS_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11View
     return ID3D11UnorderedAccessView
 def _define_ID3D11VertexShader_head():
     class ID3D11VertexShader(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -1533,6 +1547,7 @@ def _define_ID3D11VertexShader_head():
     return ID3D11VertexShader
 def _define_ID3D11VertexShader():
     ID3D11VertexShader = win32more.Graphics.Direct3D11.ID3D11VertexShader_head
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11VertexShader
 def _define_ID3D11HullShader_head():
     class ID3D11HullShader(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -1540,6 +1555,7 @@ def _define_ID3D11HullShader_head():
     return ID3D11HullShader
 def _define_ID3D11HullShader():
     ID3D11HullShader = win32more.Graphics.Direct3D11.ID3D11HullShader_head
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11HullShader
 def _define_ID3D11DomainShader_head():
     class ID3D11DomainShader(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -1547,6 +1563,7 @@ def _define_ID3D11DomainShader_head():
     return ID3D11DomainShader
 def _define_ID3D11DomainShader():
     ID3D11DomainShader = win32more.Graphics.Direct3D11.ID3D11DomainShader_head
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11DomainShader
 def _define_ID3D11GeometryShader_head():
     class ID3D11GeometryShader(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -1554,6 +1571,7 @@ def _define_ID3D11GeometryShader_head():
     return ID3D11GeometryShader
 def _define_ID3D11GeometryShader():
     ID3D11GeometryShader = win32more.Graphics.Direct3D11.ID3D11GeometryShader_head
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11GeometryShader
 def _define_ID3D11PixelShader_head():
     class ID3D11PixelShader(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -1561,6 +1579,7 @@ def _define_ID3D11PixelShader_head():
     return ID3D11PixelShader
 def _define_ID3D11PixelShader():
     ID3D11PixelShader = win32more.Graphics.Direct3D11.ID3D11PixelShader_head
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11PixelShader
 def _define_ID3D11ComputeShader_head():
     class ID3D11ComputeShader(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -1568,6 +1587,7 @@ def _define_ID3D11ComputeShader_head():
     return ID3D11ComputeShader
 def _define_ID3D11ComputeShader():
     ID3D11ComputeShader = win32more.Graphics.Direct3D11.ID3D11ComputeShader_head
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11ComputeShader
 def _define_ID3D11InputLayout_head():
     class ID3D11InputLayout(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -1575,6 +1595,7 @@ def _define_ID3D11InputLayout_head():
     return ID3D11InputLayout
 def _define_ID3D11InputLayout():
     ID3D11InputLayout = win32more.Graphics.Direct3D11.ID3D11InputLayout_head
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11InputLayout
 D3D11_FILTER = Int32
 D3D11_FILTER_MIN_MAG_MIP_POINT = 0
@@ -1653,6 +1674,7 @@ def _define_ID3D11SamplerState_head():
 def _define_ID3D11SamplerState():
     ID3D11SamplerState = win32more.Graphics.Direct3D11.ID3D11SamplerState_head
     ID3D11SamplerState.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_SAMPLER_DESC_head), use_last_error=False)(7, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11SamplerState
 D3D11_FORMAT_SUPPORT = Int32
 D3D11_FORMAT_SUPPORT_BUFFER = 1
@@ -1706,6 +1728,7 @@ def _define_ID3D11Asynchronous_head():
 def _define_ID3D11Asynchronous():
     ID3D11Asynchronous = win32more.Graphics.Direct3D11.ID3D11Asynchronous_head
     ID3D11Asynchronous.GetDataSize = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(7, 'GetDataSize', ()))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11Asynchronous
 D3D11_ASYNC_GETDATA_FLAG = Int32
 D3D11_ASYNC_GETDATA_DONOTFLUSH = 1
@@ -1746,6 +1769,7 @@ def _define_ID3D11Query_head():
 def _define_ID3D11Query():
     ID3D11Query = win32more.Graphics.Direct3D11.ID3D11Query_head
     ID3D11Query.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_QUERY_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11Asynchronous
     return ID3D11Query
 def _define_ID3D11Predicate_head():
     class ID3D11Predicate(win32more.Graphics.Direct3D11.ID3D11Query_head):
@@ -1753,6 +1777,7 @@ def _define_ID3D11Predicate_head():
     return ID3D11Predicate
 def _define_ID3D11Predicate():
     ID3D11Predicate = win32more.Graphics.Direct3D11.ID3D11Predicate_head
+    win32more.Graphics.Direct3D11.ID3D11Query
     return ID3D11Predicate
 def _define_D3D11_QUERY_DATA_TIMESTAMP_DISJOINT_head():
     class D3D11_QUERY_DATA_TIMESTAMP_DISJOINT(Structure):
@@ -1833,6 +1858,7 @@ def _define_ID3D11Counter_head():
 def _define_ID3D11Counter():
     ID3D11Counter = win32more.Graphics.Direct3D11.ID3D11Counter_head
     ID3D11Counter.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_COUNTER_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11Asynchronous
     return ID3D11Counter
 D3D11_STANDARD_MULTISAMPLE_QUALITY_LEVELS = Int32
 D3D11_STANDARD_MULTISAMPLE_PATTERN = -1
@@ -1867,6 +1893,7 @@ def _define_ID3D11ClassInstance():
     ID3D11ClassInstance.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_CLASS_INSTANCE_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
     ID3D11ClassInstance.GetInstanceName = COMMETHOD(WINFUNCTYPE(Void,POINTER(Byte),POINTER(UIntPtr), use_last_error=False)(9, 'GetInstanceName', ((1, 'pInstanceName'),(1, 'pBufferLength'),)))
     ID3D11ClassInstance.GetTypeName = COMMETHOD(WINFUNCTYPE(Void,POINTER(Byte),POINTER(UIntPtr), use_last_error=False)(10, 'GetTypeName', ((1, 'pTypeName'),(1, 'pBufferLength'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11ClassInstance
 def _define_ID3D11ClassLinkage_head():
     class ID3D11ClassLinkage(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -1876,6 +1903,7 @@ def _define_ID3D11ClassLinkage():
     ID3D11ClassLinkage = win32more.Graphics.Direct3D11.ID3D11ClassLinkage_head
     ID3D11ClassLinkage.GetClassInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Graphics.Direct3D11.ID3D11ClassInstance_head), use_last_error=False)(7, 'GetClassInstance', ((1, 'pClassInstanceName'),(1, 'InstanceIndex'),(1, 'ppInstance'),)))
     ID3D11ClassLinkage.CreateClassInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,UInt32,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D11.ID3D11ClassInstance_head), use_last_error=False)(8, 'CreateClassInstance', ((1, 'pClassTypeName'),(1, 'ConstantBufferOffset'),(1, 'ConstantVectorOffset'),(1, 'TextureOffset'),(1, 'SamplerOffset'),(1, 'ppInstance'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11ClassLinkage
 def _define_ID3D11CommandList_head():
     class ID3D11CommandList(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -1884,6 +1912,7 @@ def _define_ID3D11CommandList_head():
 def _define_ID3D11CommandList():
     ID3D11CommandList = win32more.Graphics.Direct3D11.ID3D11CommandList_head
     ID3D11CommandList.GetContextFlags = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(7, 'GetContextFlags', ()))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11CommandList
 D3D11_FEATURE = Int32
 D3D11_FEATURE_THREADING = 0
@@ -2275,6 +2304,7 @@ def _define_ID3D11DeviceContext():
     ID3D11DeviceContext.GetType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D11.D3D11_DEVICE_CONTEXT_TYPE, use_last_error=False)(112, 'GetType', ()))
     ID3D11DeviceContext.GetContextFlags = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(113, 'GetContextFlags', ()))
     ID3D11DeviceContext.FinishCommandList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct3D11.ID3D11CommandList_head), use_last_error=False)(114, 'FinishCommandList', ((1, 'RestoreDeferredContextState'),(1, 'ppCommandList'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11DeviceContext
 def _define_CD3D11_VIDEO_DEFAULT_head():
     class CD3D11_VIDEO_DEFAULT(Structure):
@@ -2402,6 +2432,7 @@ def _define_ID3D11VideoDecoder():
     ID3D11VideoDecoder = win32more.Graphics.Direct3D11.ID3D11VideoDecoder_head
     ID3D11VideoDecoder.GetCreationParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_DECODER_DESC_head),POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_DECODER_CONFIG_head), use_last_error=False)(7, 'GetCreationParameters', ((1, 'pVideoDesc'),(1, 'pConfig'),)))
     ID3D11VideoDecoder.GetDriverHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(8, 'GetDriverHandle', ((1, 'pDriverHandle'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11VideoDecoder
 D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT = Int32
 D3D11_VIDEO_PROCESSOR_FORMAT_SUPPORT_INPUT = 1
@@ -2606,6 +2637,7 @@ def _define_ID3D11VideoProcessorEnumerator():
     ID3D11VideoProcessorEnumerator.GetVideoProcessorRateConversionCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS_head), use_last_error=False)(10, 'GetVideoProcessorRateConversionCaps', ((1, 'TypeIndex'),(1, 'pCaps'),)))
     ID3D11VideoProcessorEnumerator.GetVideoProcessorCustomRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_CUSTOM_RATE_head), use_last_error=False)(11, 'GetVideoProcessorCustomRate', ((1, 'TypeIndex'),(1, 'CustomRateIndex'),(1, 'pRate'),)))
     ID3D11VideoProcessorEnumerator.GetVideoProcessorFilterRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_FILTER,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_FILTER_RANGE_head), use_last_error=False)(12, 'GetVideoProcessorFilterRange', ((1, 'Filter'),(1, 'pRange'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11VideoProcessorEnumerator
 def _define_D3D11_VIDEO_COLOR_RGBA_head():
     class D3D11_VIDEO_COLOR_RGBA(Structure):
@@ -2721,6 +2753,7 @@ def _define_ID3D11VideoProcessor():
     ID3D11VideoProcessor = win32more.Graphics.Direct3D11.ID3D11VideoProcessor_head
     ID3D11VideoProcessor.GetContentDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_CONTENT_DESC_head), use_last_error=False)(7, 'GetContentDesc', ((1, 'pDesc'),)))
     ID3D11VideoProcessor.GetRateConversionCaps = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_RATE_CONVERSION_CAPS_head), use_last_error=False)(8, 'GetRateConversionCaps', ((1, 'pCaps'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11VideoProcessor
 def _define_D3D11_OMAC_head():
     class D3D11_OMAC(Structure):
@@ -2745,6 +2778,7 @@ def _define_ID3D11AuthenticatedChannel():
     ID3D11AuthenticatedChannel.GetCertificateSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCertificateSize', ((1, 'pCertificateSize'),)))
     ID3D11AuthenticatedChannel.GetCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no, use_last_error=False)(8, 'GetCertificate', ((1, 'CertificateSize'),(1, 'pCertificate'),)))
     ID3D11AuthenticatedChannel.GetChannelHandle = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(9, 'GetChannelHandle', ((1, 'pChannelHandle'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11AuthenticatedChannel
 def _define_D3D11_AUTHENTICATED_QUERY_INPUT_head():
     class D3D11_AUTHENTICATED_QUERY_INPUT(Structure):
@@ -3115,6 +3149,7 @@ def _define_ID3D11CryptoSession():
     ID3D11CryptoSession.GetCertificateSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetCertificateSize', ((1, 'pCertificateSize'),)))
     ID3D11CryptoSession.GetCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no, use_last_error=False)(10, 'GetCertificate', ((1, 'CertificateSize'),(1, 'pCertificate'),)))
     ID3D11CryptoSession.GetCryptoSessionHandle = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(11, 'GetCryptoSessionHandle', ((1, 'pCryptoSessionHandle'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11CryptoSession
 D3D11_VDOV_DIMENSION = Int32
 D3D11_VDOV_DIMENSION_UNKNOWN = 0
@@ -3156,6 +3191,7 @@ def _define_ID3D11VideoDecoderOutputView_head():
 def _define_ID3D11VideoDecoderOutputView():
     ID3D11VideoDecoderOutputView = win32more.Graphics.Direct3D11.ID3D11VideoDecoderOutputView_head
     ID3D11VideoDecoderOutputView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11View
     return ID3D11VideoDecoderOutputView
 D3D11_VPIV_DIMENSION = Int32
 D3D11_VPIV_DIMENSION_UNKNOWN = 0
@@ -3198,6 +3234,7 @@ def _define_ID3D11VideoProcessorInputView_head():
 def _define_ID3D11VideoProcessorInputView():
     ID3D11VideoProcessorInputView = win32more.Graphics.Direct3D11.ID3D11VideoProcessorInputView_head
     ID3D11VideoProcessorInputView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11View
     return ID3D11VideoProcessorInputView
 D3D11_VPOV_DIMENSION = Int32
 D3D11_VPOV_DIMENSION_UNKNOWN = 0
@@ -3252,6 +3289,7 @@ def _define_ID3D11VideoProcessorOutputView_head():
 def _define_ID3D11VideoProcessorOutputView():
     ID3D11VideoProcessorOutputView = win32more.Graphics.Direct3D11.ID3D11VideoProcessorOutputView_head
     ID3D11VideoProcessorOutputView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11View
     return ID3D11VideoProcessorOutputView
 def _define_ID3D11VideoContext_head():
     class ID3D11VideoContext(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -3317,6 +3355,7 @@ def _define_ID3D11VideoContext():
     ID3D11VideoContext.ConfigureAuthenticatedChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11AuthenticatedChannel_head,UInt32,c_void_p,POINTER(win32more.Graphics.Direct3D11.D3D11_AUTHENTICATED_CONFIGURE_OUTPUT_head), use_last_error=False)(62, 'ConfigureAuthenticatedChannel', ((1, 'pChannel'),(1, 'InputSize'),(1, 'pInput'),(1, 'pOutput'),)))
     ID3D11VideoContext.VideoProcessorSetStreamRotation = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11VideoProcessor_head,UInt32,win32more.Foundation.BOOL,win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_ROTATION, use_last_error=False)(63, 'VideoProcessorSetStreamRotation', ((1, 'pVideoProcessor'),(1, 'StreamIndex'),(1, 'Enable'),(1, 'Rotation'),)))
     ID3D11VideoContext.VideoProcessorGetStreamRotation = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11VideoProcessor_head,UInt32,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_ROTATION), use_last_error=False)(64, 'VideoProcessorGetStreamRotation', ((1, 'pVideoProcessor'),(1, 'StreamIndex'),(1, 'pEnable'),(1, 'pRotation'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11VideoContext
 def _define_ID3D11VideoDevice_head():
     class ID3D11VideoDevice(win32more.System.Com.IUnknown_head):
@@ -3341,6 +3380,7 @@ def _define_ID3D11VideoDevice():
     ID3D11VideoDevice.CheckCryptoKeyExchange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),UInt32,POINTER(Guid), use_last_error=False)(17, 'CheckCryptoKeyExchange', ((1, 'pCryptoType'),(1, 'pDecoderProfile'),(1, 'Index'),(1, 'pKeyExchangeType'),)))
     ID3D11VideoDevice.SetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p, use_last_error=False)(18, 'SetPrivateData', ((1, 'guid'),(1, 'DataSize'),(1, 'pData'),)))
     ID3D11VideoDevice.SetPrivateDataInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(19, 'SetPrivateDataInterface', ((1, 'guid'),(1, 'pData'),)))
+    win32more.System.Com.IUnknown
     return ID3D11VideoDevice
 def _define_ID3D11Device_head():
     class ID3D11Device(win32more.System.Com.IUnknown_head):
@@ -3388,6 +3428,7 @@ def _define_ID3D11Device():
     ID3D11Device.GetImmediateContext = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.ID3D11DeviceContext_head), use_last_error=False)(40, 'GetImmediateContext', ((1, 'ppImmediateContext'),)))
     ID3D11Device.SetExceptionMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(41, 'SetExceptionMode', ((1, 'RaiseFlags'),)))
     ID3D11Device.GetExceptionMode = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(42, 'GetExceptionMode', ()))
+    win32more.System.Com.IUnknown
     return ID3D11Device
 D3D11_CREATE_DEVICE_FLAG = UInt32
 D3D11_CREATE_DEVICE_SINGLETHREADED = 1
@@ -3418,6 +3459,7 @@ def _define_ID3D11Debug():
     ID3D11Debug.ValidateContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11DeviceContext_head, use_last_error=False)(9, 'ValidateContext', ((1, 'pContext'),)))
     ID3D11Debug.ReportLiveDeviceObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.D3D11_RLDO_FLAGS, use_last_error=False)(10, 'ReportLiveDeviceObjects', ((1, 'Flags'),)))
     ID3D11Debug.ValidateContextForDispatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11DeviceContext_head, use_last_error=False)(11, 'ValidateContextForDispatch', ((1, 'pContext'),)))
+    win32more.System.Com.IUnknown
     return ID3D11Debug
 def _define_ID3D11SwitchToRef_head():
     class ID3D11SwitchToRef(win32more.System.Com.IUnknown_head):
@@ -3427,6 +3469,7 @@ def _define_ID3D11SwitchToRef():
     ID3D11SwitchToRef = win32more.Graphics.Direct3D11.ID3D11SwitchToRef_head
     ID3D11SwitchToRef.SetUseRef = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(3, 'SetUseRef', ((1, 'UseRef'),)))
     ID3D11SwitchToRef.GetUseRef = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(4, 'GetUseRef', ()))
+    win32more.System.Com.IUnknown
     return ID3D11SwitchToRef
 D3D11_SHADER_TRACKING_RESOURCE_TYPE = Int32
 D3D11_SHADER_TRACKING_RESOURCE_TYPE_NONE = 0
@@ -3461,6 +3504,7 @@ def _define_ID3D11TracingDevice():
     ID3D11TracingDevice = win32more.Graphics.Direct3D11.ID3D11TracingDevice_head
     ID3D11TracingDevice.SetShaderTrackingOptionsByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(3, 'SetShaderTrackingOptionsByType', ((1, 'ResourceTypeFlags'),(1, 'Options'),)))
     ID3D11TracingDevice.SetShaderTrackingOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(4, 'SetShaderTrackingOptions', ((1, 'pShader'),(1, 'Options'),)))
+    win32more.System.Com.IUnknown
     return ID3D11TracingDevice
 def _define_ID3D11RefTrackingOptions_head():
     class ID3D11RefTrackingOptions(win32more.System.Com.IUnknown_head):
@@ -3469,6 +3513,7 @@ def _define_ID3D11RefTrackingOptions_head():
 def _define_ID3D11RefTrackingOptions():
     ID3D11RefTrackingOptions = win32more.Graphics.Direct3D11.ID3D11RefTrackingOptions_head
     ID3D11RefTrackingOptions.SetTrackingOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'SetTrackingOptions', ((1, 'uOptions'),)))
+    win32more.System.Com.IUnknown
     return ID3D11RefTrackingOptions
 def _define_ID3D11RefDefaultTrackingOptions_head():
     class ID3D11RefDefaultTrackingOptions(win32more.System.Com.IUnknown_head):
@@ -3477,6 +3522,7 @@ def _define_ID3D11RefDefaultTrackingOptions_head():
 def _define_ID3D11RefDefaultTrackingOptions():
     ID3D11RefDefaultTrackingOptions = win32more.Graphics.Direct3D11.ID3D11RefDefaultTrackingOptions_head
     ID3D11RefDefaultTrackingOptions.SetTrackingOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(3, 'SetTrackingOptions', ((1, 'ResourceTypeFlags'),(1, 'Options'),)))
+    win32more.System.Com.IUnknown
     return ID3D11RefDefaultTrackingOptions
 D3D11_MESSAGE_CATEGORY = Int32
 D3D11_MESSAGE_CATEGORY_APPLICATION_DEFINED = 0
@@ -4914,6 +4960,7 @@ def _define_ID3D11InfoQueue():
     ID3D11InfoQueue.GetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D11.D3D11_MESSAGE_ID, use_last_error=False)(35, 'GetBreakOnID', ((1, 'ID'),)))
     ID3D11InfoQueue.SetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(36, 'SetMuteDebugOutput', ((1, 'bMute'),)))
     ID3D11InfoQueue.GetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(37, 'GetMuteDebugOutput', ()))
+    win32more.System.Com.IUnknown
     return ID3D11InfoQueue
 def _define_PFN_D3D11_CREATE_DEVICE():
     return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIAdapter_head,win32more.Graphics.Direct3D.D3D_DRIVER_TYPE,win32more.Foundation.HINSTANCE,UInt32,POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),UInt32,UInt32,POINTER(win32more.Graphics.Direct3D11.ID3D11Device_head),POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),POINTER(win32more.Graphics.Direct3D11.ID3D11DeviceContext_head), use_last_error=False)
@@ -4977,6 +5024,7 @@ def _define_ID3D11BlendState1_head():
 def _define_ID3D11BlendState1():
     ID3D11BlendState1 = win32more.Graphics.Direct3D11.ID3D11BlendState1_head
     ID3D11BlendState1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_BLEND_DESC1_head), use_last_error=False)(8, 'GetDesc1', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11BlendState
     return ID3D11BlendState1
 def _define_D3D11_RASTERIZER_DESC1_head():
     class D3D11_RASTERIZER_DESC1(Structure):
@@ -5005,6 +5053,7 @@ def _define_ID3D11RasterizerState1_head():
 def _define_ID3D11RasterizerState1():
     ID3D11RasterizerState1 = win32more.Graphics.Direct3D11.ID3D11RasterizerState1_head
     ID3D11RasterizerState1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_RASTERIZER_DESC1_head), use_last_error=False)(8, 'GetDesc1', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11RasterizerState
     return ID3D11RasterizerState1
 D3D11_1_CREATE_DEVICE_CONTEXT_STATE_FLAG = Int32
 D3D11_1_CREATE_DEVICE_CONTEXT_STATE_SINGLETHREADED = 1
@@ -5014,6 +5063,7 @@ def _define_ID3DDeviceContextState_head():
     return ID3DDeviceContextState
 def _define_ID3DDeviceContextState():
     ID3DDeviceContextState = win32more.Graphics.Direct3D11.ID3DDeviceContextState_head
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3DDeviceContextState
 def _define_ID3D11DeviceContext1_head():
     class ID3D11DeviceContext1(win32more.Graphics.Direct3D11.ID3D11DeviceContext_head):
@@ -5040,6 +5090,7 @@ def _define_ID3D11DeviceContext1():
     ID3D11DeviceContext1.SwapDeviceContextState = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3DDeviceContextState_head,POINTER(win32more.Graphics.Direct3D11.ID3DDeviceContextState_head), use_last_error=False)(131, 'SwapDeviceContextState', ((1, 'pState'),(1, 'ppPreviousState'),)))
     ID3D11DeviceContext1.ClearView = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11View_head,POINTER(Single),POINTER(win32more.Foundation.RECT),UInt32, use_last_error=False)(132, 'ClearView', ((1, 'pView'),(1, 'Color'),(1, 'pRect'),(1, 'NumRects'),)))
     ID3D11DeviceContext1.DiscardView1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11View_head,POINTER(win32more.Foundation.RECT),UInt32, use_last_error=False)(133, 'DiscardView1', ((1, 'pResourceView'),(1, 'pRects'),(1, 'NumRects'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceContext
     return ID3D11DeviceContext1
 def _define_D3D11_VIDEO_DECODER_SUB_SAMPLE_MAPPING_BLOCK_head():
     class D3D11_VIDEO_DECODER_SUB_SAMPLE_MAPPING_BLOCK(Structure):
@@ -5184,6 +5235,7 @@ def _define_ID3D11VideoContext1():
     ID3D11VideoContext1.VideoProcessorGetStreamColorSpace1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11VideoProcessor_head,UInt32,POINTER(win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE), use_last_error=False)(76, 'VideoProcessorGetStreamColorSpace1', ((1, 'pVideoProcessor'),(1, 'StreamIndex'),(1, 'pColorSpace'),)))
     ID3D11VideoContext1.VideoProcessorGetStreamMirror = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11VideoProcessor_head,UInt32,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL), use_last_error=False)(77, 'VideoProcessorGetStreamMirror', ((1, 'pVideoProcessor'),(1, 'StreamIndex'),(1, 'pEnable'),(1, 'pFlipHorizontal'),(1, 'pFlipVertical'),)))
     ID3D11VideoContext1.VideoProcessorGetBehaviorHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11VideoProcessor_head,UInt32,UInt32,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT),POINTER(UInt32), use_last_error=False)(78, 'VideoProcessorGetBehaviorHints', ((1, 'pVideoProcessor'),(1, 'OutputWidth'),(1, 'OutputHeight'),(1, 'OutputFormat'),(1, 'StreamCount'),(1, 'pStreams'),(1, 'pBehaviorHints'),)))
+    win32more.Graphics.Direct3D11.ID3D11VideoContext
     return ID3D11VideoContext1
 def _define_ID3D11VideoDevice1_head():
     class ID3D11VideoDevice1(win32more.Graphics.Direct3D11.ID3D11VideoDevice_head):
@@ -5195,6 +5247,7 @@ def _define_ID3D11VideoDevice1():
     ID3D11VideoDevice1.GetVideoDecoderCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,UInt32,POINTER(win32more.Graphics.Dxgi.Common.DXGI_RATIONAL_head),UInt32,POINTER(Guid),POINTER(UInt32), use_last_error=False)(21, 'GetVideoDecoderCaps', ((1, 'pDecoderProfile'),(1, 'SampleWidth'),(1, 'SampleHeight'),(1, 'pFrameRate'),(1, 'BitRate'),(1, 'pCryptoType'),(1, 'pDecoderCaps'),)))
     ID3D11VideoDevice1.CheckVideoDecoderDownsampling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_DECODER_DESC_head),win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_DECODER_CONFIG_head),POINTER(win32more.Graphics.Dxgi.Common.DXGI_RATIONAL_head),POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_SAMPLE_DESC_head),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL), use_last_error=False)(22, 'CheckVideoDecoderDownsampling', ((1, 'pInputDesc'),(1, 'InputColorSpace'),(1, 'pInputConfig'),(1, 'pFrameRate'),(1, 'pOutputDesc'),(1, 'pSupported'),(1, 'pRealTimeHint'),)))
     ID3D11VideoDevice1.RecommendVideoDecoderDownsampleParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_DECODER_DESC_head),win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_DECODER_CONFIG_head),POINTER(win32more.Graphics.Dxgi.Common.DXGI_RATIONAL_head),POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_SAMPLE_DESC_head), use_last_error=False)(23, 'RecommendVideoDecoderDownsampleParameters', ((1, 'pInputDesc'),(1, 'InputColorSpace'),(1, 'pInputConfig'),(1, 'pFrameRate'),(1, 'pRecommendedOutputDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11VideoDevice
     return ID3D11VideoDevice1
 def _define_ID3D11VideoProcessorEnumerator1_head():
     class ID3D11VideoProcessorEnumerator1(win32more.Graphics.Direct3D11.ID3D11VideoProcessorEnumerator_head):
@@ -5203,6 +5256,7 @@ def _define_ID3D11VideoProcessorEnumerator1_head():
 def _define_ID3D11VideoProcessorEnumerator1():
     ID3D11VideoProcessorEnumerator1 = win32more.Graphics.Direct3D11.ID3D11VideoProcessorEnumerator1_head
     ID3D11VideoProcessorEnumerator1.CheckVideoProcessorFormatConversion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,POINTER(win32more.Foundation.BOOL), use_last_error=False)(13, 'CheckVideoProcessorFormatConversion', ((1, 'InputFormat'),(1, 'InputColorSpace'),(1, 'OutputFormat'),(1, 'OutputColorSpace'),(1, 'pSupported'),)))
+    win32more.Graphics.Direct3D11.ID3D11VideoProcessorEnumerator
     return ID3D11VideoProcessorEnumerator1
 def _define_ID3D11Device1_head():
     class ID3D11Device1(win32more.Graphics.Direct3D11.ID3D11Device_head):
@@ -5217,6 +5271,7 @@ def _define_ID3D11Device1():
     ID3D11Device1.CreateDeviceContextState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),UInt32,UInt32,POINTER(Guid),POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL),POINTER(win32more.Graphics.Direct3D11.ID3DDeviceContextState_head), use_last_error=False)(47, 'CreateDeviceContextState', ((1, 'Flags'),(1, 'pFeatureLevels'),(1, 'FeatureLevels'),(1, 'SDKVersion'),(1, 'EmulatedInterface'),(1, 'pChosenFeatureLevel'),(1, 'ppContextState'),)))
     ID3D11Device1.OpenSharedResource1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(48, 'OpenSharedResource1', ((1, 'hResource'),(1, 'returnedInterface'),(1, 'ppResource'),)))
     ID3D11Device1.OpenSharedResourceByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(49, 'OpenSharedResourceByName', ((1, 'lpName'),(1, 'dwDesiredAccess'),(1, 'returnedInterface'),(1, 'ppResource'),)))
+    win32more.Graphics.Direct3D11.ID3D11Device
     return ID3D11Device1
 def _define_ID3DUserDefinedAnnotation_head():
     class ID3DUserDefinedAnnotation(win32more.System.Com.IUnknown_head):
@@ -5228,6 +5283,7 @@ def _define_ID3DUserDefinedAnnotation():
     ID3DUserDefinedAnnotation.EndEvent = COMMETHOD(WINFUNCTYPE(Int32, use_last_error=False)(4, 'EndEvent', ()))
     ID3DUserDefinedAnnotation.SetMarker = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SetMarker', ((1, 'Name'),)))
     ID3DUserDefinedAnnotation.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(6, 'GetStatus', ()))
+    win32more.System.Com.IUnknown
     return ID3DUserDefinedAnnotation
 def _define_D3D11_TILED_RESOURCE_COORDINATE_head():
     class D3D11_TILED_RESOURCE_COORDINATE(Structure):
@@ -5322,6 +5378,7 @@ def _define_ID3D11DeviceContext2():
     ID3D11DeviceContext2.SetMarkerInt = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR,Int32, use_last_error=False)(141, 'SetMarkerInt', ((1, 'pLabel'),(1, 'Data'),)))
     ID3D11DeviceContext2.BeginEventInt = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR,Int32, use_last_error=False)(142, 'BeginEventInt', ((1, 'pLabel'),(1, 'Data'),)))
     ID3D11DeviceContext2.EndEvent = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(143, 'EndEvent', ()))
+    win32more.Graphics.Direct3D11.ID3D11DeviceContext1
     return ID3D11DeviceContext2
 def _define_ID3D11Device2_head():
     class ID3D11Device2(win32more.Graphics.Direct3D11.ID3D11Device1_head):
@@ -5333,6 +5390,7 @@ def _define_ID3D11Device2():
     ID3D11Device2.CreateDeferredContext2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D11.ID3D11DeviceContext2_head), use_last_error=False)(51, 'CreateDeferredContext2', ((1, 'ContextFlags'),(1, 'ppDeferredContext'),)))
     ID3D11Device2.GetResourceTiling = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11Resource_head,POINTER(UInt32),POINTER(win32more.Graphics.Direct3D11.D3D11_PACKED_MIP_DESC_head),POINTER(win32more.Graphics.Direct3D11.D3D11_TILE_SHAPE_head),POINTER(UInt32),UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_SUBRESOURCE_TILING), use_last_error=False)(52, 'GetResourceTiling', ((1, 'pTiledResource'),(1, 'pNumTilesForEntireResource'),(1, 'pPackedMipDesc'),(1, 'pStandardTileShapeForNonPackedMips'),(1, 'pNumSubresourceTilings'),(1, 'FirstSubresourceTilingToGet'),(1, 'pSubresourceTilingsForNonPackedMips'),)))
     ID3D11Device2.CheckMultisampleQualityLevels1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(53, 'CheckMultisampleQualityLevels1', ((1, 'Format'),(1, 'SampleCount'),(1, 'Flags'),(1, 'pNumQualityLevels'),)))
+    win32more.Graphics.Direct3D11.ID3D11Device1
     return ID3D11Device2
 D3D11_CONTEXT_TYPE = Int32
 D3D11_CONTEXT_TYPE_ALL = 0
@@ -5371,6 +5429,7 @@ def _define_ID3D11Texture2D1_head():
 def _define_ID3D11Texture2D1():
     ID3D11Texture2D1 = win32more.Graphics.Direct3D11.ID3D11Texture2D1_head
     ID3D11Texture2D1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_TEXTURE2D_DESC1_head), use_last_error=False)(11, 'GetDesc1', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11Texture2D
     return ID3D11Texture2D1
 def _define_D3D11_TEXTURE3D_DESC1_head():
     class D3D11_TEXTURE3D_DESC1(Structure):
@@ -5398,6 +5457,7 @@ def _define_ID3D11Texture3D1_head():
 def _define_ID3D11Texture3D1():
     ID3D11Texture3D1 = win32more.Graphics.Direct3D11.ID3D11Texture3D1_head
     ID3D11Texture3D1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_TEXTURE3D_DESC1_head), use_last_error=False)(11, 'GetDesc1', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11Texture3D
     return ID3D11Texture3D1
 D3D11_CONSERVATIVE_RASTERIZATION_MODE = Int32
 D3D11_CONSERVATIVE_RASTERIZATION_MODE_OFF = 0
@@ -5430,6 +5490,7 @@ def _define_ID3D11RasterizerState2_head():
 def _define_ID3D11RasterizerState2():
     ID3D11RasterizerState2 = win32more.Graphics.Direct3D11.ID3D11RasterizerState2_head
     ID3D11RasterizerState2.GetDesc2 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_RASTERIZER_DESC2_head), use_last_error=False)(9, 'GetDesc2', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11RasterizerState1
     return ID3D11RasterizerState2
 def _define_D3D11_TEX2D_SRV1_head():
     class D3D11_TEX2D_SRV1(Structure):
@@ -5494,6 +5555,7 @@ def _define_ID3D11ShaderResourceView1_head():
 def _define_ID3D11ShaderResourceView1():
     ID3D11ShaderResourceView1 = win32more.Graphics.Direct3D11.ID3D11ShaderResourceView1_head
     ID3D11ShaderResourceView1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_SHADER_RESOURCE_VIEW_DESC1_head), use_last_error=False)(9, 'GetDesc1', ((1, 'pDesc1'),)))
+    win32more.Graphics.Direct3D11.ID3D11ShaderResourceView
     return ID3D11ShaderResourceView1
 def _define_D3D11_TEX2D_RTV1_head():
     class D3D11_TEX2D_RTV1(Structure):
@@ -5553,6 +5615,7 @@ def _define_ID3D11RenderTargetView1_head():
 def _define_ID3D11RenderTargetView1():
     ID3D11RenderTargetView1 = win32more.Graphics.Direct3D11.ID3D11RenderTargetView1_head
     ID3D11RenderTargetView1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_RENDER_TARGET_VIEW_DESC1_head), use_last_error=False)(9, 'GetDesc1', ((1, 'pDesc1'),)))
+    win32more.Graphics.Direct3D11.ID3D11RenderTargetView
     return ID3D11RenderTargetView1
 def _define_D3D11_TEX2D_UAV1_head():
     class D3D11_TEX2D_UAV1(Structure):
@@ -5610,6 +5673,7 @@ def _define_ID3D11UnorderedAccessView1_head():
 def _define_ID3D11UnorderedAccessView1():
     ID3D11UnorderedAccessView1 = win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView1_head
     ID3D11UnorderedAccessView1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_UNORDERED_ACCESS_VIEW_DESC1_head), use_last_error=False)(9, 'GetDesc1', ((1, 'pDesc1'),)))
+    win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView
     return ID3D11UnorderedAccessView1
 def _define_D3D11_QUERY_DESC1_head():
     class D3D11_QUERY_DESC1(Structure):
@@ -5630,6 +5694,7 @@ def _define_ID3D11Query1_head():
 def _define_ID3D11Query1():
     ID3D11Query1 = win32more.Graphics.Direct3D11.ID3D11Query1_head
     ID3D11Query1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.D3D11_QUERY_DESC1_head), use_last_error=False)(9, 'GetDesc1', ((1, 'pDesc1'),)))
+    win32more.Graphics.Direct3D11.ID3D11Query
     return ID3D11Query1
 D3D11_FENCE_FLAG = UInt32
 D3D11_FENCE_FLAG_NONE = 0
@@ -5645,6 +5710,7 @@ def _define_ID3D11DeviceContext3():
     ID3D11DeviceContext3.Flush1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.D3D11_CONTEXT_TYPE,win32more.Foundation.HANDLE, use_last_error=False)(144, 'Flush1', ((1, 'ContextType'),(1, 'hEvent'),)))
     ID3D11DeviceContext3.SetHardwareProtectionState = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(145, 'SetHardwareProtectionState', ((1, 'HwProtectionEnable'),)))
     ID3D11DeviceContext3.GetHardwareProtectionState = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Foundation.BOOL), use_last_error=False)(146, 'GetHardwareProtectionState', ((1, 'pHwProtectionEnable'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceContext2
     return ID3D11DeviceContext3
 def _define_ID3D11Fence_head():
     class ID3D11Fence(win32more.Graphics.Direct3D11.ID3D11DeviceChild_head):
@@ -5655,6 +5721,7 @@ def _define_ID3D11Fence():
     ID3D11Fence.CreateSharedHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(7, 'CreateSharedHandle', ((1, 'pAttributes'),(1, 'dwAccess'),(1, 'lpName'),(1, 'pHandle'),)))
     ID3D11Fence.GetCompletedValue = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(8, 'GetCompletedValue', ()))
     ID3D11Fence.SetEventOnCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.HANDLE, use_last_error=False)(9, 'SetEventOnCompletion', ((1, 'Value'),(1, 'hEvent'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceChild
     return ID3D11Fence
 def _define_ID3D11DeviceContext4_head():
     class ID3D11DeviceContext4(win32more.Graphics.Direct3D11.ID3D11DeviceContext3_head):
@@ -5664,6 +5731,7 @@ def _define_ID3D11DeviceContext4():
     ID3D11DeviceContext4 = win32more.Graphics.Direct3D11.ID3D11DeviceContext4_head
     ID3D11DeviceContext4.Signal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11Fence_head,UInt64, use_last_error=False)(147, 'Signal', ((1, 'pFence'),(1, 'Value'),)))
     ID3D11DeviceContext4.Wait = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11Fence_head,UInt64, use_last_error=False)(148, 'Wait', ((1, 'pFence'),(1, 'Value'),)))
+    win32more.Graphics.Direct3D11.ID3D11DeviceContext3
     return ID3D11DeviceContext4
 def _define_ID3D11Device3_head():
     class ID3D11Device3(win32more.Graphics.Direct3D11.ID3D11Device2_head):
@@ -5682,6 +5750,7 @@ def _define_ID3D11Device3():
     ID3D11Device3.CreateDeferredContext3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D11.ID3D11DeviceContext3_head), use_last_error=False)(62, 'CreateDeferredContext3', ((1, 'ContextFlags'),(1, 'ppDeferredContext'),)))
     ID3D11Device3.WriteToSubresource = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11Resource_head,UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_BOX_head),c_void_p,UInt32,UInt32, use_last_error=False)(63, 'WriteToSubresource', ((1, 'pDstResource'),(1, 'DstSubresource'),(1, 'pDstBox'),(1, 'pSrcData'),(1, 'SrcRowPitch'),(1, 'SrcDepthPitch'),)))
     ID3D11Device3.ReadFromSubresource = COMMETHOD(WINFUNCTYPE(Void,c_void_p,UInt32,UInt32,win32more.Graphics.Direct3D11.ID3D11Resource_head,UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_BOX_head), use_last_error=False)(64, 'ReadFromSubresource', ((1, 'pDstData'),(1, 'DstRowPitch'),(1, 'DstDepthPitch'),(1, 'pSrcResource'),(1, 'SrcSubresource'),(1, 'pSrcBox'),)))
+    win32more.Graphics.Direct3D11.ID3D11Device2
     return ID3D11Device3
 def _define_ID3D11Device4_head():
     class ID3D11Device4(win32more.Graphics.Direct3D11.ID3D11Device3_head):
@@ -5691,6 +5760,7 @@ def _define_ID3D11Device4():
     ID3D11Device4 = win32more.Graphics.Direct3D11.ID3D11Device4_head
     ID3D11Device4.RegisterDeviceRemovedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt32), use_last_error=False)(65, 'RegisterDeviceRemovedEvent', ((1, 'hEvent'),(1, 'pdwCookie'),)))
     ID3D11Device4.UnregisterDeviceRemoved = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(66, 'UnregisterDeviceRemoved', ((1, 'dwCookie'),)))
+    win32more.Graphics.Direct3D11.ID3D11Device3
     return ID3D11Device4
 def _define_ID3D11Device5_head():
     class ID3D11Device5(win32more.Graphics.Direct3D11.ID3D11Device4_head):
@@ -5700,6 +5770,7 @@ def _define_ID3D11Device5():
     ID3D11Device5 = win32more.Graphics.Direct3D11.ID3D11Device5_head
     ID3D11Device5.OpenSharedFence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(67, 'OpenSharedFence', ((1, 'hFence'),(1, 'ReturnedInterface'),(1, 'ppFence'),)))
     ID3D11Device5.CreateFence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Graphics.Direct3D11.D3D11_FENCE_FLAG,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(68, 'CreateFence', ((1, 'InitialValue'),(1, 'Flags'),(1, 'ReturnedInterface'),(1, 'ppFence'),)))
+    win32more.Graphics.Direct3D11.ID3D11Device4
     return ID3D11Device5
 def _define_ID3D11Multithread_head():
     class ID3D11Multithread(win32more.System.Com.IUnknown_head):
@@ -5711,6 +5782,7 @@ def _define_ID3D11Multithread():
     ID3D11Multithread.Leave = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'Leave', ()))
     ID3D11Multithread.SetMultithreadProtected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetMultithreadProtected', ((1, 'bMTProtect'),)))
     ID3D11Multithread.GetMultithreadProtected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(6, 'GetMultithreadProtected', ()))
+    win32more.System.Com.IUnknown
     return ID3D11Multithread
 def _define_ID3D11VideoContext2_head():
     class ID3D11VideoContext2(win32more.Graphics.Direct3D11.ID3D11VideoContext1_head):
@@ -5722,6 +5794,7 @@ def _define_ID3D11VideoContext2():
     ID3D11VideoContext2.VideoProcessorGetOutputHDRMetaData = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11VideoProcessor_head,POINTER(win32more.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE),UInt32,c_void_p, use_last_error=False)(80, 'VideoProcessorGetOutputHDRMetaData', ((1, 'pVideoProcessor'),(1, 'pType'),(1, 'Size'),(1, 'pMetaData'),)))
     ID3D11VideoContext2.VideoProcessorSetStreamHDRMetaData = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11VideoProcessor_head,UInt32,win32more.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE,UInt32,c_void_p, use_last_error=False)(81, 'VideoProcessorSetStreamHDRMetaData', ((1, 'pVideoProcessor'),(1, 'StreamIndex'),(1, 'Type'),(1, 'Size'),(1, 'pHDRMetaData'),)))
     ID3D11VideoContext2.VideoProcessorGetStreamHDRMetaData = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D11.ID3D11VideoProcessor_head,UInt32,POINTER(win32more.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE),UInt32,c_void_p, use_last_error=False)(82, 'VideoProcessorGetStreamHDRMetaData', ((1, 'pVideoProcessor'),(1, 'StreamIndex'),(1, 'pType'),(1, 'Size'),(1, 'pMetaData'),)))
+    win32more.Graphics.Direct3D11.ID3D11VideoContext1
     return ID3D11VideoContext2
 D3D11_FEATURE_VIDEO = Int32
 D3D11_FEATURE_VIDEO_DECODER_HISTOGRAM = 0
@@ -5765,6 +5838,7 @@ def _define_ID3D11VideoDevice2():
     ID3D11VideoDevice2 = win32more.Graphics.Direct3D11.ID3D11VideoDevice2_head
     ID3D11VideoDevice2.CheckFeatureSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.D3D11_FEATURE_VIDEO,c_void_p,UInt32, use_last_error=False)(24, 'CheckFeatureSupport', ((1, 'Feature'),(1, 'pFeatureSupportData'),(1, 'FeatureSupportDataSize'),)))
     ID3D11VideoDevice2.NegotiateCryptoSessionKeyExchangeMT = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11CryptoSession_head,win32more.Graphics.Direct3D11.D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS,UInt32,c_void_p, use_last_error=False)(25, 'NegotiateCryptoSessionKeyExchangeMT', ((1, 'pCryptoSession'),(1, 'flags'),(1, 'DataSize'),(1, 'pData'),)))
+    win32more.Graphics.Direct3D11.ID3D11VideoDevice1
     return ID3D11VideoDevice2
 def _define_D3D11_VIDEO_DECODER_BUFFER_DESC2_head():
     class D3D11_VIDEO_DECODER_BUFFER_DESC2(Structure):
@@ -5792,6 +5866,7 @@ def _define_ID3D11VideoContext3():
     ID3D11VideoContext3 = win32more.Graphics.Direct3D11.ID3D11VideoContext3_head
     ID3D11VideoContext3.DecoderBeginFrame1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11VideoDecoder_head,win32more.Graphics.Direct3D11.ID3D11VideoDecoderOutputView_head,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(win32more.Graphics.Direct3D11.ID3D11Buffer_head), use_last_error=False)(83, 'DecoderBeginFrame1', ((1, 'pDecoder'),(1, 'pView'),(1, 'ContentKeySize'),(1, 'pContentKey'),(1, 'NumComponentHistograms'),(1, 'pHistogramOffsets'),(1, 'ppHistogramBuffers'),)))
     ID3D11VideoContext3.SubmitDecoderBuffers2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11VideoDecoder_head,UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_VIDEO_DECODER_BUFFER_DESC2), use_last_error=False)(84, 'SubmitDecoderBuffers2', ((1, 'pDecoder'),(1, 'NumBuffers'),(1, 'pBufferDesc'),)))
+    win32more.Graphics.Direct3D11.ID3D11VideoContext2
     return ID3D11VideoContext3
 def _define_D3D11_FEATURE_DATA_D3D11_OPTIONS4_head():
     class D3D11_FEATURE_DATA_D3D11_OPTIONS4(Structure):
@@ -6081,6 +6156,7 @@ def _define_ID3D11ShaderReflection():
     ID3D11ShaderReflection.GetMinFeatureLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.D3D_FEATURE_LEVEL), use_last_error=False)(19, 'GetMinFeatureLevel', ((1, 'pLevel'),)))
     ID3D11ShaderReflection.GetThreadGroupSize = COMMETHOD(WINFUNCTYPE(UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(20, 'GetThreadGroupSize', ((1, 'pSizeX'),(1, 'pSizeY'),(1, 'pSizeZ'),)))
     ID3D11ShaderReflection.GetRequiresFlags = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(21, 'GetRequiresFlags', ()))
+    win32more.System.Com.IUnknown
     return ID3D11ShaderReflection
 def _define_ID3D11LibraryReflection_head():
     class ID3D11LibraryReflection(win32more.System.Com.IUnknown_head):
@@ -6090,6 +6166,7 @@ def _define_ID3D11LibraryReflection():
     ID3D11LibraryReflection = win32more.Graphics.Direct3D11.ID3D11LibraryReflection_head
     ID3D11LibraryReflection.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D11.D3D11_LIBRARY_DESC_head), use_last_error=False)(3, 'GetDesc', ((1, 'pDesc'),)))
     ID3D11LibraryReflection.GetFunctionByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D11.ID3D11FunctionReflection_head,Int32, use_last_error=False)(4, 'GetFunctionByIndex', ((1, 'FunctionIndex'),)))
+    win32more.System.Com.IUnknown
     return ID3D11LibraryReflection
 def _define_ID3D11FunctionReflection_head():
     class ID3D11FunctionReflection(c_void_p):
@@ -6129,6 +6206,7 @@ def _define_ID3D11ModuleInstance():
     ID3D11ModuleInstance.BindUnorderedAccessViewByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=False)(10, 'BindUnorderedAccessViewByName', ((1, 'pName'),(1, 'uDstSlot'),(1, 'uCount'),)))
     ID3D11ModuleInstance.BindResourceAsUnorderedAccessView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32, use_last_error=False)(11, 'BindResourceAsUnorderedAccessView', ((1, 'uSrcSrvSlot'),(1, 'uDstUavSlot'),(1, 'uCount'),)))
     ID3D11ModuleInstance.BindResourceAsUnorderedAccessViewByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,UInt32, use_last_error=False)(12, 'BindResourceAsUnorderedAccessViewByName', ((1, 'pSrvName'),(1, 'uDstUavSlot'),(1, 'uCount'),)))
+    win32more.System.Com.IUnknown
     return ID3D11ModuleInstance
 def _define_ID3D11Module_head():
     class ID3D11Module(win32more.System.Com.IUnknown_head):
@@ -6137,6 +6215,7 @@ def _define_ID3D11Module_head():
 def _define_ID3D11Module():
     ID3D11Module = win32more.Graphics.Direct3D11.ID3D11Module_head
     ID3D11Module.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(win32more.Graphics.Direct3D11.ID3D11ModuleInstance_head), use_last_error=False)(3, 'CreateInstance', ((1, 'pNamespace'),(1, 'ppModuleInstance'),)))
+    win32more.System.Com.IUnknown
     return ID3D11Module
 def _define_ID3D11Linker_head():
     class ID3D11Linker(win32more.System.Com.IUnknown_head):
@@ -6147,6 +6226,7 @@ def _define_ID3D11Linker():
     ID3D11Linker.Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11ModuleInstance_head,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head),POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)(3, 'Link', ((1, 'pEntry'),(1, 'pEntryName'),(1, 'pTargetName'),(1, 'uFlags'),(1, 'ppShaderBlob'),(1, 'ppErrorBuffer'),)))
     ID3D11Linker.UseLibrary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11ModuleInstance_head, use_last_error=False)(4, 'UseLibrary', ((1, 'pLibraryMI'),)))
     ID3D11Linker.AddClipPlaneFromCBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(5, 'AddClipPlaneFromCBuffer', ((1, 'uCBufferSlot'),(1, 'uCBufferEntry'),)))
+    win32more.System.Com.IUnknown
     return ID3D11Linker
 def _define_ID3D11LinkingNode_head():
     class ID3D11LinkingNode(win32more.System.Com.IUnknown_head):
@@ -6154,6 +6234,7 @@ def _define_ID3D11LinkingNode_head():
     return ID3D11LinkingNode
 def _define_ID3D11LinkingNode():
     ID3D11LinkingNode = win32more.Graphics.Direct3D11.ID3D11LinkingNode_head
+    win32more.System.Com.IUnknown
     return ID3D11LinkingNode
 def _define_ID3D11FunctionLinkingGraph_head():
     class ID3D11FunctionLinkingGraph(win32more.System.Com.IUnknown_head):
@@ -6169,6 +6250,7 @@ def _define_ID3D11FunctionLinkingGraph():
     ID3D11FunctionLinkingGraph.PassValueWithSwizzle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11LinkingNode_head,Int32,win32more.Foundation.PSTR,win32more.Graphics.Direct3D11.ID3D11LinkingNode_head,Int32,win32more.Foundation.PSTR, use_last_error=False)(8, 'PassValueWithSwizzle', ((1, 'pSrcNode'),(1, 'SrcParameterIndex'),(1, 'pSrcSwizzle'),(1, 'pDstNode'),(1, 'DstParameterIndex'),(1, 'pDstSwizzle'),)))
     ID3D11FunctionLinkingGraph.GetLastError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)(9, 'GetLastError', ((1, 'ppErrorBuffer'),)))
     ID3D11FunctionLinkingGraph.GenerateHlsl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D.ID3DBlob_head), use_last_error=False)(10, 'GenerateHlsl', ((1, 'uFlags'),(1, 'ppBuffer'),)))
+    win32more.System.Com.IUnknown
     return ID3D11FunctionLinkingGraph
 D3D11_SHADER_TYPE = Int32
 D3D11_VERTEX_SHADER = 1
@@ -6406,6 +6488,7 @@ def _define_ID3D11ShaderTrace():
     ID3D11ShaderTrace.GetStep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_TRACE_STEP_head), use_last_error=False)(8, 'GetStep', ((1, 'stepIndex'),(1, 'pTraceStep'),)))
     ID3D11ShaderTrace.GetWrittenRegister = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_TRACE_REGISTER_head),POINTER(win32more.Graphics.Direct3D11.D3D11_TRACE_VALUE_head), use_last_error=False)(9, 'GetWrittenRegister', ((1, 'stepIndex'),(1, 'writtenRegisterIndex'),(1, 'pRegister'),(1, 'pValue'),)))
     ID3D11ShaderTrace.GetReadRegister = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D11.D3D11_TRACE_REGISTER_head),POINTER(win32more.Graphics.Direct3D11.D3D11_TRACE_VALUE_head), use_last_error=False)(10, 'GetReadRegister', ((1, 'stepIndex'),(1, 'readRegisterIndex'),(1, 'pRegister'),(1, 'pValue'),)))
+    win32more.System.Com.IUnknown
     return ID3D11ShaderTrace
 def _define_ID3D11ShaderTraceFactory_head():
     class ID3D11ShaderTraceFactory(win32more.System.Com.IUnknown_head):
@@ -6414,6 +6497,7 @@ def _define_ID3D11ShaderTraceFactory_head():
 def _define_ID3D11ShaderTraceFactory():
     ID3D11ShaderTraceFactory = win32more.Graphics.Direct3D11.ID3D11ShaderTraceFactory_head
     ID3D11ShaderTraceFactory.CreateShaderTrace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Direct3D11.D3D11_SHADER_TRACE_DESC_head),POINTER(win32more.Graphics.Direct3D11.ID3D11ShaderTrace_head), use_last_error=False)(3, 'CreateShaderTrace', ((1, 'pShader'),(1, 'pTraceDesc'),(1, 'ppShaderTrace'),)))
+    win32more.System.Com.IUnknown
     return ID3D11ShaderTraceFactory
 D3DX11_SCAN_DATA_TYPE = Int32
 D3DX11_SCAN_DATA_TYPE_FLOAT = 1
@@ -6439,6 +6523,7 @@ def _define_ID3DX11Scan():
     ID3DX11Scan.SetScanDirection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.D3DX11_SCAN_DIRECTION, use_last_error=False)(3, 'SetScanDirection', ((1, 'Direction'),)))
     ID3DX11Scan.Scan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.D3DX11_SCAN_DATA_TYPE,win32more.Graphics.Direct3D11.D3DX11_SCAN_OPCODE,UInt32,win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head,win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head, use_last_error=False)(4, 'Scan', ((1, 'ElementType'),(1, 'OpCode'),(1, 'ElementScanSize'),(1, 'pSrc'),(1, 'pDst'),)))
     ID3DX11Scan.Multiscan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.D3DX11_SCAN_DATA_TYPE,win32more.Graphics.Direct3D11.D3DX11_SCAN_OPCODE,UInt32,UInt32,UInt32,win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head,win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head, use_last_error=False)(5, 'Multiscan', ((1, 'ElementType'),(1, 'OpCode'),(1, 'ElementScanSize'),(1, 'ElementScanPitch'),(1, 'ScanCount'),(1, 'pSrc'),(1, 'pDst'),)))
+    win32more.System.Com.IUnknown
     return ID3DX11Scan
 def _define_ID3DX11SegmentedScan_head():
     class ID3DX11SegmentedScan(win32more.System.Com.IUnknown_head):
@@ -6448,6 +6533,7 @@ def _define_ID3DX11SegmentedScan():
     ID3DX11SegmentedScan = win32more.Graphics.Direct3D11.ID3DX11SegmentedScan_head
     ID3DX11SegmentedScan.SetScanDirection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.D3DX11_SCAN_DIRECTION, use_last_error=False)(3, 'SetScanDirection', ((1, 'Direction'),)))
     ID3DX11SegmentedScan.SegScan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.D3DX11_SCAN_DATA_TYPE,win32more.Graphics.Direct3D11.D3DX11_SCAN_OPCODE,UInt32,win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head,win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head,win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head, use_last_error=False)(4, 'SegScan', ((1, 'ElementType'),(1, 'OpCode'),(1, 'ElementScanSize'),(1, 'pSrc'),(1, 'pSrcElementFlags'),(1, 'pDst'),)))
+    win32more.System.Com.IUnknown
     return ID3DX11SegmentedScan
 def _define_ID3DX11FFT_head():
     class ID3DX11FFT(win32more.System.Com.IUnknown_head):
@@ -6462,6 +6548,7 @@ def _define_ID3DX11FFT():
     ID3DX11FFT.AttachBuffersAndPrecompute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head),UInt32,POINTER(win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head), use_last_error=False)(7, 'AttachBuffersAndPrecompute', ((1, 'NumTempBuffers'),(1, 'ppTempBuffers'),(1, 'NumPrecomputeBuffers'),(1, 'ppPrecomputeBufferSizes'),)))
     ID3DX11FFT.ForwardTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head,POINTER(win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head), use_last_error=False)(8, 'ForwardTransform', ((1, 'pInputBuffer'),(1, 'ppOutputBuffer'),)))
     ID3DX11FFT.InverseTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head,POINTER(win32more.Graphics.Direct3D11.ID3D11UnorderedAccessView_head), use_last_error=False)(9, 'InverseTransform', ((1, 'pInputBuffer'),(1, 'ppOutputBuffer'),)))
+    win32more.System.Com.IUnknown
     return ID3DX11FFT
 D3DX11_FFT_DATA_TYPE = Int32
 D3DX11_FFT_DATA_TYPE_REAL = 0

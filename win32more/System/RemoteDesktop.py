@@ -310,6 +310,7 @@ def _define_IAudioEndpoint():
     IAudioEndpoint.GetLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(5, 'GetLatency', ((1, 'pLatency'),)))
     IAudioEndpoint.SetStreamFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'SetStreamFlags', ((1, 'streamFlags'),)))
     IAudioEndpoint.SetEventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(7, 'SetEventHandle', ((1, 'eventHandle'),)))
+    win32more.System.Com.IUnknown
     return IAudioEndpoint
 def _define_IAudioEndpointRT_head():
     class IAudioEndpointRT(win32more.System.Com.IUnknown_head):
@@ -321,6 +322,7 @@ def _define_IAudioEndpointRT():
     IAudioEndpointRT.ProcessingComplete = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'ProcessingComplete', ()))
     IAudioEndpointRT.SetPinInactive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'SetPinInactive', ()))
     IAudioEndpointRT.SetPinActive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'SetPinActive', ()))
+    win32more.System.Com.IUnknown
     return IAudioEndpointRT
 def _define_IAudioInputEndpointRT_head():
     class IAudioInputEndpointRT(win32more.System.Com.IUnknown_head):
@@ -331,6 +333,7 @@ def _define_IAudioInputEndpointRT():
     IAudioInputEndpointRT.GetInputDataPointer = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head),POINTER(win32more.System.RemoteDesktop.AE_CURRENT_POSITION_head), use_last_error=False)(3, 'GetInputDataPointer', ((1, 'pConnectionProperty'),(1, 'pAeTimeStamp'),)))
     IAudioInputEndpointRT.ReleaseInputDataPointer = COMMETHOD(WINFUNCTYPE(Void,UInt32,UIntPtr, use_last_error=False)(4, 'ReleaseInputDataPointer', ((1, 'u32FrameCount'),(1, 'pDataPointer'),)))
     IAudioInputEndpointRT.PulseEndpoint = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(5, 'PulseEndpoint', ()))
+    win32more.System.Com.IUnknown
     return IAudioInputEndpointRT
 def _define_IAudioOutputEndpointRT_head():
     class IAudioOutputEndpointRT(win32more.System.Com.IUnknown_head):
@@ -341,6 +344,7 @@ def _define_IAudioOutputEndpointRT():
     IAudioOutputEndpointRT.GetOutputDataPointer = COMMETHOD(WINFUNCTYPE(UIntPtr,UInt32,POINTER(win32more.System.RemoteDesktop.AE_CURRENT_POSITION_head), use_last_error=False)(3, 'GetOutputDataPointer', ((1, 'u32FrameCount'),(1, 'pAeTimeStamp'),)))
     IAudioOutputEndpointRT.ReleaseOutputDataPointer = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head), use_last_error=False)(4, 'ReleaseOutputDataPointer', ((1, 'pConnectionProperty'),)))
     IAudioOutputEndpointRT.PulseEndpoint = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(5, 'PulseEndpoint', ()))
+    win32more.System.Com.IUnknown
     return IAudioOutputEndpointRT
 def _define_IAudioDeviceEndpoint_head():
     class IAudioDeviceEndpoint(win32more.System.Com.IUnknown_head):
@@ -352,6 +356,7 @@ def _define_IAudioDeviceEndpoint():
     IAudioDeviceEndpoint.GetRTCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetRTCaps', ((1, 'pbIsRTCapable'),)))
     IAudioDeviceEndpoint.GetEventDrivenCapable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'GetEventDrivenCapable', ((1, 'pbisEventCapable'),)))
     IAudioDeviceEndpoint.WriteExclusiveModeParametersToSharedMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,Int64,Int64,UInt32,POINTER(UInt32),POINTER(UIntPtr), use_last_error=False)(6, 'WriteExclusiveModeParametersToSharedMemory', ((1, 'hTargetProcess'),(1, 'hnsPeriod'),(1, 'hnsBufferDuration'),(1, 'u32LatencyCoefficient'),(1, 'pu32SharedMemorySize'),(1, 'phSharedMemory'),)))
+    win32more.System.Com.IUnknown
     return IAudioDeviceEndpoint
 def _define_IAudioEndpointControl_head():
     class IAudioEndpointControl(win32more.System.Com.IUnknown_head):
@@ -362,6 +367,7 @@ def _define_IAudioEndpointControl():
     IAudioEndpointControl.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Start', ()))
     IAudioEndpointControl.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IAudioEndpointControl.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Stop', ()))
+    win32more.System.Com.IUnknown
     return IAudioEndpointControl
 HwtsVirtualChannelHandle = IntPtr
 TSUserExInterfaces = Guid('0910dd01-df8c-11d1-ae27-00c04fa35813')
@@ -402,6 +408,7 @@ def _define_IADsTSUserEx():
     IADsTSUserEx.put_TerminalServicesWorkDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(34, 'put_TerminalServicesWorkDirectory', ((1, 'pNewVal'),)))
     IADsTSUserEx.get_TerminalServicesInitialProgram = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(35, 'get_TerminalServicesInitialProgram', ((1, 'pVal'),)))
     IADsTSUserEx.put_TerminalServicesInitialProgram = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(36, 'put_TerminalServicesInitialProgram', ((1, 'pNewVal'),)))
+    win32more.System.Com.IDispatch
     return IADsTSUserEx
 AAAuthSchemes = Int32
 AA_AUTH_MIN = 0
@@ -465,6 +472,7 @@ def _define_ITSGAuthorizeConnectionSink_head():
 def _define_ITSGAuthorizeConnectionSink():
     ITSGAuthorizeConnectionSink = win32more.System.RemoteDesktop.ITSGAuthorizeConnectionSink_head
     ITSGAuthorizeConnectionSink.OnConnectionAuthorized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,Guid,UInt32,POINTER(Byte),UInt32,UInt32,win32more.System.RemoteDesktop.SESSION_TIMEOUT_ACTION_TYPE,win32more.System.RemoteDesktop.AATrustClassID,POINTER(UInt32), use_last_error=False)(3, 'OnConnectionAuthorized', ((1, 'hrIn'),(1, 'mainSessionId'),(1, 'cbSoHResponse'),(1, 'pbSoHResponse'),(1, 'idleTimeout'),(1, 'sessionTimeout'),(1, 'sessionTimeoutAction'),(1, 'trustClass'),(1, 'policyAttributes'),)))
+    win32more.System.Com.IUnknown
     return ITSGAuthorizeConnectionSink
 def _define_ITSGAuthorizeResourceSink_head():
     class ITSGAuthorizeResourceSink(win32more.System.Com.IUnknown_head):
@@ -473,6 +481,7 @@ def _define_ITSGAuthorizeResourceSink_head():
 def _define_ITSGAuthorizeResourceSink():
     ITSGAuthorizeResourceSink = win32more.System.RemoteDesktop.ITSGAuthorizeResourceSink_head
     ITSGAuthorizeResourceSink.OnChannelAuthorized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,Guid,Int32,POINTER(win32more.Foundation.BSTR),UInt32,POINTER(win32more.Foundation.BSTR),UInt32, use_last_error=False)(3, 'OnChannelAuthorized', ((1, 'hrIn'),(1, 'mainSessionId'),(1, 'subSessionId'),(1, 'allowedResourceNames'),(1, 'numAllowedResourceNames'),(1, 'failedResourceNames'),(1, 'numFailedResourceNames'),)))
+    win32more.System.Com.IUnknown
     return ITSGAuthorizeResourceSink
 def _define_ITSGPolicyEngine_head():
     class ITSGPolicyEngine(win32more.System.Com.IUnknown_head):
@@ -484,6 +493,7 @@ def _define_ITSGPolicyEngine():
     ITSGPolicyEngine.AuthorizeResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Int32,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR),UInt32,POINTER(win32more.Foundation.BSTR),UInt32,UInt32,win32more.Foundation.BSTR,POINTER(Byte),UInt32,win32more.System.RemoteDesktop.ITSGAuthorizeResourceSink_head, use_last_error=False)(4, 'AuthorizeResource', ((1, 'mainSessionId'),(1, 'subSessionId'),(1, 'username'),(1, 'resourceNames'),(1, 'numResources'),(1, 'alternateResourceNames'),(1, 'numAlternateResourceName'),(1, 'portNumber'),(1, 'operation'),(1, 'cookie'),(1, 'numBytesInCookie'),(1, 'pSink'),)))
     ITSGPolicyEngine.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Refresh', ()))
     ITSGPolicyEngine.IsQuarantineEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'IsQuarantineEnabled', ((1, 'quarantineEnabled'),)))
+    win32more.System.Com.IUnknown
     return ITSGPolicyEngine
 def _define_ITSGAccountingEngine_head():
     class ITSGAccountingEngine(win32more.System.Com.IUnknown_head):
@@ -492,6 +502,7 @@ def _define_ITSGAccountingEngine_head():
 def _define_ITSGAccountingEngine():
     ITSGAccountingEngine = win32more.System.RemoteDesktop.ITSGAccountingEngine_head
     ITSGAccountingEngine.DoAccounting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.AAAccountingDataType,win32more.System.RemoteDesktop.AAAccountingData, use_last_error=False)(3, 'DoAccounting', ((1, 'accountingDataType'),(1, 'accountingData'),)))
+    win32more.System.Com.IUnknown
     return ITSGAccountingEngine
 def _define_ITSGAuthenticateUserSink_head():
     class ITSGAuthenticateUserSink(win32more.System.Com.IUnknown_head):
@@ -503,6 +514,7 @@ def _define_ITSGAuthenticateUserSink():
     ITSGAuthenticateUserSink.OnUserAuthenticationFailed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnUserAuthenticationFailed', ((1, 'context'),(1, 'genericErrorCode'),(1, 'specificErrorCode'),)))
     ITSGAuthenticateUserSink.ReauthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(5, 'ReauthenticateUser', ((1, 'context'),)))
     ITSGAuthenticateUserSink.DisconnectUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(6, 'DisconnectUser', ((1, 'context'),)))
+    win32more.System.Com.IUnknown
     return ITSGAuthenticateUserSink
 def _define_ITSGAuthenticationEngine_head():
     class ITSGAuthenticationEngine(win32more.System.Com.IUnknown_head):
@@ -512,6 +524,7 @@ def _define_ITSGAuthenticationEngine():
     ITSGAuthenticationEngine = win32more.System.RemoteDesktop.ITSGAuthenticationEngine_head
     ITSGAuthenticationEngine.AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,c_char_p_no,UInt32,UIntPtr,win32more.System.RemoteDesktop.ITSGAuthenticateUserSink_head, use_last_error=False)(3, 'AuthenticateUser', ((1, 'mainSessionId'),(1, 'cookieData'),(1, 'numCookieBytes'),(1, 'context'),(1, 'pSink'),)))
     ITSGAuthenticationEngine.CancelAuthentication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UIntPtr, use_last_error=False)(4, 'CancelAuthentication', ((1, 'mainSessionId'),(1, 'context'),)))
+    win32more.System.Com.IUnknown
     return ITSGAuthenticationEngine
 WTS_CONNECTSTATE_CLASS = Int32
 WTS_CONNECTSTATE_CLASS_WTSActive = 0
@@ -1287,6 +1300,7 @@ def _define_IWTSSBPlugin():
     IWTSSBPlugin.WTSSBX_GetMostSuitableServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Int32), use_last_error=False)(6, 'WTSSBX_GetMostSuitableServer', ((1, 'UserName'),(1, 'DomainName'),(1, 'ApplicationType'),(1, 'FarmName'),(1, 'pMachineId'),)))
     IWTSSBPlugin.Terminated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Terminated', ()))
     IWTSSBPlugin.WTSSBX_GetUserExternalSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTSSBX_IP_ADDRESS_head),POINTER(UInt32),POINTER(win32more.System.RemoteDesktop.WTSSBX_MACHINE_CONNECT_INFO_head), use_last_error=False)(8, 'WTSSBX_GetUserExternalSession', ((1, 'UserName'),(1, 'DomainName'),(1, 'ApplicationType'),(1, 'RedirectorInternalIP'),(1, 'pSessionId'),(1, 'pMachineConnectInfo'),)))
+    win32more.System.Com.IUnknown
     return IWTSSBPlugin
 def _define_CHANNEL_DEF_head():
     class CHANNEL_DEF(Structure):
@@ -1350,6 +1364,7 @@ def _define_IWorkspaceClientExt():
     IWorkspaceClientExt.GetResourceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetResourceId', ((1, 'bstrWorkspaceId'),)))
     IWorkspaceClientExt.GetResourceDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetResourceDisplayName', ((1, 'bstrWorkspaceDisplayName'),)))
     IWorkspaceClientExt.IssueDisconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'IssueDisconnect', ()))
+    win32more.System.Com.IUnknown
     return IWorkspaceClientExt
 def _define_IWorkspace_head():
     class IWorkspace(win32more.System.Com.IUnknown_head):
@@ -1360,6 +1375,7 @@ def _define_IWorkspace():
     IWorkspace.GetWorkspaceNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetWorkspaceNames', ((1, 'psaWkspNames'),)))
     IWorkspace.StartRemoteApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(4, 'StartRemoteApplication', ((1, 'bstrWorkspaceId'),(1, 'psaParams'),)))
     IWorkspace.GetProcessId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetProcessId', ((1, 'pulProcessId'),)))
+    win32more.System.Com.IUnknown
     return IWorkspace
 def _define_IWorkspace2_head():
     class IWorkspace2(win32more.System.RemoteDesktop.IWorkspace_head):
@@ -1368,6 +1384,7 @@ def _define_IWorkspace2_head():
 def _define_IWorkspace2():
     IWorkspace2 = win32more.System.RemoteDesktop.IWorkspace2_head
     IWorkspace2.StartRemoteApplicationEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int16,win32more.Foundation.BSTR,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(6, 'StartRemoteApplicationEx', ((1, 'bstrWorkspaceId'),(1, 'bstrRequestingAppId'),(1, 'bstrRequestingAppFamilyName'),(1, 'bLaunchIntoImmersiveClient'),(1, 'bstrImmersiveClientActivationContext'),(1, 'psaParams'),)))
+    win32more.System.RemoteDesktop.IWorkspace
     return IWorkspace2
 def _define_IWorkspace3_head():
     class IWorkspace3(win32more.System.RemoteDesktop.IWorkspace2_head):
@@ -1377,6 +1394,7 @@ def _define_IWorkspace3():
     IWorkspace3 = win32more.System.RemoteDesktop.IWorkspace3_head
     IWorkspace3.GetClaimsToken2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,UInt32,win32more.Foundation.RECT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetClaimsToken2', ((1, 'bstrClaimsHint'),(1, 'bstrUserHint'),(1, 'claimCookie'),(1, 'hwndCredUiParent'),(1, 'rectCredUiParent'),(1, 'pbstrAccessToken'),)))
     IWorkspace3.SetClaimsToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt64,win32more.Foundation.BSTR, use_last_error=False)(8, 'SetClaimsToken', ((1, 'bstrAccessToken'),(1, 'ullAccessTokenExpiration'),(1, 'bstrRefreshToken'),)))
+    win32more.System.RemoteDesktop.IWorkspace2
     return IWorkspace3
 def _define_IWorkspaceRegistration_head():
     class IWorkspaceRegistration(win32more.System.Com.IUnknown_head):
@@ -1386,6 +1404,7 @@ def _define_IWorkspaceRegistration():
     IWorkspaceRegistration = win32more.System.RemoteDesktop.IWorkspaceRegistration_head
     IWorkspaceRegistration.AddResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWorkspaceClientExt_head,POINTER(UInt32), use_last_error=False)(3, 'AddResource', ((1, 'pUnk'),(1, 'pdwCookie'),)))
     IWorkspaceRegistration.RemoveResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'RemoveResource', ((1, 'dwCookieConnection'),)))
+    win32more.System.Com.IUnknown
     return IWorkspaceRegistration
 def _define_IWorkspaceRegistration2_head():
     class IWorkspaceRegistration2(win32more.System.RemoteDesktop.IWorkspaceRegistration_head):
@@ -1395,6 +1414,7 @@ def _define_IWorkspaceRegistration2():
     IWorkspaceRegistration2 = win32more.System.RemoteDesktop.IWorkspaceRegistration2_head
     IWorkspaceRegistration2.AddResourceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWorkspaceClientExt_head,win32more.Foundation.BSTR,POINTER(UInt32),Guid, use_last_error=False)(5, 'AddResourceEx', ((1, 'pUnk'),(1, 'bstrEventLogUploadAddress'),(1, 'pdwCookie'),(1, 'correlationId'),)))
     IWorkspaceRegistration2.RemoveResourceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Guid, use_last_error=False)(6, 'RemoveResourceEx', ((1, 'dwCookieConnection'),(1, 'correlationId'),)))
+    win32more.System.RemoteDesktop.IWorkspaceRegistration
     return IWorkspaceRegistration2
 def _define_IWorkspaceScriptable_head():
     class IWorkspaceScriptable(win32more.System.Com.IDispatch_head):
@@ -1409,6 +1429,7 @@ def _define_IWorkspaceScriptable():
     IWorkspaceScriptable.ClearWorkspaceCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'ClearWorkspaceCredential', ((1, 'bstrWorkspaceId'),)))
     IWorkspaceScriptable.OnAuthenticated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(12, 'OnAuthenticated', ((1, 'bstrWorkspaceId'),(1, 'bstrUserName'),)))
     IWorkspaceScriptable.DisconnectWorkspaceByFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'DisconnectWorkspaceByFriendlyName', ((1, 'bstrWorkspaceFriendlyName'),)))
+    win32more.System.Com.IDispatch
     return IWorkspaceScriptable
 def _define_IWorkspaceScriptable2_head():
     class IWorkspaceScriptable2(win32more.System.RemoteDesktop.IWorkspaceScriptable_head):
@@ -1418,6 +1439,7 @@ def _define_IWorkspaceScriptable2():
     IWorkspaceScriptable2 = win32more.System.RemoteDesktop.IWorkspaceScriptable2_head
     IWorkspaceScriptable2.StartWorkspaceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,Int32, use_last_error=False)(14, 'StartWorkspaceEx', ((1, 'bstrWorkspaceId'),(1, 'bstrWorkspaceFriendlyName'),(1, 'bstrRedirectorName'),(1, 'bstrUserName'),(1, 'bstrPassword'),(1, 'bstrAppContainer'),(1, 'bstrWorkspaceParams'),(1, 'lTimeout'),(1, 'lFlags'),)))
     IWorkspaceScriptable2.ResourceDismissed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(15, 'ResourceDismissed', ((1, 'bstrWorkspaceId'),(1, 'bstrWorkspaceFriendlyName'),)))
+    win32more.System.RemoteDesktop.IWorkspaceScriptable
     return IWorkspaceScriptable2
 def _define_IWorkspaceScriptable3_head():
     class IWorkspaceScriptable3(win32more.System.RemoteDesktop.IWorkspaceScriptable2_head):
@@ -1426,6 +1448,7 @@ def _define_IWorkspaceScriptable3_head():
 def _define_IWorkspaceScriptable3():
     IWorkspaceScriptable3 = win32more.System.RemoteDesktop.IWorkspaceScriptable3_head
     IWorkspaceScriptable3.StartWorkspaceEx2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,Int32,win32more.Foundation.BSTR,Guid, use_last_error=False)(16, 'StartWorkspaceEx2', ((1, 'bstrWorkspaceId'),(1, 'bstrWorkspaceFriendlyName'),(1, 'bstrRedirectorName'),(1, 'bstrUserName'),(1, 'bstrPassword'),(1, 'bstrAppContainer'),(1, 'bstrWorkspaceParams'),(1, 'lTimeout'),(1, 'lFlags'),(1, 'bstrEventLogUploadAddress'),(1, 'correlationId'),)))
+    win32more.System.RemoteDesktop.IWorkspaceScriptable2
     return IWorkspaceScriptable3
 def _define_IWorkspaceReportMessage_head():
     class IWorkspaceReportMessage(win32more.System.Com.IUnknown_head):
@@ -1436,6 +1459,7 @@ def _define_IWorkspaceReportMessage():
     IWorkspaceReportMessage.RegisterErrorLogMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(3, 'RegisterErrorLogMessage', ((1, 'bstrMessage'),)))
     IWorkspaceReportMessage.IsErrorMessageRegistered = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,win32more.Foundation.BSTR,UInt32,POINTER(Int16), use_last_error=False)(4, 'IsErrorMessageRegistered', ((1, 'bstrWkspId'),(1, 'dwErrorType'),(1, 'bstrErrorMessageType'),(1, 'dwErrorCode'),(1, 'pfErrorExist'),)))
     IWorkspaceReportMessage.RegisterErrorEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,win32more.Foundation.BSTR,UInt32, use_last_error=False)(5, 'RegisterErrorEvent', ((1, 'bstrWkspId'),(1, 'dwErrorType'),(1, 'bstrErrorMessageType'),(1, 'dwErrorCode'),)))
+    win32more.System.Com.IUnknown
     return IWorkspaceReportMessage
 def _define__ITSWkspEvents_head():
     class _ITSWkspEvents(win32more.System.Com.IDispatch_head):
@@ -1443,6 +1467,7 @@ def _define__ITSWkspEvents_head():
     return _ITSWkspEvents
 def _define__ITSWkspEvents():
     _ITSWkspEvents = win32more.System.RemoteDesktop._ITSWkspEvents_head
+    win32more.System.Com.IDispatch
     return _ITSWkspEvents
 TSSD_AddrV46Type = Int32
 TSSD_ADDR_UNDEFINED = 0
@@ -1626,6 +1651,7 @@ def _define_ITsSbPlugin():
     ITsSbPlugin = win32more.System.RemoteDesktop.ITsSbPlugin_head
     ITsSbPlugin.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbProvider_head,win32more.System.RemoteDesktop.ITsSbPluginNotifySink_head,win32more.System.RemoteDesktop.ITsSbPluginPropertySet_head, use_last_error=False)(3, 'Initialize', ((1, 'pProvider'),(1, 'pNotifySink'),(1, 'pPropertySet'),)))
     ITsSbPlugin.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'Terminate', ((1, 'hr'),)))
+    win32more.System.Com.IUnknown
     return ITsSbPlugin
 def _define_ITsSbResourcePlugin_head():
     class ITsSbResourcePlugin(win32more.System.RemoteDesktop.ITsSbPlugin_head):
@@ -1633,6 +1659,7 @@ def _define_ITsSbResourcePlugin_head():
     return ITsSbResourcePlugin
 def _define_ITsSbResourcePlugin():
     ITsSbResourcePlugin = win32more.System.RemoteDesktop.ITsSbResourcePlugin_head
+    win32more.System.RemoteDesktop.ITsSbPlugin
     return ITsSbResourcePlugin
 def _define_ITsSbServiceNotification_head():
     class ITsSbServiceNotification(win32more.System.Com.IUnknown_head):
@@ -1642,6 +1669,7 @@ def _define_ITsSbServiceNotification():
     ITsSbServiceNotification = win32more.System.RemoteDesktop.ITsSbServiceNotification_head
     ITsSbServiceNotification.NotifyServiceFailure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'NotifyServiceFailure', ()))
     ITsSbServiceNotification.NotifyServiceSuccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'NotifyServiceSuccess', ()))
+    win32more.System.Com.IUnknown
     return ITsSbServiceNotification
 def _define_ITsSbLoadBalancing_head():
     class ITsSbLoadBalancing(win32more.System.RemoteDesktop.ITsSbPlugin_head):
@@ -1650,6 +1678,7 @@ def _define_ITsSbLoadBalancing_head():
 def _define_ITsSbLoadBalancing():
     ITsSbLoadBalancing = win32more.System.RemoteDesktop.ITsSbLoadBalancing_head
     ITsSbLoadBalancing.GetMostSuitableTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbClientConnection_head,win32more.System.RemoteDesktop.ITsSbLoadBalancingNotifySink_head, use_last_error=False)(5, 'GetMostSuitableTarget', ((1, 'pConnection'),(1, 'pLBSink'),)))
+    win32more.System.RemoteDesktop.ITsSbPlugin
     return ITsSbLoadBalancing
 def _define_ITsSbPlacement_head():
     class ITsSbPlacement(win32more.System.RemoteDesktop.ITsSbPlugin_head):
@@ -1658,6 +1687,7 @@ def _define_ITsSbPlacement_head():
 def _define_ITsSbPlacement():
     ITsSbPlacement = win32more.System.RemoteDesktop.ITsSbPlacement_head
     ITsSbPlacement.QueryEnvironmentForTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbClientConnection_head,win32more.System.RemoteDesktop.ITsSbPlacementNotifySink_head, use_last_error=False)(5, 'QueryEnvironmentForTarget', ((1, 'pConnection'),(1, 'pPlacementSink'),)))
+    win32more.System.RemoteDesktop.ITsSbPlugin
     return ITsSbPlacement
 def _define_ITsSbOrchestration_head():
     class ITsSbOrchestration(win32more.System.RemoteDesktop.ITsSbPlugin_head):
@@ -1666,6 +1696,7 @@ def _define_ITsSbOrchestration_head():
 def _define_ITsSbOrchestration():
     ITsSbOrchestration = win32more.System.RemoteDesktop.ITsSbOrchestration_head
     ITsSbOrchestration.PrepareTargetForConnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbClientConnection_head,win32more.System.RemoteDesktop.ITsSbOrchestrationNotifySink_head, use_last_error=False)(5, 'PrepareTargetForConnect', ((1, 'pConnection'),(1, 'pOrchestrationNotifySink'),)))
+    win32more.System.RemoteDesktop.ITsSbPlugin
     return ITsSbOrchestration
 def _define_ITsSbEnvironment_head():
     class ITsSbEnvironment(win32more.System.Com.IUnknown_head):
@@ -1677,6 +1708,7 @@ def _define_ITsSbEnvironment():
     ITsSbEnvironment.get_ServerWeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'get_ServerWeight', ((1, 'pVal'),)))
     ITsSbEnvironment.get_EnvironmentPropertySet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head), use_last_error=False)(5, 'get_EnvironmentPropertySet', ((1, 'ppPropertySet'),)))
     ITsSbEnvironment.put_EnvironmentPropertySet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head, use_last_error=False)(6, 'put_EnvironmentPropertySet', ((1, 'pVal'),)))
+    win32more.System.Com.IUnknown
     return ITsSbEnvironment
 def _define_ITsSbLoadBalanceResult_head():
     class ITsSbLoadBalanceResult(win32more.System.Com.IUnknown_head):
@@ -1685,6 +1717,7 @@ def _define_ITsSbLoadBalanceResult_head():
 def _define_ITsSbLoadBalanceResult():
     ITsSbLoadBalanceResult = win32more.System.RemoteDesktop.ITsSbLoadBalanceResult_head
     ITsSbLoadBalanceResult.get_TargetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_TargetName', ((1, 'pVal'),)))
+    win32more.System.Com.IUnknown
     return ITsSbLoadBalanceResult
 def _define_ITsSbTarget_head():
     class ITsSbTarget(win32more.System.Com.IUnknown_head):
@@ -1711,6 +1744,7 @@ def _define_ITsSbTarget():
     ITsSbTarget.get_NumSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(19, 'get_NumSessions', ((1, 'pNumSessions'),)))
     ITsSbTarget.get_NumPendingConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(20, 'get_NumPendingConnections', ((1, 'pNumPendingConnections'),)))
     ITsSbTarget.get_TargetLoad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(21, 'get_TargetLoad', ((1, 'pTargetLoad'),)))
+    win32more.System.Com.IUnknown
     return ITsSbTarget
 def _define_ITsSbSession_head():
     class ITsSbSession(win32more.System.Com.IUnknown_head):
@@ -1735,6 +1769,7 @@ def _define_ITsSbSession():
     ITsSbSession.put_ClientDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.CLIENT_DISPLAY, use_last_error=False)(17, 'put_ClientDisplay', ((1, 'pClientDisplay'),)))
     ITsSbSession.get_ProtocolType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(18, 'get_ProtocolType', ((1, 'pVal'),)))
     ITsSbSession.put_ProtocolType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(19, 'put_ProtocolType', ((1, 'Val'),)))
+    win32more.System.Com.IUnknown
     return ITsSbSession
 def _define_ITsSbResourceNotification_head():
     class ITsSbResourceNotification(win32more.System.Com.IUnknown_head):
@@ -1745,6 +1780,7 @@ def _define_ITsSbResourceNotification():
     ITsSbResourceNotification.NotifySessionChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.TSSESSION_STATE,win32more.System.RemoteDesktop.ITsSbSession_head, use_last_error=False)(3, 'NotifySessionChange', ((1, 'changeType'),(1, 'pSession'),)))
     ITsSbResourceNotification.NotifyTargetChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.RemoteDesktop.ITsSbTarget_head, use_last_error=False)(4, 'NotifyTargetChange', ((1, 'TargetChangeType'),(1, 'pTarget'),)))
     ITsSbResourceNotification.NotifyClientConnectionStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION,win32more.System.RemoteDesktop.ITsSbClientConnection_head, use_last_error=False)(5, 'NotifyClientConnectionStateChange', ((1, 'ChangeType'),(1, 'pConnection'),)))
+    win32more.System.Com.IUnknown
     return ITsSbResourceNotification
 def _define_ITsSbResourceNotificationEx_head():
     class ITsSbResourceNotificationEx(win32more.System.Com.IUnknown_head):
@@ -1755,6 +1791,7 @@ def _define_ITsSbResourceNotificationEx():
     ITsSbResourceNotificationEx.NotifySessionChangeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,win32more.System.RemoteDesktop.TSSESSION_STATE, use_last_error=False)(3, 'NotifySessionChangeEx', ((1, 'targetName'),(1, 'userName'),(1, 'domain'),(1, 'sessionId'),(1, 'sessionState'),)))
     ITsSbResourceNotificationEx.NotifyTargetChangeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32, use_last_error=False)(4, 'NotifyTargetChangeEx', ((1, 'targetName'),(1, 'targetChangeType'),)))
     ITsSbResourceNotificationEx.NotifyClientConnectionStateChangeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.CONNECTION_CHANGE_NOTIFICATION, use_last_error=False)(5, 'NotifyClientConnectionStateChangeEx', ((1, 'userName'),(1, 'domain'),(1, 'initialProgram'),(1, 'poolName'),(1, 'targetName'),(1, 'connectionChangeType'),)))
+    win32more.System.Com.IUnknown
     return ITsSbResourceNotificationEx
 def _define_ITsSbTaskInfo_head():
     class ITsSbTaskInfo(win32more.System.Com.IUnknown_head):
@@ -1771,6 +1808,7 @@ def _define_ITsSbTaskInfo():
     ITsSbTaskInfo.get_Context = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(9, 'get_Context', ((1, 'pContext'),)))
     ITsSbTaskInfo.get_Plugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Plugin', ((1, 'pPlugin'),)))
     ITsSbTaskInfo.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.RDV_TASK_STATUS), use_last_error=False)(11, 'get_Status', ((1, 'pStatus'),)))
+    win32more.System.Com.IUnknown
     return ITsSbTaskInfo
 def _define_ITsSbTaskPlugin_head():
     class ITsSbTaskPlugin(win32more.System.RemoteDesktop.ITsSbPlugin_head):
@@ -1780,6 +1818,7 @@ def _define_ITsSbTaskPlugin():
     ITsSbTaskPlugin = win32more.System.RemoteDesktop.ITsSbTaskPlugin_head
     ITsSbTaskPlugin.InitializeTaskPlugin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbTaskPluginNotifySink_head, use_last_error=False)(5, 'InitializeTaskPlugin', ((1, 'pITsSbTaskPluginNotifySink'),)))
     ITsSbTaskPlugin.SetTaskQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(win32more.System.RemoteDesktop.ITsSbTaskInfo_head), use_last_error=False)(6, 'SetTaskQueue', ((1, 'pszHostName'),(1, 'SbTaskInfoSize'),(1, 'pITsSbTaskInfo'),)))
+    win32more.System.RemoteDesktop.ITsSbPlugin
     return ITsSbTaskPlugin
 def _define_ITsSbPropertySet_head():
     class ITsSbPropertySet(win32more.System.Com.StructuredStorage.IPropertyBag_head):
@@ -1787,6 +1826,7 @@ def _define_ITsSbPropertySet_head():
     return ITsSbPropertySet
 def _define_ITsSbPropertySet():
     ITsSbPropertySet = win32more.System.RemoteDesktop.ITsSbPropertySet_head
+    win32more.System.Com.StructuredStorage.IPropertyBag
     return ITsSbPropertySet
 def _define_ITsSbPluginPropertySet_head():
     class ITsSbPluginPropertySet(win32more.System.RemoteDesktop.ITsSbPropertySet_head):
@@ -1794,6 +1834,7 @@ def _define_ITsSbPluginPropertySet_head():
     return ITsSbPluginPropertySet
 def _define_ITsSbPluginPropertySet():
     ITsSbPluginPropertySet = win32more.System.RemoteDesktop.ITsSbPluginPropertySet_head
+    win32more.System.RemoteDesktop.ITsSbPropertySet
     return ITsSbPluginPropertySet
 def _define_ITsSbClientConnectionPropertySet_head():
     class ITsSbClientConnectionPropertySet(win32more.System.RemoteDesktop.ITsSbPropertySet_head):
@@ -1801,6 +1842,7 @@ def _define_ITsSbClientConnectionPropertySet_head():
     return ITsSbClientConnectionPropertySet
 def _define_ITsSbClientConnectionPropertySet():
     ITsSbClientConnectionPropertySet = win32more.System.RemoteDesktop.ITsSbClientConnectionPropertySet_head
+    win32more.System.RemoteDesktop.ITsSbPropertySet
     return ITsSbClientConnectionPropertySet
 def _define_ITsSbTargetPropertySet_head():
     class ITsSbTargetPropertySet(win32more.System.RemoteDesktop.ITsSbPropertySet_head):
@@ -1808,6 +1850,7 @@ def _define_ITsSbTargetPropertySet_head():
     return ITsSbTargetPropertySet
 def _define_ITsSbTargetPropertySet():
     ITsSbTargetPropertySet = win32more.System.RemoteDesktop.ITsSbTargetPropertySet_head
+    win32more.System.RemoteDesktop.ITsSbPropertySet
     return ITsSbTargetPropertySet
 def _define_ITsSbEnvironmentPropertySet_head():
     class ITsSbEnvironmentPropertySet(win32more.System.RemoteDesktop.ITsSbPropertySet_head):
@@ -1815,6 +1858,7 @@ def _define_ITsSbEnvironmentPropertySet_head():
     return ITsSbEnvironmentPropertySet
 def _define_ITsSbEnvironmentPropertySet():
     ITsSbEnvironmentPropertySet = win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head
+    win32more.System.RemoteDesktop.ITsSbPropertySet
     return ITsSbEnvironmentPropertySet
 def _define_ITsSbBaseNotifySink_head():
     class ITsSbBaseNotifySink(win32more.System.Com.IUnknown_head):
@@ -1824,6 +1868,7 @@ def _define_ITsSbBaseNotifySink():
     ITsSbBaseNotifySink = win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head
     ITsSbBaseNotifySink.OnError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnError', ((1, 'hrError'),)))
     ITsSbBaseNotifySink.OnReportStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.CLIENT_MESSAGE_TYPE,UInt32, use_last_error=False)(4, 'OnReportStatus', ((1, 'messageType'),(1, 'messageID'),)))
+    win32more.System.Com.IUnknown
     return ITsSbBaseNotifySink
 def _define_ITsSbPluginNotifySink_head():
     class ITsSbPluginNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
@@ -1833,6 +1878,7 @@ def _define_ITsSbPluginNotifySink():
     ITsSbPluginNotifySink = win32more.System.RemoteDesktop.ITsSbPluginNotifySink_head
     ITsSbPluginNotifySink.OnInitialized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(5, 'OnInitialized', ((1, 'hr'),)))
     ITsSbPluginNotifySink.OnTerminated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'OnTerminated', ()))
+    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
     return ITsSbPluginNotifySink
 def _define_ITsSbLoadBalancingNotifySink_head():
     class ITsSbLoadBalancingNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
@@ -1841,6 +1887,7 @@ def _define_ITsSbLoadBalancingNotifySink_head():
 def _define_ITsSbLoadBalancingNotifySink():
     ITsSbLoadBalancingNotifySink = win32more.System.RemoteDesktop.ITsSbLoadBalancingNotifySink_head
     ITsSbLoadBalancingNotifySink.OnGetMostSuitableTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbLoadBalanceResult_head,win32more.Foundation.BOOL, use_last_error=False)(5, 'OnGetMostSuitableTarget', ((1, 'pLBResult'),(1, 'fIsNewConnection'),)))
+    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
     return ITsSbLoadBalancingNotifySink
 def _define_ITsSbPlacementNotifySink_head():
     class ITsSbPlacementNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
@@ -1849,6 +1896,7 @@ def _define_ITsSbPlacementNotifySink_head():
 def _define_ITsSbPlacementNotifySink():
     ITsSbPlacementNotifySink = win32more.System.RemoteDesktop.ITsSbPlacementNotifySink_head
     ITsSbPlacementNotifySink.OnQueryEnvironmentCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbEnvironment_head, use_last_error=False)(5, 'OnQueryEnvironmentCompleted', ((1, 'pEnvironment'),)))
+    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
     return ITsSbPlacementNotifySink
 def _define_ITsSbOrchestrationNotifySink_head():
     class ITsSbOrchestrationNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
@@ -1857,6 +1905,7 @@ def _define_ITsSbOrchestrationNotifySink_head():
 def _define_ITsSbOrchestrationNotifySink():
     ITsSbOrchestrationNotifySink = win32more.System.RemoteDesktop.ITsSbOrchestrationNotifySink_head
     ITsSbOrchestrationNotifySink.OnReadyToConnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbTarget_head, use_last_error=False)(5, 'OnReadyToConnect', ((1, 'pTarget'),)))
+    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
     return ITsSbOrchestrationNotifySink
 def _define_ITsSbTaskPluginNotifySink_head():
     class ITsSbTaskPluginNotifySink(win32more.System.RemoteDesktop.ITsSbBaseNotifySink_head):
@@ -1868,6 +1917,7 @@ def _define_ITsSbTaskPluginNotifySink():
     ITsSbTaskPluginNotifySink.OnDeleteTaskTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(6, 'OnDeleteTaskTime', ((1, 'szTargetName'),(1, 'szTaskIdentifier'),)))
     ITsSbTaskPluginNotifySink.OnUpdateTaskStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.RDV_TASK_STATUS, use_last_error=False)(7, 'OnUpdateTaskStatus', ((1, 'szTargetName'),(1, 'TaskIdentifier'),(1, 'TaskStatus'),)))
     ITsSbTaskPluginNotifySink.OnReportTasks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'OnReportTasks', ((1, 'szHostName'),)))
+    win32more.System.RemoteDesktop.ITsSbBaseNotifySink
     return ITsSbTaskPluginNotifySink
 def _define_ITsSbClientConnection_head():
     class ITsSbClientConnection(win32more.System.Com.IUnknown_head):
@@ -1890,6 +1940,7 @@ def _define_ITsSbClientConnection():
     ITsSbClientConnection.get_RdFarmType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.RD_FARM_TYPE), use_last_error=False)(15, 'get_RdFarmType', ((1, 'pRdFarmType'),)))
     ITsSbClientConnection.get_UserSidString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(SByte)), use_last_error=False)(16, 'get_UserSidString', ((1, 'pszUserSidString'),)))
     ITsSbClientConnection.GetDisconnectedSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbSession_head), use_last_error=False)(17, 'GetDisconnectedSession', ((1, 'ppSession'),)))
+    win32more.System.Com.IUnknown
     return ITsSbClientConnection
 def _define_ITsSbProvider_head():
     class ITsSbProvider(win32more.System.Com.IUnknown_head):
@@ -1909,6 +1960,7 @@ def _define_ITsSbProvider():
     ITsSbProvider.UnRegisterForNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BSTR, use_last_error=False)(12, 'UnRegisterForNotification', ((1, 'notificationType'),(1, 'ResourceToMonitor'),)))
     ITsSbProvider.GetInstanceOfGlobalStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbGlobalStore_head), use_last_error=False)(13, 'GetInstanceOfGlobalStore', ((1, 'ppGlobalStore'),)))
     ITsSbProvider.CreateEnvironmentPropertySetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbEnvironmentPropertySet_head), use_last_error=False)(14, 'CreateEnvironmentPropertySetObject', ((1, 'ppPropertySet'),)))
+    win32more.System.Com.IUnknown
     return ITsSbProvider
 def _define_ITsSbResourcePluginStore_head():
     class ITsSbResourcePluginStore(win32more.System.Com.IUnknown_head):
@@ -1944,6 +1996,7 @@ def _define_ITsSbResourcePluginStore():
     ITsSbResourcePluginStore.SetServerWaitingToStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(28, 'SetServerWaitingToStart', ((1, 'PoolName'),(1, 'serverName'),)))
     ITsSbResourcePluginStore.GetServerState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.TARGET_STATE), use_last_error=False)(29, 'GetServerState', ((1, 'PoolName'),(1, 'ServerFQDN'),(1, 'pState'),)))
     ITsSbResourcePluginStore.SetServerDrainMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32, use_last_error=False)(30, 'SetServerDrainMode', ((1, 'ServerFQDN'),(1, 'DrainMode'),)))
+    win32more.System.Com.IUnknown
     return ITsSbResourcePluginStore
 def _define_ITsSbFilterPluginStore_head():
     class ITsSbFilterPluginStore(win32more.System.Com.IUnknown_head):
@@ -1954,6 +2007,7 @@ def _define_ITsSbFilterPluginStore():
     ITsSbFilterPluginStore.SaveProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.ITsSbPropertySet_head, use_last_error=False)(3, 'SaveProperties', ((1, 'pPropertySet'),)))
     ITsSbFilterPluginStore.EnumerateProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.ITsSbPropertySet_head), use_last_error=False)(4, 'EnumerateProperties', ((1, 'ppPropertySet'),)))
     ITsSbFilterPluginStore.DeleteProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(5, 'DeleteProperties', ((1, 'propertyName'),)))
+    win32more.System.Com.IUnknown
     return ITsSbFilterPluginStore
 def _define_ITsSbGlobalStore_head():
     class ITsSbGlobalStore(win32more.System.Com.IUnknown_head):
@@ -1968,6 +2022,7 @@ def _define_ITsSbGlobalStore():
     ITsSbGlobalStore.EnumerateEnvironmentsByProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbEnvironment_head)), use_last_error=False)(7, 'EnumerateEnvironmentsByProvider', ((1, 'ProviderName'),(1, 'pdwCount'),(1, 'ppVal'),)))
     ITsSbGlobalStore.EnumerateSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.RemoteDesktop.TSSESSION_STATE),POINTER(UInt32),POINTER(POINTER(win32more.System.RemoteDesktop.ITsSbSession_head)), use_last_error=False)(8, 'EnumerateSessions', ((1, 'ProviderName'),(1, 'targetName'),(1, 'userName'),(1, 'userDomain'),(1, 'poolName'),(1, 'initialProgram'),(1, 'pSessionState'),(1, 'pdwCount'),(1, 'ppVal'),)))
     ITsSbGlobalStore.GetFarmProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'GetFarmProperty', ((1, 'farmName'),(1, 'propertyName'),(1, 'pVarValue'),)))
+    win32more.System.Com.IUnknown
     return ITsSbGlobalStore
 def _define_ITsSbProvisioningPluginNotifySink_head():
     class ITsSbProvisioningPluginNotifySink(win32more.System.Com.IUnknown_head):
@@ -1981,6 +2036,7 @@ def _define_ITsSbProvisioningPluginNotifySink():
     ITsSbProvisioningPluginNotifySink.OnJobCancelled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'OnJobCancelled', ()))
     ITsSbProvisioningPluginNotifySink.LockVirtualMachine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.VM_NOTIFY_ENTRY_head), use_last_error=False)(7, 'LockVirtualMachine', ((1, 'pVmNotifyEntry'),)))
     ITsSbProvisioningPluginNotifySink.OnVirtualMachineHostStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.VM_HOST_NOTIFY_STATUS,win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'OnVirtualMachineHostStatusChanged', ((1, 'VmHost'),(1, 'VmHostNotifyStatus'),(1, 'ErrorCode'),(1, 'ErrorDescr'),)))
+    win32more.System.Com.IUnknown
     return ITsSbProvisioningPluginNotifySink
 def _define_ITsSbProvisioning_head():
     class ITsSbProvisioning(win32more.System.RemoteDesktop.ITsSbPlugin_head):
@@ -1992,6 +2048,7 @@ def _define_ITsSbProvisioning():
     ITsSbProvisioning.PatchVirtualMachines = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head,POINTER(win32more.System.RemoteDesktop.VM_PATCH_INFO_head), use_last_error=False)(6, 'PatchVirtualMachines', ((1, 'JobXmlString'),(1, 'JobGuid'),(1, 'pSink'),(1, 'pVMPatchInfo'),)))
     ITsSbProvisioning.DeleteVirtualMachines = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.RemoteDesktop.ITsSbProvisioningPluginNotifySink_head, use_last_error=False)(7, 'DeleteVirtualMachines', ((1, 'JobXmlString'),(1, 'JobGuid'),(1, 'pSink'),)))
     ITsSbProvisioning.CancelJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'CancelJob', ((1, 'JobGuid'),)))
+    win32more.System.RemoteDesktop.ITsSbPlugin
     return ITsSbProvisioning
 def _define_ITsSbGenericNotifySink_head():
     class ITsSbGenericNotifySink(win32more.System.Com.IUnknown_head):
@@ -2001,6 +2058,7 @@ def _define_ITsSbGenericNotifySink():
     ITsSbGenericNotifySink = win32more.System.RemoteDesktop.ITsSbGenericNotifySink_head
     ITsSbGenericNotifySink.OnCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnCompleted', ((1, 'Status'),)))
     ITsSbGenericNotifySink.GetWaitTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(4, 'GetWaitTimeout', ((1, 'pftTimeout'),)))
+    win32more.System.Com.IUnknown
     return ITsSbGenericNotifySink
 def _define_pluginResource_head():
     class pluginResource(Structure):
@@ -2034,6 +2092,7 @@ def _define_ItsPubPlugin():
     ItsPubPlugin.get_pluginName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_pluginName', ((1, 'pVal'),)))
     ItsPubPlugin.get_pluginVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_pluginVersion', ((1, 'pVal'),)))
     ItsPubPlugin.ResolveResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(8, 'ResolveResource', ((1, 'resourceType'),(1, 'resourceLocation'),(1, 'endPointName'),(1, 'userID'),(1, 'alias'),)))
+    win32more.System.Com.IUnknown
     return ItsPubPlugin
 def _define_pluginResource2FileAssociation_head():
     class pluginResource2FileAssociation(Structure):
@@ -2079,6 +2138,7 @@ def _define_ItsPubPlugin2():
     ItsPubPlugin2.GetResource2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,POINTER(win32more.System.RemoteDesktop.pluginResource2_head), use_last_error=False)(10, 'GetResource2', ((1, 'alias'),(1, 'flags'),(1, 'resource'),)))
     ItsPubPlugin2.ResolvePersonalDesktop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.RemoteDesktop.TSPUB_PLUGIN_PD_RESOLUTION_TYPE,POINTER(win32more.System.RemoteDesktop.TSPUB_PLUGIN_PD_ASSIGNMENT_TYPE),win32more.Foundation.PWSTR, use_last_error=False)(11, 'ResolvePersonalDesktop', ((1, 'userId'),(1, 'poolId'),(1, 'ePdResolutionType'),(1, 'pPdAssignmentType'),(1, 'endPointName'),)))
     ItsPubPlugin2.DeletePersonalDesktopAssignment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(12, 'DeletePersonalDesktopAssignment', ((1, 'userId'),(1, 'poolId'),(1, 'endpointName'),)))
+    win32more.System.RemoteDesktop.ItsPubPlugin
     return ItsPubPlugin2
 def _define_IWorkspaceResTypeRegistry_head():
     class IWorkspaceResTypeRegistry(win32more.System.Com.IDispatch_head):
@@ -2091,6 +2151,7 @@ def _define_IWorkspaceResTypeRegistry():
     IWorkspaceResTypeRegistry.GetRegisteredFileExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(9, 'GetRegisteredFileExtensions', ((1, 'fMachineWide'),(1, 'psaFileExtensions'),)))
     IWorkspaceResTypeRegistry.GetResourceTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'GetResourceTypeInfo', ((1, 'fMachineWide'),(1, 'bstrFileExtension'),(1, 'pbstrLauncher'),)))
     IWorkspaceResTypeRegistry.ModifyResourceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(11, 'ModifyResourceType', ((1, 'fMachineWide'),(1, 'bstrFileExtension'),(1, 'bstrLauncher'),)))
+    win32more.System.Com.IDispatch
     return IWorkspaceResTypeRegistry
 def _define_IWTSPlugin_head():
     class IWTSPlugin(win32more.System.Com.IUnknown_head):
@@ -2102,6 +2163,7 @@ def _define_IWTSPlugin():
     IWTSPlugin.Connected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Connected', ()))
     IWTSPlugin.Disconnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Disconnected', ((1, 'dwDisconnectCode'),)))
     IWTSPlugin.Terminated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Terminated', ()))
+    win32more.System.Com.IUnknown
     return IWTSPlugin
 def _define_IWTSListener_head():
     class IWTSListener(win32more.System.Com.IUnknown_head):
@@ -2110,6 +2172,7 @@ def _define_IWTSListener_head():
 def _define_IWTSListener():
     IWTSListener = win32more.System.RemoteDesktop.IWTSListener_head
     IWTSListener.GetConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IPropertyBag_head), use_last_error=False)(3, 'GetConfiguration', ((1, 'ppPropertyBag'),)))
+    win32more.System.Com.IUnknown
     return IWTSListener
 def _define_IWTSListenerCallback_head():
     class IWTSListenerCallback(win32more.System.Com.IUnknown_head):
@@ -2118,6 +2181,7 @@ def _define_IWTSListenerCallback_head():
 def _define_IWTSListenerCallback():
     IWTSListenerCallback = win32more.System.RemoteDesktop.IWTSListenerCallback_head
     IWTSListenerCallback.OnNewChannelConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWTSVirtualChannel_head,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BOOL),POINTER(win32more.System.RemoteDesktop.IWTSVirtualChannelCallback_head), use_last_error=False)(3, 'OnNewChannelConnection', ((1, 'pChannel'),(1, 'data'),(1, 'pbAccept'),(1, 'ppCallback'),)))
+    win32more.System.Com.IUnknown
     return IWTSListenerCallback
 def _define_IWTSVirtualChannelCallback_head():
     class IWTSVirtualChannelCallback(win32more.System.Com.IUnknown_head):
@@ -2127,6 +2191,7 @@ def _define_IWTSVirtualChannelCallback():
     IWTSVirtualChannelCallback = win32more.System.RemoteDesktop.IWTSVirtualChannelCallback_head
     IWTSVirtualChannelCallback.OnDataReceived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte), use_last_error=False)(3, 'OnDataReceived', ((1, 'cbSize'),(1, 'pBuffer'),)))
     IWTSVirtualChannelCallback.OnClose = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnClose', ()))
+    win32more.System.Com.IUnknown
     return IWTSVirtualChannelCallback
 def _define_IWTSVirtualChannelManager_head():
     class IWTSVirtualChannelManager(win32more.System.Com.IUnknown_head):
@@ -2135,6 +2200,7 @@ def _define_IWTSVirtualChannelManager_head():
 def _define_IWTSVirtualChannelManager():
     IWTSVirtualChannelManager = win32more.System.RemoteDesktop.IWTSVirtualChannelManager_head
     IWTSVirtualChannelManager.CreateListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,win32more.System.RemoteDesktop.IWTSListenerCallback_head,POINTER(win32more.System.RemoteDesktop.IWTSListener_head), use_last_error=False)(3, 'CreateListener', ((1, 'pszChannelName'),(1, 'uFlags'),(1, 'pListenerCallback'),(1, 'ppListener'),)))
+    win32more.System.Com.IUnknown
     return IWTSVirtualChannelManager
 def _define_IWTSVirtualChannel_head():
     class IWTSVirtualChannel(win32more.System.Com.IUnknown_head):
@@ -2144,6 +2210,7 @@ def _define_IWTSVirtualChannel():
     IWTSVirtualChannel = win32more.System.RemoteDesktop.IWTSVirtualChannel_head
     IWTSVirtualChannel.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Write', ((1, 'cbSize'),(1, 'pBuffer'),(1, 'pReserved'),)))
     IWTSVirtualChannel.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IWTSVirtualChannel
 def _define_IWTSPluginServiceProvider_head():
     class IWTSPluginServiceProvider(win32more.System.Com.IUnknown_head):
@@ -2152,6 +2219,7 @@ def _define_IWTSPluginServiceProvider_head():
 def _define_IWTSPluginServiceProvider():
     IWTSPluginServiceProvider = win32more.System.RemoteDesktop.IWTSPluginServiceProvider_head
     IWTSPluginServiceProvider.GetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetService', ((1, 'ServiceId'),(1, 'ppunkObject'),)))
+    win32more.System.Com.IUnknown
     return IWTSPluginServiceProvider
 def _define_BITMAP_RENDERER_STATISTICS_head():
     class BITMAP_RENDERER_STATISTICS(Structure):
@@ -2173,6 +2241,7 @@ def _define_IWTSBitmapRenderer():
     IWTSBitmapRenderer.Render = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,UInt32,Int32,UInt32,POINTER(Byte), use_last_error=False)(3, 'Render', ((1, 'imageFormat'),(1, 'dwWidth'),(1, 'dwHeight'),(1, 'cbStride'),(1, 'cbImageBuffer'),(1, 'pImageBuffer'),)))
     IWTSBitmapRenderer.GetRendererStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.BITMAP_RENDERER_STATISTICS_head), use_last_error=False)(4, 'GetRendererStatistics', ((1, 'pStatistics'),)))
     IWTSBitmapRenderer.RemoveMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'RemoveMapping', ()))
+    win32more.System.Com.IUnknown
     return IWTSBitmapRenderer
 def _define_IWTSBitmapRendererCallback_head():
     class IWTSBitmapRendererCallback(win32more.System.Com.IUnknown_head):
@@ -2181,6 +2250,7 @@ def _define_IWTSBitmapRendererCallback_head():
 def _define_IWTSBitmapRendererCallback():
     IWTSBitmapRendererCallback = win32more.System.RemoteDesktop.IWTSBitmapRendererCallback_head
     IWTSBitmapRendererCallback.OnTargetSizeChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.RECT, use_last_error=False)(3, 'OnTargetSizeChanged', ((1, 'rcNewSize'),)))
+    win32more.System.Com.IUnknown
     return IWTSBitmapRendererCallback
 def _define_IWTSBitmapRenderService_head():
     class IWTSBitmapRenderService(win32more.System.Com.IUnknown_head):
@@ -2189,6 +2259,7 @@ def _define_IWTSBitmapRenderService_head():
 def _define_IWTSBitmapRenderService():
     IWTSBitmapRenderService = win32more.System.RemoteDesktop.IWTSBitmapRenderService_head
     IWTSBitmapRenderService.GetMappedRenderer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.System.RemoteDesktop.IWTSBitmapRendererCallback_head,POINTER(win32more.System.RemoteDesktop.IWTSBitmapRenderer_head), use_last_error=False)(3, 'GetMappedRenderer', ((1, 'mappingId'),(1, 'pMappedRendererCallback'),(1, 'ppMappedRenderer'),)))
+    win32more.System.Com.IUnknown
     return IWTSBitmapRenderService
 def _define_IWRdsGraphicsChannelEvents_head():
     class IWRdsGraphicsChannelEvents(win32more.System.Com.IUnknown_head):
@@ -2201,6 +2272,7 @@ def _define_IWRdsGraphicsChannelEvents():
     IWRdsGraphicsChannelEvents.OnChannelOpened = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'OnChannelOpened', ((1, 'OpenResult'),(1, 'pOpenContext'),)))
     IWRdsGraphicsChannelEvents.OnDataSent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,c_char_p_no,UInt32, use_last_error=False)(6, 'OnDataSent', ((1, 'pWriteContext'),(1, 'bCancelled'),(1, 'pBuffer'),(1, 'cbBuffer'),)))
     IWRdsGraphicsChannelEvents.OnMetricsUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt64, use_last_error=False)(7, 'OnMetricsUpdate', ((1, 'bandwidth'),(1, 'RTT'),(1, 'lastSentByteIndex'),)))
+    win32more.System.Com.IUnknown
     return IWRdsGraphicsChannelEvents
 def _define_IWRdsGraphicsChannel_head():
     class IWRdsGraphicsChannel(win32more.System.Com.IUnknown_head):
@@ -2211,6 +2283,7 @@ def _define_IWRdsGraphicsChannel():
     IWRdsGraphicsChannel.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Write', ((1, 'cbSize'),(1, 'pBuffer'),(1, 'pContext'),)))
     IWRdsGraphicsChannel.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Close', ()))
     IWRdsGraphicsChannel.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWRdsGraphicsChannelEvents_head,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'Open', ((1, 'pChannelEvents'),(1, 'pOpenContext'),)))
+    win32more.System.Com.IUnknown
     return IWRdsGraphicsChannel
 WRdsGraphicsChannelType = Int32
 WRdsGraphicsChannelType_GuaranteedDelivery = 0
@@ -2222,6 +2295,7 @@ def _define_IWRdsGraphicsChannelManager_head():
 def _define_IWRdsGraphicsChannelManager():
     IWRdsGraphicsChannelManager = win32more.System.RemoteDesktop.IWRdsGraphicsChannelManager_head
     IWRdsGraphicsChannelManager.CreateChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,win32more.System.RemoteDesktop.WRdsGraphicsChannelType,POINTER(win32more.System.RemoteDesktop.IWRdsGraphicsChannel_head), use_last_error=False)(3, 'CreateChannel', ((1, 'pszChannelName'),(1, 'channelType'),(1, 'ppVirtualChannel'),)))
+    win32more.System.Com.IUnknown
     return IWRdsGraphicsChannelManager
 def _define_RFX_GFX_RECT_head():
     class RFX_GFX_RECT(Structure):
@@ -2962,6 +3036,7 @@ def _define_IWTSProtocolManager():
     IWTSProtocolManager.NotifySessionOfServiceStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head), use_last_error=False)(5, 'NotifySessionOfServiceStart', ((1, 'SessionId'),)))
     IWTSProtocolManager.NotifySessionOfServiceStop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head), use_last_error=False)(6, 'NotifySessionOfServiceStop', ((1, 'SessionId'),)))
     IWTSProtocolManager.NotifySessionStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head),UInt32, use_last_error=False)(7, 'NotifySessionStateChange', ((1, 'SessionId'),(1, 'EventId'),)))
+    win32more.System.Com.IUnknown
     return IWTSProtocolManager
 def _define_IWTSProtocolListener_head():
     class IWTSProtocolListener(win32more.System.Com.IUnknown_head):
@@ -2971,6 +3046,7 @@ def _define_IWTSProtocolListener():
     IWTSProtocolListener = win32more.System.RemoteDesktop.IWTSProtocolListener_head
     IWTSProtocolListener.StartListen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWTSProtocolListenerCallback_head, use_last_error=False)(3, 'StartListen', ((1, 'pCallback'),)))
     IWTSProtocolListener.StopListen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'StopListen', ()))
+    win32more.System.Com.IUnknown
     return IWTSProtocolListener
 def _define_IWTSProtocolListenerCallback_head():
     class IWTSProtocolListenerCallback(win32more.System.Com.IUnknown_head):
@@ -2979,6 +3055,7 @@ def _define_IWTSProtocolListenerCallback_head():
 def _define_IWTSProtocolListenerCallback():
     IWTSProtocolListenerCallback = win32more.System.RemoteDesktop.IWTSProtocolListenerCallback_head
     IWTSProtocolListenerCallback.OnConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWTSProtocolConnection_head,POINTER(win32more.System.RemoteDesktop.IWTSProtocolConnectionCallback_head), use_last_error=False)(3, 'OnConnected', ((1, 'pConnection'),(1, 'pCallback'),)))
+    win32more.System.Com.IUnknown
     return IWTSProtocolListenerCallback
 def _define_IWTSProtocolConnection_head():
     class IWTSProtocolConnection(win32more.System.Com.IUnknown_head):
@@ -3009,6 +3086,7 @@ def _define_IWTSProtocolConnection():
     IWTSProtocolConnection.CreateVirtualChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.BOOL,UInt32,POINTER(UIntPtr), use_last_error=False)(23, 'CreateVirtualChannel', ((1, 'szEndpointName'),(1, 'bStatic'),(1, 'RequestedPriority'),(1, 'phChannel'),)))
     IWTSProtocolConnection.QueryProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE),POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE), use_last_error=False)(24, 'QueryProperty', ((1, 'QueryType'),(1, 'ulNumEntriesIn'),(1, 'ulNumEntriesOut'),(1, 'pPropertyEntriesIn'),(1, 'pPropertyEntriesOut'),)))
     IWTSProtocolConnection.GetShadowConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IWTSProtocolShadowConnection_head), use_last_error=False)(25, 'GetShadowConnection', ((1, 'ppShadowConnection'),)))
+    win32more.System.Com.IUnknown
     return IWTSProtocolConnection
 def _define_IWTSProtocolConnectionCallback_head():
     class IWTSProtocolConnectionCallback(win32more.System.Com.IUnknown_head):
@@ -3021,6 +3099,7 @@ def _define_IWTSProtocolConnectionCallback():
     IWTSProtocolConnectionCallback.StopScreenUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'StopScreenUpdates', ()))
     IWTSProtocolConnectionCallback.RedrawWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SMALL_RECT_head), use_last_error=False)(6, 'RedrawWindow', ((1, 'rect'),)))
     IWTSProtocolConnectionCallback.DisplayIOCtl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_DISPLAY_IOCTL_head), use_last_error=False)(7, 'DisplayIOCtl', ((1, 'DisplayIOCtl'),)))
+    win32more.System.Com.IUnknown
     return IWTSProtocolConnectionCallback
 def _define_IWTSProtocolShadowConnection_head():
     class IWTSProtocolShadowConnection(win32more.System.Com.IUnknown_head):
@@ -3031,6 +3110,7 @@ def _define_IWTSProtocolShadowConnection():
     IWTSProtocolShadowConnection.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,Byte,UInt16,win32more.System.RemoteDesktop.IWTSProtocolShadowCallback_head, use_last_error=False)(3, 'Start', ((1, 'pTargetServerName'),(1, 'TargetSessionId'),(1, 'HotKeyVk'),(1, 'HotkeyModifiers'),(1, 'pShadowCallback'),)))
     IWTSProtocolShadowConnection.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Stop', ()))
     IWTSProtocolShadowConnection.DoTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Foundation.PWSTR, use_last_error=False)(5, 'DoTarget', ((1, 'pParam1'),(1, 'Param1Size'),(1, 'pParam2'),(1, 'Param2Size'),(1, 'pParam3'),(1, 'Param3Size'),(1, 'pParam4'),(1, 'Param4Size'),(1, 'pClientName'),)))
+    win32more.System.Com.IUnknown
     return IWTSProtocolShadowConnection
 def _define_IWTSProtocolShadowCallback_head():
     class IWTSProtocolShadowCallback(win32more.System.Com.IUnknown_head):
@@ -3040,6 +3120,7 @@ def _define_IWTSProtocolShadowCallback():
     IWTSProtocolShadowCallback = win32more.System.RemoteDesktop.IWTSProtocolShadowCallback_head
     IWTSProtocolShadowCallback.StopShadow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'StopShadow', ()))
     IWTSProtocolShadowCallback.InvokeTargetShadow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'InvokeTargetShadow', ((1, 'pTargetServerName'),(1, 'TargetSessionId'),(1, 'pParam1'),(1, 'Param1Size'),(1, 'pParam2'),(1, 'Param2Size'),(1, 'pParam3'),(1, 'Param3Size'),(1, 'pParam4'),(1, 'Param4Size'),(1, 'pClientName'),)))
+    win32more.System.Com.IUnknown
     return IWTSProtocolShadowCallback
 def _define_IWTSProtocolLicenseConnection_head():
     class IWTSProtocolLicenseConnection(win32more.System.Com.IUnknown_head):
@@ -3051,6 +3132,7 @@ def _define_IWTSProtocolLicenseConnection():
     IWTSProtocolLicenseConnection.SendClientLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(4, 'SendClientLicense', ((1, 'pClientLicense'),(1, 'cbClientLicense'),)))
     IWTSProtocolLicenseConnection.RequestClientLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(5, 'RequestClientLicense', ((1, 'Reserve1'),(1, 'Reserve2'),(1, 'ppClientLicense'),(1, 'pcbClientLicense'),)))
     IWTSProtocolLicenseConnection.ProtocolComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'ProtocolComplete', ((1, 'ulComplete'),)))
+    win32more.System.Com.IUnknown
     return IWTSProtocolLicenseConnection
 def _define_IWTSProtocolLogonErrorRedirector_head():
     class IWTSProtocolLogonErrorRedirector(win32more.System.Com.IUnknown_head):
@@ -3062,6 +3144,7 @@ def _define_IWTSProtocolLogonErrorRedirector():
     IWTSProtocolLogonErrorRedirector.RedirectStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE), use_last_error=False)(4, 'RedirectStatus', ((1, 'pszMessage'),(1, 'pResponse'),)))
     IWTSProtocolLogonErrorRedirector.RedirectMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE), use_last_error=False)(5, 'RedirectMessage', ((1, 'pszCaption'),(1, 'pszMessage'),(1, 'uType'),(1, 'pResponse'),)))
     IWTSProtocolLogonErrorRedirector.RedirectLogonError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE), use_last_error=False)(6, 'RedirectLogonError', ((1, 'ntsStatus'),(1, 'ntsSubstatus'),(1, 'pszCaption'),(1, 'pszMessage'),(1, 'uType'),(1, 'pResponse'),)))
+    win32more.System.Com.IUnknown
     return IWTSProtocolLogonErrorRedirector
 def _define_IWRdsProtocolSettings_head():
     class IWRdsProtocolSettings(win32more.System.Com.IUnknown_head):
@@ -3071,6 +3154,7 @@ def _define_IWRdsProtocolSettings():
     IWRdsProtocolSettings = win32more.System.RemoteDesktop.IWRdsProtocolSettings_head
     IWRdsProtocolSettings.GetSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.WRDS_SETTING_TYPE,win32more.System.RemoteDesktop.WRDS_SETTING_LEVEL,POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head), use_last_error=False)(3, 'GetSettings', ((1, 'WRdsSettingType'),(1, 'WRdsSettingLevel'),(1, 'pWRdsSettings'),)))
     IWRdsProtocolSettings.MergeSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head),win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTING_LEVEL,POINTER(win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head), use_last_error=False)(4, 'MergeSettings', ((1, 'pWRdsSettings'),(1, 'WRdsConnectionSettingLevel'),(1, 'pWRdsConnectionSettings'),)))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolSettings
 def _define_IWRdsProtocolManager_head():
     class IWRdsProtocolManager(win32more.System.Com.IUnknown_head):
@@ -3086,6 +3170,7 @@ def _define_IWRdsProtocolManager():
     IWRdsProtocolManager.NotifySessionStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SESSION_ID_head),UInt32, use_last_error=False)(8, 'NotifySessionStateChange', ((1, 'SessionId'),(1, 'EventId'),)))
     IWRdsProtocolManager.NotifySettingsChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WRDS_SETTINGS_head), use_last_error=False)(9, 'NotifySettingsChange', ((1, 'pWRdsSettings'),)))
     IWRdsProtocolManager.Uninitialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Uninitialize', ()))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolManager
 def _define_IWRdsProtocolListener_head():
     class IWRdsProtocolListener(win32more.System.Com.IUnknown_head):
@@ -3096,6 +3181,7 @@ def _define_IWRdsProtocolListener():
     IWRdsProtocolListener.GetSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.WRDS_LISTENER_SETTING_LEVEL,POINTER(win32more.System.RemoteDesktop.WRDS_LISTENER_SETTINGS_head), use_last_error=False)(3, 'GetSettings', ((1, 'WRdsListenerSettingLevel'),(1, 'pWRdsListenerSettings'),)))
     IWRdsProtocolListener.StartListen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWRdsProtocolListenerCallback_head, use_last_error=False)(4, 'StartListen', ((1, 'pCallback'),)))
     IWRdsProtocolListener.StopListen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'StopListen', ()))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolListener
 def _define_IWRdsProtocolListenerCallback_head():
     class IWRdsProtocolListenerCallback(win32more.System.Com.IUnknown_head):
@@ -3104,6 +3190,7 @@ def _define_IWRdsProtocolListenerCallback_head():
 def _define_IWRdsProtocolListenerCallback():
     IWRdsProtocolListenerCallback = win32more.System.RemoteDesktop.IWRdsProtocolListenerCallback_head
     IWRdsProtocolListenerCallback.OnConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.IWRdsProtocolConnection_head,POINTER(win32more.System.RemoteDesktop.WRDS_CONNECTION_SETTINGS_head),POINTER(win32more.System.RemoteDesktop.IWRdsProtocolConnectionCallback_head), use_last_error=False)(3, 'OnConnected', ((1, 'pConnection'),(1, 'pWRdsConnectionSettings'),(1, 'pCallback'),)))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolListenerCallback
 def _define_IWRdsProtocolConnection_head():
     class IWRdsProtocolConnection(win32more.System.Com.IUnknown_head):
@@ -3135,6 +3222,7 @@ def _define_IWRdsProtocolConnection():
     IWRdsProtocolConnection.QueryProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE),POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE), use_last_error=False)(24, 'QueryProperty', ((1, 'QueryType'),(1, 'ulNumEntriesIn'),(1, 'ulNumEntriesOut'),(1, 'pPropertyEntriesIn'),(1, 'pPropertyEntriesOut'),)))
     IWRdsProtocolConnection.GetShadowConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.IWRdsProtocolShadowConnection_head), use_last_error=False)(25, 'GetShadowConnection', ((1, 'ppShadowConnection'),)))
     IWRdsProtocolConnection.NotifyCommandProcessCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(26, 'NotifyCommandProcessCreated', ((1, 'SessionId'),)))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolConnection
 def _define_IWRdsProtocolConnectionCallback_head():
     class IWRdsProtocolConnectionCallback(win32more.System.Com.IUnknown_head):
@@ -3147,6 +3235,7 @@ def _define_IWRdsProtocolConnectionCallback():
     IWRdsProtocolConnectionCallback.StopScreenUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'StopScreenUpdates', ()))
     IWRdsProtocolConnectionCallback.RedrawWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RemoteDesktop.WTS_SMALL_RECT_head), use_last_error=False)(6, 'RedrawWindow', ((1, 'rect'),)))
     IWRdsProtocolConnectionCallback.GetConnectionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetConnectionId', ((1, 'pConnectionId'),)))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolConnectionCallback
 def _define_IWRdsProtocolShadowConnection_head():
     class IWRdsProtocolShadowConnection(win32more.System.Com.IUnknown_head):
@@ -3157,6 +3246,7 @@ def _define_IWRdsProtocolShadowConnection():
     IWRdsProtocolShadowConnection.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,Byte,UInt16,win32more.System.RemoteDesktop.IWRdsProtocolShadowCallback_head, use_last_error=False)(3, 'Start', ((1, 'pTargetServerName'),(1, 'TargetSessionId'),(1, 'HotKeyVk'),(1, 'HotkeyModifiers'),(1, 'pShadowCallback'),)))
     IWRdsProtocolShadowConnection.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Stop', ()))
     IWRdsProtocolShadowConnection.DoTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Foundation.PWSTR, use_last_error=False)(5, 'DoTarget', ((1, 'pParam1'),(1, 'Param1Size'),(1, 'pParam2'),(1, 'Param2Size'),(1, 'pParam3'),(1, 'Param3Size'),(1, 'pParam4'),(1, 'Param4Size'),(1, 'pClientName'),)))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolShadowConnection
 def _define_IWRdsProtocolShadowCallback_head():
     class IWRdsProtocolShadowCallback(win32more.System.Com.IUnknown_head):
@@ -3166,6 +3256,7 @@ def _define_IWRdsProtocolShadowCallback():
     IWRdsProtocolShadowCallback = win32more.System.RemoteDesktop.IWRdsProtocolShadowCallback_head
     IWRdsProtocolShadowCallback.StopShadow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'StopShadow', ()))
     IWRdsProtocolShadowCallback.InvokeTargetShadow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'InvokeTargetShadow', ((1, 'pTargetServerName'),(1, 'TargetSessionId'),(1, 'pParam1'),(1, 'Param1Size'),(1, 'pParam2'),(1, 'Param2Size'),(1, 'pParam3'),(1, 'Param3Size'),(1, 'pParam4'),(1, 'Param4Size'),(1, 'pClientName'),)))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolShadowCallback
 def _define_IWRdsProtocolLicenseConnection_head():
     class IWRdsProtocolLicenseConnection(win32more.System.Com.IUnknown_head):
@@ -3177,6 +3268,7 @@ def _define_IWRdsProtocolLicenseConnection():
     IWRdsProtocolLicenseConnection.SendClientLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(4, 'SendClientLicense', ((1, 'pClientLicense'),(1, 'cbClientLicense'),)))
     IWRdsProtocolLicenseConnection.RequestClientLicense = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(5, 'RequestClientLicense', ((1, 'Reserve1'),(1, 'Reserve2'),(1, 'ppClientLicense'),(1, 'pcbClientLicense'),)))
     IWRdsProtocolLicenseConnection.ProtocolComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'ProtocolComplete', ((1, 'ulComplete'),)))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolLicenseConnection
 def _define_IWRdsProtocolLogonErrorRedirector_head():
     class IWRdsProtocolLogonErrorRedirector(win32more.System.Com.IUnknown_head):
@@ -3188,6 +3280,7 @@ def _define_IWRdsProtocolLogonErrorRedirector():
     IWRdsProtocolLogonErrorRedirector.RedirectStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE), use_last_error=False)(4, 'RedirectStatus', ((1, 'pszMessage'),(1, 'pResponse'),)))
     IWRdsProtocolLogonErrorRedirector.RedirectMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE), use_last_error=False)(5, 'RedirectMessage', ((1, 'pszCaption'),(1, 'pszMessage'),(1, 'uType'),(1, 'pResponse'),)))
     IWRdsProtocolLogonErrorRedirector.RedirectLogonError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.RemoteDesktop.WTS_LOGON_ERROR_REDIRECTOR_RESPONSE), use_last_error=False)(6, 'RedirectLogonError', ((1, 'ntsStatus'),(1, 'ntsSubstatus'),(1, 'pszCaption'),(1, 'pszMessage'),(1, 'uType'),(1, 'pResponse'),)))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolLogonErrorRedirector
 def _define_IWRdsWddmIddProps_head():
     class IWRdsWddmIddProps(win32more.System.Com.IUnknown_head):
@@ -3199,6 +3292,7 @@ def _define_IWRdsWddmIddProps():
     IWRdsWddmIddProps.OnDriverLoad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HANDLE_PTR, use_last_error=False)(4, 'OnDriverLoad', ((1, 'SessionId'),(1, 'DriverHandle'),)))
     IWRdsWddmIddProps.OnDriverUnload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'OnDriverUnload', ((1, 'SessionId'),)))
     IWRdsWddmIddProps.EnableWddmIdd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(6, 'EnableWddmIdd', ((1, 'Enabled'),)))
+    win32more.System.Com.IUnknown
     return IWRdsWddmIddProps
 def _define_IWRdsProtocolConnectionSettings_head():
     class IWRdsProtocolConnectionSettings(win32more.System.Com.IUnknown_head):
@@ -3208,6 +3302,7 @@ def _define_IWRdsProtocolConnectionSettings():
     IWRdsProtocolConnectionSettings = win32more.System.RemoteDesktop.IWRdsProtocolConnectionSettings_head
     IWRdsProtocolConnectionSettings.SetConnectionSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head), use_last_error=False)(3, 'SetConnectionSetting', ((1, 'PropertyID'),(1, 'pPropertyEntriesIn'),)))
     IWRdsProtocolConnectionSettings.GetConnectionSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.System.RemoteDesktop.WTS_PROPERTY_VALUE_head), use_last_error=False)(4, 'GetConnectionSetting', ((1, 'PropertyID'),(1, 'pPropertyEntriesOut'),)))
+    win32more.System.Com.IUnknown
     return IWRdsProtocolConnectionSettings
 def _define_IWRdsEnhancedFastReconnectArbitrator_head():
     class IWRdsEnhancedFastReconnectArbitrator(win32more.System.Com.IUnknown_head):
@@ -3216,6 +3311,7 @@ def _define_IWRdsEnhancedFastReconnectArbitrator_head():
 def _define_IWRdsEnhancedFastReconnectArbitrator():
     IWRdsEnhancedFastReconnectArbitrator = win32more.System.RemoteDesktop.IWRdsEnhancedFastReconnectArbitrator_head
     IWRdsEnhancedFastReconnectArbitrator.GetSessionForEnhancedFastReconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32,POINTER(Int32), use_last_error=False)(3, 'GetSessionForEnhancedFastReconnect', ((1, 'pSessionIdArray'),(1, 'dwSessionCount'),(1, 'pResultSessionId'),)))
+    win32more.System.Com.IUnknown
     return IWRdsEnhancedFastReconnectArbitrator
 PasswordEncodingType = Int32
 PasswordEncodingType_PasswordEncodingUTF8 = 0
@@ -3231,6 +3327,7 @@ def _define_IRemoteDesktopClientSettings():
     IRemoteDesktopClientSettings.RetrieveSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'RetrieveSettings', ((1, 'rdpFileContents'),)))
     IRemoteDesktopClientSettings.GetRdpProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'GetRdpProperty', ((1, 'propertyName'),(1, 'value'),)))
     IRemoteDesktopClientSettings.SetRdpProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(10, 'SetRdpProperty', ((1, 'propertyName'),(1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IRemoteDesktopClientSettings
 RemoteActionType = Int32
 RemoteActionType_RemoteActionCharms = 0
@@ -3254,6 +3351,7 @@ def _define_IRemoteDesktopClientActions():
     IRemoteDesktopClientActions.ResumeScreenUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'ResumeScreenUpdates', ()))
     IRemoteDesktopClientActions.ExecuteRemoteAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.RemoteActionType, use_last_error=False)(9, 'ExecuteRemoteAction', ((1, 'remoteAction'),)))
     IRemoteDesktopClientActions.GetSnapshot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RemoteDesktop.SnapshotEncodingType,win32more.System.RemoteDesktop.SnapshotFormatType,UInt32,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'GetSnapshot', ((1, 'snapshotEncoding'),(1, 'snapshotFormat'),(1, 'snapshotWidth'),(1, 'snapshotHeight'),(1, 'snapshotData'),)))
+    win32more.System.Com.IDispatch
     return IRemoteDesktopClientActions
 def _define_IRemoteDesktopClientTouchPointer_head():
     class IRemoteDesktopClientTouchPointer(win32more.System.Com.IDispatch_head):
@@ -3267,6 +3365,7 @@ def _define_IRemoteDesktopClientTouchPointer():
     IRemoteDesktopClientTouchPointer.get_EventsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_EventsEnabled', ((1, 'eventsEnabled'),)))
     IRemoteDesktopClientTouchPointer.put_PointerSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'put_PointerSpeed', ((1, 'pointerSpeed'),)))
     IRemoteDesktopClientTouchPointer.get_PointerSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_PointerSpeed', ((1, 'pointerSpeed'),)))
+    win32more.System.Com.IDispatch
     return IRemoteDesktopClientTouchPointer
 KeyCombinationType = Int32
 KeyCombinationType_KeyCombinationHome = 0
@@ -3291,6 +3390,7 @@ def _define_IRemoteDesktopClient():
     IRemoteDesktopClient.UpdateSessionDisplaySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(14, 'UpdateSessionDisplaySettings', ((1, 'width'),(1, 'height'),)))
     IRemoteDesktopClient.attachEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head, use_last_error=False)(15, 'attachEvent', ((1, 'eventName'),(1, 'callback'),)))
     IRemoteDesktopClient.detachEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head, use_last_error=False)(16, 'detachEvent', ((1, 'eventName'),(1, 'callback'),)))
+    win32more.System.Com.IDispatch
     return IRemoteDesktopClient
 def _define_IRemoteSystemAdditionalInfoProvider_head():
     class IRemoteSystemAdditionalInfoProvider(win32more.System.Com.IUnknown_head):
@@ -3299,6 +3399,7 @@ def _define_IRemoteSystemAdditionalInfoProvider_head():
 def _define_IRemoteSystemAdditionalInfoProvider():
     IRemoteSystemAdditionalInfoProvider = win32more.System.RemoteDesktop.IRemoteSystemAdditionalInfoProvider_head
     IRemoteSystemAdditionalInfoProvider.GetAdditionalInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.HSTRING),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetAdditionalInfo', ((1, 'deduplicationId'),(1, 'riid'),(1, 'mapView'),)))
+    win32more.System.Com.IUnknown
     return IRemoteSystemAdditionalInfoProvider
 def _define_WTSSESSION_NOTIFICATION_head():
     class WTSSESSION_NOTIFICATION(Structure):

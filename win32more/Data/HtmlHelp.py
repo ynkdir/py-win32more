@@ -513,6 +513,7 @@ def _define_IITPropList():
     IITPropList.SaveDataToStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,win32more.System.Com.IStream_head, use_last_error=False)(24, 'SaveDataToStream', ((1, 'lpvHeader'),(1, 'dwHdrSize'),(1, 'pStream'),)))
     IITPropList.LoadFromMem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32, use_last_error=False)(25, 'LoadFromMem', ((1, 'lpvData'),(1, 'dwBufSize'),)))
     IITPropList.SaveToMem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32, use_last_error=False)(26, 'SaveToMem', ((1, 'lpvData'),(1, 'dwBufSize'),)))
+    win32more.System.Com.IPersistStreamInit
     return IITPropList
 def _define_IITDatabase_head():
     class IITDatabase(win32more.System.Com.IUnknown_head):
@@ -525,6 +526,7 @@ def _define_IITDatabase():
     IITDatabase.CreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32), use_last_error=False)(5, 'CreateObject', ((1, 'rclsid'),(1, 'pdwObjInstance'),)))
     IITDatabase.GetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetObject', ((1, 'dwObjInstance'),(1, 'riid'),(1, 'ppvObj'),)))
     IITDatabase.GetObjectPersistence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(c_void_p),win32more.Foundation.BOOL, use_last_error=False)(7, 'GetObjectPersistence', ((1, 'lpwszObject'),(1, 'dwObjInstance'),(1, 'ppvPersistence'),(1, 'fStream'),)))
+    win32more.System.Com.IUnknown
     return IITDatabase
 def _define_IITGroup_head():
     class IITGroup(Structure):
@@ -559,6 +561,7 @@ def _define_IITWordWheel():
     IITWordWheel.GetDataCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(UInt32), use_last_error=False)(13, 'GetDataCount', ((1, 'lEntry'),(1, 'pdwCount'),)))
     IITWordWheel.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Data.HtmlHelp.IITResultSet_head, use_last_error=False)(14, 'GetData', ((1, 'lEntry'),(1, 'lpITResult'),)))
     IITWordWheel.GetDataColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.HtmlHelp.IITResultSet_head, use_last_error=False)(15, 'GetDataColumns', ((1, 'pRS'),)))
+    win32more.System.Com.IUnknown
     return IITWordWheel
 def _define_IStemSink_head():
     class IStemSink(win32more.System.Com.IUnknown_head):
@@ -568,6 +571,7 @@ def _define_IStemSink():
     IStemSink = win32more.Data.HtmlHelp.IStemSink_head
     IStemSink.PutAltWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'PutAltWord', ((1, 'pwcInBuf'),(1, 'cwc'),)))
     IStemSink.PutWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(4, 'PutWord', ((1, 'pwcInBuf'),(1, 'cwc'),)))
+    win32more.System.Com.IUnknown
     return IStemSink
 def _define_IStemmerConfig_head():
     class IStemmerConfig(win32more.System.Com.IUnknown_head):
@@ -580,6 +584,7 @@ def _define_IStemmerConfig():
     IStemmerConfig.SetControlInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(5, 'SetControlInfo', ((1, 'grfStemFlags'),(1, 'dwReserved'),)))
     IStemmerConfig.GetControlInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(6, 'GetControlInfo', ((1, 'pgrfStemFlags'),(1, 'pdwReserved'),)))
     IStemmerConfig.LoadExternalStemmerData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,UInt32, use_last_error=False)(7, 'LoadExternalStemmerData', ((1, 'pStream'),(1, 'dwExtDataType'),)))
+    win32more.System.Com.IUnknown
     return IStemmerConfig
 def _define_IITStopWordList_head():
     class IITStopWordList(Structure):
@@ -603,6 +608,7 @@ def _define_IWordBreakerConfig():
     IWordBreakerConfig.LoadExternalBreakerData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,UInt32, use_last_error=False)(9, 'LoadExternalBreakerData', ((1, 'pStream'),(1, 'dwExtDataType'),)))
     IWordBreakerConfig.SetWordStemmer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Search.IStemmer_head, use_last_error=False)(10, 'SetWordStemmer', ((1, 'rclsid'),(1, 'pStemmer'),)))
     IWordBreakerConfig.GetWordStemmer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IStemmer_head), use_last_error=False)(11, 'GetWordStemmer', ((1, 'ppStemmer'),)))
+    win32more.System.Com.IUnknown
     return IWordBreakerConfig
 PRIORITY = Int32
 PRIORITY_LOW = 0
@@ -670,6 +676,7 @@ def _define_IITResultSet():
     IITResultSet.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(30, 'Pause', ((1, 'fPause'),)))
     IITResultSet.GetRowStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.Data.HtmlHelp.ROWSTATUS_head), use_last_error=False)(31, 'GetRowStatus', ((1, 'lRowFirst'),(1, 'cRows'),(1, 'lpRowStatus'),)))
     IITResultSet.GetColumnStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Data.HtmlHelp.COLUMNSTATUS_head), use_last_error=False)(32, 'GetColumnStatus', ((1, 'lpColStatus'),)))
+    win32more.System.Com.IUnknown
     return IITResultSet
 __all__ = [
     "HH_DISPLAY_TOPIC",

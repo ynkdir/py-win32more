@@ -1168,6 +1168,7 @@ def _define_ICameraUIControlEventCallback():
     ICameraUIControlEventCallback.OnItemCaptured = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR, use_last_error=False)(5, 'OnItemCaptured', ((1, 'pszPath'),)))
     ICameraUIControlEventCallback.OnItemDeleted = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR, use_last_error=False)(6, 'OnItemDeleted', ((1, 'pszPath'),)))
     ICameraUIControlEventCallback.OnClosed = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(7, 'OnClosed', ()))
+    win32more.System.Com.IUnknown
     return ICameraUIControlEventCallback
 def _define_ICameraUIControl_head():
     class ICameraUIControl(win32more.System.Com.IUnknown_head):
@@ -1183,6 +1184,7 @@ def _define_ICameraUIControl():
     ICameraUIControl.GetActiveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'GetActiveItem', ((1, 'pbstrActiveItemPath'),)))
     ICameraUIControl.GetSelectedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(9, 'GetSelectedItems', ((1, 'ppSelectedItemPaths'),)))
     ICameraUIControl.RemoveCapturedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'RemoveCapturedItem', ((1, 'pszPath'),)))
+    win32more.System.Com.IUnknown
     return ICameraUIControl
 EditionUpgradeHelper = Guid('01776df3-b9af-4e50-9b1c-56e93116d704')
 EditionUpgradeBroker = Guid('c4270827-4f39-45df-9288-12ff6b85a921')
@@ -1197,6 +1199,7 @@ def _define_IEditionUpgradeHelper():
     IEditionUpgradeHelper.ShowProductKeyUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ShowProductKeyUI', ()))
     IEditionUpgradeHelper.GetOsProductContentId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetOsProductContentId', ((1, 'contentId'),)))
     IEditionUpgradeHelper.GetGenuineLocalStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'GetGenuineLocalStatus', ((1, 'isGenuine'),)))
+    win32more.System.Com.IUnknown
     return IEditionUpgradeHelper
 def _define_IWindowsLockModeHelper_head():
     class IWindowsLockModeHelper(win32more.System.Com.IUnknown_head):
@@ -1205,6 +1208,7 @@ def _define_IWindowsLockModeHelper_head():
 def _define_IWindowsLockModeHelper():
     IWindowsLockModeHelper = win32more.System.WindowsProgramming.IWindowsLockModeHelper_head
     IWindowsLockModeHelper.GetSMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetSMode', ((1, 'isSmode'),)))
+    win32more.System.Com.IUnknown
     return IWindowsLockModeHelper
 def _define_IEditionUpgradeBroker_head():
     class IEditionUpgradeBroker(win32more.System.Com.IUnknown_head):
@@ -1216,6 +1220,7 @@ def _define_IEditionUpgradeBroker():
     IEditionUpgradeBroker.UpdateOperatingSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(4, 'UpdateOperatingSystem', ((1, 'parameter'),)))
     IEditionUpgradeBroker.ShowProductKeyUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ShowProductKeyUI', ()))
     IEditionUpgradeBroker.CanUpgrade = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'CanUpgrade', ()))
+    win32more.System.Com.IUnknown
     return IEditionUpgradeBroker
 def _define_IContainerActivationHelper_head():
     class IContainerActivationHelper(win32more.System.Com.IUnknown_head):
@@ -1224,6 +1229,7 @@ def _define_IContainerActivationHelper_head():
 def _define_IContainerActivationHelper():
     IContainerActivationHelper = win32more.System.WindowsProgramming.IContainerActivationHelper_head
     IContainerActivationHelper.CanActivateClientVM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(3, 'CanActivateClientVM', ((1, 'isAllowed'),)))
+    win32more.System.Com.IUnknown
     return IContainerActivationHelper
 def _define_IClipServiceNotificationHelper_head():
     class IClipServiceNotificationHelper(win32more.System.Com.IUnknown_head):
@@ -1232,6 +1238,7 @@ def _define_IClipServiceNotificationHelper_head():
 def _define_IClipServiceNotificationHelper():
     IClipServiceNotificationHelper = win32more.System.WindowsProgramming.IClipServiceNotificationHelper_head
     IClipServiceNotificationHelper.ShowToast = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(3, 'ShowToast', ((1, 'titleText'),(1, 'bodyText'),(1, 'packageName'),(1, 'appId'),(1, 'launchCommand'),)))
+    win32more.System.Com.IUnknown
     return IClipServiceNotificationHelper
 FEATURE_CHANGE_TIME = Int32
 FEATURE_CHANGE_TIME_READ = 0
@@ -1801,6 +1808,7 @@ def _define_IDefaultBrowserSyncSettings_head():
 def _define_IDefaultBrowserSyncSettings():
     IDefaultBrowserSyncSettings = win32more.System.WindowsProgramming.IDefaultBrowserSyncSettings_head
     IDefaultBrowserSyncSettings.IsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(3, 'IsEnabled', ()))
+    win32more.System.Com.IUnknown
     return IDefaultBrowserSyncSettings
 def _define_DELAYLOAD_PROC_DESCRIPTOR_head():
     class DELAYLOAD_PROC_DESCRIPTOR(Structure):
@@ -1845,6 +1853,7 @@ def _define_IDeleteBrowsingHistory_head():
 def _define_IDeleteBrowsingHistory():
     IDeleteBrowsingHistory = win32more.System.WindowsProgramming.IDeleteBrowsingHistory_head
     IDeleteBrowsingHistory.DeleteBrowsingHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'DeleteBrowsingHistory', ((1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IDeleteBrowsingHistory
 def _define_RtlGetReturnAddressHijackTarget():
     try:

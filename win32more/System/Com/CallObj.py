@@ -107,6 +107,7 @@ def _define_ICallFrame():
     ICallFrame.Unmarshal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Void),UInt32,UInt32,POINTER(win32more.System.Com.CallObj.CALLFRAME_MARSHALCONTEXT_head),POINTER(UInt32), use_last_error=False)(19, 'Unmarshal', ((1, 'pBuffer'),(1, 'cbBuffer'),(1, 'dataRep'),(1, 'pcontext'),(1, 'pcbUnmarshalled'),)))
     ICallFrame.ReleaseMarshalData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Void),UInt32,UInt32,UInt32,POINTER(win32more.System.Com.CallObj.CALLFRAME_MARSHALCONTEXT_head), use_last_error=False)(20, 'ReleaseMarshalData', ((1, 'pBuffer'),(1, 'cbBuffer'),(1, 'ibFirstRelease'),(1, 'dataRep'),(1, 'pcontext'),)))
     ICallFrame.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p, use_last_error=False)(21, 'Invoke', ((1, 'pvReceiver'),)))
+    win32more.System.Com.IUnknown
     return ICallFrame
 def _define_ICallIndirect_head():
     class ICallIndirect(win32more.System.Com.IUnknown_head):
@@ -118,6 +119,7 @@ def _define_ICallIndirect():
     ICallIndirect.GetMethodInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.CallObj.CALLFRAMEINFO_head),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetMethodInfo', ((1, 'iMethod'),(1, 'pInfo'),(1, 'pwszMethod'),)))
     ICallIndirect.GetStackSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(5, 'GetStackSize', ((1, 'iMethod'),(1, 'cbArgs'),)))
     ICallIndirect.GetIID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.BOOL),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetIID', ((1, 'piid'),(1, 'pfDerivesFromIDispatch'),(1, 'pcMethod'),(1, 'pwszInterface'),)))
+    win32more.System.Com.IUnknown
     return ICallIndirect
 def _define_ICallInterceptor_head():
     class ICallInterceptor(win32more.System.Com.CallObj.ICallIndirect_head):
@@ -127,6 +129,7 @@ def _define_ICallInterceptor():
     ICallInterceptor = win32more.System.Com.CallObj.ICallInterceptor_head
     ICallInterceptor.RegisterSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.CallObj.ICallFrameEvents_head, use_last_error=False)(7, 'RegisterSink', ((1, 'psink'),)))
     ICallInterceptor.GetRegisteredSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.CallObj.ICallFrameEvents_head), use_last_error=False)(8, 'GetRegisteredSink', ((1, 'ppsink'),)))
+    win32more.System.Com.CallObj.ICallIndirect
     return ICallInterceptor
 def _define_ICallFrameEvents_head():
     class ICallFrameEvents(win32more.System.Com.IUnknown_head):
@@ -135,6 +138,7 @@ def _define_ICallFrameEvents_head():
 def _define_ICallFrameEvents():
     ICallFrameEvents = win32more.System.Com.CallObj.ICallFrameEvents_head
     ICallFrameEvents.OnCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.CallObj.ICallFrame_head, use_last_error=False)(3, 'OnCall', ((1, 'pFrame'),)))
+    win32more.System.Com.IUnknown
     return ICallFrameEvents
 def _define_ICallUnmarshal_head():
     class ICallUnmarshal(win32more.System.Com.IUnknown_head):
@@ -144,6 +148,7 @@ def _define_ICallUnmarshal():
     ICallUnmarshal = win32more.System.Com.CallObj.ICallUnmarshal_head
     ICallUnmarshal.Unmarshal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Void),UInt32,win32more.Foundation.BOOL,UInt32,POINTER(win32more.System.Com.CallObj.CALLFRAME_MARSHALCONTEXT_head),POINTER(UInt32),POINTER(win32more.System.Com.CallObj.ICallFrame_head), use_last_error=False)(3, 'Unmarshal', ((1, 'iMethod'),(1, 'pBuffer'),(1, 'cbBuffer'),(1, 'fForceBufferCopy'),(1, 'dataRep'),(1, 'pcontext'),(1, 'pcbUnmarshalled'),(1, 'ppFrame'),)))
     ICallUnmarshal.ReleaseMarshalData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Void),UInt32,UInt32,UInt32,POINTER(win32more.System.Com.CallObj.CALLFRAME_MARSHALCONTEXT_head), use_last_error=False)(4, 'ReleaseMarshalData', ((1, 'iMethod'),(1, 'pBuffer'),(1, 'cbBuffer'),(1, 'ibFirstRelease'),(1, 'dataRep'),(1, 'pcontext'),)))
+    win32more.System.Com.IUnknown
     return ICallUnmarshal
 def _define_ICallFrameWalker_head():
     class ICallFrameWalker(win32more.System.Com.IUnknown_head):
@@ -152,6 +157,7 @@ def _define_ICallFrameWalker_head():
 def _define_ICallFrameWalker():
     ICallFrameWalker = win32more.System.Com.CallObj.ICallFrameWalker_head
     ICallFrameWalker.OnWalkInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p),win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(3, 'OnWalkInterface', ((1, 'iid'),(1, 'ppvInterface'),(1, 'fIn'),(1, 'fOut'),)))
+    win32more.System.Com.IUnknown
     return ICallFrameWalker
 def _define_IInterfaceRelated_head():
     class IInterfaceRelated(win32more.System.Com.IUnknown_head):
@@ -161,6 +167,7 @@ def _define_IInterfaceRelated():
     IInterfaceRelated = win32more.System.Com.CallObj.IInterfaceRelated_head
     IInterfaceRelated.SetIID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'SetIID', ((1, 'iid'),)))
     IInterfaceRelated.GetIID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetIID', ((1, 'piid'),)))
+    win32more.System.Com.IUnknown
     return IInterfaceRelated
 def _define_CoGetInterceptor():
     try:

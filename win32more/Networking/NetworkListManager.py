@@ -119,6 +119,7 @@ def _define_INetworkListManager():
     INetworkListManager.GetConnectivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_CONNECTIVITY), use_last_error=False)(13, 'GetConnectivity', ((1, 'pConnectivity'),)))
     INetworkListManager.SetSimulatedProfileInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_SIMULATED_PROFILE_INFO_head), use_last_error=False)(14, 'SetSimulatedProfileInfo', ((1, 'pSimulatedInfo'),)))
     INetworkListManager.ClearSimulatedProfileInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'ClearSimulatedProfileInfo', ()))
+    win32more.System.Com.IDispatch
     return INetworkListManager
 def _define_INetworkListManagerEvents_head():
     class INetworkListManagerEvents(win32more.System.Com.IUnknown_head):
@@ -127,6 +128,7 @@ def _define_INetworkListManagerEvents_head():
 def _define_INetworkListManagerEvents():
     INetworkListManagerEvents = win32more.Networking.NetworkListManager.INetworkListManagerEvents_head
     INetworkListManagerEvents.ConnectivityChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.NetworkListManager.NLM_CONNECTIVITY, use_last_error=False)(3, 'ConnectivityChanged', ((1, 'newConnectivity'),)))
+    win32more.System.Com.IUnknown
     return INetworkListManagerEvents
 NLM_NETWORK_CATEGORY = Int32
 NLM_NETWORK_CATEGORY_PUBLIC = 0
@@ -151,6 +153,7 @@ def _define_INetwork():
     INetwork.GetConnectivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_CONNECTIVITY), use_last_error=False)(17, 'GetConnectivity', ((1, 'pConnectivity'),)))
     INetwork.GetCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_NETWORK_CATEGORY), use_last_error=False)(18, 'GetCategory', ((1, 'pCategory'),)))
     INetwork.SetCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.NetworkListManager.NLM_NETWORK_CATEGORY, use_last_error=False)(19, 'SetCategory', ((1, 'NewCategory'),)))
+    win32more.System.Com.IDispatch
     return INetwork
 def _define_IEnumNetworks_head():
     class IEnumNetworks(win32more.System.Com.IDispatch_head):
@@ -163,6 +166,7 @@ def _define_IEnumNetworks():
     IEnumNetworks.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'Skip', ((1, 'celt'),)))
     IEnumNetworks.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Reset', ()))
     IEnumNetworks.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.IEnumNetworks_head), use_last_error=False)(11, 'Clone', ((1, 'ppEnumNetwork'),)))
+    win32more.System.Com.IDispatch
     return IEnumNetworks
 NLM_NETWORK_PROPERTY_CHANGE = Int32
 NLM_NETWORK_PROPERTY_CHANGE_CONNECTION = 1
@@ -180,6 +184,7 @@ def _define_INetworkEvents():
     INetworkEvents.NetworkDeleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(4, 'NetworkDeleted', ((1, 'networkId'),)))
     INetworkEvents.NetworkConnectivityChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Networking.NetworkListManager.NLM_CONNECTIVITY, use_last_error=False)(5, 'NetworkConnectivityChanged', ((1, 'networkId'),(1, 'newConnectivity'),)))
     INetworkEvents.NetworkPropertyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Networking.NetworkListManager.NLM_NETWORK_PROPERTY_CHANGE, use_last_error=False)(6, 'NetworkPropertyChanged', ((1, 'networkId'),(1, 'flags'),)))
+    win32more.System.Com.IUnknown
     return INetworkEvents
 def _define_INetworkConnection_head():
     class INetworkConnection(win32more.System.Com.IDispatch_head):
@@ -194,6 +199,7 @@ def _define_INetworkConnection():
     INetworkConnection.GetConnectionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(11, 'GetConnectionId', ((1, 'pgdConnectionId'),)))
     INetworkConnection.GetAdapterId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(12, 'GetAdapterId', ((1, 'pgdAdapterId'),)))
     INetworkConnection.GetDomainType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_DOMAIN_TYPE), use_last_error=False)(13, 'GetDomainType', ((1, 'pDomainType'),)))
+    win32more.System.Com.IDispatch
     return INetworkConnection
 def _define_IEnumNetworkConnections_head():
     class IEnumNetworkConnections(win32more.System.Com.IDispatch_head):
@@ -206,6 +212,7 @@ def _define_IEnumNetworkConnections():
     IEnumNetworkConnections.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'Skip', ((1, 'celt'),)))
     IEnumNetworkConnections.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Reset', ()))
     IEnumNetworkConnections.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.IEnumNetworkConnections_head), use_last_error=False)(11, 'Clone', ((1, 'ppEnumNetwork'),)))
+    win32more.System.Com.IDispatch
     return IEnumNetworkConnections
 NLM_CONNECTION_PROPERTY_CHANGE = Int32
 NLM_CONNECTION_PROPERTY_CHANGE_AUTHENTICATION = 1
@@ -217,6 +224,7 @@ def _define_INetworkConnectionEvents():
     INetworkConnectionEvents = win32more.Networking.NetworkListManager.INetworkConnectionEvents_head
     INetworkConnectionEvents.NetworkConnectionConnectivityChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Networking.NetworkListManager.NLM_CONNECTIVITY, use_last_error=False)(3, 'NetworkConnectionConnectivityChanged', ((1, 'connectionId'),(1, 'newConnectivity'),)))
     INetworkConnectionEvents.NetworkConnectionPropertyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Networking.NetworkListManager.NLM_CONNECTION_PROPERTY_CHANGE, use_last_error=False)(4, 'NetworkConnectionPropertyChanged', ((1, 'connectionId'),(1, 'flags'),)))
+    win32more.System.Com.IUnknown
     return INetworkConnectionEvents
 def _define_INetworkCostManager_head():
     class INetworkCostManager(win32more.System.Com.IUnknown_head):
@@ -227,6 +235,7 @@ def _define_INetworkCostManager():
     INetworkCostManager.GetCost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head), use_last_error=False)(3, 'GetCost', ((1, 'pCost'),(1, 'pDestIPAddr'),)))
     INetworkCostManager.GetDataPlanStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_DATAPLAN_STATUS_head),POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head), use_last_error=False)(4, 'GetDataPlanStatus', ((1, 'pDataPlanStatus'),(1, 'pDestIPAddr'),)))
     INetworkCostManager.SetDestinationAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR),Int16, use_last_error=False)(5, 'SetDestinationAddresses', ((1, 'length'),(1, 'pDestIPAddrList'),(1, 'bAppend'),)))
+    win32more.System.Com.IUnknown
     return INetworkCostManager
 def _define_INetworkCostManagerEvents_head():
     class INetworkCostManagerEvents(win32more.System.Com.IUnknown_head):
@@ -236,6 +245,7 @@ def _define_INetworkCostManagerEvents():
     INetworkCostManagerEvents = win32more.Networking.NetworkListManager.INetworkCostManagerEvents_head
     INetworkCostManagerEvents.CostChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head), use_last_error=False)(3, 'CostChanged', ((1, 'newCost'),(1, 'pDestAddr'),)))
     INetworkCostManagerEvents.DataPlanStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_SOCKADDR_head), use_last_error=False)(4, 'DataPlanStatusChanged', ((1, 'pDestAddr'),)))
+    win32more.System.Com.IUnknown
     return INetworkCostManagerEvents
 def _define_INetworkConnectionCost_head():
     class INetworkConnectionCost(win32more.System.Com.IUnknown_head):
@@ -245,6 +255,7 @@ def _define_INetworkConnectionCost():
     INetworkConnectionCost = win32more.Networking.NetworkListManager.INetworkConnectionCost_head
     INetworkConnectionCost.GetCost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCost', ((1, 'pCost'),)))
     INetworkConnectionCost.GetDataPlanStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.NetworkListManager.NLM_DATAPLAN_STATUS_head), use_last_error=False)(4, 'GetDataPlanStatus', ((1, 'pDataPlanStatus'),)))
+    win32more.System.Com.IUnknown
     return INetworkConnectionCost
 def _define_INetworkConnectionCostEvents_head():
     class INetworkConnectionCostEvents(win32more.System.Com.IUnknown_head):
@@ -254,6 +265,7 @@ def _define_INetworkConnectionCostEvents():
     INetworkConnectionCostEvents = win32more.Networking.NetworkListManager.INetworkConnectionCostEvents_head
     INetworkConnectionCostEvents.ConnectionCostChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt32, use_last_error=False)(3, 'ConnectionCostChanged', ((1, 'connectionId'),(1, 'newCost'),)))
     INetworkConnectionCostEvents.ConnectionDataPlanStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(4, 'ConnectionDataPlanStatusChanged', ((1, 'connectionId'),)))
+    win32more.System.Com.IUnknown
     return INetworkConnectionCostEvents
 __all__ = [
     "NLM_MAX_ADDRESS_LIST_SIZE",

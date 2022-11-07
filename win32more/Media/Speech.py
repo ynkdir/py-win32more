@@ -162,6 +162,7 @@ def _define_ISpNotifySource():
     ISpNotifySource.SetNotifyWin32Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'SetNotifyWin32Event', ()))
     ISpNotifySource.WaitForNotifyEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'WaitForNotifyEvent', ((1, 'dwMilliseconds'),)))
     ISpNotifySource.GetNotifyEventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HANDLE, use_last_error=False)(9, 'GetNotifyEventHandle', ()))
+    win32more.System.Com.IUnknown
     return ISpNotifySource
 def _define_ISpNotifySink_head():
     class ISpNotifySink(win32more.System.Com.IUnknown_head):
@@ -170,6 +171,7 @@ def _define_ISpNotifySink_head():
 def _define_ISpNotifySink():
     ISpNotifySink = win32more.Media.Speech.ISpNotifySink_head
     ISpNotifySink.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Notify', ()))
+    win32more.System.Com.IUnknown
     return ISpNotifySink
 def _define_ISpNotifyTranslator_head():
     class ISpNotifyTranslator(win32more.Media.Speech.ISpNotifySink_head):
@@ -183,6 +185,7 @@ def _define_ISpNotifyTranslator():
     ISpNotifyTranslator.InitWin32Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Foundation.BOOL, use_last_error=False)(7, 'InitWin32Event', ((1, 'hEvent'),(1, 'fCloseHandleOnRelease'),)))
     ISpNotifyTranslator.Wait = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'Wait', ((1, 'dwMilliseconds'),)))
     ISpNotifyTranslator.GetEventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HANDLE, use_last_error=False)(9, 'GetEventHandle', ()))
+    win32more.Media.Speech.ISpNotifySink
     return ISpNotifyTranslator
 def _define_ISpDataKey_head():
     class ISpDataKey(win32more.System.Com.IUnknown_head):
@@ -202,6 +205,7 @@ def _define_ISpDataKey():
     ISpDataKey.DeleteValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(12, 'DeleteValue', ((1, 'pszValueName'),)))
     ISpDataKey.EnumKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(13, 'EnumKeys', ((1, 'Index'),(1, 'ppszSubKeyName'),)))
     ISpDataKey.EnumValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(14, 'EnumValues', ((1, 'Index'),(1, 'ppszValueName'),)))
+    win32more.System.Com.IUnknown
     return ISpDataKey
 def _define_ISpRegDataKey_head():
     class ISpRegDataKey(win32more.Media.Speech.ISpDataKey_head):
@@ -210,6 +214,7 @@ def _define_ISpRegDataKey_head():
 def _define_ISpRegDataKey():
     ISpRegDataKey = win32more.Media.Speech.ISpRegDataKey_head
     ISpRegDataKey.SetKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Registry.HKEY,win32more.Foundation.BOOL, use_last_error=False)(15, 'SetKey', ((1, 'hkey'),(1, 'fReadOnly'),)))
+    win32more.Media.Speech.ISpDataKey
     return ISpRegDataKey
 def _define_ISpObjectTokenCategory_head():
     class ISpObjectTokenCategory(win32more.Media.Speech.ISpDataKey_head):
@@ -223,6 +228,7 @@ def _define_ISpObjectTokenCategory():
     ISpObjectTokenCategory.EnumTokens = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Media.Speech.IEnumSpObjectTokens_head), use_last_error=False)(18, 'EnumTokens', ((1, 'pzsReqAttribs'),(1, 'pszOptAttribs'),(1, 'ppEnum'),)))
     ISpObjectTokenCategory.SetDefaultTokenId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(19, 'SetDefaultTokenId', ((1, 'pszTokenId'),)))
     ISpObjectTokenCategory.GetDefaultTokenId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(20, 'GetDefaultTokenId', ((1, 'ppszCoMemTokenId'),)))
+    win32more.Media.Speech.ISpDataKey
     return ISpObjectTokenCategory
 def _define_ISpObjectToken_head():
     class ISpObjectToken(win32more.Media.Speech.ISpDataKey_head):
@@ -240,6 +246,7 @@ def _define_ISpObjectToken():
     ISpObjectToken.IsUISupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_void_p,UInt32,win32more.System.Com.IUnknown_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(22, 'IsUISupported', ((1, 'pszTypeOfUI'),(1, 'pvExtraData'),(1, 'cbExtraData'),(1, 'punkObject'),(1, 'pfSupported'),)))
     ISpObjectToken.DisplayUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(23, 'DisplayUI', ((1, 'hwndParent'),(1, 'pszTitle'),(1, 'pszTypeOfUI'),(1, 'pvExtraData'),(1, 'cbExtraData'),(1, 'punkObject'),)))
     ISpObjectToken.MatchesAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(24, 'MatchesAttributes', ((1, 'pszAttributes'),(1, 'pfMatches'),)))
+    win32more.Media.Speech.ISpDataKey
     return ISpObjectToken
 def _define_ISpObjectTokenInit_head():
     class ISpObjectTokenInit(win32more.Media.Speech.ISpObjectToken_head):
@@ -248,6 +255,7 @@ def _define_ISpObjectTokenInit_head():
 def _define_ISpObjectTokenInit():
     ISpObjectTokenInit = win32more.Media.Speech.ISpObjectTokenInit_head
     ISpObjectTokenInit.InitFromDataKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Media.Speech.ISpDataKey_head, use_last_error=False)(25, 'InitFromDataKey', ((1, 'pszCategoryId'),(1, 'pszTokenId'),(1, 'pDataKey'),)))
+    win32more.Media.Speech.ISpObjectToken
     return ISpObjectTokenInit
 def _define_IEnumSpObjectTokens_head():
     class IEnumSpObjectTokens(win32more.System.Com.IUnknown_head):
@@ -261,6 +269,7 @@ def _define_IEnumSpObjectTokens():
     IEnumSpObjectTokens.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.IEnumSpObjectTokens_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
     IEnumSpObjectTokens.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Speech.ISpObjectToken_head), use_last_error=False)(7, 'Item', ((1, 'Index'),(1, 'ppToken'),)))
     IEnumSpObjectTokens.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetCount', ((1, 'pCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumSpObjectTokens
 def _define_ISpObjectWithToken_head():
     class ISpObjectWithToken(win32more.System.Com.IUnknown_head):
@@ -270,6 +279,7 @@ def _define_ISpObjectWithToken():
     ISpObjectWithToken = win32more.Media.Speech.ISpObjectWithToken_head
     ISpObjectWithToken.SetObjectToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpObjectToken_head, use_last_error=False)(3, 'SetObjectToken', ((1, 'pToken'),)))
     ISpObjectWithToken.GetObjectToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpObjectToken_head), use_last_error=False)(4, 'GetObjectToken', ((1, 'ppToken'),)))
+    win32more.System.Com.IUnknown
     return ISpObjectWithToken
 def _define_ISpResourceManager_head():
     class ISpResourceManager(win32more.System.Com.IServiceProvider_head):
@@ -279,6 +289,7 @@ def _define_ISpResourceManager():
     ISpResourceManager = win32more.Media.Speech.ISpResourceManager_head
     ISpResourceManager.SetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'SetObject', ((1, 'guidServiceId'),(1, 'pUnkObject'),)))
     ISpResourceManager.GetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(Guid),win32more.Foundation.BOOL,POINTER(c_void_p), use_last_error=False)(5, 'GetObject', ((1, 'guidServiceId'),(1, 'ObjectCLSID'),(1, 'ObjectIID'),(1, 'fReleaseWhenLastExternalRefReleased'),(1, 'ppObject'),)))
+    win32more.System.Com.IServiceProvider
     return ISpResourceManager
 SPEVENTLPARAMTYPE = Int32
 SPET_LPARAM_IS_UNDEFINED = 0
@@ -446,6 +457,7 @@ def _define_ISpEventSource():
     ISpEventSource.SetInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64, use_last_error=False)(10, 'SetInterest', ((1, 'ullEventInterest'),(1, 'ullQueuedInterest'),)))
     ISpEventSource.GetEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Speech.SPEVENT_head),POINTER(UInt32), use_last_error=False)(11, 'GetEvents', ((1, 'ulCount'),(1, 'pEventArray'),(1, 'pulFetched'),)))
     ISpEventSource.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPEVENTSOURCEINFO_head), use_last_error=False)(12, 'GetInfo', ((1, 'pInfo'),)))
+    win32more.Media.Speech.ISpNotifySource
     return ISpEventSource
 def _define_ISpEventSource2_head():
     class ISpEventSource2(win32more.Media.Speech.ISpEventSource_head):
@@ -454,6 +466,7 @@ def _define_ISpEventSource2_head():
 def _define_ISpEventSource2():
     ISpEventSource2 = win32more.Media.Speech.ISpEventSource2_head
     ISpEventSource2.GetEventsEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Speech.SPEVENTEX_head),POINTER(UInt32), use_last_error=False)(13, 'GetEventsEx', ((1, 'ulCount'),(1, 'pEventArray'),(1, 'pulFetched'),)))
+    win32more.Media.Speech.ISpEventSource
     return ISpEventSource2
 def _define_ISpEventSink_head():
     class ISpEventSink(win32more.System.Com.IUnknown_head):
@@ -463,6 +476,7 @@ def _define_ISpEventSink():
     ISpEventSink = win32more.Media.Speech.ISpEventSink_head
     ISpEventSink.AddEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPEVENT_head),UInt32, use_last_error=False)(3, 'AddEvents', ((1, 'pEventArray'),(1, 'ulCount'),)))
     ISpEventSink.GetEventInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(4, 'GetEventInterest', ((1, 'pullEventInterest'),)))
+    win32more.System.Com.IUnknown
     return ISpEventSink
 def _define_ISpStreamFormat_head():
     class ISpStreamFormat(win32more.System.Com.IStream_head):
@@ -471,6 +485,7 @@ def _define_ISpStreamFormat_head():
 def _define_ISpStreamFormat():
     ISpStreamFormat = win32more.Media.Speech.ISpStreamFormat_head
     ISpStreamFormat.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)), use_last_error=False)(14, 'GetFormat', ((1, 'pguidFormatId'),(1, 'ppCoMemWaveFormatEx'),)))
+    win32more.System.Com.IStream
     return ISpStreamFormat
 SPFILEMODE = Int32
 SPFM_OPEN_READONLY = 0
@@ -488,6 +503,7 @@ def _define_ISpStream():
     ISpStream.GetBaseStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(16, 'GetBaseStream', ((1, 'ppStream'),)))
     ISpStream.BindToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.Speech.SPFILEMODE,POINTER(Guid),POINTER(win32more.Media.Audio.WAVEFORMATEX_head),UInt64, use_last_error=False)(17, 'BindToFile', ((1, 'pszFileName'),(1, 'eMode'),(1, 'pFormatId'),(1, 'pWaveFormatEx'),(1, 'ullEventInterest'),)))
     ISpStream.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'Close', ()))
+    win32more.Media.Speech.ISpStreamFormat
     return ISpStream
 def _define_ISpStreamFormatConverter_head():
     class ISpStreamFormatConverter(win32more.Media.Speech.ISpStreamFormat_head):
@@ -501,6 +517,7 @@ def _define_ISpStreamFormatConverter():
     ISpStreamFormatConverter.ResetSeekPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'ResetSeekPosition', ()))
     ISpStreamFormatConverter.ScaleConvertedToBaseOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(UInt64), use_last_error=False)(19, 'ScaleConvertedToBaseOffset', ((1, 'ullOffsetConvertedStream'),(1, 'pullOffsetBaseStream'),)))
     ISpStreamFormatConverter.ScaleBaseToConvertedOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(UInt64), use_last_error=False)(20, 'ScaleBaseToConvertedOffset', ((1, 'ullOffsetBaseStream'),(1, 'pullOffsetConvertedStream'),)))
+    win32more.Media.Speech.ISpStreamFormat
     return ISpStreamFormatConverter
 SPAUDIOSTATE = Int32
 SPAS_CLOSED = 0
@@ -552,6 +569,7 @@ def _define_ISpAudio():
     ISpAudio.SetVolumeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(23, 'SetVolumeLevel', ((1, 'Level'),)))
     ISpAudio.GetBufferNotifySize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(24, 'GetBufferNotifySize', ((1, 'pcbSize'),)))
     ISpAudio.SetBufferNotifySize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(25, 'SetBufferNotifySize', ((1, 'cbSize'),)))
+    win32more.Media.Speech.ISpStreamFormat
     return ISpAudio
 def _define_ISpMMSysAudio_head():
     class ISpMMSysAudio(win32more.Media.Speech.ISpAudio_head):
@@ -564,6 +582,7 @@ def _define_ISpMMSysAudio():
     ISpMMSysAudio.GetMMHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p), use_last_error=False)(28, 'GetMMHandle', ((1, 'pHandle'),)))
     ISpMMSysAudio.GetLineId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(29, 'GetLineId', ((1, 'puLineId'),)))
     ISpMMSysAudio.SetLineId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(30, 'SetLineId', ((1, 'uLineId'),)))
+    win32more.Media.Speech.ISpAudio
     return ISpMMSysAudio
 def _define_ISpTranscript_head():
     class ISpTranscript(win32more.System.Com.IUnknown_head):
@@ -573,6 +592,7 @@ def _define_ISpTranscript():
     ISpTranscript = win32more.Media.Speech.ISpTranscript_head
     ISpTranscript.GetTranscript = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetTranscript', ((1, 'ppszTranscript'),)))
     ISpTranscript.AppendTranscript = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'AppendTranscript', ((1, 'pszTranscript'),)))
+    win32more.System.Com.IUnknown
     return ISpTranscript
 SPDISPLYATTRIBUTES = Int32
 SPAF_ONE_TRAILING_SPACE = 2
@@ -910,6 +930,7 @@ def _define_ISpLexicon():
     ISpLexicon.GetGeneration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetGeneration', ((1, 'pdwGeneration'),)))
     ISpLexicon.GetGenerationChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Media.Speech.SPWORDLIST_head), use_last_error=False)(7, 'GetGenerationChange', ((1, 'dwFlags'),(1, 'pdwGeneration'),(1, 'pWordList'),)))
     ISpLexicon.GetWords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Media.Speech.SPWORDLIST_head), use_last_error=False)(8, 'GetWords', ((1, 'dwFlags'),(1, 'pdwGeneration'),(1, 'pdwCookie'),(1, 'pWordList'),)))
+    win32more.System.Com.IUnknown
     return ISpLexicon
 def _define_ISpContainerLexicon_head():
     class ISpContainerLexicon(win32more.Media.Speech.ISpLexicon_head):
@@ -918,6 +939,7 @@ def _define_ISpContainerLexicon_head():
 def _define_ISpContainerLexicon():
     ISpContainerLexicon = win32more.Media.Speech.ISpContainerLexicon_head
     ISpContainerLexicon.AddLexicon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpLexicon_head,UInt32, use_last_error=False)(9, 'AddLexicon', ((1, 'pAddLexicon'),(1, 'dwFlags'),)))
+    win32more.Media.Speech.ISpLexicon
     return ISpContainerLexicon
 SPSHORTCUTTYPE = Int32
 SPSHT_NotOverriden = -1
@@ -968,6 +990,7 @@ def _define_ISpShortcut():
     ISpShortcut.GetWords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Media.Speech.SPWORDLIST_head), use_last_error=False)(8, 'GetWords', ((1, 'pdwGeneration'),(1, 'pdwCookie'),(1, 'pWordList'),)))
     ISpShortcut.GetShortcutsForGeneration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Media.Speech.SPSHORTCUTPAIRLIST_head), use_last_error=False)(9, 'GetShortcutsForGeneration', ((1, 'pdwGeneration'),(1, 'pdwCookie'),(1, 'pShortcutpairList'),)))
     ISpShortcut.GetGenerationChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.Media.Speech.SPSHORTCUTPAIRLIST_head), use_last_error=False)(10, 'GetGenerationChange', ((1, 'pdwGeneration'),(1, 'pShortcutpairList'),)))
+    win32more.System.Com.IUnknown
     return ISpShortcut
 def _define_ISpPhoneConverter_head():
     class ISpPhoneConverter(win32more.Media.Speech.ISpObjectWithToken_head):
@@ -977,6 +1000,7 @@ def _define_ISpPhoneConverter():
     ISpPhoneConverter = win32more.Media.Speech.ISpPhoneConverter_head
     ISpPhoneConverter.PhoneToId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt16), use_last_error=False)(5, 'PhoneToId', ((1, 'pszPhone'),(1, 'pId'),)))
     ISpPhoneConverter.IdToPhone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),win32more.Foundation.PWSTR, use_last_error=False)(6, 'IdToPhone', ((1, 'pId'),(1, 'pszPhone'),)))
+    win32more.Media.Speech.ISpObjectWithToken
     return ISpPhoneConverter
 def _define_ISpPhoneticAlphabetConverter_head():
     class ISpPhoneticAlphabetConverter(win32more.System.Com.IUnknown_head):
@@ -989,6 +1013,7 @@ def _define_ISpPhoneticAlphabetConverter():
     ISpPhoneticAlphabetConverter.SAPI2UPS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(UInt16),UInt32, use_last_error=False)(5, 'SAPI2UPS', ((1, 'pszSAPIId'),(1, 'pszUPSId'),(1, 'cMaxLength'),)))
     ISpPhoneticAlphabetConverter.UPS2SAPI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(UInt16),UInt32, use_last_error=False)(6, 'UPS2SAPI', ((1, 'pszUPSId'),(1, 'pszSAPIId'),(1, 'cMaxLength'),)))
     ISpPhoneticAlphabetConverter.GetMaxConvertLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BOOL,POINTER(UInt32), use_last_error=False)(7, 'GetMaxConvertLength', ((1, 'cSrcLength'),(1, 'bSAPI2UPS'),(1, 'pcMaxDestLength'),)))
+    win32more.System.Com.IUnknown
     return ISpPhoneticAlphabetConverter
 def _define_ISpPhoneticAlphabetSelection_head():
     class ISpPhoneticAlphabetSelection(win32more.System.Com.IUnknown_head):
@@ -998,6 +1023,7 @@ def _define_ISpPhoneticAlphabetSelection():
     ISpPhoneticAlphabetSelection = win32more.Media.Speech.ISpPhoneticAlphabetSelection_head
     ISpPhoneticAlphabetSelection.IsAlphabetUPS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsAlphabetUPS', ((1, 'pfIsUPS'),)))
     ISpPhoneticAlphabetSelection.SetAlphabetToUPS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetAlphabetToUPS', ((1, 'fForceUPS'),)))
+    win32more.System.Com.IUnknown
     return ISpPhoneticAlphabetSelection
 def _define_SPVPITCH_head():
     class SPVPITCH(Structure):
@@ -1131,6 +1157,7 @@ def _define_ISpVoice():
     ISpVoice.SpeakCompleteEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HANDLE, use_last_error=False)(35, 'SpeakCompleteEvent', ()))
     ISpVoice.IsUISupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_void_p,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(36, 'IsUISupported', ((1, 'pszTypeOfUI'),(1, 'pvExtraData'),(1, 'cbExtraData'),(1, 'pfSupported'),)))
     ISpVoice.DisplayUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32, use_last_error=False)(37, 'DisplayUI', ((1, 'hwndParent'),(1, 'pszTitle'),(1, 'pszTypeOfUI'),(1, 'pvExtraData'),(1, 'cbExtraData'),)))
+    win32more.Media.Speech.ISpEventSource
     return ISpVoice
 def _define_ISpPhrase_head():
     class ISpPhrase(win32more.System.Com.IUnknown_head):
@@ -1142,6 +1169,7 @@ def _define_ISpPhrase():
     ISpPhrase.GetSerializedPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Speech.SPSERIALIZEDPHRASE_head)), use_last_error=False)(4, 'GetSerializedPhrase', ((1, 'ppCoMemPhrase'),)))
     ISpPhrase.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR),c_char_p_no, use_last_error=False)(5, 'GetText', ((1, 'ulStart'),(1, 'ulCount'),(1, 'fUseTextReplacements'),(1, 'ppszCoMemText'),(1, 'pbDisplayAttributes'),)))
     ISpPhrase.Discard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Discard', ((1, 'dwValueTypes'),)))
+    win32more.System.Com.IUnknown
     return ISpPhrase
 def _define_ISpPhraseAlt_head():
     class ISpPhraseAlt(win32more.Media.Speech.ISpPhrase_head):
@@ -1151,6 +1179,7 @@ def _define_ISpPhraseAlt():
     ISpPhraseAlt = win32more.Media.Speech.ISpPhraseAlt_head
     ISpPhraseAlt.GetAltInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpPhrase_head),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(7, 'GetAltInfo', ((1, 'ppParent'),(1, 'pulStartElementInParent'),(1, 'pcElementsInParent'),(1, 'pcElementsInAlt'),)))
     ISpPhraseAlt.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Commit', ()))
+    win32more.Media.Speech.ISpPhrase
     return ISpPhraseAlt
 SPXMLRESULTOPTIONS = Int32
 SPXRO_SML = 0
@@ -1164,6 +1193,7 @@ def _define_ISpPhrase2():
     ISpPhrase2.GetXMLResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),win32more.Media.Speech.SPXMLRESULTOPTIONS, use_last_error=False)(7, 'GetXMLResult', ((1, 'ppszCoMemXMLResult'),(1, 'Options'),)))
     ISpPhrase2.GetXMLErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPSEMANTICERRORINFO_head), use_last_error=False)(8, 'GetXMLErrorInfo', ((1, 'pSemanticErrorInfo'),)))
     ISpPhrase2.GetAudio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.Speech.ISpStreamFormat_head), use_last_error=False)(9, 'GetAudio', ((1, 'ulStartElement'),(1, 'cElements'),(1, 'ppStream'),)))
+    win32more.Media.Speech.ISpPhrase
     return ISpPhrase2
 def _define_SPRECORESULTTIMES_head():
     class SPRECORESULTTIMES(Structure):
@@ -1201,6 +1231,7 @@ def _define_ISpRecoResult():
     ISpRecoResult.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Speech.SPSERIALIZEDRESULT_head)), use_last_error=False)(11, 'Serialize', ((1, 'ppCoMemSerializedResult'),)))
     ISpRecoResult.ScaleAudio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Media.Audio.WAVEFORMATEX_head), use_last_error=False)(12, 'ScaleAudio', ((1, 'pAudioFormatId'),(1, 'pWaveFormatEx'),)))
     ISpRecoResult.GetRecoContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpRecoContext_head), use_last_error=False)(13, 'GetRecoContext', ((1, 'ppRecoContext'),)))
+    win32more.Media.Speech.ISpPhrase
     return ISpRecoResult
 SPCOMMITFLAGS = Int32
 SPCF_NONE = 0
@@ -1215,6 +1246,7 @@ def _define_ISpRecoResult2():
     ISpRecoResult2.CommitAlternate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpPhraseAlt_head,POINTER(win32more.Media.Speech.ISpRecoResult_head), use_last_error=False)(14, 'CommitAlternate', ((1, 'pPhraseAlt'),(1, 'ppNewResult'),)))
     ISpRecoResult2.CommitText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(15, 'CommitText', ((1, 'ulStartElement'),(1, 'cElements'),(1, 'pszCorrectedData'),(1, 'eCommitFlags'),)))
     ISpRecoResult2.SetTextFeedback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL, use_last_error=False)(16, 'SetTextFeedback', ((1, 'pszFeedback'),(1, 'fSuccessful'),)))
+    win32more.Media.Speech.ISpRecoResult
     return ISpRecoResult2
 def _define_ISpXMLRecoResult_head():
     class ISpXMLRecoResult(win32more.Media.Speech.ISpRecoResult_head):
@@ -1224,6 +1256,7 @@ def _define_ISpXMLRecoResult():
     ISpXMLRecoResult = win32more.Media.Speech.ISpXMLRecoResult_head
     ISpXMLRecoResult.GetXMLResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),win32more.Media.Speech.SPXMLRESULTOPTIONS, use_last_error=False)(14, 'GetXMLResult', ((1, 'ppszCoMemXMLResult'),(1, 'Options'),)))
     ISpXMLRecoResult.GetXMLErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPSEMANTICERRORINFO_head), use_last_error=False)(15, 'GetXMLErrorInfo', ((1, 'pSemanticErrorInfo'),)))
+    win32more.Media.Speech.ISpRecoResult
     return ISpXMLRecoResult
 def _define_SPTEXTSELECTIONINFO_head():
     class SPTEXTSELECTIONINFO(Structure):
@@ -1296,6 +1329,7 @@ def _define_ISpGrammarBuilder():
     ISpGrammarBuilder.AddRuleTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPSTATEHANDLE___head),POINTER(win32more.Media.Speech.SPSTATEHANDLE___head),POINTER(win32more.Media.Speech.SPSTATEHANDLE___head),Single,POINTER(win32more.Media.Speech.SPPROPERTYINFO_head), use_last_error=False)(8, 'AddRuleTransition', ((1, 'hFromState'),(1, 'hToState'),(1, 'hRule'),(1, 'Weight'),(1, 'pPropInfo'),)))
     ISpGrammarBuilder.AddResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPSTATEHANDLE___head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(9, 'AddResource', ((1, 'hRuleState'),(1, 'pszResourceName'),(1, 'pszResourceValue'),)))
     ISpGrammarBuilder.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(10, 'Commit', ((1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return ISpGrammarBuilder
 SPLOADOPTIONS = Int32
 SPLO_STATIC = 0
@@ -1324,6 +1358,7 @@ def _define_ISpRecoGrammar():
     ISpRecoGrammar.SetGrammarState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.SPGRAMMARSTATE, use_last_error=False)(26, 'SetGrammarState', ((1, 'eGrammarState'),)))
     ISpRecoGrammar.SaveCmd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(27, 'SaveCmd', ((1, 'pStream'),(1, 'ppszCoMemErrorText'),)))
     ISpRecoGrammar.GetGrammarState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPGRAMMARSTATE), use_last_error=False)(28, 'GetGrammarState', ((1, 'peGrammarState'),)))
+    win32more.Media.Speech.ISpGrammarBuilder
     return ISpRecoGrammar
 SPMATCHINGMODE = Int32
 SPMATCHINGMODE_AllWords = 0
@@ -1343,6 +1378,7 @@ def _define_ISpGrammarBuilder2():
     ISpGrammarBuilder2 = win32more.Media.Speech.ISpGrammarBuilder2_head
     ISpGrammarBuilder2.AddTextSubset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPSTATEHANDLE___head),POINTER(win32more.Media.Speech.SPSTATEHANDLE___head),win32more.Foundation.PWSTR,win32more.Media.Speech.SPMATCHINGMODE, use_last_error=False)(3, 'AddTextSubset', ((1, 'hFromState'),(1, 'hToState'),(1, 'psz'),(1, 'eMatchMode'),)))
     ISpGrammarBuilder2.SetPhoneticAlphabet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.PHONETICALPHABET, use_last_error=False)(4, 'SetPhoneticAlphabet', ((1, 'phoneticALphabet'),)))
+    win32more.System.Com.IUnknown
     return ISpGrammarBuilder2
 def _define_ISpRecoGrammar2_head():
     class ISpRecoGrammar2(win32more.System.Com.IUnknown_head):
@@ -1358,6 +1394,7 @@ def _define_ISpRecoGrammar2():
     ISpRecoGrammar2.SetDictationWeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(8, 'SetDictationWeight', ((1, 'flWeight'),)))
     ISpRecoGrammar2.SetGrammarLoader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpeechResourceLoader_head, use_last_error=False)(9, 'SetGrammarLoader', ((1, 'pLoader'),)))
     ISpRecoGrammar2.SetSMLSecurityManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.IInternetSecurityManager_head, use_last_error=False)(10, 'SetSMLSecurityManager', ((1, 'pSMLSecurityManager'),)))
+    win32more.System.Com.IUnknown
     return ISpRecoGrammar2
 def _define_ISpeechResourceLoader_head():
     class ISpeechResourceLoader(win32more.System.Com.IDispatch_head):
@@ -1368,6 +1405,7 @@ def _define_ISpeechResourceLoader():
     ISpeechResourceLoader.LoadResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,POINTER(win32more.System.Com.IUnknown_head),POINTER(win32more.Foundation.BSTR),POINTER(Int16),POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'LoadResource', ((1, 'bstrResourceUri'),(1, 'fAlwaysReload'),(1, 'pStream'),(1, 'pbstrMIMEType'),(1, 'pfModified'),(1, 'pbstrRedirectUrl'),)))
     ISpeechResourceLoader.GetLocalCopy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'GetLocalCopy', ((1, 'bstrResourceUri'),(1, 'pbstrLocalPath'),(1, 'pbstrMIMEType'),(1, 'pbstrRedirectUrl'),)))
     ISpeechResourceLoader.ReleaseLocalCopy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'ReleaseLocalCopy', ((1, 'pbstrLocalPath'),)))
+    win32more.System.Com.IDispatch
     return ISpeechResourceLoader
 def _define_SPRECOCONTEXTSTATUS_head():
     class SPRECOCONTEXTSTATUS(Structure):
@@ -1414,6 +1452,7 @@ def _define_ISpRecoContext():
     ISpRecoContext.GetVoicePurgeEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(28, 'GetVoicePurgeEvent', ((1, 'pullEventInterest'),)))
     ISpRecoContext.SetContextState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.SPCONTEXTSTATE, use_last_error=False)(29, 'SetContextState', ((1, 'eContextState'),)))
     ISpRecoContext.GetContextState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPCONTEXTSTATE), use_last_error=False)(30, 'GetContextState', ((1, 'peContextState'),)))
+    win32more.Media.Speech.ISpEventSource
     return ISpRecoContext
 SPGRAMMAROPTIONS = Int32
 SPGO_SAPI = 1
@@ -1450,6 +1489,7 @@ def _define_ISpRecoContext2():
     ISpRecoContext2.SetGrammarOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'SetGrammarOptions', ((1, 'eGrammarOptions'),)))
     ISpRecoContext2.GetGrammarOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetGrammarOptions', ((1, 'peGrammarOptions'),)))
     ISpRecoContext2.SetAdaptationData2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,win32more.Media.Speech.SPADAPTATIONRELEVANCE, use_last_error=False)(5, 'SetAdaptationData2', ((1, 'pAdaptationData'),(1, 'cch'),(1, 'pTopicName'),(1, 'eAdaptationSettings'),(1, 'eRelevance'),)))
+    win32more.System.Com.IUnknown
     return ISpRecoContext2
 def _define_ISpProperties_head():
     class ISpProperties(win32more.System.Com.IUnknown_head):
@@ -1461,6 +1501,7 @@ def _define_ISpProperties():
     ISpProperties.GetPropertyNum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int32), use_last_error=False)(4, 'GetPropertyNum', ((1, 'pName'),(1, 'plValue'),)))
     ISpProperties.SetPropertyString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SetPropertyString', ((1, 'pName'),(1, 'pValue'),)))
     ISpProperties.GetPropertyString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetPropertyString', ((1, 'pName'),(1, 'ppCoMemValue'),)))
+    win32more.System.Com.IUnknown
     return ISpProperties
 def _define_SPRECOGNIZERSTATUS_head():
     class SPRECOGNIZERSTATUS(Structure):
@@ -1510,6 +1551,7 @@ def _define_ISpRecognizer():
     ISpRecognizer.IsUISupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_void_p,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(20, 'IsUISupported', ((1, 'pszTypeOfUI'),(1, 'pvExtraData'),(1, 'cbExtraData'),(1, 'pfSupported'),)))
     ISpRecognizer.DisplayUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32, use_last_error=False)(21, 'DisplayUI', ((1, 'hwndParent'),(1, 'pszTitle'),(1, 'pszTypeOfUI'),(1, 'pvExtraData'),(1, 'cbExtraData'),)))
     ISpRecognizer.EmulateRecognition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpPhrase_head, use_last_error=False)(22, 'EmulateRecognition', ((1, 'pPhrase'),)))
+    win32more.Media.Speech.ISpProperties
     return ISpRecognizer
 def _define_ISpSerializeState_head():
     class ISpSerializeState(win32more.System.Com.IUnknown_head):
@@ -1519,6 +1561,7 @@ def _define_ISpSerializeState():
     ISpSerializeState = win32more.Media.Speech.ISpSerializeState_head
     ISpSerializeState.GetSerializedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32),UInt32, use_last_error=False)(3, 'GetSerializedState', ((1, 'ppbData'),(1, 'pulSize'),(1, 'dwReserved'),)))
     ISpSerializeState.SetSerializedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,UInt32, use_last_error=False)(4, 'SetSerializedState', ((1, 'pbData'),(1, 'ulSize'),(1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return ISpSerializeState
 def _define_ISpRecognizer2_head():
     class ISpRecognizer2(win32more.System.Com.IUnknown_head):
@@ -1529,6 +1572,7 @@ def _define_ISpRecognizer2():
     ISpRecognizer2.EmulateRecognitionEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpPhrase_head,UInt32, use_last_error=False)(3, 'EmulateRecognitionEx', ((1, 'pPhrase'),(1, 'dwCompareFlags'),)))
     ISpRecognizer2.SetTrainingState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetTrainingState', ((1, 'fDoingTraining'),(1, 'fAdaptFromTrainingData'),)))
     ISpRecognizer2.ResetAcousticModelAdaptation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ResetAcousticModelAdaptation', ()))
+    win32more.System.Com.IUnknown
     return ISpRecognizer2
 def _define_SPNORMALIZATIONLIST_head():
     class SPNORMALIZATIONLIST(Structure):
@@ -1549,6 +1593,7 @@ def _define_ISpEnginePronunciation():
     ISpEnginePronunciation = win32more.Media.Speech.ISpEnginePronunciation_head
     ISpEnginePronunciation.Normalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt16,POINTER(win32more.Media.Speech.SPNORMALIZATIONLIST_head), use_last_error=False)(3, 'Normalize', ((1, 'pszWord'),(1, 'pszLeftContext'),(1, 'pszRightContext'),(1, 'LangID'),(1, 'pNormalizationList'),)))
     ISpEnginePronunciation.GetPronunciations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt16,POINTER(win32more.Media.Speech.SPWORDPRONUNCIATIONLIST_head), use_last_error=False)(4, 'GetPronunciations', ((1, 'pszWord'),(1, 'pszLeftContext'),(1, 'pszRightContext'),(1, 'LangID'),(1, 'pEnginePronunciationList'),)))
+    win32more.System.Com.IUnknown
     return ISpEnginePronunciation
 def _define_SPDISPLAYTOKEN_head():
     class SPDISPLAYTOKEN(Structure):
@@ -1581,6 +1626,7 @@ def _define_ISpDisplayAlternates():
     ISpDisplayAlternates = win32more.Media.Speech.ISpDisplayAlternates_head
     ISpDisplayAlternates.GetDisplayAlternates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SPDISPLAYPHRASE_head),UInt32,POINTER(POINTER(win32more.Media.Speech.SPDISPLAYPHRASE_head)),POINTER(UInt32), use_last_error=False)(3, 'GetDisplayAlternates', ((1, 'pPhrase'),(1, 'cRequestCount'),(1, 'ppCoMemPhrases'),(1, 'pcPhrasesReturned'),)))
     ISpDisplayAlternates.SetFullStopTrailSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetFullStopTrailSpace', ((1, 'ulTrailSpace'),)))
+    win32more.System.Com.IUnknown
     return ISpDisplayAlternates
 DISPID_SpeechDataKey = Int32
 DISPID_SDKSetBinaryValue = 1
@@ -2290,6 +2336,7 @@ def _define_ISpeechDataKey():
     ISpeechDataKey.DeleteValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(16, 'DeleteValue', ((1, 'ValueName'),)))
     ISpeechDataKey.EnumKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'EnumKeys', ((1, 'Index'),(1, 'SubKeyName'),)))
     ISpeechDataKey.EnumValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'EnumValues', ((1, 'Index'),(1, 'ValueName'),)))
+    win32more.System.Com.IDispatch
     return ISpeechDataKey
 def _define_ISpeechObjectToken_head():
     class ISpeechObjectToken(win32more.System.Com.IDispatch_head):
@@ -2310,6 +2357,7 @@ def _define_ISpeechObjectToken():
     ISpeechObjectToken.IsUISupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.System.Com.IUnknown_head,POINTER(Int16), use_last_error=False)(17, 'IsUISupported', ((1, 'TypeOfUI'),(1, 'ExtraData'),(1, 'Object'),(1, 'Supported'),)))
     ISpeechObjectToken.DisplayUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.System.Com.IUnknown_head, use_last_error=False)(18, 'DisplayUI', ((1, 'hWnd'),(1, 'Title'),(1, 'TypeOfUI'),(1, 'ExtraData'),(1, 'Object'),)))
     ISpeechObjectToken.MatchesAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(19, 'MatchesAttributes', ((1, 'Attributes'),(1, 'Matches'),)))
+    win32more.System.Com.IDispatch
     return ISpeechObjectToken
 def _define_ISpeechObjectTokens_head():
     class ISpeechObjectTokens(win32more.System.Com.IDispatch_head):
@@ -2320,6 +2368,7 @@ def _define_ISpeechObjectTokens():
     ISpeechObjectTokens.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     ISpeechObjectTokens.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Speech.ISpeechObjectToken_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Token'),)))
     ISpeechObjectTokens.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISpeechObjectTokens
 def _define_ISpeechObjectTokenCategory_head():
     class ISpeechObjectTokenCategory(win32more.System.Com.IDispatch_head):
@@ -2333,6 +2382,7 @@ def _define_ISpeechObjectTokenCategory():
     ISpeechObjectTokenCategory.SetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(10, 'SetId', ((1, 'Id'),(1, 'CreateIfNotExist'),)))
     ISpeechObjectTokenCategory.GetDataKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.SpeechDataKeyLocation,POINTER(win32more.Media.Speech.ISpeechDataKey_head), use_last_error=False)(11, 'GetDataKey', ((1, 'Location'),(1, 'DataKey'),)))
     ISpeechObjectTokenCategory.EnumerateTokens = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.Speech.ISpeechObjectTokens_head), use_last_error=False)(12, 'EnumerateTokens', ((1, 'RequiredAttributes'),(1, 'OptionalAttributes'),(1, 'Tokens'),)))
+    win32more.System.Com.IDispatch
     return ISpeechObjectTokenCategory
 def _define_ISpeechAudioBufferInfo_head():
     class ISpeechAudioBufferInfo(win32more.System.Com.IDispatch_head):
@@ -2346,6 +2396,7 @@ def _define_ISpeechAudioBufferInfo():
     ISpeechAudioBufferInfo.put_BufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_BufferSize', ((1, 'BufferSize'),)))
     ISpeechAudioBufferInfo.get_EventBias = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_EventBias', ((1, 'EventBias'),)))
     ISpeechAudioBufferInfo.put_EventBias = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'put_EventBias', ((1, 'EventBias'),)))
+    win32more.System.Com.IDispatch
     return ISpeechAudioBufferInfo
 def _define_ISpeechAudioStatus_head():
     class ISpeechAudioStatus(win32more.System.Com.IDispatch_head):
@@ -2358,6 +2409,7 @@ def _define_ISpeechAudioStatus():
     ISpeechAudioStatus.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SpeechAudioState), use_last_error=False)(9, 'get_State', ((1, 'State'),)))
     ISpeechAudioStatus.get_CurrentSeekPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_CurrentSeekPosition', ((1, 'CurrentSeekPosition'),)))
     ISpeechAudioStatus.get_CurrentDevicePosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'get_CurrentDevicePosition', ((1, 'CurrentDevicePosition'),)))
+    win32more.System.Com.IDispatch
     return ISpeechAudioStatus
 def _define_ISpeechAudioFormat_head():
     class ISpeechAudioFormat(win32more.System.Com.IDispatch_head):
@@ -2371,6 +2423,7 @@ def _define_ISpeechAudioFormat():
     ISpeechAudioFormat.put_Guid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_Guid', ((1, 'Guid'),)))
     ISpeechAudioFormat.GetWaveFormatEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpeechWaveFormatEx_head), use_last_error=False)(11, 'GetWaveFormatEx', ((1, 'SpeechWaveFormatEx'),)))
     ISpeechAudioFormat.SetWaveFormatEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpeechWaveFormatEx_head, use_last_error=False)(12, 'SetWaveFormatEx', ((1, 'SpeechWaveFormatEx'),)))
+    win32more.System.Com.IDispatch
     return ISpeechAudioFormat
 def _define_ISpeechWaveFormatEx_head():
     class ISpeechWaveFormatEx(win32more.System.Com.IDispatch_head):
@@ -2392,6 +2445,7 @@ def _define_ISpeechWaveFormatEx():
     ISpeechWaveFormatEx.put_BitsPerSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(18, 'put_BitsPerSample', ((1, 'BitsPerSample'),)))
     ISpeechWaveFormatEx.get_ExtraData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'get_ExtraData', ((1, 'ExtraData'),)))
     ISpeechWaveFormatEx.put_ExtraData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(20, 'put_ExtraData', ((1, 'ExtraData'),)))
+    win32more.System.Com.IDispatch
     return ISpeechWaveFormatEx
 def _define_ISpeechBaseStream_head():
     class ISpeechBaseStream(win32more.System.Com.IDispatch_head):
@@ -2404,6 +2458,7 @@ def _define_ISpeechBaseStream():
     ISpeechBaseStream.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),Int32,POINTER(Int32), use_last_error=False)(9, 'Read', ((1, 'Buffer'),(1, 'NumberOfBytes'),(1, 'BytesRead'),)))
     ISpeechBaseStream.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(Int32), use_last_error=False)(10, 'Write', ((1, 'Buffer'),(1, 'BytesWritten'),)))
     ISpeechBaseStream.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Media.Speech.SpeechStreamSeekPositionType,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'Seek', ((1, 'Position'),(1, 'Origin'),(1, 'NewPosition'),)))
+    win32more.System.Com.IDispatch
     return ISpeechBaseStream
 def _define_ISpeechFileStream_head():
     class ISpeechFileStream(win32more.Media.Speech.ISpeechBaseStream_head):
@@ -2413,6 +2468,7 @@ def _define_ISpeechFileStream():
     ISpeechFileStream = win32more.Media.Speech.ISpeechFileStream_head
     ISpeechFileStream.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.Speech.SpeechStreamFileMode,Int16, use_last_error=False)(12, 'Open', ((1, 'FileName'),(1, 'FileMode'),(1, 'DoEvents'),)))
     ISpeechFileStream.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Close', ()))
+    win32more.Media.Speech.ISpeechBaseStream
     return ISpeechFileStream
 def _define_ISpeechMemoryStream_head():
     class ISpeechMemoryStream(win32more.Media.Speech.ISpeechBaseStream_head):
@@ -2422,6 +2478,7 @@ def _define_ISpeechMemoryStream():
     ISpeechMemoryStream = win32more.Media.Speech.ISpeechMemoryStream_head
     ISpeechMemoryStream.SetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'SetData', ((1, 'Data'),)))
     ISpeechMemoryStream.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'GetData', ((1, 'pData'),)))
+    win32more.Media.Speech.ISpeechBaseStream
     return ISpeechMemoryStream
 def _define_ISpeechCustomStream_head():
     class ISpeechCustomStream(win32more.Media.Speech.ISpeechBaseStream_head):
@@ -2431,6 +2488,7 @@ def _define_ISpeechCustomStream():
     ISpeechCustomStream = win32more.Media.Speech.ISpeechCustomStream_head
     ISpeechCustomStream.get_BaseStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(12, 'get_BaseStream', ((1, 'ppUnkStream'),)))
     ISpeechCustomStream.putref_BaseStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(13, 'putref_BaseStream', ((1, 'pUnkStream'),)))
+    win32more.Media.Speech.ISpeechBaseStream
     return ISpeechCustomStream
 def _define_ISpeechAudio_head():
     class ISpeechAudio(win32more.Media.Speech.ISpeechBaseStream_head):
@@ -2447,6 +2505,7 @@ def _define_ISpeechAudio():
     ISpeechAudio.put_BufferNotifySize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(18, 'put_BufferNotifySize', ((1, 'BufferNotifySize'),)))
     ISpeechAudio.get_EventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'get_EventHandle', ((1, 'EventHandle'),)))
     ISpeechAudio.SetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.SpeechAudioState, use_last_error=False)(20, 'SetState', ((1, 'State'),)))
+    win32more.Media.Speech.ISpeechBaseStream
     return ISpeechAudio
 def _define_ISpeechMMSysAudio_head():
     class ISpeechMMSysAudio(win32more.Media.Speech.ISpeechAudio_head):
@@ -2459,6 +2518,7 @@ def _define_ISpeechMMSysAudio():
     ISpeechMMSysAudio.get_LineId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_LineId', ((1, 'LineId'),)))
     ISpeechMMSysAudio.put_LineId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(24, 'put_LineId', ((1, 'LineId'),)))
     ISpeechMMSysAudio.get_MMHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(25, 'get_MMHandle', ((1, 'Handle'),)))
+    win32more.Media.Speech.ISpeechAudio
     return ISpeechMMSysAudio
 def _define_ISpeechVoice_head():
     class ISpeechVoice(win32more.System.Com.IDispatch_head):
@@ -2498,6 +2558,7 @@ def _define_ISpeechVoice():
     ISpeechVoice.SpeakCompleteEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(36, 'SpeakCompleteEvent', ((1, 'Handle'),)))
     ISpeechVoice.IsUISupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int16), use_last_error=False)(37, 'IsUISupported', ((1, 'TypeOfUI'),(1, 'ExtraData'),(1, 'Supported'),)))
     ISpeechVoice.DisplayUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(38, 'DisplayUI', ((1, 'hWndParent'),(1, 'Title'),(1, 'TypeOfUI'),(1, 'ExtraData'),)))
+    win32more.System.Com.IDispatch
     return ISpeechVoice
 def _define_ISpeechVoiceStatus_head():
     class ISpeechVoiceStatus(win32more.System.Com.IDispatch_head):
@@ -2517,6 +2578,7 @@ def _define_ISpeechVoiceStatus():
     ISpeechVoiceStatus.get_LastBookmarkId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_LastBookmarkId', ((1, 'BookmarkId'),)))
     ISpeechVoiceStatus.get_PhonemeId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(17, 'get_PhonemeId', ((1, 'PhoneId'),)))
     ISpeechVoiceStatus.get_VisemeId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(18, 'get_VisemeId', ((1, 'VisemeId'),)))
+    win32more.System.Com.IDispatch
     return ISpeechVoiceStatus
 def _define__ISpeechVoiceEvents_head():
     class _ISpeechVoiceEvents(win32more.System.Com.IDispatch_head):
@@ -2524,6 +2586,7 @@ def _define__ISpeechVoiceEvents_head():
     return _ISpeechVoiceEvents
 def _define__ISpeechVoiceEvents():
     _ISpeechVoiceEvents = win32more.Media.Speech._ISpeechVoiceEvents_head
+    win32more.System.Com.IDispatch
     return _ISpeechVoiceEvents
 def _define_ISpeechRecognizer_head():
     class ISpeechRecognizer(win32more.System.Com.IDispatch_head):
@@ -2557,6 +2620,7 @@ def _define_ISpeechRecognizer():
     ISpeechRecognizer.GetRecognizers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.Speech.ISpeechObjectTokens_head), use_last_error=False)(30, 'GetRecognizers', ((1, 'RequiredAttributes'),(1, 'OptionalAttributes'),(1, 'ObjectTokens'),)))
     ISpeechRecognizer.GetAudioInputs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.Speech.ISpeechObjectTokens_head), use_last_error=False)(31, 'GetAudioInputs', ((1, 'RequiredAttributes'),(1, 'OptionalAttributes'),(1, 'ObjectTokens'),)))
     ISpeechRecognizer.GetProfiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.Speech.ISpeechObjectTokens_head), use_last_error=False)(32, 'GetProfiles', ((1, 'RequiredAttributes'),(1, 'OptionalAttributes'),(1, 'ObjectTokens'),)))
+    win32more.System.Com.IDispatch
     return ISpeechRecognizer
 def _define_ISpeechRecognizerStatus_head():
     class ISpeechRecognizerStatus(win32more.System.Com.IDispatch_head):
@@ -2570,6 +2634,7 @@ def _define_ISpeechRecognizerStatus():
     ISpeechRecognizerStatus.get_NumberOfActiveRules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_NumberOfActiveRules', ((1, 'NumberOfActiveRules'),)))
     ISpeechRecognizerStatus.get_ClsidEngine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_ClsidEngine', ((1, 'ClsidEngine'),)))
     ISpeechRecognizerStatus.get_SupportedLanguages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_SupportedLanguages', ((1, 'SupportedLanguages'),)))
+    win32more.System.Com.IDispatch
     return ISpeechRecognizerStatus
 def _define_ISpeechRecoContext_head():
     class ISpeechRecoContext(win32more.System.Com.IDispatch_head):
@@ -2602,6 +2667,7 @@ def _define_ISpeechRecoContext():
     ISpeechRecoContext.CreateResultFromMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Media.Speech.ISpeechRecoResult_head), use_last_error=False)(29, 'CreateResultFromMemory', ((1, 'ResultBlock'),(1, 'Result'),)))
     ISpeechRecoContext.Bookmark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.SpeechBookmarkOptions,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(30, 'Bookmark', ((1, 'Options'),(1, 'StreamPos'),(1, 'BookmarkId'),)))
     ISpeechRecoContext.SetAdaptationData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(31, 'SetAdaptationData', ((1, 'AdaptationString'),)))
+    win32more.System.Com.IDispatch
     return ISpeechRecoContext
 def _define_ISpeechRecoGrammar_head():
     class ISpeechRecoGrammar(win32more.System.Com.IDispatch_head):
@@ -2628,6 +2694,7 @@ def _define_ISpeechRecoGrammar():
     ISpeechRecoGrammar.SetWordSequenceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Media.Speech.ISpeechTextSelectionInformation_head, use_last_error=False)(23, 'SetWordSequenceData', ((1, 'Text'),(1, 'TextLength'),(1, 'Info'),)))
     ISpeechRecoGrammar.SetTextSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpeechTextSelectionInformation_head, use_last_error=False)(24, 'SetTextSelection', ((1, 'Info'),)))
     ISpeechRecoGrammar.IsPronounceable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.Speech.SpeechWordPronounceable), use_last_error=False)(25, 'IsPronounceable', ((1, 'Word'),(1, 'WordPronounceable'),)))
+    win32more.System.Com.IDispatch
     return ISpeechRecoGrammar
 def _define__ISpeechRecoContextEvents_head():
     class _ISpeechRecoContextEvents(win32more.System.Com.IDispatch_head):
@@ -2635,6 +2702,7 @@ def _define__ISpeechRecoContextEvents_head():
     return _ISpeechRecoContextEvents
 def _define__ISpeechRecoContextEvents():
     _ISpeechRecoContextEvents = win32more.Media.Speech._ISpeechRecoContextEvents_head
+    win32more.System.Com.IDispatch
     return _ISpeechRecoContextEvents
 def _define_ISpeechGrammarRule_head():
     class ISpeechGrammarRule(win32more.System.Com.IDispatch_head):
@@ -2649,6 +2717,7 @@ def _define_ISpeechGrammarRule():
     ISpeechGrammarRule.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Clear', ()))
     ISpeechGrammarRule.AddResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(12, 'AddResource', ((1, 'ResourceName'),(1, 'ResourceValue'),)))
     ISpeechGrammarRule.AddState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpeechGrammarRuleState_head), use_last_error=False)(13, 'AddState', ((1, 'State'),)))
+    win32more.System.Com.IDispatch
     return ISpeechGrammarRule
 def _define_ISpeechGrammarRules_head():
     class ISpeechGrammarRules(win32more.System.Com.IDispatch_head):
@@ -2664,6 +2733,7 @@ def _define_ISpeechGrammarRules():
     ISpeechGrammarRules.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.Speech.SpeechRuleAttributes,Int32,POINTER(win32more.Media.Speech.ISpeechGrammarRule_head), use_last_error=False)(12, 'Add', ((1, 'RuleName'),(1, 'Attributes'),(1, 'RuleId'),(1, 'Rule'),)))
     ISpeechGrammarRules.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Commit', ()))
     ISpeechGrammarRules.CommitAndSave = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'CommitAndSave', ((1, 'ErrorText'),(1, 'SaveStream'),)))
+    win32more.System.Com.IDispatch
     return ISpeechGrammarRules
 def _define_ISpeechGrammarRuleState_head():
     class ISpeechGrammarRuleState(win32more.System.Com.IDispatch_head):
@@ -2676,6 +2746,7 @@ def _define_ISpeechGrammarRuleState():
     ISpeechGrammarRuleState.AddWordTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpeechGrammarRuleState_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Media.Speech.SpeechGrammarWordType,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head),Single, use_last_error=False)(9, 'AddWordTransition', ((1, 'DestState'),(1, 'Words'),(1, 'Separators'),(1, 'Type'),(1, 'PropertyName'),(1, 'PropertyId'),(1, 'PropertyValue'),(1, 'Weight'),)))
     ISpeechGrammarRuleState.AddRuleTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpeechGrammarRuleState_head,win32more.Media.Speech.ISpeechGrammarRule_head,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head),Single, use_last_error=False)(10, 'AddRuleTransition', ((1, 'DestinationState'),(1, 'Rule'),(1, 'PropertyName'),(1, 'PropertyId'),(1, 'PropertyValue'),(1, 'Weight'),)))
     ISpeechGrammarRuleState.AddSpecialTransition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.ISpeechGrammarRuleState_head,win32more.Media.Speech.SpeechSpecialTransitionType,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head),Single, use_last_error=False)(11, 'AddSpecialTransition', ((1, 'DestinationState'),(1, 'Type'),(1, 'PropertyName'),(1, 'PropertyId'),(1, 'PropertyValue'),(1, 'Weight'),)))
+    win32more.System.Com.IDispatch
     return ISpeechGrammarRuleState
 def _define_ISpeechGrammarRuleStateTransition_head():
     class ISpeechGrammarRuleStateTransition(win32more.System.Com.IDispatch_head):
@@ -2691,6 +2762,7 @@ def _define_ISpeechGrammarRuleStateTransition():
     ISpeechGrammarRuleStateTransition.get_PropertyId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_PropertyId', ((1, 'PropertyId'),)))
     ISpeechGrammarRuleStateTransition.get_PropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_PropertyValue', ((1, 'PropertyValue'),)))
     ISpeechGrammarRuleStateTransition.get_NextState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpeechGrammarRuleState_head), use_last_error=False)(14, 'get_NextState', ((1, 'NextState'),)))
+    win32more.System.Com.IDispatch
     return ISpeechGrammarRuleStateTransition
 def _define_ISpeechGrammarRuleStateTransitions_head():
     class ISpeechGrammarRuleStateTransitions(win32more.System.Com.IDispatch_head):
@@ -2701,6 +2773,7 @@ def _define_ISpeechGrammarRuleStateTransitions():
     ISpeechGrammarRuleStateTransitions.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     ISpeechGrammarRuleStateTransitions.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Speech.ISpeechGrammarRuleStateTransition_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Transition'),)))
     ISpeechGrammarRuleStateTransitions.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'EnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISpeechGrammarRuleStateTransitions
 def _define_ISpeechTextSelectionInformation_head():
     class ISpeechTextSelectionInformation(win32more.System.Com.IDispatch_head):
@@ -2716,6 +2789,7 @@ def _define_ISpeechTextSelectionInformation():
     ISpeechTextSelectionInformation.get_SelectionOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_SelectionOffset', ((1, 'SelectionOffset'),)))
     ISpeechTextSelectionInformation.put_SelectionLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(13, 'put_SelectionLength', ((1, 'SelectionLength'),)))
     ISpeechTextSelectionInformation.get_SelectionLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_SelectionLength', ((1, 'SelectionLength'),)))
+    win32more.System.Com.IDispatch
     return ISpeechTextSelectionInformation
 def _define_ISpeechRecoResult_head():
     class ISpeechRecoResult(win32more.System.Com.IDispatch_head):
@@ -2733,6 +2807,7 @@ def _define_ISpeechRecoResult():
     ISpeechRecoResult.SpeakAudio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Media.Speech.SpeechVoiceSpeakFlags,POINTER(Int32), use_last_error=False)(14, 'SpeakAudio', ((1, 'StartElement'),(1, 'Elements'),(1, 'Flags'),(1, 'StreamNumber'),)))
     ISpeechRecoResult.SaveToMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'SaveToMemory', ((1, 'ResultBlock'),)))
     ISpeechRecoResult.DiscardResultInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.SpeechDiscardType, use_last_error=False)(16, 'DiscardResultInfo', ((1, 'ValueTypes'),)))
+    win32more.System.Com.IDispatch
     return ISpeechRecoResult
 def _define_ISpeechRecoResult2_head():
     class ISpeechRecoResult2(win32more.Media.Speech.ISpeechRecoResult_head):
@@ -2741,6 +2816,7 @@ def _define_ISpeechRecoResult2_head():
 def _define_ISpeechRecoResult2():
     ISpeechRecoResult2 = win32more.Media.Speech.ISpeechRecoResult2_head
     ISpeechRecoResult2.SetTextFeedback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(17, 'SetTextFeedback', ((1, 'Feedback'),(1, 'WasSuccessful'),)))
+    win32more.Media.Speech.ISpeechRecoResult
     return ISpeechRecoResult2
 def _define_ISpeechRecoResultTimes_head():
     class ISpeechRecoResultTimes(win32more.System.Com.IDispatch_head):
@@ -2752,6 +2828,7 @@ def _define_ISpeechRecoResultTimes():
     ISpeechRecoResultTimes.get_Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Length', ((1, 'Length'),)))
     ISpeechRecoResultTimes.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_TickCount', ((1, 'TickCount'),)))
     ISpeechRecoResultTimes.get_OffsetFromStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_OffsetFromStart', ((1, 'OffsetFromStart'),)))
+    win32more.System.Com.IDispatch
     return ISpeechRecoResultTimes
 def _define_ISpeechPhraseAlternate_head():
     class ISpeechPhraseAlternate(win32more.System.Com.IDispatch_head):
@@ -2764,6 +2841,7 @@ def _define_ISpeechPhraseAlternate():
     ISpeechPhraseAlternate.get_NumberOfElementsInResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_NumberOfElementsInResult', ((1, 'NumberOfElements'),)))
     ISpeechPhraseAlternate.get_PhraseInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpeechPhraseInfo_head), use_last_error=False)(10, 'get_PhraseInfo', ((1, 'PhraseInfo'),)))
     ISpeechPhraseAlternate.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Commit', ()))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseAlternate
 def _define_ISpeechPhraseAlternates_head():
     class ISpeechPhraseAlternates(win32more.System.Com.IDispatch_head):
@@ -2774,6 +2852,7 @@ def _define_ISpeechPhraseAlternates():
     ISpeechPhraseAlternates.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     ISpeechPhraseAlternates.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Speech.ISpeechPhraseAlternate_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'PhraseAlternate'),)))
     ISpeechPhraseAlternates.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'EnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseAlternates
 def _define_ISpeechPhraseInfo_head():
     class ISpeechPhraseInfo(win32more.System.Com.IDispatch_head):
@@ -2797,6 +2876,7 @@ def _define_ISpeechPhraseInfo():
     ISpeechPhraseInfo.SaveToMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(20, 'SaveToMemory', ((1, 'PhraseBlock'),)))
     ISpeechPhraseInfo.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int16,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'GetText', ((1, 'StartElement'),(1, 'Elements'),(1, 'UseReplacements'),(1, 'Text'),)))
     ISpeechPhraseInfo.GetDisplayAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int16,POINTER(win32more.Media.Speech.SpeechDisplayAttributes), use_last_error=False)(22, 'GetDisplayAttributes', ((1, 'StartElement'),(1, 'Elements'),(1, 'UseReplacements'),(1, 'DisplayAttributes'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseInfo
 def _define_ISpeechPhraseElement_head():
     class ISpeechPhraseElement(win32more.System.Com.IDispatch_head):
@@ -2817,6 +2897,7 @@ def _define_ISpeechPhraseElement():
     ISpeechPhraseElement.get_RequiredConfidence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SpeechEngineConfidence), use_last_error=False)(17, 'get_RequiredConfidence', ((1, 'RequiredConfidence'),)))
     ISpeechPhraseElement.get_ActualConfidence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SpeechEngineConfidence), use_last_error=False)(18, 'get_ActualConfidence', ((1, 'ActualConfidence'),)))
     ISpeechPhraseElement.get_EngineConfidence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(19, 'get_EngineConfidence', ((1, 'EngineConfidence'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseElement
 def _define_ISpeechPhraseElements_head():
     class ISpeechPhraseElements(win32more.System.Com.IDispatch_head):
@@ -2827,6 +2908,7 @@ def _define_ISpeechPhraseElements():
     ISpeechPhraseElements.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     ISpeechPhraseElements.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Speech.ISpeechPhraseElement_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Element'),)))
     ISpeechPhraseElements.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'EnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseElements
 def _define_ISpeechPhraseReplacement_head():
     class ISpeechPhraseReplacement(win32more.System.Com.IDispatch_head):
@@ -2838,6 +2920,7 @@ def _define_ISpeechPhraseReplacement():
     ISpeechPhraseReplacement.get_Text = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Text', ((1, 'Text'),)))
     ISpeechPhraseReplacement.get_FirstElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_FirstElement', ((1, 'FirstElement'),)))
     ISpeechPhraseReplacement.get_NumberOfElements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_NumberOfElements', ((1, 'NumberOfElements'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseReplacement
 def _define_ISpeechPhraseReplacements_head():
     class ISpeechPhraseReplacements(win32more.System.Com.IDispatch_head):
@@ -2848,6 +2931,7 @@ def _define_ISpeechPhraseReplacements():
     ISpeechPhraseReplacements.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     ISpeechPhraseReplacements.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Speech.ISpeechPhraseReplacement_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Reps'),)))
     ISpeechPhraseReplacements.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'EnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseReplacements
 def _define_ISpeechPhraseProperty_head():
     class ISpeechPhraseProperty(win32more.System.Com.IDispatch_head):
@@ -2864,6 +2948,7 @@ def _define_ISpeechPhraseProperty():
     ISpeechPhraseProperty.get_Confidence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SpeechEngineConfidence), use_last_error=False)(13, 'get_Confidence', ((1, 'Confidence'),)))
     ISpeechPhraseProperty.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpeechPhraseProperty_head), use_last_error=False)(14, 'get_Parent', ((1, 'ParentProperty'),)))
     ISpeechPhraseProperty.get_Children = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpeechPhraseProperties_head), use_last_error=False)(15, 'get_Children', ((1, 'Children'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseProperty
 def _define_ISpeechPhraseProperties_head():
     class ISpeechPhraseProperties(win32more.System.Com.IDispatch_head):
@@ -2874,6 +2959,7 @@ def _define_ISpeechPhraseProperties():
     ISpeechPhraseProperties.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     ISpeechPhraseProperties.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Speech.ISpeechPhraseProperty_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Property'),)))
     ISpeechPhraseProperties.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'EnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseProperties
 def _define_ISpeechPhraseRule_head():
     class ISpeechPhraseRule(win32more.System.Com.IDispatch_head):
@@ -2889,6 +2975,7 @@ def _define_ISpeechPhraseRule():
     ISpeechPhraseRule.get_Children = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpeechPhraseRules_head), use_last_error=False)(12, 'get_Children', ((1, 'Children'),)))
     ISpeechPhraseRule.get_Confidence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SpeechEngineConfidence), use_last_error=False)(13, 'get_Confidence', ((1, 'ActualConfidence'),)))
     ISpeechPhraseRule.get_EngineConfidence = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(14, 'get_EngineConfidence', ((1, 'EngineConfidence'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseRule
 def _define_ISpeechPhraseRules_head():
     class ISpeechPhraseRules(win32more.System.Com.IDispatch_head):
@@ -2899,6 +2986,7 @@ def _define_ISpeechPhraseRules():
     ISpeechPhraseRules.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     ISpeechPhraseRules.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Speech.ISpeechPhraseRule_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Rule'),)))
     ISpeechPhraseRules.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'EnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseRules
 def _define_ISpeechLexicon_head():
     class ISpeechLexicon(win32more.System.Com.IDispatch_head):
@@ -2914,6 +3002,7 @@ def _define_ISpeechLexicon():
     ISpeechLexicon.RemovePronunciationByPhoneIds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Media.Speech.SpeechPartOfSpeech,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'RemovePronunciationByPhoneIds', ((1, 'bstrWord'),(1, 'LangId'),(1, 'PartOfSpeech'),(1, 'PhoneIds'),)))
     ISpeechLexicon.GetPronunciations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Media.Speech.SpeechLexiconType,POINTER(win32more.Media.Speech.ISpeechLexiconPronunciations_head), use_last_error=False)(13, 'GetPronunciations', ((1, 'bstrWord'),(1, 'LangId'),(1, 'TypeFlags'),(1, 'ppPronunciations'),)))
     ISpeechLexicon.GetGenerationChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(win32more.Media.Speech.ISpeechLexiconWords_head), use_last_error=False)(14, 'GetGenerationChange', ((1, 'GenerationID'),(1, 'ppWords'),)))
+    win32more.System.Com.IDispatch
     return ISpeechLexicon
 def _define_ISpeechLexiconWords_head():
     class ISpeechLexiconWords(win32more.System.Com.IDispatch_head):
@@ -2924,6 +3013,7 @@ def _define_ISpeechLexiconWords():
     ISpeechLexiconWords.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     ISpeechLexiconWords.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Speech.ISpeechLexiconWord_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Word'),)))
     ISpeechLexiconWords.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'EnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISpeechLexiconWords
 def _define_ISpeechLexiconWord_head():
     class ISpeechLexiconWord(win32more.System.Com.IDispatch_head):
@@ -2935,6 +3025,7 @@ def _define_ISpeechLexiconWord():
     ISpeechLexiconWord.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SpeechWordType), use_last_error=False)(8, 'get_Type', ((1, 'WordType'),)))
     ISpeechLexiconWord.get_Word = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Word', ((1, 'Word'),)))
     ISpeechLexiconWord.get_Pronunciations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.ISpeechLexiconPronunciations_head), use_last_error=False)(10, 'get_Pronunciations', ((1, 'Pronunciations'),)))
+    win32more.System.Com.IDispatch
     return ISpeechLexiconWord
 def _define_ISpeechLexiconPronunciations_head():
     class ISpeechLexiconPronunciations(win32more.System.Com.IDispatch_head):
@@ -2945,6 +3036,7 @@ def _define_ISpeechLexiconPronunciations():
     ISpeechLexiconPronunciations.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'Count'),)))
     ISpeechLexiconPronunciations.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Speech.ISpeechLexiconPronunciation_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Pronunciation'),)))
     ISpeechLexiconPronunciations.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'EnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISpeechLexiconPronunciations
 def _define_ISpeechLexiconPronunciation_head():
     class ISpeechLexiconPronunciation(win32more.System.Com.IDispatch_head):
@@ -2957,6 +3049,7 @@ def _define_ISpeechLexiconPronunciation():
     ISpeechLexiconPronunciation.get_PartOfSpeech = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Speech.SpeechPartOfSpeech), use_last_error=False)(9, 'get_PartOfSpeech', ((1, 'PartOfSpeech'),)))
     ISpeechLexiconPronunciation.get_PhoneIds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_PhoneIds', ((1, 'PhoneIds'),)))
     ISpeechLexiconPronunciation.get_Symbolic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_Symbolic', ((1, 'Symbolic'),)))
+    win32more.System.Com.IDispatch
     return ISpeechLexiconPronunciation
 def _define_ISpeechXMLRecoResult_head():
     class ISpeechXMLRecoResult(win32more.Media.Speech.ISpeechRecoResult_head):
@@ -2966,6 +3059,7 @@ def _define_ISpeechXMLRecoResult():
     ISpeechXMLRecoResult = win32more.Media.Speech.ISpeechXMLRecoResult_head
     ISpeechXMLRecoResult.GetXMLResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.SPXMLRESULTOPTIONS,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'GetXMLResult', ((1, 'Options'),(1, 'pResult'),)))
     ISpeechXMLRecoResult.GetXMLErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(Int32),POINTER(Int16), use_last_error=False)(18, 'GetXMLErrorInfo', ((1, 'LineNumber'),(1, 'ScriptLine'),(1, 'Source'),(1, 'Description'),(1, 'ResultCode'),(1, 'IsError'),)))
+    win32more.Media.Speech.ISpeechRecoResult
     return ISpeechXMLRecoResult
 def _define_ISpeechRecoResultDispatch_head():
     class ISpeechRecoResultDispatch(win32more.System.Com.IDispatch_head):
@@ -2986,6 +3080,7 @@ def _define_ISpeechRecoResultDispatch():
     ISpeechRecoResultDispatch.GetXMLResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Speech.SPXMLRESULTOPTIONS,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'GetXMLResult', ((1, 'Options'),(1, 'pResult'),)))
     ISpeechRecoResultDispatch.GetXMLErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.HRESULT),POINTER(Int16), use_last_error=False)(18, 'GetXMLErrorInfo', ((1, 'LineNumber'),(1, 'ScriptLine'),(1, 'Source'),(1, 'Description'),(1, 'ResultCode'),(1, 'IsError'),)))
     ISpeechRecoResultDispatch.SetTextFeedback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(19, 'SetTextFeedback', ((1, 'Feedback'),(1, 'WasSuccessful'),)))
+    win32more.System.Com.IDispatch
     return ISpeechRecoResultDispatch
 def _define_ISpeechPhraseInfoBuilder_head():
     class ISpeechPhraseInfoBuilder(win32more.System.Com.IDispatch_head):
@@ -2994,6 +3089,7 @@ def _define_ISpeechPhraseInfoBuilder_head():
 def _define_ISpeechPhraseInfoBuilder():
     ISpeechPhraseInfoBuilder = win32more.Media.Speech.ISpeechPhraseInfoBuilder_head
     ISpeechPhraseInfoBuilder.RestorePhraseFromMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Media.Speech.ISpeechPhraseInfo_head), use_last_error=False)(7, 'RestorePhraseFromMemory', ((1, 'PhraseInMemory'),(1, 'PhraseInfo'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhraseInfoBuilder
 def _define_ISpeechPhoneConverter_head():
     class ISpeechPhoneConverter(win32more.System.Com.IDispatch_head):
@@ -3005,6 +3101,7 @@ def _define_ISpeechPhoneConverter():
     ISpeechPhoneConverter.put_LanguageId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_LanguageId', ((1, 'LanguageId'),)))
     ISpeechPhoneConverter.PhoneToId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'PhoneToId', ((1, 'Phonemes'),(1, 'IdArray'),)))
     ISpeechPhoneConverter.IdToPhone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'IdToPhone', ((1, 'IdArray'),(1, 'Phonemes'),)))
+    win32more.System.Com.IDispatch
     return ISpeechPhoneConverter
 __all__ = [
     "SP_LOW_CONFIDENCE",

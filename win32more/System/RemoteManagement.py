@@ -1128,6 +1128,7 @@ def _define_IWSMan():
     IWSMan.CreateConnectionOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'CreateConnectionOptions', ((1, 'connectionOptions'),)))
     IWSMan.get_CommandLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_CommandLine', ((1, 'value'),)))
     IWSMan.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Error', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IWSMan
 def _define_IWSManEx_head():
     class IWSManEx(win32more.System.RemoteManagement.IWSMan_head):
@@ -1155,6 +1156,7 @@ def _define_IWSManEx():
     IWSManEx.EnumerationFlagHierarchyShallow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(28, 'EnumerationFlagHierarchyShallow', ((1, 'flags'),)))
     IWSManEx.EnumerationFlagHierarchyDeepBasePropsOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(29, 'EnumerationFlagHierarchyDeepBasePropsOnly', ((1, 'flags'),)))
     IWSManEx.EnumerationFlagReturnObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(30, 'EnumerationFlagReturnObject', ((1, 'flags'),)))
+    win32more.System.RemoteManagement.IWSMan
     return IWSManEx
 def _define_IWSManEx2_head():
     class IWSManEx2(win32more.System.RemoteManagement.IWSManEx_head):
@@ -1163,6 +1165,7 @@ def _define_IWSManEx2_head():
 def _define_IWSManEx2():
     IWSManEx2 = win32more.System.RemoteManagement.IWSManEx2_head
     IWSManEx2.SessionFlagUseClientCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(31, 'SessionFlagUseClientCertificate', ((1, 'flags'),)))
+    win32more.System.RemoteManagement.IWSManEx
     return IWSManEx2
 def _define_IWSManEx3_head():
     class IWSManEx3(win32more.System.RemoteManagement.IWSManEx2_head):
@@ -1177,6 +1180,7 @@ def _define_IWSManEx3():
     IWSManEx3.SessionFlagSkipRevocationCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(36, 'SessionFlagSkipRevocationCheck', ((1, 'flags'),)))
     IWSManEx3.SessionFlagAllowNegotiateImplicitCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(37, 'SessionFlagAllowNegotiateImplicitCredentials', ((1, 'flags'),)))
     IWSManEx3.SessionFlagUseSsl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(38, 'SessionFlagUseSsl', ((1, 'flags'),)))
+    win32more.System.RemoteManagement.IWSManEx2
     return IWSManEx3
 def _define_IWSManConnectionOptions_head():
     class IWSManConnectionOptions(win32more.System.Com.IDispatch_head):
@@ -1187,6 +1191,7 @@ def _define_IWSManConnectionOptions():
     IWSManConnectionOptions.get_UserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_UserName', ((1, 'name'),)))
     IWSManConnectionOptions.put_UserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_UserName', ((1, 'name'),)))
     IWSManConnectionOptions.put_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_Password', ((1, 'password'),)))
+    win32more.System.Com.IDispatch
     return IWSManConnectionOptions
 def _define_IWSManConnectionOptionsEx_head():
     class IWSManConnectionOptionsEx(win32more.System.RemoteManagement.IWSManConnectionOptions_head):
@@ -1196,6 +1201,7 @@ def _define_IWSManConnectionOptionsEx():
     IWSManConnectionOptionsEx = win32more.System.RemoteManagement.IWSManConnectionOptionsEx_head
     IWSManConnectionOptionsEx.get_CertificateThumbprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_CertificateThumbprint', ((1, 'thumbprint'),)))
     IWSManConnectionOptionsEx.put_CertificateThumbprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_CertificateThumbprint', ((1, 'thumbprint'),)))
+    win32more.System.RemoteManagement.IWSManConnectionOptions
     return IWSManConnectionOptionsEx
 def _define_IWSManConnectionOptionsEx2_head():
     class IWSManConnectionOptionsEx2(win32more.System.RemoteManagement.IWSManConnectionOptionsEx_head):
@@ -1211,6 +1217,7 @@ def _define_IWSManConnectionOptionsEx2():
     IWSManConnectionOptionsEx2.ProxyAuthenticationUseNegotiate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'ProxyAuthenticationUseNegotiate', ((1, 'value'),)))
     IWSManConnectionOptionsEx2.ProxyAuthenticationUseBasic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'ProxyAuthenticationUseBasic', ((1, 'value'),)))
     IWSManConnectionOptionsEx2.ProxyAuthenticationUseDigest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'ProxyAuthenticationUseDigest', ((1, 'value'),)))
+    win32more.System.RemoteManagement.IWSManConnectionOptionsEx
     return IWSManConnectionOptionsEx2
 def _define_IWSManSession_head():
     class IWSManSession(win32more.System.Com.IDispatch_head):
@@ -1230,6 +1237,7 @@ def _define_IWSManSession():
     IWSManSession.put_BatchItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(16, 'put_BatchItems', ((1, 'value'),)))
     IWSManSession.get_Timeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_Timeout', ((1, 'value'),)))
     IWSManSession.put_Timeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(18, 'put_Timeout', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IWSManSession
 def _define_IWSManEnumerator_head():
     class IWSManEnumerator(win32more.System.Com.IDispatch_head):
@@ -1240,6 +1248,7 @@ def _define_IWSManEnumerator():
     IWSManEnumerator.ReadItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'ReadItem', ((1, 'resource'),)))
     IWSManEnumerator.get_AtEndOfStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_AtEndOfStream', ((1, 'eos'),)))
     IWSManEnumerator.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Error', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IWSManEnumerator
 def _define_IWSManResourceLocator_head():
     class IWSManResourceLocator(win32more.System.Com.IDispatch_head):
@@ -1260,6 +1269,7 @@ def _define_IWSManResourceLocator():
     IWSManResourceLocator.get_MustUnderstandOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(17, 'get_MustUnderstandOptions', ((1, 'mustUnderstand'),)))
     IWSManResourceLocator.ClearOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'ClearOptions', ()))
     IWSManResourceLocator.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_Error', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IWSManResourceLocator
 def _define_IWSManResourceLocatorInternal_head():
     class IWSManResourceLocatorInternal(win32more.System.Com.IUnknown_head):
@@ -1267,6 +1277,7 @@ def _define_IWSManResourceLocatorInternal_head():
     return IWSManResourceLocatorInternal
 def _define_IWSManResourceLocatorInternal():
     IWSManResourceLocatorInternal = win32more.System.RemoteManagement.IWSManResourceLocatorInternal_head
+    win32more.System.Com.IUnknown
     return IWSManResourceLocatorInternal
 def _define_IWSManInternal_head():
     class IWSManInternal(win32more.System.Com.IDispatch_head):
@@ -1275,6 +1286,7 @@ def _define_IWSManInternal_head():
 def _define_IWSManInternal():
     IWSManInternal = win32more.System.RemoteManagement.IWSManInternal_head
     IWSManInternal.ConfigSDDL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.System.Com.VARIANT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'ConfigSDDL', ((1, 'session'),(1, 'resourceUri'),(1, 'flags'),(1, 'resource'),)))
+    win32more.System.Com.IDispatch
     return IWSManInternal
 def _define_WSManInitialize():
     try:

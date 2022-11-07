@@ -344,6 +344,7 @@ def _define_ISensorManager():
     ISensorManager.GetSensorByID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.Sensors.ISensor_head), use_last_error=False)(5, 'GetSensorByID', ((1, 'sensorID'),(1, 'ppSensor'),)))
     ISensorManager.SetEventSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Sensors.ISensorManagerEvents_head, use_last_error=False)(6, 'SetEventSink', ((1, 'pEvents'),)))
     ISensorManager.RequestPermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Devices.Sensors.ISensorCollection_head,win32more.Foundation.BOOL, use_last_error=False)(7, 'RequestPermissions', ((1, 'hParent'),(1, 'pSensors'),(1, 'fModal'),)))
+    win32more.System.Com.IUnknown
     return ISensorManager
 def _define_ILocationPermissions_head():
     class ILocationPermissions(win32more.System.Com.IUnknown_head):
@@ -353,6 +354,7 @@ def _define_ILocationPermissions():
     ILocationPermissions = win32more.Devices.Sensors.ILocationPermissions_head
     ILocationPermissions.GetGlobalLocationPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetGlobalLocationPermission', ((1, 'pfEnabled'),)))
     ILocationPermissions.CheckLocationCapability = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'CheckLocationCapability', ((1, 'dwClientThreadId'),)))
+    win32more.System.Com.IUnknown
     return ILocationPermissions
 def _define_ISensorCollection_head():
     class ISensorCollection(win32more.System.Com.IUnknown_head):
@@ -366,6 +368,7 @@ def _define_ISensorCollection():
     ISensorCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Sensors.ISensor_head, use_last_error=False)(6, 'Remove', ((1, 'pSensor'),)))
     ISensorCollection.RemoveByID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(7, 'RemoveByID', ((1, 'sensorID'),)))
     ISensorCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Clear', ()))
+    win32more.System.Com.IUnknown
     return ISensorCollection
 def _define_ISensor_head():
     class ISensor(win32more.System.Com.IUnknown_head):
@@ -388,6 +391,7 @@ def _define_ISensor():
     ISensor.GetEventInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(Guid)),POINTER(UInt32), use_last_error=False)(15, 'GetEventInterest', ((1, 'ppValues'),(1, 'pCount'),)))
     ISensor.SetEventInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32, use_last_error=False)(16, 'SetEventInterest', ((1, 'pValues'),(1, 'count'),)))
     ISensor.SetEventSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Sensors.ISensorEvents_head, use_last_error=False)(17, 'SetEventSink', ((1, 'pEvents'),)))
+    win32more.System.Com.IUnknown
     return ISensor
 def _define_ISensorDataReport_head():
     class ISensorDataReport(win32more.System.Com.IUnknown_head):
@@ -398,6 +402,7 @@ def _define_ISensorDataReport():
     ISensorDataReport.GetTimestamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(3, 'GetTimestamp', ((1, 'pTimeStamp'),)))
     ISensorDataReport.GetSensorValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(4, 'GetSensorValue', ((1, 'pKey'),(1, 'pValue'),)))
     ISensorDataReport.GetSensorValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDeviceKeyCollection_head,POINTER(win32more.Devices.PortableDevices.IPortableDeviceValues_head), use_last_error=False)(5, 'GetSensorValues', ((1, 'pKeys'),(1, 'ppValues'),)))
+    win32more.System.Com.IUnknown
     return ISensorDataReport
 def _define_ISensorManagerEvents_head():
     class ISensorManagerEvents(win32more.System.Com.IUnknown_head):
@@ -406,6 +411,7 @@ def _define_ISensorManagerEvents_head():
 def _define_ISensorManagerEvents():
     ISensorManagerEvents = win32more.Devices.Sensors.ISensorManagerEvents_head
     ISensorManagerEvents.OnSensorEnter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Sensors.ISensor_head,win32more.Devices.Sensors.SensorState, use_last_error=False)(3, 'OnSensorEnter', ((1, 'pSensor'),(1, 'state'),)))
+    win32more.System.Com.IUnknown
     return ISensorManagerEvents
 def _define_ISensorEvents_head():
     class ISensorEvents(win32more.System.Com.IUnknown_head):
@@ -417,6 +423,7 @@ def _define_ISensorEvents():
     ISensorEvents.OnDataUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Sensors.ISensor_head,win32more.Devices.Sensors.ISensorDataReport_head, use_last_error=False)(4, 'OnDataUpdated', ((1, 'pSensor'),(1, 'pNewData'),)))
     ISensorEvents.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Sensors.ISensor_head,POINTER(Guid),win32more.Devices.PortableDevices.IPortableDeviceValues_head, use_last_error=False)(5, 'OnEvent', ((1, 'pSensor'),(1, 'eventID'),(1, 'pEventData'),)))
     ISensorEvents.OnLeave = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(6, 'OnLeave', ((1, 'ID'),)))
+    win32more.System.Com.IUnknown
     return ISensorEvents
 ACTIVITY_STATE_COUNT = Int32
 ACTIVITY_STATE_COUNT_ActivityStateCount = 8

@@ -24,6 +24,7 @@ def _define_ISoftwareBitmapNative_head():
 def _define_ISoftwareBitmapNative():
     ISoftwareBitmapNative = win32more.System.WinRT.Graphics.Imaging.ISoftwareBitmapNative_head
     ISoftwareBitmapNative.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetData', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.System.WinRT.IInspectable
     return ISoftwareBitmapNative
 def _define_ISoftwareBitmapNativeFactory_head():
     class ISoftwareBitmapNativeFactory(win32more.System.WinRT.IInspectable_head):
@@ -33,6 +34,7 @@ def _define_ISoftwareBitmapNativeFactory():
     ISoftwareBitmapNativeFactory = win32more.System.WinRT.Graphics.Imaging.ISoftwareBitmapNativeFactory_head
     ISoftwareBitmapNativeFactory.CreateFromWICBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmap_head,win32more.Foundation.BOOL,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'CreateFromWICBitmap', ((1, 'data'),(1, 'forceReadOnly'),(1, 'riid'),(1, 'ppv'),)))
     ISoftwareBitmapNativeFactory.CreateFromMF2DBuffer2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMF2DBuffer2_head,POINTER(Guid),UInt32,UInt32,win32more.Foundation.BOOL,POINTER(win32more.Media.MediaFoundation.MFVideoArea_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'CreateFromMF2DBuffer2', ((1, 'data'),(1, 'subtype'),(1, 'width'),(1, 'height'),(1, 'forceReadOnly'),(1, 'minDisplayAperture'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.WinRT.IInspectable
     return ISoftwareBitmapNativeFactory
 __all__ = [
     "CLSID_SoftwareBitmapNativeFactory",

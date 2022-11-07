@@ -5519,6 +5519,7 @@ def _define_IImageList():
     IImageList.GetDragImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head),POINTER(win32more.Foundation.POINT_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(29, 'GetDragImage', ((1, 'ppt'),(1, 'pptHotspot'),(1, 'riid'),(1, 'ppv'),)))
     IImageList.GetItemFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Controls.IMAGE_LIST_ITEM_FLAGS), use_last_error=False)(30, 'GetItemFlags', ((1, 'i'),(1, 'dwFlags'),)))
     IImageList.GetOverlayImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(31, 'GetOverlayImage', ((1, 'iOverlay'),(1, 'piIndex'),)))
+    win32more.System.Com.IUnknown
     return IImageList
 def _define_IMAGELISTSTATS_head():
     class IMAGELISTSTATS(Structure):
@@ -5551,6 +5552,7 @@ def _define_IImageList2():
     IImageList2.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.UI.Controls.IMAGELIST_CREATION_FLAGS,Int32,Int32, use_last_error=False)(41, 'Initialize', ((1, 'cx'),(1, 'cy'),(1, 'flags'),(1, 'cInitial'),(1, 'cGrow'),)))
     IImageList2.Replace2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Graphics.Gdi.HBITMAP,win32more.Graphics.Gdi.HBITMAP,win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(42, 'Replace2', ((1, 'i'),(1, 'hbmImage'),(1, 'hbmMask'),(1, 'punk'),(1, 'dwFlags'),)))
     IImageList2.ReplaceFromImageList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.UI.Controls.IImageList_head,Int32,win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(43, 'ReplaceFromImageList', ((1, 'i'),(1, 'pil'),(1, 'iSrc'),(1, 'punk'),(1, 'dwFlags'),)))
+    win32more.UI.Controls.IImageList
     return IImageList2
 TA_PROPERTY = Int32
 TAP_FLAGS = 0

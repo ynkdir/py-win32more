@@ -1746,6 +1746,7 @@ def _define_IDialEventSink_head():
 def _define_IDialEventSink():
     IDialEventSink = win32more.Networking.WinInet.IDialEventSink_head
     IDialEventSink.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(3, 'OnEvent', ((1, 'dwEvent'),(1, 'dwStatus'),)))
+    win32more.System.Com.IUnknown
     return IDialEventSink
 def _define_IDialEngine_head():
     class IDialEngine(win32more.System.Com.IUnknown_head):
@@ -1760,6 +1761,7 @@ def _define_IDialEngine():
     IDialEngine.HangUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'HangUp', ()))
     IDialEngine.GetConnectedState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetConnectedState', ((1, 'pdwState'),)))
     IDialEngine.GetConnectHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr), use_last_error=False)(9, 'GetConnectHandle', ((1, 'pdwHandle'),)))
+    win32more.System.Com.IUnknown
     return IDialEngine
 def _define_IDialBranding_head():
     class IDialBranding(win32more.System.Com.IUnknown_head):
@@ -1769,6 +1771,7 @@ def _define_IDialBranding():
     IDialBranding = win32more.Networking.WinInet.IDialBranding_head
     IDialBranding.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Initialize', ((1, 'pwzConnectoid'),)))
     IDialBranding.GetBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(4, 'GetBitmap', ((1, 'dwIndex'),(1, 'phBitmap'),)))
+    win32more.System.Com.IUnknown
     return IDialBranding
 def _define_INTERNET_PREFETCH_STATUS_head():
     class INTERNET_PREFETCH_STATUS(Structure):
@@ -2295,6 +2298,7 @@ def _define_IProofOfPossessionCookieInfoManager_head():
 def _define_IProofOfPossessionCookieInfoManager():
     IProofOfPossessionCookieInfoManager = win32more.Networking.WinInet.IProofOfPossessionCookieInfoManager_head
     IProofOfPossessionCookieInfoManager.GetCookieInfoForUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head)), use_last_error=False)(3, 'GetCookieInfoForUri', ((1, 'uri'),(1, 'cookieInfoCount'),(1, 'cookieInfo'),)))
+    win32more.System.Com.IUnknown
     return IProofOfPossessionCookieInfoManager
 def _define_IProofOfPossessionCookieInfoManager2_head():
     class IProofOfPossessionCookieInfoManager2(win32more.System.Com.IUnknown_head):
@@ -2303,6 +2307,7 @@ def _define_IProofOfPossessionCookieInfoManager2_head():
 def _define_IProofOfPossessionCookieInfoManager2():
     IProofOfPossessionCookieInfoManager2 = win32more.Networking.WinInet.IProofOfPossessionCookieInfoManager2_head
     IProofOfPossessionCookieInfoManager2.GetCookieInfoWithUriForAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.IInspectable_head,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.Networking.WinInet.ProofOfPossessionCookieInfo_head)), use_last_error=False)(3, 'GetCookieInfoWithUriForAccount', ((1, 'webAccount'),(1, 'uri'),(1, 'cookieInfoCount'),(1, 'cookieInfo'),)))
+    win32more.System.Com.IUnknown
     return IProofOfPossessionCookieInfoManager2
 def _define_InternetTimeFromSystemTimeA():
     try:

@@ -197,6 +197,7 @@ def _define_IDWriteFontFileLoader_head():
 def _define_IDWriteFontFileLoader():
     IDWriteFontFileLoader = win32more.Graphics.DirectWrite.IDWriteFontFileLoader_head
     IDWriteFontFileLoader.CreateStreamFromKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFileStream_head), use_last_error=False)(3, 'CreateStreamFromKey', ((1, 'fontFileReferenceKey'),(1, 'fontFileReferenceKeySize'),(1, 'fontFileStream'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontFileLoader
 def _define_IDWriteLocalFontFileLoader_head():
     class IDWriteLocalFontFileLoader(win32more.Graphics.DirectWrite.IDWriteFontFileLoader_head):
@@ -207,6 +208,7 @@ def _define_IDWriteLocalFontFileLoader():
     IDWriteLocalFontFileLoader.GetFilePathLengthFromKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(4, 'GetFilePathLengthFromKey', ((1, 'fontFileReferenceKey'),(1, 'fontFileReferenceKeySize'),(1, 'filePathLength'),)))
     IDWriteLocalFontFileLoader.GetFilePathFromKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(Char),UInt32, use_last_error=False)(5, 'GetFilePathFromKey', ((1, 'fontFileReferenceKey'),(1, 'fontFileReferenceKeySize'),(1, 'filePath'),(1, 'filePathSize'),)))
     IDWriteLocalFontFileLoader.GetLastWriteTimeFromKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(6, 'GetLastWriteTimeFromKey', ((1, 'fontFileReferenceKey'),(1, 'fontFileReferenceKeySize'),(1, 'lastWriteTime'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFileLoader
     return IDWriteLocalFontFileLoader
 def _define_IDWriteFontFileStream_head():
     class IDWriteFontFileStream(win32more.System.Com.IUnknown_head):
@@ -218,6 +220,7 @@ def _define_IDWriteFontFileStream():
     IDWriteFontFileStream.ReleaseFileFragment = COMMETHOD(WINFUNCTYPE(Void,c_void_p, use_last_error=False)(4, 'ReleaseFileFragment', ((1, 'fragmentContext'),)))
     IDWriteFontFileStream.GetFileSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(5, 'GetFileSize', ((1, 'fileSize'),)))
     IDWriteFontFileStream.GetLastWriteTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(6, 'GetLastWriteTime', ((1, 'lastWriteTime'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontFileStream
 def _define_IDWriteFontFile_head():
     class IDWriteFontFile(win32more.System.Com.IUnknown_head):
@@ -228,6 +231,7 @@ def _define_IDWriteFontFile():
     IDWriteFontFile.GetReferenceKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p),POINTER(UInt32), use_last_error=False)(3, 'GetReferenceKey', ((1, 'fontFileReferenceKey'),(1, 'fontFileReferenceKeySize'),)))
     IDWriteFontFile.GetLoader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFileLoader_head), use_last_error=False)(4, 'GetLoader', ((1, 'fontFileLoader'),)))
     IDWriteFontFile.Analyze = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_FILE_TYPE),POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_FACE_TYPE),POINTER(UInt32), use_last_error=False)(5, 'Analyze', ((1, 'isSupportedFontType'),(1, 'fontFileType'),(1, 'fontFaceType'),(1, 'numberOfFaces'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontFile
 DWRITE_PIXEL_GEOMETRY = Int32
 DWRITE_PIXEL_GEOMETRY_FLAT = 0
@@ -271,6 +275,7 @@ def _define_IDWriteRenderingParams():
     IDWriteRenderingParams.GetClearTypeLevel = COMMETHOD(WINFUNCTYPE(Single, use_last_error=False)(5, 'GetClearTypeLevel', ()))
     IDWriteRenderingParams.GetPixelGeometry = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_PIXEL_GEOMETRY, use_last_error=False)(6, 'GetPixelGeometry', ()))
     IDWriteRenderingParams.GetRenderingMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_RENDERING_MODE, use_last_error=False)(7, 'GetRenderingMode', ()))
+    win32more.System.Com.IUnknown
     return IDWriteRenderingParams
 def _define_IDWriteFontFace_head():
     class IDWriteFontFace(win32more.System.Com.IUnknown_head):
@@ -293,6 +298,7 @@ def _define_IDWriteFontFace():
     IDWriteFontFace.GetRecommendedRenderingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,win32more.Graphics.DirectWrite.IDWriteRenderingParams_head,POINTER(win32more.Graphics.DirectWrite.DWRITE_RENDERING_MODE), use_last_error=False)(15, 'GetRecommendedRenderingMode', ((1, 'emSize'),(1, 'pixelsPerDip'),(1, 'measuringMode'),(1, 'renderingParams'),(1, 'renderingMode'),)))
     IDWriteFontFace.GetGdiCompatibleMetrics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_METRICS_head), use_last_error=False)(16, 'GetGdiCompatibleMetrics', ((1, 'emSize'),(1, 'pixelsPerDip'),(1, 'transform'),(1, 'fontFaceMetrics'),)))
     IDWriteFontFace.GetGdiCompatibleGlyphMetrics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),win32more.Foundation.BOOL,POINTER(UInt16),UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_METRICS),win32more.Foundation.BOOL, use_last_error=False)(17, 'GetGdiCompatibleGlyphMetrics', ((1, 'emSize'),(1, 'pixelsPerDip'),(1, 'transform'),(1, 'useGdiNatural'),(1, 'glyphIndices'),(1, 'glyphCount'),(1, 'glyphMetrics'),(1, 'isSideways'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontFace
 def _define_IDWriteFontCollectionLoader_head():
     class IDWriteFontCollectionLoader(win32more.System.Com.IUnknown_head):
@@ -301,6 +307,7 @@ def _define_IDWriteFontCollectionLoader_head():
 def _define_IDWriteFontCollectionLoader():
     IDWriteFontCollectionLoader = win32more.Graphics.DirectWrite.IDWriteFontCollectionLoader_head
     IDWriteFontCollectionLoader.CreateEnumeratorFromKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFactory_head,c_void_p,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFileEnumerator_head), use_last_error=False)(3, 'CreateEnumeratorFromKey', ((1, 'factory'),(1, 'collectionKey'),(1, 'collectionKeySize'),(1, 'fontFileEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontCollectionLoader
 def _define_IDWriteFontFileEnumerator_head():
     class IDWriteFontFileEnumerator(win32more.System.Com.IUnknown_head):
@@ -310,6 +317,7 @@ def _define_IDWriteFontFileEnumerator():
     IDWriteFontFileEnumerator = win32more.Graphics.DirectWrite.IDWriteFontFileEnumerator_head
     IDWriteFontFileEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'MoveNext', ((1, 'hasCurrentFile'),)))
     IDWriteFontFileEnumerator.GetCurrentFontFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFile_head), use_last_error=False)(4, 'GetCurrentFontFile', ((1, 'fontFile'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontFileEnumerator
 def _define_IDWriteLocalizedStrings_head():
     class IDWriteLocalizedStrings(win32more.System.Com.IUnknown_head):
@@ -323,6 +331,7 @@ def _define_IDWriteLocalizedStrings():
     IDWriteLocalizedStrings.GetLocaleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32, use_last_error=False)(6, 'GetLocaleName', ((1, 'index'),(1, 'localeName'),(1, 'size'),)))
     IDWriteLocalizedStrings.GetStringLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(7, 'GetStringLength', ((1, 'index'),(1, 'length'),)))
     IDWriteLocalizedStrings.GetString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32, use_last_error=False)(8, 'GetString', ((1, 'index'),(1, 'stringBuffer'),(1, 'size'),)))
+    win32more.System.Com.IUnknown
     return IDWriteLocalizedStrings
 def _define_IDWriteFontCollection_head():
     class IDWriteFontCollection(win32more.System.Com.IUnknown_head):
@@ -334,6 +343,7 @@ def _define_IDWriteFontCollection():
     IDWriteFontCollection.GetFontFamily = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFamily_head), use_last_error=False)(4, 'GetFontFamily', ((1, 'index'),(1, 'fontFamily'),)))
     IDWriteFontCollection.FindFamilyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'FindFamilyName', ((1, 'familyName'),(1, 'index'),(1, 'exists'),)))
     IDWriteFontCollection.GetFontFromFontFace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFace_head,POINTER(win32more.Graphics.DirectWrite.IDWriteFont_head), use_last_error=False)(6, 'GetFontFromFontFace', ((1, 'fontFace'),(1, 'font'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontCollection
 def _define_IDWriteFontList_head():
     class IDWriteFontList(win32more.System.Com.IUnknown_head):
@@ -344,6 +354,7 @@ def _define_IDWriteFontList():
     IDWriteFontList.GetFontCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontCollection_head), use_last_error=False)(3, 'GetFontCollection', ((1, 'fontCollection'),)))
     IDWriteFontList.GetFontCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(4, 'GetFontCount', ()))
     IDWriteFontList.GetFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFont_head), use_last_error=False)(5, 'GetFont', ((1, 'index'),(1, 'font'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontList
 def _define_IDWriteFontFamily_head():
     class IDWriteFontFamily(win32more.Graphics.DirectWrite.IDWriteFontList_head):
@@ -354,6 +365,7 @@ def _define_IDWriteFontFamily():
     IDWriteFontFamily.GetFamilyNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteLocalizedStrings_head), use_last_error=False)(6, 'GetFamilyNames', ((1, 'names'),)))
     IDWriteFontFamily.GetFirstMatchingFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_FONT_WEIGHT,win32more.Graphics.DirectWrite.DWRITE_FONT_STRETCH,win32more.Graphics.DirectWrite.DWRITE_FONT_STYLE,POINTER(win32more.Graphics.DirectWrite.IDWriteFont_head), use_last_error=False)(7, 'GetFirstMatchingFont', ((1, 'weight'),(1, 'stretch'),(1, 'style'),(1, 'matchingFont'),)))
     IDWriteFontFamily.GetMatchingFonts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_FONT_WEIGHT,win32more.Graphics.DirectWrite.DWRITE_FONT_STRETCH,win32more.Graphics.DirectWrite.DWRITE_FONT_STYLE,POINTER(win32more.Graphics.DirectWrite.IDWriteFontList_head), use_last_error=False)(8, 'GetMatchingFonts', ((1, 'weight'),(1, 'stretch'),(1, 'style'),(1, 'matchingFonts'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontList
     return IDWriteFontFamily
 def _define_IDWriteFont_head():
     class IDWriteFont(win32more.System.Com.IUnknown_head):
@@ -372,6 +384,7 @@ def _define_IDWriteFont():
     IDWriteFont.GetMetrics = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_METRICS_head), use_last_error=False)(11, 'GetMetrics', ((1, 'fontMetrics'),)))
     IDWriteFont.HasCharacter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'HasCharacter', ((1, 'unicodeValue'),(1, 'exists'),)))
     IDWriteFont.CreateFontFace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFace_head), use_last_error=False)(13, 'CreateFontFace', ((1, 'fontFace'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFont
 DWRITE_READING_DIRECTION = Int32
 DWRITE_READING_DIRECTION_LEFT_TO_RIGHT = 0
@@ -564,6 +577,7 @@ def _define_IDWriteTextFormat():
     IDWriteTextFormat.GetFontSize = COMMETHOD(WINFUNCTYPE(Single, use_last_error=False)(25, 'GetFontSize', ()))
     IDWriteTextFormat.GetLocaleNameLength = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(26, 'GetLocaleNameLength', ()))
     IDWriteTextFormat.GetLocaleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(27, 'GetLocaleName', ((1, 'localeName'),(1, 'nameSize'),)))
+    win32more.System.Com.IUnknown
     return IDWriteTextFormat
 def _define_IDWriteTypography_head():
     class IDWriteTypography(win32more.System.Com.IUnknown_head):
@@ -574,6 +588,7 @@ def _define_IDWriteTypography():
     IDWriteTypography.AddFontFeature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_FONT_FEATURE, use_last_error=False)(3, 'AddFontFeature', ((1, 'fontFeature'),)))
     IDWriteTypography.GetFontFeatureCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(4, 'GetFontFeatureCount', ()))
     IDWriteTypography.GetFontFeature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_FEATURE_head), use_last_error=False)(5, 'GetFontFeature', ((1, 'fontFeatureIndex'),(1, 'fontFeature'),)))
+    win32more.System.Com.IUnknown
     return IDWriteTypography
 DWRITE_SCRIPT_SHAPES = UInt32
 DWRITE_SCRIPT_SHAPES_DEFAULT = 0
@@ -616,6 +631,7 @@ def _define_IDWriteNumberSubstitution_head():
     return IDWriteNumberSubstitution
 def _define_IDWriteNumberSubstitution():
     IDWriteNumberSubstitution = win32more.Graphics.DirectWrite.IDWriteNumberSubstitution_head
+    win32more.System.Com.IUnknown
     return IDWriteNumberSubstitution
 def _define_DWRITE_SHAPING_TEXT_PROPERTIES_head():
     class DWRITE_SHAPING_TEXT_PROPERTIES(Structure):
@@ -648,6 +664,7 @@ def _define_IDWriteTextAnalysisSource():
     IDWriteTextAnalysisSource.GetParagraphReadingDirection = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_READING_DIRECTION, use_last_error=False)(5, 'GetParagraphReadingDirection', ()))
     IDWriteTextAnalysisSource.GetLocaleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(POINTER(UInt16)), use_last_error=False)(6, 'GetLocaleName', ((1, 'textPosition'),(1, 'textLength'),(1, 'localeName'),)))
     IDWriteTextAnalysisSource.GetNumberSubstitution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Graphics.DirectWrite.IDWriteNumberSubstitution_head), use_last_error=False)(7, 'GetNumberSubstitution', ((1, 'textPosition'),(1, 'textLength'),(1, 'numberSubstitution'),)))
+    win32more.System.Com.IUnknown
     return IDWriteTextAnalysisSource
 def _define_IDWriteTextAnalysisSink_head():
     class IDWriteTextAnalysisSink(win32more.System.Com.IUnknown_head):
@@ -659,6 +676,7 @@ def _define_IDWriteTextAnalysisSink():
     IDWriteTextAnalysisSink.SetLineBreakpoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT), use_last_error=False)(4, 'SetLineBreakpoints', ((1, 'textPosition'),(1, 'textLength'),(1, 'lineBreakpoints'),)))
     IDWriteTextAnalysisSink.SetBidiLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,Byte,Byte, use_last_error=False)(5, 'SetBidiLevel', ((1, 'textPosition'),(1, 'textLength'),(1, 'explicitLevel'),(1, 'resolvedLevel'),)))
     IDWriteTextAnalysisSink.SetNumberSubstitution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Graphics.DirectWrite.IDWriteNumberSubstitution_head, use_last_error=False)(6, 'SetNumberSubstitution', ((1, 'textPosition'),(1, 'textLength'),(1, 'numberSubstitution'),)))
+    win32more.System.Com.IUnknown
     return IDWriteTextAnalysisSink
 def _define_IDWriteTextAnalyzer_head():
     class IDWriteTextAnalyzer(win32more.System.Com.IUnknown_head):
@@ -673,6 +691,7 @@ def _define_IDWriteTextAnalyzer():
     IDWriteTextAnalyzer.GetGlyphs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,win32more.Graphics.DirectWrite.IDWriteFontFace_head,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(win32more.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS_head),win32more.Foundation.PWSTR,win32more.Graphics.DirectWrite.IDWriteNumberSubstitution_head,POINTER(POINTER(win32more.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES_head)),POINTER(UInt32),UInt32,UInt32,POINTER(UInt16),POINTER(win32more.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES),POINTER(UInt16),POINTER(win32more.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES),POINTER(UInt32), use_last_error=False)(7, 'GetGlyphs', ((1, 'textString'),(1, 'textLength'),(1, 'fontFace'),(1, 'isSideways'),(1, 'isRightToLeft'),(1, 'scriptAnalysis'),(1, 'localeName'),(1, 'numberSubstitution'),(1, 'features'),(1, 'featureRangeLengths'),(1, 'featureRanges'),(1, 'maxGlyphCount'),(1, 'clusterMap'),(1, 'textProps'),(1, 'glyphIndices'),(1, 'glyphProps'),(1, 'actualGlyphCount'),)))
     IDWriteTextAnalyzer.GetGlyphPlacements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt16),POINTER(win32more.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES),UInt32,POINTER(UInt16),POINTER(win32more.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES),UInt32,win32more.Graphics.DirectWrite.IDWriteFontFace_head,Single,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(win32more.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS_head),win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES_head)),POINTER(UInt32),UInt32,POINTER(Single),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET), use_last_error=False)(8, 'GetGlyphPlacements', ((1, 'textString'),(1, 'clusterMap'),(1, 'textProps'),(1, 'textLength'),(1, 'glyphIndices'),(1, 'glyphProps'),(1, 'glyphCount'),(1, 'fontFace'),(1, 'fontEmSize'),(1, 'isSideways'),(1, 'isRightToLeft'),(1, 'scriptAnalysis'),(1, 'localeName'),(1, 'features'),(1, 'featureRangeLengths'),(1, 'featureRanges'),(1, 'glyphAdvances'),(1, 'glyphOffsets'),)))
     IDWriteTextAnalyzer.GetGdiCompatibleGlyphPlacements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt16),POINTER(win32more.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES),UInt32,POINTER(UInt16),POINTER(win32more.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES),UInt32,win32more.Graphics.DirectWrite.IDWriteFontFace_head,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(win32more.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS_head),win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES_head)),POINTER(UInt32),UInt32,POINTER(Single),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET), use_last_error=False)(9, 'GetGdiCompatibleGlyphPlacements', ((1, 'textString'),(1, 'clusterMap'),(1, 'textProps'),(1, 'textLength'),(1, 'glyphIndices'),(1, 'glyphProps'),(1, 'glyphCount'),(1, 'fontFace'),(1, 'fontEmSize'),(1, 'pixelsPerDip'),(1, 'transform'),(1, 'useGdiNatural'),(1, 'isSideways'),(1, 'isRightToLeft'),(1, 'scriptAnalysis'),(1, 'localeName'),(1, 'features'),(1, 'featureRangeLengths'),(1, 'featureRanges'),(1, 'glyphAdvances'),(1, 'glyphOffsets'),)))
+    win32more.System.Com.IUnknown
     return IDWriteTextAnalyzer
 def _define_DWRITE_GLYPH_RUN_head():
     class DWRITE_GLYPH_RUN(Structure):
@@ -837,6 +856,7 @@ def _define_IDWriteInlineObject():
     IDWriteInlineObject.GetMetrics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_INLINE_OBJECT_METRICS_head), use_last_error=False)(4, 'GetMetrics', ((1, 'metrics'),)))
     IDWriteInlineObject.GetOverhangMetrics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_OVERHANG_METRICS_head), use_last_error=False)(5, 'GetOverhangMetrics', ((1, 'overhangs'),)))
     IDWriteInlineObject.GetBreakConditions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_BREAK_CONDITION),POINTER(win32more.Graphics.DirectWrite.DWRITE_BREAK_CONDITION), use_last_error=False)(6, 'GetBreakConditions', ((1, 'breakConditionBefore'),(1, 'breakConditionAfter'),)))
+    win32more.System.Com.IUnknown
     return IDWriteInlineObject
 def _define_IDWritePixelSnapping_head():
     class IDWritePixelSnapping(win32more.System.Com.IUnknown_head):
@@ -847,6 +867,7 @@ def _define_IDWritePixelSnapping():
     IDWritePixelSnapping.IsPixelSnappingDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsPixelSnappingDisabled', ((1, 'clientDrawingContext'),(1, 'isDisabled'),)))
     IDWritePixelSnapping.GetCurrentTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head), use_last_error=False)(4, 'GetCurrentTransform', ((1, 'clientDrawingContext'),(1, 'transform'),)))
     IDWritePixelSnapping.GetPixelsPerDip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(Single), use_last_error=False)(5, 'GetPixelsPerDip', ((1, 'clientDrawingContext'),(1, 'pixelsPerDip'),)))
+    win32more.System.Com.IUnknown
     return IDWritePixelSnapping
 def _define_IDWriteTextRenderer_head():
     class IDWriteTextRenderer(win32more.Graphics.DirectWrite.IDWritePixelSnapping_head):
@@ -858,6 +879,7 @@ def _define_IDWriteTextRenderer():
     IDWriteTextRenderer.DrawUnderline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_UNDERLINE_head),win32more.System.Com.IUnknown_head, use_last_error=False)(7, 'DrawUnderline', ((1, 'clientDrawingContext'),(1, 'baselineOriginX'),(1, 'baselineOriginY'),(1, 'underline'),(1, 'clientDrawingEffect'),)))
     IDWriteTextRenderer.DrawStrikethrough = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_STRIKETHROUGH_head),win32more.System.Com.IUnknown_head, use_last_error=False)(8, 'DrawStrikethrough', ((1, 'clientDrawingContext'),(1, 'baselineOriginX'),(1, 'baselineOriginY'),(1, 'strikethrough'),(1, 'clientDrawingEffect'),)))
     IDWriteTextRenderer.DrawInlineObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,Single,Single,win32more.Graphics.DirectWrite.IDWriteInlineObject_head,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'DrawInlineObject', ((1, 'clientDrawingContext'),(1, 'originX'),(1, 'originY'),(1, 'inlineObject'),(1, 'isSideways'),(1, 'isRightToLeft'),(1, 'clientDrawingEffect'),)))
+    win32more.Graphics.DirectWrite.IDWritePixelSnapping
     return IDWriteTextRenderer
 def _define_IDWriteTextLayout_head():
     class IDWriteTextLayout(win32more.Graphics.DirectWrite.IDWriteTextFormat_head):
@@ -904,6 +926,7 @@ def _define_IDWriteTextLayout():
     IDWriteTextLayout.HitTestPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Graphics.DirectWrite.DWRITE_HIT_TEST_METRICS_head), use_last_error=False)(64, 'HitTestPoint', ((1, 'pointX'),(1, 'pointY'),(1, 'isTrailingHit'),(1, 'isInside'),(1, 'hitTestMetrics'),)))
     IDWriteTextLayout.HitTestTextPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BOOL,POINTER(Single),POINTER(Single),POINTER(win32more.Graphics.DirectWrite.DWRITE_HIT_TEST_METRICS_head), use_last_error=False)(65, 'HitTestTextPosition', ((1, 'textPosition'),(1, 'isTrailingHit'),(1, 'pointX'),(1, 'pointY'),(1, 'hitTestMetrics'),)))
     IDWriteTextLayout.HitTestTextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_HIT_TEST_METRICS),UInt32,POINTER(UInt32), use_last_error=False)(66, 'HitTestTextRange', ((1, 'textPosition'),(1, 'textLength'),(1, 'originX'),(1, 'originY'),(1, 'hitTestMetrics'),(1, 'maxHitTestMetricsCount'),(1, 'actualHitTestMetricsCount'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextFormat
     return IDWriteTextLayout
 def _define_IDWriteBitmapRenderTarget_head():
     class IDWriteBitmapRenderTarget(win32more.System.Com.IUnknown_head):
@@ -919,6 +942,7 @@ def _define_IDWriteBitmapRenderTarget():
     IDWriteBitmapRenderTarget.SetCurrentTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head), use_last_error=False)(8, 'SetCurrentTransform', ((1, 'transform'),)))
     IDWriteBitmapRenderTarget.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(9, 'GetSize', ((1, 'size'),)))
     IDWriteBitmapRenderTarget.Resize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(10, 'Resize', ((1, 'width'),(1, 'height'),)))
+    win32more.System.Com.IUnknown
     return IDWriteBitmapRenderTarget
 def _define_IDWriteGdiInterop_head():
     class IDWriteGdiInterop(win32more.System.Com.IUnknown_head):
@@ -931,6 +955,7 @@ def _define_IDWriteGdiInterop():
     IDWriteGdiInterop.ConvertFontFaceToLOGFONT = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFace_head,POINTER(win32more.Graphics.Gdi.LOGFONTW_head), use_last_error=False)(5, 'ConvertFontFaceToLOGFONT', ((1, 'font'),(1, 'logFont'),)))
     IDWriteGdiInterop.CreateFontFaceFromHdc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFace_head), use_last_error=False)(6, 'CreateFontFaceFromHdc', ((1, 'hdc'),(1, 'fontFace'),)))
     IDWriteGdiInterop.CreateBitmapRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,UInt32,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteBitmapRenderTarget_head), use_last_error=False)(7, 'CreateBitmapRenderTarget', ((1, 'hdc'),(1, 'width'),(1, 'height'),(1, 'renderTarget'),)))
+    win32more.System.Com.IUnknown
     return IDWriteGdiInterop
 DWRITE_TEXTURE_TYPE = Int32
 DWRITE_TEXTURE_ALIASED_1x1 = 0
@@ -944,6 +969,7 @@ def _define_IDWriteGlyphRunAnalysis():
     IDWriteGlyphRunAnalysis.GetAlphaTextureBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_TEXTURE_TYPE,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(3, 'GetAlphaTextureBounds', ((1, 'textureType'),(1, 'textureBounds'),)))
     IDWriteGlyphRunAnalysis.CreateAlphaTexture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_TEXTURE_TYPE,POINTER(win32more.Foundation.RECT_head),c_char_p_no,UInt32, use_last_error=False)(4, 'CreateAlphaTexture', ((1, 'textureType'),(1, 'textureBounds'),(1, 'alphaValues'),(1, 'bufferSize'),)))
     IDWriteGlyphRunAnalysis.GetAlphaBlendParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteRenderingParams_head,POINTER(Single),POINTER(Single),POINTER(Single), use_last_error=False)(5, 'GetAlphaBlendParams', ((1, 'renderingParams'),(1, 'blendGamma'),(1, 'blendEnhancedContrast'),(1, 'blendClearTypeLevel'),)))
+    win32more.System.Com.IUnknown
     return IDWriteGlyphRunAnalysis
 def _define_IDWriteFactory_head():
     class IDWriteFactory(win32more.System.Com.IUnknown_head):
@@ -972,6 +998,7 @@ def _define_IDWriteFactory():
     IDWriteFactory.CreateTextAnalyzer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteTextAnalyzer_head), use_last_error=False)(21, 'CreateTextAnalyzer', ((1, 'textAnalyzer'),)))
     IDWriteFactory.CreateNumberSubstitution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_NUMBER_SUBSTITUTION_METHOD,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(win32more.Graphics.DirectWrite.IDWriteNumberSubstitution_head), use_last_error=False)(22, 'CreateNumberSubstitution', ((1, 'substitutionMethod'),(1, 'localeName'),(1, 'ignoreUserOverride'),(1, 'numberSubstitution'),)))
     IDWriteFactory.CreateGlyphRunAnalysis = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),win32more.Graphics.DirectWrite.DWRITE_RENDERING_MODE,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,Single,Single,POINTER(win32more.Graphics.DirectWrite.IDWriteGlyphRunAnalysis_head), use_last_error=False)(23, 'CreateGlyphRunAnalysis', ((1, 'glyphRun'),(1, 'pixelsPerDip'),(1, 'transform'),(1, 'renderingMode'),(1, 'measuringMode'),(1, 'baselineOriginX'),(1, 'baselineOriginY'),(1, 'glyphRunAnalysis'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFactory
 DWRITE_PANOSE_FAMILY = Int32
 DWRITE_PANOSE_FAMILY_ANY = 0
@@ -1456,6 +1483,7 @@ def _define_IDWriteFactory1():
     IDWriteFactory1 = win32more.Graphics.DirectWrite.IDWriteFactory1_head
     IDWriteFactory1.GetEudcFontCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontCollection_head),win32more.Foundation.BOOL, use_last_error=False)(24, 'GetEudcFontCollection', ((1, 'fontCollection'),(1, 'checkForUpdates'),)))
     IDWriteFactory1.CreateCustomRenderingParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single,win32more.Graphics.DirectWrite.DWRITE_PIXEL_GEOMETRY,win32more.Graphics.DirectWrite.DWRITE_RENDERING_MODE,POINTER(win32more.Graphics.DirectWrite.IDWriteRenderingParams1_head), use_last_error=False)(25, 'CreateCustomRenderingParams', ((1, 'gamma'),(1, 'enhancedContrast'),(1, 'enhancedContrastGrayscale'),(1, 'clearTypeLevel'),(1, 'pixelGeometry'),(1, 'renderingMode'),(1, 'renderingParams'),)))
+    win32more.Graphics.DirectWrite.IDWriteFactory
     return IDWriteFactory1
 def _define_IDWriteFontFace1_head():
     class IDWriteFontFace1(win32more.Graphics.DirectWrite.IDWriteFontFace_head):
@@ -1475,6 +1503,7 @@ def _define_IDWriteFontFace1():
     IDWriteFontFace1.GetRecommendedRenderingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),win32more.Foundation.BOOL,win32more.Graphics.DirectWrite.DWRITE_OUTLINE_THRESHOLD,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,POINTER(win32more.Graphics.DirectWrite.DWRITE_RENDERING_MODE), use_last_error=False)(27, 'GetRecommendedRenderingMode', ((1, 'fontEmSize'),(1, 'dpiX'),(1, 'dpiY'),(1, 'transform'),(1, 'isSideways'),(1, 'outlineThreshold'),(1, 'measuringMode'),(1, 'renderingMode'),)))
     IDWriteFontFace1.GetVerticalGlyphVariants = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt16),POINTER(UInt16), use_last_error=False)(28, 'GetVerticalGlyphVariants', ((1, 'glyphCount'),(1, 'nominalGlyphIndices'),(1, 'verticalGlyphIndices'),)))
     IDWriteFontFace1.HasVerticalGlyphVariants = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(29, 'HasVerticalGlyphVariants', ()))
+    win32more.Graphics.DirectWrite.IDWriteFontFace
     return IDWriteFontFace1
 def _define_IDWriteFont1_head():
     class IDWriteFont1(win32more.Graphics.DirectWrite.IDWriteFont_head):
@@ -1486,6 +1515,7 @@ def _define_IDWriteFont1():
     IDWriteFont1.GetPanose = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.DirectWrite.DWRITE_PANOSE_head), use_last_error=False)(15, 'GetPanose', ((1, 'panose'),)))
     IDWriteFont1.GetUnicodeRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_UNICODE_RANGE),POINTER(UInt32), use_last_error=False)(16, 'GetUnicodeRanges', ((1, 'maxRangeCount'),(1, 'unicodeRanges'),(1, 'actualRangeCount'),)))
     IDWriteFont1.IsMonospacedFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(17, 'IsMonospacedFont', ()))
+    win32more.Graphics.DirectWrite.IDWriteFont
     return IDWriteFont1
 def _define_IDWriteRenderingParams1_head():
     class IDWriteRenderingParams1(win32more.Graphics.DirectWrite.IDWriteRenderingParams_head):
@@ -1494,6 +1524,7 @@ def _define_IDWriteRenderingParams1_head():
 def _define_IDWriteRenderingParams1():
     IDWriteRenderingParams1 = win32more.Graphics.DirectWrite.IDWriteRenderingParams1_head
     IDWriteRenderingParams1.GetGrayscaleEnhancedContrast = COMMETHOD(WINFUNCTYPE(Single, use_last_error=False)(8, 'GetGrayscaleEnhancedContrast', ()))
+    win32more.Graphics.DirectWrite.IDWriteRenderingParams
     return IDWriteRenderingParams1
 def _define_IDWriteTextAnalyzer1_head():
     class IDWriteTextAnalyzer1(win32more.Graphics.DirectWrite.IDWriteTextAnalyzer_head):
@@ -1510,6 +1541,7 @@ def _define_IDWriteTextAnalyzer1():
     IDWriteTextAnalyzer1.GetJustificationOpportunities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFace_head,Single,win32more.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS,UInt32,UInt32,POINTER(Char),POINTER(UInt16),POINTER(win32more.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES),POINTER(win32more.Graphics.DirectWrite.DWRITE_JUSTIFICATION_OPPORTUNITY), use_last_error=False)(16, 'GetJustificationOpportunities', ((1, 'fontFace'),(1, 'fontEmSize'),(1, 'scriptAnalysis'),(1, 'textLength'),(1, 'glyphCount'),(1, 'textString'),(1, 'clusterMap'),(1, 'glyphProperties'),(1, 'justificationOpportunities'),)))
     IDWriteTextAnalyzer1.JustifyGlyphAdvances = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_JUSTIFICATION_OPPORTUNITY),POINTER(Single),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET),POINTER(Single),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET), use_last_error=False)(17, 'JustifyGlyphAdvances', ((1, 'lineWidth'),(1, 'glyphCount'),(1, 'justificationOpportunities'),(1, 'glyphAdvances'),(1, 'glyphOffsets'),(1, 'justifiedGlyphAdvances'),(1, 'justifiedGlyphOffsets'),)))
     IDWriteTextAnalyzer1.GetJustifiedGlyphs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFace_head,Single,win32more.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS,UInt32,UInt32,UInt32,POINTER(UInt16),POINTER(UInt16),POINTER(Single),POINTER(Single),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET),POINTER(win32more.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES),POINTER(UInt32),POINTER(UInt16),POINTER(UInt16),POINTER(Single),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET), use_last_error=False)(18, 'GetJustifiedGlyphs', ((1, 'fontFace'),(1, 'fontEmSize'),(1, 'scriptAnalysis'),(1, 'textLength'),(1, 'glyphCount'),(1, 'maxGlyphCount'),(1, 'clusterMap'),(1, 'glyphIndices'),(1, 'glyphAdvances'),(1, 'justifiedGlyphAdvances'),(1, 'justifiedGlyphOffsets'),(1, 'glyphProperties'),(1, 'actualGlyphCount'),(1, 'modifiedClusterMap'),(1, 'modifiedGlyphIndices'),(1, 'modifiedGlyphAdvances'),(1, 'modifiedGlyphOffsets'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextAnalyzer
     return IDWriteTextAnalyzer1
 def _define_IDWriteTextAnalysisSource1_head():
     class IDWriteTextAnalysisSource1(win32more.Graphics.DirectWrite.IDWriteTextAnalysisSource_head):
@@ -1518,6 +1550,7 @@ def _define_IDWriteTextAnalysisSource1_head():
 def _define_IDWriteTextAnalysisSource1():
     IDWriteTextAnalysisSource1 = win32more.Graphics.DirectWrite.IDWriteTextAnalysisSource1_head
     IDWriteTextAnalysisSource1.GetVerticalGlyphOrientation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Graphics.DirectWrite.DWRITE_VERTICAL_GLYPH_ORIENTATION),c_char_p_no, use_last_error=False)(8, 'GetVerticalGlyphOrientation', ((1, 'textPosition'),(1, 'textLength'),(1, 'glyphOrientation'),(1, 'bidiLevel'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextAnalysisSource
     return IDWriteTextAnalysisSource1
 def _define_IDWriteTextAnalysisSink1_head():
     class IDWriteTextAnalysisSink1(win32more.Graphics.DirectWrite.IDWriteTextAnalysisSink_head):
@@ -1526,6 +1559,7 @@ def _define_IDWriteTextAnalysisSink1_head():
 def _define_IDWriteTextAnalysisSink1():
     IDWriteTextAnalysisSink1 = win32more.Graphics.DirectWrite.IDWriteTextAnalysisSink1_head
     IDWriteTextAnalysisSink1.SetGlyphOrientation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE,Byte,win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(7, 'SetGlyphOrientation', ((1, 'textPosition'),(1, 'textLength'),(1, 'glyphOrientationAngle'),(1, 'adjustedBidiLevel'),(1, 'isSideways'),(1, 'isRightToLeft'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextAnalysisSink
     return IDWriteTextAnalysisSink1
 def _define_IDWriteTextLayout1_head():
     class IDWriteTextLayout1(win32more.Graphics.DirectWrite.IDWriteTextLayout_head):
@@ -1537,6 +1571,7 @@ def _define_IDWriteTextLayout1():
     IDWriteTextLayout1.GetPairKerning = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Graphics.DirectWrite.DWRITE_TEXT_RANGE_head), use_last_error=False)(68, 'GetPairKerning', ((1, 'currentPosition'),(1, 'isPairKerningEnabled'),(1, 'textRange'),)))
     IDWriteTextLayout1.SetCharacterSpacing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,win32more.Graphics.DirectWrite.DWRITE_TEXT_RANGE, use_last_error=False)(69, 'SetCharacterSpacing', ((1, 'leadingSpacing'),(1, 'trailingSpacing'),(1, 'minimumAdvanceWidth'),(1, 'textRange'),)))
     IDWriteTextLayout1.GetCharacterSpacing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),POINTER(Single),POINTER(Single),POINTER(win32more.Graphics.DirectWrite.DWRITE_TEXT_RANGE_head), use_last_error=False)(70, 'GetCharacterSpacing', ((1, 'currentPosition'),(1, 'leadingSpacing'),(1, 'trailingSpacing'),(1, 'minimumAdvanceWidth'),(1, 'textRange'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextLayout
     return IDWriteTextLayout1
 DWRITE_TEXT_ANTIALIAS_MODE = Int32
 DWRITE_TEXT_ANTIALIAS_MODE_CLEARTYPE = 0
@@ -1549,6 +1584,7 @@ def _define_IDWriteBitmapRenderTarget1():
     IDWriteBitmapRenderTarget1 = win32more.Graphics.DirectWrite.IDWriteBitmapRenderTarget1_head
     IDWriteBitmapRenderTarget1.GetTextAntialiasMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE, use_last_error=False)(11, 'GetTextAntialiasMode', ()))
     IDWriteBitmapRenderTarget1.SetTextAntialiasMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE, use_last_error=False)(12, 'SetTextAntialiasMode', ((1, 'antialiasMode'),)))
+    win32more.Graphics.DirectWrite.IDWriteBitmapRenderTarget
     return IDWriteBitmapRenderTarget1
 DWRITE_OPTICAL_ALIGNMENT = Int32
 DWRITE_OPTICAL_ALIGNMENT_NONE = 0
@@ -1578,6 +1614,7 @@ def _define_IDWriteTextRenderer1():
     IDWriteTextRenderer1.DrawUnderline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,Single,Single,win32more.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE,POINTER(win32more.Graphics.DirectWrite.DWRITE_UNDERLINE_head),win32more.System.Com.IUnknown_head, use_last_error=False)(11, 'DrawUnderline', ((1, 'clientDrawingContext'),(1, 'baselineOriginX'),(1, 'baselineOriginY'),(1, 'orientationAngle'),(1, 'underline'),(1, 'clientDrawingEffect'),)))
     IDWriteTextRenderer1.DrawStrikethrough = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,Single,Single,win32more.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE,POINTER(win32more.Graphics.DirectWrite.DWRITE_STRIKETHROUGH_head),win32more.System.Com.IUnknown_head, use_last_error=False)(12, 'DrawStrikethrough', ((1, 'clientDrawingContext'),(1, 'baselineOriginX'),(1, 'baselineOriginY'),(1, 'orientationAngle'),(1, 'strikethrough'),(1, 'clientDrawingEffect'),)))
     IDWriteTextRenderer1.DrawInlineObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,Single,Single,win32more.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE,win32more.Graphics.DirectWrite.IDWriteInlineObject_head,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.System.Com.IUnknown_head, use_last_error=False)(13, 'DrawInlineObject', ((1, 'clientDrawingContext'),(1, 'originX'),(1, 'originY'),(1, 'orientationAngle'),(1, 'inlineObject'),(1, 'isSideways'),(1, 'isRightToLeft'),(1, 'clientDrawingEffect'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextRenderer
     return IDWriteTextRenderer1
 def _define_IDWriteTextFormat1_head():
     class IDWriteTextFormat1(win32more.Graphics.DirectWrite.IDWriteTextFormat_head):
@@ -1593,6 +1630,7 @@ def _define_IDWriteTextFormat1():
     IDWriteTextFormat1.GetOpticalAlignment = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_OPTICAL_ALIGNMENT, use_last_error=False)(33, 'GetOpticalAlignment', ()))
     IDWriteTextFormat1.SetFontFallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFallback_head, use_last_error=False)(34, 'SetFontFallback', ((1, 'fontFallback'),)))
     IDWriteTextFormat1.GetFontFallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFallback_head), use_last_error=False)(35, 'GetFontFallback', ((1, 'fontFallback'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextFormat
     return IDWriteTextFormat1
 def _define_IDWriteTextLayout2_head():
     class IDWriteTextLayout2(win32more.Graphics.DirectWrite.IDWriteTextLayout1_head):
@@ -1609,6 +1647,7 @@ def _define_IDWriteTextLayout2():
     IDWriteTextLayout2.GetOpticalAlignment = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_OPTICAL_ALIGNMENT, use_last_error=False)(77, 'GetOpticalAlignment', ()))
     IDWriteTextLayout2.SetFontFallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFallback_head, use_last_error=False)(78, 'SetFontFallback', ((1, 'fontFallback'),)))
     IDWriteTextLayout2.GetFontFallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFallback_head), use_last_error=False)(79, 'GetFontFallback', ((1, 'fontFallback'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextLayout1
     return IDWriteTextLayout2
 def _define_IDWriteTextAnalyzer2_head():
     class IDWriteTextAnalyzer2(win32more.Graphics.DirectWrite.IDWriteTextAnalyzer1_head):
@@ -1619,6 +1658,7 @@ def _define_IDWriteTextAnalyzer2():
     IDWriteTextAnalyzer2.GetGlyphOrientationTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_GLYPH_ORIENTATION_ANGLE,win32more.Foundation.BOOL,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head), use_last_error=False)(19, 'GetGlyphOrientationTransform', ((1, 'glyphOrientationAngle'),(1, 'isSideways'),(1, 'originX'),(1, 'originY'),(1, 'transform'),)))
     IDWriteTextAnalyzer2.GetTypographicFeatures = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFace_head,win32more.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_FEATURE_TAG), use_last_error=False)(20, 'GetTypographicFeatures', ((1, 'fontFace'),(1, 'scriptAnalysis'),(1, 'localeName'),(1, 'maxTagCount'),(1, 'actualTagCount'),(1, 'tags'),)))
     IDWriteTextAnalyzer2.CheckTypographicFeature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFace_head,win32more.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS,win32more.Foundation.PWSTR,win32more.Graphics.DirectWrite.DWRITE_FONT_FEATURE_TAG,UInt32,POINTER(UInt16),POINTER(Byte), use_last_error=False)(21, 'CheckTypographicFeature', ((1, 'fontFace'),(1, 'scriptAnalysis'),(1, 'localeName'),(1, 'featureTag'),(1, 'glyphCount'),(1, 'glyphIndices'),(1, 'featureApplies'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextAnalyzer1
     return IDWriteTextAnalyzer2
 def _define_IDWriteFontFallback_head():
     class IDWriteFontFallback(win32more.System.Com.IUnknown_head):
@@ -1627,6 +1667,7 @@ def _define_IDWriteFontFallback_head():
 def _define_IDWriteFontFallback():
     IDWriteFontFallback = win32more.Graphics.DirectWrite.IDWriteFontFallback_head
     IDWriteFontFallback.MapCharacters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteTextAnalysisSource_head,UInt32,UInt32,win32more.Graphics.DirectWrite.IDWriteFontCollection_head,win32more.Foundation.PWSTR,win32more.Graphics.DirectWrite.DWRITE_FONT_WEIGHT,win32more.Graphics.DirectWrite.DWRITE_FONT_STYLE,win32more.Graphics.DirectWrite.DWRITE_FONT_STRETCH,POINTER(UInt32),POINTER(win32more.Graphics.DirectWrite.IDWriteFont_head),POINTER(Single), use_last_error=False)(3, 'MapCharacters', ((1, 'analysisSource'),(1, 'textPosition'),(1, 'textLength'),(1, 'baseFontCollection'),(1, 'baseFamilyName'),(1, 'baseWeight'),(1, 'baseStyle'),(1, 'baseStretch'),(1, 'mappedLength'),(1, 'mappedFont'),(1, 'scale'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontFallback
 def _define_IDWriteFontFallbackBuilder_head():
     class IDWriteFontFallbackBuilder(win32more.System.Com.IUnknown_head):
@@ -1637,6 +1678,7 @@ def _define_IDWriteFontFallbackBuilder():
     IDWriteFontFallbackBuilder.AddMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_UNICODE_RANGE),UInt32,POINTER(POINTER(UInt16)),UInt32,win32more.Graphics.DirectWrite.IDWriteFontCollection_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Single, use_last_error=False)(3, 'AddMapping', ((1, 'ranges'),(1, 'rangesCount'),(1, 'targetFamilyNames'),(1, 'targetFamilyNamesCount'),(1, 'fontCollection'),(1, 'localeName'),(1, 'baseFamilyName'),(1, 'scale'),)))
     IDWriteFontFallbackBuilder.AddMappings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFallback_head, use_last_error=False)(4, 'AddMappings', ((1, 'fontFallback'),)))
     IDWriteFontFallbackBuilder.CreateFontFallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFallback_head), use_last_error=False)(5, 'CreateFontFallback', ((1, 'fontFallback'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontFallbackBuilder
 def _define_IDWriteFont2_head():
     class IDWriteFont2(win32more.Graphics.DirectWrite.IDWriteFont1_head):
@@ -1645,6 +1687,7 @@ def _define_IDWriteFont2_head():
 def _define_IDWriteFont2():
     IDWriteFont2 = win32more.Graphics.DirectWrite.IDWriteFont2_head
     IDWriteFont2.IsColorFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(18, 'IsColorFont', ()))
+    win32more.Graphics.DirectWrite.IDWriteFont1
     return IDWriteFont2
 def _define_IDWriteFontFace2_head():
     class IDWriteFontFace2(win32more.Graphics.DirectWrite.IDWriteFontFace1_head):
@@ -1657,6 +1700,7 @@ def _define_IDWriteFontFace2():
     IDWriteFontFace2.GetPaletteEntryCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(32, 'GetPaletteEntryCount', ()))
     IDWriteFontFace2.GetPaletteEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_COLOR_F), use_last_error=False)(33, 'GetPaletteEntries', ((1, 'colorPaletteIndex'),(1, 'firstEntryIndex'),(1, 'entryCount'),(1, 'paletteEntries'),)))
     IDWriteFontFace2.GetRecommendedRenderingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),win32more.Foundation.BOOL,win32more.Graphics.DirectWrite.DWRITE_OUTLINE_THRESHOLD,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,win32more.Graphics.DirectWrite.IDWriteRenderingParams_head,POINTER(win32more.Graphics.DirectWrite.DWRITE_RENDERING_MODE),POINTER(win32more.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE), use_last_error=False)(34, 'GetRecommendedRenderingMode', ((1, 'fontEmSize'),(1, 'dpiX'),(1, 'dpiY'),(1, 'transform'),(1, 'isSideways'),(1, 'outlineThreshold'),(1, 'measuringMode'),(1, 'renderingParams'),(1, 'renderingMode'),(1, 'gridFitMode'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFace1
     return IDWriteFontFace2
 def _define_DWRITE_COLOR_GLYPH_RUN_head():
     class DWRITE_COLOR_GLYPH_RUN(Structure):
@@ -1681,6 +1725,7 @@ def _define_IDWriteColorGlyphRunEnumerator():
     IDWriteColorGlyphRunEnumerator = win32more.Graphics.DirectWrite.IDWriteColorGlyphRunEnumerator_head
     IDWriteColorGlyphRunEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'MoveNext', ((1, 'hasRun'),)))
     IDWriteColorGlyphRunEnumerator.GetCurrentRun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Graphics.DirectWrite.DWRITE_COLOR_GLYPH_RUN_head)), use_last_error=False)(4, 'GetCurrentRun', ((1, 'colorGlyphRun'),)))
+    win32more.System.Com.IUnknown
     return IDWriteColorGlyphRunEnumerator
 def _define_IDWriteRenderingParams2_head():
     class IDWriteRenderingParams2(win32more.Graphics.DirectWrite.IDWriteRenderingParams1_head):
@@ -1689,6 +1734,7 @@ def _define_IDWriteRenderingParams2_head():
 def _define_IDWriteRenderingParams2():
     IDWriteRenderingParams2 = win32more.Graphics.DirectWrite.IDWriteRenderingParams2_head
     IDWriteRenderingParams2.GetGridFitMode = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE, use_last_error=False)(9, 'GetGridFitMode', ()))
+    win32more.Graphics.DirectWrite.IDWriteRenderingParams1
     return IDWriteRenderingParams2
 def _define_IDWriteFactory2_head():
     class IDWriteFactory2(win32more.Graphics.DirectWrite.IDWriteFactory1_head):
@@ -1701,6 +1747,7 @@ def _define_IDWriteFactory2():
     IDWriteFactory2.TranslateColorGlyphRun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_DESCRIPTION_head),win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteColorGlyphRunEnumerator_head), use_last_error=False)(28, 'TranslateColorGlyphRun', ((1, 'baselineOriginX'),(1, 'baselineOriginY'),(1, 'glyphRun'),(1, 'glyphRunDescription'),(1, 'measuringMode'),(1, 'worldToDeviceTransform'),(1, 'colorPaletteIndex'),(1, 'colorLayers'),)))
     IDWriteFactory2.CreateCustomRenderingParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single,win32more.Graphics.DirectWrite.DWRITE_PIXEL_GEOMETRY,win32more.Graphics.DirectWrite.DWRITE_RENDERING_MODE,win32more.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE,POINTER(win32more.Graphics.DirectWrite.IDWriteRenderingParams2_head), use_last_error=False)(29, 'CreateCustomRenderingParams', ((1, 'gamma'),(1, 'enhancedContrast'),(1, 'grayscaleEnhancedContrast'),(1, 'clearTypeLevel'),(1, 'pixelGeometry'),(1, 'renderingMode'),(1, 'gridFitMode'),(1, 'renderingParams'),)))
     IDWriteFactory2.CreateGlyphRunAnalysis = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),win32more.Graphics.DirectWrite.DWRITE_RENDERING_MODE,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,win32more.Graphics.DirectWrite.DWRITE_GRID_FIT_MODE,win32more.Graphics.DirectWrite.DWRITE_TEXT_ANTIALIAS_MODE,Single,Single,POINTER(win32more.Graphics.DirectWrite.IDWriteGlyphRunAnalysis_head), use_last_error=False)(30, 'CreateGlyphRunAnalysis', ((1, 'glyphRun'),(1, 'transform'),(1, 'renderingMode'),(1, 'measuringMode'),(1, 'gridFitMode'),(1, 'antialiasMode'),(1, 'baselineOriginX'),(1, 'baselineOriginY'),(1, 'glyphRunAnalysis'),)))
+    win32more.Graphics.DirectWrite.IDWriteFactory1
     return IDWriteFactory2
 DWRITE_FONT_PROPERTY_ID = Int32
 DWRITE_FONT_PROPERTY_ID_NONE = 0
@@ -1754,6 +1801,7 @@ def _define_IDWriteRenderingParams3_head():
 def _define_IDWriteRenderingParams3():
     IDWriteRenderingParams3 = win32more.Graphics.DirectWrite.IDWriteRenderingParams3_head
     IDWriteRenderingParams3.GetRenderingMode1 = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_RENDERING_MODE1, use_last_error=False)(10, 'GetRenderingMode1', ()))
+    win32more.Graphics.DirectWrite.IDWriteRenderingParams2
     return IDWriteRenderingParams3
 def _define_IDWriteFactory3_head():
     class IDWriteFactory3(win32more.Graphics.DirectWrite.IDWriteFactory2_head):
@@ -1770,6 +1818,7 @@ def _define_IDWriteFactory3():
     IDWriteFactory3.CreateFontCollectionFromFontSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontSet_head,POINTER(win32more.Graphics.DirectWrite.IDWriteFontCollection1_head), use_last_error=False)(37, 'CreateFontCollectionFromFontSet', ((1, 'fontSet'),(1, 'fontCollection'),)))
     IDWriteFactory3.GetSystemFontCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Graphics.DirectWrite.IDWriteFontCollection1_head),win32more.Foundation.BOOL, use_last_error=False)(38, 'GetSystemFontCollection', ((1, 'includeDownloadableFonts'),(1, 'fontCollection'),(1, 'checkForUpdates'),)))
     IDWriteFactory3.GetFontDownloadQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontDownloadQueue_head), use_last_error=False)(39, 'GetFontDownloadQueue', ((1, 'fontDownloadQueue'),)))
+    win32more.Graphics.DirectWrite.IDWriteFactory2
     return IDWriteFactory3
 def _define_IDWriteFontSet_head():
     class IDWriteFontSet(win32more.System.Com.IUnknown_head):
@@ -1787,6 +1836,7 @@ def _define_IDWriteFontSet():
     IDWriteFontSet.GetPropertyOccurrenceCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_PROPERTY_head),POINTER(UInt32), use_last_error=False)(10, 'GetPropertyOccurrenceCount', ((1, 'property'),(1, 'propertyOccurrenceCount'),)))
     IDWriteFontSet.GetMatchingFonts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.DirectWrite.DWRITE_FONT_WEIGHT,win32more.Graphics.DirectWrite.DWRITE_FONT_STRETCH,win32more.Graphics.DirectWrite.DWRITE_FONT_STYLE,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSet_head), use_last_error=False)(11, 'GetMatchingFonts', ((1, 'familyName'),(1, 'fontWeight'),(1, 'fontStretch'),(1, 'fontStyle'),(1, 'filteredSet'),)))
     IDWriteFontSet.GetMatchingFonts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_PROPERTY),UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSet_head), use_last_error=False)(12, 'GetMatchingFonts', ((1, 'properties'),(1, 'propertyCount'),(1, 'filteredSet'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontSet
 def _define_IDWriteFontSetBuilder_head():
     class IDWriteFontSetBuilder(win32more.System.Com.IUnknown_head):
@@ -1798,6 +1848,7 @@ def _define_IDWriteFontSetBuilder():
     IDWriteFontSetBuilder.AddFontFaceReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFaceReference_head, use_last_error=False)(4, 'AddFontFaceReference', ((1, 'fontFaceReference'),)))
     IDWriteFontSetBuilder.AddFontSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontSet_head, use_last_error=False)(5, 'AddFontSet', ((1, 'fontSet'),)))
     IDWriteFontSetBuilder.CreateFontSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSet_head), use_last_error=False)(6, 'CreateFontSet', ((1, 'fontSet'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontSetBuilder
 def _define_IDWriteFontCollection1_head():
     class IDWriteFontCollection1(win32more.Graphics.DirectWrite.IDWriteFontCollection_head):
@@ -1807,6 +1858,7 @@ def _define_IDWriteFontCollection1():
     IDWriteFontCollection1 = win32more.Graphics.DirectWrite.IDWriteFontCollection1_head
     IDWriteFontCollection1.GetFontSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSet_head), use_last_error=False)(7, 'GetFontSet', ((1, 'fontSet'),)))
     IDWriteFontCollection1.GetFontFamily = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFamily1_head), use_last_error=False)(8, 'GetFontFamily', ((1, 'index'),(1, 'fontFamily'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontCollection
     return IDWriteFontCollection1
 def _define_IDWriteFontFamily1_head():
     class IDWriteFontFamily1(win32more.Graphics.DirectWrite.IDWriteFontFamily_head):
@@ -1817,6 +1869,7 @@ def _define_IDWriteFontFamily1():
     IDWriteFontFamily1.GetFontLocality = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_LOCALITY,UInt32, use_last_error=False)(9, 'GetFontLocality', ((1, 'listIndex'),)))
     IDWriteFontFamily1.GetFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFont3_head), use_last_error=False)(10, 'GetFont', ((1, 'listIndex'),(1, 'font'),)))
     IDWriteFontFamily1.GetFontFaceReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFaceReference_head), use_last_error=False)(11, 'GetFontFaceReference', ((1, 'listIndex'),(1, 'fontFaceReference'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFamily
     return IDWriteFontFamily1
 def _define_IDWriteFontList1_head():
     class IDWriteFontList1(win32more.Graphics.DirectWrite.IDWriteFontList_head):
@@ -1827,6 +1880,7 @@ def _define_IDWriteFontList1():
     IDWriteFontList1.GetFontLocality = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_LOCALITY,UInt32, use_last_error=False)(6, 'GetFontLocality', ((1, 'listIndex'),)))
     IDWriteFontList1.GetFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFont3_head), use_last_error=False)(7, 'GetFont', ((1, 'listIndex'),(1, 'font'),)))
     IDWriteFontList1.GetFontFaceReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFaceReference_head), use_last_error=False)(8, 'GetFontFaceReference', ((1, 'listIndex'),(1, 'fontFaceReference'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontList
     return IDWriteFontList1
 def _define_IDWriteFontFaceReference_head():
     class IDWriteFontFaceReference(win32more.System.Com.IUnknown_head):
@@ -1848,6 +1902,7 @@ def _define_IDWriteFontFaceReference():
     IDWriteFontFaceReference.EnqueueCharacterDownloadRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(14, 'EnqueueCharacterDownloadRequest', ((1, 'characters'),(1, 'characterCount'),)))
     IDWriteFontFaceReference.EnqueueGlyphDownloadRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),UInt32, use_last_error=False)(15, 'EnqueueGlyphDownloadRequest', ((1, 'glyphIndices'),(1, 'glyphCount'),)))
     IDWriteFontFaceReference.EnqueueFileFragmentDownloadRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64, use_last_error=False)(16, 'EnqueueFileFragmentDownloadRequest', ((1, 'fileOffset'),(1, 'fragmentSize'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontFaceReference
 def _define_IDWriteFont3_head():
     class IDWriteFont3(win32more.Graphics.DirectWrite.IDWriteFont2_head):
@@ -1860,6 +1915,7 @@ def _define_IDWriteFont3():
     IDWriteFont3.GetFontFaceReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFaceReference_head), use_last_error=False)(21, 'GetFontFaceReference', ((1, 'fontFaceReference'),)))
     IDWriteFont3.HasCharacter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,UInt32, use_last_error=False)(22, 'HasCharacter', ((1, 'unicodeValue'),)))
     IDWriteFont3.GetLocality = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_LOCALITY, use_last_error=False)(23, 'GetLocality', ()))
+    win32more.Graphics.DirectWrite.IDWriteFont2
     return IDWriteFont3
 def _define_IDWriteFontFace3_head():
     class IDWriteFontFace3(win32more.Graphics.DirectWrite.IDWriteFontFace2_head):
@@ -1881,6 +1937,7 @@ def _define_IDWriteFontFace3():
     IDWriteFontFace3.IsGlyphLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,UInt16, use_last_error=False)(46, 'IsGlyphLocal', ((1, 'glyphId'),)))
     IDWriteFontFace3.AreCharactersLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL), use_last_error=False)(47, 'AreCharactersLocal', ((1, 'characters'),(1, 'characterCount'),(1, 'enqueueIfNotLocal'),(1, 'isLocal'),)))
     IDWriteFontFace3.AreGlyphsLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),UInt32,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL), use_last_error=False)(48, 'AreGlyphsLocal', ((1, 'glyphIndices'),(1, 'glyphCount'),(1, 'enqueueIfNotLocal'),(1, 'isLocal'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFace2
     return IDWriteFontFace3
 def _define_IDWriteStringList_head():
     class IDWriteStringList(win32more.System.Com.IUnknown_head):
@@ -1893,6 +1950,7 @@ def _define_IDWriteStringList():
     IDWriteStringList.GetLocaleName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32, use_last_error=False)(5, 'GetLocaleName', ((1, 'listIndex'),(1, 'localeName'),(1, 'size'),)))
     IDWriteStringList.GetStringLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(6, 'GetStringLength', ((1, 'listIndex'),(1, 'length'),)))
     IDWriteStringList.GetString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32, use_last_error=False)(7, 'GetString', ((1, 'listIndex'),(1, 'stringBuffer'),(1, 'stringBufferSize'),)))
+    win32more.System.Com.IUnknown
     return IDWriteStringList
 def _define_IDWriteFontDownloadListener_head():
     class IDWriteFontDownloadListener(win32more.System.Com.IUnknown_head):
@@ -1901,6 +1959,7 @@ def _define_IDWriteFontDownloadListener_head():
 def _define_IDWriteFontDownloadListener():
     IDWriteFontDownloadListener = win32more.Graphics.DirectWrite.IDWriteFontDownloadListener_head
     IDWriteFontDownloadListener.DownloadCompleted = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.DirectWrite.IDWriteFontDownloadQueue_head,win32more.System.Com.IUnknown_head,win32more.Foundation.HRESULT, use_last_error=False)(3, 'DownloadCompleted', ((1, 'downloadQueue'),(1, 'context'),(1, 'downloadResult'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontDownloadListener
 def _define_IDWriteFontDownloadQueue_head():
     class IDWriteFontDownloadQueue(win32more.System.Com.IUnknown_head):
@@ -1914,6 +1973,7 @@ def _define_IDWriteFontDownloadQueue():
     IDWriteFontDownloadQueue.BeginDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'BeginDownload', ((1, 'context'),)))
     IDWriteFontDownloadQueue.CancelDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'CancelDownload', ()))
     IDWriteFontDownloadQueue.GetGenerationCount = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(8, 'GetGenerationCount', ()))
+    win32more.System.Com.IUnknown
     return IDWriteFontDownloadQueue
 def _define_IDWriteGdiInterop1_head():
     class IDWriteGdiInterop1(win32more.Graphics.DirectWrite.IDWriteGdiInterop_head):
@@ -1925,6 +1985,7 @@ def _define_IDWriteGdiInterop1():
     IDWriteGdiInterop1.GetFontSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFace_head,POINTER(win32more.Globalization.FONTSIGNATURE_head), use_last_error=False)(9, 'GetFontSignature', ((1, 'fontFace'),(1, 'fontSignature'),)))
     IDWriteGdiInterop1.GetFontSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFont_head,POINTER(win32more.Globalization.FONTSIGNATURE_head), use_last_error=False)(10, 'GetFontSignature', ((1, 'font'),(1, 'fontSignature'),)))
     IDWriteGdiInterop1.GetMatchingFontsByLOGFONT = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.LOGFONTA_head),win32more.Graphics.DirectWrite.IDWriteFontSet_head,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSet_head), use_last_error=False)(11, 'GetMatchingFontsByLOGFONT', ((1, 'logFont'),(1, 'fontSet'),(1, 'filteredSet'),)))
+    win32more.Graphics.DirectWrite.IDWriteGdiInterop
     return IDWriteGdiInterop1
 def _define_DWRITE_LINE_METRICS1_head():
     class DWRITE_LINE_METRICS1(Structure):
@@ -1964,6 +2025,7 @@ def _define_IDWriteTextFormat2():
     IDWriteTextFormat2 = win32more.Graphics.DirectWrite.IDWriteTextFormat2_head
     IDWriteTextFormat2.SetLineSpacing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_LINE_SPACING_head), use_last_error=False)(36, 'SetLineSpacing', ((1, 'lineSpacingOptions'),)))
     IDWriteTextFormat2.GetLineSpacing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_LINE_SPACING_head), use_last_error=False)(37, 'GetLineSpacing', ((1, 'lineSpacingOptions'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextFormat1
     return IDWriteTextFormat2
 def _define_IDWriteTextLayout3_head():
     class IDWriteTextLayout3(win32more.Graphics.DirectWrite.IDWriteTextLayout2_head):
@@ -1975,6 +2037,7 @@ def _define_IDWriteTextLayout3():
     IDWriteTextLayout3.SetLineSpacing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_LINE_SPACING_head), use_last_error=False)(81, 'SetLineSpacing', ((1, 'lineSpacingOptions'),)))
     IDWriteTextLayout3.GetLineSpacing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_LINE_SPACING_head), use_last_error=False)(82, 'GetLineSpacing', ((1, 'lineSpacingOptions'),)))
     IDWriteTextLayout3.GetLineMetrics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_LINE_METRICS1),UInt32,POINTER(UInt32), use_last_error=False)(83, 'GetLineMetrics', ((1, 'lineMetrics'),(1, 'maxLineCount'),(1, 'actualLineCount'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextLayout2
     return IDWriteTextLayout3
 def _define_DWRITE_COLOR_GLYPH_RUN1_head():
     class DWRITE_COLOR_GLYPH_RUN1(Structure):
@@ -2013,6 +2076,7 @@ def _define_IDWriteColorGlyphRunEnumerator1_head():
 def _define_IDWriteColorGlyphRunEnumerator1():
     IDWriteColorGlyphRunEnumerator1 = win32more.Graphics.DirectWrite.IDWriteColorGlyphRunEnumerator1_head
     IDWriteColorGlyphRunEnumerator1.GetCurrentRun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Graphics.DirectWrite.DWRITE_COLOR_GLYPH_RUN1_head)), use_last_error=False)(5, 'GetCurrentRun', ((1, 'colorGlyphRun'),)))
+    win32more.Graphics.DirectWrite.IDWriteColorGlyphRunEnumerator
     return IDWriteColorGlyphRunEnumerator1
 def _define_IDWriteFontFace4_head():
     class IDWriteFontFace4(win32more.Graphics.DirectWrite.IDWriteFontFace3_head):
@@ -2024,6 +2088,7 @@ def _define_IDWriteFontFace4():
     IDWriteFontFace4.GetGlyphImageFormats = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS, use_last_error=False)(50, 'GetGlyphImageFormats', ()))
     IDWriteFontFace4.GetGlyphImageData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt32,win32more.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_DATA_head),POINTER(c_void_p), use_last_error=False)(51, 'GetGlyphImageData', ((1, 'glyphId'),(1, 'pixelsPerEm'),(1, 'glyphImageFormat'),(1, 'glyphData'),(1, 'glyphDataContext'),)))
     IDWriteFontFace4.ReleaseGlyphImageData = COMMETHOD(WINFUNCTYPE(Void,c_void_p, use_last_error=False)(52, 'ReleaseGlyphImageData', ((1, 'glyphDataContext'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFace3
     return IDWriteFontFace4
 def _define_IDWriteFactory4_head():
     class IDWriteFactory4(win32more.Graphics.DirectWrite.IDWriteFactory3_head):
@@ -2034,6 +2099,7 @@ def _define_IDWriteFactory4():
     IDWriteFactory4.TranslateColorGlyphRun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_DESCRIPTION_head),win32more.Graphics.DirectWrite.DWRITE_GLYPH_IMAGE_FORMATS,win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteColorGlyphRunEnumerator1_head), use_last_error=False)(40, 'TranslateColorGlyphRun', ((1, 'baselineOrigin'),(1, 'glyphRun'),(1, 'glyphRunDescription'),(1, 'desiredGlyphImageFormats'),(1, 'measuringMode'),(1, 'worldAndDpiTransform'),(1, 'colorPaletteIndex'),(1, 'colorLayers'),)))
     IDWriteFactory4.ComputeGlyphOrigins = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), use_last_error=False)(41, 'ComputeGlyphOrigins', ((1, 'glyphRun'),(1, 'baselineOrigin'),(1, 'glyphOrigins'),)))
     IDWriteFactory4.ComputeGlyphOrigins = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_GLYPH_RUN_head),win32more.Graphics.DirectWrite.DWRITE_MEASURING_MODE,win32more.Graphics.Direct2D.Common.D2D_POINT_2F,POINTER(win32more.Graphics.DirectWrite.DWRITE_MATRIX_head),POINTER(win32more.Graphics.Direct2D.Common.D2D_POINT_2F_head), use_last_error=False)(42, 'ComputeGlyphOrigins', ((1, 'glyphRun'),(1, 'measuringMode'),(1, 'baselineOrigin'),(1, 'worldAndDpiTransform'),(1, 'glyphOrigins'),)))
+    win32more.Graphics.DirectWrite.IDWriteFactory3
     return IDWriteFactory4
 def _define_IDWriteFontSetBuilder1_head():
     class IDWriteFontSetBuilder1(win32more.Graphics.DirectWrite.IDWriteFontSetBuilder_head):
@@ -2042,6 +2108,7 @@ def _define_IDWriteFontSetBuilder1_head():
 def _define_IDWriteFontSetBuilder1():
     IDWriteFontSetBuilder1 = win32more.Graphics.DirectWrite.IDWriteFontSetBuilder1_head
     IDWriteFontSetBuilder1.AddFontFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFile_head, use_last_error=False)(7, 'AddFontFile', ((1, 'fontFile'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontSetBuilder
     return IDWriteFontSetBuilder1
 def _define_IDWriteAsyncResult_head():
     class IDWriteAsyncResult(win32more.System.Com.IUnknown_head):
@@ -2051,6 +2118,7 @@ def _define_IDWriteAsyncResult():
     IDWriteAsyncResult = win32more.Graphics.DirectWrite.IDWriteAsyncResult_head
     IDWriteAsyncResult.GetWaitHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HANDLE, use_last_error=False)(3, 'GetWaitHandle', ()))
     IDWriteAsyncResult.GetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'GetResult', ()))
+    win32more.System.Com.IUnknown
     return IDWriteAsyncResult
 def _define_DWRITE_FILE_FRAGMENT_head():
     class DWRITE_FILE_FRAGMENT(Structure):
@@ -2073,6 +2141,7 @@ def _define_IDWriteRemoteFontFileStream():
     IDWriteRemoteFontFileStream.GetFileFragmentLocality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64,POINTER(win32more.Foundation.BOOL),POINTER(UInt64), use_last_error=False)(8, 'GetFileFragmentLocality', ((1, 'fileOffset'),(1, 'fragmentSize'),(1, 'isLocal'),(1, 'partialSize'),)))
     IDWriteRemoteFontFileStream.GetLocality = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_LOCALITY, use_last_error=False)(9, 'GetLocality', ()))
     IDWriteRemoteFontFileStream.BeginDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Graphics.DirectWrite.DWRITE_FILE_FRAGMENT),UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteAsyncResult_head), use_last_error=False)(10, 'BeginDownload', ((1, 'downloadOperationID'),(1, 'fileFragments'),(1, 'fragmentCount'),(1, 'asyncResult'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFileStream
     return IDWriteRemoteFontFileStream
 DWRITE_CONTAINER_TYPE = Int32
 DWRITE_CONTAINER_TYPE_UNKNOWN = 0
@@ -2087,6 +2156,7 @@ def _define_IDWriteRemoteFontFileLoader():
     IDWriteRemoteFontFileLoader.CreateRemoteStreamFromKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteRemoteFontFileStream_head), use_last_error=False)(4, 'CreateRemoteStreamFromKey', ((1, 'fontFileReferenceKey'),(1, 'fontFileReferenceKeySize'),(1, 'fontFileStream'),)))
     IDWriteRemoteFontFileLoader.GetLocalityFromKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_LOCALITY), use_last_error=False)(5, 'GetLocalityFromKey', ((1, 'fontFileReferenceKey'),(1, 'fontFileReferenceKeySize'),(1, 'locality'),)))
     IDWriteRemoteFontFileLoader.CreateFontFileReferenceFromUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFactory_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFile_head), use_last_error=False)(6, 'CreateFontFileReferenceFromUrl', ((1, 'factory'),(1, 'baseUrl'),(1, 'fontFileUrl'),(1, 'fontFile'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFileLoader
     return IDWriteRemoteFontFileLoader
 def _define_IDWriteInMemoryFontFileLoader_head():
     class IDWriteInMemoryFontFileLoader(win32more.Graphics.DirectWrite.IDWriteFontFileLoader_head):
@@ -2096,6 +2166,7 @@ def _define_IDWriteInMemoryFontFileLoader():
     IDWriteInMemoryFontFileLoader = win32more.Graphics.DirectWrite.IDWriteInMemoryFontFileLoader_head
     IDWriteInMemoryFontFileLoader.CreateInMemoryFontFileReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFactory_head,c_void_p,UInt32,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFile_head), use_last_error=False)(4, 'CreateInMemoryFontFileReference', ((1, 'factory'),(1, 'fontData'),(1, 'fontDataSize'),(1, 'ownerObject'),(1, 'fontFile'),)))
     IDWriteInMemoryFontFileLoader.GetFileCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(5, 'GetFileCount', ()))
+    win32more.Graphics.DirectWrite.IDWriteFontFileLoader
     return IDWriteInMemoryFontFileLoader
 def _define_IDWriteFactory5_head():
     class IDWriteFactory5(win32more.Graphics.DirectWrite.IDWriteFactory4_head):
@@ -2108,6 +2179,7 @@ def _define_IDWriteFactory5():
     IDWriteFactory5.CreateHttpFontFileLoader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.DirectWrite.IDWriteRemoteFontFileLoader_head), use_last_error=False)(45, 'CreateHttpFontFileLoader', ((1, 'referrerUrl'),(1, 'extraHeaders'),(1, 'newLoader'),)))
     IDWriteFactory5.AnalyzeContainerType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_CONTAINER_TYPE,c_void_p,UInt32, use_last_error=False)(46, 'AnalyzeContainerType', ((1, 'fileData'),(1, 'fileDataSize'),)))
     IDWriteFactory5.UnpackFontFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_CONTAINER_TYPE,c_void_p,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFileStream_head), use_last_error=False)(47, 'UnpackFontFile', ((1, 'containerType'),(1, 'fileData'),(1, 'fileDataSize'),(1, 'unpackedFontStream'),)))
+    win32more.Graphics.DirectWrite.IDWriteFactory4
     return IDWriteFactory5
 def _define_DWRITE_FONT_AXIS_VALUE_head():
     class DWRITE_FONT_AXIS_VALUE(Structure):
@@ -2155,6 +2227,7 @@ def _define_IDWriteFactory6():
     IDWriteFactory6.CreateFontCollectionFromFontSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontSet_head,win32more.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL,POINTER(win32more.Graphics.DirectWrite.IDWriteFontCollection2_head), use_last_error=False)(52, 'CreateFontCollectionFromFontSet', ((1, 'fontSet'),(1, 'fontFamilyModel'),(1, 'fontCollection'),)))
     IDWriteFactory6.CreateFontSetBuilder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSetBuilder2_head), use_last_error=False)(53, 'CreateFontSetBuilder', ((1, 'fontSetBuilder'),)))
     IDWriteFactory6.CreateTextFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.DirectWrite.IDWriteFontCollection_head,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32,Single,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.DirectWrite.IDWriteTextFormat3_head), use_last_error=False)(54, 'CreateTextFormat', ((1, 'fontFamilyName'),(1, 'fontCollection'),(1, 'fontAxisValues'),(1, 'fontAxisValueCount'),(1, 'fontSize'),(1, 'localeName'),(1, 'textFormat'),)))
+    win32more.Graphics.DirectWrite.IDWriteFactory5
     return IDWriteFactory6
 def _define_IDWriteFontFace5_head():
     class IDWriteFontFace5(win32more.Graphics.DirectWrite.IDWriteFontFace4_head):
@@ -2167,6 +2240,7 @@ def _define_IDWriteFontFace5():
     IDWriteFontFace5.HasVariations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(55, 'HasVariations', ()))
     IDWriteFontFace5.GetFontResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontResource_head), use_last_error=False)(56, 'GetFontResource', ((1, 'fontResource'),)))
     IDWriteFontFace5.Equals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.DirectWrite.IDWriteFontFace_head, use_last_error=False)(57, 'Equals', ((1, 'fontFace'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFace4
     return IDWriteFontFace5
 def _define_IDWriteFontResource_head():
     class IDWriteFontResource(win32more.System.Com.IUnknown_head):
@@ -2186,6 +2260,7 @@ def _define_IDWriteFontResource():
     IDWriteFontResource.HasVariations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(12, 'HasVariations', ()))
     IDWriteFontResource.CreateFontFace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_FONT_SIMULATIONS,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFace5_head), use_last_error=False)(13, 'CreateFontFace', ((1, 'fontSimulations'),(1, 'fontAxisValues'),(1, 'fontAxisValueCount'),(1, 'fontFace'),)))
     IDWriteFontResource.CreateFontFaceReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_FONT_SIMULATIONS,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFaceReference1_head), use_last_error=False)(14, 'CreateFontFaceReference', ((1, 'fontSimulations'),(1, 'fontAxisValues'),(1, 'fontAxisValueCount'),(1, 'fontFaceReference'),)))
+    win32more.System.Com.IUnknown
     return IDWriteFontResource
 def _define_IDWriteFontFaceReference1_head():
     class IDWriteFontFaceReference1(win32more.Graphics.DirectWrite.IDWriteFontFaceReference_head):
@@ -2196,6 +2271,7 @@ def _define_IDWriteFontFaceReference1():
     IDWriteFontFaceReference1.CreateFontFace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFace5_head), use_last_error=False)(17, 'CreateFontFace', ((1, 'fontFace'),)))
     IDWriteFontFaceReference1.GetFontAxisValueCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(18, 'GetFontAxisValueCount', ()))
     IDWriteFontFaceReference1.GetFontAxisValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32, use_last_error=False)(19, 'GetFontAxisValues', ((1, 'fontAxisValues'),(1, 'fontAxisValueCount'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFaceReference
     return IDWriteFontFaceReference1
 def _define_IDWriteFontSetBuilder2_head():
     class IDWriteFontSetBuilder2(win32more.Graphics.DirectWrite.IDWriteFontSetBuilder1_head):
@@ -2205,6 +2281,7 @@ def _define_IDWriteFontSetBuilder2():
     IDWriteFontSetBuilder2 = win32more.Graphics.DirectWrite.IDWriteFontSetBuilder2_head
     IDWriteFontSetBuilder2.AddFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteFontFile_head,UInt32,win32more.Graphics.DirectWrite.DWRITE_FONT_SIMULATIONS,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_RANGE),UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_PROPERTY),UInt32, use_last_error=False)(8, 'AddFont', ((1, 'fontFile'),(1, 'fontFaceIndex'),(1, 'fontSimulations'),(1, 'fontAxisValues'),(1, 'fontAxisValueCount'),(1, 'fontAxisRanges'),(1, 'fontAxisRangeCount'),(1, 'properties'),(1, 'propertyCount'),)))
     IDWriteFontSetBuilder2.AddFontFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(9, 'AddFontFile', ((1, 'filePath'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontSetBuilder1
     return IDWriteFontSetBuilder2
 def _define_IDWriteFontSet1_head():
     class IDWriteFontSet1(win32more.Graphics.DirectWrite.IDWriteFontSet_head):
@@ -2225,6 +2302,7 @@ def _define_IDWriteFontSet1():
     IDWriteFontSet1.CreateFontResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontResource_head), use_last_error=False)(23, 'CreateFontResource', ((1, 'listIndex'),(1, 'fontResource'),)))
     IDWriteFontSet1.CreateFontFace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontFace5_head), use_last_error=False)(24, 'CreateFontFace', ((1, 'listIndex'),(1, 'fontFace'),)))
     IDWriteFontSet1.GetFontLocality = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_LOCALITY,UInt32, use_last_error=False)(25, 'GetFontLocality', ((1, 'listIndex'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontSet
     return IDWriteFontSet1
 def _define_IDWriteFontList2_head():
     class IDWriteFontList2(win32more.Graphics.DirectWrite.IDWriteFontList1_head):
@@ -2233,6 +2311,7 @@ def _define_IDWriteFontList2_head():
 def _define_IDWriteFontList2():
     IDWriteFontList2 = win32more.Graphics.DirectWrite.IDWriteFontList2_head
     IDWriteFontList2.GetFontSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSet1_head), use_last_error=False)(9, 'GetFontSet', ((1, 'fontSet'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontList1
     return IDWriteFontList2
 def _define_IDWriteFontFamily2_head():
     class IDWriteFontFamily2(win32more.Graphics.DirectWrite.IDWriteFontFamily1_head):
@@ -2242,6 +2321,7 @@ def _define_IDWriteFontFamily2():
     IDWriteFontFamily2 = win32more.Graphics.DirectWrite.IDWriteFontFamily2_head
     IDWriteFontFamily2.GetMatchingFonts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontList2_head), use_last_error=False)(12, 'GetMatchingFonts', ((1, 'fontAxisValues'),(1, 'fontAxisValueCount'),(1, 'matchingFonts'),)))
     IDWriteFontFamily2.GetFontSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSet1_head), use_last_error=False)(13, 'GetFontSet', ((1, 'fontSet'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFamily1
     return IDWriteFontFamily2
 def _define_IDWriteFontCollection2_head():
     class IDWriteFontCollection2(win32more.Graphics.DirectWrite.IDWriteFontCollection1_head):
@@ -2253,6 +2333,7 @@ def _define_IDWriteFontCollection2():
     IDWriteFontCollection2.GetMatchingFonts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32,POINTER(win32more.Graphics.DirectWrite.IDWriteFontList2_head), use_last_error=False)(10, 'GetMatchingFonts', ((1, 'familyName'),(1, 'fontAxisValues'),(1, 'fontAxisValueCount'),(1, 'fontList'),)))
     IDWriteFontCollection2.GetFontFamilyModel = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL, use_last_error=False)(11, 'GetFontFamilyModel', ()))
     IDWriteFontCollection2.GetFontSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSet1_head), use_last_error=False)(12, 'GetFontSet', ((1, 'fontSet'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontCollection1
     return IDWriteFontCollection2
 def _define_IDWriteTextLayout4_head():
     class IDWriteTextLayout4(win32more.Graphics.DirectWrite.IDWriteTextLayout3_head):
@@ -2265,6 +2346,7 @@ def _define_IDWriteTextLayout4():
     IDWriteTextLayout4.GetFontAxisValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32,POINTER(win32more.Graphics.DirectWrite.DWRITE_TEXT_RANGE_head), use_last_error=False)(86, 'GetFontAxisValues', ((1, 'currentPosition'),(1, 'fontAxisValues'),(1, 'fontAxisValueCount'),(1, 'textRange'),)))
     IDWriteTextLayout4.GetAutomaticFontAxes = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_AUTOMATIC_FONT_AXES, use_last_error=False)(87, 'GetAutomaticFontAxes', ()))
     IDWriteTextLayout4.SetAutomaticFontAxes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_AUTOMATIC_FONT_AXES, use_last_error=False)(88, 'SetAutomaticFontAxes', ((1, 'automaticFontAxes'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextLayout3
     return IDWriteTextLayout4
 def _define_IDWriteTextFormat3_head():
     class IDWriteTextFormat3(win32more.Graphics.DirectWrite.IDWriteTextFormat2_head):
@@ -2277,6 +2359,7 @@ def _define_IDWriteTextFormat3():
     IDWriteTextFormat3.GetFontAxisValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32, use_last_error=False)(40, 'GetFontAxisValues', ((1, 'fontAxisValues'),(1, 'fontAxisValueCount'),)))
     IDWriteTextFormat3.GetAutomaticFontAxes = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_AUTOMATIC_FONT_AXES, use_last_error=False)(41, 'GetAutomaticFontAxes', ()))
     IDWriteTextFormat3.SetAutomaticFontAxes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_AUTOMATIC_FONT_AXES, use_last_error=False)(42, 'SetAutomaticFontAxes', ((1, 'automaticFontAxes'),)))
+    win32more.Graphics.DirectWrite.IDWriteTextFormat2
     return IDWriteTextFormat3
 def _define_IDWriteFontFallback1_head():
     class IDWriteFontFallback1(win32more.Graphics.DirectWrite.IDWriteFontFallback_head):
@@ -2285,6 +2368,7 @@ def _define_IDWriteFontFallback1_head():
 def _define_IDWriteFontFallback1():
     IDWriteFontFallback1 = win32more.Graphics.DirectWrite.IDWriteFontFallback1_head
     IDWriteFontFallback1.MapCharacters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.IDWriteTextAnalysisSource_head,UInt32,UInt32,win32more.Graphics.DirectWrite.IDWriteFontCollection_head,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.DirectWrite.DWRITE_FONT_AXIS_VALUE),UInt32,POINTER(UInt32),POINTER(Single),POINTER(win32more.Graphics.DirectWrite.IDWriteFontFace5_head), use_last_error=False)(4, 'MapCharacters', ((1, 'analysisSource'),(1, 'textPosition'),(1, 'textLength'),(1, 'baseFontCollection'),(1, 'baseFamilyName'),(1, 'fontAxisValues'),(1, 'fontAxisValueCount'),(1, 'mappedLength'),(1, 'scale'),(1, 'mappedFontFace'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFallback
     return IDWriteFontFallback1
 def _define_IDWriteFontSet2_head():
     class IDWriteFontSet2(win32more.Graphics.DirectWrite.IDWriteFontSet1_head):
@@ -2293,6 +2377,7 @@ def _define_IDWriteFontSet2_head():
 def _define_IDWriteFontSet2():
     IDWriteFontSet2 = win32more.Graphics.DirectWrite.IDWriteFontSet2_head
     IDWriteFontSet2.GetExpirationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HANDLE, use_last_error=False)(26, 'GetExpirationEvent', ()))
+    win32more.Graphics.DirectWrite.IDWriteFontSet1
     return IDWriteFontSet2
 def _define_IDWriteFontCollection3_head():
     class IDWriteFontCollection3(win32more.Graphics.DirectWrite.IDWriteFontCollection2_head):
@@ -2301,6 +2386,7 @@ def _define_IDWriteFontCollection3_head():
 def _define_IDWriteFontCollection3():
     IDWriteFontCollection3 = win32more.Graphics.DirectWrite.IDWriteFontCollection3_head
     IDWriteFontCollection3.GetExpirationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HANDLE, use_last_error=False)(13, 'GetExpirationEvent', ()))
+    win32more.Graphics.DirectWrite.IDWriteFontCollection2
     return IDWriteFontCollection3
 def _define_IDWriteFactory7_head():
     class IDWriteFactory7(win32more.Graphics.DirectWrite.IDWriteFactory6_head):
@@ -2310,6 +2396,7 @@ def _define_IDWriteFactory7():
     IDWriteFactory7 = win32more.Graphics.DirectWrite.IDWriteFactory7_head
     IDWriteFactory7.GetSystemFontSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Graphics.DirectWrite.IDWriteFontSet2_head), use_last_error=False)(55, 'GetSystemFontSet', ((1, 'includeDownloadableFonts'),(1, 'fontSet'),)))
     IDWriteFactory7.GetSystemFontCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL,POINTER(win32more.Graphics.DirectWrite.IDWriteFontCollection3_head), use_last_error=False)(56, 'GetSystemFontCollection', ((1, 'includeDownloadableFonts'),(1, 'fontFamilyModel'),(1, 'fontCollection'),)))
+    win32more.Graphics.DirectWrite.IDWriteFactory6
     return IDWriteFactory7
 DWRITE_FONT_SOURCE_TYPE = Int32
 DWRITE_FONT_SOURCE_TYPE_UNKNOWN = 0
@@ -2326,6 +2413,7 @@ def _define_IDWriteFontSet3():
     IDWriteFontSet3.GetFontSourceType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.DirectWrite.DWRITE_FONT_SOURCE_TYPE,UInt32, use_last_error=False)(27, 'GetFontSourceType', ((1, 'fontIndex'),)))
     IDWriteFontSet3.GetFontSourceNameLength = COMMETHOD(WINFUNCTYPE(UInt32,UInt32, use_last_error=False)(28, 'GetFontSourceNameLength', ((1, 'listIndex'),)))
     IDWriteFontSet3.GetFontSourceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32, use_last_error=False)(29, 'GetFontSourceName', ((1, 'listIndex'),(1, 'stringBuffer'),(1, 'stringBufferSize'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontSet2
     return IDWriteFontSet3
 def _define_IDWriteFontFace6_head():
     class IDWriteFontFace6(win32more.Graphics.DirectWrite.IDWriteFontFace5_head):
@@ -2335,6 +2423,7 @@ def _define_IDWriteFontFace6():
     IDWriteFontFace6 = win32more.Graphics.DirectWrite.IDWriteFontFace6_head
     IDWriteFontFace6.GetFamilyNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL,POINTER(win32more.Graphics.DirectWrite.IDWriteLocalizedStrings_head), use_last_error=False)(58, 'GetFamilyNames', ((1, 'fontFamilyModel'),(1, 'names'),)))
     IDWriteFontFace6.GetFaceNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectWrite.DWRITE_FONT_FAMILY_MODEL,POINTER(win32more.Graphics.DirectWrite.IDWriteLocalizedStrings_head), use_last_error=False)(59, 'GetFaceNames', ((1, 'fontFamilyModel'),(1, 'names'),)))
+    win32more.Graphics.DirectWrite.IDWriteFontFace5
     return IDWriteFontFace6
 def _define_DWriteCreateFactory():
     try:

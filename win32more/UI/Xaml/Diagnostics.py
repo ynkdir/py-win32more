@@ -173,6 +173,7 @@ def _define_IVisualTreeServiceCallback_head():
 def _define_IVisualTreeServiceCallback():
     IVisualTreeServiceCallback = win32more.UI.Xaml.Diagnostics.IVisualTreeServiceCallback_head
     IVisualTreeServiceCallback.OnVisualTreeChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Xaml.Diagnostics.ParentChildRelation,win32more.UI.Xaml.Diagnostics.VisualElement,win32more.UI.Xaml.Diagnostics.VisualMutationType, use_last_error=False)(3, 'OnVisualTreeChange', ((1, 'relation'),(1, 'element'),(1, 'mutationType'),)))
+    win32more.System.Com.IUnknown
     return IVisualTreeServiceCallback
 def _define_IVisualTreeServiceCallback2_head():
     class IVisualTreeServiceCallback2(win32more.UI.Xaml.Diagnostics.IVisualTreeServiceCallback_head):
@@ -181,6 +182,7 @@ def _define_IVisualTreeServiceCallback2_head():
 def _define_IVisualTreeServiceCallback2():
     IVisualTreeServiceCallback2 = win32more.UI.Xaml.Diagnostics.IVisualTreeServiceCallback2_head
     IVisualTreeServiceCallback2.OnElementStateChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.UI.Xaml.Diagnostics.VisualElementState,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OnElementStateChanged', ((1, 'element'),(1, 'elementState'),(1, 'context'),)))
+    win32more.UI.Xaml.Diagnostics.IVisualTreeServiceCallback
     return IVisualTreeServiceCallback2
 def _define_IVisualTreeService_head():
     class IVisualTreeService(win32more.System.Com.IUnknown_head):
@@ -200,6 +202,7 @@ def _define_IVisualTreeService():
     IVisualTreeService.AddChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64,UInt32, use_last_error=False)(12, 'AddChild', ((1, 'parent'),(1, 'child'),(1, 'index'),)))
     IVisualTreeService.RemoveChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32, use_last_error=False)(13, 'RemoveChild', ((1, 'parent'),(1, 'index'),)))
     IVisualTreeService.ClearChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(14, 'ClearChildren', ((1, 'parent'),)))
+    win32more.System.Com.IUnknown
     return IVisualTreeService
 def _define_IXamlDiagnostics_head():
     class IXamlDiagnostics(win32more.System.Com.IUnknown_head):
@@ -215,6 +218,7 @@ def _define_IXamlDiagnostics():
     IXamlDiagnostics.HitTest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.RECT,POINTER(UInt32),POINTER(POINTER(UInt64)), use_last_error=False)(8, 'HitTest', ((1, 'rect'),(1, 'pCount'),(1, 'ppInstanceHandles'),)))
     IXamlDiagnostics.RegisterInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.IInspectable_head,POINTER(UInt64), use_last_error=False)(9, 'RegisterInstance', ((1, 'pInstance'),(1, 'pInstanceHandle'),)))
     IXamlDiagnostics.GetInitializationData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'GetInitializationData', ((1, 'pInitializationData'),)))
+    win32more.System.Com.IUnknown
     return IXamlDiagnostics
 def _define_IBitmapData_head():
     class IBitmapData(win32more.System.Com.IUnknown_head):
@@ -226,6 +230,7 @@ def _define_IBitmapData():
     IBitmapData.GetStride = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetStride', ((1, 'pStride'),)))
     IBitmapData.GetBitmapDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Xaml.Diagnostics.BitmapDescription_head), use_last_error=False)(5, 'GetBitmapDescription', ((1, 'pBitmapDescription'),)))
     IBitmapData.GetSourceBitmapDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Xaml.Diagnostics.BitmapDescription_head), use_last_error=False)(6, 'GetSourceBitmapDescription', ((1, 'pBitmapDescription'),)))
+    win32more.System.Com.IUnknown
     return IBitmapData
 def _define_IVisualTreeService2_head():
     class IVisualTreeService2(win32more.UI.Xaml.Diagnostics.IVisualTreeService_head):
@@ -237,6 +242,7 @@ def _define_IVisualTreeService2():
     IVisualTreeService2.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,POINTER(UInt64), use_last_error=False)(16, 'GetProperty', ((1, 'object'),(1, 'propertyIndex'),(1, 'pValue'),)))
     IVisualTreeService2.ReplaceResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64,UInt64, use_last_error=False)(17, 'ReplaceResource', ((1, 'resourceDictionary'),(1, 'key'),(1, 'newValue'),)))
     IVisualTreeService2.RenderTargetBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.UI.Xaml.Diagnostics.RenderTargetBitmapOptions,UInt32,UInt32,POINTER(win32more.UI.Xaml.Diagnostics.IBitmapData_head), use_last_error=False)(18, 'RenderTargetBitmap', ((1, 'handle'),(1, 'options'),(1, 'maxPixelWidth'),(1, 'maxPixelHeight'),(1, 'ppBitmapData'),)))
+    win32more.UI.Xaml.Diagnostics.IVisualTreeService
     return IVisualTreeService2
 def _define_IVisualTreeService3_head():
     class IVisualTreeService3(win32more.UI.Xaml.Diagnostics.IVisualTreeService2_head):
@@ -248,6 +254,7 @@ def _define_IVisualTreeService3():
     IVisualTreeService3.GetDictionaryItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(UInt64), use_last_error=False)(20, 'GetDictionaryItem', ((1, 'dictionaryHandle'),(1, 'resourceName'),(1, 'resourceIsImplicitStyle'),(1, 'resourceHandle'),)))
     IVisualTreeService3.AddDictionaryItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64,UInt64, use_last_error=False)(21, 'AddDictionaryItem', ((1, 'dictionaryHandle'),(1, 'resourceKey'),(1, 'resourceHandle'),)))
     IVisualTreeService3.RemoveDictionaryItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64, use_last_error=False)(22, 'RemoveDictionaryItem', ((1, 'dictionaryHandle'),(1, 'resourceKey'),)))
+    win32more.UI.Xaml.Diagnostics.IVisualTreeService2
     return IVisualTreeService3
 def _define_InitializeXamlDiagnostic():
     try:

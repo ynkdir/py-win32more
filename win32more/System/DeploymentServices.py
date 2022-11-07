@@ -586,6 +586,7 @@ def _define_IWdsTransportCacheable():
     IWdsTransportCacheable.Discard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Discard', ()))
     IWdsTransportCacheable.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     IWdsTransportCacheable.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Commit', ()))
+    win32more.System.Com.IDispatch
     return IWdsTransportCacheable
 def _define_IWdsTransportCollection_head():
     class IWdsTransportCollection(win32more.System.Com.IDispatch_head):
@@ -596,6 +597,7 @@ def _define_IWdsTransportCollection():
     IWdsTransportCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'get_Count', ((1, 'pulCount'),)))
     IWdsTransportCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Item', ((1, 'ulIndex'),(1, 'ppVal'),)))
     IWdsTransportCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppVal'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportCollection
 def _define_IWdsTransportManager_head():
     class IWdsTransportManager(win32more.System.Com.IDispatch_head):
@@ -604,6 +606,7 @@ def _define_IWdsTransportManager_head():
 def _define_IWdsTransportManager():
     IWdsTransportManager = win32more.System.DeploymentServices.IWdsTransportManager_head
     IWdsTransportManager.GetWdsTransportServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.DeploymentServices.IWdsTransportServer_head), use_last_error=False)(7, 'GetWdsTransportServer', ((1, 'bszServerName'),(1, 'ppWdsTransportServer'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportManager
 def _define_IWdsTransportServer_head():
     class IWdsTransportServer(win32more.System.Com.IDispatch_head):
@@ -616,6 +619,7 @@ def _define_IWdsTransportServer():
     IWdsTransportServer.get_ConfigurationManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportConfigurationManager_head), use_last_error=False)(9, 'get_ConfigurationManager', ((1, 'ppWdsTransportConfigurationManager'),)))
     IWdsTransportServer.get_NamespaceManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportNamespaceManager_head), use_last_error=False)(10, 'get_NamespaceManager', ((1, 'ppWdsTransportNamespaceManager'),)))
     IWdsTransportServer.DisconnectClient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.DeploymentServices.WDSTRANSPORT_DISCONNECT_TYPE, use_last_error=False)(11, 'DisconnectClient', ((1, 'ulClientId'),(1, 'DisconnectionType'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportServer
 def _define_IWdsTransportServer2_head():
     class IWdsTransportServer2(win32more.System.DeploymentServices.IWdsTransportServer_head):
@@ -624,6 +628,7 @@ def _define_IWdsTransportServer2_head():
 def _define_IWdsTransportServer2():
     IWdsTransportServer2 = win32more.System.DeploymentServices.IWdsTransportServer2_head
     IWdsTransportServer2.get_TftpManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportTftpManager_head), use_last_error=False)(12, 'get_TftpManager', ((1, 'ppWdsTransportTftpManager'),)))
+    win32more.System.DeploymentServices.IWdsTransportServer
     return IWdsTransportServer2
 def _define_IWdsTransportSetupManager_head():
     class IWdsTransportSetupManager(win32more.System.Com.IDispatch_head):
@@ -636,6 +641,7 @@ def _define_IWdsTransportSetupManager():
     IWdsTransportSetupManager.get_Protocols = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'get_Protocols', ((1, 'pulProtocols'),)))
     IWdsTransportSetupManager.RegisterContentProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(10, 'RegisterContentProvider', ((1, 'bszName'),(1, 'bszDescription'),(1, 'bszFilePath'),(1, 'bszInitializationRoutine'),)))
     IWdsTransportSetupManager.DeregisterContentProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'DeregisterContentProvider', ((1, 'bszName'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportSetupManager
 def _define_IWdsTransportSetupManager2_head():
     class IWdsTransportSetupManager2(win32more.System.DeploymentServices.IWdsTransportSetupManager_head):
@@ -645,6 +651,7 @@ def _define_IWdsTransportSetupManager2():
     IWdsTransportSetupManager2 = win32more.System.DeploymentServices.IWdsTransportSetupManager2_head
     IWdsTransportSetupManager2.get_TftpCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_TftpCapabilities', ((1, 'pulTftpCapabilities'),)))
     IWdsTransportSetupManager2.get_ContentProviders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportCollection_head), use_last_error=False)(13, 'get_ContentProviders', ((1, 'ppProviderCollection'),)))
+    win32more.System.DeploymentServices.IWdsTransportSetupManager
     return IWdsTransportSetupManager2
 def _define_IWdsTransportConfigurationManager_head():
     class IWdsTransportConfigurationManager(win32more.System.Com.IDispatch_head):
@@ -661,6 +668,7 @@ def _define_IWdsTransportConfigurationManager():
     IWdsTransportConfigurationManager.StopWdsTransportServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'StopWdsTransportServices', ()))
     IWdsTransportConfigurationManager.RestartWdsTransportServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'RestartWdsTransportServices', ()))
     IWdsTransportConfigurationManager.NotifyWdsTransportServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DeploymentServices.WDSTRANSPORT_SERVICE_NOTIFICATION, use_last_error=False)(15, 'NotifyWdsTransportServices', ((1, 'ServiceNotification'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportConfigurationManager
 def _define_IWdsTransportConfigurationManager2_head():
     class IWdsTransportConfigurationManager2(win32more.System.DeploymentServices.IWdsTransportConfigurationManager_head):
@@ -669,6 +677,7 @@ def _define_IWdsTransportConfigurationManager2_head():
 def _define_IWdsTransportConfigurationManager2():
     IWdsTransportConfigurationManager2 = win32more.System.DeploymentServices.IWdsTransportConfigurationManager2_head
     IWdsTransportConfigurationManager2.get_MulticastSessionPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportMulticastSessionPolicy_head), use_last_error=False)(16, 'get_MulticastSessionPolicy', ((1, 'ppWdsTransportMulticastSessionPolicy'),)))
+    win32more.System.DeploymentServices.IWdsTransportConfigurationManager
     return IWdsTransportConfigurationManager2
 def _define_IWdsTransportNamespaceManager_head():
     class IWdsTransportNamespaceManager(win32more.System.Com.IDispatch_head):
@@ -679,6 +688,7 @@ def _define_IWdsTransportNamespaceManager():
     IWdsTransportNamespaceManager.CreateNamespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DeploymentServices.WDSTRANSPORT_NAMESPACE_TYPE,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.DeploymentServices.IWdsTransportNamespace_head), use_last_error=False)(7, 'CreateNamespace', ((1, 'NamespaceType'),(1, 'bszNamespaceName'),(1, 'bszContentProvider'),(1, 'bszConfiguration'),(1, 'ppWdsTransportNamespace'),)))
     IWdsTransportNamespaceManager.RetrieveNamespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.DeploymentServices.IWdsTransportNamespace_head), use_last_error=False)(8, 'RetrieveNamespace', ((1, 'bszNamespaceName'),(1, 'ppWdsTransportNamespace'),)))
     IWdsTransportNamespaceManager.RetrieveNamespaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int16,POINTER(win32more.System.DeploymentServices.IWdsTransportCollection_head), use_last_error=False)(9, 'RetrieveNamespaces', ((1, 'bszContentProvider'),(1, 'bszNamespaceName'),(1, 'bIncludeTombstones'),(1, 'ppWdsTransportNamespaces'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportNamespaceManager
 def _define_IWdsTransportTftpManager_head():
     class IWdsTransportTftpManager(win32more.System.Com.IDispatch_head):
@@ -687,6 +697,7 @@ def _define_IWdsTransportTftpManager_head():
 def _define_IWdsTransportTftpManager():
     IWdsTransportTftpManager = win32more.System.DeploymentServices.IWdsTransportTftpManager_head
     IWdsTransportTftpManager.RetrieveTftpClients = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportCollection_head), use_last_error=False)(7, 'RetrieveTftpClients', ((1, 'ppWdsTransportTftpClients'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportTftpManager
 def _define_IWdsTransportServicePolicy_head():
     class IWdsTransportServicePolicy(win32more.System.DeploymentServices.IWdsTransportCacheable_head):
@@ -706,6 +717,7 @@ def _define_IWdsTransportServicePolicy():
     IWdsTransportServicePolicy.put_EndPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(20, 'put_EndPort', ((1, 'ulEndPort'),)))
     IWdsTransportServicePolicy.get_NetworkProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.WDSTRANSPORT_NETWORK_PROFILE_TYPE), use_last_error=False)(21, 'get_NetworkProfile', ((1, 'pProfileType'),)))
     IWdsTransportServicePolicy.put_NetworkProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DeploymentServices.WDSTRANSPORT_NETWORK_PROFILE_TYPE, use_last_error=False)(22, 'put_NetworkProfile', ((1, 'ProfileType'),)))
+    win32more.System.DeploymentServices.IWdsTransportCacheable
     return IWdsTransportServicePolicy
 def _define_IWdsTransportServicePolicy2_head():
     class IWdsTransportServicePolicy2(win32more.System.DeploymentServices.IWdsTransportServicePolicy_head):
@@ -719,6 +731,7 @@ def _define_IWdsTransportServicePolicy2():
     IWdsTransportServicePolicy2.put_TftpMaximumBlockSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(26, 'put_TftpMaximumBlockSize', ((1, 'ulTftpMaximumBlockSize'),)))
     IWdsTransportServicePolicy2.get_EnableTftpVariableWindowExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(27, 'get_EnableTftpVariableWindowExtension', ((1, 'pbEnableTftpVariableWindowExtension'),)))
     IWdsTransportServicePolicy2.put_EnableTftpVariableWindowExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(28, 'put_EnableTftpVariableWindowExtension', ((1, 'bEnableTftpVariableWindowExtension'),)))
+    win32more.System.DeploymentServices.IWdsTransportServicePolicy
     return IWdsTransportServicePolicy2
 def _define_IWdsTransportDiagnosticsPolicy_head():
     class IWdsTransportDiagnosticsPolicy(win32more.System.DeploymentServices.IWdsTransportCacheable_head):
@@ -730,6 +743,7 @@ def _define_IWdsTransportDiagnosticsPolicy():
     IWdsTransportDiagnosticsPolicy.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(12, 'put_Enabled', ((1, 'bEnabled'),)))
     IWdsTransportDiagnosticsPolicy.get_Components = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(13, 'get_Components', ((1, 'pulComponents'),)))
     IWdsTransportDiagnosticsPolicy.put_Components = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(14, 'put_Components', ((1, 'ulComponents'),)))
+    win32more.System.DeploymentServices.IWdsTransportCacheable
     return IWdsTransportDiagnosticsPolicy
 def _define_IWdsTransportMulticastSessionPolicy_head():
     class IWdsTransportMulticastSessionPolicy(win32more.System.DeploymentServices.IWdsTransportCacheable_head):
@@ -745,6 +759,7 @@ def _define_IWdsTransportMulticastSessionPolicy():
     IWdsTransportMulticastSessionPolicy.put_MultistreamStreamCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(16, 'put_MultistreamStreamCount', ((1, 'ulStreamCount'),)))
     IWdsTransportMulticastSessionPolicy.get_SlowClientFallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(17, 'get_SlowClientFallback', ((1, 'pbClientFallback'),)))
     IWdsTransportMulticastSessionPolicy.put_SlowClientFallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(18, 'put_SlowClientFallback', ((1, 'bClientFallback'),)))
+    win32more.System.DeploymentServices.IWdsTransportCacheable
     return IWdsTransportMulticastSessionPolicy
 def _define_IWdsTransportNamespace_head():
     class IWdsTransportNamespace(win32more.System.Com.IDispatch_head):
@@ -773,6 +788,7 @@ def _define_IWdsTransportNamespace():
     IWdsTransportNamespace.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportNamespace_head), use_last_error=False)(25, 'Clone', ((1, 'ppWdsTransportNamespaceClone'),)))
     IWdsTransportNamespace.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(26, 'Refresh', ()))
     IWdsTransportNamespace.RetrieveContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportCollection_head), use_last_error=False)(27, 'RetrieveContents', ((1, 'ppWdsTransportContents'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportNamespace
 def _define_IWdsTransportNamespaceAutoCast_head():
     class IWdsTransportNamespaceAutoCast(win32more.System.DeploymentServices.IWdsTransportNamespace_head):
@@ -780,6 +796,7 @@ def _define_IWdsTransportNamespaceAutoCast_head():
     return IWdsTransportNamespaceAutoCast
 def _define_IWdsTransportNamespaceAutoCast():
     IWdsTransportNamespaceAutoCast = win32more.System.DeploymentServices.IWdsTransportNamespaceAutoCast_head
+    win32more.System.DeploymentServices.IWdsTransportNamespace
     return IWdsTransportNamespaceAutoCast
 def _define_IWdsTransportNamespaceScheduledCast_head():
     class IWdsTransportNamespaceScheduledCast(win32more.System.DeploymentServices.IWdsTransportNamespace_head):
@@ -788,6 +805,7 @@ def _define_IWdsTransportNamespaceScheduledCast_head():
 def _define_IWdsTransportNamespaceScheduledCast():
     IWdsTransportNamespaceScheduledCast = win32more.System.DeploymentServices.IWdsTransportNamespaceScheduledCast_head
     IWdsTransportNamespaceScheduledCast.StartTransmission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(28, 'StartTransmission', ()))
+    win32more.System.DeploymentServices.IWdsTransportNamespace
     return IWdsTransportNamespaceScheduledCast
 def _define_IWdsTransportNamespaceScheduledCastManualStart_head():
     class IWdsTransportNamespaceScheduledCastManualStart(win32more.System.DeploymentServices.IWdsTransportNamespaceScheduledCast_head):
@@ -795,6 +813,7 @@ def _define_IWdsTransportNamespaceScheduledCastManualStart_head():
     return IWdsTransportNamespaceScheduledCastManualStart
 def _define_IWdsTransportNamespaceScheduledCastManualStart():
     IWdsTransportNamespaceScheduledCastManualStart = win32more.System.DeploymentServices.IWdsTransportNamespaceScheduledCastManualStart_head
+    win32more.System.DeploymentServices.IWdsTransportNamespaceScheduledCast
     return IWdsTransportNamespaceScheduledCastManualStart
 def _define_IWdsTransportNamespaceScheduledCastAutoStart_head():
     class IWdsTransportNamespaceScheduledCastAutoStart(win32more.System.DeploymentServices.IWdsTransportNamespaceScheduledCast_head):
@@ -806,6 +825,7 @@ def _define_IWdsTransportNamespaceScheduledCastAutoStart():
     IWdsTransportNamespaceScheduledCastAutoStart.put_MinimumClients = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(30, 'put_MinimumClients', ((1, 'ulMinimumClients'),)))
     IWdsTransportNamespaceScheduledCastAutoStart.get_StartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(31, 'get_StartTime', ((1, 'pStartTime'),)))
     IWdsTransportNamespaceScheduledCastAutoStart.put_StartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(32, 'put_StartTime', ((1, 'StartTime'),)))
+    win32more.System.DeploymentServices.IWdsTransportNamespaceScheduledCast
     return IWdsTransportNamespaceScheduledCastAutoStart
 def _define_IWdsTransportContent_head():
     class IWdsTransportContent(win32more.System.Com.IDispatch_head):
@@ -818,6 +838,7 @@ def _define_IWdsTransportContent():
     IWdsTransportContent.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Name', ((1, 'pbszName'),)))
     IWdsTransportContent.RetrieveSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportCollection_head), use_last_error=False)(10, 'RetrieveSessions', ((1, 'ppWdsTransportSessions'),)))
     IWdsTransportContent.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Terminate', ()))
+    win32more.System.Com.IDispatch
     return IWdsTransportContent
 def _define_IWdsTransportSession_head():
     class IWdsTransportSession(win32more.System.Com.IDispatch_head):
@@ -833,6 +854,7 @@ def _define_IWdsTransportSession():
     IWdsTransportSession.get_MasterClientId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_MasterClientId', ((1, 'pulMasterClientId'),)))
     IWdsTransportSession.RetrieveClients = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DeploymentServices.IWdsTransportCollection_head), use_last_error=False)(13, 'RetrieveClients', ((1, 'ppWdsTransportClients'),)))
     IWdsTransportSession.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Terminate', ()))
+    win32more.System.Com.IDispatch
     return IWdsTransportSession
 def _define_IWdsTransportClient_head():
     class IWdsTransportClient(win32more.System.Com.IDispatch_head):
@@ -852,6 +874,7 @@ def _define_IWdsTransportClient():
     IWdsTransportClient.get_NetworkUtilization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(16, 'get_NetworkUtilization', ((1, 'pulNetworkUtilization'),)))
     IWdsTransportClient.get_UserIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_UserIdentity', ((1, 'pbszUserIdentity'),)))
     IWdsTransportClient.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DeploymentServices.WDSTRANSPORT_DISCONNECT_TYPE, use_last_error=False)(18, 'Disconnect', ((1, 'DisconnectionType'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportClient
 def _define_IWdsTransportTftpClient_head():
     class IWdsTransportTftpClient(win32more.System.Com.IDispatch_head):
@@ -866,6 +889,7 @@ def _define_IWdsTransportTftpClient():
     IWdsTransportTftpClient.get_FileSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(11, 'get_FileSize', ((1, 'pul64FileSize'),)))
     IWdsTransportTftpClient.get_BlockSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_BlockSize', ((1, 'pulBlockSize'),)))
     IWdsTransportTftpClient.get_WindowSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(13, 'get_WindowSize', ((1, 'pulWindowSize'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportTftpClient
 def _define_IWdsTransportContentProvider_head():
     class IWdsTransportContentProvider(win32more.System.Com.IDispatch_head):
@@ -877,6 +901,7 @@ def _define_IWdsTransportContentProvider():
     IWdsTransportContentProvider.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Description', ((1, 'pbszDescription'),)))
     IWdsTransportContentProvider.get_FilePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_FilePath', ((1, 'pbszFilePath'),)))
     IWdsTransportContentProvider.get_InitializationRoutine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_InitializationRoutine', ((1, 'pbszInitializationRoutine'),)))
+    win32more.System.Com.IDispatch
     return IWdsTransportContentProvider
 def _define_WdsCliClose():
     try:

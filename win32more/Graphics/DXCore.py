@@ -118,6 +118,7 @@ def _define_IDXCoreAdapter():
     IDXCoreAdapter.IsSetStateSupported = COMMETHOD(WINFUNCTYPE(Boolean,win32more.Graphics.DXCore.DXCoreAdapterState, use_last_error=False)(10, 'IsSetStateSupported', ((1, 'property'),)))
     IDXCoreAdapter.SetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DXCore.DXCoreAdapterState,UIntPtr,c_void_p,UIntPtr,c_void_p, use_last_error=False)(11, 'SetState', ((1, 'state'),(1, 'inputStateDetailsSize'),(1, 'inputStateDetails'),(1, 'inputDataSize'),(1, 'inputData'),)))
     IDXCoreAdapter.GetFactory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(12, 'GetFactory', ((1, 'riid'),(1, 'ppvFactory'),)))
+    win32more.System.Com.IUnknown
     return IDXCoreAdapter
 def _define_IDXCoreAdapterList_head():
     class IDXCoreAdapterList(win32more.System.Com.IUnknown_head):
@@ -131,6 +132,7 @@ def _define_IDXCoreAdapterList():
     IDXCoreAdapterList.GetFactory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetFactory', ((1, 'riid'),(1, 'ppvFactory'),)))
     IDXCoreAdapterList.Sort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DXCore.DXCoreAdapterPreference), use_last_error=False)(7, 'Sort', ((1, 'numPreferences'),(1, 'preferences'),)))
     IDXCoreAdapterList.IsAdapterPreferenceSupported = COMMETHOD(WINFUNCTYPE(Boolean,win32more.Graphics.DXCore.DXCoreAdapterPreference, use_last_error=False)(8, 'IsAdapterPreferenceSupported', ((1, 'preference'),)))
+    win32more.System.Com.IUnknown
     return IDXCoreAdapterList
 def _define_IDXCoreAdapterFactory_head():
     class IDXCoreAdapterFactory(win32more.System.Com.IUnknown_head):
@@ -143,6 +145,7 @@ def _define_IDXCoreAdapterFactory():
     IDXCoreAdapterFactory.IsNotificationTypeSupported = COMMETHOD(WINFUNCTYPE(Boolean,win32more.Graphics.DXCore.DXCoreNotificationType, use_last_error=False)(5, 'IsNotificationTypeSupported', ((1, 'notificationType'),)))
     IDXCoreAdapterFactory.RegisterEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.DXCore.DXCoreNotificationType,win32more.Graphics.DXCore.PFN_DXCORE_NOTIFICATION_CALLBACK,c_void_p,POINTER(UInt32), use_last_error=False)(6, 'RegisterEventNotification', ((1, 'dxCoreObject'),(1, 'notificationType'),(1, 'callbackFunction'),(1, 'callbackContext'),(1, 'eventCookie'),)))
     IDXCoreAdapterFactory.UnregisterEventNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'UnregisterEventNotification', ((1, 'eventCookie'),)))
+    win32more.System.Com.IUnknown
     return IDXCoreAdapterFactory
 def _define_DXCoreCreateAdapterFactory():
     try:

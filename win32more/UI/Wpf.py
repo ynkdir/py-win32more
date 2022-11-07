@@ -82,6 +82,7 @@ def _define_IMILBitmapEffectConnectorInfo():
     IMILBitmapEffectConnectorInfo.GetOptimalFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetOptimalFormat', ((1, 'pFormat'),)))
     IMILBitmapEffectConnectorInfo.GetNumberFormats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetNumberFormats', ((1, 'pulNumberFormats'),)))
     IMILBitmapEffectConnectorInfo.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(6, 'GetFormat', ((1, 'ulIndex'),(1, 'pFormat'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectConnectorInfo
 def _define_IMILBitmapEffectConnectionsInfo_head():
     class IMILBitmapEffectConnectionsInfo(win32more.System.Com.IUnknown_head):
@@ -93,6 +94,7 @@ def _define_IMILBitmapEffectConnectionsInfo():
     IMILBitmapEffectConnectionsInfo.GetNumberOutputs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetNumberOutputs', ((1, 'puiNumOutputs'),)))
     IMILBitmapEffectConnectionsInfo.GetInputConnectorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Wpf.IMILBitmapEffectConnectorInfo_head), use_last_error=False)(5, 'GetInputConnectorInfo', ((1, 'uiIndex'),(1, 'ppConnectorInfo'),)))
     IMILBitmapEffectConnectionsInfo.GetOutputConnectorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Wpf.IMILBitmapEffectConnectorInfo_head), use_last_error=False)(6, 'GetOutputConnectorInfo', ((1, 'uiIndex'),(1, 'ppConnectorInfo'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectConnectionsInfo
 def _define_IMILBitmapEffectConnections_head():
     class IMILBitmapEffectConnections(win32more.System.Com.IUnknown_head):
@@ -102,6 +104,7 @@ def _define_IMILBitmapEffectConnections():
     IMILBitmapEffectConnections = win32more.UI.Wpf.IMILBitmapEffectConnections_head
     IMILBitmapEffectConnections.GetInputConnector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Wpf.IMILBitmapEffectInputConnector_head), use_last_error=False)(3, 'GetInputConnector', ((1, 'uiIndex'),(1, 'ppConnector'),)))
     IMILBitmapEffectConnections.GetOutputConnector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Wpf.IMILBitmapEffectOutputConnector_head), use_last_error=False)(4, 'GetOutputConnector', ((1, 'uiIndex'),(1, 'ppConnector'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectConnections
 def _define_IMILBitmapEffect_head():
     class IMILBitmapEffect(win32more.System.Com.IUnknown_head):
@@ -112,6 +115,7 @@ def _define_IMILBitmapEffect():
     IMILBitmapEffect.GetOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Wpf.IMILBitmapEffectRenderContext_head,POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head), use_last_error=False)(3, 'GetOutput', ((1, 'uiIndex'),(1, 'pContext'),(1, 'ppBitmapSource'),)))
     IMILBitmapEffect.GetParentEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.IMILBitmapEffectGroup_head), use_last_error=False)(4, 'GetParentEffect', ((1, 'ppParentEffect'),)))
     IMILBitmapEffect.SetInputSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Imaging.IWICBitmapSource_head, use_last_error=False)(5, 'SetInputSource', ((1, 'uiIndex'),(1, 'pBitmapSource'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffect
 def _define_IMILBitmapEffectImpl_head():
     class IMILBitmapEffectImpl(win32more.System.Com.IUnknown_head):
@@ -126,6 +130,7 @@ def _define_IMILBitmapEffectImpl():
     IMILBitmapEffectImpl.GetInputBitmapSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Wpf.IMILBitmapEffectRenderContext_head,POINTER(Int16),POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head), use_last_error=False)(7, 'GetInputBitmapSource', ((1, 'uiIndex'),(1, 'pRenderContext'),(1, 'pfModifyInPlace'),(1, 'ppBitmapSource'),)))
     IMILBitmapEffectImpl.GetOutputBitmapSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Wpf.IMILBitmapEffectRenderContext_head,POINTER(Int16),POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head), use_last_error=False)(8, 'GetOutputBitmapSource', ((1, 'uiIndex'),(1, 'pRenderContext'),(1, 'pfModifyInPlace'),(1, 'ppBitmapSource'),)))
     IMILBitmapEffectImpl.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'Initialize', ((1, 'pInner'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectImpl
 def _define_IMILBitmapEffectGroup_head():
     class IMILBitmapEffectGroup(win32more.System.Com.IUnknown_head):
@@ -136,6 +141,7 @@ def _define_IMILBitmapEffectGroup():
     IMILBitmapEffectGroup.GetInteriorInputConnector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Wpf.IMILBitmapEffectOutputConnector_head), use_last_error=False)(3, 'GetInteriorInputConnector', ((1, 'uiIndex'),(1, 'ppConnector'),)))
     IMILBitmapEffectGroup.GetInteriorOutputConnector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Wpf.IMILBitmapEffectInputConnector_head), use_last_error=False)(4, 'GetInteriorOutputConnector', ((1, 'uiIndex'),(1, 'ppConnector'),)))
     IMILBitmapEffectGroup.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Wpf.IMILBitmapEffect_head, use_last_error=False)(5, 'Add', ((1, 'pEffect'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectGroup
 def _define_IMILBitmapEffectGroupImpl_head():
     class IMILBitmapEffectGroupImpl(win32more.System.Com.IUnknown_head):
@@ -146,6 +152,7 @@ def _define_IMILBitmapEffectGroupImpl():
     IMILBitmapEffectGroupImpl.Preprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Wpf.IMILBitmapEffectRenderContext_head, use_last_error=False)(3, 'Preprocess', ((1, 'pContext'),)))
     IMILBitmapEffectGroupImpl.GetNumberChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetNumberChildren', ((1, 'puiNumberChildren'),)))
     IMILBitmapEffectGroupImpl.GetChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.IMILBitmapEffects_head), use_last_error=False)(5, 'GetChildren', ((1, 'pChildren'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectGroupImpl
 def _define_IMILBitmapEffectRenderContext_head():
     class IMILBitmapEffectRenderContext(win32more.System.Com.IUnknown_head):
@@ -161,6 +168,7 @@ def _define_IMILBitmapEffectRenderContext():
     IMILBitmapEffectRenderContext.SetOutputDPI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double, use_last_error=False)(8, 'SetOutputDPI', ((1, 'dblDpiX'),(1, 'dblDpiY'),)))
     IMILBitmapEffectRenderContext.GetOutputDPI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),POINTER(Double), use_last_error=False)(9, 'GetOutputDPI', ((1, 'pdblDpiX'),(1, 'pdblDpiY'),)))
     IMILBitmapEffectRenderContext.SetRegionOfInterest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.MilRectD_head), use_last_error=False)(10, 'SetRegionOfInterest', ((1, 'pRect'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectRenderContext
 def _define_IMILBitmapEffectRenderContextImpl_head():
     class IMILBitmapEffectRenderContextImpl(win32more.System.Com.IUnknown_head):
@@ -173,6 +181,7 @@ def _define_IMILBitmapEffectRenderContextImpl():
     IMILBitmapEffectRenderContextImpl.UpdateTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.MILMatrixF_head), use_last_error=False)(5, 'UpdateTransform', ((1, 'pMatrix'),)))
     IMILBitmapEffectRenderContextImpl.GetOutputBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.MilRectD_head), use_last_error=False)(6, 'GetOutputBounds', ((1, 'pRect'),)))
     IMILBitmapEffectRenderContextImpl.UpdateOutputBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.MilRectD_head), use_last_error=False)(7, 'UpdateOutputBounds', ((1, 'pRect'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectRenderContextImpl
 def _define_IMILBitmapEffectFactory_head():
     class IMILBitmapEffectFactory(win32more.System.Com.IUnknown_head):
@@ -183,6 +192,7 @@ def _define_IMILBitmapEffectFactory():
     IMILBitmapEffectFactory.CreateEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.Wpf.IMILBitmapEffect_head), use_last_error=False)(3, 'CreateEffect', ((1, 'pguidEffect'),(1, 'ppEffect'),)))
     IMILBitmapEffectFactory.CreateContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.IMILBitmapEffectRenderContext_head), use_last_error=False)(4, 'CreateContext', ((1, 'ppContext'),)))
     IMILBitmapEffectFactory.CreateEffectOuter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.IMILBitmapEffect_head), use_last_error=False)(5, 'CreateEffectOuter', ((1, 'ppEffect'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectFactory
 def _define_IMILBitmapEffectPrimitive_head():
     class IMILBitmapEffectPrimitive(win32more.System.Com.IUnknown_head):
@@ -196,6 +206,7 @@ def _define_IMILBitmapEffectPrimitive():
     IMILBitmapEffectPrimitive.HasAffineTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Int16), use_last_error=False)(6, 'HasAffineTransform', ((1, 'uiIndex'),(1, 'pfAffine'),)))
     IMILBitmapEffectPrimitive.HasInverseTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Int16), use_last_error=False)(7, 'HasInverseTransform', ((1, 'uiIndex'),(1, 'pfHasInverse'),)))
     IMILBitmapEffectPrimitive.GetAffineMatrix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dwm.MilMatrix3x2D_head), use_last_error=False)(8, 'GetAffineMatrix', ((1, 'uiIndex'),(1, 'pMatrix'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectPrimitive
 def _define_IMILBitmapEffectPrimitiveImpl_head():
     class IMILBitmapEffectPrimitiveImpl(win32more.System.Com.IUnknown_head):
@@ -205,6 +216,7 @@ def _define_IMILBitmapEffectPrimitiveImpl():
     IMILBitmapEffectPrimitiveImpl = win32more.UI.Wpf.IMILBitmapEffectPrimitiveImpl_head
     IMILBitmapEffectPrimitiveImpl.IsDirty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Int16), use_last_error=False)(3, 'IsDirty', ((1, 'uiOutputIndex'),(1, 'pfDirty'),)))
     IMILBitmapEffectPrimitiveImpl.IsVolatile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Int16), use_last_error=False)(4, 'IsVolatile', ((1, 'uiOutputIndex'),(1, 'pfVolatile'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectPrimitiveImpl
 def _define_IMILBitmapEffects_head():
     class IMILBitmapEffects(win32more.System.Com.IUnknown_head):
@@ -216,6 +228,7 @@ def _define_IMILBitmapEffects():
     IMILBitmapEffects.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.IMILBitmapEffectGroup_head), use_last_error=False)(4, 'get_Parent', ((1, 'ppEffect'),)))
     IMILBitmapEffects.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Wpf.IMILBitmapEffect_head), use_last_error=False)(5, 'Item', ((1, 'uindex'),(1, 'ppEffect'),)))
     IMILBitmapEffects.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'get_Count', ((1, 'puiCount'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffects
 def _define_IMILBitmapEffectConnector_head():
     class IMILBitmapEffectConnector(win32more.UI.Wpf.IMILBitmapEffectConnectorInfo_head):
@@ -225,6 +238,7 @@ def _define_IMILBitmapEffectConnector():
     IMILBitmapEffectConnector = win32more.UI.Wpf.IMILBitmapEffectConnector_head
     IMILBitmapEffectConnector.IsConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(7, 'IsConnected', ((1, 'pfConnected'),)))
     IMILBitmapEffectConnector.GetBitmapEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.IMILBitmapEffect_head), use_last_error=False)(8, 'GetBitmapEffect', ((1, 'ppEffect'),)))
+    win32more.UI.Wpf.IMILBitmapEffectConnectorInfo
     return IMILBitmapEffectConnector
 def _define_IMILBitmapEffectInputConnector_head():
     class IMILBitmapEffectInputConnector(win32more.UI.Wpf.IMILBitmapEffectConnector_head):
@@ -234,6 +248,7 @@ def _define_IMILBitmapEffectInputConnector():
     IMILBitmapEffectInputConnector = win32more.UI.Wpf.IMILBitmapEffectInputConnector_head
     IMILBitmapEffectInputConnector.ConnectTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Wpf.IMILBitmapEffectOutputConnector_head, use_last_error=False)(9, 'ConnectTo', ((1, 'pConnector'),)))
     IMILBitmapEffectInputConnector.GetConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.IMILBitmapEffectOutputConnector_head), use_last_error=False)(10, 'GetConnection', ((1, 'ppConnector'),)))
+    win32more.UI.Wpf.IMILBitmapEffectConnector
     return IMILBitmapEffectInputConnector
 def _define_IMILBitmapEffectOutputConnector_head():
     class IMILBitmapEffectOutputConnector(win32more.UI.Wpf.IMILBitmapEffectConnector_head):
@@ -243,6 +258,7 @@ def _define_IMILBitmapEffectOutputConnector():
     IMILBitmapEffectOutputConnector = win32more.UI.Wpf.IMILBitmapEffectOutputConnector_head
     IMILBitmapEffectOutputConnector.GetNumberConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetNumberConnections', ((1, 'puiNumberConnections'),)))
     IMILBitmapEffectOutputConnector.GetConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Wpf.IMILBitmapEffectInputConnector_head), use_last_error=False)(10, 'GetConnection', ((1, 'uiIndex'),(1, 'ppConnection'),)))
+    win32more.UI.Wpf.IMILBitmapEffectConnector
     return IMILBitmapEffectOutputConnector
 def _define_IMILBitmapEffectOutputConnectorImpl_head():
     class IMILBitmapEffectOutputConnectorImpl(win32more.System.Com.IUnknown_head):
@@ -252,6 +268,7 @@ def _define_IMILBitmapEffectOutputConnectorImpl():
     IMILBitmapEffectOutputConnectorImpl = win32more.UI.Wpf.IMILBitmapEffectOutputConnectorImpl_head
     IMILBitmapEffectOutputConnectorImpl.AddBackLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Wpf.IMILBitmapEffectInputConnector_head, use_last_error=False)(3, 'AddBackLink', ((1, 'pConnection'),)))
     IMILBitmapEffectOutputConnectorImpl.RemoveBackLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Wpf.IMILBitmapEffectInputConnector_head, use_last_error=False)(4, 'RemoveBackLink', ((1, 'pConnection'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectOutputConnectorImpl
 def _define_IMILBitmapEffectInteriorInputConnector_head():
     class IMILBitmapEffectInteriorInputConnector(win32more.System.Com.IUnknown_head):
@@ -260,6 +277,7 @@ def _define_IMILBitmapEffectInteriorInputConnector_head():
 def _define_IMILBitmapEffectInteriorInputConnector():
     IMILBitmapEffectInteriorInputConnector = win32more.UI.Wpf.IMILBitmapEffectInteriorInputConnector_head
     IMILBitmapEffectInteriorInputConnector.GetInputConnector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.IMILBitmapEffectInputConnector_head), use_last_error=False)(3, 'GetInputConnector', ((1, 'pInputConnector'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectInteriorInputConnector
 def _define_IMILBitmapEffectInteriorOutputConnector_head():
     class IMILBitmapEffectInteriorOutputConnector(win32more.System.Com.IUnknown_head):
@@ -268,6 +286,7 @@ def _define_IMILBitmapEffectInteriorOutputConnector_head():
 def _define_IMILBitmapEffectInteriorOutputConnector():
     IMILBitmapEffectInteriorOutputConnector = win32more.UI.Wpf.IMILBitmapEffectInteriorOutputConnector_head
     IMILBitmapEffectInteriorOutputConnector.GetOutputConnector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Wpf.IMILBitmapEffectOutputConnector_head), use_last_error=False)(3, 'GetOutputConnector', ((1, 'pOutputConnector'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectInteriorOutputConnector
 def _define_IMILBitmapEffectEvents_head():
     class IMILBitmapEffectEvents(win32more.System.Com.IUnknown_head):
@@ -277,6 +296,7 @@ def _define_IMILBitmapEffectEvents():
     IMILBitmapEffectEvents = win32more.UI.Wpf.IMILBitmapEffectEvents_head
     IMILBitmapEffectEvents.PropertyChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Wpf.IMILBitmapEffect_head,win32more.Foundation.BSTR, use_last_error=False)(3, 'PropertyChange', ((1, 'pEffect'),(1, 'bstrPropertyName'),)))
     IMILBitmapEffectEvents.DirtyRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Wpf.IMILBitmapEffect_head,POINTER(win32more.UI.Wpf.MilRectD_head), use_last_error=False)(4, 'DirtyRegion', ((1, 'pEffect'),(1, 'pRect'),)))
+    win32more.System.Com.IUnknown
     return IMILBitmapEffectEvents
 __all__ = [
     "MILBITMAPEFFECT_SDK_VERSION",

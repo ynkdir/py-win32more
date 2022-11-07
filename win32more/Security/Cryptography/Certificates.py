@@ -567,6 +567,7 @@ def _define_IEnumCERTVIEWCOLUMN():
     IEnumCERTVIEWCOLUMN.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(14, 'Skip', ((1, 'celt'),)))
     IEnumCERTVIEWCOLUMN.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Reset', ()))
     IEnumCERTVIEWCOLUMN.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IEnumCERTVIEWCOLUMN_head), use_last_error=False)(16, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IDispatch
     return IEnumCERTVIEWCOLUMN
 def _define_IEnumCERTVIEWATTRIBUTE_head():
     class IEnumCERTVIEWATTRIBUTE(win32more.System.Com.IDispatch_head):
@@ -580,6 +581,7 @@ def _define_IEnumCERTVIEWATTRIBUTE():
     IEnumCERTVIEWATTRIBUTE.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'Skip', ((1, 'celt'),)))
     IEnumCERTVIEWATTRIBUTE.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Reset', ()))
     IEnumCERTVIEWATTRIBUTE.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IEnumCERTVIEWATTRIBUTE_head), use_last_error=False)(12, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IDispatch
     return IEnumCERTVIEWATTRIBUTE
 def _define_IEnumCERTVIEWEXTENSION_head():
     class IEnumCERTVIEWEXTENSION(win32more.System.Com.IDispatch_head):
@@ -594,6 +596,7 @@ def _define_IEnumCERTVIEWEXTENSION():
     IEnumCERTVIEWEXTENSION.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Skip', ((1, 'celt'),)))
     IEnumCERTVIEWEXTENSION.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Reset', ()))
     IEnumCERTVIEWEXTENSION.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IEnumCERTVIEWEXTENSION_head), use_last_error=False)(13, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IDispatch
     return IEnumCERTVIEWEXTENSION
 def _define_IEnumCERTVIEWROW_head():
     class IEnumCERTVIEWROW(win32more.System.Com.IDispatch_head):
@@ -609,6 +612,7 @@ def _define_IEnumCERTVIEWROW():
     IEnumCERTVIEWROW.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Reset', ()))
     IEnumCERTVIEWROW.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IEnumCERTVIEWROW_head), use_last_error=False)(13, 'Clone', ((1, 'ppenum'),)))
     IEnumCERTVIEWROW.GetMaxIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'GetMaxIndex', ((1, 'pIndex'),)))
+    win32more.System.Com.IDispatch
     return IEnumCERTVIEWROW
 def _define_ICertView_head():
     class ICertView(win32more.System.Com.IDispatch_head):
@@ -624,6 +628,7 @@ def _define_ICertView():
     ICertView.SetResultColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'SetResultColumn', ((1, 'ColumnIndex'),)))
     ICertView.SetRestriction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.CERT_VIEW_COLUMN_INDEX,win32more.Security.Cryptography.Certificates.CERT_VIEW_SEEK_OPERATOR_FLAGS,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'SetRestriction', ((1, 'ColumnIndex'),(1, 'SeekOperator'),(1, 'SortOrder'),(1, 'pvarValue'),)))
     ICertView.OpenView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IEnumCERTVIEWROW_head), use_last_error=False)(14, 'OpenView', ((1, 'ppenum'),)))
+    win32more.System.Com.IDispatch
     return ICertView
 def _define_ICertView2_head():
     class ICertView2(win32more.Security.Cryptography.Certificates.ICertView_head):
@@ -632,6 +637,7 @@ def _define_ICertView2_head():
 def _define_ICertView2():
     ICertView2 = win32more.Security.Cryptography.Certificates.ICertView2_head
     ICertView2.SetTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.CVRC_TABLE, use_last_error=False)(15, 'SetTable', ((1, 'Table'),)))
+    win32more.Security.Cryptography.Certificates.ICertView
     return ICertView2
 def _define_ICertAdmin_head():
     class ICertAdmin(win32more.System.Com.IDispatch_head):
@@ -649,6 +655,7 @@ def _define_ICertAdmin():
     ICertAdmin.PublishCRL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Double, use_last_error=False)(14, 'PublishCRL', ((1, 'strConfig'),(1, 'Date'),)))
     ICertAdmin.GetCRL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'GetCRL', ((1, 'strConfig'),(1, 'Flags'),(1, 'pstrCRL'),)))
     ICertAdmin.ImportCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.CERT_IMPORT_FLAGS,POINTER(Int32), use_last_error=False)(16, 'ImportCertificate', ((1, 'strConfig'),(1, 'strCertificate'),(1, 'Flags'),(1, 'pRequestId'),)))
+    win32more.System.Com.IDispatch
     return ICertAdmin
 def _define_ICertAdmin2_head():
     class ICertAdmin2(win32more.Security.Cryptography.Certificates.ICertAdmin_head):
@@ -667,6 +674,7 @@ def _define_ICertAdmin2():
     ICertAdmin2.ImportKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.CERT_IMPORT_FLAGS,win32more.Foundation.BSTR, use_last_error=False)(25, 'ImportKey', ((1, 'strConfig'),(1, 'RequestId'),(1, 'strCertHash'),(1, 'Flags'),(1, 'strKey'),)))
     ICertAdmin2.GetMyRoles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Security.Cryptography.Certificates.CERTADMIN_GET_ROLES_FLAGS), use_last_error=False)(26, 'GetMyRoles', ((1, 'strConfig'),(1, 'pRoles'),)))
     ICertAdmin2.DeleteRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.CERT_DELETE_ROW_FLAGS,Double,win32more.Security.Cryptography.Certificates.CVRC_TABLE,Int32,POINTER(Int32), use_last_error=False)(27, 'DeleteRow', ((1, 'strConfig'),(1, 'Flags'),(1, 'Date'),(1, 'Table'),(1, 'RowId'),(1, 'pcDeleted'),)))
+    win32more.Security.Cryptography.Certificates.ICertAdmin
     return ICertAdmin2
 def _define_IOCSPProperty_head():
     class IOCSPProperty(win32more.System.Com.IDispatch_head):
@@ -678,6 +686,7 @@ def _define_IOCSPProperty():
     IOCSPProperty.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Value', ((1, 'pVal'),)))
     IOCSPProperty.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_Value', ((1, 'newVal'),)))
     IOCSPProperty.get_Modified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_Modified', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IOCSPProperty
 def _define_IOCSPPropertyCollection_head():
     class IOCSPPropertyCollection(win32more.System.Com.IDispatch_head):
@@ -693,6 +702,7 @@ def _define_IOCSPPropertyCollection():
     IOCSPPropertyCollection.DeleteProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'DeleteProperty', ((1, 'bstrPropName'),)))
     IOCSPPropertyCollection.InitializeFromProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'InitializeFromProperties', ((1, 'pVarProperties'),)))
     IOCSPPropertyCollection.GetAllProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'GetAllProperties', ((1, 'pVarProperties'),)))
+    win32more.System.Com.IDispatch
     return IOCSPPropertyCollection
 def _define_IOCSPCAConfiguration_head():
     class IOCSPCAConfiguration(win32more.System.Com.IDispatch_head):
@@ -724,6 +734,7 @@ def _define_IOCSPCAConfiguration():
     IOCSPCAConfiguration.put_SigningCertificateTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(28, 'put_SigningCertificateTemplate', ((1, 'newVal'),)))
     IOCSPCAConfiguration.get_CAConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(29, 'get_CAConfig', ((1, 'pVal'),)))
     IOCSPCAConfiguration.put_CAConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(30, 'put_CAConfig', ((1, 'newVal'),)))
+    win32more.System.Com.IDispatch
     return IOCSPCAConfiguration
 def _define_IOCSPCAConfigurationCollection_head():
     class IOCSPCAConfigurationCollection(win32more.System.Com.IDispatch_head):
@@ -737,6 +748,7 @@ def _define_IOCSPCAConfigurationCollection():
     IOCSPCAConfigurationCollection.get_ItemByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_ItemByName', ((1, 'bstrIdentifier'),(1, 'pVal'),)))
     IOCSPCAConfigurationCollection.CreateCAConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.Security.Cryptography.Certificates.IOCSPCAConfiguration_head), use_last_error=False)(11, 'CreateCAConfiguration', ((1, 'bstrIdentifier'),(1, 'varCACert'),(1, 'ppVal'),)))
     IOCSPCAConfigurationCollection.DeleteCAConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'DeleteCAConfiguration', ((1, 'bstrIdentifier'),)))
+    win32more.System.Com.IDispatch
     return IOCSPCAConfigurationCollection
 def _define_IOCSPAdmin_head():
     class IOCSPAdmin(win32more.System.Com.IDispatch_head):
@@ -754,6 +766,7 @@ def _define_IOCSPAdmin():
     IOCSPAdmin.GetSecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'GetSecurity', ((1, 'bstrServerName'),(1, 'pVal'),)))
     IOCSPAdmin.GetSigningCertificates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'GetSigningCertificates', ((1, 'bstrServerName'),(1, 'pCACertVar'),(1, 'pVal'),)))
     IOCSPAdmin.GetHashAlgorithms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'GetHashAlgorithms', ((1, 'bstrServerName'),(1, 'bstrCAId'),(1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IOCSPAdmin
 OCSPSigningFlag = Int32
 OCSP_SF_SILENT = 1
@@ -838,6 +851,7 @@ def _define_ICertServerPolicy():
     ICertServerPolicy.EnumerateAttributesSetup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(18, 'EnumerateAttributesSetup', ((1, 'Flags'),)))
     ICertServerPolicy.EnumerateAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'EnumerateAttributes', ((1, 'pstrAttributeName'),)))
     ICertServerPolicy.EnumerateAttributesClose = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'EnumerateAttributesClose', ()))
+    win32more.System.Com.IDispatch
     return ICertServerPolicy
 def _define_ICertServerExit_head():
     class ICertServerExit(win32more.System.Com.IDispatch_head):
@@ -857,6 +871,7 @@ def _define_ICertServerExit():
     ICertServerExit.EnumerateAttributesSetup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(16, 'EnumerateAttributesSetup', ((1, 'Flags'),)))
     ICertServerExit.EnumerateAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'EnumerateAttributes', ((1, 'pstrAttributeName'),)))
     ICertServerExit.EnumerateAttributesClose = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'EnumerateAttributesClose', ()))
+    win32more.System.Com.IDispatch
     return ICertServerExit
 def _define_ICertGetConfig_head():
     class ICertGetConfig(win32more.System.Com.IDispatch_head):
@@ -865,6 +880,7 @@ def _define_ICertGetConfig_head():
 def _define_ICertGetConfig():
     ICertGetConfig = win32more.Security.Cryptography.Certificates.ICertGetConfig_head
     ICertGetConfig.GetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.CERT_GET_CONFIG_FLAGS,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetConfig', ((1, 'Flags'),(1, 'pstrOut'),)))
+    win32more.System.Com.IDispatch
     return ICertGetConfig
 def _define_ICertConfig_head():
     class ICertConfig(win32more.System.Com.IDispatch_head):
@@ -876,6 +892,7 @@ def _define_ICertConfig():
     ICertConfig.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'Next', ((1, 'pIndex'),)))
     ICertConfig.GetField = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'GetField', ((1, 'strFieldName'),(1, 'pstrOut'),)))
     ICertConfig.GetConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'GetConfig', ((1, 'Flags'),(1, 'pstrOut'),)))
+    win32more.System.Com.IDispatch
     return ICertConfig
 def _define_ICertConfig2_head():
     class ICertConfig2(win32more.Security.Cryptography.Certificates.ICertConfig_head):
@@ -884,6 +901,7 @@ def _define_ICertConfig2_head():
 def _define_ICertConfig2():
     ICertConfig2 = win32more.Security.Cryptography.Certificates.ICertConfig2_head
     ICertConfig2.SetSharedFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'SetSharedFolder', ((1, 'strSharedFolder'),)))
+    win32more.Security.Cryptography.Certificates.ICertConfig
     return ICertConfig2
 def _define_ICertRequest_head():
     class ICertRequest(win32more.System.Com.IDispatch_head):
@@ -898,6 +916,7 @@ def _define_ICertRequest():
     ICertRequest.GetDispositionMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'GetDispositionMessage', ((1, 'pstrDispositionMessage'),)))
     ICertRequest.GetCACertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'GetCACertificate', ((1, 'fExchangeCertificate'),(1, 'strConfig'),(1, 'Flags'),(1, 'pstrCertificate'),)))
     ICertRequest.GetCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'GetCertificate', ((1, 'Flags'),(1, 'pstrCertificate'),)))
+    win32more.System.Com.IDispatch
     return ICertRequest
 def _define_ICertRequest2_head():
     class ICertRequest2(win32more.Security.Cryptography.Certificates.ICertRequest_head):
@@ -911,6 +930,7 @@ def _define_ICertRequest2():
     ICertRequest2.GetCAPropertyFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(Int32), use_last_error=False)(17, 'GetCAPropertyFlags', ((1, 'strConfig'),(1, 'PropId'),(1, 'pPropFlags'),)))
     ICertRequest2.GetCAPropertyDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'GetCAPropertyDisplayName', ((1, 'strConfig'),(1, 'PropId'),(1, 'pstrDisplayName'),)))
     ICertRequest2.GetFullResponseProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.FULL_RESPONSE_PROPERTY_ID,Int32,win32more.Security.Cryptography.Certificates.CERT_PROPERTY_TYPE,win32more.Security.Cryptography.Certificates.CERT_REQUEST_OUT_TYPE,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'GetFullResponseProperty', ((1, 'PropId'),(1, 'PropIndex'),(1, 'PropType'),(1, 'Flags'),(1, 'pvarPropertyValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertRequest
     return ICertRequest2
 X509EnrollmentAuthFlags = Int32
 X509EnrollmentAuthFlags_X509AuthNone = 0
@@ -928,6 +948,7 @@ def _define_ICertRequest3():
     ICertRequest3.GetRequestIdString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'GetRequestIdString', ((1, 'pstrRequestId'),)))
     ICertRequest3.GetIssuedCertificate2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Security.Cryptography.Certificates.CR_DISP), use_last_error=False)(22, 'GetIssuedCertificate2', ((1, 'strConfig'),(1, 'strRequestId'),(1, 'strSerialNumber'),(1, 'pDisposition'),)))
     ICertRequest3.GetRefreshPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(23, 'GetRefreshPolicy', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertRequest2
     return ICertRequest3
 CCertEncodeStringArray = Guid('19a76fe0-7494-11d0-8816-00a0c903b83c')
 CCertEncodeLongArray = Guid('4e0680a0-a0a2-11d0-8821-00a0c903b83c')
@@ -1021,6 +1042,7 @@ def _define_ICertManageModule():
     ICertManageModule.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'GetProperty', ((1, 'strConfig'),(1, 'strStorageLocation'),(1, 'strPropertyName'),(1, 'Flags'),(1, 'pvarProperty'),)))
     ICertManageModule.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'SetProperty', ((1, 'strConfig'),(1, 'strStorageLocation'),(1, 'strPropertyName'),(1, 'Flags'),(1, 'pvarProperty'),)))
     ICertManageModule.Configure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32, use_last_error=False)(9, 'Configure', ((1, 'strConfig'),(1, 'strStorageLocation'),(1, 'Flags'),)))
+    win32more.System.Com.IDispatch
     return ICertManageModule
 def _define_CERTTRANSBLOB_head():
     class CERTTRANSBLOB(Structure):
@@ -1057,6 +1079,7 @@ def _define_ICertPolicy():
     ICertPolicy.VerifyRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,Int32,POINTER(Int32), use_last_error=False)(8, 'VerifyRequest', ((1, 'strConfig'),(1, 'Context'),(1, 'bNewRequest'),(1, 'Flags'),(1, 'pDisposition'),)))
     ICertPolicy.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'GetDescription', ((1, 'pstrDescription'),)))
     ICertPolicy.ShutDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'ShutDown', ()))
+    win32more.System.Com.IDispatch
     return ICertPolicy
 def _define_ICertPolicy2_head():
     class ICertPolicy2(win32more.Security.Cryptography.Certificates.ICertPolicy_head):
@@ -1065,6 +1088,7 @@ def _define_ICertPolicy2_head():
 def _define_ICertPolicy2():
     ICertPolicy2 = win32more.Security.Cryptography.Certificates.ICertPolicy2_head
     ICertPolicy2.GetManageModule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.ICertManageModule_head), use_last_error=False)(11, 'GetManageModule', ((1, 'ppManageModule'),)))
+    win32more.Security.Cryptography.Certificates.ICertPolicy
     return ICertPolicy2
 X509SCEPMessageType = Int32
 X509SCEPMessageType_SCEPMessageUnknown = -1
@@ -1098,6 +1122,7 @@ def _define_INDESPolicy():
     INDESPolicy.GenerateChallenge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GenerateChallenge', ((1, 'pwszTemplate'),(1, 'pwszParams'),(1, 'ppwszResponse'),)))
     INDESPolicy.VerifyRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head),POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'VerifyRequest', ((1, 'pctbRequest'),(1, 'pctbSigningCertEncoded'),(1, 'pwszTemplate'),(1, 'pwszTransactionId'),(1, 'pfVerified'),)))
     INDESPolicy.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Security.Cryptography.Certificates.X509SCEPDisposition,Int32,POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head), use_last_error=False)(7, 'Notify', ((1, 'pwszChallenge'),(1, 'pwszTransactionId'),(1, 'disposition'),(1, 'lastHResult'),(1, 'pctbIssuedCertEncoded'),)))
+    win32more.System.Com.IUnknown
     return INDESPolicy
 CERTENROLL_OBJECTID = Int32
 XCN_OID_NONE = 0
@@ -1610,6 +1635,7 @@ def _define_IObjectId():
     IObjectId.put_FriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'put_FriendlyName', ((1, 'Value'),)))
     IObjectId.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_Value', ((1, 'pValue'),)))
     IObjectId.GetAlgorithmName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ObjectIdGroupId,win32more.Security.Cryptography.Certificates.ObjectIdPublicKeyFlags,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'GetAlgorithmName', ((1, 'GroupId'),(1, 'KeyFlags'),(1, 'pstrAlgorithmName'),)))
+    win32more.System.Com.IDispatch
     return IObjectId
 def _define_IObjectIds_head():
     class IObjectIds(win32more.System.Com.IDispatch_head):
@@ -1624,6 +1650,7 @@ def _define_IObjectIds():
     IObjectIds.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
     IObjectIds.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     IObjectIds.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectIds_head, use_last_error=False)(13, 'AddRange', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IObjectIds
 def _define_IBinaryConverter_head():
     class IBinaryConverter(win32more.System.Com.IDispatch_head):
@@ -1634,6 +1661,7 @@ def _define_IBinaryConverter():
     IBinaryConverter.StringToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'StringToString', ((1, 'strEncodedIn'),(1, 'EncodingIn'),(1, 'Encoding'),(1, 'pstrEncoded'),)))
     IBinaryConverter.VariantByteArrayToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'VariantByteArrayToString', ((1, 'pvarByteArray'),(1, 'Encoding'),(1, 'pstrEncoded'),)))
     IBinaryConverter.StringToVariantByteArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'StringToVariantByteArray', ((1, 'strEncoded'),(1, 'Encoding'),(1, 'pvarByteArray'),)))
+    win32more.System.Com.IDispatch
     return IBinaryConverter
 def _define_IBinaryConverter2_head():
     class IBinaryConverter2(win32more.Security.Cryptography.Certificates.IBinaryConverter_head):
@@ -1643,6 +1671,7 @@ def _define_IBinaryConverter2():
     IBinaryConverter2 = win32more.Security.Cryptography.Certificates.IBinaryConverter2_head
     IBinaryConverter2.StringArrayToVariantArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'StringArrayToVariantArray', ((1, 'pvarStringArray'),(1, 'pvarVariantArray'),)))
     IBinaryConverter2.VariantArrayToStringArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'VariantArrayToStringArray', ((1, 'pvarVariantArray'),(1, 'pvarStringArray'),)))
+    win32more.Security.Cryptography.Certificates.IBinaryConverter
     return IBinaryConverter2
 X500NameFlags = Int32
 XCN_CERT_NAME_STR_NONE = 0
@@ -1675,6 +1704,7 @@ def _define_IX500DistinguishedName():
     IX500DistinguishedName.Encode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.X500NameFlags, use_last_error=False)(8, 'Encode', ((1, 'strName'),(1, 'NameFlags'),)))
     IX500DistinguishedName.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Name', ((1, 'pValue'),)))
     IX500DistinguishedName.get_EncodedName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_EncodedName', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX500DistinguishedName
 X509CertificateEnrollmentContext = Int32
 X509CertificateEnrollmentContext_ContextNone = 0
@@ -1713,6 +1743,7 @@ def _define_IX509EnrollmentStatus():
     IX509EnrollmentStatus.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(16, 'get_Error', ((1, 'pValue'),)))
     IX509EnrollmentStatus.put_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(17, 'put_Error', ((1, 'Value'),)))
     IX509EnrollmentStatus.get_ErrorText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_ErrorText', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509EnrollmentStatus
 X509ProviderType = Int32
 XCN_PROV_NONE = 0
@@ -1773,6 +1804,7 @@ def _define_ICspAlgorithm():
     ICspAlgorithm.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_Name', ((1, 'pValue'),)))
     ICspAlgorithm.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.AlgorithmType), use_last_error=False)(15, 'get_Type', ((1, 'pValue'),)))
     ICspAlgorithm.get_Operations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.AlgorithmOperationFlags), use_last_error=False)(16, 'get_Operations', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return ICspAlgorithm
 def _define_ICspAlgorithms_head():
     class ICspAlgorithms(win32more.System.Com.IDispatch_head):
@@ -1788,6 +1820,7 @@ def _define_ICspAlgorithms():
     ICspAlgorithms.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     ICspAlgorithms.get_ItemByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Security.Cryptography.Certificates.ICspAlgorithm_head), use_last_error=False)(13, 'get_ItemByName', ((1, 'strName'),(1, 'ppValue'),)))
     ICspAlgorithms.get_IndexByObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectId_head,POINTER(Int32), use_last_error=False)(14, 'get_IndexByObjectId', ((1, 'pObjectId'),(1, 'pIndex'),)))
+    win32more.System.Com.IDispatch
     return ICspAlgorithms
 X509KeySpec = Int32
 XCN_AT_NONE = 0
@@ -1816,6 +1849,7 @@ def _define_ICspInformation():
     ICspInformation.GetDefaultSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'GetDefaultSecurityDescriptor', ((1, 'MachineContext'),(1, 'pValue'),)))
     ICspInformation.get_LegacyCsp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(22, 'get_LegacyCsp', ((1, 'pValue'),)))
     ICspInformation.GetCspStatusFromOperations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectId_head,win32more.Security.Cryptography.Certificates.AlgorithmOperationFlags,POINTER(win32more.Security.Cryptography.Certificates.ICspStatus_head), use_last_error=False)(23, 'GetCspStatusFromOperations', ((1, 'pAlgorithm'),(1, 'Operations'),(1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return ICspInformation
 def _define_ICspInformations_head():
     class ICspInformations(win32more.System.Com.IDispatch_head):
@@ -1835,6 +1869,7 @@ def _define_ICspInformations():
     ICspInformations.GetCspStatusesFromOperations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.AlgorithmOperationFlags,win32more.Security.Cryptography.Certificates.ICspInformation_head,POINTER(win32more.Security.Cryptography.Certificates.ICspStatuses_head), use_last_error=False)(16, 'GetCspStatusesFromOperations', ((1, 'Operations'),(1, 'pCspInformation'),(1, 'ppValue'),)))
     ICspInformations.GetEncryptionCspAlgorithms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ICspInformation_head,POINTER(win32more.Security.Cryptography.Certificates.ICspAlgorithms_head), use_last_error=False)(17, 'GetEncryptionCspAlgorithms', ((1, 'pCspInformation'),(1, 'ppValue'),)))
     ICspInformations.GetHashAlgorithms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ICspInformation_head,POINTER(win32more.Security.Cryptography.Certificates.IObjectIds_head), use_last_error=False)(18, 'GetHashAlgorithms', ((1, 'pCspInformation'),(1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return ICspInformations
 def _define_ICspStatus_head():
     class ICspStatus(win32more.System.Com.IDispatch_head):
@@ -1849,6 +1884,7 @@ def _define_ICspStatus():
     ICspStatus.get_CspInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.ICspInformation_head), use_last_error=False)(11, 'get_CspInformation', ((1, 'ppValue'),)))
     ICspStatus.get_EnrollmentStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509EnrollmentStatus_head), use_last_error=False)(12, 'get_EnrollmentStatus', ((1, 'ppValue'),)))
     ICspStatus.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_DisplayName', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return ICspStatus
 def _define_ICspStatuses_head():
     class ICspStatuses(win32more.System.Com.IDispatch_head):
@@ -1866,6 +1902,7 @@ def _define_ICspStatuses():
     ICspStatuses.get_ItemByOrdinal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Security.Cryptography.Certificates.ICspStatus_head), use_last_error=False)(14, 'get_ItemByOrdinal', ((1, 'Ordinal'),(1, 'ppValue'),)))
     ICspStatuses.get_ItemByOperations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.AlgorithmOperationFlags,POINTER(win32more.Security.Cryptography.Certificates.ICspStatus_head), use_last_error=False)(15, 'get_ItemByOperations', ((1, 'strCspName'),(1, 'strAlgorithmName'),(1, 'Operations'),(1, 'ppValue'),)))
     ICspStatuses.get_ItemByProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ICspStatus_head,POINTER(win32more.Security.Cryptography.Certificates.ICspStatus_head), use_last_error=False)(16, 'get_ItemByProvider', ((1, 'pCspStatus'),(1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return ICspStatuses
 KeyIdentifierHashAlgorithm = Int32
 KeyIdentifierHashAlgorithm_SKIHashDefault = 0
@@ -1886,6 +1923,7 @@ def _define_IX509PublicKey():
     IX509PublicKey.get_EncodedKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_EncodedKey', ((1, 'Encoding'),(1, 'pValue'),)))
     IX509PublicKey.get_EncodedParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_EncodedParameters', ((1, 'Encoding'),(1, 'pValue'),)))
     IX509PublicKey.ComputeKeyIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.KeyIdentifierHashAlgorithm,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'ComputeKeyIdentifier', ((1, 'Algorithm'),(1, 'Encoding'),(1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509PublicKey
 X509PrivateKeyExportFlags = Int32
 XCN_NCRYPT_ALLOW_EXPORT_NONE = 0
@@ -1976,6 +2014,7 @@ def _define_IX509PrivateKey():
     IX509PrivateKey.put_FriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(62, 'put_FriendlyName', ((1, 'Value'),)))
     IX509PrivateKey.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(63, 'get_Description', ((1, 'pValue'),)))
     IX509PrivateKey.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(64, 'put_Description', ((1, 'Value'),)))
+    win32more.System.Com.IDispatch
     return IX509PrivateKey
 X509HardwareKeyUsageFlags = Int32
 XCN_NCRYPT_PCP_NONE = 0
@@ -2005,6 +2044,7 @@ def _define_IX509PrivateKey2():
     IX509PrivateKey2.put_AlgorithmParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(72, 'put_AlgorithmParameters', ((1, 'Encoding'),(1, 'Value'),)))
     IX509PrivateKey2.get_ParametersExportType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.X509KeyParametersExportType), use_last_error=False)(73, 'get_ParametersExportType', ((1, 'pValue'),)))
     IX509PrivateKey2.put_ParametersExportType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509KeyParametersExportType, use_last_error=False)(74, 'put_ParametersExportType', ((1, 'Value'),)))
+    win32more.Security.Cryptography.Certificates.IX509PrivateKey
     return IX509PrivateKey2
 def _define_IX509EndorsementKey_head():
     class IX509EndorsementKey(win32more.System.Com.IDispatch_head):
@@ -2023,6 +2063,7 @@ def _define_IX509EndorsementKey():
     IX509EndorsementKey.ExportPublicKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509PublicKey_head), use_last_error=False)(15, 'ExportPublicKey', ((1, 'ppPublicKey'),)))
     IX509EndorsementKey.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Open', ()))
     IX509EndorsementKey.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'Close', ()))
+    win32more.System.Com.IDispatch
     return IX509EndorsementKey
 def _define_IX509Extension_head():
     class IX509Extension(win32more.System.Com.IDispatch_head):
@@ -2035,6 +2076,7 @@ def _define_IX509Extension():
     IX509Extension.get_RawData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_RawData', ((1, 'Encoding'),(1, 'pValue'),)))
     IX509Extension.get_Critical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_Critical', ((1, 'pValue'),)))
     IX509Extension.put_Critical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(11, 'put_Critical', ((1, 'Value'),)))
+    win32more.System.Com.IDispatch
     return IX509Extension
 def _define_IX509Extensions_head():
     class IX509Extensions(win32more.System.Com.IDispatch_head):
@@ -2050,6 +2092,7 @@ def _define_IX509Extensions():
     IX509Extensions.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     IX509Extensions.get_IndexByObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectId_head,POINTER(Int32), use_last_error=False)(13, 'get_IndexByObjectId', ((1, 'pObjectId'),(1, 'pIndex'),)))
     IX509Extensions.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IX509Extensions_head, use_last_error=False)(14, 'AddRange', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509Extensions
 X509KeyUsageFlags = Int32
 XCN_CERT_NO_KEY_USAGE = 0
@@ -2072,6 +2115,7 @@ def _define_IX509ExtensionKeyUsage():
     IX509ExtensionKeyUsage.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509KeyUsageFlags, use_last_error=False)(12, 'InitializeEncode', ((1, 'UsageFlags'),)))
     IX509ExtensionKeyUsage.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionKeyUsage.get_KeyUsage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.X509KeyUsageFlags), use_last_error=False)(14, 'get_KeyUsage', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionKeyUsage
 def _define_IX509ExtensionEnhancedKeyUsage_head():
     class IX509ExtensionEnhancedKeyUsage(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2082,6 +2126,7 @@ def _define_IX509ExtensionEnhancedKeyUsage():
     IX509ExtensionEnhancedKeyUsage.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectIds_head, use_last_error=False)(12, 'InitializeEncode', ((1, 'pValue'),)))
     IX509ExtensionEnhancedKeyUsage.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionEnhancedKeyUsage.get_EnhancedKeyUsage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IObjectIds_head), use_last_error=False)(14, 'get_EnhancedKeyUsage', ((1, 'ppValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionEnhancedKeyUsage
 def _define_IX509ExtensionTemplateName_head():
     class IX509ExtensionTemplateName(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2092,6 +2137,7 @@ def _define_IX509ExtensionTemplateName():
     IX509ExtensionTemplateName.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'InitializeEncode', ((1, 'strTemplateName'),)))
     IX509ExtensionTemplateName.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionTemplateName.get_TemplateName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_TemplateName', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionTemplateName
 def _define_IX509ExtensionTemplate_head():
     class IX509ExtensionTemplate(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2104,6 +2150,7 @@ def _define_IX509ExtensionTemplate():
     IX509ExtensionTemplate.get_TemplateOid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head), use_last_error=False)(14, 'get_TemplateOid', ((1, 'ppValue'),)))
     IX509ExtensionTemplate.get_MajorVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_MajorVersion', ((1, 'pValue'),)))
     IX509ExtensionTemplate.get_MinorVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_MinorVersion', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionTemplate
 AlternativeNameType = Int32
 XCN_CERT_ALT_NAME_UNKNOWN = 0
@@ -2131,6 +2178,7 @@ def _define_IAlternativeName():
     IAlternativeName.get_StrValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_StrValue', ((1, 'pValue'),)))
     IAlternativeName.get_ObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head), use_last_error=False)(12, 'get_ObjectId', ((1, 'ppValue'),)))
     IAlternativeName.get_RawData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_RawData', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IAlternativeName
 def _define_IAlternativeNames_head():
     class IAlternativeNames(win32more.System.Com.IDispatch_head):
@@ -2144,6 +2192,7 @@ def _define_IAlternativeNames():
     IAlternativeNames.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IAlternativeName_head, use_last_error=False)(10, 'Add', ((1, 'pVal'),)))
     IAlternativeNames.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
     IAlternativeNames.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
+    win32more.System.Com.IDispatch
     return IAlternativeNames
 def _define_IX509ExtensionAlternativeNames_head():
     class IX509ExtensionAlternativeNames(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2154,6 +2203,7 @@ def _define_IX509ExtensionAlternativeNames():
     IX509ExtensionAlternativeNames.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IAlternativeNames_head, use_last_error=False)(12, 'InitializeEncode', ((1, 'pValue'),)))
     IX509ExtensionAlternativeNames.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionAlternativeNames.get_AlternativeNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IAlternativeNames_head), use_last_error=False)(14, 'get_AlternativeNames', ((1, 'ppValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionAlternativeNames
 def _define_IX509ExtensionBasicConstraints_head():
     class IX509ExtensionBasicConstraints(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2165,6 +2215,7 @@ def _define_IX509ExtensionBasicConstraints():
     IX509ExtensionBasicConstraints.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionBasicConstraints.get_IsCA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(14, 'get_IsCA', ((1, 'pValue'),)))
     IX509ExtensionBasicConstraints.get_PathLenConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_PathLenConstraint', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionBasicConstraints
 def _define_IX509ExtensionSubjectKeyIdentifier_head():
     class IX509ExtensionSubjectKeyIdentifier(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2175,6 +2226,7 @@ def _define_IX509ExtensionSubjectKeyIdentifier():
     IX509ExtensionSubjectKeyIdentifier.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(12, 'InitializeEncode', ((1, 'Encoding'),(1, 'strKeyIdentifier'),)))
     IX509ExtensionSubjectKeyIdentifier.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionSubjectKeyIdentifier.get_SubjectKeyIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_SubjectKeyIdentifier', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionSubjectKeyIdentifier
 def _define_IX509ExtensionAuthorityKeyIdentifier_head():
     class IX509ExtensionAuthorityKeyIdentifier(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2185,6 +2237,7 @@ def _define_IX509ExtensionAuthorityKeyIdentifier():
     IX509ExtensionAuthorityKeyIdentifier.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(12, 'InitializeEncode', ((1, 'Encoding'),(1, 'strKeyIdentifier'),)))
     IX509ExtensionAuthorityKeyIdentifier.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionAuthorityKeyIdentifier.get_AuthorityKeyIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_AuthorityKeyIdentifier', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionAuthorityKeyIdentifier
 def _define_ISmimeCapability_head():
     class ISmimeCapability(win32more.System.Com.IDispatch_head):
@@ -2195,6 +2248,7 @@ def _define_ISmimeCapability():
     ISmimeCapability.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectId_head,Int32, use_last_error=False)(7, 'Initialize', ((1, 'pObjectId'),(1, 'BitCount'),)))
     ISmimeCapability.get_ObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head), use_last_error=False)(8, 'get_ObjectId', ((1, 'ppValue'),)))
     ISmimeCapability.get_BitCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_BitCount', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return ISmimeCapability
 def _define_ISmimeCapabilities_head():
     class ISmimeCapabilities(win32more.System.Com.IDispatch_head):
@@ -2210,6 +2264,7 @@ def _define_ISmimeCapabilities():
     ISmimeCapabilities.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     ISmimeCapabilities.AddFromCsp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ICspInformation_head, use_last_error=False)(13, 'AddFromCsp', ((1, 'pValue'),)))
     ISmimeCapabilities.AddAvailableSmimeCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(14, 'AddAvailableSmimeCapabilities', ((1, 'MachineContext'),)))
+    win32more.System.Com.IDispatch
     return ISmimeCapabilities
 def _define_IX509ExtensionSmimeCapabilities_head():
     class IX509ExtensionSmimeCapabilities(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2220,6 +2275,7 @@ def _define_IX509ExtensionSmimeCapabilities():
     IX509ExtensionSmimeCapabilities.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ISmimeCapabilities_head, use_last_error=False)(12, 'InitializeEncode', ((1, 'pValue'),)))
     IX509ExtensionSmimeCapabilities.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionSmimeCapabilities.get_SmimeCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.ISmimeCapabilities_head), use_last_error=False)(14, 'get_SmimeCapabilities', ((1, 'ppValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionSmimeCapabilities
 PolicyQualifierType = Int32
 PolicyQualifierType_PolicyQualifierTypeUnknown = 0
@@ -2237,6 +2293,7 @@ def _define_IPolicyQualifier():
     IPolicyQualifier.get_Qualifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Qualifier', ((1, 'pValue'),)))
     IPolicyQualifier.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.PolicyQualifierType), use_last_error=False)(10, 'get_Type', ((1, 'pValue'),)))
     IPolicyQualifier.get_RawData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_RawData', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IPolicyQualifier
 def _define_IPolicyQualifiers_head():
     class IPolicyQualifiers(win32more.System.Com.IDispatch_head):
@@ -2250,6 +2307,7 @@ def _define_IPolicyQualifiers():
     IPolicyQualifiers.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IPolicyQualifier_head, use_last_error=False)(10, 'Add', ((1, 'pVal'),)))
     IPolicyQualifiers.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
     IPolicyQualifiers.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
+    win32more.System.Com.IDispatch
     return IPolicyQualifiers
 def _define_ICertificatePolicy_head():
     class ICertificatePolicy(win32more.System.Com.IDispatch_head):
@@ -2260,6 +2318,7 @@ def _define_ICertificatePolicy():
     ICertificatePolicy.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectId_head, use_last_error=False)(7, 'Initialize', ((1, 'pValue'),)))
     ICertificatePolicy.get_ObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head), use_last_error=False)(8, 'get_ObjectId', ((1, 'ppValue'),)))
     ICertificatePolicy.get_PolicyQualifiers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IPolicyQualifiers_head), use_last_error=False)(9, 'get_PolicyQualifiers', ((1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return ICertificatePolicy
 def _define_ICertificatePolicies_head():
     class ICertificatePolicies(win32more.System.Com.IDispatch_head):
@@ -2273,6 +2332,7 @@ def _define_ICertificatePolicies():
     ICertificatePolicies.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ICertificatePolicy_head, use_last_error=False)(10, 'Add', ((1, 'pVal'),)))
     ICertificatePolicies.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
     ICertificatePolicies.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
+    win32more.System.Com.IDispatch
     return ICertificatePolicies
 def _define_IX509ExtensionCertificatePolicies_head():
     class IX509ExtensionCertificatePolicies(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2283,6 +2343,7 @@ def _define_IX509ExtensionCertificatePolicies():
     IX509ExtensionCertificatePolicies.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ICertificatePolicies_head, use_last_error=False)(12, 'InitializeEncode', ((1, 'pValue'),)))
     IX509ExtensionCertificatePolicies.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionCertificatePolicies.get_Policies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.ICertificatePolicies_head), use_last_error=False)(14, 'get_Policies', ((1, 'ppValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionCertificatePolicies
 def _define_IX509ExtensionMSApplicationPolicies_head():
     class IX509ExtensionMSApplicationPolicies(win32more.Security.Cryptography.Certificates.IX509Extension_head):
@@ -2293,6 +2354,7 @@ def _define_IX509ExtensionMSApplicationPolicies():
     IX509ExtensionMSApplicationPolicies.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ICertificatePolicies_head, use_last_error=False)(12, 'InitializeEncode', ((1, 'pValue'),)))
     IX509ExtensionMSApplicationPolicies.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509ExtensionMSApplicationPolicies.get_Policies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.ICertificatePolicies_head), use_last_error=False)(14, 'get_Policies', ((1, 'ppValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Extension
     return IX509ExtensionMSApplicationPolicies
 def _define_IX509Attribute_head():
     class IX509Attribute(win32more.System.Com.IDispatch_head):
@@ -2303,6 +2365,7 @@ def _define_IX509Attribute():
     IX509Attribute.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectId_head,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(7, 'Initialize', ((1, 'pObjectId'),(1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509Attribute.get_ObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head), use_last_error=False)(8, 'get_ObjectId', ((1, 'ppValue'),)))
     IX509Attribute.get_RawData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_RawData', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509Attribute
 def _define_IX509Attributes_head():
     class IX509Attributes(win32more.System.Com.IDispatch_head):
@@ -2316,6 +2379,7 @@ def _define_IX509Attributes():
     IX509Attributes.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IX509Attribute_head, use_last_error=False)(10, 'Add', ((1, 'pVal'),)))
     IX509Attributes.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
     IX509Attributes.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
+    win32more.System.Com.IDispatch
     return IX509Attributes
 def _define_IX509AttributeExtensions_head():
     class IX509AttributeExtensions(win32more.Security.Cryptography.Certificates.IX509Attribute_head):
@@ -2326,6 +2390,7 @@ def _define_IX509AttributeExtensions():
     IX509AttributeExtensions.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IX509Extensions_head, use_last_error=False)(10, 'InitializeEncode', ((1, 'pExtensions'),)))
     IX509AttributeExtensions.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(11, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509AttributeExtensions.get_X509Extensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509Extensions_head), use_last_error=False)(12, 'get_X509Extensions', ((1, 'ppValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Attribute
     return IX509AttributeExtensions
 RequestClientInfoClientId = Int32
 RequestClientInfoClientId_ClientIdNone = 0
@@ -2353,6 +2418,7 @@ def _define_IX509AttributeClientId():
     IX509AttributeClientId.get_MachineDnsName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_MachineDnsName', ((1, 'pValue'),)))
     IX509AttributeClientId.get_UserSamName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_UserSamName', ((1, 'pValue'),)))
     IX509AttributeClientId.get_ProcessName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_ProcessName', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Attribute
     return IX509AttributeClientId
 def _define_IX509AttributeRenewalCertificate_head():
     class IX509AttributeRenewalCertificate(win32more.Security.Cryptography.Certificates.IX509Attribute_head):
@@ -2363,6 +2429,7 @@ def _define_IX509AttributeRenewalCertificate():
     IX509AttributeRenewalCertificate.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(10, 'InitializeEncode', ((1, 'Encoding'),(1, 'strCert'),)))
     IX509AttributeRenewalCertificate.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(11, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509AttributeRenewalCertificate.get_RenewalCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_RenewalCertificate', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Attribute
     return IX509AttributeRenewalCertificate
 def _define_IX509AttributeArchiveKey_head():
     class IX509AttributeArchiveKey(win32more.Security.Cryptography.Certificates.IX509Attribute_head):
@@ -2375,6 +2442,7 @@ def _define_IX509AttributeArchiveKey():
     IX509AttributeArchiveKey.get_EncryptedKeyBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_EncryptedKeyBlob', ((1, 'Encoding'),(1, 'pValue'),)))
     IX509AttributeArchiveKey.get_EncryptionAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head), use_last_error=False)(13, 'get_EncryptionAlgorithm', ((1, 'ppValue'),)))
     IX509AttributeArchiveKey.get_EncryptionStrength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_EncryptionStrength', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Attribute
     return IX509AttributeArchiveKey
 def _define_IX509AttributeArchiveKeyHash_head():
     class IX509AttributeArchiveKeyHash(win32more.Security.Cryptography.Certificates.IX509Attribute_head):
@@ -2385,6 +2453,7 @@ def _define_IX509AttributeArchiveKeyHash():
     IX509AttributeArchiveKeyHash.InitializeEncodeFromEncryptedKeyBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(10, 'InitializeEncodeFromEncryptedKeyBlob', ((1, 'Encoding'),(1, 'strEncryptedKeyBlob'),)))
     IX509AttributeArchiveKeyHash.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(11, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509AttributeArchiveKeyHash.get_EncryptedKeyHashBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_EncryptedKeyHashBlob', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Attribute
     return IX509AttributeArchiveKeyHash
 def _define_IX509AttributeOSVersion_head():
     class IX509AttributeOSVersion(win32more.Security.Cryptography.Certificates.IX509Attribute_head):
@@ -2395,6 +2464,7 @@ def _define_IX509AttributeOSVersion():
     IX509AttributeOSVersion.InitializeEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'InitializeEncode', ((1, 'strOSVersion'),)))
     IX509AttributeOSVersion.InitializeDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(11, 'InitializeDecode', ((1, 'Encoding'),(1, 'strEncodedData'),)))
     IX509AttributeOSVersion.get_OSVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_OSVersion', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Attribute
     return IX509AttributeOSVersion
 def _define_IX509AttributeCspProvider_head():
     class IX509AttributeCspProvider(win32more.Security.Cryptography.Certificates.IX509Attribute_head):
@@ -2407,6 +2477,7 @@ def _define_IX509AttributeCspProvider():
     IX509AttributeCspProvider.get_KeySpec = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.X509KeySpec), use_last_error=False)(12, 'get_KeySpec', ((1, 'pValue'),)))
     IX509AttributeCspProvider.get_ProviderName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_ProviderName', ((1, 'pValue'),)))
     IX509AttributeCspProvider.get_Signature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_Signature', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Attribute
     return IX509AttributeCspProvider
 def _define_ICryptAttribute_head():
     class ICryptAttribute(win32more.System.Com.IDispatch_head):
@@ -2418,6 +2489,7 @@ def _define_ICryptAttribute():
     ICryptAttribute.InitializeFromValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IX509Attributes_head, use_last_error=False)(8, 'InitializeFromValues', ((1, 'pAttributes'),)))
     ICryptAttribute.get_ObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head), use_last_error=False)(9, 'get_ObjectId', ((1, 'ppValue'),)))
     ICryptAttribute.get_Values = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509Attributes_head), use_last_error=False)(10, 'get_Values', ((1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return ICryptAttribute
 def _define_ICryptAttributes_head():
     class ICryptAttributes(win32more.System.Com.IDispatch_head):
@@ -2433,6 +2505,7 @@ def _define_ICryptAttributes():
     ICryptAttributes.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     ICryptAttributes.get_IndexByObjectId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectId_head,POINTER(Int32), use_last_error=False)(13, 'get_IndexByObjectId', ((1, 'pObjectId'),(1, 'pIndex'),)))
     ICryptAttributes.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ICryptAttributes_head, use_last_error=False)(14, 'AddRange', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return ICryptAttributes
 CERTENROLL_PROPERTYID = Int32
 XCN_PROPERTYID_NONE = 0
@@ -2548,6 +2621,7 @@ def _define_ICertProperty():
     ICertProperty.get_RawData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_RawData', ((1, 'Encoding'),(1, 'pValue'),)))
     ICertProperty.RemoveFromCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(12, 'RemoveFromCertificate', ((1, 'MachineContext'),(1, 'Encoding'),(1, 'strCertificate'),)))
     ICertProperty.SetValueOnCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'SetValueOnCertificate', ((1, 'MachineContext'),(1, 'Encoding'),(1, 'strCertificate'),)))
+    win32more.System.Com.IDispatch
     return ICertProperty
 def _define_ICertProperties_head():
     class ICertProperties(win32more.System.Com.IDispatch_head):
@@ -2562,6 +2636,7 @@ def _define_ICertProperties():
     ICertProperties.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
     ICertProperties.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     ICertProperties.InitializeFromCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(13, 'InitializeFromCertificate', ((1, 'MachineContext'),(1, 'Encoding'),(1, 'strCertificate'),)))
+    win32more.System.Com.IDispatch
     return ICertProperties
 def _define_ICertPropertyFriendlyName_head():
     class ICertPropertyFriendlyName(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2571,6 +2646,7 @@ def _define_ICertPropertyFriendlyName():
     ICertPropertyFriendlyName = win32more.Security.Cryptography.Certificates.ICertPropertyFriendlyName_head
     ICertPropertyFriendlyName.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'Initialize', ((1, 'strFriendlyName'),)))
     ICertPropertyFriendlyName.get_FriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_FriendlyName', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyFriendlyName
 def _define_ICertPropertyDescription_head():
     class ICertPropertyDescription(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2580,6 +2656,7 @@ def _define_ICertPropertyDescription():
     ICertPropertyDescription = win32more.Security.Cryptography.Certificates.ICertPropertyDescription_head
     ICertPropertyDescription.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'Initialize', ((1, 'strDescription'),)))
     ICertPropertyDescription.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_Description', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyDescription
 def _define_ICertPropertyAutoEnroll_head():
     class ICertPropertyAutoEnroll(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2589,6 +2666,7 @@ def _define_ICertPropertyAutoEnroll():
     ICertPropertyAutoEnroll = win32more.Security.Cryptography.Certificates.ICertPropertyAutoEnroll_head
     ICertPropertyAutoEnroll.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'Initialize', ((1, 'strTemplateName'),)))
     ICertPropertyAutoEnroll.get_TemplateName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_TemplateName', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyAutoEnroll
 def _define_ICertPropertyRequestOriginator_head():
     class ICertPropertyRequestOriginator(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2599,6 +2677,7 @@ def _define_ICertPropertyRequestOriginator():
     ICertPropertyRequestOriginator.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'Initialize', ((1, 'strRequestOriginator'),)))
     ICertPropertyRequestOriginator.InitializeFromLocalRequestOriginator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'InitializeFromLocalRequestOriginator', ()))
     ICertPropertyRequestOriginator.get_RequestOriginator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_RequestOriginator', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyRequestOriginator
 def _define_ICertPropertySHA1Hash_head():
     class ICertPropertySHA1Hash(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2608,6 +2687,7 @@ def _define_ICertPropertySHA1Hash():
     ICertPropertySHA1Hash = win32more.Security.Cryptography.Certificates.ICertPropertySHA1Hash_head
     ICertPropertySHA1Hash.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(14, 'Initialize', ((1, 'Encoding'),(1, 'strRenewalValue'),)))
     ICertPropertySHA1Hash.get_SHA1Hash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_SHA1Hash', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertySHA1Hash
 def _define_ICertPropertyKeyProvInfo_head():
     class ICertPropertyKeyProvInfo(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2617,6 +2697,7 @@ def _define_ICertPropertyKeyProvInfo():
     ICertPropertyKeyProvInfo = win32more.Security.Cryptography.Certificates.ICertPropertyKeyProvInfo_head
     ICertPropertyKeyProvInfo.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IX509PrivateKey_head, use_last_error=False)(14, 'Initialize', ((1, 'pValue'),)))
     ICertPropertyKeyProvInfo.get_PrivateKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509PrivateKey_head), use_last_error=False)(15, 'get_PrivateKey', ((1, 'ppValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyKeyProvInfo
 def _define_ICertPropertyArchived_head():
     class ICertPropertyArchived(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2626,6 +2707,7 @@ def _define_ICertPropertyArchived():
     ICertPropertyArchived = win32more.Security.Cryptography.Certificates.ICertPropertyArchived_head
     ICertPropertyArchived.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(14, 'Initialize', ((1, 'ArchivedValue'),)))
     ICertPropertyArchived.get_Archived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(15, 'get_Archived', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyArchived
 def _define_ICertPropertyBackedUp_head():
     class ICertPropertyBackedUp(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2637,6 +2719,7 @@ def _define_ICertPropertyBackedUp():
     ICertPropertyBackedUp.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,Double, use_last_error=False)(15, 'Initialize', ((1, 'BackedUpValue'),(1, 'Date'),)))
     ICertPropertyBackedUp.get_BackedUpValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(16, 'get_BackedUpValue', ((1, 'pValue'),)))
     ICertPropertyBackedUp.get_BackedUpTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(17, 'get_BackedUpTime', ((1, 'pDate'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyBackedUp
 def _define_ICertPropertyEnrollment_head():
     class ICertPropertyEnrollment(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2649,6 +2732,7 @@ def _define_ICertPropertyEnrollment():
     ICertPropertyEnrollment.get_CADnsName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_CADnsName', ((1, 'pValue'),)))
     ICertPropertyEnrollment.get_CAName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_CAName', ((1, 'pValue'),)))
     ICertPropertyEnrollment.get_FriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_FriendlyName', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyEnrollment
 def _define_ICertPropertyRenewal_head():
     class ICertPropertyRenewal(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2659,6 +2743,7 @@ def _define_ICertPropertyRenewal():
     ICertPropertyRenewal.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(14, 'Initialize', ((1, 'Encoding'),(1, 'strRenewalValue'),)))
     ICertPropertyRenewal.InitializeFromCertificateHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(15, 'InitializeFromCertificateHash', ((1, 'MachineContext'),(1, 'Encoding'),(1, 'strCertificate'),)))
     ICertPropertyRenewal.get_Renewal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_Renewal', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyRenewal
 def _define_ICertPropertyArchivedKeyHash_head():
     class ICertPropertyArchivedKeyHash(win32more.Security.Cryptography.Certificates.ICertProperty_head):
@@ -2668,6 +2753,7 @@ def _define_ICertPropertyArchivedKeyHash():
     ICertPropertyArchivedKeyHash = win32more.Security.Cryptography.Certificates.ICertPropertyArchivedKeyHash_head
     ICertPropertyArchivedKeyHash.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(14, 'Initialize', ((1, 'Encoding'),(1, 'strArchivedKeyHashValue'),)))
     ICertPropertyArchivedKeyHash.get_ArchivedKeyHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_ArchivedKeyHash', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyArchivedKeyHash
 EnrollmentPolicyServerPropertyFlags = Int32
 EnrollmentPolicyServerPropertyFlags_DefaultNone = 0
@@ -2694,6 +2780,7 @@ def _define_ICertPropertyEnrollmentPolicyServer():
     ICertPropertyEnrollmentPolicyServer.GetUrlFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.PolicyServerUrlFlags), use_last_error=False)(20, 'GetUrlFlags', ((1, 'pValue'),)))
     ICertPropertyEnrollmentPolicyServer.GetAuthentication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.X509EnrollmentAuthFlags), use_last_error=False)(21, 'GetAuthentication', ((1, 'pValue'),)))
     ICertPropertyEnrollmentPolicyServer.GetEnrollmentServerAuthentication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.X509EnrollmentAuthFlags), use_last_error=False)(22, 'GetEnrollmentServerAuthentication', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.ICertProperty
     return ICertPropertyEnrollmentPolicyServer
 def _define_IX509SignatureInformation_head():
     class IX509SignatureInformation(win32more.System.Com.IDispatch_head):
@@ -2714,6 +2801,7 @@ def _define_IX509SignatureInformation():
     IX509SignatureInformation.put_NullSigned = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'put_NullSigned', ((1, 'Value'),)))
     IX509SignatureInformation.GetSignatureAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,Int16,POINTER(win32more.Security.Cryptography.Certificates.IObjectId_head), use_last_error=False)(18, 'GetSignatureAlgorithm', ((1, 'Pkcs7Signature'),(1, 'SignatureKey'),(1, 'ppValue'),)))
     IX509SignatureInformation.SetDefaultValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'SetDefaultValues', ()))
+    win32more.System.Com.IDispatch
     return IX509SignatureInformation
 def _define_ISignerCertificate_head():
     class ISignerCertificate(win32more.System.Com.IDispatch_head):
@@ -2732,6 +2820,7 @@ def _define_ISignerCertificate():
     ISignerCertificate.put_UIContextMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'put_UIContextMessage', ((1, 'Value'),)))
     ISignerCertificate.put_Pin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(16, 'put_Pin', ((1, 'Value'),)))
     ISignerCertificate.get_SignatureInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509SignatureInformation_head), use_last_error=False)(17, 'get_SignatureInformation', ((1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return ISignerCertificate
 def _define_ISignerCertificates_head():
     class ISignerCertificates(win32more.System.Com.IDispatch_head):
@@ -2746,6 +2835,7 @@ def _define_ISignerCertificates():
     ISignerCertificates.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
     ISignerCertificates.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     ISignerCertificates.Find = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ISignerCertificate_head,POINTER(Int32), use_last_error=False)(13, 'Find', ((1, 'pSignerCert'),(1, 'piSignerCert'),)))
+    win32more.System.Com.IDispatch
     return ISignerCertificates
 def _define_IX509NameValuePair_head():
     class IX509NameValuePair(win32more.System.Com.IDispatch_head):
@@ -2756,6 +2846,7 @@ def _define_IX509NameValuePair():
     IX509NameValuePair.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(7, 'Initialize', ((1, 'strName'),(1, 'strValue'),)))
     IX509NameValuePair.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Value', ((1, 'pValue'),)))
     IX509NameValuePair.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Name', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509NameValuePair
 def _define_IX509NameValuePairs_head():
     class IX509NameValuePairs(win32more.System.Com.IDispatch_head):
@@ -2769,6 +2860,7 @@ def _define_IX509NameValuePairs():
     IX509NameValuePairs.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IX509NameValuePair_head, use_last_error=False)(10, 'Add', ((1, 'pVal'),)))
     IX509NameValuePairs.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
     IX509NameValuePairs.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
+    win32more.System.Com.IDispatch
     return IX509NameValuePairs
 EnrollmentTemplateProperty = Int32
 EnrollmentTemplateProperty_TemplatePropCommonName = 1
@@ -2809,6 +2901,7 @@ def _define_IX509CertificateTemplate_head():
 def _define_IX509CertificateTemplate():
     IX509CertificateTemplate = win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head
     IX509CertificateTemplate.get_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EnrollmentTemplateProperty,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Property', ((1, 'property'),(1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509CertificateTemplate
 def _define_IX509CertificateTemplates_head():
     class IX509CertificateTemplates(win32more.System.Com.IDispatch_head):
@@ -2824,6 +2917,7 @@ def _define_IX509CertificateTemplates():
     IX509CertificateTemplates.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     IX509CertificateTemplates.get_ItemByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head), use_last_error=False)(13, 'get_ItemByName', ((1, 'bstrName'),(1, 'ppValue'),)))
     IX509CertificateTemplates.get_ItemByOid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IObjectId_head,POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head), use_last_error=False)(14, 'get_ItemByOid', ((1, 'pOid'),(1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return IX509CertificateTemplates
 CommitTemplateFlags = Int32
 CommitTemplateFlags_CommitFlagSaveTemplateGenerateOID = 1
@@ -2841,6 +2935,7 @@ def _define_IX509CertificateTemplateWritable():
     IX509CertificateTemplateWritable.get_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EnrollmentTemplateProperty,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Property', ((1, 'property'),(1, 'pValue'),)))
     IX509CertificateTemplateWritable.put_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EnrollmentTemplateProperty,win32more.System.Com.VARIANT, use_last_error=False)(10, 'put_Property', ((1, 'property'),(1, 'value'),)))
     IX509CertificateTemplateWritable.get_Template = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head), use_last_error=False)(11, 'get_Template', ((1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return IX509CertificateTemplateWritable
 EnrollmentCAProperty = Int32
 EnrollmentCAProperty_CAPropCommonName = 1
@@ -2862,6 +2957,7 @@ def _define_ICertificationAuthority_head():
 def _define_ICertificationAuthority():
     ICertificationAuthority = win32more.Security.Cryptography.Certificates.ICertificationAuthority_head
     ICertificationAuthority.get_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EnrollmentCAProperty,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Property', ((1, 'property'),(1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return ICertificationAuthority
 def _define_ICertificationAuthorities_head():
     class ICertificationAuthorities(win32more.System.Com.IDispatch_head):
@@ -2877,6 +2973,7 @@ def _define_ICertificationAuthorities():
     ICertificationAuthorities.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     ICertificationAuthorities.ComputeSiteCosts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'ComputeSiteCosts', ()))
     ICertificationAuthorities.get_ItemByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Security.Cryptography.Certificates.ICertificationAuthority_head), use_last_error=False)(14, 'get_ItemByName', ((1, 'strName'),(1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return ICertificationAuthorities
 X509EnrollmentPolicyLoadOption = Int32
 X509EnrollmentPolicyLoadOption_LoadOptionDefault = 0
@@ -2923,6 +3020,7 @@ def _define_IX509EnrollmentPolicyServer():
     IX509EnrollmentPolicyServer.Export = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509EnrollmentPolicyExportFlags,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(28, 'Export', ((1, 'exportFlags'),(1, 'pVal'),)))
     IX509EnrollmentPolicyServer.get_Cost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(29, 'get_Cost', ((1, 'pValue'),)))
     IX509EnrollmentPolicyServer.put_Cost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(30, 'put_Cost', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IX509EnrollmentPolicyServer
 def _define_IX509PolicyServerUrl_head():
     class IX509PolicyServerUrl(win32more.System.Com.IDispatch_head):
@@ -2945,6 +3043,7 @@ def _define_IX509PolicyServerUrl():
     IX509PolicyServerUrl.SetStringProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.PolicyServerUrlPropertyID,win32more.Foundation.BSTR, use_last_error=False)(19, 'SetStringProperty', ((1, 'propertyId'),(1, 'pValue'),)))
     IX509PolicyServerUrl.UpdateRegistry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509CertificateEnrollmentContext, use_last_error=False)(20, 'UpdateRegistry', ((1, 'context'),)))
     IX509PolicyServerUrl.RemoveFromRegistry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509CertificateEnrollmentContext, use_last_error=False)(21, 'RemoveFromRegistry', ((1, 'context'),)))
+    win32more.System.Com.IDispatch
     return IX509PolicyServerUrl
 def _define_IX509PolicyServerListManager_head():
     class IX509PolicyServerListManager(win32more.System.Com.IDispatch_head):
@@ -2959,6 +3058,7 @@ def _define_IX509PolicyServerListManager():
     IX509PolicyServerListManager.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
     IX509PolicyServerListManager.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     IX509PolicyServerListManager.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509CertificateEnrollmentContext,win32more.Security.Cryptography.Certificates.PolicyServerUrlFlags, use_last_error=False)(13, 'Initialize', ((1, 'context'),(1, 'Flags'),)))
+    win32more.System.Com.IDispatch
     return IX509PolicyServerListManager
 X509RequestType = Int32
 X509RequestType_TypeAny = 0
@@ -3015,6 +3115,7 @@ def _define_IX509CertificateRequest():
     IX509CertificateRequest.get_AlternateSignatureAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(29, 'get_AlternateSignatureAlgorithm', ((1, 'pValue'),)))
     IX509CertificateRequest.put_AlternateSignatureAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(30, 'put_AlternateSignatureAlgorithm', ((1, 'Value'),)))
     IX509CertificateRequest.get_RawData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(31, 'get_RawData', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509CertificateRequest
 Pkcs10AllowedSignatureTypes = Int32
 Pkcs10AllowedSignatureTypes_AllowedKeySignature = 1
@@ -3053,6 +3154,7 @@ def _define_IX509CertificateRequestPkcs10():
     IX509CertificateRequestPkcs10.get_RawDataToBeSigned = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(57, 'get_RawDataToBeSigned', ((1, 'Encoding'),(1, 'pValue'),)))
     IX509CertificateRequestPkcs10.get_Signature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(58, 'get_Signature', ((1, 'Encoding'),(1, 'pValue'),)))
     IX509CertificateRequestPkcs10.GetCspStatuses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509KeySpec,POINTER(win32more.Security.Cryptography.Certificates.ICspStatuses_head), use_last_error=False)(59, 'GetCspStatuses', ((1, 'KeySpec'),(1, 'ppCspStatuses'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequest
     return IX509CertificateRequestPkcs10
 def _define_IX509CertificateRequestPkcs10V2_head():
     class IX509CertificateRequestPkcs10V2(win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10_head):
@@ -3065,6 +3167,7 @@ def _define_IX509CertificateRequestPkcs10V2():
     IX509CertificateRequestPkcs10V2.InitializeFromPublicKeyTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509CertificateEnrollmentContext,win32more.Security.Cryptography.Certificates.IX509PublicKey_head,win32more.Security.Cryptography.Certificates.IX509EnrollmentPolicyServer_head,win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head, use_last_error=False)(62, 'InitializeFromPublicKeyTemplate', ((1, 'Context'),(1, 'pPublicKey'),(1, 'pPolicyServer'),(1, 'pTemplate'),)))
     IX509CertificateRequestPkcs10V2.get_PolicyServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509EnrollmentPolicyServer_head), use_last_error=False)(63, 'get_PolicyServer', ((1, 'ppPolicyServer'),)))
     IX509CertificateRequestPkcs10V2.get_Template = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head), use_last_error=False)(64, 'get_Template', ((1, 'ppTemplate'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10
     return IX509CertificateRequestPkcs10V2
 def _define_IX509CertificateRequestPkcs10V3_head():
     class IX509CertificateRequestPkcs10V3(win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10V2_head):
@@ -3083,6 +3186,7 @@ def _define_IX509CertificateRequestPkcs10V3():
     IX509CertificateRequestPkcs10V3.get_ChallengePassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(73, 'get_ChallengePassword', ((1, 'pValue'),)))
     IX509CertificateRequestPkcs10V3.put_ChallengePassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(74, 'put_ChallengePassword', ((1, 'Value'),)))
     IX509CertificateRequestPkcs10V3.get_NameValuePairs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509NameValuePairs_head), use_last_error=False)(75, 'get_NameValuePairs', ((1, 'ppValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10V2
     return IX509CertificateRequestPkcs10V3
 KeyAttestationClaimType = Int32
 XCN_NCRYPT_CLAIM_NONE = 0
@@ -3100,6 +3204,7 @@ def _define_IX509CertificateRequestPkcs10V4():
     IX509CertificateRequestPkcs10V4.put_ClaimType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.KeyAttestationClaimType, use_last_error=False)(77, 'put_ClaimType', ((1, 'Value'),)))
     IX509CertificateRequestPkcs10V4.get_AttestPrivateKeyPreferred = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(78, 'get_AttestPrivateKeyPreferred', ((1, 'pValue'),)))
     IX509CertificateRequestPkcs10V4.put_AttestPrivateKeyPreferred = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(79, 'put_AttestPrivateKeyPreferred', ((1, 'Value'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10V3
     return IX509CertificateRequestPkcs10V4
 def _define_IX509CertificateRequestCertificate_head():
     class IX509CertificateRequestCertificate(win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10_head):
@@ -3118,6 +3223,7 @@ def _define_IX509CertificateRequestCertificate():
     IX509CertificateRequestCertificate.put_SerialNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(68, 'put_SerialNumber', ((1, 'Encoding'),(1, 'Value'),)))
     IX509CertificateRequestCertificate.get_SignerCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.ISignerCertificate_head), use_last_error=False)(69, 'get_SignerCertificate', ((1, 'ppValue'),)))
     IX509CertificateRequestCertificate.put_SignerCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ISignerCertificate_head, use_last_error=False)(70, 'put_SignerCertificate', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs10
     return IX509CertificateRequestCertificate
 def _define_IX509CertificateRequestCertificate2_head():
     class IX509CertificateRequestCertificate2(win32more.Security.Cryptography.Certificates.IX509CertificateRequestCertificate_head):
@@ -3129,6 +3235,7 @@ def _define_IX509CertificateRequestCertificate2():
     IX509CertificateRequestCertificate2.InitializeFromPrivateKeyTemplate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509CertificateEnrollmentContext,win32more.Security.Cryptography.Certificates.IX509PrivateKey_head,win32more.Security.Cryptography.Certificates.IX509EnrollmentPolicyServer_head,win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head, use_last_error=False)(72, 'InitializeFromPrivateKeyTemplate', ((1, 'Context'),(1, 'pPrivateKey'),(1, 'pPolicyServer'),(1, 'pTemplate'),)))
     IX509CertificateRequestCertificate2.get_PolicyServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509EnrollmentPolicyServer_head), use_last_error=False)(73, 'get_PolicyServer', ((1, 'ppPolicyServer'),)))
     IX509CertificateRequestCertificate2.get_Template = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head), use_last_error=False)(74, 'get_Template', ((1, 'ppTemplate'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequestCertificate
     return IX509CertificateRequestCertificate2
 def _define_IX509CertificateRequestPkcs7_head():
     class IX509CertificateRequestPkcs7(win32more.Security.Cryptography.Certificates.IX509CertificateRequest_head):
@@ -3144,6 +3251,7 @@ def _define_IX509CertificateRequestPkcs7():
     IX509CertificateRequestPkcs7.put_RequesterName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(37, 'put_RequesterName', ((1, 'Value'),)))
     IX509CertificateRequestPkcs7.get_SignerCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.ISignerCertificate_head), use_last_error=False)(38, 'get_SignerCertificate', ((1, 'ppValue'),)))
     IX509CertificateRequestPkcs7.put_SignerCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ISignerCertificate_head, use_last_error=False)(39, 'put_SignerCertificate', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequest
     return IX509CertificateRequestPkcs7
 def _define_IX509CertificateRequestPkcs7V2_head():
     class IX509CertificateRequestPkcs7V2(win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs7_head):
@@ -3155,6 +3263,7 @@ def _define_IX509CertificateRequestPkcs7V2():
     IX509CertificateRequestPkcs7V2.get_PolicyServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509EnrollmentPolicyServer_head), use_last_error=False)(41, 'get_PolicyServer', ((1, 'ppPolicyServer'),)))
     IX509CertificateRequestPkcs7V2.get_Template = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head), use_last_error=False)(42, 'get_Template', ((1, 'ppTemplate'),)))
     IX509CertificateRequestPkcs7V2.CheckCertificateSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(43, 'CheckCertificateSignature', ((1, 'ValidateCertificateChain'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs7
     return IX509CertificateRequestPkcs7V2
 def _define_IX509CertificateRequestCmc_head():
     class IX509CertificateRequestCmc(win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs7_head):
@@ -3185,6 +3294,7 @@ def _define_IX509CertificateRequestCmc():
     IX509CertificateRequestCmc.put_EncryptionStrength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(60, 'put_EncryptionStrength', ((1, 'Value'),)))
     IX509CertificateRequestCmc.get_EncryptedKeyHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(61, 'get_EncryptedKeyHash', ((1, 'Encoding'),(1, 'pValue'),)))
     IX509CertificateRequestCmc.get_SignerCertificates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.ISignerCertificates_head), use_last_error=False)(62, 'get_SignerCertificates', ((1, 'ppValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequestPkcs7
     return IX509CertificateRequestCmc
 def _define_IX509CertificateRequestCmc2_head():
     class IX509CertificateRequestCmc2(win32more.Security.Cryptography.Certificates.IX509CertificateRequestCmc_head):
@@ -3198,6 +3308,7 @@ def _define_IX509CertificateRequestCmc2():
     IX509CertificateRequestCmc2.get_Template = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head), use_last_error=False)(66, 'get_Template', ((1, 'ppTemplate'),)))
     IX509CertificateRequestCmc2.CheckSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.Pkcs10AllowedSignatureTypes, use_last_error=False)(67, 'CheckSignature', ((1, 'AllowedSignatureTypes'),)))
     IX509CertificateRequestCmc2.CheckCertificateSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.ISignerCertificate_head,Int16, use_last_error=False)(68, 'CheckCertificateSignature', ((1, 'pSignerCertificate'),(1, 'ValidateCertificateChain'),)))
+    win32more.Security.Cryptography.Certificates.IX509CertificateRequestCmc
     return IX509CertificateRequestCmc2
 InstallResponseRestrictionFlags = Int32
 InstallResponseRestrictionFlags_AllowNone = 0
@@ -3233,6 +3344,7 @@ def _define_IX509Enrollment():
     IX509Enrollment.put_CertificateDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(27, 'put_CertificateDescription', ((1, 'strValue'),)))
     IX509Enrollment.get_RequestId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(28, 'get_RequestId', ((1, 'pValue'),)))
     IX509Enrollment.get_CAConfigString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(29, 'get_CAConfigString', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509Enrollment
 def _define_IX509Enrollment2_head():
     class IX509Enrollment2(win32more.Security.Cryptography.Certificates.IX509Enrollment_head):
@@ -3245,6 +3357,7 @@ def _define_IX509Enrollment2():
     IX509Enrollment2.get_PolicyServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509EnrollmentPolicyServer_head), use_last_error=False)(32, 'get_PolicyServer', ((1, 'ppPolicyServer'),)))
     IX509Enrollment2.get_Template = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509CertificateTemplate_head), use_last_error=False)(33, 'get_Template', ((1, 'ppTemplate'),)))
     IX509Enrollment2.get_RequestIdString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(34, 'get_RequestIdString', ((1, 'pValue'),)))
+    win32more.Security.Cryptography.Certificates.IX509Enrollment
     return IX509Enrollment2
 WebEnrollmentFlags = Int32
 WebEnrollmentFlags_EnrollPrompt = 1
@@ -3258,6 +3371,7 @@ def _define_IX509EnrollmentHelper():
     IX509EnrollmentHelper.AddEnrollmentServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.X509EnrollmentAuthFlags,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(8, 'AddEnrollmentServer', ((1, 'strEnrollmentServerURI'),(1, 'authFlags'),(1, 'strCredential'),(1, 'strPassword'),)))
     IX509EnrollmentHelper.Enroll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Security.Cryptography.Certificates.WebEnrollmentFlags,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'Enroll', ((1, 'strEnrollmentPolicyServerURI'),(1, 'strTemplateName'),(1, 'Encoding'),(1, 'enrollFlags'),(1, 'pstrCertificate'),)))
     IX509EnrollmentHelper.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509CertificateEnrollmentContext, use_last_error=False)(10, 'Initialize', ((1, 'Context'),)))
+    win32more.System.Com.IDispatch
     return IX509EnrollmentHelper
 def _define_IX509EnrollmentWebClassFactory_head():
     class IX509EnrollmentWebClassFactory(win32more.System.Com.IDispatch_head):
@@ -3266,6 +3380,7 @@ def _define_IX509EnrollmentWebClassFactory_head():
 def _define_IX509EnrollmentWebClassFactory():
     IX509EnrollmentWebClassFactory = win32more.Security.Cryptography.Certificates.IX509EnrollmentWebClassFactory_head
     IX509EnrollmentWebClassFactory.CreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'CreateObject', ((1, 'strProgID'),(1, 'ppIUnknown'),)))
+    win32more.System.Com.IDispatch
     return IX509EnrollmentWebClassFactory
 def _define_IX509MachineEnrollmentFactory_head():
     class IX509MachineEnrollmentFactory(win32more.System.Com.IDispatch_head):
@@ -3274,6 +3389,7 @@ def _define_IX509MachineEnrollmentFactory_head():
 def _define_IX509MachineEnrollmentFactory():
     IX509MachineEnrollmentFactory = win32more.Security.Cryptography.Certificates.IX509MachineEnrollmentFactory_head
     IX509MachineEnrollmentFactory.CreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Security.Cryptography.Certificates.IX509EnrollmentHelper_head), use_last_error=False)(7, 'CreateObject', ((1, 'strProgID'),(1, 'ppIHelper'),)))
+    win32more.System.Com.IDispatch
     return IX509MachineEnrollmentFactory
 CRLRevocationReason = Int32
 XCN_CRL_REASON_UNSPECIFIED = 0
@@ -3299,6 +3415,7 @@ def _define_IX509CertificateRevocationListEntry():
     IX509CertificateRevocationListEntry.put_RevocationReason = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.CRLRevocationReason, use_last_error=False)(11, 'put_RevocationReason', ((1, 'Value'),)))
     IX509CertificateRevocationListEntry.get_X509Extensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509Extensions_head), use_last_error=False)(12, 'get_X509Extensions', ((1, 'ppValue'),)))
     IX509CertificateRevocationListEntry.get_CriticalExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IObjectIds_head), use_last_error=False)(13, 'get_CriticalExtensions', ((1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return IX509CertificateRevocationListEntry
 def _define_IX509CertificateRevocationListEntries_head():
     class IX509CertificateRevocationListEntries(win32more.System.Com.IDispatch_head):
@@ -3314,6 +3431,7 @@ def _define_IX509CertificateRevocationListEntries():
     IX509CertificateRevocationListEntries.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     IX509CertificateRevocationListEntries.get_IndexBySerialNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(13, 'get_IndexBySerialNumber', ((1, 'Encoding'),(1, 'SerialNumber'),(1, 'pIndex'),)))
     IX509CertificateRevocationListEntries.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.IX509CertificateRevocationListEntries_head, use_last_error=False)(14, 'AddRange', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509CertificateRevocationListEntries
 def _define_IX509CertificateRevocationList_head():
     class IX509CertificateRevocationList(win32more.System.Com.IDispatch_head):
@@ -3352,6 +3470,7 @@ def _define_IX509CertificateRevocationList():
     IX509CertificateRevocationList.get_RawData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(35, 'get_RawData', ((1, 'Encoding'),(1, 'pValue'),)))
     IX509CertificateRevocationList.get_RawDataToBeSigned = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(36, 'get_RawDataToBeSigned', ((1, 'Encoding'),(1, 'pValue'),)))
     IX509CertificateRevocationList.get_Signature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(37, 'get_Signature', ((1, 'Encoding'),(1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509CertificateRevocationList
 def _define_ICertificateAttestationChallenge_head():
     class ICertificateAttestationChallenge(win32more.System.Com.IDispatch_head):
@@ -3362,6 +3481,7 @@ def _define_ICertificateAttestationChallenge():
     ICertificateAttestationChallenge.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(7, 'Initialize', ((1, 'Encoding'),(1, 'strPendingFullCmcResponseWithChallenge'),)))
     ICertificateAttestationChallenge.DecryptChallenge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'DecryptChallenge', ((1, 'Encoding'),(1, 'pstrEnvelopedPkcs7ReencryptedToCA'),)))
     ICertificateAttestationChallenge.get_RequestID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_RequestID', ((1, 'pstrRequestID'),)))
+    win32more.System.Com.IDispatch
     return ICertificateAttestationChallenge
 def _define_ICertificateAttestationChallenge2_head():
     class ICertificateAttestationChallenge2(win32more.Security.Cryptography.Certificates.ICertificateAttestationChallenge_head):
@@ -3371,6 +3491,7 @@ def _define_ICertificateAttestationChallenge2():
     ICertificateAttestationChallenge2 = win32more.Security.Cryptography.Certificates.ICertificateAttestationChallenge2_head
     ICertificateAttestationChallenge2.put_KeyContainerName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_KeyContainerName', ((1, 'Value'),)))
     ICertificateAttestationChallenge2.put_KeyBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_KeyBlob', ((1, 'Encoding'),(1, 'Value'),)))
+    win32more.Security.Cryptography.Certificates.ICertificateAttestationChallenge
     return ICertificateAttestationChallenge2
 def _define_IX509SCEPEnrollment_head():
     class IX509SCEPEnrollment(win32more.System.Com.IDispatch_head):
@@ -3400,6 +3521,7 @@ def _define_IX509SCEPEnrollment():
     IX509SCEPEnrollment.get_Silent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(26, 'get_Silent', ((1, 'pValue'),)))
     IX509SCEPEnrollment.put_Silent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(27, 'put_Silent', ((1, 'Value'),)))
     IX509SCEPEnrollment.DeleteRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(28, 'DeleteRequest', ()))
+    win32more.System.Com.IDispatch
     return IX509SCEPEnrollment
 X509SCEPProcessMessageFlags = Int32
 X509SCEPProcessMessageFlags_SCEPProcessDefault = 0
@@ -3423,6 +3545,7 @@ def _define_IX509SCEPEnrollment2():
     IX509SCEPEnrollment2.get_DelayRetry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.DelayRetryAction), use_last_error=False)(32, 'get_DelayRetry', ((1, 'pValue'),)))
     IX509SCEPEnrollment2.get_ActivityId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(33, 'get_ActivityId', ((1, 'pValue'),)))
     IX509SCEPEnrollment2.put_ActivityId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(34, 'put_ActivityId', ((1, 'Value'),)))
+    win32more.Security.Cryptography.Certificates.IX509SCEPEnrollment
     return IX509SCEPEnrollment2
 def _define_IX509SCEPEnrollmentHelper_head():
     class IX509SCEPEnrollmentHelper(win32more.System.Com.IDispatch_head):
@@ -3436,6 +3559,7 @@ def _define_IX509SCEPEnrollmentHelper():
     IX509SCEPEnrollmentHelper.FetchPending = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.X509SCEPProcessMessageFlags,POINTER(win32more.Security.Cryptography.Certificates.X509SCEPDisposition), use_last_error=False)(10, 'FetchPending', ((1, 'ProcessFlags'),(1, 'pDisposition'),)))
     IX509SCEPEnrollmentHelper.get_X509SCEPEnrollment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.IX509SCEPEnrollment_head), use_last_error=False)(11, 'get_X509SCEPEnrollment', ((1, 'ppValue'),)))
     IX509SCEPEnrollmentHelper.get_ResultMessageText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_ResultMessageText', ((1, 'pValue'),)))
+    win32more.System.Com.IDispatch
     return IX509SCEPEnrollmentHelper
 X509CertificateTemplateGeneralFlag = Int32
 X509CertificateTemplateGeneralFlag_GeneralMachineType = 64
@@ -3530,6 +3654,7 @@ def _define_ICertEncodeStringArray():
     ICertEncodeStringArray.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Security.Cryptography.CERT_RDN_ATTR_VALUE_TYPE, use_last_error=False)(11, 'Reset', ((1, 'Count'),(1, 'StringType'),)))
     ICertEncodeStringArray.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(12, 'SetValue', ((1, 'Index'),(1, 'str'),)))
     ICertEncodeStringArray.Encode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'Encode', ((1, 'pstrBinary'),)))
+    win32more.System.Com.IDispatch
     return ICertEncodeStringArray
 def _define_ICertEncodeStringArray2_head():
     class ICertEncodeStringArray2(win32more.Security.Cryptography.Certificates.ICertEncodeStringArray_head):
@@ -3539,6 +3664,7 @@ def _define_ICertEncodeStringArray2():
     ICertEncodeStringArray2 = win32more.Security.Cryptography.Certificates.ICertEncodeStringArray2_head
     ICertEncodeStringArray2.DecodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType, use_last_error=False)(14, 'DecodeBlob', ((1, 'strEncodedData'),(1, 'Encoding'),)))
     ICertEncodeStringArray2.EncodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'EncodeBlob', ((1, 'Encoding'),(1, 'pstrEncodedData'),)))
+    win32more.Security.Cryptography.Certificates.ICertEncodeStringArray
     return ICertEncodeStringArray2
 def _define_ICertEncodeLongArray_head():
     class ICertEncodeLongArray(win32more.System.Com.IDispatch_head):
@@ -3552,6 +3678,7 @@ def _define_ICertEncodeLongArray():
     ICertEncodeLongArray.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'Reset', ((1, 'Count'),)))
     ICertEncodeLongArray.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(11, 'SetValue', ((1, 'Index'),(1, 'Value'),)))
     ICertEncodeLongArray.Encode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'Encode', ((1, 'pstrBinary'),)))
+    win32more.System.Com.IDispatch
     return ICertEncodeLongArray
 def _define_ICertEncodeLongArray2_head():
     class ICertEncodeLongArray2(win32more.Security.Cryptography.Certificates.ICertEncodeLongArray_head):
@@ -3561,6 +3688,7 @@ def _define_ICertEncodeLongArray2():
     ICertEncodeLongArray2 = win32more.Security.Cryptography.Certificates.ICertEncodeLongArray2_head
     ICertEncodeLongArray2.DecodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType, use_last_error=False)(13, 'DecodeBlob', ((1, 'strEncodedData'),(1, 'Encoding'),)))
     ICertEncodeLongArray2.EncodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'EncodeBlob', ((1, 'Encoding'),(1, 'pstrEncodedData'),)))
+    win32more.Security.Cryptography.Certificates.ICertEncodeLongArray
     return ICertEncodeLongArray2
 def _define_ICertEncodeDateArray_head():
     class ICertEncodeDateArray(win32more.System.Com.IDispatch_head):
@@ -3574,6 +3702,7 @@ def _define_ICertEncodeDateArray():
     ICertEncodeDateArray.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'Reset', ((1, 'Count'),)))
     ICertEncodeDateArray.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Double, use_last_error=False)(11, 'SetValue', ((1, 'Index'),(1, 'Value'),)))
     ICertEncodeDateArray.Encode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'Encode', ((1, 'pstrBinary'),)))
+    win32more.System.Com.IDispatch
     return ICertEncodeDateArray
 def _define_ICertEncodeDateArray2_head():
     class ICertEncodeDateArray2(win32more.Security.Cryptography.Certificates.ICertEncodeDateArray_head):
@@ -3583,6 +3712,7 @@ def _define_ICertEncodeDateArray2():
     ICertEncodeDateArray2 = win32more.Security.Cryptography.Certificates.ICertEncodeDateArray2_head
     ICertEncodeDateArray2.DecodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType, use_last_error=False)(13, 'DecodeBlob', ((1, 'strEncodedData'),(1, 'Encoding'),)))
     ICertEncodeDateArray2.EncodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'EncodeBlob', ((1, 'Encoding'),(1, 'pstrEncodedData'),)))
+    win32more.Security.Cryptography.Certificates.ICertEncodeDateArray
     return ICertEncodeDateArray2
 def _define_ICertEncodeCRLDistInfo_head():
     class ICertEncodeCRLDistInfo(win32more.System.Com.IDispatch_head):
@@ -3599,6 +3729,7 @@ def _define_ICertEncodeCRLDistInfo():
     ICertEncodeCRLDistInfo.SetNameCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(13, 'SetNameCount', ((1, 'DistPointIndex'),(1, 'NameCount'),)))
     ICertEncodeCRLDistInfo.SetNameEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Security.Cryptography.Certificates.CERT_ALT_NAME,win32more.Foundation.BSTR, use_last_error=False)(14, 'SetNameEntry', ((1, 'DistPointIndex'),(1, 'NameIndex'),(1, 'NameChoice'),(1, 'strName'),)))
     ICertEncodeCRLDistInfo.Encode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'Encode', ((1, 'pstrBinary'),)))
+    win32more.System.Com.IDispatch
     return ICertEncodeCRLDistInfo
 def _define_ICertEncodeCRLDistInfo2_head():
     class ICertEncodeCRLDistInfo2(win32more.Security.Cryptography.Certificates.ICertEncodeCRLDistInfo_head):
@@ -3608,6 +3739,7 @@ def _define_ICertEncodeCRLDistInfo2():
     ICertEncodeCRLDistInfo2 = win32more.Security.Cryptography.Certificates.ICertEncodeCRLDistInfo2_head
     ICertEncodeCRLDistInfo2.DecodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType, use_last_error=False)(16, 'DecodeBlob', ((1, 'strEncodedData'),(1, 'Encoding'),)))
     ICertEncodeCRLDistInfo2.EncodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'EncodeBlob', ((1, 'Encoding'),(1, 'pstrEncodedData'),)))
+    win32more.Security.Cryptography.Certificates.ICertEncodeCRLDistInfo
     return ICertEncodeCRLDistInfo2
 def _define_ICertEncodeAltName_head():
     class ICertEncodeAltName(win32more.System.Com.IDispatch_head):
@@ -3622,6 +3754,7 @@ def _define_ICertEncodeAltName():
     ICertEncodeAltName.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Reset', ((1, 'NameCount'),)))
     ICertEncodeAltName.SetNameEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Security.Cryptography.Certificates.CERT_ALT_NAME,win32more.Foundation.BSTR, use_last_error=False)(12, 'SetNameEntry', ((1, 'NameIndex'),(1, 'NameChoice'),(1, 'strName'),)))
     ICertEncodeAltName.Encode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'Encode', ((1, 'pstrBinary'),)))
+    win32more.System.Com.IDispatch
     return ICertEncodeAltName
 def _define_ICertEncodeAltName2_head():
     class ICertEncodeAltName2(win32more.Security.Cryptography.Certificates.ICertEncodeAltName_head):
@@ -3633,6 +3766,7 @@ def _define_ICertEncodeAltName2():
     ICertEncodeAltName2.EncodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'EncodeBlob', ((1, 'Encoding'),(1, 'pstrEncodedData'),)))
     ICertEncodeAltName2.GetNameBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'GetNameBlob', ((1, 'NameIndex'),(1, 'Encoding'),(1, 'pstrName'),)))
     ICertEncodeAltName2.SetNameEntryBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType, use_last_error=False)(17, 'SetNameEntryBlob', ((1, 'NameIndex'),(1, 'NameChoice'),(1, 'strName'),(1, 'Encoding'),)))
+    win32more.Security.Cryptography.Certificates.ICertEncodeAltName
     return ICertEncodeAltName2
 def _define_ICertEncodeBitString_head():
     class ICertEncodeBitString(win32more.System.Com.IDispatch_head):
@@ -3644,6 +3778,7 @@ def _define_ICertEncodeBitString():
     ICertEncodeBitString.GetBitCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'GetBitCount', ((1, 'pBitCount'),)))
     ICertEncodeBitString.GetBitString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'GetBitString', ((1, 'pstrBitString'),)))
     ICertEncodeBitString.Encode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'Encode', ((1, 'BitCount'),(1, 'strBitString'),(1, 'pstrBinary'),)))
+    win32more.System.Com.IDispatch
     return ICertEncodeBitString
 def _define_ICertEncodeBitString2_head():
     class ICertEncodeBitString2(win32more.Security.Cryptography.Certificates.ICertEncodeBitString_head):
@@ -3654,6 +3789,7 @@ def _define_ICertEncodeBitString2():
     ICertEncodeBitString2.DecodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType, use_last_error=False)(11, 'DecodeBlob', ((1, 'strEncodedData'),(1, 'Encoding'),)))
     ICertEncodeBitString2.EncodeBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Security.Cryptography.Certificates.EncodingType,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'EncodeBlob', ((1, 'BitCount'),(1, 'strBitString'),(1, 'EncodingIn'),(1, 'Encoding'),(1, 'pstrEncodedData'),)))
     ICertEncodeBitString2.GetBitStringBlob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.Certificates.EncodingType,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'GetBitStringBlob', ((1, 'Encoding'),(1, 'pstrBitString'),)))
+    win32more.Security.Cryptography.Certificates.ICertEncodeBitString
     return ICertEncodeBitString2
 def _define_ICertExit_head():
     class ICertExit(win32more.System.Com.IDispatch_head):
@@ -3664,6 +3800,7 @@ def _define_ICertExit():
     ICertExit.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Security.Cryptography.Certificates.CERT_EXIT_EVENT_MASK), use_last_error=False)(7, 'Initialize', ((1, 'strConfig'),(1, 'pEventMask'),)))
     ICertExit.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(8, 'Notify', ((1, 'ExitEvent'),(1, 'Context'),)))
     ICertExit.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'GetDescription', ((1, 'pstrDescription'),)))
+    win32more.System.Com.IDispatch
     return ICertExit
 def _define_ICertExit2_head():
     class ICertExit2(win32more.Security.Cryptography.Certificates.ICertExit_head):
@@ -3672,6 +3809,7 @@ def _define_ICertExit2_head():
 def _define_ICertExit2():
     ICertExit2 = win32more.Security.Cryptography.Certificates.ICertExit2_head
     ICertExit2.GetManageModule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.Certificates.ICertManageModule_head), use_last_error=False)(10, 'GetManageModule', ((1, 'ppManageModule'),)))
+    win32more.Security.Cryptography.Certificates.ICertExit
     return ICertExit2
 ENUM_CATYPES = Int32
 ENUM_ENTERPRISE_ROOTCA = 0
@@ -3762,6 +3900,7 @@ def _define_ICEnroll():
     ICEnroll.put_PVKFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(60, 'put_PVKFileName', ((1, 'bstr'),)))
     ICEnroll.get_HashAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(61, 'get_HashAlgorithm', ((1, 'pbstr'),)))
     ICEnroll.put_HashAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(62, 'put_HashAlgorithm', ((1, 'bstr'),)))
+    win32more.System.Com.IDispatch
     return ICEnroll
 def _define_ICEnroll2_head():
     class ICEnroll2(win32more.Security.Cryptography.Certificates.ICEnroll_head):
@@ -3775,6 +3914,7 @@ def _define_ICEnroll2():
     ICEnroll2.put_WriteCertToUserDS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(66, 'put_WriteCertToUserDS', ((1, 'fBool'),)))
     ICEnroll2.get_EnableT61DNEncoding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(67, 'get_EnableT61DNEncoding', ((1, 'fBool'),)))
     ICEnroll2.put_EnableT61DNEncoding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(68, 'put_EnableT61DNEncoding', ((1, 'fBool'),)))
+    win32more.Security.Cryptography.Certificates.ICEnroll
     return ICEnroll2
 def _define_ICEnroll3_head():
     class ICEnroll3(win32more.Security.Cryptography.Certificates.ICEnroll2_head):
@@ -3796,6 +3936,7 @@ def _define_ICEnroll3():
     ICEnroll3.get_LimitExchangeKeyToEncipherment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(80, 'get_LimitExchangeKeyToEncipherment', ((1, 'fLimitExchangeKeyToEncipherment'),)))
     ICEnroll3.put_EnableSMIMECapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(81, 'put_EnableSMIMECapabilities', ((1, 'fEnableSMIMECapabilities'),)))
     ICEnroll3.get_EnableSMIMECapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(82, 'get_EnableSMIMECapabilities', ((1, 'fEnableSMIMECapabilities'),)))
+    win32more.Security.Cryptography.Certificates.ICEnroll2
     return ICEnroll3
 def _define_ICEnroll4_head():
     class ICEnroll4(win32more.Security.Cryptography.Certificates.ICEnroll3_head):
@@ -3836,6 +3977,7 @@ def _define_ICEnroll4():
     ICEnroll4.resetBlobProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(113, 'resetBlobProperties', ()))
     ICEnroll4.put_IncludeSubjectKeyID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(114, 'put_IncludeSubjectKeyID', ((1, 'fInclude'),)))
     ICEnroll4.get_IncludeSubjectKeyID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(115, 'get_IncludeSubjectKeyID', ((1, 'pfInclude'),)))
+    win32more.Security.Cryptography.Certificates.ICEnroll3
     return ICEnroll4
 def _define_IEnroll_head():
     class IEnroll(win32more.System.Com.IUnknown_head):
@@ -3913,6 +4055,7 @@ def _define_IEnroll():
     IEnroll.AddExtensionsToRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.CERT_EXTENSIONS_head), use_last_error=False)(70, 'AddExtensionsToRequest', ((1, 'pCertExtensions'),)))
     IEnroll.AddAuthenticatedAttributesToPKCS7Request = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.CRYPT_ATTRIBUTES_head), use_last_error=False)(71, 'AddAuthenticatedAttributesToPKCS7Request', ((1, 'pAttributes'),)))
     IEnroll.CreatePKCS7RequestFromRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Cryptography.CRYPTOAPI_BLOB_head),POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head),POINTER(win32more.Security.Cryptography.CRYPTOAPI_BLOB_head), use_last_error=False)(72, 'CreatePKCS7RequestFromRequest', ((1, 'pRequest'),(1, 'pSigningCertContext'),(1, 'pPkcs7Blob'),)))
+    win32more.System.Com.IUnknown
     return IEnroll
 def _define_IEnroll2_head():
     class IEnroll2(win32more.Security.Cryptography.Certificates.IEnroll_head):
@@ -3938,6 +4081,7 @@ def _define_IEnroll2():
     IEnroll2.get_LimitExchangeKeyToEncipherment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(88, 'get_LimitExchangeKeyToEncipherment', ((1, 'fLimitExchangeKeyToEncipherment'),)))
     IEnroll2.put_EnableSMIMECapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(89, 'put_EnableSMIMECapabilities', ((1, 'fEnableSMIMECapabilities'),)))
     IEnroll2.get_EnableSMIMECapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(90, 'get_EnableSMIMECapabilities', ((1, 'fEnableSMIMECapabilities'),)))
+    win32more.Security.Cryptography.Certificates.IEnroll
     return IEnroll2
 def _define_IEnroll4_head():
     class IEnroll4(win32more.Security.Cryptography.Certificates.IEnroll2_head):
@@ -3977,6 +4121,7 @@ def _define_IEnroll4():
     IEnroll4.get_ClientId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(120, 'get_ClientId', ((1, 'plClientId'),)))
     IEnroll4.put_IncludeSubjectKeyID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(121, 'put_IncludeSubjectKeyID', ((1, 'fInclude'),)))
     IEnroll4.get_IncludeSubjectKeyID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(122, 'get_IncludeSubjectKeyID', ((1, 'pfInclude'),)))
+    win32more.Security.Cryptography.Certificates.IEnroll2
     return IEnroll4
 def _define_ICertRequestD_head():
     class ICertRequestD(win32more.System.Com.IUnknown_head):
@@ -3987,6 +4132,7 @@ def _define_ICertRequestD():
     ICertRequestD.Request = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head),POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head),POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head),POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head), use_last_error=False)(3, 'Request', ((1, 'dwFlags'),(1, 'pwszAuthority'),(1, 'pdwRequestId'),(1, 'pdwDisposition'),(1, 'pwszAttributes'),(1, 'pctbRequest'),(1, 'pctbCertChain'),(1, 'pctbEncodedCert'),(1, 'pctbDispositionMessage'),)))
     ICertRequestD.GetCACert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head), use_last_error=False)(4, 'GetCACert', ((1, 'fchain'),(1, 'pwszAuthority'),(1, 'pctbOut'),)))
     ICertRequestD.Ping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'Ping', ((1, 'pwszAuthority'),)))
+    win32more.System.Com.IUnknown
     return ICertRequestD
 def _define_ICertRequestD2_head():
     class ICertRequestD2(win32more.Security.Cryptography.Certificates.ICertRequestD_head):
@@ -3998,6 +4144,7 @@ def _define_ICertRequestD2():
     ICertRequestD2.GetCAProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,Int32,Int32,POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head), use_last_error=False)(7, 'GetCAProperty', ((1, 'pwszAuthority'),(1, 'PropId'),(1, 'PropIndex'),(1, 'PropType'),(1, 'pctbPropertyValue'),)))
     ICertRequestD2.GetCAPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int32),POINTER(win32more.Security.Cryptography.Certificates.CERTTRANSBLOB_head), use_last_error=False)(8, 'GetCAPropertyInfo', ((1, 'pwszAuthority'),(1, 'pcProperty'),(1, 'pctbPropInfo'),)))
     ICertRequestD2.Ping2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(9, 'Ping2', ((1, 'pwszAuthority'),)))
+    win32more.Security.Cryptography.Certificates.ICertRequestD
     return ICertRequestD2
 def _define_CertSrvIsServerOnlineW():
     try:

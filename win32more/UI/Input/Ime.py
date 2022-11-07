@@ -866,6 +866,7 @@ def _define_IFEClassFactory_head():
     return IFEClassFactory
 def _define_IFEClassFactory():
     IFEClassFactory = win32more.UI.Input.Ime.IFEClassFactory_head
+    win32more.System.Com.IClassFactory
     return IFEClassFactory
 def _define_IMEDLG_head():
     class IMEDLG(Structure):
@@ -891,6 +892,7 @@ def _define_IFECommon():
     IFECommon.SetDefaultIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'SetDefaultIME', ()))
     IFECommon.InvokeWordRegDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IMEDLG_head), use_last_error=False)(5, 'InvokeWordRegDialog', ((1, 'pimedlg'),)))
     IFECommon.InvokeDictToolDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IMEDLG_head), use_last_error=False)(6, 'InvokeDictToolDialog', ((1, 'pimedlg'),)))
+    win32more.System.Com.IUnknown
     return IFECommon
 def _define_WDD_head():
     class WDD(Structure):
@@ -989,6 +991,7 @@ def _define_IFELanguage():
     IFELanguage.GetConversionModeCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetConversionModeCaps', ((1, 'pdwCaps'),)))
     IFELanguage.GetPhonetic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetPhonetic', ((1, 'string'),(1, 'start'),(1, 'length'),(1, 'phonetic'),)))
     IFELanguage.GetConversion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'GetConversion', ((1, 'string'),(1, 'start'),(1, 'length'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return IFELanguage
 IMEREG = Int32
 IFED_REG_HEAD = 0
@@ -1156,6 +1159,7 @@ def _define_IFEDictionary():
     IFEDictionary.NextDependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(UInt32), use_last_error=False)(17, 'NextDependencies', ((1, 'pchBuffer'),(1, 'cbBuffer'),(1, 'pcDp'),)))
     IFEDictionary.ConvertFromOldMSIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.UI.Input.Ime.PFNLOG,win32more.UI.Input.Ime.IMEREG, use_last_error=False)(18, 'ConvertFromOldMSIME', ((1, 'pchDic'),(1, 'pfnLog'),(1, 'reg'),)))
     IFEDictionary.ConvertFromUserToSys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'ConvertFromUserToSys', ()))
+    win32more.System.Com.IUnknown
     return IFEDictionary
 def _define_IMEKMSINIT_head():
     class IMEKMSINIT(Structure):
@@ -1591,6 +1595,7 @@ def _define_IImeSpecifyApplets_head():
 def _define_IImeSpecifyApplets():
     IImeSpecifyApplets = win32more.UI.Input.Ime.IImeSpecifyApplets_head
     IImeSpecifyApplets.GetAppletIIDList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.Input.Ime.APPLETIDLIST_head), use_last_error=False)(3, 'GetAppletIIDList', ((1, 'refiid'),(1, 'lpIIDList'),)))
+    win32more.System.Com.IUnknown
     return IImeSpecifyApplets
 def _define_IImePadApplet_head():
     class IImePadApplet(win32more.System.Com.IUnknown_head):
@@ -1603,6 +1608,7 @@ def _define_IImePadApplet():
     IImePadApplet.GetAppletConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IMEAPPLETCFG_head), use_last_error=False)(5, 'GetAppletConfig', ((1, 'lpAppletCfg'),)))
     IImePadApplet.CreateUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Input.Ime.IMEAPPLETUI_head), use_last_error=False)(6, 'CreateUI', ((1, 'hwndParent'),(1, 'lpImeAppletUI'),)))
     IImePadApplet.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Int32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(7, 'Notify', ((1, 'lpImePad'),(1, 'notify'),(1, 'wParam'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
     return IImePadApplet
 def _define_IImePad_head():
     class IImePad(win32more.System.Com.IUnknown_head):
@@ -1611,6 +1617,7 @@ def _define_IImePad_head():
 def _define_IImePad():
     IImePad = win32more.UI.Input.Ime.IImePad_head
     IImePad.Request = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Input.Ime.IImePadApplet_head,win32more.UI.Input.Ime.IME_PAD_REQUEST_FLAGS,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(3, 'Request', ((1, 'pIImePadApplet'),(1, 'reqId'),(1, 'wParam'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
     return IImePad
 def _define_IImePlugInDictDictionaryList_head():
     class IImePlugInDictDictionaryList(win32more.System.Com.IUnknown_head):
@@ -1620,6 +1627,7 @@ def _define_IImePlugInDictDictionaryList():
     IImePlugInDictDictionaryList = win32more.UI.Input.Ime.IImePlugInDictDictionaryList_head
     IImePlugInDictDictionaryList.GetDictionariesInUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)),POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetDictionariesInUse', ((1, 'prgDictionaryGUID'),(1, 'prgDateCreated'),(1, 'prgfEncrypted'),)))
     IImePlugInDictDictionaryList.DeleteDictionary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(4, 'DeleteDictionary', ((1, 'bstrDictionaryGUID'),)))
+    win32more.System.Com.IUnknown
     return IImePlugInDictDictionaryList
 CActiveIMM = Guid('4955dd33-b159-11d0-8fcf-00aa006bcc59')
 def _define_IEnumRegisterWordA_head():
@@ -1632,6 +1640,7 @@ def _define_IEnumRegisterWordA():
     IEnumRegisterWordA.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Input.Ime.REGISTERWORDA_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgRegisterWord'),(1, 'pcFetched'),)))
     IEnumRegisterWordA.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumRegisterWordA.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumRegisterWordA
 def _define_IEnumRegisterWordW_head():
     class IEnumRegisterWordW(win32more.System.Com.IUnknown_head):
@@ -1643,6 +1652,7 @@ def _define_IEnumRegisterWordW():
     IEnumRegisterWordW.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Input.Ime.REGISTERWORDW_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgRegisterWord'),(1, 'pcFetched'),)))
     IEnumRegisterWordW.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumRegisterWordW.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumRegisterWordW
 def _define_IEnumInputContext_head():
     class IEnumInputContext(win32more.System.Com.IUnknown_head):
@@ -1654,6 +1664,7 @@ def _define_IEnumInputContext():
     IEnumInputContext.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Globalization.HIMC),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgInputContext'),(1, 'pcFetched'),)))
     IEnumInputContext.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumInputContext.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumInputContext
 def _define_IActiveIMMRegistrar_head():
     class IActiveIMMRegistrar(win32more.System.Com.IUnknown_head):
@@ -1663,6 +1674,7 @@ def _define_IActiveIMMRegistrar():
     IActiveIMMRegistrar = win32more.UI.Input.Ime.IActiveIMMRegistrar_head
     IActiveIMMRegistrar.RegisterIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt16,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'RegisterIME', ((1, 'rclsid'),(1, 'lgid'),(1, 'pszIconFile'),(1, 'pszDesc'),)))
     IActiveIMMRegistrar.UnregisterIME = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'UnregisterIME', ((1, 'rclsid'),)))
+    win32more.System.Com.IUnknown
     return IActiveIMMRegistrar
 def _define_IActiveIMMMessagePumpOwner_head():
     class IActiveIMMMessagePumpOwner(win32more.System.Com.IUnknown_head):
@@ -1675,6 +1687,7 @@ def _define_IActiveIMMMessagePumpOwner():
     IActiveIMMMessagePumpOwner.OnTranslateMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head), use_last_error=False)(5, 'OnTranslateMessage', ((1, 'pMsg'),)))
     IActiveIMMMessagePumpOwner.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'Pause', ((1, 'pdwCookie'),)))
     IActiveIMMMessagePumpOwner.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'Resume', ((1, 'dwCookie'),)))
+    win32more.System.Com.IUnknown
     return IActiveIMMMessagePumpOwner
 def _define_IActiveIMMApp_head():
     class IActiveIMMApp(win32more.System.Com.IUnknown_head):
@@ -1750,6 +1763,7 @@ def _define_IActiveIMMApp():
     IActiveIMMApp.GetImeMenuItemsA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head),POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOA_head),UInt32,POINTER(UInt32), use_last_error=False)(68, 'GetImeMenuItemsA', ((1, 'hIMC'),(1, 'dwFlags'),(1, 'dwType'),(1, 'pImeParentMenu'),(1, 'pImeMenu'),(1, 'dwSize'),(1, 'pdwResult'),)))
     IActiveIMMApp.GetImeMenuItemsW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Globalization.HIMC,UInt32,UInt32,POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head),POINTER(win32more.UI.Input.Ime.IMEMENUITEMINFOW_head),UInt32,POINTER(UInt32), use_last_error=False)(69, 'GetImeMenuItemsW', ((1, 'hIMC'),(1, 'dwFlags'),(1, 'dwType'),(1, 'pImeParentMenu'),(1, 'pImeMenu'),(1, 'dwSize'),(1, 'pdwResult'),)))
     IActiveIMMApp.EnumInputContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Input.Ime.IEnumInputContext_head), use_last_error=False)(70, 'EnumInputContext', ((1, 'idThread'),(1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IActiveIMMApp
 def _define_IActiveIMMIME_head():
     class IActiveIMMIME(win32more.System.Com.IUnknown_head):
@@ -1845,6 +1859,7 @@ def _define_IActiveIMMIME():
     IActiveIMMIME.SendIMCA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT), use_last_error=False)(88, 'SendIMCA', ((1, 'hWnd'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),(1, 'plResult'),)))
     IActiveIMMIME.SendIMCW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT), use_last_error=False)(89, 'SendIMCW', ((1, 'hWnd'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),(1, 'plResult'),)))
     IActiveIMMIME.IsSleeping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(90, 'IsSleeping', ()))
+    win32more.System.Com.IUnknown
     return IActiveIMMIME
 def _define_IActiveIME_head():
     class IActiveIME(win32more.System.Com.IUnknown_head):
@@ -1869,6 +1884,7 @@ def _define_IActiveIME():
     IActiveIME.EnumRegisterWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,c_void_p,POINTER(win32more.UI.Input.Ime.IEnumRegisterWordW_head), use_last_error=False)(17, 'EnumRegisterWord', ((1, 'szReading'),(1, 'dwStyle'),(1, 'szRegister'),(1, 'pData'),(1, 'ppEnum'),)))
     IActiveIME.GetCodePageA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(18, 'GetCodePageA', ((1, 'uCodePage'),)))
     IActiveIME.GetLangId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(19, 'GetLangId', ((1, 'plid'),)))
+    win32more.System.Com.IUnknown
     return IActiveIME
 def _define_IActiveIME2_head():
     class IActiveIME2(win32more.UI.Input.Ime.IActiveIME_head):
@@ -1878,6 +1894,7 @@ def _define_IActiveIME2():
     IActiveIME2 = win32more.UI.Input.Ime.IActiveIME2_head
     IActiveIME2.Sleep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'Sleep', ()))
     IActiveIME2.Unsleep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(21, 'Unsleep', ((1, 'fDead'),)))
+    win32more.UI.Input.Ime.IActiveIME
     return IActiveIME2
 def _define_ImmInstallIMEA():
     try:

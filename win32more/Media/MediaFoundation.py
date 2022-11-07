@@ -1772,6 +1772,7 @@ def _define_ICodecAPI():
     ICodecAPI.GetAllSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(15, 'GetAllSettings', ((1, '__MIDL__ICodecAPI0000'),)))
     ICodecAPI.SetAllSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(16, 'SetAllSettings', ((1, '__MIDL__ICodecAPI0001'),)))
     ICodecAPI.SetAllSettingsWithNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(POINTER(Guid)),POINTER(UInt32), use_last_error=False)(17, 'SetAllSettingsWithNotify', ((1, '__MIDL__ICodecAPI0002'),(1, 'ChangedParam'),(1, 'ChangedParamCount'),)))
+    win32more.System.Com.IUnknown
     return ICodecAPI
 def _define_D3DOVERLAYCAPS_head():
     class D3DOVERLAYCAPS(Structure):
@@ -1806,6 +1807,7 @@ def _define_IDirect3D9ExOverlayExtension_head():
 def _define_IDirect3D9ExOverlayExtension():
     IDirect3D9ExOverlayExtension = win32more.Media.MediaFoundation.IDirect3D9ExOverlayExtension_head
     IDirect3D9ExOverlayExtension.CheckDeviceOverlayType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D9.D3DDEVTYPE,UInt32,UInt32,win32more.Graphics.Direct3D9.D3DFORMAT,POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYMODEEX_head),win32more.Graphics.Direct3D9.D3DDISPLAYROTATION,POINTER(win32more.Media.MediaFoundation.D3DOVERLAYCAPS_head), use_last_error=False)(3, 'CheckDeviceOverlayType', ((1, 'Adapter'),(1, 'DevType'),(1, 'OverlayWidth'),(1, 'OverlayHeight'),(1, 'OverlayFormat'),(1, 'pDisplayMode'),(1, 'DisplayRotation'),(1, 'pOverlayCaps'),)))
+    win32more.System.Com.IUnknown
     return IDirect3D9ExOverlayExtension
 def _define_IDirect3DDevice9Video_head():
     class IDirect3DDevice9Video(win32more.System.Com.IUnknown_head):
@@ -1816,6 +1818,7 @@ def _define_IDirect3DDevice9Video():
     IDirect3DDevice9Video.GetContentProtectionCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.Media.MediaFoundation.D3DCONTENTPROTECTIONCAPS_head), use_last_error=False)(3, 'GetContentProtectionCaps', ((1, 'pCryptoType'),(1, 'pDecodeProfile'),(1, 'pCaps'),)))
     IDirect3DDevice9Video.CreateAuthenticatedChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNELTYPE,POINTER(win32more.Media.MediaFoundation.IDirect3DAuthenticatedChannel9_head),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(4, 'CreateAuthenticatedChannel', ((1, 'ChannelType'),(1, 'ppAuthenticatedChannel'),(1, 'pChannelHandle'),)))
     IDirect3DDevice9Video.CreateCryptoSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.Media.MediaFoundation.IDirect3DCryptoSession9_head),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(5, 'CreateCryptoSession', ((1, 'pCryptoType'),(1, 'pDecodeProfile'),(1, 'ppCryptoSession'),(1, 'pCryptoHandle'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DDevice9Video
 def _define_IDirect3DAuthenticatedChannel9_head():
     class IDirect3DAuthenticatedChannel9(win32more.System.Com.IUnknown_head):
@@ -1828,6 +1831,7 @@ def _define_IDirect3DAuthenticatedChannel9():
     IDirect3DAuthenticatedChannel9.NegotiateKeyExchange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p, use_last_error=False)(5, 'NegotiateKeyExchange', ((1, 'DataSize'),(1, 'pData'),)))
     IDirect3DAuthenticatedChannel9.Query = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,c_void_p, use_last_error=False)(6, 'Query', ((1, 'InputSize'),(1, 'pInput'),(1, 'OutputSize'),(1, 'pOutput'),)))
     IDirect3DAuthenticatedChannel9.Configure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(win32more.Graphics.Direct3D9.D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT_head), use_last_error=False)(7, 'Configure', ((1, 'InputSize'),(1, 'pInput'),(1, 'pOutput'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DAuthenticatedChannel9
 def _define_IDirect3DCryptoSession9_head():
     class IDirect3DCryptoSession9(win32more.System.Com.IUnknown_head):
@@ -1844,6 +1848,7 @@ def _define_IDirect3DCryptoSession9():
     IDirect3DCryptoSession9.StartSessionKeyRefresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32, use_last_error=False)(9, 'StartSessionKeyRefresh', ((1, 'pRandomNumber'),(1, 'RandomNumberSize'),)))
     IDirect3DCryptoSession9.FinishSessionKeyRefresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'FinishSessionKeyRefresh', ()))
     IDirect3DCryptoSession9.GetEncryptionBltKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32, use_last_error=False)(11, 'GetEncryptionBltKey', ((1, 'pReadbackKey'),(1, 'KeySize'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DCryptoSession9
 D3D12_VIDEO_FIELD_TYPE = Int32
 D3D12_VIDEO_FIELD_TYPE_NONE = 0
@@ -2064,6 +2069,7 @@ def _define_ID3D12VideoDecoderHeap_head():
 def _define_ID3D12VideoDecoderHeap():
     ID3D12VideoDecoderHeap = win32more.Media.MediaFoundation.ID3D12VideoDecoderHeap_head
     ID3D12VideoDecoderHeap.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.D3D12_VIDEO_DECODER_HEAP_DESC, use_last_error=False)(8, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12VideoDecoderHeap
 def _define_ID3D12VideoDevice_head():
     class ID3D12VideoDevice(win32more.System.Com.IUnknown_head):
@@ -2075,6 +2081,7 @@ def _define_ID3D12VideoDevice():
     ID3D12VideoDevice.CreateVideoDecoder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_DECODER_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'CreateVideoDecoder', ((1, 'pDesc'),(1, 'riid'),(1, 'ppVideoDecoder'),)))
     ID3D12VideoDevice.CreateVideoDecoderHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_DECODER_HEAP_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'CreateVideoDecoderHeap', ((1, 'pVideoDecoderHeapDesc'),(1, 'riid'),(1, 'ppVideoDecoderHeap'),)))
     ID3D12VideoDevice.CreateVideoProcessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC_head),UInt32,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'CreateVideoProcessor', ((1, 'NodeMask'),(1, 'pOutputStreamDesc'),(1, 'NumInputStreamDescs'),(1, 'pInputStreamDescs'),(1, 'riid'),(1, 'ppVideoProcessor'),)))
+    win32more.System.Com.IUnknown
     return ID3D12VideoDevice
 def _define_ID3D12VideoDecoder_head():
     class ID3D12VideoDecoder(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -2083,6 +2090,7 @@ def _define_ID3D12VideoDecoder_head():
 def _define_ID3D12VideoDecoder():
     ID3D12VideoDecoder = win32more.Media.MediaFoundation.ID3D12VideoDecoder_head
     ID3D12VideoDecoder.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.D3D12_VIDEO_DECODER_DESC, use_last_error=False)(8, 'GetDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12VideoDecoder
 D3D12_VIDEO_DECODE_TIER = Int32
 D3D12_VIDEO_DECODE_TIER_NOT_SUPPORTED = 0
@@ -2382,6 +2390,7 @@ def _define_ID3D12VideoProcessor():
     ID3D12VideoProcessor.GetNumInputStreamDescs = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(9, 'GetNumInputStreamDescs', ()))
     ID3D12VideoProcessor.GetInputStreamDescs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC), use_last_error=False)(10, 'GetInputStreamDescs', ((1, 'NumInputStreamDescs'),(1, 'pInputStreamDescs'),)))
     ID3D12VideoProcessor.GetOutputStreamDesc = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC, use_last_error=False)(11, 'GetOutputStreamDesc', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12VideoProcessor
 D3D12_VIDEO_PROCESS_FEATURE_FLAGS = UInt32
 D3D12_VIDEO_PROCESS_FEATURE_FLAG_NONE = 0
@@ -2592,6 +2601,7 @@ def _define_ID3D12VideoDecodeCommandList():
     ID3D12VideoDecodeCommandList.EndEvent = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(20, 'EndEvent', ()))
     ID3D12VideoDecodeCommandList.DecodeFrame = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoDecoder_head,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS_head),POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS_head), use_last_error=False)(21, 'DecodeFrame', ((1, 'pDecoder'),(1, 'pOutputArguments'),(1, 'pInputArguments'),)))
     ID3D12VideoDecodeCommandList.WriteBufferImmediate = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER),POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE), use_last_error=False)(22, 'WriteBufferImmediate', ((1, 'Count'),(1, 'pParams'),(1, 'pModes'),)))
+    win32more.Graphics.Direct3D12.ID3D12CommandList
     return ID3D12VideoDecodeCommandList
 def _define_ID3D12VideoProcessCommandList_head():
     class ID3D12VideoProcessCommandList(win32more.Graphics.Direct3D12.ID3D12CommandList_head):
@@ -2613,6 +2623,7 @@ def _define_ID3D12VideoProcessCommandList():
     ID3D12VideoProcessCommandList.EndEvent = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(20, 'EndEvent', ()))
     ID3D12VideoProcessCommandList.ProcessFrames = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoProcessor_head,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS_head),UInt32,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS), use_last_error=False)(21, 'ProcessFrames', ((1, 'pVideoProcessor'),(1, 'pOutputArguments'),(1, 'NumInputStreams'),(1, 'pInputArguments'),)))
     ID3D12VideoProcessCommandList.WriteBufferImmediate = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER),POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE), use_last_error=False)(22, 'WriteBufferImmediate', ((1, 'Count'),(1, 'pParams'),(1, 'pModes'),)))
+    win32more.Graphics.Direct3D12.ID3D12CommandList
     return ID3D12VideoProcessCommandList
 def _define_D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM_head():
     class D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM(Structure):
@@ -2661,6 +2672,7 @@ def _define_ID3D12VideoDecodeCommandList1_head():
 def _define_ID3D12VideoDecodeCommandList1():
     ID3D12VideoDecodeCommandList1 = win32more.Media.MediaFoundation.ID3D12VideoDecodeCommandList1_head
     ID3D12VideoDecodeCommandList1.DecodeFrame1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoDecoder_head,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1_head),POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS_head), use_last_error=False)(23, 'DecodeFrame1', ((1, 'pDecoder'),(1, 'pOutputArguments'),(1, 'pInputArguments'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoDecodeCommandList
     return ID3D12VideoDecodeCommandList1
 def _define_D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1_head():
     class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1(Structure):
@@ -2685,6 +2697,7 @@ def _define_ID3D12VideoProcessCommandList1_head():
 def _define_ID3D12VideoProcessCommandList1():
     ID3D12VideoProcessCommandList1 = win32more.Media.MediaFoundation.ID3D12VideoProcessCommandList1_head
     ID3D12VideoProcessCommandList1.ProcessFrames1 = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoProcessor_head,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_ARGUMENTS_head),UInt32,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS1), use_last_error=False)(23, 'ProcessFrames1', ((1, 'pVideoProcessor'),(1, 'pOutputArguments'),(1, 'NumInputStreams'),(1, 'pInputArguments'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoProcessCommandList
     return ID3D12VideoProcessCommandList1
 D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE = Int32
 D3D12_VIDEO_MOTION_ESTIMATOR_SEARCH_BLOCK_SIZE_8X8 = 0
@@ -2766,6 +2779,7 @@ def _define_ID3D12VideoMotionEstimator():
     ID3D12VideoMotionEstimator = win32more.Media.MediaFoundation.ID3D12VideoMotionEstimator_head
     ID3D12VideoMotionEstimator.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_DESC, use_last_error=False)(8, 'GetDesc', ()))
     ID3D12VideoMotionEstimator.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12VideoMotionEstimator
 def _define_D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC_head():
     class D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC(Structure):
@@ -2789,6 +2803,7 @@ def _define_ID3D12VideoMotionVectorHeap():
     ID3D12VideoMotionVectorHeap = win32more.Media.MediaFoundation.ID3D12VideoMotionVectorHeap_head
     ID3D12VideoMotionVectorHeap.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC, use_last_error=False)(8, 'GetDesc', ()))
     ID3D12VideoMotionVectorHeap.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12VideoMotionVectorHeap
 def _define_ID3D12VideoDevice1_head():
     class ID3D12VideoDevice1(win32more.Media.MediaFoundation.ID3D12VideoDevice_head):
@@ -2798,6 +2813,7 @@ def _define_ID3D12VideoDevice1():
     ID3D12VideoDevice1 = win32more.Media.MediaFoundation.ID3D12VideoDevice1_head
     ID3D12VideoDevice1.CreateVideoMotionEstimator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_MOTION_ESTIMATOR_DESC_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'CreateVideoMotionEstimator', ((1, 'pDesc'),(1, 'pProtectedResourceSession'),(1, 'riid'),(1, 'ppVideoMotionEstimator'),)))
     ID3D12VideoDevice1.CreateVideoMotionVectorHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC_head),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'CreateVideoMotionVectorHeap', ((1, 'pDesc'),(1, 'pProtectedResourceSession'),(1, 'riid'),(1, 'ppVideoMotionVectorHeap'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoDevice
     return ID3D12VideoDevice1
 def _define_D3D12_RESOURCE_COORDINATE_head():
     class D3D12_RESOURCE_COORDINATE(Structure):
@@ -2881,6 +2897,7 @@ def _define_ID3D12VideoEncodeCommandList():
     ID3D12VideoEncodeCommandList.ResolveMotionVectorHeap = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.MediaFoundation.D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT_head),POINTER(win32more.Media.MediaFoundation.D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT_head), use_last_error=False)(22, 'ResolveMotionVectorHeap', ((1, 'pOutputArguments'),(1, 'pInputArguments'),)))
     ID3D12VideoEncodeCommandList.WriteBufferImmediate = COMMETHOD(WINFUNCTYPE(Void,UInt32,POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_PARAMETER),POINTER(win32more.Graphics.Direct3D12.D3D12_WRITEBUFFERIMMEDIATE_MODE), use_last_error=False)(23, 'WriteBufferImmediate', ((1, 'Count'),(1, 'pParams'),(1, 'pModes'),)))
     ID3D12VideoEncodeCommandList.SetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, use_last_error=False)(24, 'SetProtectedResourceSession', ((1, 'pProtectedResourceSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12CommandList
     return ID3D12VideoEncodeCommandList
 D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS = UInt32
 D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAG_NONE = 0
@@ -3093,6 +3110,7 @@ def _define_ID3D12VideoDecoder1_head():
 def _define_ID3D12VideoDecoder1():
     ID3D12VideoDecoder1 = win32more.Media.MediaFoundation.ID3D12VideoDecoder1_head
     ID3D12VideoDecoder1.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoDecoder
     return ID3D12VideoDecoder1
 def _define_ID3D12VideoDecoderHeap1_head():
     class ID3D12VideoDecoderHeap1(win32more.Media.MediaFoundation.ID3D12VideoDecoderHeap_head):
@@ -3101,6 +3119,7 @@ def _define_ID3D12VideoDecoderHeap1_head():
 def _define_ID3D12VideoDecoderHeap1():
     ID3D12VideoDecoderHeap1 = win32more.Media.MediaFoundation.ID3D12VideoDecoderHeap1_head
     ID3D12VideoDecoderHeap1.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoDecoderHeap
     return ID3D12VideoDecoderHeap1
 def _define_ID3D12VideoProcessor1_head():
     class ID3D12VideoProcessor1(win32more.Media.MediaFoundation.ID3D12VideoProcessor_head):
@@ -3109,6 +3128,7 @@ def _define_ID3D12VideoProcessor1_head():
 def _define_ID3D12VideoProcessor1():
     ID3D12VideoProcessor1 = win32more.Media.MediaFoundation.ID3D12VideoProcessor1_head
     ID3D12VideoProcessor1.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(12, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoProcessor
     return ID3D12VideoProcessor1
 def _define_ID3D12VideoExtensionCommand_head():
     class ID3D12VideoExtensionCommand(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3118,6 +3138,7 @@ def _define_ID3D12VideoExtensionCommand():
     ID3D12VideoExtensionCommand = win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head
     ID3D12VideoExtensionCommand.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_DESC, use_last_error=False)(8, 'GetDesc', ()))
     ID3D12VideoExtensionCommand.GetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetProtectedResourceSession', ((1, 'riid'),(1, 'ppProtectedSession'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12VideoExtensionCommand
 def _define_ID3D12VideoDevice2_head():
     class ID3D12VideoDevice2(win32more.Media.MediaFoundation.ID3D12VideoDevice1_head):
@@ -3130,6 +3151,7 @@ def _define_ID3D12VideoDevice2():
     ID3D12VideoDevice2.CreateVideoProcessor1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC_head),UInt32,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC),win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'CreateVideoProcessor1', ((1, 'NodeMask'),(1, 'pOutputStreamDesc'),(1, 'NumInputStreamDescs'),(1, 'pInputStreamDescs'),(1, 'pProtectedResourceSession'),(1, 'riid'),(1, 'ppVideoProcessor'),)))
     ID3D12VideoDevice2.CreateVideoExtensionCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_EXTENSION_COMMAND_DESC_head),c_void_p,UIntPtr,win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(12, 'CreateVideoExtensionCommand', ((1, 'pDesc'),(1, 'pCreationParameters'),(1, 'CreationParametersDataSizeInBytes'),(1, 'pProtectedResourceSession'),(1, 'riid'),(1, 'ppVideoExtensionCommand'),)))
     ID3D12VideoDevice2.ExecuteExtensionCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head,c_void_p,UIntPtr,c_void_p,UIntPtr, use_last_error=False)(13, 'ExecuteExtensionCommand', ((1, 'pExtensionCommand'),(1, 'pExecutionParameters'),(1, 'ExecutionParametersSizeInBytes'),(1, 'pOutputData'),(1, 'OutputDataSizeInBytes'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoDevice1
     return ID3D12VideoDevice2
 def _define_ID3D12VideoDecodeCommandList2_head():
     class ID3D12VideoDecodeCommandList2(win32more.Media.MediaFoundation.ID3D12VideoDecodeCommandList1_head):
@@ -3140,6 +3162,7 @@ def _define_ID3D12VideoDecodeCommandList2():
     ID3D12VideoDecodeCommandList2.SetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, use_last_error=False)(24, 'SetProtectedResourceSession', ((1, 'pProtectedResourceSession'),)))
     ID3D12VideoDecodeCommandList2.InitializeExtensionCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head,c_void_p,UIntPtr, use_last_error=False)(25, 'InitializeExtensionCommand', ((1, 'pExtensionCommand'),(1, 'pInitializationParameters'),(1, 'InitializationParametersSizeInBytes'),)))
     ID3D12VideoDecodeCommandList2.ExecuteExtensionCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head,c_void_p,UIntPtr, use_last_error=False)(26, 'ExecuteExtensionCommand', ((1, 'pExtensionCommand'),(1, 'pExecutionParameters'),(1, 'ExecutionParametersSizeInBytes'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoDecodeCommandList1
     return ID3D12VideoDecodeCommandList2
 def _define_ID3D12VideoProcessCommandList2_head():
     class ID3D12VideoProcessCommandList2(win32more.Media.MediaFoundation.ID3D12VideoProcessCommandList1_head):
@@ -3150,6 +3173,7 @@ def _define_ID3D12VideoProcessCommandList2():
     ID3D12VideoProcessCommandList2.SetProtectedResourceSession = COMMETHOD(WINFUNCTYPE(Void,win32more.Graphics.Direct3D12.ID3D12ProtectedResourceSession_head, use_last_error=False)(24, 'SetProtectedResourceSession', ((1, 'pProtectedResourceSession'),)))
     ID3D12VideoProcessCommandList2.InitializeExtensionCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head,c_void_p,UIntPtr, use_last_error=False)(25, 'InitializeExtensionCommand', ((1, 'pExtensionCommand'),(1, 'pInitializationParameters'),(1, 'InitializationParametersSizeInBytes'),)))
     ID3D12VideoProcessCommandList2.ExecuteExtensionCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head,c_void_p,UIntPtr, use_last_error=False)(26, 'ExecuteExtensionCommand', ((1, 'pExtensionCommand'),(1, 'pExecutionParameters'),(1, 'ExecutionParametersSizeInBytes'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoProcessCommandList1
     return ID3D12VideoProcessCommandList2
 def _define_ID3D12VideoEncodeCommandList1_head():
     class ID3D12VideoEncodeCommandList1(win32more.Media.MediaFoundation.ID3D12VideoEncodeCommandList_head):
@@ -3159,6 +3183,7 @@ def _define_ID3D12VideoEncodeCommandList1():
     ID3D12VideoEncodeCommandList1 = win32more.Media.MediaFoundation.ID3D12VideoEncodeCommandList1_head
     ID3D12VideoEncodeCommandList1.InitializeExtensionCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head,c_void_p,UIntPtr, use_last_error=False)(25, 'InitializeExtensionCommand', ((1, 'pExtensionCommand'),(1, 'pInitializationParameters'),(1, 'InitializationParametersSizeInBytes'),)))
     ID3D12VideoEncodeCommandList1.ExecuteExtensionCommand = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoExtensionCommand_head,c_void_p,UIntPtr, use_last_error=False)(26, 'ExecuteExtensionCommand', ((1, 'pExtensionCommand'),(1, 'pExecutionParameters'),(1, 'ExecutionParametersSizeInBytes'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoEncodeCommandList
     return ID3D12VideoEncodeCommandList1
 D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE = Int32
 D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE_ABSOLUTE_QP_MAP = 0
@@ -3957,6 +3982,7 @@ def _define_ID3D12VideoEncoder():
     ID3D12VideoEncoder.GetCodecConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION, use_last_error=False)(12, 'GetCodecConfiguration', ((1, 'dstCodecConfig'),)))
     ID3D12VideoEncoder.GetInputFormat = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Dxgi.Common.DXGI_FORMAT, use_last_error=False)(13, 'GetInputFormat', ()))
     ID3D12VideoEncoder.GetMaxMotionEstimationPrecision = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE, use_last_error=False)(14, 'GetMaxMotionEstimationPrecision', ()))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12VideoEncoder
 def _define_ID3D12VideoEncoderHeap_head():
     class ID3D12VideoEncoderHeap(win32more.Graphics.Direct3D12.ID3D12Pageable_head):
@@ -3971,6 +3997,7 @@ def _define_ID3D12VideoEncoderHeap():
     ID3D12VideoEncoderHeap.GetCodecLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_LEVEL_SETTING, use_last_error=False)(12, 'GetCodecLevel', ((1, 'dstLevel'),)))
     ID3D12VideoEncoderHeap.GetResolutionListCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(13, 'GetResolutionListCount', ()))
     ID3D12VideoEncoderHeap.GetResolutionList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC), use_last_error=False)(14, 'GetResolutionList', ((1, 'ResolutionsListCount'),(1, 'pResolutionList'),)))
+    win32more.Graphics.Direct3D12.ID3D12Pageable
     return ID3D12VideoEncoderHeap
 def _define_ID3D12VideoDevice3_head():
     class ID3D12VideoDevice3(win32more.Media.MediaFoundation.ID3D12VideoDevice2_head):
@@ -3980,6 +4007,7 @@ def _define_ID3D12VideoDevice3():
     ID3D12VideoDevice3 = win32more.Media.MediaFoundation.ID3D12VideoDevice3_head
     ID3D12VideoDevice3.CreateVideoEncoder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(14, 'CreateVideoEncoder', ((1, 'pDesc'),(1, 'riid'),(1, 'ppVideoEncoder'),)))
     ID3D12VideoDevice3.CreateVideoEncoderHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_HEAP_DESC_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(15, 'CreateVideoEncoderHeap', ((1, 'pDesc'),(1, 'riid'),(1, 'ppVideoEncoderHeap'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoDevice2
     return ID3D12VideoDevice3
 D3D12_VIDEO_ENCODER_FRAME_TYPE_H264 = Int32
 D3D12_VIDEO_ENCODER_FRAME_TYPE_H264_I_FRAME = 0
@@ -4359,6 +4387,7 @@ def _define_ID3D12VideoEncodeCommandList2():
     ID3D12VideoEncodeCommandList2 = win32more.Media.MediaFoundation.ID3D12VideoEncodeCommandList2_head
     ID3D12VideoEncodeCommandList2.EncodeFrame = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.ID3D12VideoEncoder_head,win32more.Media.MediaFoundation.ID3D12VideoEncoderHeap_head,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS_head),POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_ENCODEFRAME_OUTPUT_ARGUMENTS_head), use_last_error=False)(27, 'EncodeFrame', ((1, 'pEncoder'),(1, 'pHeap'),(1, 'pInputArguments'),(1, 'pOutputArguments'),)))
     ID3D12VideoEncodeCommandList2.ResolveEncoderOutputMetadata = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS_head),POINTER(win32more.Media.MediaFoundation.D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS_head), use_last_error=False)(28, 'ResolveEncoderOutputMetadata', ((1, 'pInputArguments'),(1, 'pOutputArguments'),)))
+    win32more.Media.MediaFoundation.ID3D12VideoEncodeCommandList1
     return ID3D12VideoEncodeCommandList2
 CMpeg4DecMediaObject = Guid('f371728a-6052-4d47-827c-d039335dfe0a')
 CMpeg43DecMediaObject = Guid('cba9e78b-49a3-49ea-93d4-6bcba8c4de07')
@@ -4471,6 +4500,7 @@ def _define_IWMValidate_head():
 def _define_IWMValidate():
     IWMValidate = win32more.Media.MediaFoundation.IWMValidate_head
     IWMValidate.SetIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(3, 'SetIdentifier', ((1, 'guidValidationID'),)))
+    win32more.System.Com.IUnknown
     return IWMValidate
 def _define_IValidateBinding_head():
     class IValidateBinding(win32more.System.Com.IUnknown_head):
@@ -4479,6 +4509,7 @@ def _define_IValidateBinding_head():
 def _define_IValidateBinding():
     IValidateBinding = win32more.Media.MediaFoundation.IValidateBinding_head
     IValidateBinding.GetIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(Byte),UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(3, 'GetIdentifier', ((1, 'guidLicensorID'),(1, 'pbEphemeron'),(1, 'cbEphemeron'),(1, 'ppbBlobValidationID'),(1, 'pcbBlobSize'),)))
+    win32more.System.Com.IUnknown
     return IValidateBinding
 def _define_IWMVideoDecoderHurryup_head():
     class IWMVideoDecoderHurryup(win32more.System.Com.IUnknown_head):
@@ -4488,6 +4519,7 @@ def _define_IWMVideoDecoderHurryup():
     IWMVideoDecoderHurryup = win32more.Media.MediaFoundation.IWMVideoDecoderHurryup_head
     IWMVideoDecoderHurryup.SetHurryup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'SetHurryup', ((1, 'lHurryup'),)))
     IWMVideoDecoderHurryup.GetHurryup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'GetHurryup', ((1, 'plHurryup'),)))
+    win32more.System.Com.IUnknown
     return IWMVideoDecoderHurryup
 def _define_IWMVideoForceKeyFrame_head():
     class IWMVideoForceKeyFrame(win32more.System.Com.IUnknown_head):
@@ -4496,6 +4528,7 @@ def _define_IWMVideoForceKeyFrame_head():
 def _define_IWMVideoForceKeyFrame():
     IWMVideoForceKeyFrame = win32more.Media.MediaFoundation.IWMVideoForceKeyFrame_head
     IWMVideoForceKeyFrame.SetKeyFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'SetKeyFrame', ()))
+    win32more.System.Com.IUnknown
     return IWMVideoForceKeyFrame
 def _define_IWMCodecStrings_head():
     class IWMCodecStrings(win32more.System.Com.IUnknown_head):
@@ -4505,6 +4538,7 @@ def _define_IWMCodecStrings():
     IWMCodecStrings = win32more.Media.MediaFoundation.IWMCodecStrings_head
     IWMCodecStrings.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DxMediaObjects.DMO_MEDIA_TYPE_head),UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(3, 'GetName', ((1, 'pmt'),(1, 'cchLength'),(1, 'szName'),(1, 'pcchLength'),)))
     IWMCodecStrings.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DxMediaObjects.DMO_MEDIA_TYPE_head),UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(4, 'GetDescription', ((1, 'pmt'),(1, 'cchLength'),(1, 'szDescription'),(1, 'pcchLength'),)))
+    win32more.System.Com.IUnknown
     return IWMCodecStrings
 def _define_IWMCodecProps_head():
     class IWMCodecProps(win32more.System.Com.IUnknown_head):
@@ -4514,6 +4548,7 @@ def _define_IWMCodecProps():
     IWMCodecProps = win32more.Media.MediaFoundation.IWMCodecProps_head
     IWMCodecProps.GetFormatProp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DxMediaObjects.DMO_MEDIA_TYPE_head),win32more.Foundation.PWSTR,POINTER(win32more.Media.MediaFoundation.WMT_PROP_DATATYPE),c_char_p_no,POINTER(UInt32), use_last_error=False)(3, 'GetFormatProp', ((1, 'pmt'),(1, 'pszName'),(1, 'pType'),(1, 'pValue'),(1, 'pdwSize'),)))
     IWMCodecProps.GetCodecProp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Media.MediaFoundation.WMT_PROP_DATATYPE),c_char_p_no,POINTER(UInt32), use_last_error=False)(4, 'GetCodecProp', ((1, 'dwFormat'),(1, 'pszName'),(1, 'pType'),(1, 'pValue'),(1, 'pdwSize'),)))
+    win32more.System.Com.IUnknown
     return IWMCodecProps
 def _define_IWMCodecLeakyBucket_head():
     class IWMCodecLeakyBucket(win32more.System.Com.IUnknown_head):
@@ -4525,6 +4560,7 @@ def _define_IWMCodecLeakyBucket():
     IWMCodecLeakyBucket.GetBufferSizeBits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetBufferSizeBits', ((1, 'pulBufferSize'),)))
     IWMCodecLeakyBucket.SetBufferFullnessBits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'SetBufferFullnessBits', ((1, 'ulBufferFullness'),)))
     IWMCodecLeakyBucket.GetBufferFullnessBits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetBufferFullnessBits', ((1, 'pulBufferFullness'),)))
+    win32more.System.Com.IUnknown
     return IWMCodecLeakyBucket
 def _define_IWMCodecOutputTimestamp_head():
     class IWMCodecOutputTimestamp(win32more.System.Com.IUnknown_head):
@@ -4533,6 +4569,7 @@ def _define_IWMCodecOutputTimestamp_head():
 def _define_IWMCodecOutputTimestamp():
     IWMCodecOutputTimestamp = win32more.Media.MediaFoundation.IWMCodecOutputTimestamp_head
     IWMCodecOutputTimestamp.GetNextOutputTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(3, 'GetNextOutputTime', ((1, 'prtTime'),)))
+    win32more.System.Com.IUnknown
     return IWMCodecOutputTimestamp
 def _define_IWMVideoDecoderReconBuffer_head():
     class IWMVideoDecoderReconBuffer(win32more.System.Com.IUnknown_head):
@@ -4543,6 +4580,7 @@ def _define_IWMVideoDecoderReconBuffer():
     IWMVideoDecoderReconBuffer.GetReconstructedVideoFrameSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetReconstructedVideoFrameSize', ((1, 'pdwSize'),)))
     IWMVideoDecoderReconBuffer.GetReconstructedVideoFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DxMediaObjects.IMediaBuffer_head, use_last_error=False)(4, 'GetReconstructedVideoFrame', ((1, 'pBuf'),)))
     IWMVideoDecoderReconBuffer.SetReconstructedVideoFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.DxMediaObjects.IMediaBuffer_head, use_last_error=False)(5, 'SetReconstructedVideoFrame', ((1, 'pBuf'),)))
+    win32more.System.Com.IUnknown
     return IWMVideoDecoderReconBuffer
 def _define_IWMCodecPrivateData_head():
     class IWMCodecPrivateData(win32more.System.Com.IUnknown_head):
@@ -4552,6 +4590,7 @@ def _define_IWMCodecPrivateData():
     IWMCodecPrivateData = win32more.Media.MediaFoundation.IWMCodecPrivateData_head
     IWMCodecPrivateData.SetPartialOutputType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DxMediaObjects.DMO_MEDIA_TYPE_head), use_last_error=False)(3, 'SetPartialOutputType', ((1, 'pmt'),)))
     IWMCodecPrivateData.GetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(4, 'GetPrivateData', ((1, 'pbData'),(1, 'pcbData'),)))
+    win32more.System.Com.IUnknown
     return IWMCodecPrivateData
 def _define_IWMSampleExtensionSupport_head():
     class IWMSampleExtensionSupport(win32more.System.Com.IUnknown_head):
@@ -4560,6 +4599,7 @@ def _define_IWMSampleExtensionSupport_head():
 def _define_IWMSampleExtensionSupport():
     IWMSampleExtensionSupport = win32more.Media.MediaFoundation.IWMSampleExtensionSupport_head
     IWMSampleExtensionSupport.SetUseSampleExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'SetUseSampleExtensions', ((1, 'fUseExtensions'),)))
+    win32more.System.Com.IUnknown
     return IWMSampleExtensionSupport
 def _define_IWMResamplerProps_head():
     class IWMResamplerProps(win32more.System.Com.IUnknown_head):
@@ -4569,6 +4609,7 @@ def _define_IWMResamplerProps():
     IWMResamplerProps = win32more.Media.MediaFoundation.IWMResamplerProps_head
     IWMResamplerProps.SetHalfFilterLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'SetHalfFilterLength', ((1, 'lhalfFilterLen'),)))
     IWMResamplerProps.SetUserChannelMtx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(4, 'SetUserChannelMtx', ((1, 'userChannelMtx'),)))
+    win32more.System.Com.IUnknown
     return IWMResamplerProps
 def _define_IWMResizerProps_head():
     class IWMResizerProps(win32more.System.Com.IUnknown_head):
@@ -4581,6 +4622,7 @@ def _define_IWMResizerProps():
     IWMResizerProps.SetClipRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32, use_last_error=False)(5, 'SetClipRegion', ((1, 'lClipOriXSrc'),(1, 'lClipOriYSrc'),(1, 'lClipWidthSrc'),(1, 'lClipHeightSrc'),)))
     IWMResizerProps.SetFullCropRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32,Int32,Int32,Int32,Int32, use_last_error=False)(6, 'SetFullCropRegion', ((1, 'lClipOriXSrc'),(1, 'lClipOriYSrc'),(1, 'lClipWidthSrc'),(1, 'lClipHeightSrc'),(1, 'lClipOriXDst'),(1, 'lClipOriYDst'),(1, 'lClipWidthDst'),(1, 'lClipHeightDst'),)))
     IWMResizerProps.GetFullCropRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(Int32), use_last_error=False)(7, 'GetFullCropRegion', ((1, 'lClipOriXSrc'),(1, 'lClipOriYSrc'),(1, 'lClipWidthSrc'),(1, 'lClipHeightSrc'),(1, 'lClipOriXDst'),(1, 'lClipOriYDst'),(1, 'lClipWidthDst'),(1, 'lClipHeightDst'),)))
+    win32more.System.Com.IUnknown
     return IWMResizerProps
 def _define_IWMColorLegalizerProps_head():
     class IWMColorLegalizerProps(win32more.System.Com.IUnknown_head):
@@ -4589,6 +4631,7 @@ def _define_IWMColorLegalizerProps_head():
 def _define_IWMColorLegalizerProps():
     IWMColorLegalizerProps = win32more.Media.MediaFoundation.IWMColorLegalizerProps_head
     IWMColorLegalizerProps.SetColorLegalizerQuality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'SetColorLegalizerQuality', ((1, 'lquality'),)))
+    win32more.System.Com.IUnknown
     return IWMColorLegalizerProps
 def _define_IWMInterlaceProps_head():
     class IWMInterlaceProps(win32more.System.Com.IUnknown_head):
@@ -4599,6 +4642,7 @@ def _define_IWMInterlaceProps():
     IWMInterlaceProps.SetProcessType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'SetProcessType', ((1, 'iProcessType'),)))
     IWMInterlaceProps.SetInitInverseTeleCinePattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(4, 'SetInitInverseTeleCinePattern', ((1, 'iInitPattern'),)))
     IWMInterlaceProps.SetLastFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'SetLastFrame', ()))
+    win32more.System.Com.IUnknown
     return IWMInterlaceProps
 def _define_IWMFrameInterpProps_head():
     class IWMFrameInterpProps(win32more.System.Com.IUnknown_head):
@@ -4610,6 +4654,7 @@ def _define_IWMFrameInterpProps():
     IWMFrameInterpProps.SetFrameRateOut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(4, 'SetFrameRateOut', ((1, 'lFrameRate'),(1, 'lScale'),)))
     IWMFrameInterpProps.SetFrameInterpEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetFrameInterpEnabled', ((1, 'bFIEnabled'),)))
     IWMFrameInterpProps.SetComplexityLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(6, 'SetComplexityLevel', ((1, 'iComplexity'),)))
+    win32more.System.Com.IUnknown
     return IWMFrameInterpProps
 def _define_IWMColorConvProps_head():
     class IWMColorConvProps(win32more.System.Com.IUnknown_head):
@@ -4619,6 +4664,7 @@ def _define_IWMColorConvProps():
     IWMColorConvProps = win32more.Media.MediaFoundation.IWMColorConvProps_head
     IWMColorConvProps.SetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'SetMode', ((1, 'lMode'),)))
     IWMColorConvProps.SetFullCroppingParam = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32,Int32,Int32, use_last_error=False)(4, 'SetFullCroppingParam', ((1, 'lSrcCropLeft'),(1, 'lSrcCropTop'),(1, 'lDstCropLeft'),(1, 'lDstCropTop'),(1, 'lCropWidth'),(1, 'lCropHeight'),)))
+    win32more.System.Com.IUnknown
     return IWMColorConvProps
 WMV_DYNAMIC_FLAGS = Int32
 WMV_DYNAMIC_BITRATE = 1
@@ -4726,6 +4772,7 @@ def _define_ITocEntry():
     ITocEntry.GetSubEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt16), use_last_error=False)(8, 'GetSubEntries', ((1, 'pdwNumSubEntries'),(1, 'pwSubEntryIndices'),)))
     ITocEntry.SetDescriptionData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,POINTER(Guid), use_last_error=False)(9, 'SetDescriptionData', ((1, 'dwDescriptionDataSize'),(1, 'pbtDescriptionData'),(1, 'pguidType'),)))
     ITocEntry.GetDescriptionData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),c_char_p_no,POINTER(Guid), use_last_error=False)(10, 'GetDescriptionData', ((1, 'pdwDescriptionDataSize'),(1, 'pbtDescriptionData'),(1, 'pGuidType'),)))
+    win32more.System.Com.IUnknown
     return ITocEntry
 def _define_ITocEntryList_head():
     class ITocEntryList(win32more.System.Com.IUnknown_head):
@@ -4738,6 +4785,7 @@ def _define_ITocEntryList():
     ITocEntryList.AddEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.ITocEntry_head,POINTER(UInt32), use_last_error=False)(5, 'AddEntry', ((1, 'pEntry'),(1, 'pdwEntryIndex'),)))
     ITocEntryList.AddEntryByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.ITocEntry_head, use_last_error=False)(6, 'AddEntryByIndex', ((1, 'dwEntryIndex'),(1, 'pEntry'),)))
     ITocEntryList.RemoveEntryByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'RemoveEntryByIndex', ((1, 'dwEntryIndex'),)))
+    win32more.System.Com.IUnknown
     return ITocEntryList
 def _define_IToc_head():
     class IToc(win32more.System.Com.IUnknown_head):
@@ -4756,6 +4804,7 @@ def _define_IToc():
     IToc.AddEntryList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.ITocEntryList_head,POINTER(UInt16), use_last_error=False)(11, 'AddEntryList', ((1, 'pEntryList'),(1, 'pwEntryListIndex'),)))
     IToc.AddEntryListByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,win32more.Media.MediaFoundation.ITocEntryList_head, use_last_error=False)(12, 'AddEntryListByIndex', ((1, 'wEntryListIndex'),(1, 'pEntryList'),)))
     IToc.RemoveEntryListByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16, use_last_error=False)(13, 'RemoveEntryListByIndex', ((1, 'wEntryListIndex'),)))
+    win32more.System.Com.IUnknown
     return IToc
 def _define_ITocCollection_head():
     class ITocCollection(win32more.System.Com.IUnknown_head):
@@ -4768,6 +4817,7 @@ def _define_ITocCollection():
     ITocCollection.AddEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IToc_head,POINTER(UInt32), use_last_error=False)(5, 'AddEntry', ((1, 'pToc'),(1, 'pdwEntryIndex'),)))
     ITocCollection.AddEntryByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IToc_head, use_last_error=False)(6, 'AddEntryByIndex', ((1, 'dwEntryIndex'),(1, 'pToc'),)))
     ITocCollection.RemoveEntryByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'RemoveEntryByIndex', ((1, 'dwEntryIndex'),)))
+    win32more.System.Com.IUnknown
     return ITocCollection
 def _define_ITocParser_head():
     class ITocParser(win32more.System.Com.IUnknown_head):
@@ -4783,6 +4833,7 @@ def _define_ITocParser():
     ITocParser.RemoveTocByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.TOC_POS_TYPE,UInt32, use_last_error=False)(8, 'RemoveTocByIndex', ((1, 'enumTocPosType'),(1, 'dwTocIndex'),)))
     ITocParser.RemoveTocByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.TOC_POS_TYPE,Guid, use_last_error=False)(9, 'RemoveTocByType', ((1, 'enumTocPosType'),(1, 'guidTocType'),)))
     ITocParser.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Commit', ()))
+    win32more.System.Com.IUnknown
     return ITocParser
 FILE_OPENMODE = Int32
 OPENMODE_FAIL_IF_NOT_EXIST = 0
@@ -4814,6 +4865,7 @@ def _define_IFileIo():
     IFileIo.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32,POINTER(UInt32), use_last_error=False)(10, 'Write', ((1, 'pbt'),(1, 'ul'),(1, 'pulWritten'),)))
     IFileIo.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.SEEK_ORIGIN,UInt64,UInt32,POINTER(UInt64), use_last_error=False)(11, 'Seek', ((1, 'eSeekOrigin'),(1, 'qwSeekOffset'),(1, 'dwSeekFlags'),(1, 'pqwCurrentPosition'),)))
     IFileIo.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IFileIo
 def _define_IFileClient_head():
     class IFileClient(win32more.System.Com.IUnknown_head):
@@ -4824,6 +4876,7 @@ def _define_IFileClient():
     IFileClient.GetObjectDiskSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(3, 'GetObjectDiskSize', ((1, 'pqwSize'),)))
     IFileClient.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IFileIo_head, use_last_error=False)(4, 'Write', ((1, 'pFio'),)))
     IFileClient.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IFileIo_head, use_last_error=False)(5, 'Read', ((1, 'pFio'),)))
+    win32more.System.Com.IUnknown
     return IFileClient
 def _define_IClusterDetector_head():
     class IClusterDetector(win32more.System.Com.IUnknown_head):
@@ -4833,6 +4886,7 @@ def _define_IClusterDetector():
     IClusterDetector = win32more.Media.MediaFoundation.IClusterDetector_head
     IClusterDetector.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16, use_last_error=False)(3, 'Initialize', ((1, 'wBaseEntryLevel'),(1, 'wClusterEntryLevel'),)))
     IClusterDetector.Detect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Single,Single,win32more.Media.MediaFoundation.IToc_head,POINTER(win32more.Media.MediaFoundation.IToc_head), use_last_error=False)(4, 'Detect', ((1, 'dwMaxNumClusters'),(1, 'fMinClusterDuration'),(1, 'fMaxClusterDuration'),(1, 'pSrcToc'),(1, 'ppDstToc'),)))
+    win32more.System.Com.IUnknown
     return IClusterDetector
 def _define_DXVA_AYUVsample2_head():
     class DXVA_AYUVsample2(Structure):
@@ -6599,6 +6653,7 @@ def _define_IDXVAHD_Device():
     IDXVAHD_Device.GetVideoProcessorCustomRates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.Media.MediaFoundation.DXVAHD_CUSTOM_RATE_DATA), use_last_error=False)(8, 'GetVideoProcessorCustomRates', ((1, 'pVPGuid'),(1, 'Count'),(1, 'pRates'),)))
     IDXVAHD_Device.GetVideoProcessorFilterRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.DXVAHD_FILTER,POINTER(win32more.Media.MediaFoundation.DXVAHD_FILTER_RANGE_DATA_head), use_last_error=False)(9, 'GetVideoProcessorFilterRange', ((1, 'Filter'),(1, 'pRange'),)))
     IDXVAHD_Device.CreateVideoProcessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Media.MediaFoundation.IDXVAHD_VideoProcessor_head), use_last_error=False)(10, 'CreateVideoProcessor', ((1, 'pVPGuid'),(1, 'ppVideoProcessor'),)))
+    win32more.System.Com.IUnknown
     return IDXVAHD_Device
 def _define_IDXVAHD_VideoProcessor_head():
     class IDXVAHD_VideoProcessor(win32more.System.Com.IUnknown_head):
@@ -6611,6 +6666,7 @@ def _define_IDXVAHD_VideoProcessor():
     IDXVAHD_VideoProcessor.SetVideoProcessStreamState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.DXVAHD_STREAM_STATE,UInt32,c_void_p, use_last_error=False)(5, 'SetVideoProcessStreamState', ((1, 'StreamNumber'),(1, 'State'),(1, 'DataSize'),(1, 'pData'),)))
     IDXVAHD_VideoProcessor.GetVideoProcessStreamState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.DXVAHD_STREAM_STATE,UInt32,c_void_p, use_last_error=False)(6, 'GetVideoProcessStreamState', ((1, 'StreamNumber'),(1, 'State'),(1, 'DataSize'),(1, 'pData'),)))
     IDXVAHD_VideoProcessor.VideoProcessBltHD = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.IDirect3DSurface9_head,UInt32,UInt32,POINTER(win32more.Media.MediaFoundation.DXVAHD_STREAM_DATA), use_last_error=False)(7, 'VideoProcessBltHD', ((1, 'pOutputSurface'),(1, 'OutputFrame'),(1, 'StreamCount'),(1, 'pStreams'),)))
+    win32more.System.Com.IUnknown
     return IDXVAHD_VideoProcessor
 def _define_PDXVAHDSW_CreateDevice():
     return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.IDirect3DDevice9Ex_head,POINTER(win32more.Foundation.HANDLE), use_last_error=False)
@@ -7219,6 +7275,7 @@ def _define_IDirect3DDeviceManager9():
     IDirect3DDeviceManager9.LockDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Graphics.Direct3D9.IDirect3DDevice9_head),win32more.Foundation.BOOL, use_last_error=False)(7, 'LockDevice', ((1, 'hDevice'),(1, 'ppDevice'),(1, 'fBlock'),)))
     IDirect3DDeviceManager9.UnlockDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Foundation.BOOL, use_last_error=False)(8, 'UnlockDevice', ((1, 'hDevice'),(1, 'fSaveState'),)))
     IDirect3DDeviceManager9.GetVideoService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'GetVideoService', ((1, 'hDevice'),(1, 'riid'),(1, 'ppService'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DDeviceManager9
 def _define_IDirectXVideoAccelerationService_head():
     class IDirectXVideoAccelerationService(win32more.System.Com.IUnknown_head):
@@ -7227,6 +7284,7 @@ def _define_IDirectXVideoAccelerationService_head():
 def _define_IDirectXVideoAccelerationService():
     IDirectXVideoAccelerationService = win32more.Media.MediaFoundation.IDirectXVideoAccelerationService_head
     IDirectXVideoAccelerationService.CreateSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,win32more.Graphics.Direct3D9.D3DFORMAT,win32more.Graphics.Direct3D9.D3DPOOL,UInt32,win32more.Media.MediaFoundation.DXVA2_VideoRenderTargetType,POINTER(win32more.Graphics.Direct3D9.IDirect3DSurface9_head),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(3, 'CreateSurface', ((1, 'Width'),(1, 'Height'),(1, 'BackBuffers'),(1, 'Format'),(1, 'Pool'),(1, 'Usage'),(1, 'DxvaType'),(1, 'ppSurface'),(1, 'pSharedHandle'),)))
+    win32more.System.Com.IUnknown
     return IDirectXVideoAccelerationService
 def _define_IDirectXVideoDecoderService_head():
     class IDirectXVideoDecoderService(win32more.Media.MediaFoundation.IDirectXVideoAccelerationService_head):
@@ -7238,6 +7296,7 @@ def _define_IDirectXVideoDecoderService():
     IDirectXVideoDecoderService.GetDecoderRenderTargets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),POINTER(POINTER(win32more.Graphics.Direct3D9.D3DFORMAT)), use_last_error=False)(5, 'GetDecoderRenderTargets', ((1, 'Guid'),(1, 'pCount'),(1, 'pFormats'),)))
     IDirectXVideoDecoderService.GetDecoderConfigurations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Media.MediaFoundation.DXVA2_VideoDesc_head),c_void_p,POINTER(UInt32),POINTER(POINTER(win32more.Media.MediaFoundation.DXVA2_ConfigPictureDecode_head)), use_last_error=False)(6, 'GetDecoderConfigurations', ((1, 'Guid'),(1, 'pVideoDesc'),(1, 'pReserved'),(1, 'pCount'),(1, 'ppConfigs'),)))
     IDirectXVideoDecoderService.CreateVideoDecoder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Media.MediaFoundation.DXVA2_VideoDesc_head),POINTER(win32more.Media.MediaFoundation.DXVA2_ConfigPictureDecode_head),POINTER(win32more.Graphics.Direct3D9.IDirect3DSurface9_head),UInt32,POINTER(win32more.Media.MediaFoundation.IDirectXVideoDecoder_head), use_last_error=False)(7, 'CreateVideoDecoder', ((1, 'Guid'),(1, 'pVideoDesc'),(1, 'pConfig'),(1, 'ppDecoderRenderTargets'),(1, 'NumRenderTargets'),(1, 'ppDecode'),)))
+    win32more.Media.MediaFoundation.IDirectXVideoAccelerationService
     return IDirectXVideoDecoderService
 def _define_IDirectXVideoProcessorService_head():
     class IDirectXVideoProcessorService(win32more.Media.MediaFoundation.IDirectXVideoAccelerationService_head):
@@ -7253,6 +7312,7 @@ def _define_IDirectXVideoProcessorService():
     IDirectXVideoProcessorService.GetProcAmpRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Media.MediaFoundation.DXVA2_VideoDesc_head),win32more.Graphics.Direct3D9.D3DFORMAT,UInt32,POINTER(win32more.Media.MediaFoundation.DXVA2_ValueRange_head), use_last_error=False)(9, 'GetProcAmpRange', ((1, 'VideoProcDeviceGuid'),(1, 'pVideoDesc'),(1, 'RenderTargetFormat'),(1, 'ProcAmpCap'),(1, 'pRange'),)))
     IDirectXVideoProcessorService.GetFilterPropertyRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Media.MediaFoundation.DXVA2_VideoDesc_head),win32more.Graphics.Direct3D9.D3DFORMAT,UInt32,POINTER(win32more.Media.MediaFoundation.DXVA2_ValueRange_head), use_last_error=False)(10, 'GetFilterPropertyRange', ((1, 'VideoProcDeviceGuid'),(1, 'pVideoDesc'),(1, 'RenderTargetFormat'),(1, 'FilterSetting'),(1, 'pRange'),)))
     IDirectXVideoProcessorService.CreateVideoProcessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Media.MediaFoundation.DXVA2_VideoDesc_head),win32more.Graphics.Direct3D9.D3DFORMAT,UInt32,POINTER(win32more.Media.MediaFoundation.IDirectXVideoProcessor_head), use_last_error=False)(11, 'CreateVideoProcessor', ((1, 'VideoProcDeviceGuid'),(1, 'pVideoDesc'),(1, 'RenderTargetFormat'),(1, 'MaxNumSubStreams'),(1, 'ppVidProcess'),)))
+    win32more.Media.MediaFoundation.IDirectXVideoAccelerationService
     return IDirectXVideoProcessorService
 def _define_IDirectXVideoDecoder_head():
     class IDirectXVideoDecoder(win32more.System.Com.IUnknown_head):
@@ -7267,6 +7327,7 @@ def _define_IDirectXVideoDecoder():
     IDirectXVideoDecoder.BeginFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.IDirect3DSurface9_head,c_void_p, use_last_error=False)(7, 'BeginFrame', ((1, 'pRenderTarget'),(1, 'pvPVPData'),)))
     IDirectXVideoDecoder.EndFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(8, 'EndFrame', ((1, 'pHandleComplete'),)))
     IDirectXVideoDecoder.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.DXVA2_DecodeExecuteParams_head), use_last_error=False)(9, 'Execute', ((1, 'pExecuteParams'),)))
+    win32more.System.Com.IUnknown
     return IDirectXVideoDecoder
 def _define_IDirectXVideoProcessor_head():
     class IDirectXVideoProcessor(win32more.System.Com.IUnknown_head):
@@ -7280,6 +7341,7 @@ def _define_IDirectXVideoProcessor():
     IDirectXVideoProcessor.GetProcAmpRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.DXVA2_ValueRange_head), use_last_error=False)(6, 'GetProcAmpRange', ((1, 'ProcAmpCap'),(1, 'pRange'),)))
     IDirectXVideoProcessor.GetFilterPropertyRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.DXVA2_ValueRange_head), use_last_error=False)(7, 'GetFilterPropertyRange', ((1, 'FilterSetting'),(1, 'pRange'),)))
     IDirectXVideoProcessor.VideoProcessBlt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.IDirect3DSurface9_head,POINTER(win32more.Media.MediaFoundation.DXVA2_VideoProcessBltParams_head),POINTER(win32more.Media.MediaFoundation.DXVA2_VideoSample),UInt32,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(8, 'VideoProcessBlt', ((1, 'pRenderTarget'),(1, 'pBltParams'),(1, 'pSamples'),(1, 'NumSamples'),(1, 'pHandleComplete'),)))
+    win32more.System.Com.IUnknown
     return IDirectXVideoProcessor
 DXVA2_SurfaceType = Int32
 DXVA2_SurfaceType_DecoderRenderTarget = 0
@@ -7293,6 +7355,7 @@ def _define_IDirectXVideoMemoryConfiguration():
     IDirectXVideoMemoryConfiguration = win32more.Media.MediaFoundation.IDirectXVideoMemoryConfiguration_head
     IDirectXVideoMemoryConfiguration.GetAvailableSurfaceTypeByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.DXVA2_SurfaceType), use_last_error=False)(3, 'GetAvailableSurfaceTypeByIndex', ((1, 'dwTypeIndex'),(1, 'pdwType'),)))
     IDirectXVideoMemoryConfiguration.SetSurfaceType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.DXVA2_SurfaceType, use_last_error=False)(4, 'SetSurfaceType', ((1, 'dwType'),)))
+    win32more.System.Com.IUnknown
     return IDirectXVideoMemoryConfiguration
 OPM_TYPE = Int32
 OPM_OMAC_SIZE = 16
@@ -7685,6 +7748,7 @@ def _define_IOPMVideoOutput():
     IOPMVideoOutput.GetInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.OPM_GET_INFO_PARAMETERS_head),POINTER(win32more.Media.MediaFoundation.OPM_REQUESTED_INFORMATION_head), use_last_error=False)(5, 'GetInformation', ((1, 'pParameters'),(1, 'pRequestedInformation'),)))
     IOPMVideoOutput.COPPCompatibleGetInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS_head),POINTER(win32more.Media.MediaFoundation.OPM_REQUESTED_INFORMATION_head), use_last_error=False)(6, 'COPPCompatibleGetInformation', ((1, 'pParameters'),(1, 'pRequestedInformation'),)))
     IOPMVideoOutput.Configure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.OPM_CONFIGURE_PARAMETERS_head),UInt32,c_char_p_no, use_last_error=False)(7, 'Configure', ((1, 'pParameters'),(1, 'ulAdditionalParametersSize'),(1, 'pbAdditionalParameters'),)))
+    win32more.System.Com.IUnknown
     return IOPMVideoOutput
 KSPROPSETID_OPMVideoOutput = Guid('06f414bb-f43a-4fe2-a566-774b4c81f0db')
 KSMETHOD_OPMVIDEOOUTPUT = Int32
@@ -7741,6 +7805,7 @@ def _define_IMFAttributes():
     IMFAttributes.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(30, 'GetCount', ((1, 'pcItems'),)))
     IMFAttributes.GetItemByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(31, 'GetItemByIndex', ((1, 'unIndex'),(1, 'pguidKey'),(1, 'pValue'),)))
     IMFAttributes.CopyAllItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAttributes_head, use_last_error=False)(32, 'CopyAllItems', ((1, 'pDest'),)))
+    win32more.System.Com.IUnknown
     return IMFAttributes
 MF_ATTRIBUTE_SERIALIZE_OPTIONS = Int32
 MF_ATTRIBUTE_SERIALIZE_UNKNOWN_BYREF = 1
@@ -7755,6 +7820,7 @@ def _define_IMFMediaBuffer():
     IMFMediaBuffer.GetCurrentLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetCurrentLength', ((1, 'pcbCurrentLength'),)))
     IMFMediaBuffer.SetCurrentLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'SetCurrentLength', ((1, 'cbCurrentLength'),)))
     IMFMediaBuffer.GetMaxLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetMaxLength', ((1, 'pcbMaxLength'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaBuffer
 def _define_IMFSample_head():
     class IMFSample(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -7776,6 +7842,7 @@ def _define_IMFSample():
     IMFSample.RemoveAllBuffers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(44, 'RemoveAllBuffers', ()))
     IMFSample.GetTotalLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(45, 'GetTotalLength', ((1, 'pcbTotalLength'),)))
     IMFSample.CopyToBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaBuffer_head, use_last_error=False)(46, 'CopyToBuffer', ((1, 'pBuffer'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFSample
 def _define_IMF2DBuffer_head():
     class IMF2DBuffer(win32more.System.Com.IUnknown_head):
@@ -7790,6 +7857,7 @@ def _define_IMF2DBuffer():
     IMF2DBuffer.GetContiguousLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetContiguousLength', ((1, 'pcbLength'),)))
     IMF2DBuffer.ContiguousCopyTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(8, 'ContiguousCopyTo', ((1, 'pbDestBuffer'),(1, 'cbDestBuffer'),)))
     IMF2DBuffer.ContiguousCopyFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(9, 'ContiguousCopyFrom', ((1, 'pbSrcBuffer'),(1, 'cbSrcBuffer'),)))
+    win32more.System.Com.IUnknown
     return IMF2DBuffer
 MF2DBuffer_LockFlags = Int32
 MF2DBuffer_LockFlags_LockTypeMask = 3
@@ -7805,6 +7873,7 @@ def _define_IMF2DBuffer2():
     IMF2DBuffer2 = win32more.Media.MediaFoundation.IMF2DBuffer2_head
     IMF2DBuffer2.Lock2DSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF2DBuffer_LockFlags,POINTER(c_char_p_no),POINTER(Int32),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(10, 'Lock2DSize', ((1, 'lockFlags'),(1, 'ppbScanline0'),(1, 'plPitch'),(1, 'ppbBufferStart'),(1, 'pcbBufferLength'),)))
     IMF2DBuffer2.Copy2DTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMF2DBuffer2_head, use_last_error=False)(11, 'Copy2DTo', ((1, 'pDestBuffer'),)))
+    win32more.Media.MediaFoundation.IMF2DBuffer
     return IMF2DBuffer2
 def _define_IMFDXGIBuffer_head():
     class IMFDXGIBuffer(win32more.System.Com.IUnknown_head):
@@ -7816,6 +7885,7 @@ def _define_IMFDXGIBuffer():
     IMFDXGIBuffer.GetSubresourceIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetSubresourceIndex', ((1, 'puSubresource'),)))
     IMFDXGIBuffer.GetUnknown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'GetUnknown', ((1, 'guid'),(1, 'riid'),(1, 'ppvObject'),)))
     IMFDXGIBuffer.SetUnknown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'SetUnknown', ((1, 'guid'),(1, 'pUnkData'),)))
+    win32more.System.Com.IUnknown
     return IMFDXGIBuffer
 def _define_IMFMediaType_head():
     class IMFMediaType(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -7828,6 +7898,7 @@ def _define_IMFMediaType():
     IMFMediaType.IsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaType_head,POINTER(UInt32), use_last_error=False)(35, 'IsEqual', ((1, 'pIMediaType'),(1, 'pdwFlags'),)))
     IMFMediaType.GetRepresentation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(c_void_p), use_last_error=False)(36, 'GetRepresentation', ((1, 'guidRepresentation'),(1, 'ppvRepresentation'),)))
     IMFMediaType.FreeRepresentation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,c_void_p, use_last_error=False)(37, 'FreeRepresentation', ((1, 'guidRepresentation'),(1, 'pvRepresentation'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFMediaType
 def _define_IMFAudioMediaType_head():
     class IMFAudioMediaType(win32more.Media.MediaFoundation.IMFMediaType_head):
@@ -7836,6 +7907,7 @@ def _define_IMFAudioMediaType_head():
 def _define_IMFAudioMediaType():
     IMFAudioMediaType = win32more.Media.MediaFoundation.IMFAudioMediaType_head
     IMFAudioMediaType.GetAudioFormat = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Media.Audio.WAVEFORMATEX_head), use_last_error=False)(38, 'GetAudioFormat', ()))
+    win32more.Media.MediaFoundation.IMFMediaType
     return IMFAudioMediaType
 def _define_MFT_REGISTER_TYPE_INFO_head():
     class MFT_REGISTER_TYPE_INFO(Structure):
@@ -8107,6 +8179,7 @@ def _define_IMFVideoMediaType():
     IMFVideoMediaType = win32more.Media.MediaFoundation.IMFVideoMediaType_head
     IMFVideoMediaType.GetVideoFormat = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Media.MediaFoundation.MFVIDEOFORMAT_head), use_last_error=False)(38, 'GetVideoFormat', ()))
     IMFVideoMediaType.GetVideoRepresentation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(c_void_p),Int32, use_last_error=False)(39, 'GetVideoRepresentation', ((1, 'guidRepresentation'),(1, 'ppvRepresentation'),(1, 'lStride'),)))
+    win32more.Media.MediaFoundation.IMFMediaType
     return IMFVideoMediaType
 def _define_IMFAsyncResult_head():
     class IMFAsyncResult(win32more.System.Com.IUnknown_head):
@@ -8119,6 +8192,7 @@ def _define_IMFAsyncResult():
     IMFAsyncResult.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(5, 'SetStatus', ((1, 'hrStatus'),)))
     IMFAsyncResult.GetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'GetObject', ((1, 'ppObject'),)))
     IMFAsyncResult.GetStateNoAddRef = COMMETHOD(WINFUNCTYPE(win32more.System.Com.IUnknown_head, use_last_error=False)(7, 'GetStateNoAddRef', ()))
+    win32more.System.Com.IUnknown
     return IMFAsyncResult
 def _define_IMFAsyncCallback_head():
     class IMFAsyncCallback(win32more.System.Com.IUnknown_head):
@@ -8128,6 +8202,7 @@ def _define_IMFAsyncCallback():
     IMFAsyncCallback = win32more.Media.MediaFoundation.IMFAsyncCallback_head
     IMFAsyncCallback.GetParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetParameters', ((1, 'pdwFlags'),(1, 'pdwQueue'),)))
     IMFAsyncCallback.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head, use_last_error=False)(4, 'Invoke', ((1, 'pAsyncResult'),)))
+    win32more.System.Com.IUnknown
     return IMFAsyncCallback
 def _define_IMFAsyncCallbackLogging_head():
     class IMFAsyncCallbackLogging(win32more.Media.MediaFoundation.IMFAsyncCallback_head):
@@ -8137,6 +8212,7 @@ def _define_IMFAsyncCallbackLogging():
     IMFAsyncCallbackLogging = win32more.Media.MediaFoundation.IMFAsyncCallbackLogging_head
     IMFAsyncCallbackLogging.GetObjectPointer = COMMETHOD(WINFUNCTYPE(c_void_p, use_last_error=False)(5, 'GetObjectPointer', ()))
     IMFAsyncCallbackLogging.GetObjectTag = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(6, 'GetObjectTag', ()))
+    win32more.Media.MediaFoundation.IMFAsyncCallback
     return IMFAsyncCallbackLogging
 MF_EVENT_TYPE = Int32
 MF_EVENT_TYPE_MEUnknown = 0
@@ -8269,6 +8345,7 @@ def _define_IMFMediaEvent():
     IMFMediaEvent.GetExtendedType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(34, 'GetExtendedType', ((1, 'pguidExtendedType'),)))
     IMFMediaEvent.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(35, 'GetStatus', ((1, 'phrStatus'),)))
     IMFMediaEvent.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(36, 'GetValue', ((1, 'pvValue'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFMediaEvent
 def _define_IMFMediaEventGenerator_head():
     class IMFMediaEventGenerator(win32more.System.Com.IUnknown_head):
@@ -8280,6 +8357,7 @@ def _define_IMFMediaEventGenerator():
     IMFMediaEventGenerator.BeginGetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'BeginGetEvent', ((1, 'pCallback'),(1, 'punkState'),)))
     IMFMediaEventGenerator.EndGetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(win32more.Media.MediaFoundation.IMFMediaEvent_head), use_last_error=False)(5, 'EndGetEvent', ((1, 'pResult'),(1, 'ppEvent'),)))
     IMFMediaEventGenerator.QueueEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'QueueEvent', ((1, 'met'),(1, 'guidExtendedType'),(1, 'hrStatus'),(1, 'pvValue'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEventGenerator
 def _define_IMFRemoteAsyncCallback_head():
     class IMFRemoteAsyncCallback(win32more.System.Com.IUnknown_head):
@@ -8288,6 +8366,7 @@ def _define_IMFRemoteAsyncCallback_head():
 def _define_IMFRemoteAsyncCallback():
     IMFRemoteAsyncCallback = win32more.Media.MediaFoundation.IMFRemoteAsyncCallback_head
     IMFRemoteAsyncCallback.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Invoke', ((1, 'hr'),(1, 'pRemoteResult'),)))
+    win32more.System.Com.IUnknown
     return IMFRemoteAsyncCallback
 MFBYTESTREAM_SEEK_ORIGIN = Int32
 MFBYTESTREAM_SEEK_ORIGIN_msoBegin = 0
@@ -8313,6 +8392,7 @@ def _define_IMFByteStream():
     IMFByteStream.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MFBYTESTREAM_SEEK_ORIGIN,Int64,UInt32,POINTER(UInt64), use_last_error=False)(15, 'Seek', ((1, 'SeekOrigin'),(1, 'llSeekOffset'),(1, 'dwSeekFlags'),(1, 'pqwCurrentPosition'),)))
     IMFByteStream.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Flush', ()))
     IMFByteStream.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IMFByteStream
 def _define_IMFByteStreamProxyClassFactory_head():
     class IMFByteStreamProxyClassFactory(win32more.System.Com.IUnknown_head):
@@ -8321,6 +8401,7 @@ def _define_IMFByteStreamProxyClassFactory_head():
 def _define_IMFByteStreamProxyClassFactory():
     IMFByteStreamProxyClassFactory = win32more.Media.MediaFoundation.IMFByteStreamProxyClassFactory_head
     IMFByteStreamProxyClassFactory.CreateByteStreamProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFByteStream_head,win32more.Media.MediaFoundation.IMFAttributes_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateByteStreamProxy', ((1, 'pByteStream'),(1, 'pAttributes'),(1, 'riid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return IMFByteStreamProxyClassFactory
 MF_FILE_ACCESSMODE = Int32
 MF_ACCESSMODE_READ = 1
@@ -8345,6 +8426,7 @@ def _define_IMFSampleOutputStream():
     IMFSampleOutputStream.BeginWriteSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFSample_head,win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'BeginWriteSample', ((1, 'pSample'),(1, 'pCallback'),(1, 'punkState'),)))
     IMFSampleOutputStream.EndWriteSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head, use_last_error=False)(4, 'EndWriteSample', ((1, 'pResult'),)))
     IMFSampleOutputStream.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IMFSampleOutputStream
 def _define_IMFCollection_head():
     class IMFCollection(win32more.System.Com.IUnknown_head):
@@ -8358,6 +8440,7 @@ def _define_IMFCollection():
     IMFCollection.RemoveElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'RemoveElement', ((1, 'dwElementIndex'),(1, 'ppUnkElement'),)))
     IMFCollection.InsertElementAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(7, 'InsertElementAt', ((1, 'dwIndex'),(1, 'pUnknown'),)))
     IMFCollection.RemoveAllElements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'RemoveAllElements', ()))
+    win32more.System.Com.IUnknown
     return IMFCollection
 def _define_IMFMediaEventQueue_head():
     class IMFMediaEventQueue(win32more.System.Com.IUnknown_head):
@@ -8372,6 +8455,7 @@ def _define_IMFMediaEventQueue():
     IMFMediaEventQueue.QueueEventParamVar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(7, 'QueueEventParamVar', ((1, 'met'),(1, 'guidExtendedType'),(1, 'hrStatus'),(1, 'pvValue'),)))
     IMFMediaEventQueue.QueueEventParamUnk = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(8, 'QueueEventParamUnk', ((1, 'met'),(1, 'guidExtendedType'),(1, 'hrStatus'),(1, 'pUnk'),)))
     IMFMediaEventQueue.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Shutdown', ()))
+    win32more.System.Com.IUnknown
     return IMFMediaEventQueue
 def _define_IMFActivate_head():
     class IMFActivate(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -8382,6 +8466,7 @@ def _define_IMFActivate():
     IMFActivate.ActivateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(33, 'ActivateObject', ((1, 'riid'),(1, 'ppv'),)))
     IMFActivate.ShutdownObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(34, 'ShutdownObject', ()))
     IMFActivate.DetachObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(35, 'DetachObject', ()))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFActivate
 def _define_IMFPluginControl_head():
     class IMFPluginControl(win32more.System.Com.IUnknown_head):
@@ -8395,6 +8480,7 @@ def _define_IMFPluginControl():
     IMFPluginControl.IsDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(6, 'IsDisabled', ((1, 'pluginType'),(1, 'clsid'),)))
     IMFPluginControl.GetDisabledByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Guid), use_last_error=False)(7, 'GetDisabledByIndex', ((1, 'pluginType'),(1, 'index'),(1, 'clsid'),)))
     IMFPluginControl.SetDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),win32more.Foundation.BOOL, use_last_error=False)(8, 'SetDisabled', ((1, 'pluginType'),(1, 'clsid'),(1, 'disabled'),)))
+    win32more.System.Com.IUnknown
     return IMFPluginControl
 MF_PLUGIN_CONTROL_POLICY = Int32
 MF_PLUGIN_CONTROL_POLICY_USE_ALL_PLUGINS = 0
@@ -8408,6 +8494,7 @@ def _define_IMFPluginControl2_head():
 def _define_IMFPluginControl2():
     IMFPluginControl2 = win32more.Media.MediaFoundation.IMFPluginControl2_head
     IMFPluginControl2.SetPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_PLUGIN_CONTROL_POLICY, use_last_error=False)(9, 'SetPolicy', ((1, 'policy'),)))
+    win32more.Media.MediaFoundation.IMFPluginControl
     return IMFPluginControl2
 def _define_IMFDXGIDeviceManager_head():
     class IMFDXGIDeviceManager(win32more.System.Com.IUnknown_head):
@@ -8422,6 +8509,7 @@ def _define_IMFDXGIDeviceManager():
     IMFDXGIDeviceManager.ResetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(7, 'ResetDevice', ((1, 'pUnkDevice'),(1, 'resetToken'),)))
     IMFDXGIDeviceManager.TestDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(8, 'TestDevice', ((1, 'hDevice'),)))
     IMFDXGIDeviceManager.UnlockDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Foundation.BOOL, use_last_error=False)(9, 'UnlockDevice', ((1, 'hDevice'),(1, 'fSaveState'),)))
+    win32more.System.Com.IUnknown
     return IMFDXGIDeviceManager
 MF_STREAM_STATE = Int32
 MF_STREAM_STATE_STOPPED = 0
@@ -8435,6 +8523,7 @@ def _define_IMFMuxStreamAttributesManager():
     IMFMuxStreamAttributesManager = win32more.Media.MediaFoundation.IMFMuxStreamAttributesManager_head
     IMFMuxStreamAttributesManager.GetStreamCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetStreamCount', ((1, 'pdwMuxStreamCount'),)))
     IMFMuxStreamAttributesManager.GetAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFAttributes_head), use_last_error=False)(4, 'GetAttributes', ((1, 'dwMuxStreamIndex'),(1, 'ppStreamAttributes'),)))
+    win32more.System.Com.IUnknown
     return IMFMuxStreamAttributesManager
 def _define_IMFMuxStreamMediaTypeManager_head():
     class IMFMuxStreamMediaTypeManager(win32more.System.Com.IUnknown_head):
@@ -8448,6 +8537,7 @@ def _define_IMFMuxStreamMediaTypeManager():
     IMFMuxStreamMediaTypeManager.AddStreamConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(6, 'AddStreamConfiguration', ((1, 'ullStreamMask'),)))
     IMFMuxStreamMediaTypeManager.RemoveStreamConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(7, 'RemoveStreamConfiguration', ((1, 'ullStreamMask'),)))
     IMFMuxStreamMediaTypeManager.GetStreamConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt64), use_last_error=False)(8, 'GetStreamConfiguration', ((1, 'ulIndex'),(1, 'pullStreamMask'),)))
+    win32more.System.Com.IUnknown
     return IMFMuxStreamMediaTypeManager
 def _define_IMFMuxStreamSampleManager_head():
     class IMFMuxStreamSampleManager(win32more.System.Com.IUnknown_head):
@@ -8458,6 +8548,7 @@ def _define_IMFMuxStreamSampleManager():
     IMFMuxStreamSampleManager.GetStreamCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetStreamCount', ((1, 'pdwMuxStreamCount'),)))
     IMFMuxStreamSampleManager.GetSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFSample_head), use_last_error=False)(4, 'GetSample', ((1, 'dwMuxStreamIndex'),(1, 'ppSample'),)))
     IMFMuxStreamSampleManager.GetStreamConfiguration = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(5, 'GetStreamConfiguration', ()))
+    win32more.System.Com.IUnknown
     return IMFMuxStreamSampleManager
 def _define_IMFSecureBuffer_head():
     class IMFSecureBuffer(win32more.System.Com.IUnknown_head):
@@ -8466,6 +8557,7 @@ def _define_IMFSecureBuffer_head():
 def _define_IMFSecureBuffer():
     IMFSecureBuffer = win32more.Media.MediaFoundation.IMFSecureBuffer_head
     IMFSecureBuffer.GetIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetIdentifier', ((1, 'pGuidIdentifier'),)))
+    win32more.System.Com.IUnknown
     return IMFSecureBuffer
 _MFT_INPUT_DATA_BUFFER_FLAGS = Int32
 MFT_INPUT_DATA_BUFFER_PLACEHOLDER = -1
@@ -8591,6 +8683,7 @@ def _define_IMFTransform():
     IMFTransform.ProcessMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MFT_MESSAGE_TYPE,UIntPtr, use_last_error=False)(23, 'ProcessMessage', ((1, 'eMessage'),(1, 'ulParam'),)))
     IMFTransform.ProcessInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFSample_head,UInt32, use_last_error=False)(24, 'ProcessInput', ((1, 'dwInputStreamID'),(1, 'pSample'),(1, 'dwFlags'),)))
     IMFTransform.ProcessOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.MediaFoundation.MFT_OUTPUT_DATA_BUFFER),POINTER(UInt32), use_last_error=False)(25, 'ProcessOutput', ((1, 'dwFlags'),(1, 'cOutputBufferCount'),(1, 'pOutputSamples'),(1, 'pdwStatus'),)))
+    win32more.System.Com.IUnknown
     return IMFTransform
 DeviceStreamState = Int32
 DeviceStreamState_Stop = 0
@@ -8666,6 +8759,7 @@ def _define_IMFMediaSession():
     IMFMediaSession.GetClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFClock_head), use_last_error=False)(14, 'GetClock', ((1, 'ppClock'),)))
     IMFMediaSession.GetSessionCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'GetSessionCapabilities', ((1, 'pdwCaps'),)))
     IMFMediaSession.GetFullTopology = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,POINTER(win32more.Media.MediaFoundation.IMFTopology_head), use_last_error=False)(16, 'GetFullTopology', ((1, 'dwGetFullTopologyFlags'),(1, 'TopoId'),(1, 'ppFullTopology'),)))
+    win32more.Media.MediaFoundation.IMFMediaEventGenerator
     return IMFMediaSession
 MF_OBJECT_TYPE = Int32
 MF_OBJECT_MEDIASOURCE = 0
@@ -8707,6 +8801,7 @@ def _define_IMFSourceResolver():
     IMFSourceResolver.BeginCreateObjectFromByteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFByteStream_head,win32more.Foundation.PWSTR,UInt32,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,POINTER(win32more.System.Com.IUnknown_head),win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(7, 'BeginCreateObjectFromByteStream', ((1, 'pByteStream'),(1, 'pwszURL'),(1, 'dwFlags'),(1, 'pProps'),(1, 'ppIUnknownCancelCookie'),(1, 'pCallback'),(1, 'punkState'),)))
     IMFSourceResolver.EndCreateObjectFromByteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(win32more.Media.MediaFoundation.MF_OBJECT_TYPE),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'EndCreateObjectFromByteStream', ((1, 'pResult'),(1, 'pObjectType'),(1, 'ppObject'),)))
     IMFSourceResolver.CancelObjectCreation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'CancelObjectCreation', ((1, 'pIUnknownCancelCookie'),)))
+    win32more.System.Com.IUnknown
     return IMFSourceResolver
 MFMEDIASOURCE_CHARACTERISTICS = Int32
 MFMEDIASOURCE_IS_LIVE = 1
@@ -8729,6 +8824,7 @@ def _define_IMFMediaSource():
     IMFMediaSource.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Stop', ()))
     IMFMediaSource.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Pause', ()))
     IMFMediaSource.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Shutdown', ()))
+    win32more.Media.MediaFoundation.IMFMediaEventGenerator
     return IMFMediaSource
 def _define_IMFMediaSourceEx_head():
     class IMFMediaSourceEx(win32more.Media.MediaFoundation.IMFMediaSource_head):
@@ -8739,6 +8835,7 @@ def _define_IMFMediaSourceEx():
     IMFMediaSourceEx.GetSourceAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFAttributes_head), use_last_error=False)(13, 'GetSourceAttributes', ((1, 'ppAttributes'),)))
     IMFMediaSourceEx.GetStreamAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFAttributes_head), use_last_error=False)(14, 'GetStreamAttributes', ((1, 'dwStreamIdentifier'),(1, 'ppAttributes'),)))
     IMFMediaSourceEx.SetD3DManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(15, 'SetD3DManager', ((1, 'pManager'),)))
+    win32more.Media.MediaFoundation.IMFMediaSource
     return IMFMediaSourceEx
 def _define_IMFClockConsumer_head():
     class IMFClockConsumer(win32more.System.Com.IUnknown_head):
@@ -8748,6 +8845,7 @@ def _define_IMFClockConsumer():
     IMFClockConsumer = win32more.Media.MediaFoundation.IMFClockConsumer_head
     IMFClockConsumer.SetPresentationClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFPresentationClock_head, use_last_error=False)(3, 'SetPresentationClock', ((1, 'pPresentationClock'),)))
     IMFClockConsumer.GetPresentationClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFPresentationClock_head), use_last_error=False)(4, 'GetPresentationClock', ((1, 'ppPresentationClock'),)))
+    win32more.System.Com.IUnknown
     return IMFClockConsumer
 def _define_IMFMediaStream_head():
     class IMFMediaStream(win32more.Media.MediaFoundation.IMFMediaEventGenerator_head):
@@ -8758,6 +8856,7 @@ def _define_IMFMediaStream():
     IMFMediaStream.GetMediaSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFMediaSource_head), use_last_error=False)(7, 'GetMediaSource', ((1, 'ppMediaSource'),)))
     IMFMediaStream.GetStreamDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFStreamDescriptor_head), use_last_error=False)(8, 'GetStreamDescriptor', ((1, 'ppStreamDescriptor'),)))
     IMFMediaStream.RequestSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'RequestSample', ((1, 'pToken'),)))
+    win32more.Media.MediaFoundation.IMFMediaEventGenerator
     return IMFMediaStream
 def _define_IMFMediaSink_head():
     class IMFMediaSink(win32more.System.Com.IUnknown_head):
@@ -8774,6 +8873,7 @@ def _define_IMFMediaSink():
     IMFMediaSink.SetPresentationClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFPresentationClock_head, use_last_error=False)(9, 'SetPresentationClock', ((1, 'pPresentationClock'),)))
     IMFMediaSink.GetPresentationClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFPresentationClock_head), use_last_error=False)(10, 'GetPresentationClock', ((1, 'ppPresentationClock'),)))
     IMFMediaSink.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Shutdown', ()))
+    win32more.System.Com.IUnknown
     return IMFMediaSink
 MFSTREAMSINK_MARKER_TYPE = Int32
 MFSTREAMSINK_MARKER_DEFAULT = 0
@@ -8792,6 +8892,7 @@ def _define_IMFStreamSink():
     IMFStreamSink.ProcessSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFSample_head, use_last_error=False)(10, 'ProcessSample', ((1, 'pSample'),)))
     IMFStreamSink.PlaceMarker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MFSTREAMSINK_MARKER_TYPE,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(11, 'PlaceMarker', ((1, 'eMarkerType'),(1, 'pvarMarkerValue'),(1, 'pvarContextValue'),)))
     IMFStreamSink.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Flush', ()))
+    win32more.Media.MediaFoundation.IMFMediaEventGenerator
     return IMFStreamSink
 def _define_IMFVideoSampleAllocator_head():
     class IMFVideoSampleAllocator(win32more.System.Com.IUnknown_head):
@@ -8803,6 +8904,7 @@ def _define_IMFVideoSampleAllocator():
     IMFVideoSampleAllocator.UninitializeSampleAllocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UninitializeSampleAllocator', ()))
     IMFVideoSampleAllocator.InitializeSampleAllocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFMediaType_head, use_last_error=False)(5, 'InitializeSampleAllocator', ((1, 'cRequestedFrames'),(1, 'pMediaType'),)))
     IMFVideoSampleAllocator.AllocateSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFSample_head), use_last_error=False)(6, 'AllocateSample', ((1, 'ppSample'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoSampleAllocator
 def _define_IMFVideoSampleAllocatorNotify_head():
     class IMFVideoSampleAllocatorNotify(win32more.System.Com.IUnknown_head):
@@ -8811,6 +8913,7 @@ def _define_IMFVideoSampleAllocatorNotify_head():
 def _define_IMFVideoSampleAllocatorNotify():
     IMFVideoSampleAllocatorNotify = win32more.Media.MediaFoundation.IMFVideoSampleAllocatorNotify_head
     IMFVideoSampleAllocatorNotify.NotifyRelease = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'NotifyRelease', ()))
+    win32more.System.Com.IUnknown
     return IMFVideoSampleAllocatorNotify
 def _define_IMFVideoSampleAllocatorNotifyEx_head():
     class IMFVideoSampleAllocatorNotifyEx(win32more.Media.MediaFoundation.IMFVideoSampleAllocatorNotify_head):
@@ -8819,6 +8922,7 @@ def _define_IMFVideoSampleAllocatorNotifyEx_head():
 def _define_IMFVideoSampleAllocatorNotifyEx():
     IMFVideoSampleAllocatorNotifyEx = win32more.Media.MediaFoundation.IMFVideoSampleAllocatorNotifyEx_head
     IMFVideoSampleAllocatorNotifyEx.NotifyPrune = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFSample_head, use_last_error=False)(4, 'NotifyPrune', ((1, '__MIDL__IMFVideoSampleAllocatorNotifyEx0000'),)))
+    win32more.Media.MediaFoundation.IMFVideoSampleAllocatorNotify
     return IMFVideoSampleAllocatorNotifyEx
 def _define_IMFVideoSampleAllocatorCallback_head():
     class IMFVideoSampleAllocatorCallback(win32more.System.Com.IUnknown_head):
@@ -8828,6 +8932,7 @@ def _define_IMFVideoSampleAllocatorCallback():
     IMFVideoSampleAllocatorCallback = win32more.Media.MediaFoundation.IMFVideoSampleAllocatorCallback_head
     IMFVideoSampleAllocatorCallback.SetCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFVideoSampleAllocatorNotify_head, use_last_error=False)(3, 'SetCallback', ((1, 'pNotify'),)))
     IMFVideoSampleAllocatorCallback.GetFreeSampleCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'GetFreeSampleCount', ((1, 'plSamples'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoSampleAllocatorCallback
 def _define_IMFVideoSampleAllocatorEx_head():
     class IMFVideoSampleAllocatorEx(win32more.Media.MediaFoundation.IMFVideoSampleAllocator_head):
@@ -8836,6 +8941,7 @@ def _define_IMFVideoSampleAllocatorEx_head():
 def _define_IMFVideoSampleAllocatorEx():
     IMFVideoSampleAllocatorEx = win32more.Media.MediaFoundation.IMFVideoSampleAllocatorEx_head
     IMFVideoSampleAllocatorEx.InitializeSampleAllocatorEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Media.MediaFoundation.IMFAttributes_head,win32more.Media.MediaFoundation.IMFMediaType_head, use_last_error=False)(7, 'InitializeSampleAllocatorEx', ((1, 'cInitialSamples'),(1, 'cMaximumSamples'),(1, 'pAttributes'),(1, 'pMediaType'),)))
+    win32more.Media.MediaFoundation.IMFVideoSampleAllocator
     return IMFVideoSampleAllocatorEx
 def _define_IMFDXGIDeviceManagerSource_head():
     class IMFDXGIDeviceManagerSource(win32more.System.Com.IUnknown_head):
@@ -8844,6 +8950,7 @@ def _define_IMFDXGIDeviceManagerSource_head():
 def _define_IMFDXGIDeviceManagerSource():
     IMFDXGIDeviceManagerSource = win32more.Media.MediaFoundation.IMFDXGIDeviceManagerSource_head
     IMFDXGIDeviceManagerSource.GetManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFDXGIDeviceManager_head), use_last_error=False)(3, 'GetManager', ((1, 'ppManager'),)))
+    win32more.System.Com.IUnknown
     return IMFDXGIDeviceManagerSource
 MF_VIDEO_PROCESSOR_ROTATION = Int32
 ROTATION_NONE = 0
@@ -8864,6 +8971,7 @@ def _define_IMFVideoProcessorControl():
     IMFVideoProcessorControl.SetMirror = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_VIDEO_PROCESSOR_MIRROR, use_last_error=False)(6, 'SetMirror', ((1, 'eMirror'),)))
     IMFVideoProcessorControl.SetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_VIDEO_PROCESSOR_ROTATION, use_last_error=False)(7, 'SetRotation', ((1, 'eRotation'),)))
     IMFVideoProcessorControl.SetConstrictionSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(8, 'SetConstrictionSize', ((1, 'pConstrictionSize'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoProcessorControl
 def _define_IMFVideoProcessorControl2_head():
     class IMFVideoProcessorControl2(win32more.Media.MediaFoundation.IMFVideoProcessorControl_head):
@@ -8874,6 +8982,7 @@ def _define_IMFVideoProcessorControl2():
     IMFVideoProcessorControl2.SetRotationOverride = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'SetRotationOverride', ((1, 'uiRotation'),)))
     IMFVideoProcessorControl2.EnableHardwareEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(10, 'EnableHardwareEffects', ((1, 'fEnabled'),)))
     IMFVideoProcessorControl2.GetSupportedHardwareEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(11, 'GetSupportedHardwareEffects', ((1, 'puiSupport'),)))
+    win32more.Media.MediaFoundation.IMFVideoProcessorControl
     return IMFVideoProcessorControl2
 MFVideoSphericalFormat = Int32
 MFVideoSphericalFormat_Unsupported = 0
@@ -8893,6 +9002,7 @@ def _define_IMFVideoProcessorControl3():
     IMFVideoProcessorControl3.EnableSphericalVideoProcessing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Media.MediaFoundation.MFVideoSphericalFormat,win32more.Media.MediaFoundation.MFVideoSphericalProjectionMode, use_last_error=False)(13, 'EnableSphericalVideoProcessing', ((1, 'fEnable'),(1, 'eFormat'),(1, 'eProjectionMode'),)))
     IMFVideoProcessorControl3.SetSphericalVideoProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single,Single, use_last_error=False)(14, 'SetSphericalVideoProperties', ((1, 'X'),(1, 'Y'),(1, 'Z'),(1, 'W'),(1, 'fieldOfView'),)))
     IMFVideoProcessorControl3.SetOutputDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(15, 'SetOutputDevice', ((1, 'pOutputDevice'),)))
+    win32more.Media.MediaFoundation.IMFVideoProcessorControl2
     return IMFVideoProcessorControl3
 def _define_IMFVideoRendererEffectControl_head():
     class IMFVideoRendererEffectControl(win32more.System.Com.IUnknown_head):
@@ -8901,6 +9011,7 @@ def _define_IMFVideoRendererEffectControl_head():
 def _define_IMFVideoRendererEffectControl():
     IMFVideoRendererEffectControl = win32more.Media.MediaFoundation.IMFVideoRendererEffectControl_head
     IMFVideoRendererEffectControl.OnAppServiceConnectionEstablished = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'OnAppServiceConnectionEstablished', ((1, 'pAppServiceConnection'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoRendererEffectControl
 def _define_IMFTopology_head():
     class IMFTopology(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -8918,6 +9029,7 @@ def _define_IMFTopology():
     IMFTopology.GetNodeByID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.Media.MediaFoundation.IMFTopologyNode_head), use_last_error=False)(40, 'GetNodeByID', ((1, 'qwTopoNodeID'),(1, 'ppNode'),)))
     IMFTopology.GetSourceNodeCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFCollection_head), use_last_error=False)(41, 'GetSourceNodeCollection', ((1, 'ppCollection'),)))
     IMFTopology.GetOutputNodeCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFCollection_head), use_last_error=False)(42, 'GetOutputNodeCollection', ((1, 'ppCollection'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFTopology
 MFTOPOLOGY_DXVA_MODE = Int32
 MFTOPOLOGY_DXVA_DEFAULT = 0
@@ -8955,6 +9067,7 @@ def _define_IMFTopologyNode():
     IMFTopologyNode.SetInputPrefType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFMediaType_head, use_last_error=False)(46, 'SetInputPrefType', ((1, 'dwInputIndex'),(1, 'pType'),)))
     IMFTopologyNode.GetInputPrefType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFMediaType_head), use_last_error=False)(47, 'GetInputPrefType', ((1, 'dwInputIndex'),(1, 'ppType'),)))
     IMFTopologyNode.CloneFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFTopologyNode_head, use_last_error=False)(48, 'CloneFrom', ((1, 'pNode'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFTopologyNode
 MF_TOPONODE_FLUSH_MODE = Int32
 MF_TOPONODE_FLUSH_ALWAYS = 0
@@ -8971,6 +9084,7 @@ def _define_IMFGetService_head():
 def _define_IMFGetService():
     IMFGetService = win32more.Media.MediaFoundation.IMFGetService_head
     IMFGetService.GetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetService', ((1, 'guidService'),(1, 'riid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return IMFGetService
 MFCLOCK_CHARACTERISTICS_FLAGS = Int32
 MFCLOCK_CHARACTERISTICS_FLAG_FREQUENCY_10MHZ = 2
@@ -9009,6 +9123,7 @@ def _define_IMFClock():
     IMFClock.GetContinuityKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetContinuityKey', ((1, 'pdwContinuityKey'),)))
     IMFClock.GetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.MFCLOCK_STATE), use_last_error=False)(6, 'GetState', ((1, 'dwReserved'),(1, 'peClockState'),)))
     IMFClock.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFCLOCK_PROPERTIES_head), use_last_error=False)(7, 'GetProperties', ((1, 'pClockProperties'),)))
+    win32more.System.Com.IUnknown
     return IMFClock
 def _define_IMFPresentationClock_head():
     class IMFPresentationClock(win32more.Media.MediaFoundation.IMFClock_head):
@@ -9024,6 +9139,7 @@ def _define_IMFPresentationClock():
     IMFPresentationClock.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(13, 'Start', ((1, 'llClockStartOffset'),)))
     IMFPresentationClock.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Stop', ()))
     IMFPresentationClock.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Pause', ()))
+    win32more.Media.MediaFoundation.IMFClock
     return IMFPresentationClock
 def _define_IMFPresentationTimeSource_head():
     class IMFPresentationTimeSource(win32more.Media.MediaFoundation.IMFClock_head):
@@ -9032,6 +9148,7 @@ def _define_IMFPresentationTimeSource_head():
 def _define_IMFPresentationTimeSource():
     IMFPresentationTimeSource = win32more.Media.MediaFoundation.IMFPresentationTimeSource_head
     IMFPresentationTimeSource.GetUnderlyingClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFClock_head), use_last_error=False)(8, 'GetUnderlyingClock', ((1, 'ppClock'),)))
+    win32more.Media.MediaFoundation.IMFClock
     return IMFPresentationTimeSource
 def _define_IMFClockStateSink_head():
     class IMFClockStateSink(win32more.System.Com.IUnknown_head):
@@ -9044,6 +9161,7 @@ def _define_IMFClockStateSink():
     IMFClockStateSink.OnClockPause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(5, 'OnClockPause', ((1, 'hnsSystemTime'),)))
     IMFClockStateSink.OnClockRestart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(6, 'OnClockRestart', ((1, 'hnsSystemTime'),)))
     IMFClockStateSink.OnClockSetRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,Single, use_last_error=False)(7, 'OnClockSetRate', ((1, 'hnsSystemTime'),(1, 'flRate'),)))
+    win32more.System.Com.IUnknown
     return IMFClockStateSink
 def _define_IMFPresentationDescriptor_head():
     class IMFPresentationDescriptor(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -9056,6 +9174,7 @@ def _define_IMFPresentationDescriptor():
     IMFPresentationDescriptor.SelectStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(35, 'SelectStream', ((1, 'dwDescriptorIndex'),)))
     IMFPresentationDescriptor.DeselectStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(36, 'DeselectStream', ((1, 'dwDescriptorIndex'),)))
     IMFPresentationDescriptor.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFPresentationDescriptor_head), use_last_error=False)(37, 'Clone', ((1, 'ppPresentationDescriptor'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFPresentationDescriptor
 def _define_IMFStreamDescriptor_head():
     class IMFStreamDescriptor(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -9065,6 +9184,7 @@ def _define_IMFStreamDescriptor():
     IMFStreamDescriptor = win32more.Media.MediaFoundation.IMFStreamDescriptor_head
     IMFStreamDescriptor.GetStreamIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(33, 'GetStreamIdentifier', ((1, 'pdwStreamIdentifier'),)))
     IMFStreamDescriptor.GetMediaTypeHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFMediaTypeHandler_head), use_last_error=False)(34, 'GetMediaTypeHandler', ((1, 'ppMediaTypeHandler'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFStreamDescriptor
 def _define_IMFMediaTypeHandler_head():
     class IMFMediaTypeHandler(win32more.System.Com.IUnknown_head):
@@ -9078,6 +9198,7 @@ def _define_IMFMediaTypeHandler():
     IMFMediaTypeHandler.SetCurrentMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaType_head, use_last_error=False)(6, 'SetCurrentMediaType', ((1, 'pMediaType'),)))
     IMFMediaTypeHandler.GetCurrentMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFMediaType_head), use_last_error=False)(7, 'GetCurrentMediaType', ((1, 'ppMediaType'),)))
     IMFMediaTypeHandler.GetMajorType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(8, 'GetMajorType', ((1, 'pguidMajorType'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaTypeHandler
 MFTIMER_FLAGS = Int32
 MFTIMER_RELATIVE = 1
@@ -9089,6 +9210,7 @@ def _define_IMFTimer():
     IMFTimer = win32more.Media.MediaFoundation.IMFTimer_head
     IMFTimer.SetTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int64,win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'SetTimer', ((1, 'dwFlags'),(1, 'llClockTime'),(1, 'pCallback'),(1, 'punkState'),(1, 'ppunkKey'),)))
     IMFTimer.CancelTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'CancelTimer', ((1, 'punkKey'),)))
+    win32more.System.Com.IUnknown
     return IMFTimer
 MF_ACTIVATE_CUSTOM_MIXER = Int32
 MF_ACTIVATE_CUSTOM_MIXER_ALLOWFAIL = 1
@@ -9105,6 +9227,7 @@ def _define_IMFShutdown():
     IMFShutdown = win32more.Media.MediaFoundation.IMFShutdown_head
     IMFShutdown.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Shutdown', ()))
     IMFShutdown.GetShutdownStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFSHUTDOWN_STATUS), use_last_error=False)(4, 'GetShutdownStatus', ((1, 'pStatus'),)))
+    win32more.System.Com.IUnknown
     return IMFShutdown
 def _define_IMFTopoLoader_head():
     class IMFTopoLoader(win32more.System.Com.IUnknown_head):
@@ -9113,6 +9236,7 @@ def _define_IMFTopoLoader_head():
 def _define_IMFTopoLoader():
     IMFTopoLoader = win32more.Media.MediaFoundation.IMFTopoLoader_head
     IMFTopoLoader.Load = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFTopology_head,POINTER(win32more.Media.MediaFoundation.IMFTopology_head),win32more.Media.MediaFoundation.IMFTopology_head, use_last_error=False)(3, 'Load', ((1, 'pInputTopo'),(1, 'ppOutputTopo'),(1, 'pCurrentTopo'),)))
+    win32more.System.Com.IUnknown
     return IMFTopoLoader
 def _define_IMFContentProtectionManager_head():
     class IMFContentProtectionManager(win32more.System.Com.IUnknown_head):
@@ -9122,6 +9246,7 @@ def _define_IMFContentProtectionManager():
     IMFContentProtectionManager = win32more.Media.MediaFoundation.IMFContentProtectionManager_head
     IMFContentProtectionManager.BeginEnableContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFActivate_head,win32more.Media.MediaFoundation.IMFTopology_head,win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'BeginEnableContent', ((1, 'pEnablerActivate'),(1, 'pTopo'),(1, 'pCallback'),(1, 'punkState'),)))
     IMFContentProtectionManager.EndEnableContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head, use_last_error=False)(4, 'EndEnableContent', ((1, 'pResult'),)))
+    win32more.System.Com.IUnknown
     return IMFContentProtectionManager
 MF_URL_TRUST_STATUS = Int32
 MF_LICENSE_URL_UNTRUSTED = 0
@@ -9140,6 +9265,7 @@ def _define_IMFContentEnabler():
     IMFContentEnabler.AutomaticEnable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'AutomaticEnable', ()))
     IMFContentEnabler.MonitorEnable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'MonitorEnable', ()))
     IMFContentEnabler.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return IMFContentEnabler
 def _define_MFRR_COMPONENT_HASH_INFO_head():
     class MFRR_COMPONENT_HASH_INFO(Structure):
@@ -9204,6 +9330,7 @@ def _define_IMFMetadata():
     IMFMetadata.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(7, 'GetProperty', ((1, 'pwszName'),(1, 'ppvValue'),)))
     IMFMetadata.DeleteProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'DeleteProperty', ((1, 'pwszName'),)))
     IMFMetadata.GetAllPropertyNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(9, 'GetAllPropertyNames', ((1, 'ppvNames'),)))
+    win32more.System.Com.IUnknown
     return IMFMetadata
 def _define_IMFMetadataProvider_head():
     class IMFMetadataProvider(win32more.System.Com.IUnknown_head):
@@ -9212,6 +9339,7 @@ def _define_IMFMetadataProvider_head():
 def _define_IMFMetadataProvider():
     IMFMetadataProvider = win32more.Media.MediaFoundation.IMFMetadataProvider_head
     IMFMetadataProvider.GetMFMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFPresentationDescriptor_head,UInt32,UInt32,POINTER(win32more.Media.MediaFoundation.IMFMetadata_head), use_last_error=False)(3, 'GetMFMetadata', ((1, 'pPresentationDescriptor'),(1, 'dwStreamIdentifier'),(1, 'dwFlags'),(1, 'ppMFMetadata'),)))
+    win32more.System.Com.IUnknown
     return IMFMetadataProvider
 MFRATE_DIRECTION = Int32
 MFRATE_FORWARD = 0
@@ -9225,6 +9353,7 @@ def _define_IMFRateSupport():
     IMFRateSupport.GetSlowestRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MFRATE_DIRECTION,win32more.Foundation.BOOL,POINTER(Single), use_last_error=False)(3, 'GetSlowestRate', ((1, 'eDirection'),(1, 'fThin'),(1, 'pflRate'),)))
     IMFRateSupport.GetFastestRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MFRATE_DIRECTION,win32more.Foundation.BOOL,POINTER(Single), use_last_error=False)(4, 'GetFastestRate', ((1, 'eDirection'),(1, 'fThin'),(1, 'pflRate'),)))
     IMFRateSupport.IsRateSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,Single,POINTER(Single), use_last_error=False)(5, 'IsRateSupported', ((1, 'fThin'),(1, 'flRate'),(1, 'pflNearestSupportedRate'),)))
+    win32more.System.Com.IUnknown
     return IMFRateSupport
 def _define_IMFRateControl_head():
     class IMFRateControl(win32more.System.Com.IUnknown_head):
@@ -9234,6 +9363,7 @@ def _define_IMFRateControl():
     IMFRateControl = win32more.Media.MediaFoundation.IMFRateControl_head
     IMFRateControl.SetRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,Single, use_last_error=False)(3, 'SetRate', ((1, 'fThin'),(1, 'flRate'),)))
     IMFRateControl.GetRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(Single), use_last_error=False)(4, 'GetRate', ((1, 'pfThin'),(1, 'pflRate'),)))
+    win32more.System.Com.IUnknown
     return IMFRateControl
 def _define_IMFTimecodeTranslate_head():
     class IMFTimecodeTranslate(win32more.System.Com.IUnknown_head):
@@ -9245,6 +9375,7 @@ def _define_IMFTimecodeTranslate():
     IMFTimecodeTranslate.EndConvertTimecodeToHNS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(Int64), use_last_error=False)(4, 'EndConvertTimecodeToHNS', ((1, 'pResult'),(1, 'phnsTime'),)))
     IMFTimecodeTranslate.BeginConvertHNSToTimecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'BeginConvertHNSToTimecode', ((1, 'hnsTime'),(1, 'pCallback'),(1, 'punkState'),)))
     IMFTimecodeTranslate.EndConvertHNSToTimecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'EndConvertHNSToTimecode', ((1, 'pResult'),(1, 'pPropVarTimecode'),)))
+    win32more.System.Com.IUnknown
     return IMFTimecodeTranslate
 def _define_IMFSeekInfo_head():
     class IMFSeekInfo(win32more.System.Com.IUnknown_head):
@@ -9253,6 +9384,7 @@ def _define_IMFSeekInfo_head():
 def _define_IMFSeekInfo():
     IMFSeekInfo = win32more.Media.MediaFoundation.IMFSeekInfo_head
     IMFSeekInfo.GetNearestKeyFrames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(3, 'GetNearestKeyFrames', ((1, 'pguidTimeFormat'),(1, 'pvarStartPosition'),(1, 'pvarPreviousKeyFrame'),(1, 'pvarNextKeyFrame'),)))
+    win32more.System.Com.IUnknown
     return IMFSeekInfo
 def _define_IMFSimpleAudioVolume_head():
     class IMFSimpleAudioVolume(win32more.System.Com.IUnknown_head):
@@ -9264,6 +9396,7 @@ def _define_IMFSimpleAudioVolume():
     IMFSimpleAudioVolume.GetMasterVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(4, 'GetMasterVolume', ((1, 'pfLevel'),)))
     IMFSimpleAudioVolume.SetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetMute', ((1, 'bMute'),)))
     IMFSimpleAudioVolume.GetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetMute', ((1, 'pbMute'),)))
+    win32more.System.Com.IUnknown
     return IMFSimpleAudioVolume
 def _define_IMFAudioStreamVolume_head():
     class IMFAudioStreamVolume(win32more.System.Com.IUnknown_head):
@@ -9276,6 +9409,7 @@ def _define_IMFAudioStreamVolume():
     IMFAudioStreamVolume.GetChannelVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(5, 'GetChannelVolume', ((1, 'dwIndex'),(1, 'pfLevel'),)))
     IMFAudioStreamVolume.SetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(6, 'SetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),)))
     IMFAudioStreamVolume.GetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(7, 'GetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),)))
+    win32more.System.Com.IUnknown
     return IMFAudioStreamVolume
 def _define_IMFAudioPolicy_head():
     class IMFAudioPolicy(win32more.System.Com.IUnknown_head):
@@ -9289,6 +9423,7 @@ def _define_IMFAudioPolicy():
     IMFAudioPolicy.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetDisplayName', ((1, 'pszName'),)))
     IMFAudioPolicy.SetIconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'SetIconPath', ((1, 'pszPath'),)))
     IMFAudioPolicy.GetIconPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'GetIconPath', ((1, 'pszPath'),)))
+    win32more.System.Com.IUnknown
     return IMFAudioPolicy
 def _define_IMFSampleGrabberSinkCallback_head():
     class IMFSampleGrabberSinkCallback(win32more.Media.MediaFoundation.IMFClockStateSink_head):
@@ -9299,6 +9434,7 @@ def _define_IMFSampleGrabberSinkCallback():
     IMFSampleGrabberSinkCallback.OnSetPresentationClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFPresentationClock_head, use_last_error=False)(8, 'OnSetPresentationClock', ((1, 'pPresentationClock'),)))
     IMFSampleGrabberSinkCallback.OnProcessSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,Int64,Int64,c_char_p_no,UInt32, use_last_error=False)(9, 'OnProcessSample', ((1, 'guidMajorMediaType'),(1, 'dwSampleFlags'),(1, 'llSampleTime'),(1, 'llSampleDuration'),(1, 'pSampleBuffer'),(1, 'dwSampleSize'),)))
     IMFSampleGrabberSinkCallback.OnShutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'OnShutdown', ()))
+    win32more.Media.MediaFoundation.IMFClockStateSink
     return IMFSampleGrabberSinkCallback
 def _define_IMFSampleGrabberSinkCallback2_head():
     class IMFSampleGrabberSinkCallback2(win32more.Media.MediaFoundation.IMFSampleGrabberSinkCallback_head):
@@ -9307,6 +9443,7 @@ def _define_IMFSampleGrabberSinkCallback2_head():
 def _define_IMFSampleGrabberSinkCallback2():
     IMFSampleGrabberSinkCallback2 = win32more.Media.MediaFoundation.IMFSampleGrabberSinkCallback2_head
     IMFSampleGrabberSinkCallback2.OnProcessSampleEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,Int64,Int64,c_char_p_no,UInt32,win32more.Media.MediaFoundation.IMFAttributes_head, use_last_error=False)(11, 'OnProcessSampleEx', ((1, 'guidMajorMediaType'),(1, 'dwSampleFlags'),(1, 'llSampleTime'),(1, 'llSampleDuration'),(1, 'pSampleBuffer'),(1, 'dwSampleSize'),(1, 'pAttributes'),)))
+    win32more.Media.MediaFoundation.IMFSampleGrabberSinkCallback
     return IMFSampleGrabberSinkCallback2
 def _define_IMFWorkQueueServices_head():
     class IMFWorkQueueServices(win32more.System.Com.IUnknown_head):
@@ -9326,6 +9463,7 @@ def _define_IMFWorkQueueServices():
     IMFWorkQueueServices.EndUnregisterPlatformWorkQueueWithMMCSS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head, use_last_error=False)(12, 'EndUnregisterPlatformWorkQueueWithMMCSS', ((1, 'pResult'),)))
     IMFWorkQueueServices.GetPlaftormWorkQueueMMCSSClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(13, 'GetPlaftormWorkQueueMMCSSClass', ((1, 'dwPlatformWorkQueueId'),(1, 'pwszClass'),(1, 'pcchClass'),)))
     IMFWorkQueueServices.GetPlatformWorkQueueMMCSSTaskId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(14, 'GetPlatformWorkQueueMMCSSTaskId', ((1, 'dwPlatformWorkQueueId'),(1, 'pdwTaskId'),)))
+    win32more.System.Com.IUnknown
     return IMFWorkQueueServices
 def _define_IMFWorkQueueServicesEx_head():
     class IMFWorkQueueServicesEx(win32more.Media.MediaFoundation.IMFWorkQueueServices_head):
@@ -9336,6 +9474,7 @@ def _define_IMFWorkQueueServicesEx():
     IMFWorkQueueServicesEx.GetTopologyWorkQueueMMCSSPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Int32), use_last_error=False)(15, 'GetTopologyWorkQueueMMCSSPriority', ((1, 'dwTopologyWorkQueueId'),(1, 'plPriority'),)))
     IMFWorkQueueServicesEx.BeginRegisterPlatformWorkQueueWithMMCSSEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,Int32,win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(16, 'BeginRegisterPlatformWorkQueueWithMMCSSEx', ((1, 'dwPlatformWorkQueue'),(1, 'wszClass'),(1, 'dwTaskId'),(1, 'lPriority'),(1, 'pCallback'),(1, 'pState'),)))
     IMFWorkQueueServicesEx.GetPlatformWorkQueueMMCSSPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Int32), use_last_error=False)(17, 'GetPlatformWorkQueueMMCSSPriority', ((1, 'dwPlatformWorkQueueId'),(1, 'plPriority'),)))
+    win32more.Media.MediaFoundation.IMFWorkQueueServices
     return IMFWorkQueueServicesEx
 MF_QUALITY_DROP_MODE = Int32
 MF_DROP_MODE_NONE = 0
@@ -9367,6 +9506,7 @@ def _define_IMFQualityManager():
     IMFQualityManager.NotifyProcessOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFTopologyNode_head,Int32,win32more.Media.MediaFoundation.IMFSample_head, use_last_error=False)(6, 'NotifyProcessOutput', ((1, 'pNode'),(1, 'lOutputIndex'),(1, 'pSample'),)))
     IMFQualityManager.NotifyQualityEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Media.MediaFoundation.IMFMediaEvent_head, use_last_error=False)(7, 'NotifyQualityEvent', ((1, 'pObject'),(1, 'pEvent'),)))
     IMFQualityManager.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Shutdown', ()))
+    win32more.System.Com.IUnknown
     return IMFQualityManager
 def _define_IMFQualityAdvise_head():
     class IMFQualityAdvise(win32more.System.Com.IUnknown_head):
@@ -9379,6 +9519,7 @@ def _define_IMFQualityAdvise():
     IMFQualityAdvise.GetDropMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_QUALITY_DROP_MODE), use_last_error=False)(5, 'GetDropMode', ((1, 'peDropMode'),)))
     IMFQualityAdvise.GetQualityLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_QUALITY_LEVEL), use_last_error=False)(6, 'GetQualityLevel', ((1, 'peQualityLevel'),)))
     IMFQualityAdvise.DropTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(7, 'DropTime', ((1, 'hnsAmountToDrop'),)))
+    win32more.System.Com.IUnknown
     return IMFQualityAdvise
 def _define_IMFQualityAdvise2_head():
     class IMFQualityAdvise2(win32more.Media.MediaFoundation.IMFQualityAdvise_head):
@@ -9387,6 +9528,7 @@ def _define_IMFQualityAdvise2_head():
 def _define_IMFQualityAdvise2():
     IMFQualityAdvise2 = win32more.Media.MediaFoundation.IMFQualityAdvise2_head
     IMFQualityAdvise2.NotifyQualityEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaEvent_head,POINTER(UInt32), use_last_error=False)(8, 'NotifyQualityEvent', ((1, 'pEvent'),(1, 'pdwFlags'),)))
+    win32more.Media.MediaFoundation.IMFQualityAdvise
     return IMFQualityAdvise2
 def _define_IMFQualityAdviseLimits_head():
     class IMFQualityAdviseLimits(win32more.System.Com.IUnknown_head):
@@ -9396,6 +9538,7 @@ def _define_IMFQualityAdviseLimits():
     IMFQualityAdviseLimits = win32more.Media.MediaFoundation.IMFQualityAdviseLimits_head
     IMFQualityAdviseLimits.GetMaximumDropMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_QUALITY_DROP_MODE), use_last_error=False)(3, 'GetMaximumDropMode', ((1, 'peDropMode'),)))
     IMFQualityAdviseLimits.GetMinimumQualityLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_QUALITY_LEVEL), use_last_error=False)(4, 'GetMinimumQualityLevel', ((1, 'peQualityLevel'),)))
+    win32more.System.Com.IUnknown
     return IMFQualityAdviseLimits
 def _define_IMFRealTimeClient_head():
     class IMFRealTimeClient(win32more.System.Com.IUnknown_head):
@@ -9406,6 +9549,7 @@ def _define_IMFRealTimeClient():
     IMFRealTimeClient.RegisterThreads = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(3, 'RegisterThreads', ((1, 'dwTaskIndex'),(1, 'wszClass'),)))
     IMFRealTimeClient.UnregisterThreads = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnregisterThreads', ()))
     IMFRealTimeClient.SetWorkQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'SetWorkQueue', ((1, 'dwWorkQueueId'),)))
+    win32more.System.Com.IUnknown
     return IMFRealTimeClient
 def _define_IMFRealTimeClientEx_head():
     class IMFRealTimeClientEx(win32more.System.Com.IUnknown_head):
@@ -9416,6 +9560,7 @@ def _define_IMFRealTimeClientEx():
     IMFRealTimeClientEx.RegisterThreadsEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),win32more.Foundation.PWSTR,Int32, use_last_error=False)(3, 'RegisterThreadsEx', ((1, 'pdwTaskIndex'),(1, 'wszClassName'),(1, 'lBasePriority'),)))
     IMFRealTimeClientEx.UnregisterThreads = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnregisterThreads', ()))
     IMFRealTimeClientEx.SetWorkQueueEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32, use_last_error=False)(5, 'SetWorkQueueEx', ((1, 'dwMultithreadedWorkQueueId'),(1, 'lWorkItemBasePriority'),)))
+    win32more.System.Com.IUnknown
     return IMFRealTimeClientEx
 MFSequencerTopologyFlags = Int32
 SequencerTopologyFlags_Last = 1
@@ -9430,6 +9575,7 @@ def _define_IMFSequencerSource():
     IMFSequencerSource.GetPresentationContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFPresentationDescriptor_head,POINTER(UInt32),POINTER(win32more.Media.MediaFoundation.IMFTopology_head), use_last_error=False)(5, 'GetPresentationContext', ((1, 'pPD'),(1, 'pId'),(1, 'ppTopology'),)))
     IMFSequencerSource.UpdateTopology = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFTopology_head, use_last_error=False)(6, 'UpdateTopology', ((1, 'dwId'),(1, 'pTopology'),)))
     IMFSequencerSource.UpdateTopologyFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(7, 'UpdateTopologyFlags', ((1, 'dwId'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IMFSequencerSource
 def _define_IMFMediaSourceTopologyProvider_head():
     class IMFMediaSourceTopologyProvider(win32more.System.Com.IUnknown_head):
@@ -9438,6 +9584,7 @@ def _define_IMFMediaSourceTopologyProvider_head():
 def _define_IMFMediaSourceTopologyProvider():
     IMFMediaSourceTopologyProvider = win32more.Media.MediaFoundation.IMFMediaSourceTopologyProvider_head
     IMFMediaSourceTopologyProvider.GetMediaSourceTopology = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFPresentationDescriptor_head,POINTER(win32more.Media.MediaFoundation.IMFTopology_head), use_last_error=False)(3, 'GetMediaSourceTopology', ((1, 'pPresentationDescriptor'),(1, 'ppTopology'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaSourceTopologyProvider
 def _define_IMFMediaSourcePresentationProvider_head():
     class IMFMediaSourcePresentationProvider(win32more.System.Com.IUnknown_head):
@@ -9446,6 +9593,7 @@ def _define_IMFMediaSourcePresentationProvider_head():
 def _define_IMFMediaSourcePresentationProvider():
     IMFMediaSourcePresentationProvider = win32more.Media.MediaFoundation.IMFMediaSourcePresentationProvider_head
     IMFMediaSourcePresentationProvider.ForceEndOfPresentation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFPresentationDescriptor_head, use_last_error=False)(3, 'ForceEndOfPresentation', ((1, 'pPresentationDescriptor'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaSourcePresentationProvider
 def _define_MFTOPONODE_ATTRIBUTE_UPDATE_head():
     class MFTOPONODE_ATTRIBUTE_UPDATE(Structure):
@@ -9477,6 +9625,7 @@ def _define_IMFTopologyNodeAttributeEditor_head():
 def _define_IMFTopologyNodeAttributeEditor():
     IMFTopologyNodeAttributeEditor = win32more.Media.MediaFoundation.IMFTopologyNodeAttributeEditor_head
     IMFTopologyNodeAttributeEditor.UpdateNodeAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,POINTER(win32more.Media.MediaFoundation.MFTOPONODE_ATTRIBUTE_UPDATE), use_last_error=False)(3, 'UpdateNodeAttributes', ((1, 'TopoId'),(1, 'cUpdates'),(1, 'pUpdates'),)))
+    win32more.System.Com.IUnknown
     return IMFTopologyNodeAttributeEditor
 def _define_MF_LEAKY_BUCKET_PAIR_head():
     class MF_LEAKY_BUCKET_PAIR(Structure):
@@ -9515,6 +9664,7 @@ def _define_IMFByteStreamBuffering():
     IMFByteStreamBuffering.SetBufferingParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFBYTESTREAM_BUFFERING_PARAMS_head), use_last_error=False)(3, 'SetBufferingParams', ((1, 'pParams'),)))
     IMFByteStreamBuffering.EnableBuffering = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'EnableBuffering', ((1, 'fEnable'),)))
     IMFByteStreamBuffering.StopBuffering = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'StopBuffering', ()))
+    win32more.System.Com.IUnknown
     return IMFByteStreamBuffering
 def _define_IMFByteStreamCacheControl_head():
     class IMFByteStreamCacheControl(win32more.System.Com.IUnknown_head):
@@ -9523,6 +9673,7 @@ def _define_IMFByteStreamCacheControl_head():
 def _define_IMFByteStreamCacheControl():
     IMFByteStreamCacheControl = win32more.Media.MediaFoundation.IMFByteStreamCacheControl_head
     IMFByteStreamCacheControl.StopBackgroundTransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'StopBackgroundTransfer', ()))
+    win32more.System.Com.IUnknown
     return IMFByteStreamCacheControl
 def _define_IMFByteStreamTimeSeek_head():
     class IMFByteStreamTimeSeek(win32more.System.Com.IUnknown_head):
@@ -9533,6 +9684,7 @@ def _define_IMFByteStreamTimeSeek():
     IMFByteStreamTimeSeek.IsTimeSeekSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsTimeSeekSupported', ((1, 'pfTimeSeekIsSupported'),)))
     IMFByteStreamTimeSeek.TimeSeek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(4, 'TimeSeek', ((1, 'qwTimePosition'),)))
     IMFByteStreamTimeSeek.GetTimeSeekResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64),POINTER(UInt64), use_last_error=False)(5, 'GetTimeSeekResult', ((1, 'pqwStartTime'),(1, 'pqwStopTime'),(1, 'pqwDuration'),)))
+    win32more.System.Com.IUnknown
     return IMFByteStreamTimeSeek
 def _define_MF_BYTE_STREAM_CACHE_RANGE_head():
     class MF_BYTE_STREAM_CACHE_RANGE(Structure):
@@ -9554,6 +9706,7 @@ def _define_IMFByteStreamCacheControl2():
     IMFByteStreamCacheControl2.GetByteRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Media.MediaFoundation.MF_BYTE_STREAM_CACHE_RANGE_head)), use_last_error=False)(4, 'GetByteRanges', ((1, 'pcRanges'),(1, 'ppRanges'),)))
     IMFByteStreamCacheControl2.SetCacheLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(5, 'SetCacheLimit', ((1, 'qwBytes'),)))
     IMFByteStreamCacheControl2.IsBackgroundTransferActive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'IsBackgroundTransferActive', ((1, 'pfActive'),)))
+    win32more.Media.MediaFoundation.IMFByteStreamCacheControl
     return IMFByteStreamCacheControl2
 def _define_IMFNetCredential_head():
     class IMFNetCredential(win32more.System.Com.IUnknown_head):
@@ -9566,6 +9719,7 @@ def _define_IMFNetCredential():
     IMFNetCredential.GetUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),POINTER(UInt32),win32more.Foundation.BOOL, use_last_error=False)(5, 'GetUser', ((1, 'pbData'),(1, 'pcbData'),(1, 'fEncryptData'),)))
     IMFNetCredential.GetPassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),POINTER(UInt32),win32more.Foundation.BOOL, use_last_error=False)(6, 'GetPassword', ((1, 'pbData'),(1, 'pcbData'),(1, 'fEncryptData'),)))
     IMFNetCredential.LoggedOnUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'LoggedOnUser', ((1, 'pfLoggedOnUser'),)))
+    win32more.System.Com.IUnknown
     return IMFNetCredential
 def _define_MFNetCredentialManagerGetParam_head():
     class MFNetCredentialManagerGetParam(Structure):
@@ -9593,6 +9747,7 @@ def _define_IMFNetCredentialManager():
     IMFNetCredentialManager.BeginGetCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFNetCredentialManagerGetParam_head),win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'BeginGetCredentials', ((1, 'pParam'),(1, 'pCallback'),(1, 'pState'),)))
     IMFNetCredentialManager.EndGetCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(win32more.Media.MediaFoundation.IMFNetCredential_head), use_last_error=False)(4, 'EndGetCredentials', ((1, 'pResult'),(1, 'ppCred'),)))
     IMFNetCredentialManager.SetGood = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFNetCredential_head,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetGood', ((1, 'pCred'),(1, 'fGood'),)))
+    win32more.System.Com.IUnknown
     return IMFNetCredentialManager
 MFNetCredentialRequirements = Int32
 REQUIRE_PROMPT = 1
@@ -9614,6 +9769,7 @@ def _define_IMFNetCredentialCache():
     IMFNetCredentialCache.GetCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Media.MediaFoundation.IMFNetCredential_head),POINTER(UInt32), use_last_error=False)(3, 'GetCredential', ((1, 'pszUrl'),(1, 'pszRealm'),(1, 'dwAuthenticationFlags'),(1, 'ppCred'),(1, 'pdwRequirementsFlags'),)))
     IMFNetCredentialCache.SetGood = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFNetCredential_head,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetGood', ((1, 'pCred'),(1, 'fGood'),)))
     IMFNetCredentialCache.SetUserOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFNetCredential_head,UInt32, use_last_error=False)(5, 'SetUserOptions', ((1, 'pCred'),(1, 'dwOptionsFlags'),)))
+    win32more.System.Com.IUnknown
     return IMFNetCredentialCache
 def _define_IMFSSLCertificateManager_head():
     class IMFSSLCertificateManager(win32more.System.Com.IUnknown_head):
@@ -9626,6 +9782,7 @@ def _define_IMFSSLCertificateManager():
     IMFSSLCertificateManager.EndGetClientCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(5, 'EndGetClientCertificate', ((1, 'pResult'),(1, 'ppbData'),(1, 'pcbData'),)))
     IMFSSLCertificateManager.GetCertificatePolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetCertificatePolicy', ((1, 'pszURL'),(1, 'pfOverrideAutomaticCheck'),(1, 'pfClientCertificateAvailable'),)))
     IMFSSLCertificateManager.OnServerCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_char_p_no,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'OnServerCertificate', ((1, 'pszURL'),(1, 'pbData'),(1, 'cbData'),(1, 'pfIsGood'),)))
+    win32more.System.Com.IUnknown
     return IMFSSLCertificateManager
 def _define_IMFNetResourceFilter_head():
     class IMFNetResourceFilter(win32more.System.Com.IUnknown_head):
@@ -9635,6 +9792,7 @@ def _define_IMFNetResourceFilter():
     IMFNetResourceFilter = win32more.Media.MediaFoundation.IMFNetResourceFilter_head
     IMFNetResourceFilter.OnRedirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int16), use_last_error=False)(3, 'OnRedirect', ((1, 'pszUrl'),(1, 'pvbCancel'),)))
     IMFNetResourceFilter.OnSendingRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OnSendingRequest', ((1, 'pszUrl'),)))
+    win32more.System.Com.IUnknown
     return IMFNetResourceFilter
 def _define_IMFSourceOpenMonitor_head():
     class IMFSourceOpenMonitor(win32more.System.Com.IUnknown_head):
@@ -9643,6 +9801,7 @@ def _define_IMFSourceOpenMonitor_head():
 def _define_IMFSourceOpenMonitor():
     IMFSourceOpenMonitor = win32more.Media.MediaFoundation.IMFSourceOpenMonitor_head
     IMFSourceOpenMonitor.OnSourceEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaEvent_head, use_last_error=False)(3, 'OnSourceEvent', ((1, 'pEvent'),)))
+    win32more.System.Com.IUnknown
     return IMFSourceOpenMonitor
 def _define_IMFNetProxyLocator_head():
     class IMFNetProxyLocator(win32more.System.Com.IUnknown_head):
@@ -9655,6 +9814,7 @@ def _define_IMFNetProxyLocator():
     IMFNetProxyLocator.RegisterProxyResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(5, 'RegisterProxyResult', ((1, 'hrOp'),)))
     IMFNetProxyLocator.GetCurrentProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt32), use_last_error=False)(6, 'GetCurrentProxy', ((1, 'pszStr'),(1, 'pcchStr'),)))
     IMFNetProxyLocator.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFNetProxyLocator_head), use_last_error=False)(7, 'Clone', ((1, 'ppProxyLocator'),)))
+    win32more.System.Com.IUnknown
     return IMFNetProxyLocator
 def _define_IMFNetProxyLocatorFactory_head():
     class IMFNetProxyLocatorFactory(win32more.System.Com.IUnknown_head):
@@ -9663,6 +9823,7 @@ def _define_IMFNetProxyLocatorFactory_head():
 def _define_IMFNetProxyLocatorFactory():
     IMFNetProxyLocatorFactory = win32more.Media.MediaFoundation.IMFNetProxyLocatorFactory_head
     IMFNetProxyLocatorFactory.CreateProxyLocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Media.MediaFoundation.IMFNetProxyLocator_head), use_last_error=False)(3, 'CreateProxyLocator', ((1, 'pszProtocol'),(1, 'ppProxyLocator'),)))
+    win32more.System.Com.IUnknown
     return IMFNetProxyLocatorFactory
 def _define_IMFSaveJob_head():
     class IMFSaveJob(win32more.System.Com.IUnknown_head):
@@ -9674,6 +9835,7 @@ def _define_IMFSaveJob():
     IMFSaveJob.EndSave = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head, use_last_error=False)(4, 'EndSave', ((1, 'pResult'),)))
     IMFSaveJob.CancelSave = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'CancelSave', ()))
     IMFSaveJob.GetProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetProgress', ((1, 'pdwPercentComplete'),)))
+    win32more.System.Com.IUnknown
     return IMFSaveJob
 MFNETSOURCE_PROTOCOL_TYPE = Int32
 MFNETSOURCE_UNDEFINED = 0
@@ -9690,6 +9852,7 @@ def _define_IMFNetSchemeHandlerConfig():
     IMFNetSchemeHandlerConfig.GetNumberOfSupportedProtocols = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetNumberOfSupportedProtocols', ((1, 'pcProtocols'),)))
     IMFNetSchemeHandlerConfig.GetSupportedProtocolType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.MFNETSOURCE_PROTOCOL_TYPE), use_last_error=False)(4, 'GetSupportedProtocolType', ((1, 'nProtocolIndex'),(1, 'pnProtocolType'),)))
     IMFNetSchemeHandlerConfig.ResetProtocolRolloverSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ResetProtocolRolloverSettings', ()))
+    win32more.System.Com.IUnknown
     return IMFNetSchemeHandlerConfig
 MFNETSOURCE_TRANSPORT_TYPE = Int32
 MFNETSOURCE_UDP = 0
@@ -9743,6 +9906,7 @@ def _define_IMFSchemeHandler():
     IMFSchemeHandler.BeginCreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,POINTER(win32more.System.Com.IUnknown_head),win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'BeginCreateObject', ((1, 'pwszURL'),(1, 'dwFlags'),(1, 'pProps'),(1, 'ppIUnknownCancelCookie'),(1, 'pCallback'),(1, 'punkState'),)))
     IMFSchemeHandler.EndCreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(win32more.Media.MediaFoundation.MF_OBJECT_TYPE),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'EndCreateObject', ((1, 'pResult'),(1, 'pObjectType'),(1, 'ppObject'),)))
     IMFSchemeHandler.CancelObjectCreation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'CancelObjectCreation', ((1, 'pIUnknownCancelCookie'),)))
+    win32more.System.Com.IUnknown
     return IMFSchemeHandler
 def _define_IMFByteStreamHandler_head():
     class IMFByteStreamHandler(win32more.System.Com.IUnknown_head):
@@ -9754,6 +9918,7 @@ def _define_IMFByteStreamHandler():
     IMFByteStreamHandler.EndCreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(win32more.Media.MediaFoundation.MF_OBJECT_TYPE),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'EndCreateObject', ((1, 'pResult'),(1, 'pObjectType'),(1, 'ppObject'),)))
     IMFByteStreamHandler.CancelObjectCreation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'CancelObjectCreation', ((1, 'pIUnknownCancelCookie'),)))
     IMFByteStreamHandler.GetMaxNumberOfBytesRequiredForResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(6, 'GetMaxNumberOfBytesRequiredForResolution', ((1, 'pqwBytes'),)))
+    win32more.System.Com.IUnknown
     return IMFByteStreamHandler
 def _define_IMFTrustedInput_head():
     class IMFTrustedInput(win32more.System.Com.IUnknown_head):
@@ -9762,6 +9927,7 @@ def _define_IMFTrustedInput_head():
 def _define_IMFTrustedInput():
     IMFTrustedInput = win32more.Media.MediaFoundation.IMFTrustedInput_head
     IMFTrustedInput.GetInputTrustAuthority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetInputTrustAuthority', ((1, 'dwStreamID'),(1, 'riid'),(1, 'ppunkObject'),)))
+    win32more.System.Com.IUnknown
     return IMFTrustedInput
 MFPOLICYMANAGER_ACTION = Int32
 PEACTION_NO = 0
@@ -9814,6 +9980,7 @@ def _define_IMFInputTrustAuthority():
     IMFInputTrustAuthority.BindAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS_head), use_last_error=False)(6, 'BindAccess', ((1, 'pParam'),)))
     IMFInputTrustAuthority.UpdateAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS_head), use_last_error=False)(7, 'UpdateAccess', ((1, 'pParam'),)))
     IMFInputTrustAuthority.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IMFInputTrustAuthority
 def _define_IMFTrustedOutput_head():
     class IMFTrustedOutput(win32more.System.Com.IUnknown_head):
@@ -9824,6 +9991,7 @@ def _define_IMFTrustedOutput():
     IMFTrustedOutput.GetOutputTrustAuthorityCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetOutputTrustAuthorityCount', ((1, 'pcOutputTrustAuthorities'),)))
     IMFTrustedOutput.GetOutputTrustAuthorityByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFOutputTrustAuthority_head), use_last_error=False)(4, 'GetOutputTrustAuthorityByIndex', ((1, 'dwIndex'),(1, 'ppauthority'),)))
     IMFTrustedOutput.IsFinal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsFinal', ((1, 'pfIsFinal'),)))
+    win32more.System.Com.IUnknown
     return IMFTrustedOutput
 def _define_IMFOutputTrustAuthority_head():
     class IMFOutputTrustAuthority(win32more.System.Com.IUnknown_head):
@@ -9833,6 +10001,7 @@ def _define_IMFOutputTrustAuthority():
     IMFOutputTrustAuthority = win32more.Media.MediaFoundation.IMFOutputTrustAuthority_head
     IMFOutputTrustAuthority.GetAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFPOLICYMANAGER_ACTION), use_last_error=False)(3, 'GetAction', ((1, 'pAction'),)))
     IMFOutputTrustAuthority.SetPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFOutputPolicy_head),UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(4, 'SetPolicy', ((1, 'ppPolicy'),(1, 'nPolicy'),(1, 'ppbTicket'),(1, 'pcbTicket'),)))
+    win32more.System.Com.IUnknown
     return IMFOutputTrustAuthority
 def _define_IMFOutputPolicy_head():
     class IMFOutputPolicy(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -9843,6 +10012,7 @@ def _define_IMFOutputPolicy():
     IMFOutputPolicy.GenerateRequiredSchemas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Guid,POINTER(Guid),UInt32,POINTER(win32more.Media.MediaFoundation.IMFCollection_head), use_last_error=False)(33, 'GenerateRequiredSchemas', ((1, 'dwAttributes'),(1, 'guidOutputSubType'),(1, 'rgGuidProtectionSchemasSupported'),(1, 'cProtectionSchemasSupported'),(1, 'ppRequiredProtectionSchemas'),)))
     IMFOutputPolicy.GetOriginatorID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(34, 'GetOriginatorID', ((1, 'pguidOriginatorID'),)))
     IMFOutputPolicy.GetMinimumGRLVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(35, 'GetMinimumGRLVersion', ((1, 'pdwMinimumGRLVersion'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFOutputPolicy
 def _define_IMFOutputSchema_head():
     class IMFOutputSchema(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -9853,6 +10023,7 @@ def _define_IMFOutputSchema():
     IMFOutputSchema.GetSchemaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(33, 'GetSchemaType', ((1, 'pguidSchemaType'),)))
     IMFOutputSchema.GetConfigurationData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(34, 'GetConfigurationData', ((1, 'pdwVal'),)))
     IMFOutputSchema.GetOriginatorID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(35, 'GetOriginatorID', ((1, 'pguidOriginatorID'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFOutputSchema
 MF_OPM_CGMSA_PROTECTION_LEVEL = Int32
 MF_OPM_CGMSA_OFF = 0
@@ -9881,6 +10052,7 @@ def _define_IMFSecureChannel():
     IMFSecureChannel = win32more.Media.MediaFoundation.IMFSecureChannel_head
     IMFSecureChannel.GetCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(3, 'GetCertificate', ((1, 'ppCert'),(1, 'pcbCert'),)))
     IMFSecureChannel.SetupSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(4, 'SetupSession', ((1, 'pbEncryptedSessionKey'),(1, 'cbSessionKey'),)))
+    win32more.System.Com.IUnknown
     return IMFSecureChannel
 SAMPLE_PROTECTION_VERSION = Int32
 SAMPLE_PROTECTION_VERSION_NO = 0
@@ -9899,6 +10071,7 @@ def _define_IMFSampleProtection():
     IMFSampleProtection.GetProtectionCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(5, 'GetProtectionCertificate', ((1, 'dwVersion'),(1, 'ppCert'),(1, 'pcbCert'),)))
     IMFSampleProtection.InitOutputProtection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(6, 'InitOutputProtection', ((1, 'dwVersion'),(1, 'dwOutputId'),(1, 'pbCert'),(1, 'cbCert'),(1, 'ppbSeed'),(1, 'pcbSeed'),)))
     IMFSampleProtection.InitInputProtection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,UInt32, use_last_error=False)(7, 'InitInputProtection', ((1, 'dwVersion'),(1, 'dwInputId'),(1, 'pbSeed'),(1, 'cbSeed'),)))
+    win32more.System.Com.IUnknown
     return IMFSampleProtection
 def _define_IMFMediaSinkPreroll_head():
     class IMFMediaSinkPreroll(win32more.System.Com.IUnknown_head):
@@ -9907,6 +10080,7 @@ def _define_IMFMediaSinkPreroll_head():
 def _define_IMFMediaSinkPreroll():
     IMFMediaSinkPreroll = win32more.Media.MediaFoundation.IMFMediaSinkPreroll_head
     IMFMediaSinkPreroll.NotifyPreroll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(3, 'NotifyPreroll', ((1, 'hnsUpcomingStartTime'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaSinkPreroll
 def _define_IMFFinalizableMediaSink_head():
     class IMFFinalizableMediaSink(win32more.Media.MediaFoundation.IMFMediaSink_head):
@@ -9916,6 +10090,7 @@ def _define_IMFFinalizableMediaSink():
     IMFFinalizableMediaSink = win32more.Media.MediaFoundation.IMFFinalizableMediaSink_head
     IMFFinalizableMediaSink.BeginFinalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(12, 'BeginFinalize', ((1, 'pCallback'),(1, 'punkState'),)))
     IMFFinalizableMediaSink.EndFinalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head, use_last_error=False)(13, 'EndFinalize', ((1, 'pResult'),)))
+    win32more.Media.MediaFoundation.IMFMediaSink
     return IMFFinalizableMediaSink
 def _define_IMFStreamingSinkConfig_head():
     class IMFStreamingSinkConfig(win32more.System.Com.IUnknown_head):
@@ -9924,6 +10099,7 @@ def _define_IMFStreamingSinkConfig_head():
 def _define_IMFStreamingSinkConfig():
     IMFStreamingSinkConfig = win32more.Media.MediaFoundation.IMFStreamingSinkConfig_head
     IMFStreamingSinkConfig.StartStreaming = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,UInt64, use_last_error=False)(3, 'StartStreaming', ((1, 'fSeekOffsetIsByteOffset'),(1, 'qwSeekOffset'),)))
+    win32more.System.Com.IUnknown
     return IMFStreamingSinkConfig
 def _define_IMFRemoteProxy_head():
     class IMFRemoteProxy(win32more.System.Com.IUnknown_head):
@@ -9933,6 +10109,7 @@ def _define_IMFRemoteProxy():
     IMFRemoteProxy = win32more.Media.MediaFoundation.IMFRemoteProxy_head
     IMFRemoteProxy.GetRemoteObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetRemoteObject', ((1, 'riid'),(1, 'ppv'),)))
     IMFRemoteProxy.GetRemoteHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetRemoteHost', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IMFRemoteProxy
 def _define_IMFObjectReferenceStream_head():
     class IMFObjectReferenceStream(win32more.System.Com.IUnknown_head):
@@ -9942,6 +10119,7 @@ def _define_IMFObjectReferenceStream():
     IMFObjectReferenceStream = win32more.Media.MediaFoundation.IMFObjectReferenceStream_head
     IMFObjectReferenceStream.SaveReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SaveReference', ((1, 'riid'),(1, 'pUnk'),)))
     IMFObjectReferenceStream.LoadReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'LoadReference', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IMFObjectReferenceStream
 def _define_IMFPMPHost_head():
     class IMFPMPHost(win32more.System.Com.IUnknown_head):
@@ -9952,6 +10130,7 @@ def _define_IMFPMPHost():
     IMFPMPHost.LockProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'LockProcess', ()))
     IMFPMPHost.UnlockProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnlockProcess', ()))
     IMFPMPHost.CreateObjectByCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IStream_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'CreateObjectByCLSID', ((1, 'clsid'),(1, 'pStream'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IMFPMPHost
 def _define_IMFPMPClient_head():
     class IMFPMPClient(win32more.System.Com.IUnknown_head):
@@ -9960,6 +10139,7 @@ def _define_IMFPMPClient_head():
 def _define_IMFPMPClient():
     IMFPMPClient = win32more.Media.MediaFoundation.IMFPMPClient_head
     IMFPMPClient.SetPMPHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFPMPHost_head, use_last_error=False)(3, 'SetPMPHost', ((1, 'pPMPHost'),)))
+    win32more.System.Com.IUnknown
     return IMFPMPClient
 def _define_IMFPMPServer_head():
     class IMFPMPServer(win32more.System.Com.IUnknown_head):
@@ -9970,6 +10150,7 @@ def _define_IMFPMPServer():
     IMFPMPServer.LockProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'LockProcess', ()))
     IMFPMPServer.UnlockProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnlockProcess', ()))
     IMFPMPServer.CreateObjectByCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'CreateObjectByCLSID', ((1, 'clsid'),(1, 'riid'),(1, 'ppObject'),)))
+    win32more.System.Com.IUnknown
     return IMFPMPServer
 def _define_IMFRemoteDesktopPlugin_head():
     class IMFRemoteDesktopPlugin(win32more.System.Com.IUnknown_head):
@@ -9978,6 +10159,7 @@ def _define_IMFRemoteDesktopPlugin_head():
 def _define_IMFRemoteDesktopPlugin():
     IMFRemoteDesktopPlugin = win32more.Media.MediaFoundation.IMFRemoteDesktopPlugin_head
     IMFRemoteDesktopPlugin.UpdateTopology = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFTopology_head, use_last_error=False)(3, 'UpdateTopology', ((1, 'pTopology'),)))
+    win32more.System.Com.IUnknown
     return IMFRemoteDesktopPlugin
 def _define_IMFSAMIStyle_head():
     class IMFSAMIStyle(win32more.System.Com.IUnknown_head):
@@ -9989,6 +10171,7 @@ def _define_IMFSAMIStyle():
     IMFSAMIStyle.GetStyles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(4, 'GetStyles', ((1, 'pPropVarStyleArray'),)))
     IMFSAMIStyle.SetSelectedStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SetSelectedStyle', ((1, 'pwszStyle'),)))
     IMFSAMIStyle.GetSelectedStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetSelectedStyle', ((1, 'ppwszStyle'),)))
+    win32more.System.Com.IUnknown
     return IMFSAMIStyle
 def _define_IMFTranscodeProfile_head():
     class IMFTranscodeProfile(win32more.System.Com.IUnknown_head):
@@ -10002,6 +10185,7 @@ def _define_IMFTranscodeProfile():
     IMFTranscodeProfile.GetVideoAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFAttributes_head), use_last_error=False)(6, 'GetVideoAttributes', ((1, 'ppAttrs'),)))
     IMFTranscodeProfile.SetContainerAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAttributes_head, use_last_error=False)(7, 'SetContainerAttributes', ((1, 'pAttrs'),)))
     IMFTranscodeProfile.GetContainerAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFAttributes_head), use_last_error=False)(8, 'GetContainerAttributes', ((1, 'ppAttrs'),)))
+    win32more.System.Com.IUnknown
     return IMFTranscodeProfile
 MF_TRANSCODE_TOPOLOGYMODE_FLAGS = Int32
 MF_TRANSCODE_TOPOLOGYMODE_SOFTWARE_ONLY = 0
@@ -10035,6 +10219,7 @@ def _define_IMFTranscodeSinkInfoProvider():
     IMFTranscodeSinkInfoProvider.SetOutputByteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFActivate_head, use_last_error=False)(4, 'SetOutputByteStream', ((1, 'pByteStreamActivate'),)))
     IMFTranscodeSinkInfoProvider.SetProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFTranscodeProfile_head, use_last_error=False)(5, 'SetProfile', ((1, 'pProfile'),)))
     IMFTranscodeSinkInfoProvider.GetSinkInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_TRANSCODE_SINK_INFO_head), use_last_error=False)(6, 'GetSinkInfo', ((1, 'pSinkInfo'),)))
+    win32more.System.Com.IUnknown
     return IMFTranscodeSinkInfoProvider
 def _define_IMFFieldOfUseMFTUnlock_head():
     class IMFFieldOfUseMFTUnlock(win32more.System.Com.IUnknown_head):
@@ -10043,6 +10228,7 @@ def _define_IMFFieldOfUseMFTUnlock_head():
 def _define_IMFFieldOfUseMFTUnlock():
     IMFFieldOfUseMFTUnlock = win32more.Media.MediaFoundation.IMFFieldOfUseMFTUnlock_head
     IMFFieldOfUseMFTUnlock.Unlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Unlock', ((1, 'pUnkMFT'),)))
+    win32more.System.Com.IUnknown
     return IMFFieldOfUseMFTUnlock
 def _define_MFT_REGISTRATION_INFO_head():
     class MFT_REGISTRATION_INFO(Structure):
@@ -10068,6 +10254,7 @@ def _define_IMFLocalMFTRegistration_head():
 def _define_IMFLocalMFTRegistration():
     IMFLocalMFTRegistration = win32more.Media.MediaFoundation.IMFLocalMFTRegistration_head
     IMFLocalMFTRegistration.RegisterMFTs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFT_REGISTRATION_INFO),UInt32, use_last_error=False)(3, 'RegisterMFTs', ((1, 'pMFTs'),(1, 'cMFTs'),)))
+    win32more.System.Com.IUnknown
     return IMFLocalMFTRegistration
 def _define_IMFCapturePhotoConfirmation_head():
     class IMFCapturePhotoConfirmation(win32more.System.Com.IUnknown_head):
@@ -10078,6 +10265,7 @@ def _define_IMFCapturePhotoConfirmation():
     IMFCapturePhotoConfirmation.SetPhotoConfirmationCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncCallback_head, use_last_error=False)(3, 'SetPhotoConfirmationCallback', ((1, 'pNotificationCallback'),)))
     IMFCapturePhotoConfirmation.SetPixelFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(4, 'SetPixelFormat', ((1, 'subtype'),)))
     IMFCapturePhotoConfirmation.GetPixelFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetPixelFormat', ((1, 'subtype'),)))
+    win32more.System.Com.IUnknown
     return IMFCapturePhotoConfirmation
 def _define_IMFPMPHostApp_head():
     class IMFPMPHostApp(win32more.System.Com.IUnknown_head):
@@ -10088,6 +10276,7 @@ def _define_IMFPMPHostApp():
     IMFPMPHostApp.LockProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'LockProcess', ()))
     IMFPMPHostApp.UnlockProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnlockProcess', ()))
     IMFPMPHostApp.ActivateClassById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'ActivateClassById', ((1, 'id'),(1, 'pStream'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IMFPMPHostApp
 def _define_IMFPMPClientApp_head():
     class IMFPMPClientApp(win32more.System.Com.IUnknown_head):
@@ -10096,6 +10285,7 @@ def _define_IMFPMPClientApp_head():
 def _define_IMFPMPClientApp():
     IMFPMPClientApp = win32more.Media.MediaFoundation.IMFPMPClientApp_head
     IMFPMPClientApp.SetPMPHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFPMPHostApp_head, use_last_error=False)(3, 'SetPMPHost', ((1, 'pPMPHost'),)))
+    win32more.System.Com.IUnknown
     return IMFPMPClientApp
 def _define_IMFMediaStreamSourceSampleRequest_head():
     class IMFMediaStreamSourceSampleRequest(win32more.System.Com.IUnknown_head):
@@ -10104,6 +10294,7 @@ def _define_IMFMediaStreamSourceSampleRequest_head():
 def _define_IMFMediaStreamSourceSampleRequest():
     IMFMediaStreamSourceSampleRequest = win32more.Media.MediaFoundation.IMFMediaStreamSourceSampleRequest_head
     IMFMediaStreamSourceSampleRequest.SetSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFSample_head, use_last_error=False)(3, 'SetSample', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaStreamSourceSampleRequest
 def _define_IMFTrackedSample_head():
     class IMFTrackedSample(win32more.System.Com.IUnknown_head):
@@ -10112,6 +10303,7 @@ def _define_IMFTrackedSample_head():
 def _define_IMFTrackedSample():
     IMFTrackedSample = win32more.Media.MediaFoundation.IMFTrackedSample_head
     IMFTrackedSample.SetAllocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetAllocator', ((1, 'pSampleAllocator'),(1, 'pUnkState'),)))
+    win32more.System.Com.IUnknown
     return IMFTrackedSample
 def _define_IMFProtectedEnvironmentAccess_head():
     class IMFProtectedEnvironmentAccess(win32more.System.Com.IUnknown_head):
@@ -10121,6 +10313,7 @@ def _define_IMFProtectedEnvironmentAccess():
     IMFProtectedEnvironmentAccess = win32more.Media.MediaFoundation.IMFProtectedEnvironmentAccess_head
     IMFProtectedEnvironmentAccess.Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,UInt32,c_char_p_no, use_last_error=False)(3, 'Call', ((1, 'inputLength'),(1, 'input'),(1, 'outputLength'),(1, 'output'),)))
     IMFProtectedEnvironmentAccess.ReadGRL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(4, 'ReadGRL', ((1, 'outputLength'),(1, 'output'),)))
+    win32more.System.Com.IUnknown
     return IMFProtectedEnvironmentAccess
 def _define_IMFSignedLibrary_head():
     class IMFSignedLibrary(win32more.System.Com.IUnknown_head):
@@ -10129,6 +10322,7 @@ def _define_IMFSignedLibrary_head():
 def _define_IMFSignedLibrary():
     IMFSignedLibrary = win32more.Media.MediaFoundation.IMFSignedLibrary_head
     IMFSignedLibrary.GetProcedureAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(c_void_p), use_last_error=False)(3, 'GetProcedureAddress', ((1, 'name'),(1, 'address'),)))
+    win32more.System.Com.IUnknown
     return IMFSignedLibrary
 def _define_IMFSystemId_head():
     class IMFSystemId(win32more.System.Com.IUnknown_head):
@@ -10138,6 +10332,7 @@ def _define_IMFSystemId():
     IMFSystemId = win32more.Media.MediaFoundation.IMFSystemId_head
     IMFSystemId.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(3, 'GetData', ((1, 'size'),(1, 'data'),)))
     IMFSystemId.Setup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(4, 'Setup', ((1, 'stage'),(1, 'cbIn'),(1, 'pbIn'),(1, 'pcbOut'),(1, 'ppbOut'),)))
+    win32more.System.Com.IUnknown
     return IMFSystemId
 def _define_MFCONTENTPROTECTIONDEVICE_INPUT_DATA_head():
     class MFCONTENTPROTECTIONDEVICE_INPUT_DATA(Structure):
@@ -10189,6 +10384,7 @@ def _define_IMFContentProtectionDevice():
     IMFContentProtectionDevice = win32more.Media.MediaFoundation.IMFContentProtectionDevice_head
     IMFContentProtectionDevice.InvokeFunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,POINTER(UInt32),c_char_p_no, use_last_error=False)(3, 'InvokeFunction', ((1, 'FunctionId'),(1, 'InputBufferByteCount'),(1, 'InputBuffer'),(1, 'OutputBufferByteCount'),(1, 'OutputBuffer'),)))
     IMFContentProtectionDevice.GetPrivateDataByteCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'GetPrivateDataByteCount', ((1, 'PrivateInputByteCount'),(1, 'PrivateOutputByteCount'),)))
+    win32more.System.Com.IUnknown
     return IMFContentProtectionDevice
 def _define_IMFContentDecryptorContext_head():
     class IMFContentDecryptorContext(win32more.System.Com.IUnknown_head):
@@ -10197,6 +10393,7 @@ def _define_IMFContentDecryptorContext_head():
 def _define_IMFContentDecryptorContext():
     IMFContentDecryptorContext = win32more.Media.MediaFoundation.IMFContentDecryptorContext_head
     IMFContentDecryptorContext.InitializeHardwareKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Void),POINTER(UInt64), use_last_error=False)(3, 'InitializeHardwareKey', ((1, 'InputPrivateDataByteCount'),(1, 'InputPrivateData'),(1, 'OutputPrivateData'),)))
+    win32more.System.Com.IUnknown
     return IMFContentDecryptorContext
 MF_MEDIAKEYSESSION_TYPE = Int32
 MF_MEDIAKEYSESSION_TYPE_TEMPORARY = 0
@@ -10242,6 +10439,7 @@ def _define_IMFNetCrossOriginSupport():
     IMFNetCrossOriginSupport.GetCrossOriginPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_CROSS_ORIGIN_POLICY), use_last_error=False)(3, 'GetCrossOriginPolicy', ((1, 'pPolicy'),)))
     IMFNetCrossOriginSupport.GetSourceOrigin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetSourceOrigin', ((1, 'wszSourceOrigin'),)))
     IMFNetCrossOriginSupport.IsSameOrigin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsSameOrigin', ((1, 'wszURL'),(1, 'pfIsSameOrigin'),)))
+    win32more.System.Com.IUnknown
     return IMFNetCrossOriginSupport
 def _define_IMFHttpDownloadRequest_head():
     class IMFHttpDownloadRequest(win32more.System.Com.IUnknown_head):
@@ -10265,6 +10463,7 @@ def _define_IMFHttpDownloadRequest():
     IMFHttpDownloadRequest.GetTotalLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(16, 'GetTotalLength', ((1, 'pqwTotalLength'),)))
     IMFHttpDownloadRequest.GetRangeEndOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(17, 'GetRangeEndOffset', ((1, 'pqwRangeEnd'),)))
     IMFHttpDownloadRequest.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IMFHttpDownloadRequest
 def _define_IMFHttpDownloadSession_head():
     class IMFHttpDownloadSession(win32more.System.Com.IUnknown_head):
@@ -10275,6 +10474,7 @@ def _define_IMFHttpDownloadSession():
     IMFHttpDownloadSession.SetServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'SetServer', ((1, 'szServerName'),(1, 'nPort'),)))
     IMFHttpDownloadSession.CreateRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Media.MediaFoundation.IMFHttpDownloadRequest_head), use_last_error=False)(4, 'CreateRequest', ((1, 'szObjectName'),(1, 'fBypassProxyCache'),(1, 'fSecure'),(1, 'szVerb'),(1, 'szReferrer'),(1, 'ppRequest'),)))
     IMFHttpDownloadSession.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IMFHttpDownloadSession
 def _define_IMFHttpDownloadSessionProvider_head():
     class IMFHttpDownloadSessionProvider(win32more.System.Com.IUnknown_head):
@@ -10283,6 +10483,7 @@ def _define_IMFHttpDownloadSessionProvider_head():
 def _define_IMFHttpDownloadSessionProvider():
     IMFHttpDownloadSessionProvider = win32more.Media.MediaFoundation.IMFHttpDownloadSessionProvider_head
     IMFHttpDownloadSessionProvider.CreateHttpDownloadSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Media.MediaFoundation.IMFHttpDownloadSession_head), use_last_error=False)(3, 'CreateHttpDownloadSession', ((1, 'wszScheme'),(1, 'ppDownloadSession'),)))
+    win32more.System.Com.IUnknown
     return IMFHttpDownloadSessionProvider
 def _define_MF_VIDEO_SPHERICAL_VIEWDIRECTION_head():
     class MF_VIDEO_SPHERICAL_VIEWDIRECTION(Structure):
@@ -10303,6 +10504,7 @@ def _define_IMFMediaSource2_head():
 def _define_IMFMediaSource2():
     IMFMediaSource2 = win32more.Media.MediaFoundation.IMFMediaSource2_head
     IMFMediaSource2.SetMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFMediaType_head, use_last_error=False)(16, 'SetMediaType', ((1, 'dwStreamID'),(1, 'pMediaType'),)))
+    win32more.Media.MediaFoundation.IMFMediaSourceEx
     return IMFMediaSource2
 def _define_IMFMediaStream2_head():
     class IMFMediaStream2(win32more.Media.MediaFoundation.IMFMediaStream_head):
@@ -10312,6 +10514,7 @@ def _define_IMFMediaStream2():
     IMFMediaStream2 = win32more.Media.MediaFoundation.IMFMediaStream2_head
     IMFMediaStream2.SetStreamState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_STREAM_STATE, use_last_error=False)(10, 'SetStreamState', ((1, 'value'),)))
     IMFMediaStream2.GetStreamState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_STREAM_STATE), use_last_error=False)(11, 'GetStreamState', ((1, 'value'),)))
+    win32more.Media.MediaFoundation.IMFMediaStream
     return IMFMediaStream2
 MFSensorDeviceType = Int32
 MFSensorDeviceType_Unknown = 0
@@ -10341,6 +10544,7 @@ def _define_IMFSensorDevice():
     IMFSensorDevice.GetStreamAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MFSensorStreamType,UInt32,POINTER(win32more.Media.MediaFoundation.IMFAttributes_head), use_last_error=False)(9, 'GetStreamAttributes', ((1, 'eType'),(1, 'dwIndex'),(1, 'ppAttributes'),)))
     IMFSensorDevice.SetSensorDeviceMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MFSensorDeviceMode, use_last_error=False)(10, 'SetSensorDeviceMode', ((1, 'eMode'),)))
     IMFSensorDevice.GetSensorDeviceMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFSensorDeviceMode), use_last_error=False)(11, 'GetSensorDeviceMode', ((1, 'peMode'),)))
+    win32more.System.Com.IUnknown
     return IMFSensorDevice
 def _define_IMFSensorGroup_head():
     class IMFSensorGroup(win32more.System.Com.IUnknown_head):
@@ -10356,6 +10560,7 @@ def _define_IMFSensorGroup():
     IMFSensorGroup.SetDefaultSensorDeviceIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'SetDefaultSensorDeviceIndex', ((1, 'dwIndex'),)))
     IMFSensorGroup.GetDefaultSensorDeviceIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetDefaultSensorDeviceIndex', ((1, 'pdwIndex'),)))
     IMFSensorGroup.CreateMediaSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFMediaSource_head), use_last_error=False)(10, 'CreateMediaSource', ((1, 'ppSource'),)))
+    win32more.System.Com.IUnknown
     return IMFSensorGroup
 def _define_IMFSensorStream_head():
     class IMFSensorStream(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -10366,6 +10571,7 @@ def _define_IMFSensorStream():
     IMFSensorStream.GetMediaTypeCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(33, 'GetMediaTypeCount', ((1, 'pdwCount'),)))
     IMFSensorStream.GetMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFMediaType_head), use_last_error=False)(34, 'GetMediaType', ((1, 'dwIndex'),(1, 'ppMediaType'),)))
     IMFSensorStream.CloneSensorStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFSensorStream_head), use_last_error=False)(35, 'CloneSensorStream', ((1, 'ppStream'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFSensorStream
 def _define_IMFSensorTransformFactory_head():
     class IMFSensorTransformFactory(win32more.System.Com.IUnknown_head):
@@ -10378,6 +10584,7 @@ def _define_IMFSensorTransformFactory():
     IMFSensorTransformFactory.GetTransformCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetTransformCount', ((1, 'pdwCount'),)))
     IMFSensorTransformFactory.GetTransformInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(win32more.Media.MediaFoundation.IMFAttributes_head),POINTER(win32more.Media.MediaFoundation.IMFCollection_head), use_last_error=False)(6, 'GetTransformInformation', ((1, 'TransformIndex'),(1, 'pguidTransformId'),(1, 'ppAttributes'),(1, 'ppStreamInformation'),)))
     IMFSensorTransformFactory.CreateTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Media.MediaFoundation.IMFAttributes_head,POINTER(win32more.Media.Streaming.IMFDeviceTransform_head), use_last_error=False)(7, 'CreateTransform', ((1, 'guidSensorTransformID'),(1, 'pAttributes'),(1, 'ppDeviceMFT'),)))
+    win32more.System.Com.IUnknown
     return IMFSensorTransformFactory
 def _define_SENSORPROFILEID_head():
     class SENSORPROFILEID(Structure):
@@ -10401,6 +10608,7 @@ def _define_IMFSensorProfile():
     IMFSensorProfile.AddProfileFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'AddProfileFilter', ((1, 'StreamId'),(1, 'wzFilterSetString'),)))
     IMFSensorProfile.IsMediaTypeSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFMediaType_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsMediaTypeSupported', ((1, 'StreamId'),(1, 'pMediaType'),(1, 'pfSupported'),)))
     IMFSensorProfile.AddBlockedControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'AddBlockedControl', ((1, 'wzBlockedControl'),)))
+    win32more.System.Com.IUnknown
     return IMFSensorProfile
 def _define_IMFSensorProfileCollection_head():
     class IMFSensorProfileCollection(win32more.System.Com.IUnknown_head):
@@ -10414,6 +10622,7 @@ def _define_IMFSensorProfileCollection():
     IMFSensorProfileCollection.FindProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.SENSORPROFILEID_head),POINTER(win32more.Media.MediaFoundation.IMFSensorProfile_head), use_last_error=False)(6, 'FindProfile', ((1, 'ProfileId'),(1, 'ppProfile'),)))
     IMFSensorProfileCollection.RemoveProfileByIndex = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(7, 'RemoveProfileByIndex', ((1, 'Index'),)))
     IMFSensorProfileCollection.RemoveProfile = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.MediaFoundation.SENSORPROFILEID_head), use_last_error=False)(8, 'RemoveProfile', ((1, 'ProfileId'),)))
+    win32more.System.Com.IUnknown
     return IMFSensorProfileCollection
 def _define_IMFSensorProcessActivity_head():
     class IMFSensorProcessActivity(win32more.System.Com.IUnknown_head):
@@ -10425,6 +10634,7 @@ def _define_IMFSensorProcessActivity():
     IMFSensorProcessActivity.GetStreamingState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetStreamingState', ((1, 'pfStreaming'),)))
     IMFSensorProcessActivity.GetStreamingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFSensorDeviceMode), use_last_error=False)(5, 'GetStreamingMode', ((1, 'pMode'),)))
     IMFSensorProcessActivity.GetReportTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(6, 'GetReportTime', ((1, 'pft'),)))
+    win32more.System.Com.IUnknown
     return IMFSensorProcessActivity
 def _define_IMFSensorActivityReport_head():
     class IMFSensorActivityReport(win32more.System.Com.IUnknown_head):
@@ -10436,6 +10646,7 @@ def _define_IMFSensorActivityReport():
     IMFSensorActivityReport.GetSymbolicLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(4, 'GetSymbolicLink', ((1, 'SymbolicLink'),(1, 'cchSymbolicLink'),(1, 'pcchWritten'),)))
     IMFSensorActivityReport.GetProcessCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetProcessCount', ((1, 'pcCount'),)))
     IMFSensorActivityReport.GetProcessActivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFSensorProcessActivity_head), use_last_error=False)(6, 'GetProcessActivity', ((1, 'Index'),(1, 'ppProcessActivity'),)))
+    win32more.System.Com.IUnknown
     return IMFSensorActivityReport
 def _define_IMFSensorActivitiesReport_head():
     class IMFSensorActivitiesReport(win32more.System.Com.IUnknown_head):
@@ -10446,6 +10657,7 @@ def _define_IMFSensorActivitiesReport():
     IMFSensorActivitiesReport.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pcCount'),)))
     IMFSensorActivitiesReport.GetActivityReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFSensorActivityReport_head), use_last_error=False)(4, 'GetActivityReport', ((1, 'Index'),(1, 'sensorActivityReport'),)))
     IMFSensorActivitiesReport.GetActivityReportByDeviceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Media.MediaFoundation.IMFSensorActivityReport_head), use_last_error=False)(5, 'GetActivityReportByDeviceName', ((1, 'SymbolicName'),(1, 'sensorActivityReport'),)))
+    win32more.System.Com.IUnknown
     return IMFSensorActivitiesReport
 def _define_IMFSensorActivitiesReportCallback_head():
     class IMFSensorActivitiesReportCallback(win32more.System.Com.IUnknown_head):
@@ -10454,6 +10666,7 @@ def _define_IMFSensorActivitiesReportCallback_head():
 def _define_IMFSensorActivitiesReportCallback():
     IMFSensorActivitiesReportCallback = win32more.Media.MediaFoundation.IMFSensorActivitiesReportCallback_head
     IMFSensorActivitiesReportCallback.OnActivitiesReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFSensorActivitiesReport_head, use_last_error=False)(3, 'OnActivitiesReport', ((1, 'sensorActivitiesReport'),)))
+    win32more.System.Com.IUnknown
     return IMFSensorActivitiesReportCallback
 def _define_IMFSensorActivityMonitor_head():
     class IMFSensorActivityMonitor(win32more.System.Com.IUnknown_head):
@@ -10463,6 +10676,7 @@ def _define_IMFSensorActivityMonitor():
     IMFSensorActivityMonitor = win32more.Media.MediaFoundation.IMFSensorActivityMonitor_head
     IMFSensorActivityMonitor.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Start', ()))
     IMFSensorActivityMonitor.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Stop', ()))
+    win32more.System.Com.IUnknown
     return IMFSensorActivityMonitor
 def _define_MFCameraIntrinsic_CameraModel_head():
     class MFCameraIntrinsic_CameraModel(Structure):
@@ -10533,6 +10747,7 @@ def _define_IMFExtendedCameraIntrinsicModel():
     IMFExtendedCameraIntrinsicModel.GetModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFExtendedCameraIntrinsic_IntrinsicModel_head), use_last_error=False)(3, 'GetModel', ((1, 'pIntrinsicModel'),)))
     IMFExtendedCameraIntrinsicModel.SetModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFExtendedCameraIntrinsic_IntrinsicModel_head), use_last_error=False)(4, 'SetModel', ((1, 'pIntrinsicModel'),)))
     IMFExtendedCameraIntrinsicModel.GetDistortionModelType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFCameraIntrinsic_DistortionModelType), use_last_error=False)(5, 'GetDistortionModelType', ((1, 'pDistortionModelType'),)))
+    win32more.System.Com.IUnknown
     return IMFExtendedCameraIntrinsicModel
 def _define_IMFExtendedCameraIntrinsicsDistortionModel6KT_head():
     class IMFExtendedCameraIntrinsicsDistortionModel6KT(win32more.System.Com.IUnknown_head):
@@ -10542,6 +10757,7 @@ def _define_IMFExtendedCameraIntrinsicsDistortionModel6KT():
     IMFExtendedCameraIntrinsicsDistortionModel6KT = win32more.Media.MediaFoundation.IMFExtendedCameraIntrinsicsDistortionModel6KT_head
     IMFExtendedCameraIntrinsicsDistortionModel6KT.GetDistortionModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFCameraIntrinsic_DistortionModel6KT_head), use_last_error=False)(3, 'GetDistortionModel', ((1, 'pDistortionModel'),)))
     IMFExtendedCameraIntrinsicsDistortionModel6KT.SetDistortionModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFCameraIntrinsic_DistortionModel6KT_head), use_last_error=False)(4, 'SetDistortionModel', ((1, 'pDistortionModel'),)))
+    win32more.System.Com.IUnknown
     return IMFExtendedCameraIntrinsicsDistortionModel6KT
 def _define_IMFExtendedCameraIntrinsicsDistortionModelArcTan_head():
     class IMFExtendedCameraIntrinsicsDistortionModelArcTan(win32more.System.Com.IUnknown_head):
@@ -10551,6 +10767,7 @@ def _define_IMFExtendedCameraIntrinsicsDistortionModelArcTan():
     IMFExtendedCameraIntrinsicsDistortionModelArcTan = win32more.Media.MediaFoundation.IMFExtendedCameraIntrinsicsDistortionModelArcTan_head
     IMFExtendedCameraIntrinsicsDistortionModelArcTan.GetDistortionModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFCameraIntrinsic_DistortionModelArcTan_head), use_last_error=False)(3, 'GetDistortionModel', ((1, 'pDistortionModel'),)))
     IMFExtendedCameraIntrinsicsDistortionModelArcTan.SetDistortionModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFCameraIntrinsic_DistortionModelArcTan_head), use_last_error=False)(4, 'SetDistortionModel', ((1, 'pDistortionModel'),)))
+    win32more.System.Com.IUnknown
     return IMFExtendedCameraIntrinsicsDistortionModelArcTan
 def _define_IMFExtendedCameraIntrinsics_head():
     class IMFExtendedCameraIntrinsics(win32more.System.Com.IUnknown_head):
@@ -10564,6 +10781,7 @@ def _define_IMFExtendedCameraIntrinsics():
     IMFExtendedCameraIntrinsics.GetIntrinsicModelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetIntrinsicModelCount', ((1, 'pdwCount'),)))
     IMFExtendedCameraIntrinsics.GetIntrinsicModelByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFExtendedCameraIntrinsicModel_head), use_last_error=False)(7, 'GetIntrinsicModelByIndex', ((1, 'dwIndex'),(1, 'ppIntrinsicModel'),)))
     IMFExtendedCameraIntrinsics.AddIntrinsicModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFExtendedCameraIntrinsicModel_head, use_last_error=False)(8, 'AddIntrinsicModel', ((1, 'pIntrinsicModel'),)))
+    win32more.System.Com.IUnknown
     return IMFExtendedCameraIntrinsics
 def _define_IMFExtendedCameraControl_head():
     class IMFExtendedCameraControl(win32more.System.Com.IUnknown_head):
@@ -10577,6 +10795,7 @@ def _define_IMFExtendedCameraControl():
     IMFExtendedCameraControl.LockPayload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(6, 'LockPayload', ((1, 'ppPayload'),(1, 'pulPayload'),)))
     IMFExtendedCameraControl.UnlockPayload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'UnlockPayload', ()))
     IMFExtendedCameraControl.CommitSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'CommitSettings', ()))
+    win32more.System.Com.IUnknown
     return IMFExtendedCameraControl
 def _define_IMFExtendedCameraController_head():
     class IMFExtendedCameraController(win32more.System.Com.IUnknown_head):
@@ -10585,6 +10804,7 @@ def _define_IMFExtendedCameraController_head():
 def _define_IMFExtendedCameraController():
     IMFExtendedCameraController = win32more.Media.MediaFoundation.IMFExtendedCameraController_head
     IMFExtendedCameraController.GetExtendedCameraControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.MediaFoundation.IMFExtendedCameraControl_head), use_last_error=False)(3, 'GetExtendedCameraControl', ((1, 'dwStreamIndex'),(1, 'ulPropertyId'),(1, 'ppControl'),)))
+    win32more.System.Com.IUnknown
     return IMFExtendedCameraController
 def _define_IMFRelativePanelReport_head():
     class IMFRelativePanelReport(win32more.System.Com.IUnknown_head):
@@ -10593,6 +10813,7 @@ def _define_IMFRelativePanelReport_head():
 def _define_IMFRelativePanelReport():
     IMFRelativePanelReport = win32more.Media.MediaFoundation.IMFRelativePanelReport_head
     IMFRelativePanelReport.GetRelativePanel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetRelativePanel', ((1, 'panel'),)))
+    win32more.System.Com.IUnknown
     return IMFRelativePanelReport
 def _define_IMFRelativePanelWatcher_head():
     class IMFRelativePanelWatcher(win32more.Media.MediaFoundation.IMFShutdown_head):
@@ -10603,6 +10824,7 @@ def _define_IMFRelativePanelWatcher():
     IMFRelativePanelWatcher.BeginGetReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'BeginGetReport', ((1, 'pCallback'),(1, 'pState'),)))
     IMFRelativePanelWatcher.EndGetReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(win32more.Media.MediaFoundation.IMFRelativePanelReport_head), use_last_error=False)(6, 'EndGetReport', ((1, 'pResult'),(1, 'ppRelativePanelReport'),)))
     IMFRelativePanelWatcher.GetReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFRelativePanelReport_head), use_last_error=False)(7, 'GetReport', ((1, 'ppRelativePanelReport'),)))
+    win32more.Media.MediaFoundation.IMFShutdown
     return IMFRelativePanelWatcher
 MFCameraOcclusionState = Int32
 MFCameraOcclusionState_Open = 0
@@ -10615,6 +10837,7 @@ def _define_IMFCameraOcclusionStateReport_head():
 def _define_IMFCameraOcclusionStateReport():
     IMFCameraOcclusionStateReport = win32more.Media.MediaFoundation.IMFCameraOcclusionStateReport_head
     IMFCameraOcclusionStateReport.GetOcclusionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetOcclusionState', ((1, 'occlusionState'),)))
+    win32more.System.Com.IUnknown
     return IMFCameraOcclusionStateReport
 def _define_IMFCameraOcclusionStateReportCallback_head():
     class IMFCameraOcclusionStateReportCallback(win32more.System.Com.IUnknown_head):
@@ -10623,6 +10846,7 @@ def _define_IMFCameraOcclusionStateReportCallback_head():
 def _define_IMFCameraOcclusionStateReportCallback():
     IMFCameraOcclusionStateReportCallback = win32more.Media.MediaFoundation.IMFCameraOcclusionStateReportCallback_head
     IMFCameraOcclusionStateReportCallback.OnOcclusionStateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFCameraOcclusionStateReport_head, use_last_error=False)(3, 'OnOcclusionStateReport', ((1, 'occlusionStateReport'),)))
+    win32more.System.Com.IUnknown
     return IMFCameraOcclusionStateReportCallback
 def _define_IMFCameraOcclusionStateMonitor_head():
     class IMFCameraOcclusionStateMonitor(win32more.System.Com.IUnknown_head):
@@ -10633,6 +10857,7 @@ def _define_IMFCameraOcclusionStateMonitor():
     IMFCameraOcclusionStateMonitor.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Start', ()))
     IMFCameraOcclusionStateMonitor.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Stop', ()))
     IMFCameraOcclusionStateMonitor.GetSupportedStates = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(5, 'GetSupportedStates', ()))
+    win32more.System.Com.IUnknown
     return IMFCameraOcclusionStateMonitor
 def _define_IMFVideoCaptureSampleAllocator_head():
     class IMFVideoCaptureSampleAllocator(win32more.Media.MediaFoundation.IMFVideoSampleAllocator_head):
@@ -10641,6 +10866,7 @@ def _define_IMFVideoCaptureSampleAllocator_head():
 def _define_IMFVideoCaptureSampleAllocator():
     IMFVideoCaptureSampleAllocator = win32more.Media.MediaFoundation.IMFVideoCaptureSampleAllocator_head
     IMFVideoCaptureSampleAllocator.InitializeCaptureSampleAllocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,win32more.Media.MediaFoundation.IMFAttributes_head,win32more.Media.MediaFoundation.IMFMediaType_head, use_last_error=False)(7, 'InitializeCaptureSampleAllocator', ((1, 'cbSampleSize'),(1, 'cbCaptureMetadataSize'),(1, 'cbAlignment'),(1, 'cMinimumSamples'),(1, 'pAttributes'),(1, 'pMediaType'),)))
+    win32more.Media.MediaFoundation.IMFVideoSampleAllocator
     return IMFVideoCaptureSampleAllocator
 MFSampleAllocatorUsage = Int32
 MFSampleAllocatorUsage_UsesProvidedAllocator = 0
@@ -10654,6 +10880,7 @@ def _define_IMFSampleAllocatorControl():
     IMFSampleAllocatorControl = win32more.Media.MediaFoundation.IMFSampleAllocatorControl_head
     IMFSampleAllocatorControl.SetDefaultAllocator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetDefaultAllocator', ((1, 'dwOutputStreamID'),(1, 'pAllocator'),)))
     IMFSampleAllocatorControl.GetAllocatorUsage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Media.MediaFoundation.MFSampleAllocatorUsage), use_last_error=False)(4, 'GetAllocatorUsage', ((1, 'dwOutputStreamID'),(1, 'pdwInputStreamID'),(1, 'peUsage'),)))
+    win32more.System.Com.IUnknown
     return IMFSampleAllocatorControl
 def _define_IMFASFContentInfo_head():
     class IMFASFContentInfo(win32more.System.Com.IUnknown_head):
@@ -10668,6 +10895,7 @@ def _define_IMFASFContentInfo():
     IMFASFContentInfo.SetProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFASFProfile_head, use_last_error=False)(7, 'SetProfile', ((1, 'pIProfile'),)))
     IMFASFContentInfo.GeneratePresentationDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFPresentationDescriptor_head), use_last_error=False)(8, 'GeneratePresentationDescriptor', ((1, 'ppIPresentationDescriptor'),)))
     IMFASFContentInfo.GetEncodingConfigurationPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(9, 'GetEncodingConfigurationPropertyStore', ((1, 'wStreamNumber'),(1, 'ppIStore'),)))
+    win32more.System.Com.IUnknown
     return IMFASFContentInfo
 def _define_IMFASFProfile_head():
     class IMFASFProfile(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -10691,6 +10919,7 @@ def _define_IMFASFProfile():
     IMFASFProfile.RemoveStreamPrioritization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(46, 'RemoveStreamPrioritization', ()))
     IMFASFProfile.CreateStreamPrioritization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFASFStreamPrioritization_head), use_last_error=False)(47, 'CreateStreamPrioritization', ((1, 'ppIStreamPrioritization'),)))
     IMFASFProfile.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFASFProfile_head), use_last_error=False)(48, 'Clone', ((1, 'ppIProfile'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFASFProfile
 def _define_IMFASFStreamConfig_head():
     class IMFASFStreamConfig(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -10708,6 +10937,7 @@ def _define_IMFASFStreamConfig():
     IMFASFStreamConfig.AddPayloadExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,UInt16,POINTER(Byte),UInt32, use_last_error=False)(40, 'AddPayloadExtension', ((1, 'guidExtensionSystemID'),(1, 'cbExtensionDataSize'),(1, 'pbExtensionSystemInfo'),(1, 'cbExtensionSystemInfo'),)))
     IMFASFStreamConfig.RemoveAllPayloadExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(41, 'RemoveAllPayloadExtensions', ()))
     IMFASFStreamConfig.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFASFStreamConfig_head), use_last_error=False)(42, 'Clone', ((1, 'ppIStreamConfig'),)))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFASFStreamConfig
 def _define_IMFASFMutualExclusion_head():
     class IMFASFMutualExclusion(win32more.System.Com.IUnknown_head):
@@ -10724,6 +10954,7 @@ def _define_IMFASFMutualExclusion():
     IMFASFMutualExclusion.RemoveRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'RemoveRecord', ((1, 'dwRecordNumber'),)))
     IMFASFMutualExclusion.AddRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'AddRecord', ((1, 'pdwRecordNumber'),)))
     IMFASFMutualExclusion.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFASFMutualExclusion_head), use_last_error=False)(11, 'Clone', ((1, 'ppIMutex'),)))
+    win32more.System.Com.IUnknown
     return IMFASFMutualExclusion
 def _define_IMFASFStreamPrioritization_head():
     class IMFASFStreamPrioritization(win32more.System.Com.IUnknown_head):
@@ -10736,6 +10967,7 @@ def _define_IMFASFStreamPrioritization():
     IMFASFStreamPrioritization.AddStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16, use_last_error=False)(5, 'AddStream', ((1, 'wStreamNumber'),(1, 'wStreamFlags'),)))
     IMFASFStreamPrioritization.RemoveStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveStream', ((1, 'dwStreamIndex'),)))
     IMFASFStreamPrioritization.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFASFStreamPrioritization_head), use_last_error=False)(7, 'Clone', ((1, 'ppIStreamPrioritization'),)))
+    win32more.System.Com.IUnknown
     return IMFASFStreamPrioritization
 MFASF_INDEXER_FLAGS = Int32
 MFASF_INDEXER_WRITE_NEW_INDEX = 1
@@ -10784,6 +11016,7 @@ def _define_IMFASFIndexer():
     IMFASFIndexer.CommitIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFASFContentInfo_head, use_last_error=False)(13, 'CommitIndex', ((1, 'pIContentInfo'),)))
     IMFASFIndexer.GetIndexWriteSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(14, 'GetIndexWriteSpace', ((1, 'pcbIndexWriteSpace'),)))
     IMFASFIndexer.GetCompletedIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaBuffer_head,UInt64, use_last_error=False)(15, 'GetCompletedIndex', ((1, 'pIIndexBuffer'),(1, 'cbOffsetWithinIndex'),)))
+    win32more.System.Com.IUnknown
     return IMFASFIndexer
 def _define_IMFASFSplitter_head():
     class IMFASFSplitter(win32more.System.Com.IUnknown_head):
@@ -10800,6 +11033,7 @@ def _define_IMFASFSplitter():
     IMFASFSplitter.GetNextSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.ASF_STATUSFLAGS),POINTER(UInt16),POINTER(win32more.Media.MediaFoundation.IMFSample_head), use_last_error=False)(9, 'GetNextSample', ((1, 'pdwStatusFlags'),(1, 'pwStreamNumber'),(1, 'ppISample'),)))
     IMFASFSplitter.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Flush', ()))
     IMFASFSplitter.GetLastSendTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(11, 'GetLastSendTime', ((1, 'pdwLastSendTime'),)))
+    win32more.System.Com.IUnknown
     return IMFASFSplitter
 MFASF_SPLITTERFLAGS = Int32
 MFASF_SPLITTER_REVERSE = 1
@@ -10835,6 +11069,7 @@ def _define_IMFASFMultiplexer():
     IMFASFMultiplexer.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFASFContentInfo_head, use_last_error=False)(9, 'End', ((1, 'pIContentInfo'),)))
     IMFASFMultiplexer.GetStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(win32more.Media.MediaFoundation.ASF_MUX_STATISTICS_head), use_last_error=False)(10, 'GetStatistics', ((1, 'wStreamNumber'),(1, 'pMuxStats'),)))
     IMFASFMultiplexer.SetSyncTolerance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'SetSyncTolerance', ((1, 'msSyncTolerance'),)))
+    win32more.System.Com.IUnknown
     return IMFASFMultiplexer
 MFASF_STREAMSELECTOR_FLAGS = Int32
 MFASF_STREAMSELECTOR_DISABLE_THINNING = 1
@@ -10863,6 +11098,7 @@ def _define_IMFASFStreamSelector():
     IMFASFStreamSelector.GetBandwidthStep = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt16),POINTER(win32more.Media.MediaFoundation.ASF_SELECTION_STATUS), use_last_error=False)(14, 'GetBandwidthStep', ((1, 'dwStepNum'),(1, 'pdwBitrate'),(1, 'rgwStreamNumbers'),(1, 'rgSelections'),)))
     IMFASFStreamSelector.BitrateToStepNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(15, 'BitrateToStepNumber', ((1, 'dwBitrate'),(1, 'pdwStepNum'),)))
     IMFASFStreamSelector.SetStreamSelectorFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(16, 'SetStreamSelectorFlags', ((1, 'dwStreamSelectorFlags'),)))
+    win32more.System.Com.IUnknown
     return IMFASFStreamSelector
 MFSINK_WMDRMACTION = Int32
 MFSINK_WMDRMACTION_UNDEFINED = 0
@@ -10878,6 +11114,7 @@ def _define_IMFDRMNetHelper():
     IMFDRMNetHelper = win32more.Media.MediaFoundation.IMFDRMNetHelper_head
     IMFDRMNetHelper.ProcessLicenseRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(c_char_p_no),POINTER(UInt32),POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'ProcessLicenseRequest', ((1, 'pLicenseRequest'),(1, 'cbLicenseRequest'),(1, 'ppLicenseResponse'),(1, 'pcbLicenseResponse'),(1, 'pbstrKID'),)))
     IMFDRMNetHelper.GetChainedLicenseResponse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(4, 'GetChainedLicenseResponse', ((1, 'ppLicenseResponse'),(1, 'pcbLicenseResponse'),)))
+    win32more.System.Com.IUnknown
     return IMFDRMNetHelper
 def _define_MFVideoNormalizedRect_head():
     class MFVideoNormalizedRect(Structure):
@@ -10933,6 +11170,7 @@ def _define_IMFCaptureEngineOnEventCallback_head():
 def _define_IMFCaptureEngineOnEventCallback():
     IMFCaptureEngineOnEventCallback = win32more.Media.MediaFoundation.IMFCaptureEngineOnEventCallback_head
     IMFCaptureEngineOnEventCallback.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaEvent_head, use_last_error=False)(3, 'OnEvent', ((1, 'pEvent'),)))
+    win32more.System.Com.IUnknown
     return IMFCaptureEngineOnEventCallback
 def _define_IMFCaptureEngineOnSampleCallback_head():
     class IMFCaptureEngineOnSampleCallback(win32more.System.Com.IUnknown_head):
@@ -10941,6 +11179,7 @@ def _define_IMFCaptureEngineOnSampleCallback_head():
 def _define_IMFCaptureEngineOnSampleCallback():
     IMFCaptureEngineOnSampleCallback = win32more.Media.MediaFoundation.IMFCaptureEngineOnSampleCallback_head
     IMFCaptureEngineOnSampleCallback.OnSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFSample_head, use_last_error=False)(3, 'OnSample', ((1, 'pSample'),)))
+    win32more.System.Com.IUnknown
     return IMFCaptureEngineOnSampleCallback
 def _define_IMFCaptureSink_head():
     class IMFCaptureSink(win32more.System.Com.IUnknown_head):
@@ -10953,6 +11192,7 @@ def _define_IMFCaptureSink():
     IMFCaptureSink.AddStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFMediaType_head,win32more.Media.MediaFoundation.IMFAttributes_head,POINTER(UInt32), use_last_error=False)(5, 'AddStream', ((1, 'dwSourceStreamIndex'),(1, 'pMediaType'),(1, 'pAttributes'),(1, 'pdwSinkStreamIndex'),)))
     IMFCaptureSink.Prepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Prepare', ()))
     IMFCaptureSink.RemoveAllStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'RemoveAllStreams', ()))
+    win32more.System.Com.IUnknown
     return IMFCaptureSink
 def _define_IMFCaptureRecordSink_head():
     class IMFCaptureRecordSink(win32more.Media.MediaFoundation.IMFCaptureSink_head):
@@ -10966,6 +11206,7 @@ def _define_IMFCaptureRecordSink():
     IMFCaptureRecordSink.SetCustomSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaSink_head, use_last_error=False)(11, 'SetCustomSink', ((1, 'pMediaSink'),)))
     IMFCaptureRecordSink.GetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(12, 'GetRotation', ((1, 'dwStreamIndex'),(1, 'pdwRotationValue'),)))
     IMFCaptureRecordSink.SetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(13, 'SetRotation', ((1, 'dwStreamIndex'),(1, 'dwRotationValue'),)))
+    win32more.Media.MediaFoundation.IMFCaptureSink
     return IMFCaptureRecordSink
 def _define_IMFCapturePreviewSink_head():
     class IMFCapturePreviewSink(win32more.Media.MediaFoundation.IMFCaptureSink_head):
@@ -10982,6 +11223,7 @@ def _define_IMFCapturePreviewSink():
     IMFCapturePreviewSink.GetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(14, 'GetRotation', ((1, 'dwStreamIndex'),(1, 'pdwRotationValue'),)))
     IMFCapturePreviewSink.SetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(15, 'SetRotation', ((1, 'dwStreamIndex'),(1, 'dwRotationValue'),)))
     IMFCapturePreviewSink.SetCustomSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaSink_head, use_last_error=False)(16, 'SetCustomSink', ((1, 'pMediaSink'),)))
+    win32more.Media.MediaFoundation.IMFCaptureSink
     return IMFCapturePreviewSink
 def _define_IMFCapturePhotoSink_head():
     class IMFCapturePhotoSink(win32more.Media.MediaFoundation.IMFCaptureSink_head):
@@ -10992,6 +11234,7 @@ def _define_IMFCapturePhotoSink():
     IMFCapturePhotoSink.SetOutputFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'SetOutputFileName', ((1, 'fileName'),)))
     IMFCapturePhotoSink.SetSampleCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFCaptureEngineOnSampleCallback_head, use_last_error=False)(9, 'SetSampleCallback', ((1, 'pCallback'),)))
     IMFCapturePhotoSink.SetOutputByteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFByteStream_head, use_last_error=False)(10, 'SetOutputByteStream', ((1, 'pByteStream'),)))
+    win32more.Media.MediaFoundation.IMFCaptureSink
     return IMFCapturePhotoSink
 def _define_IMFCaptureSource_head():
     class IMFCaptureSource(win32more.System.Com.IUnknown_head):
@@ -11013,6 +11256,7 @@ def _define_IMFCaptureSource():
     IMFCaptureSource.GetMirrorState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(14, 'GetMirrorState', ((1, 'dwStreamIndex'),(1, 'pfMirrorState'),)))
     IMFCaptureSource.SetMirrorState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BOOL, use_last_error=False)(15, 'SetMirrorState', ((1, 'dwStreamIndex'),(1, 'fMirrorState'),)))
     IMFCaptureSource.GetStreamIndexFromFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(16, 'GetStreamIndexFromFriendlyName', ((1, 'uifriendlyName'),(1, 'pdwActualStreamIndex'),)))
+    win32more.System.Com.IUnknown
     return IMFCaptureSource
 def _define_IMFCaptureEngine_head():
     class IMFCaptureEngine(win32more.System.Com.IUnknown_head):
@@ -11028,6 +11272,7 @@ def _define_IMFCaptureEngine():
     IMFCaptureEngine.TakePhoto = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'TakePhoto', ()))
     IMFCaptureEngine.GetSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_CAPTURE_ENGINE_SINK_TYPE,POINTER(win32more.Media.MediaFoundation.IMFCaptureSink_head), use_last_error=False)(9, 'GetSink', ((1, 'mfCaptureEngineSinkType'),(1, 'ppSink'),)))
     IMFCaptureEngine.GetSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFCaptureSource_head), use_last_error=False)(10, 'GetSource', ((1, 'ppSource'),)))
+    win32more.System.Com.IUnknown
     return IMFCaptureEngine
 def _define_IMFCaptureEngineClassFactory_head():
     class IMFCaptureEngineClassFactory(win32more.System.Com.IUnknown_head):
@@ -11036,6 +11281,7 @@ def _define_IMFCaptureEngineClassFactory_head():
 def _define_IMFCaptureEngineClassFactory():
     IMFCaptureEngineClassFactory = win32more.Media.MediaFoundation.IMFCaptureEngineClassFactory_head
     IMFCaptureEngineClassFactory.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateInstance', ((1, 'clsid'),(1, 'riid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return IMFCaptureEngineClassFactory
 def _define_IMFCaptureEngineOnSampleCallback2_head():
     class IMFCaptureEngineOnSampleCallback2(win32more.Media.MediaFoundation.IMFCaptureEngineOnSampleCallback_head):
@@ -11044,6 +11290,7 @@ def _define_IMFCaptureEngineOnSampleCallback2_head():
 def _define_IMFCaptureEngineOnSampleCallback2():
     IMFCaptureEngineOnSampleCallback2 = win32more.Media.MediaFoundation.IMFCaptureEngineOnSampleCallback2_head
     IMFCaptureEngineOnSampleCallback2.OnSynchronizedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaEvent_head, use_last_error=False)(4, 'OnSynchronizedEvent', ((1, 'pEvent'),)))
+    win32more.Media.MediaFoundation.IMFCaptureEngineOnSampleCallback
     return IMFCaptureEngineOnSampleCallback2
 def _define_IMFCaptureSink2_head():
     class IMFCaptureSink2(win32more.Media.MediaFoundation.IMFCaptureSink_head):
@@ -11052,6 +11299,7 @@ def _define_IMFCaptureSink2_head():
 def _define_IMFCaptureSink2():
     IMFCaptureSink2 = win32more.Media.MediaFoundation.IMFCaptureSink2_head
     IMFCaptureSink2.SetOutputMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFMediaType_head,win32more.Media.MediaFoundation.IMFAttributes_head, use_last_error=False)(8, 'SetOutputMediaType', ((1, 'dwStreamIndex'),(1, 'pMediaType'),(1, 'pEncodingAttributes'),)))
+    win32more.Media.MediaFoundation.IMFCaptureSink
     return IMFCaptureSink2
 def _define_IMFD3D12SynchronizationObjectCommands_head():
     class IMFD3D12SynchronizationObjectCommands(win32more.System.Com.IUnknown_head):
@@ -11063,6 +11311,7 @@ def _define_IMFD3D12SynchronizationObjectCommands():
     IMFD3D12SynchronizationObjectCommands.EnqueueResourceReadyWait = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12CommandQueue_head, use_last_error=False)(4, 'EnqueueResourceReadyWait', ((1, 'pConsumerCommandQueue'),)))
     IMFD3D12SynchronizationObjectCommands.SignalEventOnResourceReady = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(5, 'SignalEventOnResourceReady', ((1, 'hEvent'),)))
     IMFD3D12SynchronizationObjectCommands.EnqueueResourceRelease = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12CommandQueue_head, use_last_error=False)(6, 'EnqueueResourceRelease', ((1, 'pConsumerCommandQueue'),)))
+    win32more.System.Com.IUnknown
     return IMFD3D12SynchronizationObjectCommands
 def _define_IMFD3D12SynchronizationObject_head():
     class IMFD3D12SynchronizationObject(win32more.System.Com.IUnknown_head):
@@ -11072,6 +11321,7 @@ def _define_IMFD3D12SynchronizationObject():
     IMFD3D12SynchronizationObject = win32more.Media.MediaFoundation.IMFD3D12SynchronizationObject_head
     IMFD3D12SynchronizationObject.SignalEventOnFinalResourceRelease = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(3, 'SignalEventOnFinalResourceRelease', ((1, 'hEvent'),)))
     IMFD3D12SynchronizationObject.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IMFD3D12SynchronizationObject
 MF_MT_D3D_RESOURCE_VERSION_ENUM = Int32
 MF_D3D11_RESOURCE = 0
@@ -11088,6 +11338,7 @@ def _define_MFASYNCRESULT_head():
     return MFASYNCRESULT
 def _define_MFASYNCRESULT():
     MFASYNCRESULT = win32more.Media.MediaFoundation.MFASYNCRESULT_head
+    win32more.Media.MediaFoundation.IMFAsyncResult
     return MFASYNCRESULT
 MF_TOPOSTATUS = Int32
 MF_TOPOSTATUS_INVALID = 0
@@ -11400,6 +11651,7 @@ def _define_IMFMediaError():
     IMFMediaError.GetExtendedErrorCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'GetExtendedErrorCode', ()))
     IMFMediaError.SetErrorCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_MEDIA_ENGINE_ERR, use_last_error=False)(5, 'SetErrorCode', ((1, 'error'),)))
     IMFMediaError.SetExtendedErrorCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(6, 'SetExtendedErrorCode', ((1, 'error'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaError
 def _define_IMFMediaTimeRange_head():
     class IMFMediaTimeRange(win32more.System.Com.IUnknown_head):
@@ -11413,6 +11665,7 @@ def _define_IMFMediaTimeRange():
     IMFMediaTimeRange.ContainsTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,Double, use_last_error=False)(6, 'ContainsTime', ((1, 'time'),)))
     IMFMediaTimeRange.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double, use_last_error=False)(7, 'AddRange', ((1, 'startTime'),(1, 'endTime'),)))
     IMFMediaTimeRange.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Clear', ()))
+    win32more.System.Com.IUnknown
     return IMFMediaTimeRange
 MF_MEDIA_ENGINE_EVENT = Int32
 MF_MEDIA_ENGINE_EVENT_LOADSTART = 1
@@ -11461,6 +11714,7 @@ def _define_IMFMediaEngineNotify_head():
 def _define_IMFMediaEngineNotify():
     IMFMediaEngineNotify = win32more.Media.MediaFoundation.IMFMediaEngineNotify_head
     IMFMediaEngineNotify.EventNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,UInt32, use_last_error=False)(3, 'EventNotify', ((1, 'event'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineNotify
 def _define_IMFMediaEngineSrcElements_head():
     class IMFMediaEngineSrcElements(win32more.System.Com.IUnknown_head):
@@ -11474,6 +11728,7 @@ def _define_IMFMediaEngineSrcElements():
     IMFMediaEngineSrcElements.GetMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetMedia', ((1, 'index'),(1, 'pMedia'),)))
     IMFMediaEngineSrcElements.AddElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(7, 'AddElement', ((1, 'pURL'),(1, 'pType'),(1, 'pMedia'),)))
     IMFMediaEngineSrcElements.RemoveAllElements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'RemoveAllElements', ()))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineSrcElements
 MF_MEDIA_ENGINE_NETWORK = Int32
 MF_MEDIA_ENGINE_NETWORK_EMPTY = 0
@@ -11544,6 +11799,7 @@ def _define_IMFMediaEngine():
     IMFMediaEngine.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(42, 'Shutdown', ()))
     IMFMediaEngine.TransferVideoFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Media.MediaFoundation.MFVideoNormalizedRect_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Media.MediaFoundation.MFARGB_head), use_last_error=False)(43, 'TransferVideoFrame', ((1, 'pDstSurf'),(1, 'pSrc'),(1, 'pDst'),(1, 'pBorderClr'),)))
     IMFMediaEngine.OnVideoStreamTick = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(44, 'OnVideoStreamTick', ((1, 'pPts'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngine
 MF_MEDIA_ENGINE_S3D_PACKING_MODE = Int32
 MF_MEDIA_ENGINE_S3D_PACKING_MODE_NONE = 0
@@ -11604,6 +11860,7 @@ def _define_IMFMediaEngineEx():
     IMFMediaEngineEx.SetRealTimeMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(79, 'SetRealTimeMode', ((1, 'fEnable'),)))
     IMFMediaEngineEx.SetCurrentTimeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,win32more.Media.MediaFoundation.MF_MEDIA_ENGINE_SEEK_MODE, use_last_error=False)(80, 'SetCurrentTimeEx', ((1, 'seekTime'),(1, 'seekMode'),)))
     IMFMediaEngineEx.EnableTimeUpdateTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(81, 'EnableTimeUpdateTimer', ((1, 'fEnableTimer'),)))
+    win32more.Media.MediaFoundation.IMFMediaEngine
     return IMFMediaEngineEx
 def _define_IMFMediaEngineAudioEndpointId_head():
     class IMFMediaEngineAudioEndpointId(win32more.System.Com.IUnknown_head):
@@ -11613,6 +11870,7 @@ def _define_IMFMediaEngineAudioEndpointId():
     IMFMediaEngineAudioEndpointId = win32more.Media.MediaFoundation.IMFMediaEngineAudioEndpointId_head
     IMFMediaEngineAudioEndpointId.SetAudioEndpointId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetAudioEndpointId', ((1, 'pszEndpointId'),)))
     IMFMediaEngineAudioEndpointId.GetAudioEndpointId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetAudioEndpointId', ((1, 'ppszEndpointId'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineAudioEndpointId
 MF_MEDIA_ENGINE_EXTENSION_TYPE = Int32
 MF_MEDIA_ENGINE_EXTENSION_TYPE_MEDIASOURCE = 0
@@ -11627,6 +11885,7 @@ def _define_IMFMediaEngineExtension():
     IMFMediaEngineExtension.BeginCreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Media.MediaFoundation.IMFByteStream_head,win32more.Media.MediaFoundation.MF_OBJECT_TYPE,POINTER(win32more.System.Com.IUnknown_head),win32more.Media.MediaFoundation.IMFAsyncCallback_head,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'BeginCreateObject', ((1, 'bstrURL'),(1, 'pByteStream'),(1, 'type'),(1, 'ppIUnknownCancelCookie'),(1, 'pCallback'),(1, 'punkState'),)))
     IMFMediaEngineExtension.CancelObjectCreation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'CancelObjectCreation', ((1, 'pIUnknownCancelCookie'),)))
     IMFMediaEngineExtension.EndCreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFAsyncResult_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'EndCreateObject', ((1, 'pResult'),(1, 'ppObject'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineExtension
 MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAGS = Int32
 MF_MEDIA_ENGINE_FRAME_PROTECTION_FLAG_PROTECTED = 1
@@ -11644,6 +11903,7 @@ def _define_IMFMediaEngineProtectedContent():
     IMFMediaEngineProtectedContent.TransferVideoFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Media.MediaFoundation.MFVideoNormalizedRect_head),POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Media.MediaFoundation.MFARGB_head),POINTER(UInt32), use_last_error=False)(6, 'TransferVideoFrame', ((1, 'pDstSurf'),(1, 'pSrc'),(1, 'pDst'),(1, 'pBorderClr'),(1, 'pFrameProtectionFlags'),)))
     IMFMediaEngineProtectedContent.SetContentProtectionManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFContentProtectionManager_head, use_last_error=False)(7, 'SetContentProtectionManager', ((1, 'pCPM'),)))
     IMFMediaEngineProtectedContent.SetApplicationCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(8, 'SetApplicationCertificate', ((1, 'pbBlob'),(1, 'cbBlob'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineProtectedContent
 def _define_IAudioSourceProvider_head():
     class IAudioSourceProvider(win32more.System.Com.IUnknown_head):
@@ -11652,6 +11912,7 @@ def _define_IAudioSourceProvider_head():
 def _define_IAudioSourceProvider():
     IAudioSourceProvider = win32more.Media.MediaFoundation.IAudioSourceProvider_head
     IAudioSourceProvider.ProvideInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(Single), use_last_error=False)(3, 'ProvideInput', ((1, 'dwSampleCount'),(1, 'pdwChannelCount'),(1, 'pInterleavedAudioData'),)))
+    win32more.System.Com.IUnknown
     return IAudioSourceProvider
 def _define_IMFMediaEngineWebSupport_head():
     class IMFMediaEngineWebSupport(win32more.System.Com.IUnknown_head):
@@ -11662,6 +11923,7 @@ def _define_IMFMediaEngineWebSupport():
     IMFMediaEngineWebSupport.ShouldDelayTheLoadEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(3, 'ShouldDelayTheLoadEvent', ()))
     IMFMediaEngineWebSupport.ConnectWebAudio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IAudioSourceProvider_head), use_last_error=False)(4, 'ConnectWebAudio', ((1, 'dwSampleRate'),(1, 'ppSourceProvider'),)))
     IMFMediaEngineWebSupport.DisconnectWebAudio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'DisconnectWebAudio', ()))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineWebSupport
 MF_MSE_VP9_SUPPORT_TYPE = Int32
 MF_MSE_VP9_SUPPORT_DEFAULT = 0
@@ -11679,6 +11941,7 @@ def _define_IMFMediaSourceExtensionNotify():
     IMFMediaSourceExtensionNotify.OnSourceOpen = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(3, 'OnSourceOpen', ()))
     IMFMediaSourceExtensionNotify.OnSourceEnded = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'OnSourceEnded', ()))
     IMFMediaSourceExtensionNotify.OnSourceClose = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(5, 'OnSourceClose', ()))
+    win32more.System.Com.IUnknown
     return IMFMediaSourceExtensionNotify
 def _define_IMFBufferListNotify_head():
     class IMFBufferListNotify(win32more.System.Com.IUnknown_head):
@@ -11688,6 +11951,7 @@ def _define_IMFBufferListNotify():
     IMFBufferListNotify = win32more.Media.MediaFoundation.IMFBufferListNotify_head
     IMFBufferListNotify.OnAddSourceBuffer = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(3, 'OnAddSourceBuffer', ()))
     IMFBufferListNotify.OnRemoveSourceBuffer = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'OnRemoveSourceBuffer', ()))
+    win32more.System.Com.IUnknown
     return IMFBufferListNotify
 def _define_IMFSourceBufferNotify_head():
     class IMFSourceBufferNotify(win32more.System.Com.IUnknown_head):
@@ -11700,6 +11964,7 @@ def _define_IMFSourceBufferNotify():
     IMFSourceBufferNotify.OnError = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.HRESULT, use_last_error=False)(5, 'OnError', ((1, 'hr'),)))
     IMFSourceBufferNotify.OnUpdate = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(6, 'OnUpdate', ()))
     IMFSourceBufferNotify.OnUpdateEnd = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(7, 'OnUpdateEnd', ()))
+    win32more.System.Com.IUnknown
     return IMFSourceBufferNotify
 def _define_IMFSourceBuffer_head():
     class IMFSourceBuffer(win32more.System.Com.IUnknown_head):
@@ -11719,6 +11984,7 @@ def _define_IMFSourceBuffer():
     IMFSourceBuffer.AppendByteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFByteStream_head,POINTER(UInt64), use_last_error=False)(12, 'AppendByteStream', ((1, 'pStream'),(1, 'pMaxLen'),)))
     IMFSourceBuffer.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Abort', ()))
     IMFSourceBuffer.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double, use_last_error=False)(14, 'Remove', ((1, 'start'),(1, 'end'),)))
+    win32more.System.Com.IUnknown
     return IMFSourceBuffer
 MF_MSE_APPEND_MODE = Int32
 MF_MSE_APPEND_MODE_SEGMENTS = 0
@@ -11731,6 +11997,7 @@ def _define_IMFSourceBufferAppendMode():
     IMFSourceBufferAppendMode = win32more.Media.MediaFoundation.IMFSourceBufferAppendMode_head
     IMFSourceBufferAppendMode.GetAppendMode = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.MF_MSE_APPEND_MODE, use_last_error=False)(3, 'GetAppendMode', ()))
     IMFSourceBufferAppendMode.SetAppendMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_MSE_APPEND_MODE, use_last_error=False)(4, 'SetAppendMode', ((1, 'mode'),)))
+    win32more.System.Com.IUnknown
     return IMFSourceBufferAppendMode
 def _define_IMFSourceBufferList_head():
     class IMFSourceBufferList(win32more.System.Com.IUnknown_head):
@@ -11740,6 +12007,7 @@ def _define_IMFSourceBufferList():
     IMFSourceBufferList = win32more.Media.MediaFoundation.IMFSourceBufferList_head
     IMFSourceBufferList.GetLength = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(3, 'GetLength', ()))
     IMFSourceBufferList.GetSourceBuffer = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.IMFSourceBuffer_head,UInt32, use_last_error=False)(4, 'GetSourceBuffer', ((1, 'index'),)))
+    win32more.System.Com.IUnknown
     return IMFSourceBufferList
 MF_MSE_READY = Int32
 MF_MSE_READY_CLOSED = 1
@@ -11766,6 +12034,7 @@ def _define_IMFMediaSourceExtension():
     IMFMediaSourceExtension.SetEndOfStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_MSE_ERROR, use_last_error=False)(10, 'SetEndOfStream', ((1, 'error'),)))
     IMFMediaSourceExtension.IsTypeSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BSTR, use_last_error=False)(11, 'IsTypeSupported', ((1, 'type'),)))
     IMFMediaSourceExtension.GetSourceBuffer = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.IMFSourceBuffer_head,UInt32, use_last_error=False)(12, 'GetSourceBuffer', ((1, 'dwStreamIndex'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaSourceExtension
 def _define_IMFMediaSourceExtensionLiveSeekableRange_head():
     class IMFMediaSourceExtensionLiveSeekableRange(win32more.System.Com.IUnknown_head):
@@ -11775,6 +12044,7 @@ def _define_IMFMediaSourceExtensionLiveSeekableRange():
     IMFMediaSourceExtensionLiveSeekableRange = win32more.Media.MediaFoundation.IMFMediaSourceExtensionLiveSeekableRange_head
     IMFMediaSourceExtensionLiveSeekableRange.SetLiveSeekableRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double, use_last_error=False)(3, 'SetLiveSeekableRange', ((1, 'start'),(1, 'end'),)))
     IMFMediaSourceExtensionLiveSeekableRange.ClearLiveSeekableRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ClearLiveSeekableRange', ()))
+    win32more.System.Com.IUnknown
     return IMFMediaSourceExtensionLiveSeekableRange
 def _define_IMFMediaEngineEME_head():
     class IMFMediaEngineEME(win32more.System.Com.IUnknown_head):
@@ -11784,6 +12054,7 @@ def _define_IMFMediaEngineEME():
     IMFMediaEngineEME = win32more.Media.MediaFoundation.IMFMediaEngineEME_head
     IMFMediaEngineEME.get_Keys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFMediaKeys_head), use_last_error=False)(3, 'get_Keys', ((1, 'keys'),)))
     IMFMediaEngineEME.SetMediaKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaKeys_head, use_last_error=False)(4, 'SetMediaKeys', ((1, 'keys'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineEME
 def _define_IMFMediaEngineSrcElementsEx_head():
     class IMFMediaEngineSrcElementsEx(win32more.Media.MediaFoundation.IMFMediaEngineSrcElements_head):
@@ -11793,6 +12064,7 @@ def _define_IMFMediaEngineSrcElementsEx():
     IMFMediaEngineSrcElementsEx = win32more.Media.MediaFoundation.IMFMediaEngineSrcElementsEx_head
     IMFMediaEngineSrcElementsEx.AddElementEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(9, 'AddElementEx', ((1, 'pURL'),(1, 'pType'),(1, 'pMedia'),(1, 'keySystem'),)))
     IMFMediaEngineSrcElementsEx.GetKeySystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'GetKeySystem', ((1, 'index'),(1, 'pType'),)))
+    win32more.Media.MediaFoundation.IMFMediaEngineSrcElements
     return IMFMediaEngineSrcElementsEx
 def _define_IMFMediaEngineNeedKeyNotify_head():
     class IMFMediaEngineNeedKeyNotify(win32more.System.Com.IUnknown_head):
@@ -11801,6 +12073,7 @@ def _define_IMFMediaEngineNeedKeyNotify_head():
 def _define_IMFMediaEngineNeedKeyNotify():
     IMFMediaEngineNeedKeyNotify = win32more.Media.MediaFoundation.IMFMediaEngineNeedKeyNotify_head
     IMFMediaEngineNeedKeyNotify.NeedKey = COMMETHOD(WINFUNCTYPE(Void,c_char_p_no,UInt32, use_last_error=False)(3, 'NeedKey', ((1, 'initData'),(1, 'cb'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineNeedKeyNotify
 def _define_IMFMediaKeys_head():
     class IMFMediaKeys(win32more.System.Com.IUnknown_head):
@@ -11812,6 +12085,7 @@ def _define_IMFMediaKeys():
     IMFMediaKeys.get_KeySystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_KeySystem', ((1, 'keySystem'),)))
     IMFMediaKeys.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Shutdown', ()))
     IMFMediaKeys.GetSuspendNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFCdmSuspendNotify_head), use_last_error=False)(6, 'GetSuspendNotify', ((1, 'notify'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaKeys
 MF_MEDIA_ENGINE_KEYERR = Int32
 MF_MEDIAENGINE_KEYERR_UNKNOWN = 1
@@ -11831,6 +12105,7 @@ def _define_IMFMediaKeySession():
     IMFMediaKeySession.get_SessionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_SessionId', ((1, 'sessionId'),)))
     IMFMediaKeySession.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(6, 'Update', ((1, 'key'),(1, 'cb'),)))
     IMFMediaKeySession.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IMFMediaKeySession
 def _define_IMFMediaKeySessionNotify_head():
     class IMFMediaKeySessionNotify(win32more.System.Com.IUnknown_head):
@@ -11841,6 +12116,7 @@ def _define_IMFMediaKeySessionNotify():
     IMFMediaKeySessionNotify.KeyMessage = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BSTR,c_char_p_no,UInt32, use_last_error=False)(3, 'KeyMessage', ((1, 'destinationURL'),(1, 'message'),(1, 'cb'),)))
     IMFMediaKeySessionNotify.KeyAdded = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'KeyAdded', ()))
     IMFMediaKeySessionNotify.KeyError = COMMETHOD(WINFUNCTYPE(Void,UInt16,UInt32, use_last_error=False)(5, 'KeyError', ((1, 'code'),(1, 'systemCode'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaKeySessionNotify
 def _define_IMFCdmSuspendNotify_head():
     class IMFCdmSuspendNotify(win32more.System.Com.IUnknown_head):
@@ -11850,6 +12126,7 @@ def _define_IMFCdmSuspendNotify():
     IMFCdmSuspendNotify = win32more.Media.MediaFoundation.IMFCdmSuspendNotify_head
     IMFCdmSuspendNotify.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Begin', ()))
     IMFCdmSuspendNotify.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'End', ()))
+    win32more.System.Com.IUnknown
     return IMFCdmSuspendNotify
 MF_HDCP_STATUS = Int32
 MF_HDCP_STATUS_ON = 0
@@ -11863,6 +12140,7 @@ def _define_IMFHDCPStatus():
     IMFHDCPStatus = win32more.Media.MediaFoundation.IMFHDCPStatus_head
     IMFHDCPStatus.Query = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_HDCP_STATUS),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'Query', ((1, 'pStatus'),(1, 'pfStatus'),)))
     IMFHDCPStatus.Set = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_HDCP_STATUS, use_last_error=False)(4, 'Set', ((1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IMFHDCPStatus
 MF_MEDIA_ENGINE_OPM_STATUS = Int32
 MF_MEDIA_ENGINE_OPM_NOT_REQUESTED = 0
@@ -11878,6 +12156,7 @@ def _define_IMFMediaEngineOPMInfo_head():
 def _define_IMFMediaEngineOPMInfo():
     IMFMediaEngineOPMInfo = win32more.Media.MediaFoundation.IMFMediaEngineOPMInfo_head
     IMFMediaEngineOPMInfo.GetOPMInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_MEDIA_ENGINE_OPM_STATUS),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetOPMInfo', ((1, 'pStatus'),(1, 'pConstricted'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineOPMInfo
 MF_MEDIA_ENGINE_CREATEFLAGS = Int32
 MF_MEDIA_ENGINE_AUDIOONLY = 1
@@ -11899,6 +12178,7 @@ def _define_IMFMediaEngineClassFactory():
     IMFMediaEngineClassFactory.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFAttributes_head,POINTER(win32more.Media.MediaFoundation.IMFMediaEngine_head), use_last_error=False)(3, 'CreateInstance', ((1, 'dwFlags'),(1, 'pAttr'),(1, 'ppPlayer'),)))
     IMFMediaEngineClassFactory.CreateTimeRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFMediaTimeRange_head), use_last_error=False)(4, 'CreateTimeRange', ((1, 'ppTimeRange'),)))
     IMFMediaEngineClassFactory.CreateError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFMediaError_head), use_last_error=False)(5, 'CreateError', ((1, 'ppError'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineClassFactory
 def _define_IMFMediaEngineClassFactoryEx_head():
     class IMFMediaEngineClassFactoryEx(win32more.Media.MediaFoundation.IMFMediaEngineClassFactory_head):
@@ -11909,6 +12189,7 @@ def _define_IMFMediaEngineClassFactoryEx():
     IMFMediaEngineClassFactoryEx.CreateMediaSourceExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFAttributes_head,POINTER(win32more.Media.MediaFoundation.IMFMediaSourceExtension_head), use_last_error=False)(6, 'CreateMediaSourceExtension', ((1, 'dwFlags'),(1, 'pAttr'),(1, 'ppMSE'),)))
     IMFMediaEngineClassFactoryEx.CreateMediaKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaFoundation.IMFMediaKeys_head), use_last_error=False)(7, 'CreateMediaKeys', ((1, 'keySystem'),(1, 'cdmStorePath'),(1, 'ppKeys'),)))
     IMFMediaEngineClassFactoryEx.IsTypeSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'IsTypeSupported', ((1, 'type'),(1, 'keySystem'),(1, 'isSupported'),)))
+    win32more.Media.MediaFoundation.IMFMediaEngineClassFactory
     return IMFMediaEngineClassFactoryEx
 def _define_IMFMediaEngineClassFactory2_head():
     class IMFMediaEngineClassFactory2(win32more.System.Com.IUnknown_head):
@@ -11917,6 +12198,7 @@ def _define_IMFMediaEngineClassFactory2_head():
 def _define_IMFMediaEngineClassFactory2():
     IMFMediaEngineClassFactory2 = win32more.Media.MediaFoundation.IMFMediaEngineClassFactory2_head
     IMFMediaEngineClassFactory2.CreateMediaKeys2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaFoundation.IMFMediaKeys_head), use_last_error=False)(3, 'CreateMediaKeys2', ((1, 'keySystem'),(1, 'defaultCdmStorePath'),(1, 'inprivateCdmStorePath'),(1, 'ppKeys'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineClassFactory2
 def _define_IMFExtendedDRMTypeSupport_head():
     class IMFExtendedDRMTypeSupport(win32more.System.Com.IUnknown_head):
@@ -11925,6 +12207,7 @@ def _define_IMFExtendedDRMTypeSupport_head():
 def _define_IMFExtendedDRMTypeSupport():
     IMFExtendedDRMTypeSupport = win32more.Media.MediaFoundation.IMFExtendedDRMTypeSupport_head
     IMFExtendedDRMTypeSupport.IsTypeSupportedEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaFoundation.MF_MEDIA_ENGINE_CANPLAY), use_last_error=False)(3, 'IsTypeSupportedEx', ((1, 'type'),(1, 'keySystem'),(1, 'pAnswer'),)))
+    win32more.System.Com.IUnknown
     return IMFExtendedDRMTypeSupport
 def _define_IMFMediaEngineSupportsSourceTransfer_head():
     class IMFMediaEngineSupportsSourceTransfer(win32more.System.Com.IUnknown_head):
@@ -11935,6 +12218,7 @@ def _define_IMFMediaEngineSupportsSourceTransfer():
     IMFMediaEngineSupportsSourceTransfer.ShouldTransferSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'ShouldTransferSource', ((1, 'pfShouldTransfer'),)))
     IMFMediaEngineSupportsSourceTransfer.DetachMediaSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFByteStream_head),POINTER(win32more.Media.MediaFoundation.IMFMediaSource_head),POINTER(win32more.Media.MediaFoundation.IMFMediaSourceExtension_head), use_last_error=False)(4, 'DetachMediaSource', ((1, 'ppByteStream'),(1, 'ppMediaSource'),(1, 'ppMSE'),)))
     IMFMediaEngineSupportsSourceTransfer.AttachMediaSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFByteStream_head,win32more.Media.MediaFoundation.IMFMediaSource_head,win32more.Media.MediaFoundation.IMFMediaSourceExtension_head, use_last_error=False)(5, 'AttachMediaSource', ((1, 'pByteStream'),(1, 'pMediaSource'),(1, 'pMSE'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineSupportsSourceTransfer
 def _define_IMFMediaEngineTransferSource_head():
     class IMFMediaEngineTransferSource(win32more.System.Com.IUnknown_head):
@@ -11943,6 +12227,7 @@ def _define_IMFMediaEngineTransferSource_head():
 def _define_IMFMediaEngineTransferSource():
     IMFMediaEngineTransferSource = win32more.Media.MediaFoundation.IMFMediaEngineTransferSource_head
     IMFMediaEngineTransferSource.TransferSourceToMediaEngine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFMediaEngine_head, use_last_error=False)(3, 'TransferSourceToMediaEngine', ((1, 'destination'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineTransferSource
 MF_TIMED_TEXT_TRACK_KIND = Int32
 MF_TIMED_TEXT_TRACK_KIND_UNKNOWN = 0
@@ -12045,6 +12330,7 @@ def _define_IMFTimedText():
     IMFTimedText.GetMetadataTracks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFTimedTextTrackList_head), use_last_error=False)(14, 'GetMetadataTracks', ((1, 'metadataTracks'),)))
     IMFTimedText.SetInBandEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(15, 'SetInBandEnabled', ((1, 'enabled'),)))
     IMFTimedText.IsInBandEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(16, 'IsInBandEnabled', ()))
+    win32more.System.Com.IUnknown
     return IMFTimedText
 def _define_IMFTimedTextNotify_head():
     class IMFTimedTextNotify(win32more.System.Com.IUnknown_head):
@@ -12059,6 +12345,7 @@ def _define_IMFTimedTextNotify():
     IMFTimedTextNotify.Error = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.MF_TIMED_TEXT_ERROR_CODE,win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'Error', ((1, 'errorCode'),(1, 'extendedErrorCode'),(1, 'sourceTrackId'),)))
     IMFTimedTextNotify.Cue = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.MF_TIMED_TEXT_CUE_EVENT,Double,win32more.Media.MediaFoundation.IMFTimedTextCue_head, use_last_error=False)(8, 'Cue', ((1, 'cueEvent'),(1, 'currentTime'),(1, 'cue'),)))
     IMFTimedTextNotify.Reset = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(9, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IMFTimedTextNotify
 def _define_IMFTimedTextTrack_head():
     class IMFTimedTextTrack(win32more.System.Com.IUnknown_head):
@@ -12079,6 +12366,7 @@ def _define_IMFTimedTextTrack():
     IMFTimedTextTrack.GetDataFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(13, 'GetDataFormat', ((1, 'format'),)))
     IMFTimedTextTrack.GetReadyState = COMMETHOD(WINFUNCTYPE(win32more.Media.MediaFoundation.MF_TIMED_TEXT_TRACK_READY_STATE, use_last_error=False)(14, 'GetReadyState', ()))
     IMFTimedTextTrack.GetCueList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFTimedTextCueList_head), use_last_error=False)(15, 'GetCueList', ((1, 'cues'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextTrack
 def _define_IMFTimedTextTrackList_head():
     class IMFTimedTextTrackList(win32more.System.Com.IUnknown_head):
@@ -12089,6 +12377,7 @@ def _define_IMFTimedTextTrackList():
     IMFTimedTextTrackList.GetLength = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(3, 'GetLength', ()))
     IMFTimedTextTrackList.GetTrack = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFTimedTextTrack_head), use_last_error=False)(4, 'GetTrack', ((1, 'index'),(1, 'track'),)))
     IMFTimedTextTrackList.GetTrackById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFTimedTextTrack_head), use_last_error=False)(5, 'GetTrackById', ((1, 'trackId'),(1, 'track'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextTrackList
 def _define_IMFTimedTextCue_head():
     class IMFTimedTextCue(win32more.System.Com.IUnknown_head):
@@ -12107,6 +12396,7 @@ def _define_IMFTimedTextCue():
     IMFTimedTextCue.GetStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFTimedTextStyle_head), use_last_error=False)(11, 'GetStyle', ((1, 'style'),)))
     IMFTimedTextCue.GetLineCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(12, 'GetLineCount', ()))
     IMFTimedTextCue.GetLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFTimedTextFormattedText_head), use_last_error=False)(13, 'GetLine', ((1, 'index'),(1, 'line'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextCue
 def _define_IMFTimedTextFormattedText_head():
     class IMFTimedTextFormattedText(win32more.System.Com.IUnknown_head):
@@ -12117,6 +12407,7 @@ def _define_IMFTimedTextFormattedText():
     IMFTimedTextFormattedText.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetText', ((1, 'text'),)))
     IMFTimedTextFormattedText.GetSubformattingCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(4, 'GetSubformattingCount', ()))
     IMFTimedTextFormattedText.GetSubformatting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Media.MediaFoundation.IMFTimedTextStyle_head), use_last_error=False)(5, 'GetSubformatting', ((1, 'index'),(1, 'firstChar'),(1, 'charLength'),(1, 'style'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextFormattedText
 def _define_IMFTimedTextStyle_head():
     class IMFTimedTextStyle(win32more.System.Com.IUnknown_head):
@@ -12137,6 +12428,7 @@ def _define_IMFTimedTextStyle():
     IMFTimedTextStyle.GetTextAlignment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_TIMED_TEXT_ALIGNMENT), use_last_error=False)(13, 'GetTextAlignment', ((1, 'textAlign'),)))
     IMFTimedTextStyle.GetTextDecoration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'GetTextDecoration', ((1, 'textDecoration'),)))
     IMFTimedTextStyle.GetTextOutline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFARGB_head),POINTER(Double),POINTER(Double),POINTER(win32more.Media.MediaFoundation.MF_TIMED_TEXT_UNIT_TYPE), use_last_error=False)(15, 'GetTextOutline', ((1, 'color'),(1, 'thickness'),(1, 'blurRadius'),(1, 'unitType'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextStyle
 def _define_IMFTimedTextRegion_head():
     class IMFTimedTextRegion(win32more.System.Com.IUnknown_head):
@@ -12156,6 +12448,7 @@ def _define_IMFTimedTextRegion():
     IMFTimedTextRegion.GetWrap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'GetWrap', ((1, 'wrap'),)))
     IMFTimedTextRegion.GetZIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'GetZIndex', ((1, 'zIndex'),)))
     IMFTimedTextRegion.GetScrollMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_TIMED_TEXT_SCROLL_MODE), use_last_error=False)(14, 'GetScrollMode', ((1, 'scrollMode'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextRegion
 def _define_IMFTimedTextBinary_head():
     class IMFTimedTextBinary(win32more.System.Com.IUnknown_head):
@@ -12164,6 +12457,7 @@ def _define_IMFTimedTextBinary_head():
 def _define_IMFTimedTextBinary():
     IMFTimedTextBinary = win32more.Media.MediaFoundation.IMFTimedTextBinary_head
     IMFTimedTextBinary.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(3, 'GetData', ((1, 'data'),(1, 'length'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextBinary
 def _define_IMFTimedTextCueList_head():
     class IMFTimedTextCueList(win32more.System.Com.IUnknown_head):
@@ -12178,6 +12472,7 @@ def _define_IMFTimedTextCueList():
     IMFTimedTextCueList.AddTextCue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,win32more.Foundation.PWSTR,POINTER(win32more.Media.MediaFoundation.IMFTimedTextCue_head), use_last_error=False)(7, 'AddTextCue', ((1, 'start'),(1, 'duration'),(1, 'text'),(1, 'cue'),)))
     IMFTimedTextCueList.AddDataCue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,c_char_p_no,UInt32,POINTER(win32more.Media.MediaFoundation.IMFTimedTextCue_head), use_last_error=False)(8, 'AddDataCue', ((1, 'start'),(1, 'duration'),(1, 'data'),(1, 'dataSize'),(1, 'cue'),)))
     IMFTimedTextCueList.RemoveCue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFTimedTextCue_head, use_last_error=False)(9, 'RemoveCue', ((1, 'cue'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextCueList
 def _define_IMFTimedTextRuby_head():
     class IMFTimedTextRuby(win32more.System.Com.IUnknown_head):
@@ -12189,6 +12484,7 @@ def _define_IMFTimedTextRuby():
     IMFTimedTextRuby.GetRubyPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_TIMED_TEXT_RUBY_POSITION), use_last_error=False)(4, 'GetRubyPosition', ((1, 'value'),)))
     IMFTimedTextRuby.GetRubyAlign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_TIMED_TEXT_RUBY_ALIGN), use_last_error=False)(5, 'GetRubyAlign', ((1, 'value'),)))
     IMFTimedTextRuby.GetRubyReserve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_TIMED_TEXT_RUBY_RESERVE), use_last_error=False)(6, 'GetRubyReserve', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextRuby
 def _define_IMFTimedTextBouten_head():
     class IMFTimedTextBouten(win32more.System.Com.IUnknown_head):
@@ -12199,6 +12495,7 @@ def _define_IMFTimedTextBouten():
     IMFTimedTextBouten.GetBoutenType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_TIMED_TEXT_BOUTEN_TYPE), use_last_error=False)(3, 'GetBoutenType', ((1, 'value'),)))
     IMFTimedTextBouten.GetBoutenColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFARGB_head), use_last_error=False)(4, 'GetBoutenColor', ((1, 'value'),)))
     IMFTimedTextBouten.GetBoutenPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MF_TIMED_TEXT_BOUTEN_POSITION), use_last_error=False)(5, 'GetBoutenPosition', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextBouten
 def _define_IMFTimedTextStyle2_head():
     class IMFTimedTextStyle2(win32more.System.Com.IUnknown_head):
@@ -12210,6 +12507,7 @@ def _define_IMFTimedTextStyle2():
     IMFTimedTextStyle2.GetBouten = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFTimedTextBouten_head), use_last_error=False)(4, 'GetBouten', ((1, 'bouten'),)))
     IMFTimedTextStyle2.IsTextCombined = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsTextCombined', ((1, 'value'),)))
     IMFTimedTextStyle2.GetFontAngleInDegrees = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(6, 'GetFontAngleInDegrees', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IMFTimedTextStyle2
 MF_MEDIA_ENGINE_STREAMTYPE_FAILED = Int32
 MF_MEDIA_ENGINE_STREAMTYPE_FAILED_UNKNOWN = 0
@@ -12223,6 +12521,7 @@ def _define_IMFMediaEngineEMENotify():
     IMFMediaEngineEMENotify = win32more.Media.MediaFoundation.IMFMediaEngineEMENotify_head
     IMFMediaEngineEMENotify.Encrypted = COMMETHOD(WINFUNCTYPE(Void,c_char_p_no,UInt32,win32more.Foundation.BSTR, use_last_error=False)(3, 'Encrypted', ((1, 'pbInitData'),(1, 'cb'),(1, 'bstrInitDataType'),)))
     IMFMediaEngineEMENotify.WaitingForKey = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'WaitingForKey', ()))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineEMENotify
 MF_MEDIAKEYS_REQUIREMENT = Int32
 MF_MEDIAKEYS_REQUIREMENT_REQUIRED = 1
@@ -12236,6 +12535,7 @@ def _define_IMFMediaKeySessionNotify2():
     IMFMediaKeySessionNotify2 = win32more.Media.MediaFoundation.IMFMediaKeySessionNotify2_head
     IMFMediaKeySessionNotify2.KeyMessage2 = COMMETHOD(WINFUNCTYPE(Void,win32more.Media.MediaFoundation.MF_MEDIAKEYSESSION_MESSAGETYPE,win32more.Foundation.BSTR,c_char_p_no,UInt32, use_last_error=False)(6, 'KeyMessage2', ((1, 'eMessageType'),(1, 'destinationURL'),(1, 'pbMessage'),(1, 'cbMessage'),)))
     IMFMediaKeySessionNotify2.KeyStatusChange = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(7, 'KeyStatusChange', ()))
+    win32more.Media.MediaFoundation.IMFMediaKeySessionNotify
     return IMFMediaKeySessionNotify2
 def _define_IMFMediaKeySystemAccess_head():
     class IMFMediaKeySystemAccess(win32more.System.Com.IUnknown_head):
@@ -12246,6 +12546,7 @@ def _define_IMFMediaKeySystemAccess():
     IMFMediaKeySystemAccess.CreateMediaKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,POINTER(win32more.Media.MediaFoundation.IMFMediaKeys2_head), use_last_error=False)(3, 'CreateMediaKeys', ((1, 'pCdmCustomConfig'),(1, 'ppKeys'),)))
     IMFMediaKeySystemAccess.get_SupportedConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(4, 'get_SupportedConfiguration', ((1, 'ppSupportedConfiguration'),)))
     IMFMediaKeySystemAccess.get_KeySystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_KeySystem', ((1, 'pKeySystem'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaKeySystemAccess
 def _define_IMFMediaEngineClassFactory3_head():
     class IMFMediaEngineClassFactory3(win32more.System.Com.IUnknown_head):
@@ -12254,6 +12555,7 @@ def _define_IMFMediaEngineClassFactory3_head():
 def _define_IMFMediaEngineClassFactory3():
     IMFMediaEngineClassFactory3 = win32more.Media.MediaFoundation.IMFMediaEngineClassFactory3_head
     IMFMediaEngineClassFactory3.CreateMediaKeySystemAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head),UInt32,POINTER(win32more.Media.MediaFoundation.IMFMediaKeySystemAccess_head), use_last_error=False)(3, 'CreateMediaKeySystemAccess', ((1, 'keySystem'),(1, 'ppSupportedConfigurationsArray'),(1, 'uSize'),(1, 'ppKeyAccess'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineClassFactory3
 def _define_IMFMediaKeys2_head():
     class IMFMediaKeys2(win32more.Media.MediaFoundation.IMFMediaKeys_head):
@@ -12264,6 +12566,7 @@ def _define_IMFMediaKeys2():
     IMFMediaKeys2.CreateSession2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_MEDIAKEYSESSION_TYPE,win32more.Media.MediaFoundation.IMFMediaKeySessionNotify2_head,POINTER(win32more.Media.MediaFoundation.IMFMediaKeySession2_head), use_last_error=False)(7, 'CreateSession2', ((1, 'eSessionType'),(1, 'pMFMediaKeySessionNotify2'),(1, 'ppSession'),)))
     IMFMediaKeys2.SetServerCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(8, 'SetServerCertificate', ((1, 'pbServerCertificate'),(1, 'cb'),)))
     IMFMediaKeys2.GetDOMException = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(9, 'GetDOMException', ((1, 'systemCode'),(1, 'code'),)))
+    win32more.Media.MediaFoundation.IMFMediaKeys
     return IMFMediaKeys2
 def _define_IMFMediaKeySession2_head():
     class IMFMediaKeySession2(win32more.Media.MediaFoundation.IMFMediaKeySession_head):
@@ -12277,6 +12580,7 @@ def _define_IMFMediaKeySession2():
     IMFMediaKeySession2.get_Expiration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(11, 'get_Expiration', ((1, 'dblExpiration'),)))
     IMFMediaKeySession2.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Remove', ()))
     IMFMediaKeySession2.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Shutdown', ()))
+    win32more.Media.MediaFoundation.IMFMediaKeySession
     return IMFMediaKeySession2
 def _define_IMFMediaEngineClassFactory4_head():
     class IMFMediaEngineClassFactory4(win32more.System.Com.IUnknown_head):
@@ -12285,6 +12589,7 @@ def _define_IMFMediaEngineClassFactory4_head():
 def _define_IMFMediaEngineClassFactory4():
     IMFMediaEngineClassFactory4 = win32more.Media.MediaFoundation.IMFMediaEngineClassFactory4_head
     IMFMediaEngineClassFactory4.CreateContentDecryptionModuleFactory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateContentDecryptionModuleFactory', ((1, 'keySystem'),(1, 'riid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaEngineClassFactory4
 def _define_IMFDLNASinkInit_head():
     class IMFDLNASinkInit(win32more.System.Com.IUnknown_head):
@@ -12293,6 +12598,7 @@ def _define_IMFDLNASinkInit_head():
 def _define_IMFDLNASinkInit():
     IMFDLNASinkInit = win32more.Media.MediaFoundation.IMFDLNASinkInit_head
     IMFDLNASinkInit.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFByteStream_head,win32more.Foundation.BOOL, use_last_error=False)(3, 'Initialize', ((1, 'pByteStream'),(1, 'fPal'),)))
+    win32more.System.Com.IUnknown
     return IMFDLNASinkInit
 def _define_MFMPEG2DLNASINKSTATS_head():
     class MFMPEG2DLNASINKSTATS(Structure):
@@ -12325,6 +12631,7 @@ def _define_IMFReadWriteClassFactory():
     IMFReadWriteClassFactory = win32more.Media.MediaFoundation.IMFReadWriteClassFactory_head
     IMFReadWriteClassFactory.CreateInstanceFromURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Media.MediaFoundation.IMFAttributes_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateInstanceFromURL', ((1, 'clsid'),(1, 'pwszURL'),(1, 'pAttributes'),(1, 'riid'),(1, 'ppvObject'),)))
     IMFReadWriteClassFactory.CreateInstanceFromObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,win32more.Media.MediaFoundation.IMFAttributes_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'CreateInstanceFromObject', ((1, 'clsid'),(1, 'punkObject'),(1, 'pAttributes'),(1, 'riid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return IMFReadWriteClassFactory
 MF_SOURCE_READER_FLAG = Int32
 MF_SOURCE_READERF_ERROR = 1
@@ -12361,6 +12668,7 @@ def _define_IMFSourceReader():
     IMFSourceReader.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(10, 'Flush', ((1, 'dwStreamIndex'),)))
     IMFSourceReader.GetServiceForStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'GetServiceForStream', ((1, 'dwStreamIndex'),(1, 'guidService'),(1, 'riid'),(1, 'ppvObject'),)))
     IMFSourceReader.GetPresentationAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(12, 'GetPresentationAttribute', ((1, 'dwStreamIndex'),(1, 'guidAttribute'),(1, 'pvarAttribute'),)))
+    win32more.System.Com.IUnknown
     return IMFSourceReader
 def _define_IMFSourceReaderEx_head():
     class IMFSourceReaderEx(win32more.Media.MediaFoundation.IMFSourceReader_head):
@@ -12372,6 +12680,7 @@ def _define_IMFSourceReaderEx():
     IMFSourceReaderEx.AddTransformForStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(14, 'AddTransformForStream', ((1, 'dwStreamIndex'),(1, 'pTransformOrActivate'),)))
     IMFSourceReaderEx.RemoveAllTransformsForStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(15, 'RemoveAllTransformsForStream', ((1, 'dwStreamIndex'),)))
     IMFSourceReaderEx.GetTransformForStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Guid),POINTER(win32more.Media.MediaFoundation.IMFTransform_head), use_last_error=False)(16, 'GetTransformForStream', ((1, 'dwStreamIndex'),(1, 'dwTransformIndex'),(1, 'pGuidCategory'),(1, 'ppTransform'),)))
+    win32more.Media.MediaFoundation.IMFSourceReader
     return IMFSourceReaderEx
 def _define_IMFSourceReaderCallback_head():
     class IMFSourceReaderCallback(win32more.System.Com.IUnknown_head):
@@ -12382,6 +12691,7 @@ def _define_IMFSourceReaderCallback():
     IMFSourceReaderCallback.OnReadSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,UInt32,Int64,win32more.Media.MediaFoundation.IMFSample_head, use_last_error=False)(3, 'OnReadSample', ((1, 'hrStatus'),(1, 'dwStreamIndex'),(1, 'dwStreamFlags'),(1, 'llTimestamp'),(1, 'pSample'),)))
     IMFSourceReaderCallback.OnFlush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'OnFlush', ((1, 'dwStreamIndex'),)))
     IMFSourceReaderCallback.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFMediaEvent_head, use_last_error=False)(5, 'OnEvent', ((1, 'dwStreamIndex'),(1, 'pEvent'),)))
+    win32more.System.Com.IUnknown
     return IMFSourceReaderCallback
 def _define_IMFSourceReaderCallback2_head():
     class IMFSourceReaderCallback2(win32more.Media.MediaFoundation.IMFSourceReaderCallback_head):
@@ -12391,6 +12701,7 @@ def _define_IMFSourceReaderCallback2():
     IMFSourceReaderCallback2 = win32more.Media.MediaFoundation.IMFSourceReaderCallback2_head
     IMFSourceReaderCallback2.OnTransformChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'OnTransformChange', ()))
     IMFSourceReaderCallback2.OnStreamError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(7, 'OnStreamError', ((1, 'dwStreamIndex'),(1, 'hrStatus'),)))
+    win32more.Media.MediaFoundation.IMFSourceReaderCallback
     return IMFSourceReaderCallback2
 MF_SINK_WRITER_CONSTANTS = UInt32
 MF_SINK_WRITER_INVALID_STREAM_INDEX = 4294967295
@@ -12438,6 +12749,7 @@ def _define_IMFSinkWriter():
     IMFSinkWriter.Finalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Finalize', ()))
     IMFSinkWriter.GetServiceForStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(12, 'GetServiceForStream', ((1, 'dwStreamIndex'),(1, 'guidService'),(1, 'riid'),(1, 'ppvObject'),)))
     IMFSinkWriter.GetStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.MF_SINK_WRITER_STATISTICS_head), use_last_error=False)(13, 'GetStatistics', ((1, 'dwStreamIndex'),(1, 'pStats'),)))
+    win32more.System.Com.IUnknown
     return IMFSinkWriter
 def _define_IMFSinkWriterEx_head():
     class IMFSinkWriterEx(win32more.Media.MediaFoundation.IMFSinkWriter_head):
@@ -12446,6 +12758,7 @@ def _define_IMFSinkWriterEx_head():
 def _define_IMFSinkWriterEx():
     IMFSinkWriterEx = win32more.Media.MediaFoundation.IMFSinkWriterEx_head
     IMFSinkWriterEx.GetTransformForStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Guid),POINTER(win32more.Media.MediaFoundation.IMFTransform_head), use_last_error=False)(14, 'GetTransformForStream', ((1, 'dwStreamIndex'),(1, 'dwTransformIndex'),(1, 'pGuidCategory'),(1, 'ppTransform'),)))
+    win32more.Media.MediaFoundation.IMFSinkWriter
     return IMFSinkWriterEx
 def _define_IMFSinkWriterEncoderConfig_head():
     class IMFSinkWriterEncoderConfig(win32more.System.Com.IUnknown_head):
@@ -12455,6 +12768,7 @@ def _define_IMFSinkWriterEncoderConfig():
     IMFSinkWriterEncoderConfig = win32more.Media.MediaFoundation.IMFSinkWriterEncoderConfig_head
     IMFSinkWriterEncoderConfig.SetTargetMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFMediaType_head,win32more.Media.MediaFoundation.IMFAttributes_head, use_last_error=False)(3, 'SetTargetMediaType', ((1, 'dwStreamIndex'),(1, 'pTargetMediaType'),(1, 'pEncodingParameters'),)))
     IMFSinkWriterEncoderConfig.PlaceEncodingParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFAttributes_head, use_last_error=False)(4, 'PlaceEncodingParameters', ((1, 'dwStreamIndex'),(1, 'pEncodingParameters'),)))
+    win32more.System.Com.IUnknown
     return IMFSinkWriterEncoderConfig
 def _define_IMFSinkWriterCallback_head():
     class IMFSinkWriterCallback(win32more.System.Com.IUnknown_head):
@@ -12464,6 +12778,7 @@ def _define_IMFSinkWriterCallback():
     IMFSinkWriterCallback = win32more.Media.MediaFoundation.IMFSinkWriterCallback_head
     IMFSinkWriterCallback.OnFinalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnFinalize', ((1, 'hrStatus'),)))
     IMFSinkWriterCallback.OnMarker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p, use_last_error=False)(4, 'OnMarker', ((1, 'dwStreamIndex'),(1, 'pvContext'),)))
+    win32more.System.Com.IUnknown
     return IMFSinkWriterCallback
 def _define_IMFSinkWriterCallback2_head():
     class IMFSinkWriterCallback2(win32more.Media.MediaFoundation.IMFSinkWriterCallback_head):
@@ -12473,6 +12788,7 @@ def _define_IMFSinkWriterCallback2():
     IMFSinkWriterCallback2 = win32more.Media.MediaFoundation.IMFSinkWriterCallback2_head
     IMFSinkWriterCallback2.OnTransformChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'OnTransformChange', ()))
     IMFSinkWriterCallback2.OnStreamError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(6, 'OnStreamError', ((1, 'dwStreamIndex'),(1, 'hrStatus'),)))
+    win32more.Media.MediaFoundation.IMFSinkWriterCallback
     return IMFSinkWriterCallback2
 def _define_IMFVideoPositionMapper_head():
     class IMFVideoPositionMapper(win32more.System.Com.IUnknown_head):
@@ -12481,6 +12797,7 @@ def _define_IMFVideoPositionMapper_head():
 def _define_IMFVideoPositionMapper():
     IMFVideoPositionMapper = win32more.Media.MediaFoundation.IMFVideoPositionMapper_head
     IMFVideoPositionMapper.MapOutputCoordinateToInputStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,UInt32,UInt32,POINTER(Single),POINTER(Single), use_last_error=False)(3, 'MapOutputCoordinateToInputStream', ((1, 'xOut'),(1, 'yOut'),(1, 'dwOutputStreamIndex'),(1, 'dwInputStreamIndex'),(1, 'pxIn'),(1, 'pyIn'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoPositionMapper
 def _define_IMFVideoDeviceID_head():
     class IMFVideoDeviceID(win32more.System.Com.IUnknown_head):
@@ -12489,6 +12806,7 @@ def _define_IMFVideoDeviceID_head():
 def _define_IMFVideoDeviceID():
     IMFVideoDeviceID = win32more.Media.MediaFoundation.IMFVideoDeviceID_head
     IMFVideoDeviceID.GetDeviceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetDeviceID', ((1, 'pDeviceID'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoDeviceID
 MFVideoAspectRatioMode = Int32
 MFVideoARMode_None = 0
@@ -12529,6 +12847,7 @@ def _define_IMFVideoDisplayControl():
     IMFVideoDisplayControl.GetRenderingPrefs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(16, 'GetRenderingPrefs', ((1, 'pdwRenderFlags'),)))
     IMFVideoDisplayControl.SetFullscreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(17, 'SetFullscreen', ((1, 'fFullscreen'),)))
     IMFVideoDisplayControl.GetFullscreen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(18, 'GetFullscreen', ((1, 'pfFullscreen'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoDisplayControl
 MFVP_MESSAGE_TYPE = Int32
 MFVP_MESSAGE_FLUSH = 0
@@ -12547,6 +12866,7 @@ def _define_IMFVideoPresenter():
     IMFVideoPresenter = win32more.Media.MediaFoundation.IMFVideoPresenter_head
     IMFVideoPresenter.ProcessMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MFVP_MESSAGE_TYPE,UIntPtr, use_last_error=False)(8, 'ProcessMessage', ((1, 'eMessage'),(1, 'ulParam'),)))
     IMFVideoPresenter.GetCurrentMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFVideoMediaType_head), use_last_error=False)(9, 'GetCurrentMediaType', ((1, 'ppMediaType'),)))
+    win32more.Media.MediaFoundation.IMFClockStateSink
     return IMFVideoPresenter
 def _define_IMFDesiredSample_head():
     class IMFDesiredSample(win32more.System.Com.IUnknown_head):
@@ -12557,6 +12877,7 @@ def _define_IMFDesiredSample():
     IMFDesiredSample.GetDesiredSampleTimeAndDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64),POINTER(Int64), use_last_error=False)(3, 'GetDesiredSampleTimeAndDuration', ((1, 'phnsSampleTime'),(1, 'phnsSampleDuration'),)))
     IMFDesiredSample.SetDesiredSampleTimeAndDuration = COMMETHOD(WINFUNCTYPE(Void,Int64,Int64, use_last_error=False)(4, 'SetDesiredSampleTimeAndDuration', ((1, 'hnsSampleTime'),(1, 'hnsSampleDuration'),)))
     IMFDesiredSample.Clear = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(5, 'Clear', ()))
+    win32more.System.Com.IUnknown
     return IMFDesiredSample
 def _define_IMFVideoMixerControl_head():
     class IMFVideoMixerControl(win32more.System.Com.IUnknown_head):
@@ -12568,6 +12889,7 @@ def _define_IMFVideoMixerControl():
     IMFVideoMixerControl.GetStreamZOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(4, 'GetStreamZOrder', ((1, 'dwStreamID'),(1, 'pdwZ'),)))
     IMFVideoMixerControl.SetStreamOutputRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.MFVideoNormalizedRect_head), use_last_error=False)(5, 'SetStreamOutputRect', ((1, 'dwStreamID'),(1, 'pnrcOutput'),)))
     IMFVideoMixerControl.GetStreamOutputRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.MFVideoNormalizedRect_head), use_last_error=False)(6, 'GetStreamOutputRect', ((1, 'dwStreamID'),(1, 'pnrcOutput'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoMixerControl
 MFVideoMixPrefs = Int32
 MFVideoMixPrefs_ForceHalfInterlace = 1
@@ -12584,6 +12906,7 @@ def _define_IMFVideoMixerControl2():
     IMFVideoMixerControl2 = win32more.Media.MediaFoundation.IMFVideoMixerControl2_head
     IMFVideoMixerControl2.SetMixingPrefs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'SetMixingPrefs', ((1, 'dwMixFlags'),)))
     IMFVideoMixerControl2.GetMixingPrefs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetMixingPrefs', ((1, 'pdwMixFlags'),)))
+    win32more.Media.MediaFoundation.IMFVideoMixerControl
     return IMFVideoMixerControl2
 def _define_IMFVideoRenderer_head():
     class IMFVideoRenderer(win32more.System.Com.IUnknown_head):
@@ -12592,6 +12915,7 @@ def _define_IMFVideoRenderer_head():
 def _define_IMFVideoRenderer():
     IMFVideoRenderer = win32more.Media.MediaFoundation.IMFVideoRenderer_head
     IMFVideoRenderer.InitializeRenderer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFTransform_head,win32more.Media.MediaFoundation.IMFVideoPresenter_head, use_last_error=False)(3, 'InitializeRenderer', ((1, 'pVideoMixer'),(1, 'pVideoPresenter'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoRenderer
 def _define_IEVRFilterConfig_head():
     class IEVRFilterConfig(win32more.System.Com.IUnknown_head):
@@ -12601,6 +12925,7 @@ def _define_IEVRFilterConfig():
     IEVRFilterConfig = win32more.Media.MediaFoundation.IEVRFilterConfig_head
     IEVRFilterConfig.SetNumberOfStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'SetNumberOfStreams', ((1, 'dwMaxStreams'),)))
     IEVRFilterConfig.GetNumberOfStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetNumberOfStreams', ((1, 'pdwMaxStreams'),)))
+    win32more.System.Com.IUnknown
     return IEVRFilterConfig
 EVRFilterConfigPrefs = Int32
 EVRFilterConfigPrefs_EnableQoS = 1
@@ -12613,6 +12938,7 @@ def _define_IEVRFilterConfigEx():
     IEVRFilterConfigEx = win32more.Media.MediaFoundation.IEVRFilterConfigEx_head
     IEVRFilterConfigEx.SetConfigPrefs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'SetConfigPrefs', ((1, 'dwConfigFlags'),)))
     IEVRFilterConfigEx.GetConfigPrefs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetConfigPrefs', ((1, 'pdwConfigFlags'),)))
+    win32more.Media.MediaFoundation.IEVRFilterConfig
     return IEVRFilterConfigEx
 MF_SERVICE_LOOKUP_TYPE = Int32
 MF_SERVICE_LOOKUP_UPSTREAM = 0
@@ -12628,6 +12954,7 @@ def _define_IMFTopologyServiceLookup_head():
 def _define_IMFTopologyServiceLookup():
     IMFTopologyServiceLookup = win32more.Media.MediaFoundation.IMFTopologyServiceLookup_head
     IMFTopologyServiceLookup.LookupService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_SERVICE_LOOKUP_TYPE,UInt32,POINTER(Guid),POINTER(Guid),POINTER(c_void_p),POINTER(UInt32), use_last_error=False)(3, 'LookupService', ((1, 'Type'),(1, 'dwIndex'),(1, 'guidService'),(1, 'riid'),(1, 'ppvObjects'),(1, 'pnObjects'),)))
+    win32more.System.Com.IUnknown
     return IMFTopologyServiceLookup
 def _define_IMFTopologyServiceLookupClient_head():
     class IMFTopologyServiceLookupClient(win32more.System.Com.IUnknown_head):
@@ -12637,6 +12964,7 @@ def _define_IMFTopologyServiceLookupClient():
     IMFTopologyServiceLookupClient = win32more.Media.MediaFoundation.IMFTopologyServiceLookupClient_head
     IMFTopologyServiceLookupClient.InitServicePointers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFTopologyServiceLookup_head, use_last_error=False)(3, 'InitServicePointers', ((1, 'pLookup'),)))
     IMFTopologyServiceLookupClient.ReleaseServicePointers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ReleaseServicePointers', ()))
+    win32more.System.Com.IUnknown
     return IMFTopologyServiceLookupClient
 def _define_IEVRTrustedVideoPlugin_head():
     class IEVRTrustedVideoPlugin(win32more.System.Com.IUnknown_head):
@@ -12648,6 +12976,7 @@ def _define_IEVRTrustedVideoPlugin():
     IEVRTrustedVideoPlugin.CanConstrict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'CanConstrict', ((1, 'pYes'),)))
     IEVRTrustedVideoPlugin.SetConstriction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'SetConstriction', ((1, 'dwKPix'),)))
     IEVRTrustedVideoPlugin.DisableImageExport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(6, 'DisableImageExport', ((1, 'bDisable'),)))
+    win32more.System.Com.IUnknown
     return IEVRTrustedVideoPlugin
 MFP_CREATION_OPTIONS = Int32
 MFP_OPTION_NONE = 0
@@ -12714,6 +13043,7 @@ def _define_IMFPMediaPlayer():
     IMFPMediaPlayer.RemoveEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(36, 'RemoveEffect', ((1, 'pEffect'),)))
     IMFPMediaPlayer.RemoveAllEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(37, 'RemoveAllEffects', ()))
     IMFPMediaPlayer.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(38, 'Shutdown', ()))
+    win32more.System.Com.IUnknown
     return IMFPMediaPlayer
 def _define_IMFPMediaItem_head():
     class IMFPMediaItem(win32more.System.Com.IUnknown_head):
@@ -12740,6 +13070,7 @@ def _define_IMFPMediaItem():
     IMFPMediaItem.GetCharacteristics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(19, 'GetCharacteristics', ((1, 'pCharacteristics'),)))
     IMFPMediaItem.SetStreamSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(20, 'SetStreamSink', ((1, 'dwStreamIndex'),(1, 'pMediaSink'),)))
     IMFPMediaItem.GetMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(21, 'GetMetadata', ((1, 'ppMetadataStore'),)))
+    win32more.System.Com.IUnknown
     return IMFPMediaItem
 MFP_EVENT_TYPE = Int32
 MFP_EVENT_TYPE_PLAY = 0
@@ -12931,6 +13262,7 @@ def _define_IMFPMediaPlayerCallback_head():
 def _define_IMFPMediaPlayerCallback():
     IMFPMediaPlayerCallback = win32more.Media.MediaFoundation.IMFPMediaPlayerCallback_head
     IMFPMediaPlayerCallback.OnMediaPlayerEvent = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.MediaFoundation.MFP_EVENT_HEADER_head), use_last_error=False)(3, 'OnMediaPlayerEvent', ((1, 'pEventHeader'),)))
+    win32more.System.Com.IUnknown
     return IMFPMediaPlayerCallback
 def _define_DEVICE_INFO_head():
     class DEVICE_INFO(Structure):
@@ -12961,6 +13293,7 @@ def _define_IMFSharingEngineClassFactory_head():
 def _define_IMFSharingEngineClassFactory():
     IMFSharingEngineClassFactory = win32more.Media.MediaFoundation.IMFSharingEngineClassFactory_head
     IMFSharingEngineClassFactory.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFAttributes_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateInstance', ((1, 'dwFlags'),(1, 'pAttr'),(1, 'ppEngine'),)))
+    win32more.System.Com.IUnknown
     return IMFSharingEngineClassFactory
 def _define_IMFMediaSharingEngine_head():
     class IMFMediaSharingEngine(win32more.Media.MediaFoundation.IMFMediaEngine_head):
@@ -12969,6 +13302,7 @@ def _define_IMFMediaSharingEngine_head():
 def _define_IMFMediaSharingEngine():
     IMFMediaSharingEngine = win32more.Media.MediaFoundation.IMFMediaSharingEngine_head
     IMFMediaSharingEngine.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.DEVICE_INFO_head), use_last_error=False)(45, 'GetDevice', ((1, 'pDevice'),)))
+    win32more.Media.MediaFoundation.IMFMediaEngine
     return IMFMediaSharingEngine
 def _define_IMFMediaSharingEngineClassFactory_head():
     class IMFMediaSharingEngineClassFactory(win32more.System.Com.IUnknown_head):
@@ -12977,6 +13311,7 @@ def _define_IMFMediaSharingEngineClassFactory_head():
 def _define_IMFMediaSharingEngineClassFactory():
     IMFMediaSharingEngineClassFactory = win32more.Media.MediaFoundation.IMFMediaSharingEngineClassFactory_head
     IMFMediaSharingEngineClassFactory.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IMFAttributes_head,POINTER(win32more.Media.MediaFoundation.IMFMediaSharingEngine_head), use_last_error=False)(3, 'CreateInstance', ((1, 'dwFlags'),(1, 'pAttr'),(1, 'ppEngine'),)))
+    win32more.System.Com.IUnknown
     return IMFMediaSharingEngineClassFactory
 def _define_IMFImageSharingEngine_head():
     class IMFImageSharingEngine(win32more.System.Com.IUnknown_head):
@@ -12987,6 +13322,7 @@ def _define_IMFImageSharingEngine():
     IMFImageSharingEngine.SetSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetSource', ((1, 'pStream'),)))
     IMFImageSharingEngine.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.DEVICE_INFO_head), use_last_error=False)(4, 'GetDevice', ((1, 'pDevice'),)))
     IMFImageSharingEngine.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Shutdown', ()))
+    win32more.System.Com.IUnknown
     return IMFImageSharingEngine
 def _define_IMFImageSharingEngineClassFactory_head():
     class IMFImageSharingEngineClassFactory(win32more.System.Com.IUnknown_head):
@@ -12995,6 +13331,7 @@ def _define_IMFImageSharingEngineClassFactory_head():
 def _define_IMFImageSharingEngineClassFactory():
     IMFImageSharingEngineClassFactory = win32more.Media.MediaFoundation.IMFImageSharingEngineClassFactory_head
     IMFImageSharingEngineClassFactory.CreateInstanceFromUDN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Media.MediaFoundation.IMFImageSharingEngine_head), use_last_error=False)(3, 'CreateInstanceFromUDN', ((1, 'pUniqueDeviceName'),(1, 'ppEngine'),)))
+    win32more.System.Com.IUnknown
     return IMFImageSharingEngineClassFactory
 PLAYTO_SOURCE_CREATEFLAGS = Int32
 PLAYTO_SOURCE_NONE = 0
@@ -13010,6 +13347,7 @@ def _define_IPlayToControl():
     IPlayToControl = win32more.Media.MediaFoundation.IPlayToControl_head
     IPlayToControl.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFSharingEngineClassFactory_head, use_last_error=False)(3, 'Connect', ((1, 'pFactory'),)))
     IPlayToControl.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Disconnect', ()))
+    win32more.System.Com.IUnknown
     return IPlayToControl
 def _define_IPlayToControlWithCapabilities_head():
     class IPlayToControlWithCapabilities(win32more.Media.MediaFoundation.IPlayToControl_head):
@@ -13018,6 +13356,7 @@ def _define_IPlayToControlWithCapabilities_head():
 def _define_IPlayToControlWithCapabilities():
     IPlayToControlWithCapabilities = win32more.Media.MediaFoundation.IPlayToControlWithCapabilities_head
     IPlayToControlWithCapabilities.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.PLAYTO_SOURCE_CREATEFLAGS), use_last_error=False)(5, 'GetCapabilities', ((1, 'pCapabilities'),)))
+    win32more.Media.MediaFoundation.IPlayToControl
     return IPlayToControlWithCapabilities
 def _define_IPlayToSourceClassFactory_head():
     class IPlayToSourceClassFactory(win32more.System.Com.IUnknown_head):
@@ -13026,6 +13365,7 @@ def _define_IPlayToSourceClassFactory_head():
 def _define_IPlayToSourceClassFactory():
     IPlayToSourceClassFactory = win32more.Media.MediaFoundation.IPlayToSourceClassFactory_head
     IPlayToSourceClassFactory.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.MediaFoundation.IPlayToControl_head,POINTER(win32more.System.WinRT.IInspectable_head), use_last_error=False)(3, 'CreateInstance', ((1, 'dwFlags'),(1, 'pControl'),(1, 'ppSource'),)))
+    win32more.System.Com.IUnknown
     return IPlayToSourceClassFactory
 def _define_IEVRVideoStreamControl_head():
     class IEVRVideoStreamControl(win32more.System.Com.IUnknown_head):
@@ -13035,6 +13375,7 @@ def _define_IEVRVideoStreamControl():
     IEVRVideoStreamControl = win32more.Media.MediaFoundation.IEVRVideoStreamControl_head
     IEVRVideoStreamControl.SetStreamActiveState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'SetStreamActiveState', ((1, 'fActive'),)))
     IEVRVideoStreamControl.GetStreamActiveState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetStreamActiveState', ((1, 'lpfActive'),)))
+    win32more.System.Com.IUnknown
     return IEVRVideoStreamControl
 def _define_IMFVideoProcessor_head():
     class IMFVideoProcessor(win32more.System.Com.IUnknown_head):
@@ -13054,6 +13395,7 @@ def _define_IMFVideoProcessor():
     IMFVideoProcessor.SetFilteringValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.DXVA2_Fixed32_head), use_last_error=False)(12, 'SetFilteringValue', ((1, 'dwProperty'),(1, 'pValue'),)))
     IMFVideoProcessor.GetBackgroundColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(13, 'GetBackgroundColor', ((1, 'lpClrBkg'),)))
     IMFVideoProcessor.SetBackgroundColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(14, 'SetBackgroundColor', ((1, 'ClrBkg'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoProcessor
 def _define_MFVideoAlphaBitmapParams_head():
     class MFVideoAlphaBitmapParams(Structure):
@@ -13106,6 +13448,7 @@ def _define_IMFVideoMixerBitmap():
     IMFVideoMixerBitmap.ClearAlphaBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ClearAlphaBitmap', ()))
     IMFVideoMixerBitmap.UpdateAlphaBitmapParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFVideoAlphaBitmapParams_head), use_last_error=False)(5, 'UpdateAlphaBitmapParameters', ((1, 'pBmpParms'),)))
     IMFVideoMixerBitmap.GetAlphaBitmapParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.MFVideoAlphaBitmapParams_head), use_last_error=False)(6, 'GetAlphaBitmapParameters', ((1, 'pBmpParms'),)))
+    win32more.System.Com.IUnknown
     return IMFVideoMixerBitmap
 def _define_IAdvancedMediaCaptureInitializationSettings_head():
     class IAdvancedMediaCaptureInitializationSettings(win32more.System.Com.IUnknown_head):
@@ -13114,6 +13457,7 @@ def _define_IAdvancedMediaCaptureInitializationSettings_head():
 def _define_IAdvancedMediaCaptureInitializationSettings():
     IAdvancedMediaCaptureInitializationSettings = win32more.Media.MediaFoundation.IAdvancedMediaCaptureInitializationSettings_head
     IAdvancedMediaCaptureInitializationSettings.SetDirectxDeviceManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFDXGIDeviceManager_head, use_last_error=False)(3, 'SetDirectxDeviceManager', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IAdvancedMediaCaptureInitializationSettings
 def _define_IAdvancedMediaCaptureSettings_head():
     class IAdvancedMediaCaptureSettings(win32more.System.Com.IUnknown_head):
@@ -13122,6 +13466,7 @@ def _define_IAdvancedMediaCaptureSettings_head():
 def _define_IAdvancedMediaCaptureSettings():
     IAdvancedMediaCaptureSettings = win32more.Media.MediaFoundation.IAdvancedMediaCaptureSettings_head
     IAdvancedMediaCaptureSettings.GetDirectxDeviceManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IMFDXGIDeviceManager_head), use_last_error=False)(3, 'GetDirectxDeviceManager', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IAdvancedMediaCaptureSettings
 def _define_IAdvancedMediaCapture_head():
     class IAdvancedMediaCapture(win32more.System.Com.IUnknown_head):
@@ -13130,6 +13475,7 @@ def _define_IAdvancedMediaCapture_head():
 def _define_IAdvancedMediaCapture():
     IAdvancedMediaCapture = win32more.Media.MediaFoundation.IAdvancedMediaCapture_head
     IAdvancedMediaCapture.GetAdvancedMediaCaptureSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.MediaFoundation.IAdvancedMediaCaptureSettings_head), use_last_error=False)(3, 'GetAdvancedMediaCaptureSettings', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IAdvancedMediaCapture
 def _define_IMFSpatialAudioObjectBuffer_head():
     class IMFSpatialAudioObjectBuffer(win32more.Media.MediaFoundation.IMFMediaBuffer_head):
@@ -13142,6 +13488,7 @@ def _define_IMFSpatialAudioObjectBuffer():
     IMFSpatialAudioObjectBuffer.SetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType, use_last_error=False)(10, 'SetType', ((1, 'type'),)))
     IMFSpatialAudioObjectBuffer.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.AudioObjectType), use_last_error=False)(11, 'GetType', ((1, 'pType'),)))
     IMFSpatialAudioObjectBuffer.GetMetadataItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.ISpatialAudioMetadataItems_head), use_last_error=False)(12, 'GetMetadataItems', ((1, 'ppMetadataItems'),)))
+    win32more.Media.MediaFoundation.IMFMediaBuffer
     return IMFSpatialAudioObjectBuffer
 def _define_IMFSpatialAudioSample_head():
     class IMFSpatialAudioSample(win32more.Media.MediaFoundation.IMFSample_head):
@@ -13152,6 +13499,7 @@ def _define_IMFSpatialAudioSample():
     IMFSpatialAudioSample.GetObjectCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(47, 'GetObjectCount', ((1, 'pdwObjectCount'),)))
     IMFSpatialAudioSample.AddSpatialAudioObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.IMFSpatialAudioObjectBuffer_head, use_last_error=False)(48, 'AddSpatialAudioObject', ((1, 'pAudioObjBuffer'),)))
     IMFSpatialAudioSample.GetSpatialAudioObjectByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.MediaFoundation.IMFSpatialAudioObjectBuffer_head), use_last_error=False)(49, 'GetSpatialAudioObjectByIndex', ((1, 'dwIndex'),(1, 'ppAudioObjBuffer'),)))
+    win32more.Media.MediaFoundation.IMFSample
     return IMFSpatialAudioSample
 def _define_IMFContentDecryptionModuleSession_head():
     class IMFContentDecryptionModuleSession(win32more.System.Com.IUnknown_head):
@@ -13167,6 +13515,7 @@ def _define_IMFContentDecryptionModuleSession():
     IMFContentDecryptionModuleSession.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(8, 'Update', ((1, 'response'),(1, 'responseSize'),)))
     IMFContentDecryptionModuleSession.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Close', ()))
     IMFContentDecryptionModuleSession.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Remove', ()))
+    win32more.System.Com.IUnknown
     return IMFContentDecryptionModuleSession
 def _define_IMFContentDecryptionModuleSessionCallbacks_head():
     class IMFContentDecryptionModuleSessionCallbacks(win32more.System.Com.IUnknown_head):
@@ -13176,6 +13525,7 @@ def _define_IMFContentDecryptionModuleSessionCallbacks():
     IMFContentDecryptionModuleSessionCallbacks = win32more.Media.MediaFoundation.IMFContentDecryptionModuleSessionCallbacks_head
     IMFContentDecryptionModuleSessionCallbacks.KeyMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.MediaFoundation.MF_MEDIAKEYSESSION_MESSAGETYPE,POINTER(Byte),UInt32,win32more.Foundation.PWSTR, use_last_error=False)(3, 'KeyMessage', ((1, 'messageType'),(1, 'message'),(1, 'messageSize'),(1, 'destinationURL'),)))
     IMFContentDecryptionModuleSessionCallbacks.KeyStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'KeyStatusChanged', ()))
+    win32more.System.Com.IUnknown
     return IMFContentDecryptionModuleSessionCallbacks
 def _define_IMFContentDecryptionModule_head():
     class IMFContentDecryptionModule(win32more.System.Com.IUnknown_head):
@@ -13190,6 +13540,7 @@ def _define_IMFContentDecryptionModule():
     IMFContentDecryptionModule.SetServerCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(7, 'SetServerCertificate', ((1, 'certificate'),(1, 'certificateSize'),)))
     IMFContentDecryptionModule.CreateTrustedInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(win32more.Media.MediaFoundation.IMFTrustedInput_head), use_last_error=False)(8, 'CreateTrustedInput', ((1, 'contentInitData'),(1, 'contentInitDataSize'),(1, 'trustedInput'),)))
     IMFContentDecryptionModule.GetProtectionSystemIds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(Guid)),POINTER(UInt32), use_last_error=False)(9, 'GetProtectionSystemIds', ((1, 'systemIds'),(1, 'count'),)))
+    win32more.System.Com.IUnknown
     return IMFContentDecryptionModule
 def _define_IMFContentDecryptionModuleAccess_head():
     class IMFContentDecryptionModuleAccess(win32more.System.Com.IUnknown_head):
@@ -13200,6 +13551,7 @@ def _define_IMFContentDecryptionModuleAccess():
     IMFContentDecryptionModuleAccess.CreateContentDecryptionModule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head,POINTER(win32more.Media.MediaFoundation.IMFContentDecryptionModule_head), use_last_error=False)(3, 'CreateContentDecryptionModule', ((1, 'contentDecryptionModuleProperties'),(1, 'contentDecryptionModule'),)))
     IMFContentDecryptionModuleAccess.GetConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(4, 'GetConfiguration', ((1, 'configuration'),)))
     IMFContentDecryptionModuleAccess.GetKeySystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetKeySystem', ((1, 'keySystem'),)))
+    win32more.System.Com.IUnknown
     return IMFContentDecryptionModuleAccess
 def _define_IMFContentDecryptionModuleFactory_head():
     class IMFContentDecryptionModuleFactory(win32more.System.Com.IUnknown_head):
@@ -13209,6 +13561,7 @@ def _define_IMFContentDecryptionModuleFactory():
     IMFContentDecryptionModuleFactory = win32more.Media.MediaFoundation.IMFContentDecryptionModuleFactory_head
     IMFContentDecryptionModuleFactory.IsTypeSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'IsTypeSupported', ((1, 'keySystem'),(1, 'contentType'),)))
     IMFContentDecryptionModuleFactory.CreateContentDecryptionModuleAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head),UInt32,POINTER(win32more.Media.MediaFoundation.IMFContentDecryptionModuleAccess_head), use_last_error=False)(4, 'CreateContentDecryptionModuleAccess', ((1, 'keySystem'),(1, 'configurations'),(1, 'numConfigurations'),(1, 'contentDecryptionModuleAccess'),)))
+    win32more.System.Com.IUnknown
     return IMFContentDecryptionModuleFactory
 __MIDL___MIDL_itf_mfvirtualcamera_0000_0000_0001 = Int32
 MFVirtualCameraType_SoftwareCameraSource = 0
@@ -13226,6 +13579,7 @@ def _define_IMFCameraSyncObject():
     IMFCameraSyncObject = win32more.Media.MediaFoundation.IMFCameraSyncObject_head
     IMFCameraSyncObject.WaitOnSignal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'WaitOnSignal', ((1, 'timeOutInMs'),)))
     IMFCameraSyncObject.Shutdown = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'Shutdown', ()))
+    win32more.System.Com.IUnknown
     return IMFCameraSyncObject
 def _define_IMFVirtualCamera_head():
     class IMFVirtualCamera(win32more.Media.MediaFoundation.IMFAttributes_head):
@@ -13244,6 +13598,7 @@ def _define_IMFVirtualCamera():
     IMFVirtualCamera.CreateSyncEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,UInt32,win32more.Foundation.HANDLE,POINTER(win32more.Media.MediaFoundation.IMFCameraSyncObject_head), use_last_error=False)(41, 'CreateSyncEvent', ((1, 'kseventSet'),(1, 'kseventId'),(1, 'kseventFlags'),(1, 'eventHandle'),(1, 'cameraSyncObject'),)))
     IMFVirtualCamera.CreateSyncSemaphore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,UInt32,win32more.Foundation.HANDLE,Int32,POINTER(win32more.Media.MediaFoundation.IMFCameraSyncObject_head), use_last_error=False)(42, 'CreateSyncSemaphore', ((1, 'kseventSet'),(1, 'kseventId'),(1, 'kseventFlags'),(1, 'semaphoreHandle'),(1, 'semaphoreAdjustment'),(1, 'cameraSyncObject'),)))
     IMFVirtualCamera.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(43, 'Shutdown', ()))
+    win32more.Media.MediaFoundation.IMFAttributes
     return IMFVirtualCamera
 OPM_HDCP_TYPE = Int32
 OPM_HDCP_TYPE_0 = 0

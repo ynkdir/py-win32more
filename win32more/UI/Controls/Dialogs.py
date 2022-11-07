@@ -638,6 +638,7 @@ def _define_IPrintDialogCallback():
     IPrintDialogCallback.InitDone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'InitDone', ()))
     IPrintDialogCallback.SelectionChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'SelectionChange', ()))
     IPrintDialogCallback.HandleMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT), use_last_error=False)(5, 'HandleMessage', ((1, 'hDlg'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),(1, 'pResult'),)))
+    win32more.System.Com.IUnknown
     return IPrintDialogCallback
 def _define_IPrintDialogServices_head():
     class IPrintDialogServices(win32more.System.Com.IUnknown_head):
@@ -648,6 +649,7 @@ def _define_IPrintDialogServices():
     IPrintDialogServices.GetCurrentDevMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),POINTER(UInt32), use_last_error=False)(3, 'GetCurrentDevMode', ((1, 'pDevMode'),(1, 'pcbSize'),)))
     IPrintDialogServices.GetCurrentPrinterName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt32), use_last_error=False)(4, 'GetCurrentPrinterName', ((1, 'pPrinterName'),(1, 'pcchSize'),)))
     IPrintDialogServices.GetCurrentPortName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt32), use_last_error=False)(5, 'GetCurrentPortName', ((1, 'pPortName'),(1, 'pcchSize'),)))
+    win32more.System.Com.IUnknown
     return IPrintDialogServices
 def _define_PRINTPAGERANGE_head():
     class PRINTPAGERANGE(Structure):

@@ -534,6 +534,7 @@ def _define_ISdoMachine():
     ISdoMachine.IsDirectoryAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(13, 'IsDirectoryAvailable', ((1, 'boolDirectoryAvailable'),)))
     ISdoMachine.GetAttachedComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'GetAttachedComputer', ((1, 'bstrComputerName'),)))
     ISdoMachine.GetSDOSchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(15, 'GetSDOSchema', ((1, 'ppSDOSchema'),)))
+    win32more.System.Com.IDispatch
     return ISdoMachine
 def _define_ISdoMachine2_head():
     class ISdoMachine2(win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine_head):
@@ -546,6 +547,7 @@ def _define_ISdoMachine2():
     ISdoMachine2.SyncConfigAgainstTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head),POINTER(win32more.System.Com.IUnknown_head),Int16, use_last_error=False)(18, 'SyncConfigAgainstTemplates', ((1, 'bstrServiceName'),(1, 'ppConfigRoot'),(1, 'ppTemplatesRoot'),(1, 'bForcedSync'),)))
     ISdoMachine2.ImportRemoteTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BSTR, use_last_error=False)(19, 'ImportRemoteTemplates', ((1, 'pLocalTemplatesRoot'),(1, 'bstrRemoteMachineName'),)))
     ISdoMachine2.Reload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'Reload', ()))
+    win32more.NetworkManagement.NetworkPolicyServer.ISdoMachine
     return ISdoMachine2
 def _define_ISdoServiceControl_head():
     class ISdoServiceControl(win32more.System.Com.IDispatch_head):
@@ -557,6 +559,7 @@ def _define_ISdoServiceControl():
     ISdoServiceControl.StopService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'StopService', ()))
     ISdoServiceControl.GetServiceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'GetServiceStatus', ((1, 'status'),)))
     ISdoServiceControl.ResetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'ResetService', ()))
+    win32more.System.Com.IDispatch
     return ISdoServiceControl
 def _define_ISdo_head():
     class ISdo(win32more.System.Com.IDispatch_head):
@@ -571,6 +574,7 @@ def _define_ISdo():
     ISdo.Apply = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Apply', ()))
     ISdo.Restore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Restore', ()))
     ISdo.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(13, 'get__NewEnum', ((1, 'ppEnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISdo
 def _define_ISdoCollection_head():
     class ISdoCollection(win32more.System.Com.IDispatch_head):
@@ -586,6 +590,7 @@ def _define_ISdoCollection():
     ISdoCollection.IsNameUnique = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(12, 'IsNameUnique', ((1, 'bstrName'),(1, 'pBool'),)))
     ISdoCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(13, 'Item', ((1, 'Name'),(1, 'pItem'),)))
     ISdoCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(14, 'get__NewEnum', ((1, 'ppEnumVARIANT'),)))
+    win32more.System.Com.IDispatch
     return ISdoCollection
 def _define_ITemplateSdo_head():
     class ITemplateSdo(win32more.NetworkManagement.NetworkPolicyServer.ISdo_head):
@@ -596,6 +601,7 @@ def _define_ITemplateSdo():
     ITemplateSdo.AddToCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(14, 'AddToCollection', ((1, 'bstrName'),(1, 'pCollection'),(1, 'ppItem'),)))
     ITemplateSdo.AddToSdo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(15, 'AddToSdo', ((1, 'bstrName'),(1, 'pSdoTarget'),(1, 'ppItem'),)))
     ITemplateSdo.AddToSdoAsProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,Int32, use_last_error=False)(16, 'AddToSdoAsProperty', ((1, 'pSdoTarget'),(1, 'id'),)))
+    win32more.NetworkManagement.NetworkPolicyServer.ISdo
     return ITemplateSdo
 def _define_ISdoDictionaryOld_head():
     class ISdoDictionaryOld(win32more.System.Com.IDispatch_head):
@@ -608,6 +614,7 @@ def _define_ISdoDictionaryOld():
     ISdoDictionaryOld.EnumAttributeValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'EnumAttributeValues', ((1, 'Id'),(1, 'pValueIds'),(1, 'pValuesDesc'),)))
     ISdoDictionaryOld.CreateAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'CreateAttribute', ((1, 'Id'),(1, 'ppAttributeObject'),)))
     ISdoDictionaryOld.GetAttributeID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.NetworkPolicyServer.ATTRIBUTEID), use_last_error=False)(11, 'GetAttributeID', ((1, 'bstrAttributeName'),(1, 'pId'),)))
+    win32more.System.Com.IDispatch
     return ISdoDictionaryOld
 RADIUS_ATTRIBUTE_TYPE = Int32
 RADIUS_ATTRIBUTE_TYPE_ratMinimum = 0

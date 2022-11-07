@@ -132,6 +132,7 @@ def _define_ISecurityInformation():
     ISecurityInformation.MapGeneric = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),c_char_p_no,POINTER(UInt32), use_last_error=False)(7, 'MapGeneric', ((1, 'pguidObjectType'),(1, 'pAceFlags'),(1, 'pMask'),)))
     ISecurityInformation.GetInheritTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Security.Authorization.UI.SI_INHERIT_TYPE_head)),POINTER(UInt32), use_last_error=False)(8, 'GetInheritTypes', ((1, 'ppInheritTypes'),(1, 'pcInheritTypes'),)))
     ISecurityInformation.PropertySheetPageCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.UI.Controls.PSPCB_MESSAGE,win32more.Security.Authorization.UI.SI_PAGE_TYPE, use_last_error=False)(9, 'PropertySheetPageCallback', ((1, 'hwnd'),(1, 'uMsg'),(1, 'uPage'),)))
+    win32more.System.Com.IUnknown
     return ISecurityInformation
 def _define_ISecurityInformation2_head():
     class ISecurityInformation2(win32more.System.Com.IUnknown_head):
@@ -141,6 +142,7 @@ def _define_ISecurityInformation2():
     ISecurityInformation2 = win32more.Security.Authorization.UI.ISecurityInformation2_head
     ISecurityInformation2.IsDaclCanonical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,POINTER(win32more.Security.ACL_head), use_last_error=False)(3, 'IsDaclCanonical', ((1, 'pDacl'),)))
     ISecurityInformation2.LookupSids = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PSID),POINTER(win32more.System.Com.IDataObject_head), use_last_error=False)(4, 'LookupSids', ((1, 'cSids'),(1, 'rgpSids'),(1, 'ppdo'),)))
+    win32more.System.Com.IUnknown
     return ISecurityInformation2
 def _define_SID_INFO_head():
     class SID_INFO(Structure):
@@ -173,6 +175,7 @@ def _define_IEffectivePermission_head():
 def _define_IEffectivePermission():
     IEffectivePermission = win32more.Security.Authorization.UI.IEffectivePermission_head
     IEffectivePermission.GetEffectivePermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PSID,win32more.Foundation.PWSTR,POINTER(win32more.Security.SECURITY_DESCRIPTOR_head),POINTER(POINTER(win32more.Security.OBJECT_TYPE_LIST_head)),POINTER(UInt32),POINTER(POINTER(UInt32)),POINTER(UInt32), use_last_error=False)(3, 'GetEffectivePermission', ((1, 'pguidObjectType'),(1, 'pUserSid'),(1, 'pszServerName'),(1, 'pSD'),(1, 'ppObjectTypeList'),(1, 'pcObjectTypeListLength'),(1, 'ppGrantedAccessList'),(1, 'pcGrantedAccessListLength'),)))
+    win32more.System.Com.IUnknown
     return IEffectivePermission
 def _define_ISecurityObjectTypeInfo_head():
     class ISecurityObjectTypeInfo(win32more.System.Com.IUnknown_head):
@@ -181,6 +184,7 @@ def _define_ISecurityObjectTypeInfo_head():
 def _define_ISecurityObjectTypeInfo():
     ISecurityObjectTypeInfo = win32more.Security.Authorization.UI.ISecurityObjectTypeInfo_head
     ISecurityObjectTypeInfo.GetInheritSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Security.ACL_head),POINTER(POINTER(win32more.Security.Authorization.INHERITED_FROMA_head)), use_last_error=False)(3, 'GetInheritSource', ((1, 'si'),(1, 'pACL'),(1, 'ppInheritArray'),)))
+    win32more.System.Com.IUnknown
     return ISecurityObjectTypeInfo
 def _define_ISecurityInformation3_head():
     class ISecurityInformation3(win32more.System.Com.IUnknown_head):
@@ -190,6 +194,7 @@ def _define_ISecurityInformation3():
     ISecurityInformation3 = win32more.Security.Authorization.UI.ISecurityInformation3_head
     ISecurityInformation3.GetFullResourceName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetFullResourceName', ((1, 'ppszResourceName'),)))
     ISecurityInformation3.OpenElevatedEditor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Security.Authorization.UI.SI_PAGE_TYPE, use_last_error=False)(4, 'OpenElevatedEditor', ((1, 'hWnd'),(1, 'uPage'),)))
+    win32more.System.Com.IUnknown
     return ISecurityInformation3
 def _define_SECURITY_OBJECT_head():
     class SECURITY_OBJECT(Structure):
@@ -227,6 +232,7 @@ def _define_ISecurityInformation4_head():
 def _define_ISecurityInformation4():
     ISecurityInformation4 = win32more.Security.Authorization.UI.ISecurityInformation4_head
     ISecurityInformation4.GetSecondarySecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Security.Authorization.UI.SECURITY_OBJECT_head)),POINTER(UInt32), use_last_error=False)(3, 'GetSecondarySecurity', ((1, 'pSecurityObjects'),(1, 'pSecurityObjectCount'),)))
+    win32more.System.Com.IUnknown
     return ISecurityInformation4
 def _define_IEffectivePermission2_head():
     class IEffectivePermission2(win32more.System.Com.IUnknown_head):
@@ -235,6 +241,7 @@ def _define_IEffectivePermission2_head():
 def _define_IEffectivePermission2():
     IEffectivePermission2 = win32more.Security.Authorization.UI.IEffectivePermission2_head
     IEffectivePermission2.ComputeEffectivePermissionWithSecondarySecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSID,win32more.Foundation.PSID,win32more.Foundation.PWSTR,POINTER(win32more.Security.Authorization.UI.SECURITY_OBJECT),UInt32,POINTER(win32more.Security.TOKEN_GROUPS_head),POINTER(win32more.Security.Authorization.AUTHZ_SID_OPERATION),POINTER(win32more.Security.TOKEN_GROUPS_head),POINTER(win32more.Security.Authorization.AUTHZ_SID_OPERATION),POINTER(win32more.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTES_INFORMATION_head),POINTER(win32more.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION),POINTER(win32more.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTES_INFORMATION_head),POINTER(win32more.Security.Authorization.AUTHZ_SECURITY_ATTRIBUTE_OPERATION),POINTER(win32more.Security.Authorization.UI.EFFPERM_RESULT_LIST), use_last_error=False)(3, 'ComputeEffectivePermissionWithSecondarySecurity', ((1, 'pSid'),(1, 'pDeviceSid'),(1, 'pszServerName'),(1, 'pSecurityObjects'),(1, 'dwSecurityObjectCount'),(1, 'pUserGroups'),(1, 'pAuthzUserGroupsOperations'),(1, 'pDeviceGroups'),(1, 'pAuthzDeviceGroupsOperations'),(1, 'pAuthzUserClaims'),(1, 'pAuthzUserClaimsOperations'),(1, 'pAuthzDeviceClaims'),(1, 'pAuthzDeviceClaimsOperations'),(1, 'pEffpermResultLists'),)))
+    win32more.System.Com.IUnknown
     return IEffectivePermission2
 def _define_CreateSecurityPage():
     try:

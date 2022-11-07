@@ -77,6 +77,7 @@ def _define_IFhTarget():
     IFhTarget = win32more.Storage.FileHistory.IFhTarget_head
     IFhTarget.GetStringProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetStringProperty', ((1, 'PropertyType'),(1, 'PropertyValue'),)))
     IFhTarget.GetNumericalProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileHistory.FH_TARGET_PROPERTY_TYPE,POINTER(UInt64), use_last_error=False)(4, 'GetNumericalProperty', ((1, 'PropertyType'),(1, 'PropertyValue'),)))
+    win32more.System.Com.IUnknown
     return IFhTarget
 def _define_IFhScopeIterator_head():
     class IFhScopeIterator(win32more.System.Com.IUnknown_head):
@@ -86,6 +87,7 @@ def _define_IFhScopeIterator():
     IFhScopeIterator = win32more.Storage.FileHistory.IFhScopeIterator_head
     IFhScopeIterator.MoveToNextItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'MoveToNextItem', ()))
     IFhScopeIterator.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetItem', ((1, 'Item'),)))
+    win32more.System.Com.IUnknown
     return IFhScopeIterator
 FH_PROTECTED_ITEM_CATEGORY = Int32
 FH_FOLDER = 0
@@ -136,6 +138,7 @@ def _define_IFhConfigMgr():
     IFhConfigMgr.ProvisionAndSetNewTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(14, 'ProvisionAndSetNewTarget', ((1, 'TargetUrl'),(1, 'TargetName'),)))
     IFhConfigMgr.ChangeDefaultTargetRecommendation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(15, 'ChangeDefaultTargetRecommendation', ((1, 'Recommend'),)))
     IFhConfigMgr.QueryProtectionStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'QueryProtectionStatus', ((1, 'ProtectionState'),(1, 'ProtectedUntilTime'),)))
+    win32more.System.Com.IUnknown
     return IFhConfigMgr
 def _define_IFhReassociation_head():
     class IFhReassociation(win32more.System.Com.IUnknown_head):
@@ -148,6 +151,7 @@ def _define_IFhReassociation():
     IFhReassociation.GetConfigurationDetails = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(5, 'GetConfigurationDetails', ((1, 'Index'),(1, 'UserName'),(1, 'PcName'),(1, 'BackupTime'),)))
     IFhReassociation.SelectConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'SelectConfiguration', ((1, 'Index'),)))
     IFhReassociation.PerformReassociation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(7, 'PerformReassociation', ((1, 'OverwriteIfExists'),)))
+    win32more.System.Com.IUnknown
     return IFhReassociation
 FhBackupStopReason = Int32
 FhBackupStopReason_BackupInvalidStopReason = 0

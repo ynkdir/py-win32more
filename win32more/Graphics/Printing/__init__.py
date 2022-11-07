@@ -4528,6 +4528,7 @@ def _define_IPrintCoreHelper():
     IPrintCoreHelper.GetFontSubstitution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'GetFontSubstitution', ((1, 'pszTrueTypeFontName'),(1, 'ppszDevFontName'),)))
     IPrintCoreHelper.SetFontSubstitution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(10, 'SetFontSubstitution', ((1, 'pszTrueTypeFontName'),(1, 'pszDevFontName'),)))
     IPrintCoreHelper.CreateInstanceOfMSXMLObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'CreateInstanceOfMSXMLObject', ((1, 'rclsid'),(1, 'pUnkOuter'),(1, 'dwClsContext'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IPrintCoreHelper
 def _define_IPrintCoreHelperUni_head():
     class IPrintCoreHelperUni(win32more.Graphics.Printing.IPrintCoreHelper_head):
@@ -4537,6 +4538,7 @@ def _define_IPrintCoreHelperUni():
     IPrintCoreHelperUni = win32more.Graphics.Printing.IPrintCoreHelperUni_head
     IPrintCoreHelperUni.CreateGDLSnapshot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),UInt32,UInt32,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(12, 'CreateGDLSnapshot', ((1, 'pDevmode'),(1, 'cbSize'),(1, 'dwFlags'),(1, 'ppSnapshotStream'),)))
     IPrintCoreHelperUni.CreateDefaultGDLSnapshot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(13, 'CreateDefaultGDLSnapshot', ((1, 'dwFlags'),(1, 'ppSnapshotStream'),)))
+    win32more.Graphics.Printing.IPrintCoreHelper
     return IPrintCoreHelperUni
 def _define_IPrintCoreHelperUni2_head():
     class IPrintCoreHelperUni2(win32more.Graphics.Printing.IPrintCoreHelperUni_head):
@@ -4545,6 +4547,7 @@ def _define_IPrintCoreHelperUni2_head():
 def _define_IPrintCoreHelperUni2():
     IPrintCoreHelperUni2 = win32more.Graphics.Printing.IPrintCoreHelperUni2_head
     IPrintCoreHelperUni2.GetNamedCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),UInt32,win32more.Foundation.PWSTR,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(14, 'GetNamedCommand', ((1, 'pDevmode'),(1, 'cbSize'),(1, 'pszCommandName'),(1, 'ppCommandBytes'),(1, 'pcbCommandSize'),)))
+    win32more.Graphics.Printing.IPrintCoreHelperUni
     return IPrintCoreHelperUni2
 def _define_IPrintCoreHelperPS_head():
     class IPrintCoreHelperPS(win32more.Graphics.Printing.IPrintCoreHelper_head):
@@ -4555,6 +4558,7 @@ def _define_IPrintCoreHelperPS():
     IPrintCoreHelperPS.GetGlobalAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(12, 'GetGlobalAttribute', ((1, 'pszAttribute'),(1, 'pdwDataType'),(1, 'ppbData'),(1, 'pcbSize'),)))
     IPrintCoreHelperPS.GetFeatureAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(13, 'GetFeatureAttribute', ((1, 'pszFeatureKeyword'),(1, 'pszAttribute'),(1, 'pdwDataType'),(1, 'ppbData'),(1, 'pcbSize'),)))
     IPrintCoreHelperPS.GetOptionAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR,win32more.Foundation.PSTR,POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(14, 'GetOptionAttribute', ((1, 'pszFeatureKeyword'),(1, 'pszOptionKeyword'),(1, 'pszAttribute'),(1, 'pdwDataType'),(1, 'ppbData'),(1, 'pcbSize'),)))
+    win32more.Graphics.Printing.IPrintCoreHelper
     return IPrintCoreHelperPS
 def _define_IPrintOemCommon_head():
     class IPrintOemCommon(win32more.System.Com.IUnknown_head):
@@ -4564,6 +4568,7 @@ def _define_IPrintOemCommon():
     IPrintOemCommon = win32more.Graphics.Printing.IPrintOemCommon_head
     IPrintOemCommon.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(3, 'GetInfo', ((1, 'dwMode'),(1, 'pBuffer'),(1, 'cbSize'),(1, 'pcbNeeded'),)))
     IPrintOemCommon.DevMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Printing.OEMDMPARAM_head), use_last_error=False)(4, 'DevMode', ((1, 'dwMode'),(1, 'pOemDMParam'),)))
+    win32more.System.Com.IUnknown
     return IPrintOemCommon
 def _define_IPrintOemUI_head():
     class IPrintOemUI(win32more.Graphics.Printing.IPrintOemCommon_head):
@@ -4583,6 +4588,7 @@ def _define_IPrintOemUI():
     IPrintOemUI.QueryColorProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Graphics.Printing.OEMUIOBJ_head),POINTER(win32more.Graphics.Gdi.DEVMODEA_head),c_void_p,UInt32,POINTER(Void),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(14, 'QueryColorProfile', ((1, 'hPrinter'),(1, 'poemuiobj'),(1, 'pPublicDM'),(1, 'pOEMDM'),(1, 'ulQueryMode'),(1, 'pvProfileData'),(1, 'pcbProfileData'),(1, 'pflProfileData'),)))
     IPrintOemUI.FontInstallerDlgProc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(15, 'FontInstallerDlgProc', ((1, 'hWnd'),(1, 'usMsg'),(1, 'wParam'),(1, 'lParam'),)))
     IPrintOemUI.UpdateExternalFonts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Foundation.HANDLE,win32more.Foundation.PWSTR, use_last_error=False)(16, 'UpdateExternalFonts', ((1, 'hPrinter'),(1, 'hHeap'),(1, 'pwstrCartridges'),)))
+    win32more.Graphics.Printing.IPrintOemCommon
     return IPrintOemUI
 def _define_IPrintOemUI2_head():
     class IPrintOemUI2(win32more.Graphics.Printing.IPrintOemUI_head):
@@ -4593,6 +4599,7 @@ def _define_IPrintOemUI2():
     IPrintOemUI2.QueryJobAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),UInt32,c_char_p_no, use_last_error=False)(17, 'QueryJobAttributes', ((1, 'hPrinter'),(1, 'pDevmode'),(1, 'dwLevel'),(1, 'lpAttributeInfo'),)))
     IPrintOemUI2.HideStandardUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(18, 'HideStandardUI', ((1, 'dwMode'),)))
     IPrintOemUI2.DocumentEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Graphics.Gdi.HDC,Int32,UInt32,c_void_p,UInt32,c_void_p,POINTER(Int32), use_last_error=False)(19, 'DocumentEvent', ((1, 'hPrinter'),(1, 'hdc'),(1, 'iEsc'),(1, 'cbIn'),(1, 'pvIn'),(1, 'cbOut'),(1, 'pvOut'),(1, 'piResult'),)))
+    win32more.Graphics.Printing.IPrintOemUI
     return IPrintOemUI2
 def _define_IPrintOemUIMXDC_head():
     class IPrintOemUIMXDC(win32more.System.Com.IUnknown_head):
@@ -4603,6 +4610,7 @@ def _define_IPrintOemUIMXDC():
     IPrintOemUIMXDC.AdjustImageableArea = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),UInt32,c_void_p,POINTER(win32more.Foundation.RECTL_head), use_last_error=False)(3, 'AdjustImageableArea', ((1, 'hPrinter'),(1, 'cbDevMode'),(1, 'pDevMode'),(1, 'cbOEMDM'),(1, 'pOEMDM'),(1, 'prclImageableArea'),)))
     IPrintOemUIMXDC.AdjustImageCompression = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),UInt32,c_void_p,POINTER(Int32), use_last_error=False)(4, 'AdjustImageCompression', ((1, 'hPrinter'),(1, 'cbDevMode'),(1, 'pDevMode'),(1, 'cbOEMDM'),(1, 'pOEMDM'),(1, 'pCompressionMode'),)))
     IPrintOemUIMXDC.AdjustDPI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,UInt32,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),UInt32,c_void_p,POINTER(Int32), use_last_error=False)(5, 'AdjustDPI', ((1, 'hPrinter'),(1, 'cbDevMode'),(1, 'pDevMode'),(1, 'cbOEMDM'),(1, 'pOEMDM'),(1, 'pDPI'),)))
+    win32more.System.Com.IUnknown
     return IPrintOemUIMXDC
 def _define_IPrintOemDriverUI_head():
     class IPrintOemDriverUI(win32more.System.Com.IUnknown_head):
@@ -4613,6 +4621,7 @@ def _define_IPrintOemDriverUI():
     IPrintOemDriverUI.DrvGetDriverSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PSTR,c_void_p,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'DrvGetDriverSetting', ((1, 'pci'),(1, 'Feature'),(1, 'pOutput'),(1, 'cbSize'),(1, 'pcbNeeded'),(1, 'pdwOptionsReturned'),)))
     IPrintOemDriverUI.DrvUpgradeRegistrySetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(4, 'DrvUpgradeRegistrySetting', ((1, 'hPrinter'),(1, 'pFeature'),(1, 'pOption'),)))
     IPrintOemDriverUI.DrvUpdateUISetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,c_void_p,UInt32,UInt32, use_last_error=False)(5, 'DrvUpdateUISetting', ((1, 'pci'),(1, 'pOptItem'),(1, 'dwPreviousSelection'),(1, 'dwMode'),)))
+    win32more.System.Com.IUnknown
     return IPrintOemDriverUI
 def _define_IPrintCoreUI2_head():
     class IPrintCoreUI2(win32more.Graphics.Printing.IPrintOemDriverUI_head):
@@ -4630,6 +4639,7 @@ def _define_IPrintCoreUI2():
     IPrintCoreUI2.EnumFeatures = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.OEMUIOBJ_head),UInt32,win32more.Foundation.PSTR,UInt32,POINTER(UInt32), use_last_error=False)(13, 'EnumFeatures', ((1, 'poemuiobj'),(1, 'dwFlags'),(1, 'pmszFeatureList'),(1, 'cbSize'),(1, 'pcbNeeded'),)))
     IPrintCoreUI2.EnumOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.OEMUIOBJ_head),UInt32,win32more.Foundation.PSTR,win32more.Foundation.PSTR,UInt32,POINTER(UInt32), use_last_error=False)(14, 'EnumOptions', ((1, 'poemuiobj'),(1, 'dwFlags'),(1, 'pszFeatureKeyword'),(1, 'pmszOptionList'),(1, 'cbSize'),(1, 'pcbNeeded'),)))
     IPrintCoreUI2.QuerySimulationSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,UInt32,c_char_p_no,UInt32,POINTER(UInt32), use_last_error=False)(15, 'QuerySimulationSupport', ((1, 'hPrinter'),(1, 'dwLevel'),(1, 'pCaps'),(1, 'cbSize'),(1, 'pcbNeeded'),)))
+    win32more.Graphics.Printing.IPrintOemDriverUI
     return IPrintCoreUI2
 SHIMOPTS = Int32
 PTSHIM_DEFAULT = 0
@@ -4647,6 +4657,7 @@ def _define_IPrintTicketProvider():
     IPrintTicketProvider.ConvertDevModeToPrintTicket = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Gdi.DEVMODEA_head),win32more.Data.Xml.MsXml.IXMLDOMDocument2_head, use_last_error=False)(7, 'ConvertDevModeToPrintTicket', ((1, 'cbDevmode'),(1, 'pDevmode'),(1, 'pPrintTicket'),)))
     IPrintTicketProvider.GetPrintCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMDocument2_head,POINTER(win32more.Data.Xml.MsXml.IXMLDOMDocument2_head), use_last_error=False)(8, 'GetPrintCapabilities', ((1, 'pPrintTicket'),(1, 'ppCapabilities'),)))
     IPrintTicketProvider.ValidatePrintTicket = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMDocument2_head, use_last_error=False)(9, 'ValidatePrintTicket', ((1, 'pBaseTicket'),)))
+    win32more.System.Com.IUnknown
     return IPrintTicketProvider
 def _define_IPrintTicketProvider2_head():
     class IPrintTicketProvider2(win32more.Graphics.Printing.IPrintTicketProvider_head):
@@ -4656,6 +4667,7 @@ def _define_IPrintTicketProvider2():
     IPrintTicketProvider2 = win32more.Graphics.Printing.IPrintTicketProvider2_head
     IPrintTicketProvider2.GetPrintDeviceCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Data.Xml.MsXml.IXMLDOMDocument2_head,POINTER(win32more.Data.Xml.MsXml.IXMLDOMDocument2_head), use_last_error=False)(10, 'GetPrintDeviceCapabilities', ((1, 'pPrintTicket'),(1, 'ppDeviceCapabilities'),)))
     IPrintTicketProvider2.GetPrintDeviceResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Data.Xml.MsXml.IXMLDOMDocument2_head,POINTER(win32more.Data.Xml.MsXml.IXMLDOMDocument2_head), use_last_error=False)(11, 'GetPrintDeviceResources', ((1, 'pszLocaleName'),(1, 'pPrintTicket'),(1, 'ppDeviceResources'),)))
+    win32more.Graphics.Printing.IPrintTicketProvider
     return IPrintTicketProvider2
 PrinterQueue = Guid('eb54c230-798c-4c9e-b461-29fad04039b1')
 PrinterQueueView = Guid('eb54c231-798c-4c9e-b461-29fad04039b1')
@@ -4670,6 +4682,7 @@ def _define_IPrintSchemaElement():
     IPrintSchemaElement.get_XmlNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get_XmlNode', ((1, 'ppXmlNode'),)))
     IPrintSchemaElement.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Name', ((1, 'pbstrName'),)))
     IPrintSchemaElement.get_NamespaceUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_NamespaceUri', ((1, 'pbstrNamespaceUri'),)))
+    win32more.System.Com.IDispatch
     return IPrintSchemaElement
 def _define_IPrintSchemaDisplayableElement_head():
     class IPrintSchemaDisplayableElement(win32more.Graphics.Printing.IPrintSchemaElement_head):
@@ -4678,6 +4691,7 @@ def _define_IPrintSchemaDisplayableElement_head():
 def _define_IPrintSchemaDisplayableElement():
     IPrintSchemaDisplayableElement = win32more.Graphics.Printing.IPrintSchemaDisplayableElement_head
     IPrintSchemaDisplayableElement.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_DisplayName', ((1, 'pbstrDisplayName'),)))
+    win32more.Graphics.Printing.IPrintSchemaElement
     return IPrintSchemaDisplayableElement
 PrintSchemaConstrainedSetting = Int32
 PrintSchemaConstrainedSetting_None = 0
@@ -4693,6 +4707,7 @@ def _define_IPrintSchemaOption():
     IPrintSchemaOption.get_Selected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'get_Selected', ((1, 'pbIsSelected'),)))
     IPrintSchemaOption.get_Constrained = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.PrintSchemaConstrainedSetting), use_last_error=False)(12, 'get_Constrained', ((1, 'pSetting'),)))
     IPrintSchemaOption.GetPropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(13, 'GetPropertyValue', ((1, 'bstrName'),(1, 'bstrNamespaceUri'),(1, 'ppXmlValueNode'),)))
+    win32more.Graphics.Printing.IPrintSchemaDisplayableElement
     return IPrintSchemaOption
 def _define_IPrintSchemaPageMediaSizeOption_head():
     class IPrintSchemaPageMediaSizeOption(win32more.Graphics.Printing.IPrintSchemaOption_head):
@@ -4702,6 +4717,7 @@ def _define_IPrintSchemaPageMediaSizeOption():
     IPrintSchemaPageMediaSizeOption = win32more.Graphics.Printing.IPrintSchemaPageMediaSizeOption_head
     IPrintSchemaPageMediaSizeOption.get_WidthInMicrons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'get_WidthInMicrons', ((1, 'pulWidth'),)))
     IPrintSchemaPageMediaSizeOption.get_HeightInMicrons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'get_HeightInMicrons', ((1, 'pulHeight'),)))
+    win32more.Graphics.Printing.IPrintSchemaOption
     return IPrintSchemaPageMediaSizeOption
 def _define_IPrintSchemaNUpOption_head():
     class IPrintSchemaNUpOption(win32more.Graphics.Printing.IPrintSchemaOption_head):
@@ -4710,6 +4726,7 @@ def _define_IPrintSchemaNUpOption_head():
 def _define_IPrintSchemaNUpOption():
     IPrintSchemaNUpOption = win32more.Graphics.Printing.IPrintSchemaNUpOption_head
     IPrintSchemaNUpOption.get_PagesPerSheet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'get_PagesPerSheet', ((1, 'pulPagesPerSheet'),)))
+    win32more.Graphics.Printing.IPrintSchemaOption
     return IPrintSchemaNUpOption
 PrintSchemaSelectionType = Int32
 PrintSchemaSelectionType_PickOne = 0
@@ -4723,6 +4740,7 @@ def _define_IPrintSchemaOptionCollection():
     IPrintSchemaOptionCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'get_Count', ((1, 'pulCount'),)))
     IPrintSchemaOptionCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Printing.IPrintSchemaOption_head), use_last_error=False)(8, 'GetAt', ((1, 'ulIndex'),(1, 'ppOption'),)))
     IPrintSchemaOptionCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppUnk'),)))
+    win32more.System.Com.IDispatch
     return IPrintSchemaOptionCollection
 def _define_IPrintSchemaFeature_head():
     class IPrintSchemaFeature(win32more.Graphics.Printing.IPrintSchemaDisplayableElement_head):
@@ -4735,6 +4753,7 @@ def _define_IPrintSchemaFeature():
     IPrintSchemaFeature.get_SelectionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.PrintSchemaSelectionType), use_last_error=False)(13, 'get_SelectionType', ((1, 'pSelectionType'),)))
     IPrintSchemaFeature.GetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Graphics.Printing.IPrintSchemaOption_head), use_last_error=False)(14, 'GetOption', ((1, 'bstrName'),(1, 'bstrNamespaceUri'),(1, 'ppOption'),)))
     IPrintSchemaFeature.get_DisplayUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(15, 'get_DisplayUI', ((1, 'pbShow'),)))
+    win32more.Graphics.Printing.IPrintSchemaDisplayableElement
     return IPrintSchemaFeature
 def _define_IPrintSchemaPageImageableSize_head():
     class IPrintSchemaPageImageableSize(win32more.Graphics.Printing.IPrintSchemaElement_head):
@@ -4748,6 +4767,7 @@ def _define_IPrintSchemaPageImageableSize():
     IPrintSchemaPageImageableSize.get_OriginHeightInMicrons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(13, 'get_OriginHeightInMicrons', ((1, 'pulOriginHeight'),)))
     IPrintSchemaPageImageableSize.get_ExtentWidthInMicrons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'get_ExtentWidthInMicrons', ((1, 'pulExtentWidth'),)))
     IPrintSchemaPageImageableSize.get_ExtentHeightInMicrons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'get_ExtentHeightInMicrons', ((1, 'pulExtentHeight'),)))
+    win32more.Graphics.Printing.IPrintSchemaElement
     return IPrintSchemaPageImageableSize
 PrintSchemaParameterDataType = Int32
 PrintSchemaParameterDataType_Integer = 0
@@ -4764,6 +4784,7 @@ def _define_IPrintSchemaParameterDefinition():
     IPrintSchemaParameterDefinition.get_DataType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.PrintSchemaParameterDataType), use_last_error=False)(13, 'get_DataType', ((1, 'pDataType'),)))
     IPrintSchemaParameterDefinition.get_RangeMin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_RangeMin', ((1, 'pRangeMin'),)))
     IPrintSchemaParameterDefinition.get_RangeMax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_RangeMax', ((1, 'pRangeMax'),)))
+    win32more.Graphics.Printing.IPrintSchemaDisplayableElement
     return IPrintSchemaParameterDefinition
 def _define_IPrintSchemaParameterInitializer_head():
     class IPrintSchemaParameterInitializer(win32more.Graphics.Printing.IPrintSchemaElement_head):
@@ -4773,6 +4794,7 @@ def _define_IPrintSchemaParameterInitializer():
     IPrintSchemaParameterInitializer = win32more.Graphics.Printing.IPrintSchemaParameterInitializer_head
     IPrintSchemaParameterInitializer.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_Value', ((1, 'pVar'),)))
     IPrintSchemaParameterInitializer.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'put_Value', ((1, 'pVar'),)))
+    win32more.Graphics.Printing.IPrintSchemaElement
     return IPrintSchemaParameterInitializer
 def _define_IPrintSchemaCapabilities_head():
     class IPrintSchemaCapabilities(win32more.Graphics.Printing.IPrintSchemaElement_head):
@@ -4787,6 +4809,7 @@ def _define_IPrintSchemaCapabilities():
     IPrintSchemaCapabilities.get_JobCopiesAllDocumentsMaxValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'get_JobCopiesAllDocumentsMaxValue', ((1, 'pulJobCopiesAllDocumentsMaxValue'),)))
     IPrintSchemaCapabilities.GetSelectedOptionInPrintTicket = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintSchemaFeature_head,POINTER(win32more.Graphics.Printing.IPrintSchemaOption_head), use_last_error=False)(15, 'GetSelectedOptionInPrintTicket', ((1, 'pFeature'),(1, 'ppOption'),)))
     IPrintSchemaCapabilities.GetOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintSchemaFeature_head,POINTER(win32more.Graphics.Printing.IPrintSchemaOptionCollection_head), use_last_error=False)(16, 'GetOptions', ((1, 'pFeature'),(1, 'ppOptionCollection'),)))
+    win32more.Graphics.Printing.IPrintSchemaElement
     return IPrintSchemaCapabilities
 def _define_IPrintSchemaCapabilities2_head():
     class IPrintSchemaCapabilities2(win32more.Graphics.Printing.IPrintSchemaCapabilities_head):
@@ -4795,6 +4818,7 @@ def _define_IPrintSchemaCapabilities2_head():
 def _define_IPrintSchemaCapabilities2():
     IPrintSchemaCapabilities2 = win32more.Graphics.Printing.IPrintSchemaCapabilities2_head
     IPrintSchemaCapabilities2.GetParameterDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Graphics.Printing.IPrintSchemaParameterDefinition_head), use_last_error=False)(17, 'GetParameterDefinition', ((1, 'bstrName'),(1, 'bstrNamespaceUri'),(1, 'ppParameterDefinition'),)))
+    win32more.Graphics.Printing.IPrintSchemaCapabilities
     return IPrintSchemaCapabilities2
 def _define_IPrintSchemaAsyncOperation_head():
     class IPrintSchemaAsyncOperation(win32more.System.Com.IDispatch_head):
@@ -4804,6 +4828,7 @@ def _define_IPrintSchemaAsyncOperation():
     IPrintSchemaAsyncOperation = win32more.Graphics.Printing.IPrintSchemaAsyncOperation_head
     IPrintSchemaAsyncOperation.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Start', ()))
     IPrintSchemaAsyncOperation.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Cancel', ()))
+    win32more.System.Com.IDispatch
     return IPrintSchemaAsyncOperation
 def _define_IPrintSchemaTicket_head():
     class IPrintSchemaTicket(win32more.Graphics.Printing.IPrintSchemaElement_head):
@@ -4819,6 +4844,7 @@ def _define_IPrintSchemaTicket():
     IPrintSchemaTicket.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrintSchemaCapabilities_head), use_last_error=False)(15, 'GetCapabilities', ((1, 'ppCapabilities'),)))
     IPrintSchemaTicket.get_JobCopiesAllDocuments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(16, 'get_JobCopiesAllDocuments', ((1, 'pulJobCopiesAllDocuments'),)))
     IPrintSchemaTicket.put_JobCopiesAllDocuments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(17, 'put_JobCopiesAllDocuments', ((1, 'ulJobCopiesAllDocuments'),)))
+    win32more.Graphics.Printing.IPrintSchemaElement
     return IPrintSchemaTicket
 def _define_IPrintSchemaTicket2_head():
     class IPrintSchemaTicket2(win32more.Graphics.Printing.IPrintSchemaTicket_head):
@@ -4827,6 +4853,7 @@ def _define_IPrintSchemaTicket2_head():
 def _define_IPrintSchemaTicket2():
     IPrintSchemaTicket2 = win32more.Graphics.Printing.IPrintSchemaTicket2_head
     IPrintSchemaTicket2.GetParameterInitializer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Graphics.Printing.IPrintSchemaParameterInitializer_head), use_last_error=False)(18, 'GetParameterInitializer', ((1, 'bstrName'),(1, 'bstrNamespaceUri'),(1, 'ppParameterInitializer'),)))
+    win32more.Graphics.Printing.IPrintSchemaTicket
     return IPrintSchemaTicket2
 def _define_IPrintSchemaAsyncOperationEvent_head():
     class IPrintSchemaAsyncOperationEvent(win32more.System.Com.IDispatch_head):
@@ -4835,6 +4862,7 @@ def _define_IPrintSchemaAsyncOperationEvent_head():
 def _define_IPrintSchemaAsyncOperationEvent():
     IPrintSchemaAsyncOperationEvent = win32more.Graphics.Printing.IPrintSchemaAsyncOperationEvent_head
     IPrintSchemaAsyncOperationEvent.Completed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintSchemaTicket_head,win32more.Foundation.HRESULT, use_last_error=False)(7, 'Completed', ((1, 'pTicket'),(1, 'hrOperation'),)))
+    win32more.System.Com.IDispatch
     return IPrintSchemaAsyncOperationEvent
 def _define_IPrinterScriptableSequentialStream_head():
     class IPrinterScriptableSequentialStream(win32more.System.Com.IDispatch_head):
@@ -4844,6 +4872,7 @@ def _define_IPrinterScriptableSequentialStream():
     IPrinterScriptableSequentialStream = win32more.Graphics.Printing.IPrinterScriptableSequentialStream_head
     IPrinterScriptableSequentialStream.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'Read', ((1, 'cbRead'),(1, 'ppArray'),)))
     IPrinterScriptableSequentialStream.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,POINTER(Int32), use_last_error=False)(8, 'Write', ((1, 'pArray'),(1, 'pcbWritten'),)))
+    win32more.System.Com.IDispatch
     return IPrinterScriptableSequentialStream
 def _define_IPrinterScriptableStream_head():
     class IPrinterScriptableStream(win32more.Graphics.Printing.IPrinterScriptableSequentialStream_head):
@@ -4854,6 +4883,7 @@ def _define_IPrinterScriptableStream():
     IPrinterScriptableStream.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Commit', ()))
     IPrinterScriptableStream.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.STREAM_SEEK,POINTER(Int32), use_last_error=False)(10, 'Seek', ((1, 'lOffset'),(1, 'streamSeek'),(1, 'plPosition'),)))
     IPrinterScriptableStream.SetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'SetSize', ((1, 'lSize'),)))
+    win32more.Graphics.Printing.IPrinterScriptableSequentialStream
     return IPrinterScriptableStream
 def _define_IPrinterPropertyBag_head():
     class IPrinterPropertyBag(win32more.System.Com.IDispatch_head):
@@ -4871,6 +4901,7 @@ def _define_IPrinterPropertyBag():
     IPrinterPropertyBag.SetBytes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(Byte), use_last_error=False)(14, 'SetBytes', ((1, 'bstrName'),(1, 'cbValue'),(1, 'pValue'),)))
     IPrinterPropertyBag.GetReadStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(15, 'GetReadStream', ((1, 'bstrName'),(1, 'ppValue'),)))
     IPrinterPropertyBag.GetWriteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(16, 'GetWriteStream', ((1, 'bstrName'),(1, 'ppValue'),)))
+    win32more.System.Com.IDispatch
     return IPrinterPropertyBag
 def _define_IPrinterScriptablePropertyBag_head():
     class IPrinterScriptablePropertyBag(win32more.System.Com.IDispatch_head):
@@ -4888,6 +4919,7 @@ def _define_IPrinterScriptablePropertyBag():
     IPrinterScriptablePropertyBag.SetBytes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head, use_last_error=False)(14, 'SetBytes', ((1, 'bstrName'),(1, 'pArray'),)))
     IPrinterScriptablePropertyBag.GetReadStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Graphics.Printing.IPrinterScriptableStream_head), use_last_error=False)(15, 'GetReadStream', ((1, 'bstrName'),(1, 'ppStream'),)))
     IPrinterScriptablePropertyBag.GetWriteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Graphics.Printing.IPrinterScriptableStream_head), use_last_error=False)(16, 'GetWriteStream', ((1, 'bstrName'),(1, 'ppStream'),)))
+    win32more.System.Com.IDispatch
     return IPrinterScriptablePropertyBag
 def _define_IPrinterScriptablePropertyBag2_head():
     class IPrinterScriptablePropertyBag2(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head):
@@ -4896,6 +4928,7 @@ def _define_IPrinterScriptablePropertyBag2_head():
 def _define_IPrinterScriptablePropertyBag2():
     IPrinterScriptablePropertyBag2 = win32more.Graphics.Printing.IPrinterScriptablePropertyBag2_head
     IPrinterScriptablePropertyBag2.GetReadStreamAsXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(17, 'GetReadStreamAsXML', ((1, 'bstrName'),(1, 'ppXmlNode'),)))
+    win32more.Graphics.Printing.IPrinterScriptablePropertyBag
     return IPrinterScriptablePropertyBag2
 def _define_IPrinterQueue_head():
     class IPrinterQueue(win32more.System.Com.IDispatch_head):
@@ -4907,6 +4940,7 @@ def _define_IPrinterQueue():
     IPrinterQueue.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Name', ((1, 'pbstrName'),)))
     IPrinterQueue.SendBidiQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'SendBidiQuery', ((1, 'bstrBidiQuery'),)))
     IPrinterQueue.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrinterPropertyBag_head), use_last_error=False)(10, 'GetProperties', ((1, 'ppPropertyBag'),)))
+    win32more.System.Com.IDispatch
     return IPrinterQueue
 PrintJobStatus = Int32
 PrintJobStatus_Paused = 1
@@ -4936,6 +4970,7 @@ def _define_IPrintJob():
     IPrintJob.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.PrintJobStatus), use_last_error=False)(7, 'get_Status', ((1, 'pStatus'),)))
     IPrintJob.get_SubmissionTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(8, 'get_SubmissionTime', ((1, 'pSubmissionTime'),)))
     IPrintJob.RequestCancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'RequestCancel', ()))
+    win32more.System.Com.IUnknown
     return IPrintJob
 def _define_IPrintJobCollection_head():
     class IPrintJobCollection(win32more.System.Com.IDispatch_head):
@@ -4946,6 +4981,7 @@ def _define_IPrintJobCollection():
     IPrintJobCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'get_Count', ((1, 'pulCount'),)))
     IPrintJobCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Printing.IPrintJob_head), use_last_error=False)(8, 'GetAt', ((1, 'ulIndex'),(1, 'ppJob'),)))
     IPrintJobCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppUnk'),)))
+    win32more.System.Com.IDispatch
     return IPrintJobCollection
 def _define_IPrinterQueueViewEvent_head():
     class IPrinterQueueViewEvent(win32more.System.Com.IDispatch_head):
@@ -4954,6 +4990,7 @@ def _define_IPrinterQueueViewEvent_head():
 def _define_IPrinterQueueViewEvent():
     IPrinterQueueViewEvent = win32more.Graphics.Printing.IPrinterQueueViewEvent_head
     IPrinterQueueViewEvent.OnChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintJobCollection_head,UInt32,UInt32,UInt32, use_last_error=False)(7, 'OnChanged', ((1, 'pCollection'),(1, 'ulViewOffset'),(1, 'ulViewSize'),(1, 'ulCountJobsInPrintQueue'),)))
+    win32more.System.Com.IDispatch
     return IPrinterQueueViewEvent
 def _define_IPrinterQueueView_head():
     class IPrinterQueueView(win32more.System.Com.IDispatch_head):
@@ -4962,6 +4999,7 @@ def _define_IPrinterQueueView_head():
 def _define_IPrinterQueueView():
     IPrinterQueueView = win32more.Graphics.Printing.IPrinterQueueView_head
     IPrinterQueueView.SetViewRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(7, 'SetViewRange', ((1, 'ulViewOffset'),(1, 'ulViewSize'),)))
+    win32more.System.Com.IDispatch
     return IPrinterQueueView
 def _define_IPrinterQueueEvent_head():
     class IPrinterQueueEvent(win32more.System.Com.IDispatch_head):
@@ -4970,6 +5008,7 @@ def _define_IPrinterQueueEvent_head():
 def _define_IPrinterQueueEvent():
     IPrinterQueueEvent = win32more.Graphics.Printing.IPrinterQueueEvent_head
     IPrinterQueueEvent.OnBidiResponseReceived = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.HRESULT, use_last_error=False)(7, 'OnBidiResponseReceived', ((1, 'bstrResponse'),(1, 'hrStatus'),)))
+    win32more.System.Com.IDispatch
     return IPrinterQueueEvent
 def _define_IPrinterBidiSetRequestCallback_head():
     class IPrinterBidiSetRequestCallback(win32more.System.Com.IUnknown_head):
@@ -4978,6 +5017,7 @@ def _define_IPrinterBidiSetRequestCallback_head():
 def _define_IPrinterBidiSetRequestCallback():
     IPrinterBidiSetRequestCallback = win32more.Graphics.Printing.IPrinterBidiSetRequestCallback_head
     IPrinterBidiSetRequestCallback.Completed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.HRESULT, use_last_error=False)(3, 'Completed', ((1, 'bstrResponse'),(1, 'hrStatus'),)))
+    win32more.System.Com.IUnknown
     return IPrinterBidiSetRequestCallback
 def _define_IPrinterExtensionAsyncOperation_head():
     class IPrinterExtensionAsyncOperation(win32more.System.Com.IUnknown_head):
@@ -4986,6 +5026,7 @@ def _define_IPrinterExtensionAsyncOperation_head():
 def _define_IPrinterExtensionAsyncOperation():
     IPrinterExtensionAsyncOperation = win32more.Graphics.Printing.IPrinterExtensionAsyncOperation_head
     IPrinterExtensionAsyncOperation.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return IPrinterExtensionAsyncOperation
 def _define_IPrinterQueue2_head():
     class IPrinterQueue2(win32more.Graphics.Printing.IPrinterQueue_head):
@@ -4995,6 +5036,7 @@ def _define_IPrinterQueue2():
     IPrinterQueue2 = win32more.Graphics.Printing.IPrinterQueue2_head
     IPrinterQueue2.SendBidiSetRequestAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Graphics.Printing.IPrinterBidiSetRequestCallback_head,POINTER(win32more.Graphics.Printing.IPrinterExtensionAsyncOperation_head), use_last_error=False)(11, 'SendBidiSetRequestAsync', ((1, 'bstrBidiRequest'),(1, 'pCallback'),(1, 'ppAsyncOperation'),)))
     IPrinterQueue2.GetPrinterQueueView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Printing.IPrinterQueueView_head), use_last_error=False)(12, 'GetPrinterQueueView', ((1, 'ulViewOffset'),(1, 'ulViewSize'),(1, 'ppJobView'),)))
+    win32more.Graphics.Printing.IPrinterQueue
     return IPrinterQueue2
 def _define_IPrinterExtensionContext_head():
     class IPrinterExtensionContext(win32more.System.Com.IDispatch_head):
@@ -5006,6 +5048,7 @@ def _define_IPrinterExtensionContext():
     IPrinterExtensionContext.get_PrintSchemaTicket = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrintSchemaTicket_head), use_last_error=False)(8, 'get_PrintSchemaTicket', ((1, 'ppTicket'),)))
     IPrinterExtensionContext.get_DriverProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrinterPropertyBag_head), use_last_error=False)(9, 'get_DriverProperties', ((1, 'ppPropertyBag'),)))
     IPrinterExtensionContext.get_UserProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrinterPropertyBag_head), use_last_error=False)(10, 'get_UserProperties', ((1, 'ppPropertyBag'),)))
+    win32more.System.Com.IDispatch
     return IPrinterExtensionContext
 def _define_IPrinterExtensionRequest_head():
     class IPrinterExtensionRequest(win32more.System.Com.IDispatch_head):
@@ -5015,6 +5058,7 @@ def _define_IPrinterExtensionRequest():
     IPrinterExtensionRequest = win32more.Graphics.Printing.IPrinterExtensionRequest_head
     IPrinterExtensionRequest.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'Cancel', ((1, 'hrStatus'),(1, 'bstrLogMessage'),)))
     IPrinterExtensionRequest.Complete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Complete', ()))
+    win32more.System.Com.IDispatch
     return IPrinterExtensionRequest
 def _define_IPrinterExtensionEventArgs_head():
     class IPrinterExtensionEventArgs(win32more.Graphics.Printing.IPrinterExtensionContext_head):
@@ -5029,6 +5073,7 @@ def _define_IPrinterExtensionEventArgs():
     IPrinterExtensionEventArgs.get_DetailedReasonId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(15, 'get_DetailedReasonId', ((1, 'pDetailedReasonId'),)))
     IPrinterExtensionEventArgs.get_WindowModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'get_WindowModal', ((1, 'pbModal'),)))
     IPrinterExtensionEventArgs.get_WindowParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(17, 'get_WindowParent', ((1, 'phwndParent'),)))
+    win32more.Graphics.Printing.IPrinterExtensionContext
     return IPrinterExtensionEventArgs
 def _define_IPrinterExtensionContextCollection_head():
     class IPrinterExtensionContextCollection(win32more.System.Com.IDispatch_head):
@@ -5039,6 +5084,7 @@ def _define_IPrinterExtensionContextCollection():
     IPrinterExtensionContextCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'get_Count', ((1, 'pulCount'),)))
     IPrinterExtensionContextCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Printing.IPrinterExtensionContext_head), use_last_error=False)(8, 'GetAt', ((1, 'ulIndex'),(1, 'ppContext'),)))
     IPrinterExtensionContextCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppUnk'),)))
+    win32more.System.Com.IDispatch
     return IPrinterExtensionContextCollection
 def _define_IPrinterExtensionEvent_head():
     class IPrinterExtensionEvent(win32more.System.Com.IDispatch_head):
@@ -5048,6 +5094,7 @@ def _define_IPrinterExtensionEvent():
     IPrinterExtensionEvent = win32more.Graphics.Printing.IPrinterExtensionEvent_head
     IPrinterExtensionEvent.OnDriverEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrinterExtensionEventArgs_head, use_last_error=False)(7, 'OnDriverEvent', ((1, 'pEventArgs'),)))
     IPrinterExtensionEvent.OnPrinterQueuesEnumerated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrinterExtensionContextCollection_head, use_last_error=False)(8, 'OnPrinterQueuesEnumerated', ((1, 'pContextCollection'),)))
+    win32more.System.Com.IDispatch
     return IPrinterExtensionEvent
 def _define_IPrinterExtensionManager_head():
     class IPrinterExtensionManager(win32more.System.Com.IUnknown_head):
@@ -5057,6 +5104,7 @@ def _define_IPrinterExtensionManager():
     IPrinterExtensionManager = win32more.Graphics.Printing.IPrinterExtensionManager_head
     IPrinterExtensionManager.EnableEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(3, 'EnableEvents', ((1, 'printerDriverId'),)))
     IPrinterExtensionManager.DisableEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'DisableEvents', ()))
+    win32more.System.Com.IUnknown
     return IPrinterExtensionManager
 def _define_IPrinterScriptContext_head():
     class IPrinterScriptContext(win32more.System.Com.IDispatch_head):
@@ -5067,6 +5115,7 @@ def _define_IPrinterScriptContext():
     IPrinterScriptContext.get_DriverProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head), use_last_error=False)(7, 'get_DriverProperties', ((1, 'ppPropertyBag'),)))
     IPrinterScriptContext.get_QueueProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head), use_last_error=False)(8, 'get_QueueProperties', ((1, 'ppPropertyBag'),)))
     IPrinterScriptContext.get_UserProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrinterScriptablePropertyBag_head), use_last_error=False)(9, 'get_UserProperties', ((1, 'ppPropertyBag'),)))
+    win32more.System.Com.IDispatch
     return IPrinterScriptContext
 PrintAsyncNotifyUserFilter = Int32
 PrintAsyncNotifyUserFilter_kPerUser = 0
@@ -5082,6 +5131,7 @@ def _define_IPrintAsyncNotifyDataObject():
     IPrintAsyncNotifyDataObject = win32more.Graphics.Printing.IPrintAsyncNotifyDataObject_head
     IPrintAsyncNotifyDataObject.AcquireData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(3, 'AcquireData', ((1, 'ppNotificationData'),(1, 'pSize'),(1, 'ppSchema'),)))
     IPrintAsyncNotifyDataObject.ReleaseData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ReleaseData', ()))
+    win32more.System.Com.IUnknown
     return IPrintAsyncNotifyDataObject
 def _define_IPrintAsyncNotifyChannel_head():
     class IPrintAsyncNotifyChannel(win32more.System.Com.IUnknown_head):
@@ -5091,6 +5141,7 @@ def _define_IPrintAsyncNotifyChannel():
     IPrintAsyncNotifyChannel = win32more.Graphics.Printing.IPrintAsyncNotifyChannel_head
     IPrintAsyncNotifyChannel.SendNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintAsyncNotifyDataObject_head, use_last_error=False)(3, 'SendNotification', ((1, 'pData'),)))
     IPrintAsyncNotifyChannel.CloseChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintAsyncNotifyDataObject_head, use_last_error=False)(4, 'CloseChannel', ((1, 'pData'),)))
+    win32more.System.Com.IUnknown
     return IPrintAsyncNotifyChannel
 def _define_IPrintAsyncNotifyCallback_head():
     class IPrintAsyncNotifyCallback(win32more.System.Com.IUnknown_head):
@@ -5100,6 +5151,7 @@ def _define_IPrintAsyncNotifyCallback():
     IPrintAsyncNotifyCallback = win32more.Graphics.Printing.IPrintAsyncNotifyCallback_head
     IPrintAsyncNotifyCallback.OnEventNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintAsyncNotifyChannel_head,win32more.Graphics.Printing.IPrintAsyncNotifyDataObject_head, use_last_error=False)(3, 'OnEventNotify', ((1, 'pChannel'),(1, 'pData'),)))
     IPrintAsyncNotifyCallback.ChannelClosed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintAsyncNotifyChannel_head,win32more.Graphics.Printing.IPrintAsyncNotifyDataObject_head, use_last_error=False)(4, 'ChannelClosed', ((1, 'pChannel'),(1, 'pData'),)))
+    win32more.System.Com.IUnknown
     return IPrintAsyncNotifyCallback
 PrintAsyncNotifyError = Int32
 CHANNEL_CLOSED_BY_SERVER = 1
@@ -5134,6 +5186,7 @@ def _define_IPrintAsyncNotifyRegistration():
     IPrintAsyncNotifyRegistration = win32more.Graphics.Printing.IPrintAsyncNotifyRegistration_head
     IPrintAsyncNotifyRegistration.RegisterForNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'RegisterForNotifications', ()))
     IPrintAsyncNotifyRegistration.UnregisterForNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnregisterForNotifications', ()))
+    win32more.System.Com.IUnknown
     return IPrintAsyncNotifyRegistration
 def _define_IPrintAsyncNotify_head():
     class IPrintAsyncNotify(win32more.System.Com.IUnknown_head):
@@ -5143,6 +5196,7 @@ def _define_IPrintAsyncNotify():
     IPrintAsyncNotify = win32more.Graphics.Printing.IPrintAsyncNotify_head
     IPrintAsyncNotify.CreatePrintAsyncNotifyChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),win32more.Graphics.Printing.PrintAsyncNotifyUserFilter,win32more.Graphics.Printing.PrintAsyncNotifyConversationStyle,win32more.Graphics.Printing.IPrintAsyncNotifyCallback_head,POINTER(win32more.Graphics.Printing.IPrintAsyncNotifyChannel_head), use_last_error=False)(3, 'CreatePrintAsyncNotifyChannel', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),(1, 'param5'),)))
     IPrintAsyncNotify.CreatePrintAsyncNotifyRegistration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Graphics.Printing.PrintAsyncNotifyUserFilter,win32more.Graphics.Printing.PrintAsyncNotifyConversationStyle,win32more.Graphics.Printing.IPrintAsyncNotifyCallback_head,POINTER(win32more.Graphics.Printing.IPrintAsyncNotifyRegistration_head), use_last_error=False)(4, 'CreatePrintAsyncNotifyRegistration', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
+    win32more.System.Com.IUnknown
     return IPrintAsyncNotify
 def _define_IPrintAsyncCookie_head():
     class IPrintAsyncCookie(win32more.System.Com.IUnknown_head):
@@ -5152,6 +5206,7 @@ def _define_IPrintAsyncCookie():
     IPrintAsyncCookie = win32more.Graphics.Printing.IPrintAsyncCookie_head
     IPrintAsyncCookie.FinishAsyncCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'FinishAsyncCall', ((1, 'param0'),)))
     IPrintAsyncCookie.CancelAsyncCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'CancelAsyncCall', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IPrintAsyncCookie
 def _define_IPrintAsyncNewChannelCookie_head():
     class IPrintAsyncNewChannelCookie(win32more.Graphics.Printing.IPrintAsyncCookie_head):
@@ -5160,6 +5215,7 @@ def _define_IPrintAsyncNewChannelCookie_head():
 def _define_IPrintAsyncNewChannelCookie():
     IPrintAsyncNewChannelCookie = win32more.Graphics.Printing.IPrintAsyncNewChannelCookie_head
     IPrintAsyncNewChannelCookie.FinishAsyncCallWithData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrintAsyncNotifyChannel_head),UInt32, use_last_error=False)(5, 'FinishAsyncCallWithData', ((1, 'param0'),(1, 'param1'),)))
+    win32more.Graphics.Printing.IPrintAsyncCookie
     return IPrintAsyncNewChannelCookie
 def _define_IAsyncGetSendNotificationCookie_head():
     class IAsyncGetSendNotificationCookie(win32more.Graphics.Printing.IPrintAsyncCookie_head):
@@ -5168,6 +5224,7 @@ def _define_IAsyncGetSendNotificationCookie_head():
 def _define_IAsyncGetSendNotificationCookie():
     IAsyncGetSendNotificationCookie = win32more.Graphics.Printing.IAsyncGetSendNotificationCookie_head
     IAsyncGetSendNotificationCookie.FinishAsyncCallWithData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintAsyncNotifyDataObject_head,win32more.Foundation.BOOL, use_last_error=False)(5, 'FinishAsyncCallWithData', ((1, 'param0'),(1, 'param1'),)))
+    win32more.Graphics.Printing.IPrintAsyncCookie
     return IAsyncGetSendNotificationCookie
 def _define_IAsyncGetSrvReferralCookie_head():
     class IAsyncGetSrvReferralCookie(win32more.System.Com.IUnknown_head):
@@ -5178,6 +5235,7 @@ def _define_IAsyncGetSrvReferralCookie():
     IAsyncGetSrvReferralCookie.FinishAsyncCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'FinishAsyncCall', ((1, 'param0'),)))
     IAsyncGetSrvReferralCookie.CancelAsyncCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'CancelAsyncCall', ((1, 'param0'),)))
     IAsyncGetSrvReferralCookie.FinishAsyncCallWithData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'FinishAsyncCallWithData', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IAsyncGetSrvReferralCookie
 def _define_IPrintBidiAsyncNotifyRegistration_head():
     class IPrintBidiAsyncNotifyRegistration(win32more.Graphics.Printing.IPrintAsyncNotifyRegistration_head):
@@ -5186,6 +5244,7 @@ def _define_IPrintBidiAsyncNotifyRegistration_head():
 def _define_IPrintBidiAsyncNotifyRegistration():
     IPrintBidiAsyncNotifyRegistration = win32more.Graphics.Printing.IPrintBidiAsyncNotifyRegistration_head
     IPrintBidiAsyncNotifyRegistration.AsyncGetNewChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintAsyncNewChannelCookie_head, use_last_error=False)(5, 'AsyncGetNewChannel', ((1, 'param0'),)))
+    win32more.Graphics.Printing.IPrintAsyncNotifyRegistration
     return IPrintBidiAsyncNotifyRegistration
 def _define_IPrintUnidiAsyncNotifyRegistration_head():
     class IPrintUnidiAsyncNotifyRegistration(win32more.Graphics.Printing.IPrintAsyncNotifyRegistration_head):
@@ -5194,6 +5253,7 @@ def _define_IPrintUnidiAsyncNotifyRegistration_head():
 def _define_IPrintUnidiAsyncNotifyRegistration():
     IPrintUnidiAsyncNotifyRegistration = win32more.Graphics.Printing.IPrintUnidiAsyncNotifyRegistration_head
     IPrintUnidiAsyncNotifyRegistration.AsyncGetNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IAsyncGetSendNotificationCookie_head, use_last_error=False)(5, 'AsyncGetNotification', ((1, 'param0'),)))
+    win32more.Graphics.Printing.IPrintAsyncNotifyRegistration
     return IPrintUnidiAsyncNotifyRegistration
 def _define_IPrintAsyncNotifyServerReferral_head():
     class IPrintAsyncNotifyServerReferral(win32more.System.Com.IUnknown_head):
@@ -5204,6 +5264,7 @@ def _define_IPrintAsyncNotifyServerReferral():
     IPrintAsyncNotifyServerReferral.GetServerReferral = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetServerReferral', ((1, 'param0'),)))
     IPrintAsyncNotifyServerReferral.AsyncGetServerReferral = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IAsyncGetSrvReferralCookie_head, use_last_error=False)(4, 'AsyncGetServerReferral', ((1, 'param0'),)))
     IPrintAsyncNotifyServerReferral.SetServerReferral = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SetServerReferral', ((1, 'pRmtServerReferral'),)))
+    win32more.System.Com.IUnknown
     return IPrintAsyncNotifyServerReferral
 def _define_IBidiAsyncNotifyChannel_head():
     class IBidiAsyncNotifyChannel(win32more.Graphics.Printing.IPrintAsyncNotifyChannel_head):
@@ -5216,6 +5277,7 @@ def _define_IBidiAsyncNotifyChannel():
     IBidiAsyncNotifyChannel.GetChannelNotificationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Printing.IPrintAsyncNotifyDataObject_head), use_last_error=False)(7, 'GetChannelNotificationType', ((1, 'param0'),)))
     IBidiAsyncNotifyChannel.AsyncGetNotificationSendResponse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintAsyncNotifyDataObject_head,win32more.Graphics.Printing.IAsyncGetSendNotificationCookie_head, use_last_error=False)(8, 'AsyncGetNotificationSendResponse', ((1, 'param0'),(1, 'param1'),)))
     IBidiAsyncNotifyChannel.AsyncCloseChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.IPrintAsyncNotifyDataObject_head,win32more.Graphics.Printing.IPrintAsyncCookie_head, use_last_error=False)(9, 'AsyncCloseChannel', ((1, 'param0'),(1, 'param1'),)))
+    win32more.Graphics.Printing.IPrintAsyncNotifyChannel
     return IBidiAsyncNotifyChannel
 def _define_UNIFM_HDR_head():
     class UNIFM_HDR(Structure):
@@ -6132,6 +6194,7 @@ def _define_IXpsRasterizerNotificationCallback_head():
 def _define_IXpsRasterizerNotificationCallback():
     IXpsRasterizerNotificationCallback = win32more.Graphics.Printing.IXpsRasterizerNotificationCallback_head
     IXpsRasterizerNotificationCallback.Continue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Continue', ()))
+    win32more.System.Com.IUnknown
     return IXpsRasterizerNotificationCallback
 XPSRAS_RENDERING_MODE = Int32
 XPSRAS_RENDERING_MODE_ANTIALIASED = 0
@@ -6144,6 +6207,7 @@ def _define_IXpsRasterizer():
     IXpsRasterizer = win32more.Graphics.Printing.IXpsRasterizer_head
     IXpsRasterizer.RasterizeRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32,win32more.Graphics.Printing.IXpsRasterizerNotificationCallback_head,POINTER(win32more.Graphics.Imaging.IWICBitmap_head), use_last_error=False)(3, 'RasterizeRect', ((1, 'x'),(1, 'y'),(1, 'width'),(1, 'height'),(1, 'notificationCallback'),(1, 'bitmap'),)))
     IXpsRasterizer.SetMinimalLineWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(4, 'SetMinimalLineWidth', ((1, 'width'),)))
+    win32more.System.Com.IUnknown
     return IXpsRasterizer
 def _define_IXpsRasterizationFactory_head():
     class IXpsRasterizationFactory(win32more.System.Com.IUnknown_head):
@@ -6152,6 +6216,7 @@ def _define_IXpsRasterizationFactory_head():
 def _define_IXpsRasterizationFactory():
     IXpsRasterizationFactory = win32more.Graphics.Printing.IXpsRasterizationFactory_head
     IXpsRasterizationFactory.CreateRasterizer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMPage_head,Single,win32more.Graphics.Printing.XPSRAS_RENDERING_MODE,win32more.Graphics.Printing.XPSRAS_RENDERING_MODE,POINTER(win32more.Graphics.Printing.IXpsRasterizer_head), use_last_error=False)(3, 'CreateRasterizer', ((1, 'xpsPage'),(1, 'DPI'),(1, 'nonTextRenderingMode'),(1, 'textRenderingMode'),(1, 'ppIXPSRasterizer'),)))
+    win32more.System.Com.IUnknown
     return IXpsRasterizationFactory
 XPSRAS_PIXEL_FORMAT = Int32
 XPSRAS_PIXEL_FORMAT_32BPP_PBGRA_UINT_SRGB = 1
@@ -6164,6 +6229,7 @@ def _define_IXpsRasterizationFactory1_head():
 def _define_IXpsRasterizationFactory1():
     IXpsRasterizationFactory1 = win32more.Graphics.Printing.IXpsRasterizationFactory1_head
     IXpsRasterizationFactory1.CreateRasterizer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMPage_head,Single,win32more.Graphics.Printing.XPSRAS_RENDERING_MODE,win32more.Graphics.Printing.XPSRAS_RENDERING_MODE,win32more.Graphics.Printing.XPSRAS_PIXEL_FORMAT,POINTER(win32more.Graphics.Printing.IXpsRasterizer_head), use_last_error=False)(3, 'CreateRasterizer', ((1, 'xpsPage'),(1, 'DPI'),(1, 'nonTextRenderingMode'),(1, 'textRenderingMode'),(1, 'pixelFormat'),(1, 'ppIXPSRasterizer'),)))
+    win32more.System.Com.IUnknown
     return IXpsRasterizationFactory1
 XPSRAS_BACKGROUND_COLOR = Int32
 XPSRAS_BACKGROUND_COLOR_TRANSPARENT = 0
@@ -6175,6 +6241,7 @@ def _define_IXpsRasterizationFactory2_head():
 def _define_IXpsRasterizationFactory2():
     IXpsRasterizationFactory2 = win32more.Graphics.Printing.IXpsRasterizationFactory2_head
     IXpsRasterizationFactory2.CreateRasterizer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMPage_head,Single,Single,win32more.Graphics.Printing.XPSRAS_RENDERING_MODE,win32more.Graphics.Printing.XPSRAS_RENDERING_MODE,win32more.Graphics.Printing.XPSRAS_PIXEL_FORMAT,win32more.Graphics.Printing.XPSRAS_BACKGROUND_COLOR,POINTER(win32more.Graphics.Printing.IXpsRasterizer_head), use_last_error=False)(3, 'CreateRasterizer', ((1, 'xpsPage'),(1, 'DPIX'),(1, 'DPIY'),(1, 'nonTextRenderingMode'),(1, 'textRenderingMode'),(1, 'pixelFormat'),(1, 'backgroundColor'),(1, 'ppIXpsRasterizer'),)))
+    win32more.System.Com.IUnknown
     return IXpsRasterizationFactory2
 PageCountType = Int32
 PageCountType_FinalPageCount = 0
@@ -6188,6 +6255,7 @@ def _define_IPrintPreviewDxgiPackageTarget():
     IPrintPreviewDxgiPackageTarget.SetJobPageCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Printing.PageCountType,UInt32, use_last_error=False)(3, 'SetJobPageCount', ((1, 'countType'),(1, 'count'),)))
     IPrintPreviewDxgiPackageTarget.DrawPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Dxgi.IDXGISurface_head,Single,Single, use_last_error=False)(4, 'DrawPage', ((1, 'jobPageNumber'),(1, 'pageImage'),(1, 'dpiX'),(1, 'dpiY'),)))
     IPrintPreviewDxgiPackageTarget.InvalidatePreview = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'InvalidatePreview', ()))
+    win32more.System.Com.IUnknown
     return IPrintPreviewDxgiPackageTarget
 def _define_CommonPropertySheetUIA():
     try:

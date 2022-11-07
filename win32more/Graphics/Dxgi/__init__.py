@@ -236,6 +236,7 @@ def _define_IDXGIObject():
     IDXGIObject.SetPrivateDataInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'SetPrivateDataInterface', ((1, 'Name'),(1, 'pUnknown'),)))
     IDXGIObject.GetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),c_void_p, use_last_error=False)(5, 'GetPrivateData', ((1, 'Name'),(1, 'pDataSize'),(1, 'pData'),)))
     IDXGIObject.GetParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetParent', ((1, 'riid'),(1, 'ppParent'),)))
+    win32more.System.Com.IUnknown
     return IDXGIObject
 def _define_IDXGIDeviceSubObject_head():
     class IDXGIDeviceSubObject(win32more.Graphics.Dxgi.IDXGIObject_head):
@@ -244,6 +245,7 @@ def _define_IDXGIDeviceSubObject_head():
 def _define_IDXGIDeviceSubObject():
     IDXGIDeviceSubObject = win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head
     IDXGIDeviceSubObject.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'GetDevice', ((1, 'riid'),(1, 'ppDevice'),)))
+    win32more.Graphics.Dxgi.IDXGIObject
     return IDXGIDeviceSubObject
 def _define_IDXGIResource_head():
     class IDXGIResource(win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head):
@@ -255,6 +257,7 @@ def _define_IDXGIResource():
     IDXGIResource.GetUsage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetUsage', ((1, 'pUsage'),)))
     IDXGIResource.SetEvictionPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.DXGI_RESOURCE_PRIORITY, use_last_error=False)(10, 'SetEvictionPriority', ((1, 'EvictionPriority'),)))
     IDXGIResource.GetEvictionPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(11, 'GetEvictionPriority', ((1, 'pEvictionPriority'),)))
+    win32more.Graphics.Dxgi.IDXGIDeviceSubObject
     return IDXGIResource
 def _define_IDXGIKeyedMutex_head():
     class IDXGIKeyedMutex(win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head):
@@ -264,6 +267,7 @@ def _define_IDXGIKeyedMutex():
     IDXGIKeyedMutex = win32more.Graphics.Dxgi.IDXGIKeyedMutex_head
     IDXGIKeyedMutex.AcquireSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32, use_last_error=False)(8, 'AcquireSync', ((1, 'Key'),(1, 'dwMilliseconds'),)))
     IDXGIKeyedMutex.ReleaseSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(9, 'ReleaseSync', ((1, 'Key'),)))
+    win32more.Graphics.Dxgi.IDXGIDeviceSubObject
     return IDXGIKeyedMutex
 def _define_IDXGISurface_head():
     class IDXGISurface(win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head):
@@ -274,6 +278,7 @@ def _define_IDXGISurface():
     IDXGISurface.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_SURFACE_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
     IDXGISurface.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MAPPED_RECT_head),UInt32, use_last_error=False)(9, 'Map', ((1, 'pLockedRect'),(1, 'MapFlags'),)))
     IDXGISurface.Unmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Unmap', ()))
+    win32more.Graphics.Dxgi.IDXGIDeviceSubObject
     return IDXGISurface
 def _define_IDXGISurface1_head():
     class IDXGISurface1(win32more.Graphics.Dxgi.IDXGISurface_head):
@@ -283,6 +288,7 @@ def _define_IDXGISurface1():
     IDXGISurface1 = win32more.Graphics.Dxgi.IDXGISurface1_head
     IDXGISurface1.GetDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Graphics.Gdi.HDC), use_last_error=False)(11, 'GetDC', ((1, 'Discard'),(1, 'phdc'),)))
     IDXGISurface1.ReleaseDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(12, 'ReleaseDC', ((1, 'pDirtyRect'),)))
+    win32more.Graphics.Dxgi.IDXGISurface
     return IDXGISurface1
 def _define_IDXGIAdapter_head():
     class IDXGIAdapter(win32more.Graphics.Dxgi.IDXGIObject_head):
@@ -293,6 +299,7 @@ def _define_IDXGIAdapter():
     IDXGIAdapter.EnumOutputs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head), use_last_error=False)(7, 'EnumOutputs', ((1, 'Output'),(1, 'ppOutput'),)))
     IDXGIAdapter.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
     IDXGIAdapter.CheckInterfaceSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.LARGE_INTEGER_head), use_last_error=False)(9, 'CheckInterfaceSupport', ((1, 'InterfaceName'),(1, 'pUMDVersion'),)))
+    win32more.Graphics.Dxgi.IDXGIObject
     return IDXGIAdapter
 def _define_IDXGIOutput_head():
     class IDXGIOutput(win32more.Graphics.Dxgi.IDXGIObject_head):
@@ -312,6 +319,7 @@ def _define_IDXGIOutput():
     IDXGIOutput.SetDisplaySurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISurface_head, use_last_error=False)(16, 'SetDisplaySurface', ((1, 'pScanoutSurface'),)))
     IDXGIOutput.GetDisplaySurfaceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISurface_head, use_last_error=False)(17, 'GetDisplaySurfaceData', ((1, 'pDestination'),)))
     IDXGIOutput.GetFrameStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_head), use_last_error=False)(18, 'GetFrameStatistics', ((1, 'pStats'),)))
+    win32more.Graphics.Dxgi.IDXGIObject
     return IDXGIOutput
 def _define_IDXGISwapChain_head():
     class IDXGISwapChain(win32more.Graphics.Dxgi.IDXGIDeviceSubObject_head):
@@ -329,6 +337,7 @@ def _define_IDXGISwapChain():
     IDXGISwapChain.GetContainingOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGIOutput_head), use_last_error=False)(15, 'GetContainingOutput', ((1, 'ppOutput'),)))
     IDXGISwapChain.GetFrameStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_head), use_last_error=False)(16, 'GetFrameStatistics', ((1, 'pStats'),)))
     IDXGISwapChain.GetLastPresentCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(17, 'GetLastPresentCount', ((1, 'pLastPresentCount'),)))
+    win32more.Graphics.Dxgi.IDXGIDeviceSubObject
     return IDXGISwapChain
 def _define_IDXGIFactory_head():
     class IDXGIFactory(win32more.Graphics.Dxgi.IDXGIObject_head):
@@ -341,6 +350,7 @@ def _define_IDXGIFactory():
     IDXGIFactory.GetWindowAssociation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(9, 'GetWindowAssociation', ((1, 'pWindowHandle'),)))
     IDXGIFactory.CreateSwapChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC_head),POINTER(win32more.Graphics.Dxgi.IDXGISwapChain_head), use_last_error=False)(10, 'CreateSwapChain', ((1, 'pDevice'),(1, 'pDesc'),(1, 'ppSwapChain'),)))
     IDXGIFactory.CreateSoftwareAdapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HINSTANCE,POINTER(win32more.Graphics.Dxgi.IDXGIAdapter_head), use_last_error=False)(11, 'CreateSoftwareAdapter', ((1, 'Module'),(1, 'ppAdapter'),)))
+    win32more.Graphics.Dxgi.IDXGIObject
     return IDXGIFactory
 def _define_IDXGIDevice_head():
     class IDXGIDevice(win32more.Graphics.Dxgi.IDXGIObject_head):
@@ -353,6 +363,7 @@ def _define_IDXGIDevice():
     IDXGIDevice.QueryResourceResidency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),POINTER(win32more.Graphics.Dxgi.DXGI_RESIDENCY),UInt32, use_last_error=False)(9, 'QueryResourceResidency', ((1, 'ppResources'),(1, 'pResidencyStatus'),(1, 'NumResources'),)))
     IDXGIDevice.SetGPUThreadPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'SetGPUThreadPriority', ((1, 'Priority'),)))
     IDXGIDevice.GetGPUThreadPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'GetGPUThreadPriority', ((1, 'pPriority'),)))
+    win32more.Graphics.Dxgi.IDXGIObject
     return IDXGIDevice
 DXGI_ADAPTER_FLAG = UInt32
 DXGI_ADAPTER_FLAG_NONE = 0
@@ -396,6 +407,7 @@ def _define_IDXGIFactory1():
     IDXGIFactory1 = win32more.Graphics.Dxgi.IDXGIFactory1_head
     IDXGIFactory1.EnumAdapters1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIAdapter1_head), use_last_error=False)(12, 'EnumAdapters1', ((1, 'Adapter'),(1, 'ppAdapter'),)))
     IDXGIFactory1.IsCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(13, 'IsCurrent', ()))
+    win32more.Graphics.Dxgi.IDXGIFactory
     return IDXGIFactory1
 def _define_IDXGIAdapter1_head():
     class IDXGIAdapter1(win32more.Graphics.Dxgi.IDXGIAdapter_head):
@@ -404,6 +416,7 @@ def _define_IDXGIAdapter1_head():
 def _define_IDXGIAdapter1():
     IDXGIAdapter1 = win32more.Graphics.Dxgi.IDXGIAdapter1_head
     IDXGIAdapter1.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC1_head), use_last_error=False)(10, 'GetDesc1', ((1, 'pDesc'),)))
+    win32more.Graphics.Dxgi.IDXGIAdapter
     return IDXGIAdapter1
 def _define_IDXGIDevice1_head():
     class IDXGIDevice1(win32more.Graphics.Dxgi.IDXGIDevice_head):
@@ -413,6 +426,7 @@ def _define_IDXGIDevice1():
     IDXGIDevice1 = win32more.Graphics.Dxgi.IDXGIDevice1_head
     IDXGIDevice1.SetMaximumFrameLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(12, 'SetMaximumFrameLatency', ((1, 'MaxLatency'),)))
     IDXGIDevice1.GetMaximumFrameLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(13, 'GetMaximumFrameLatency', ((1, 'pMaxLatency'),)))
+    win32more.Graphics.Dxgi.IDXGIDevice
     return IDXGIDevice1
 def _define_IDXGIDisplayControl_head():
     class IDXGIDisplayControl(win32more.System.Com.IUnknown_head):
@@ -422,6 +436,7 @@ def _define_IDXGIDisplayControl():
     IDXGIDisplayControl = win32more.Graphics.Dxgi.IDXGIDisplayControl_head
     IDXGIDisplayControl.IsStereoEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(3, 'IsStereoEnabled', ()))
     IDXGIDisplayControl.SetStereoEnabled = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetStereoEnabled', ((1, 'enabled'),)))
+    win32more.System.Com.IUnknown
     return IDXGIDisplayControl
 def _define_DXGI_OUTDUPL_MOVE_RECT_head():
     class DXGI_OUTDUPL_MOVE_RECT(Structure):
@@ -506,6 +521,7 @@ def _define_IDXGIOutputDuplication():
     IDXGIOutputDuplication.MapDesktopSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MAPPED_RECT_head), use_last_error=False)(12, 'MapDesktopSurface', ((1, 'pLockedRect'),)))
     IDXGIOutputDuplication.UnMapDesktopSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'UnMapDesktopSurface', ()))
     IDXGIOutputDuplication.ReleaseFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'ReleaseFrame', ()))
+    win32more.Graphics.Dxgi.IDXGIObject
     return IDXGIOutputDuplication
 def _define_IDXGISurface2_head():
     class IDXGISurface2(win32more.Graphics.Dxgi.IDXGISurface1_head):
@@ -514,6 +530,7 @@ def _define_IDXGISurface2_head():
 def _define_IDXGISurface2():
     IDXGISurface2 = win32more.Graphics.Dxgi.IDXGISurface2_head
     IDXGISurface2.GetResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p),POINTER(UInt32), use_last_error=False)(13, 'GetResource', ((1, 'riid'),(1, 'ppParentResource'),(1, 'pSubresourceIndex'),)))
+    win32more.Graphics.Dxgi.IDXGISurface1
     return IDXGISurface2
 def _define_IDXGIResource1_head():
     class IDXGIResource1(win32more.Graphics.Dxgi.IDXGIResource_head):
@@ -523,6 +540,7 @@ def _define_IDXGIResource1():
     IDXGIResource1 = win32more.Graphics.Dxgi.IDXGIResource1_head
     IDXGIResource1.CreateSubresourceSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGISurface2_head), use_last_error=False)(12, 'CreateSubresourceSurface', ((1, 'index'),(1, 'ppSurface'),)))
     IDXGIResource1.CreateSharedHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(13, 'CreateSharedHandle', ((1, 'pAttributes'),(1, 'dwAccess'),(1, 'lpName'),(1, 'pHandle'),)))
+    win32more.Graphics.Dxgi.IDXGIResource
     return IDXGIResource1
 DXGI_OFFER_RESOURCE_PRIORITY = Int32
 DXGI_OFFER_RESOURCE_PRIORITY_LOW = 1
@@ -537,6 +555,7 @@ def _define_IDXGIDevice2():
     IDXGIDevice2.OfferResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIResource_head),win32more.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY, use_last_error=False)(14, 'OfferResources', ((1, 'NumResources'),(1, 'ppResources'),(1, 'Priority'),)))
     IDXGIDevice2.ReclaimResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIResource_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(15, 'ReclaimResources', ((1, 'NumResources'),(1, 'ppResources'),(1, 'pDiscarded'),)))
     IDXGIDevice2.EnqueueSetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(16, 'EnqueueSetEvent', ((1, 'hEvent'),)))
+    win32more.Graphics.Dxgi.IDXGIDevice1
     return IDXGIDevice2
 def _define_DXGI_MODE_DESC1_head():
     class DXGI_MODE_DESC1(Structure):
@@ -621,6 +640,7 @@ def _define_IDXGISwapChain1():
     IDXGISwapChain1.GetBackgroundColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_RGBA_head), use_last_error=False)(26, 'GetBackgroundColor', ((1, 'pColor'),)))
     IDXGISwapChain1.SetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION, use_last_error=False)(27, 'SetRotation', ((1, 'Rotation'),)))
     IDXGISwapChain1.GetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION), use_last_error=False)(28, 'GetRotation', ((1, 'pRotation'),)))
+    win32more.Graphics.Dxgi.IDXGISwapChain
     return IDXGISwapChain1
 def _define_IDXGIFactory2_head():
     class IDXGIFactory2(win32more.Graphics.Dxgi.IDXGIFactory1_head):
@@ -639,6 +659,7 @@ def _define_IDXGIFactory2():
     IDXGIFactory2.RegisterOcclusionStatusEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt32), use_last_error=False)(22, 'RegisterOcclusionStatusEvent', ((1, 'hEvent'),(1, 'pdwCookie'),)))
     IDXGIFactory2.UnregisterOcclusionStatus = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(23, 'UnregisterOcclusionStatus', ((1, 'dwCookie'),)))
     IDXGIFactory2.CreateSwapChainForComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head),win32more.Graphics.Dxgi.IDXGIOutput_head,POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head), use_last_error=False)(24, 'CreateSwapChainForComposition', ((1, 'pDevice'),(1, 'pDesc'),(1, 'pRestrictToOutput'),(1, 'ppSwapChain'),)))
+    win32more.Graphics.Dxgi.IDXGIFactory1
     return IDXGIFactory2
 DXGI_GRAPHICS_PREEMPTION_GRANULARITY = Int32
 DXGI_GRAPHICS_PREEMPTION_DMA_BUFFER_BOUNDARY = 0
@@ -680,6 +701,7 @@ def _define_IDXGIAdapter2_head():
 def _define_IDXGIAdapter2():
     IDXGIAdapter2 = win32more.Graphics.Dxgi.IDXGIAdapter2_head
     IDXGIAdapter2.GetDesc2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC2_head), use_last_error=False)(11, 'GetDesc2', ((1, 'pDesc'),)))
+    win32more.Graphics.Dxgi.IDXGIAdapter1
     return IDXGIAdapter2
 def _define_IDXGIOutput1_head():
     class IDXGIOutput1(win32more.Graphics.Dxgi.IDXGIOutput_head):
@@ -691,6 +713,7 @@ def _define_IDXGIOutput1():
     IDXGIOutput1.FindClosestMatchingMode1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MODE_DESC1_head),POINTER(win32more.Graphics.Dxgi.DXGI_MODE_DESC1_head),win32more.System.Com.IUnknown_head, use_last_error=False)(20, 'FindClosestMatchingMode1', ((1, 'pModeToMatch'),(1, 'pClosestMatch'),(1, 'pConcernedDevice'),)))
     IDXGIOutput1.GetDisplaySurfaceData1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIResource_head, use_last_error=False)(21, 'GetDisplaySurfaceData1', ((1, 'pDestination'),)))
     IDXGIOutput1.DuplicateOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Dxgi.IDXGIOutputDuplication_head), use_last_error=False)(22, 'DuplicateOutput', ((1, 'pDevice'),(1, 'ppOutputDuplication'),)))
+    win32more.Graphics.Dxgi.IDXGIOutput
     return IDXGIOutput1
 def _define_IDXGIDevice3_head():
     class IDXGIDevice3(win32more.Graphics.Dxgi.IDXGIDevice2_head):
@@ -699,6 +722,7 @@ def _define_IDXGIDevice3_head():
 def _define_IDXGIDevice3():
     IDXGIDevice3 = win32more.Graphics.Dxgi.IDXGIDevice3_head
     IDXGIDevice3.Trim = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(17, 'Trim', ()))
+    win32more.Graphics.Dxgi.IDXGIDevice2
     return IDXGIDevice3
 def _define_DXGI_MATRIX_3X2_F_head():
     class DXGI_MATRIX_3X2_F(Structure):
@@ -728,6 +752,7 @@ def _define_IDXGISwapChain2():
     IDXGISwapChain2.GetFrameLatencyWaitableObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HANDLE, use_last_error=False)(33, 'GetFrameLatencyWaitableObject', ()))
     IDXGISwapChain2.SetMatrixTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MATRIX_3X2_F_head), use_last_error=False)(34, 'SetMatrixTransform', ((1, 'pMatrix'),)))
     IDXGISwapChain2.GetMatrixTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_MATRIX_3X2_F_head), use_last_error=False)(35, 'GetMatrixTransform', ((1, 'pMatrix'),)))
+    win32more.Graphics.Dxgi.IDXGISwapChain1
     return IDXGISwapChain2
 def _define_IDXGIOutput2_head():
     class IDXGIOutput2(win32more.Graphics.Dxgi.IDXGIOutput1_head):
@@ -736,6 +761,7 @@ def _define_IDXGIOutput2_head():
 def _define_IDXGIOutput2():
     IDXGIOutput2 = win32more.Graphics.Dxgi.IDXGIOutput2_head
     IDXGIOutput2.SupportsOverlays = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(23, 'SupportsOverlays', ()))
+    win32more.Graphics.Dxgi.IDXGIOutput1
     return IDXGIOutput2
 def _define_IDXGIFactory3_head():
     class IDXGIFactory3(win32more.Graphics.Dxgi.IDXGIFactory2_head):
@@ -744,6 +770,7 @@ def _define_IDXGIFactory3_head():
 def _define_IDXGIFactory3():
     IDXGIFactory3 = win32more.Graphics.Dxgi.IDXGIFactory3_head
     IDXGIFactory3.GetCreationFlags = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(25, 'GetCreationFlags', ()))
+    win32more.Graphics.Dxgi.IDXGIFactory2
     return IDXGIFactory3
 def _define_DXGI_DECODE_SWAP_CHAIN_DESC_head():
     class DXGI_DECODE_SWAP_CHAIN_DESC(Structure):
@@ -774,6 +801,7 @@ def _define_IDXGIDecodeSwapChain():
     IDXGIDecodeSwapChain.GetDestSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(9, 'GetDestSize', ((1, 'pWidth'),(1, 'pHeight'),)))
     IDXGIDecodeSwapChain.SetColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS, use_last_error=False)(10, 'SetColorSpace', ((1, 'ColorSpace'),)))
     IDXGIDecodeSwapChain.GetColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Dxgi.DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS, use_last_error=False)(11, 'GetColorSpace', ()))
+    win32more.System.Com.IUnknown
     return IDXGIDecodeSwapChain
 def _define_IDXGIFactoryMedia_head():
     class IDXGIFactoryMedia(win32more.System.Com.IUnknown_head):
@@ -783,6 +811,7 @@ def _define_IDXGIFactoryMedia():
     IDXGIFactoryMedia = win32more.Graphics.Dxgi.IDXGIFactoryMedia_head
     IDXGIFactoryMedia.CreateSwapChainForCompositionSurfaceHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.HANDLE,POINTER(win32more.Graphics.Dxgi.DXGI_SWAP_CHAIN_DESC1_head),win32more.Graphics.Dxgi.IDXGIOutput_head,POINTER(win32more.Graphics.Dxgi.IDXGISwapChain1_head), use_last_error=False)(3, 'CreateSwapChainForCompositionSurfaceHandle', ((1, 'pDevice'),(1, 'hSurface'),(1, 'pDesc'),(1, 'pRestrictToOutput'),(1, 'ppSwapChain'),)))
     IDXGIFactoryMedia.CreateDecodeSwapChainForCompositionSurfaceHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.HANDLE,POINTER(win32more.Graphics.Dxgi.DXGI_DECODE_SWAP_CHAIN_DESC_head),win32more.Graphics.Dxgi.IDXGIResource_head,win32more.Graphics.Dxgi.IDXGIOutput_head,POINTER(win32more.Graphics.Dxgi.IDXGIDecodeSwapChain_head), use_last_error=False)(4, 'CreateDecodeSwapChainForCompositionSurfaceHandle', ((1, 'pDevice'),(1, 'hSurface'),(1, 'pDesc'),(1, 'pYuvDecodeBuffers'),(1, 'pRestrictToOutput'),(1, 'ppSwapChain'),)))
+    win32more.System.Com.IUnknown
     return IDXGIFactoryMedia
 DXGI_FRAME_PRESENTATION_MODE = Int32
 DXGI_FRAME_PRESENTATION_MODE_COMPOSED = 0
@@ -814,6 +843,7 @@ def _define_IDXGISwapChainMedia():
     IDXGISwapChainMedia.GetFrameStatisticsMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_FRAME_STATISTICS_MEDIA_head), use_last_error=False)(3, 'GetFrameStatisticsMedia', ((1, 'pStats'),)))
     IDXGISwapChainMedia.SetPresentDuration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetPresentDuration', ((1, 'Duration'),)))
     IDXGISwapChainMedia.CheckPresentDurationSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(5, 'CheckPresentDurationSupport', ((1, 'DesiredPresentDuration'),(1, 'pClosestSmallerPresentDuration'),(1, 'pClosestLargerPresentDuration'),)))
+    win32more.System.Com.IUnknown
     return IDXGISwapChainMedia
 DXGI_OVERLAY_SUPPORT_FLAG = Int32
 DXGI_OVERLAY_SUPPORT_FLAG_DIRECT = 1
@@ -825,6 +855,7 @@ def _define_IDXGIOutput3_head():
 def _define_IDXGIOutput3():
     IDXGIOutput3 = win32more.Graphics.Dxgi.IDXGIOutput3_head
     IDXGIOutput3.CheckOverlaySupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.System.Com.IUnknown_head,POINTER(UInt32), use_last_error=False)(24, 'CheckOverlaySupport', ((1, 'EnumFormat'),(1, 'pConcernedDevice'),(1, 'pFlags'),)))
+    win32more.Graphics.Dxgi.IDXGIOutput2
     return IDXGIOutput3
 DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG = Int32
 DXGI_SWAP_CHAIN_COLOR_SPACE_SUPPORT_FLAG_PRESENT = 1
@@ -839,6 +870,7 @@ def _define_IDXGISwapChain3():
     IDXGISwapChain3.CheckColorSpaceSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,POINTER(UInt32), use_last_error=False)(37, 'CheckColorSpaceSupport', ((1, 'ColorSpace'),(1, 'pColorSpaceSupport'),)))
     IDXGISwapChain3.SetColorSpace1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE, use_last_error=False)(38, 'SetColorSpace1', ((1, 'ColorSpace'),)))
     IDXGISwapChain3.ResizeBuffers1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,UInt32,POINTER(UInt32),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(39, 'ResizeBuffers1', ((1, 'BufferCount'),(1, 'Width'),(1, 'Height'),(1, 'Format'),(1, 'SwapChainFlags'),(1, 'pCreationNodeMask'),(1, 'ppPresentQueue'),)))
+    win32more.Graphics.Dxgi.IDXGISwapChain2
     return IDXGISwapChain3
 DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG = Int32
 DXGI_OVERLAY_COLOR_SPACE_SUPPORT_FLAG_PRESENT = 1
@@ -849,6 +881,7 @@ def _define_IDXGIOutput4_head():
 def _define_IDXGIOutput4():
     IDXGIOutput4 = win32more.Graphics.Dxgi.IDXGIOutput4_head
     IDXGIOutput4.CheckOverlayColorSpaceSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Graphics.Dxgi.Common.DXGI_COLOR_SPACE_TYPE,win32more.System.Com.IUnknown_head,POINTER(UInt32), use_last_error=False)(25, 'CheckOverlayColorSpaceSupport', ((1, 'Format'),(1, 'ColorSpace'),(1, 'pConcernedDevice'),(1, 'pFlags'),)))
+    win32more.Graphics.Dxgi.IDXGIOutput3
     return IDXGIOutput4
 def _define_IDXGIFactory4_head():
     class IDXGIFactory4(win32more.Graphics.Dxgi.IDXGIFactory3_head):
@@ -858,6 +891,7 @@ def _define_IDXGIFactory4():
     IDXGIFactory4 = win32more.Graphics.Dxgi.IDXGIFactory4_head
     IDXGIFactory4.EnumAdapterByLuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LUID,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(26, 'EnumAdapterByLuid', ((1, 'AdapterLuid'),(1, 'riid'),(1, 'ppvAdapter'),)))
     IDXGIFactory4.EnumWarpAdapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(27, 'EnumWarpAdapter', ((1, 'riid'),(1, 'ppvAdapter'),)))
+    win32more.Graphics.Dxgi.IDXGIFactory3
     return IDXGIFactory4
 DXGI_MEMORY_SEGMENT_GROUP = Int32
 DXGI_MEMORY_SEGMENT_GROUP_LOCAL = 0
@@ -887,6 +921,7 @@ def _define_IDXGIAdapter3():
     IDXGIAdapter3.SetVideoMemoryReservation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Dxgi.DXGI_MEMORY_SEGMENT_GROUP,UInt64, use_last_error=False)(15, 'SetVideoMemoryReservation', ((1, 'NodeIndex'),(1, 'MemorySegmentGroup'),(1, 'Reservation'),)))
     IDXGIAdapter3.RegisterVideoMemoryBudgetChangeNotificationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt32), use_last_error=False)(16, 'RegisterVideoMemoryBudgetChangeNotificationEvent', ((1, 'hEvent'),(1, 'pdwCookie'),)))
     IDXGIAdapter3.UnregisterVideoMemoryBudgetChangeNotification = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(17, 'UnregisterVideoMemoryBudgetChangeNotification', ((1, 'dwCookie'),)))
+    win32more.Graphics.Dxgi.IDXGIAdapter2
     return IDXGIAdapter3
 DXGI_OUTDUPL_FLAG = Int32
 DXGI_OUTDUPL_COMPOSITED_UI_CAPTURE_ONLY = 1
@@ -897,6 +932,7 @@ def _define_IDXGIOutput5_head():
 def _define_IDXGIOutput5():
     IDXGIOutput5 = win32more.Graphics.Dxgi.IDXGIOutput5_head
     IDXGIOutput5.DuplicateOutput1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,UInt32,POINTER(win32more.Graphics.Dxgi.Common.DXGI_FORMAT),POINTER(win32more.Graphics.Dxgi.IDXGIOutputDuplication_head), use_last_error=False)(26, 'DuplicateOutput1', ((1, 'pDevice'),(1, 'Flags'),(1, 'SupportedFormatsCount'),(1, 'pSupportedFormats'),(1, 'ppOutputDuplication'),)))
+    win32more.Graphics.Dxgi.IDXGIOutput4
     return IDXGIOutput5
 DXGI_HDR_METADATA_TYPE = Int32
 DXGI_HDR_METADATA_TYPE_NONE = 0
@@ -936,6 +972,7 @@ def _define_IDXGISwapChain4_head():
 def _define_IDXGISwapChain4():
     IDXGISwapChain4 = win32more.Graphics.Dxgi.IDXGISwapChain4_head
     IDXGISwapChain4.SetHDRMetaData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.DXGI_HDR_METADATA_TYPE,UInt32,POINTER(Void), use_last_error=False)(40, 'SetHDRMetaData', ((1, 'Type'),(1, 'Size'),(1, 'pMetaData'),)))
+    win32more.Graphics.Dxgi.IDXGISwapChain3
     return IDXGISwapChain4
 DXGI_OFFER_RESOURCE_FLAGS = Int32
 DXGI_OFFER_RESOURCE_FLAG_ALLOW_DECOMMIT = 1
@@ -951,6 +988,7 @@ def _define_IDXGIDevice4():
     IDXGIDevice4 = win32more.Graphics.Dxgi.IDXGIDevice4_head
     IDXGIDevice4.OfferResources1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIResource_head),win32more.Graphics.Dxgi.DXGI_OFFER_RESOURCE_PRIORITY,UInt32, use_last_error=False)(18, 'OfferResources1', ((1, 'NumResources'),(1, 'ppResources'),(1, 'Priority'),(1, 'Flags'),)))
     IDXGIDevice4.ReclaimResources1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Dxgi.IDXGIResource_head),POINTER(win32more.Graphics.Dxgi.DXGI_RECLAIM_RESOURCE_RESULTS), use_last_error=False)(19, 'ReclaimResources1', ((1, 'NumResources'),(1, 'ppResources'),(1, 'pResults'),)))
+    win32more.Graphics.Dxgi.IDXGIDevice3
     return IDXGIDevice4
 DXGI_FEATURE = Int32
 DXGI_FEATURE_PRESENT_ALLOW_TEARING = 0
@@ -961,6 +999,7 @@ def _define_IDXGIFactory5_head():
 def _define_IDXGIFactory5():
     IDXGIFactory5 = win32more.Graphics.Dxgi.IDXGIFactory5_head
     IDXGIFactory5.CheckFeatureSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.DXGI_FEATURE,c_void_p,UInt32, use_last_error=False)(28, 'CheckFeatureSupport', ((1, 'Feature'),(1, 'pFeatureSupportData'),(1, 'FeatureSupportDataSize'),)))
+    win32more.Graphics.Dxgi.IDXGIFactory4
     return IDXGIFactory5
 DXGI_ADAPTER_FLAG3 = UInt32
 DXGI_ADAPTER_FLAG3_NONE = 0
@@ -999,6 +1038,7 @@ def _define_IDXGIAdapter4_head():
 def _define_IDXGIAdapter4():
     IDXGIAdapter4 = win32more.Graphics.Dxgi.IDXGIAdapter4_head
     IDXGIAdapter4.GetDesc3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_ADAPTER_DESC3_head), use_last_error=False)(18, 'GetDesc3', ((1, 'pDesc'),)))
+    win32more.Graphics.Dxgi.IDXGIAdapter3
     return IDXGIAdapter4
 def _define_DXGI_OUTPUT_DESC1_head():
     class DXGI_OUTPUT_DESC1(Structure):
@@ -1035,6 +1075,7 @@ def _define_IDXGIOutput6():
     IDXGIOutput6 = win32more.Graphics.Dxgi.IDXGIOutput6_head
     IDXGIOutput6.GetDesc1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.DXGI_OUTPUT_DESC1_head), use_last_error=False)(27, 'GetDesc1', ((1, 'pDesc'),)))
     IDXGIOutput6.CheckHardwareCompositionSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(28, 'CheckHardwareCompositionSupport', ((1, 'pFlags'),)))
+    win32more.Graphics.Dxgi.IDXGIOutput5
     return IDXGIOutput6
 DXGI_GPU_PREFERENCE = Int32
 DXGI_GPU_PREFERENCE_UNSPECIFIED = 0
@@ -1047,6 +1088,7 @@ def _define_IDXGIFactory6_head():
 def _define_IDXGIFactory6():
     IDXGIFactory6 = win32more.Graphics.Dxgi.IDXGIFactory6_head
     IDXGIFactory6.EnumAdapterByGpuPreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Dxgi.DXGI_GPU_PREFERENCE,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(29, 'EnumAdapterByGpuPreference', ((1, 'Adapter'),(1, 'GpuPreference'),(1, 'riid'),(1, 'ppvAdapter'),)))
+    win32more.Graphics.Dxgi.IDXGIFactory5
     return IDXGIFactory6
 def _define_IDXGIFactory7_head():
     class IDXGIFactory7(win32more.Graphics.Dxgi.IDXGIFactory6_head):
@@ -1056,6 +1098,7 @@ def _define_IDXGIFactory7():
     IDXGIFactory7 = win32more.Graphics.Dxgi.IDXGIFactory7_head
     IDXGIFactory7.RegisterAdaptersChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(UInt32), use_last_error=False)(30, 'RegisterAdaptersChangedEvent', ((1, 'hEvent'),(1, 'pdwCookie'),)))
     IDXGIFactory7.UnregisterAdaptersChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(31, 'UnregisterAdaptersChangedEvent', ((1, 'dwCookie'),)))
+    win32more.Graphics.Dxgi.IDXGIFactory6
     return IDXGIFactory7
 DXGI_DEBUG_RLO_FLAGS = UInt32
 DXGI_DEBUG_RLO_SUMMARY = 1
@@ -1164,6 +1207,7 @@ def _define_IDXGIInfoQueue():
     IDXGIInfoQueue.GetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,Guid,Int32, use_last_error=False)(37, 'GetBreakOnID', ((1, 'Producer'),(1, 'ID'),)))
     IDXGIInfoQueue.SetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(Void,Guid,win32more.Foundation.BOOL, use_last_error=False)(38, 'SetMuteDebugOutput', ((1, 'Producer'),(1, 'bMute'),)))
     IDXGIInfoQueue.GetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,Guid, use_last_error=False)(39, 'GetMuteDebugOutput', ((1, 'Producer'),)))
+    win32more.System.Com.IUnknown
     return IDXGIInfoQueue
 def _define_IDXGIDebug_head():
     class IDXGIDebug(win32more.System.Com.IUnknown_head):
@@ -1172,6 +1216,7 @@ def _define_IDXGIDebug_head():
 def _define_IDXGIDebug():
     IDXGIDebug = win32more.Graphics.Dxgi.IDXGIDebug_head
     IDXGIDebug.ReportLiveObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Graphics.Dxgi.DXGI_DEBUG_RLO_FLAGS, use_last_error=False)(3, 'ReportLiveObjects', ((1, 'apiid'),(1, 'flags'),)))
+    win32more.System.Com.IUnknown
     return IDXGIDebug
 def _define_IDXGIDebug1_head():
     class IDXGIDebug1(win32more.Graphics.Dxgi.IDXGIDebug_head):
@@ -1182,6 +1227,7 @@ def _define_IDXGIDebug1():
     IDXGIDebug1.EnableLeakTrackingForThread = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'EnableLeakTrackingForThread', ()))
     IDXGIDebug1.DisableLeakTrackingForThread = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(5, 'DisableLeakTrackingForThread', ()))
     IDXGIDebug1.IsLeakTrackingEnabledForThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(6, 'IsLeakTrackingEnabledForThread', ()))
+    win32more.Graphics.Dxgi.IDXGIDebug
     return IDXGIDebug1
 DXGI_Message_Id = Int32
 DXGI_MSG_IDXGISwapChain_CreationOrResizeBuffers_InvalidOutputWindow = 0
@@ -1523,6 +1569,7 @@ def _define_IDXGraphicsAnalysis():
     IDXGraphicsAnalysis = win32more.Graphics.Dxgi.IDXGraphicsAnalysis_head
     IDXGraphicsAnalysis.BeginCapture = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(3, 'BeginCapture', ()))
     IDXGraphicsAnalysis.EndCapture = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'EndCapture', ()))
+    win32more.System.Com.IUnknown
     return IDXGraphicsAnalysis
 def _define_CreateDXGIFactory():
     try:

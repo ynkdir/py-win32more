@@ -61,6 +61,7 @@ def _define_IDxcBlob():
     IDxcBlob = win32more.Graphics.Direct3D.Dxc.IDxcBlob_head
     IDxcBlob.GetBufferPointer = COMMETHOD(WINFUNCTYPE(c_void_p, use_last_error=False)(3, 'GetBufferPointer', ()))
     IDxcBlob.GetBufferSize = COMMETHOD(WINFUNCTYPE(UIntPtr, use_last_error=False)(4, 'GetBufferSize', ()))
+    win32more.System.Com.IUnknown
     return IDxcBlob
 def _define_IDxcBlobEncoding_head():
     class IDxcBlobEncoding(win32more.Graphics.Direct3D.Dxc.IDxcBlob_head):
@@ -69,6 +70,7 @@ def _define_IDxcBlobEncoding_head():
 def _define_IDxcBlobEncoding():
     IDxcBlobEncoding = win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding_head
     IDxcBlobEncoding.GetEncoding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Graphics.Direct3D.Dxc.DXC_CP), use_last_error=False)(5, 'GetEncoding', ((1, 'pKnown'),(1, 'pCodePage'),)))
+    win32more.Graphics.Direct3D.Dxc.IDxcBlob
     return IDxcBlobEncoding
 def _define_IDxcBlobUtf16_head():
     class IDxcBlobUtf16(win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding_head):
@@ -78,6 +80,7 @@ def _define_IDxcBlobUtf16():
     IDxcBlobUtf16 = win32more.Graphics.Direct3D.Dxc.IDxcBlobUtf16_head
     IDxcBlobUtf16.GetStringPointer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.PWSTR, use_last_error=False)(6, 'GetStringPointer', ()))
     IDxcBlobUtf16.GetStringLength = COMMETHOD(WINFUNCTYPE(UIntPtr, use_last_error=False)(7, 'GetStringLength', ()))
+    win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding
     return IDxcBlobUtf16
 def _define_IDxcBlobUtf8_head():
     class IDxcBlobUtf8(win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding_head):
@@ -87,6 +90,7 @@ def _define_IDxcBlobUtf8():
     IDxcBlobUtf8 = win32more.Graphics.Direct3D.Dxc.IDxcBlobUtf8_head
     IDxcBlobUtf8.GetStringPointer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.PSTR, use_last_error=False)(6, 'GetStringPointer', ()))
     IDxcBlobUtf8.GetStringLength = COMMETHOD(WINFUNCTYPE(UIntPtr, use_last_error=False)(7, 'GetStringLength', ()))
+    win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding
     return IDxcBlobUtf8
 def _define_IDxcIncludeHandler_head():
     class IDxcIncludeHandler(win32more.System.Com.IUnknown_head):
@@ -95,6 +99,7 @@ def _define_IDxcIncludeHandler_head():
 def _define_IDxcIncludeHandler():
     IDxcIncludeHandler = win32more.Graphics.Direct3D.Dxc.IDxcIncludeHandler_head
     IDxcIncludeHandler.LoadSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlob_head), use_last_error=False)(3, 'LoadSource', ((1, 'pFilename'),(1, 'ppIncludeSource'),)))
+    win32more.System.Com.IUnknown
     return IDxcIncludeHandler
 def _define_DxcBuffer_head():
     class DxcBuffer(Structure):
@@ -130,6 +135,7 @@ def _define_IDxcCompilerArgs():
     IDxcCompilerArgs.AddArguments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),UInt32, use_last_error=False)(5, 'AddArguments', ((1, 'pArguments'),(1, 'argCount'),)))
     IDxcCompilerArgs.AddArgumentsUTF8 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PSTR),UInt32, use_last_error=False)(6, 'AddArgumentsUTF8', ((1, 'pArguments'),(1, 'argCount'),)))
     IDxcCompilerArgs.AddDefines = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.Dxc.DxcDefine),UInt32, use_last_error=False)(7, 'AddDefines', ((1, 'pDefines'),(1, 'defineCount'),)))
+    win32more.System.Com.IUnknown
     return IDxcCompilerArgs
 def _define_IDxcLibrary_head():
     class IDxcLibrary(win32more.System.Com.IUnknown_head):
@@ -147,6 +153,7 @@ def _define_IDxcLibrary():
     IDxcLibrary.CreateStreamFromBlobReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(10, 'CreateStreamFromBlobReadOnly', ((1, 'pBlob'),(1, 'ppStream'),)))
     IDxcLibrary.GetBlobAsUtf8 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding_head), use_last_error=False)(11, 'GetBlobAsUtf8', ((1, 'pBlob'),(1, 'pBlobEncoding'),)))
     IDxcLibrary.GetBlobAsUtf16 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding_head), use_last_error=False)(12, 'GetBlobAsUtf16', ((1, 'pBlob'),(1, 'pBlobEncoding'),)))
+    win32more.System.Com.IUnknown
     return IDxcLibrary
 def _define_IDxcOperationResult_head():
     class IDxcOperationResult(win32more.System.Com.IUnknown_head):
@@ -157,6 +164,7 @@ def _define_IDxcOperationResult():
     IDxcOperationResult.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(3, 'GetStatus', ((1, 'pStatus'),)))
     IDxcOperationResult.GetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlob_head), use_last_error=False)(4, 'GetResult', ((1, 'ppResult'),)))
     IDxcOperationResult.GetErrorBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding_head), use_last_error=False)(5, 'GetErrorBuffer', ((1, 'ppErrors'),)))
+    win32more.System.Com.IUnknown
     return IDxcOperationResult
 def _define_IDxcCompiler_head():
     class IDxcCompiler(win32more.System.Com.IUnknown_head):
@@ -167,6 +175,7 @@ def _define_IDxcCompiler():
     IDxcCompiler.Compile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.DxcDefine),UInt32,win32more.Graphics.Direct3D.Dxc.IDxcIncludeHandler_head,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcOperationResult_head), use_last_error=False)(3, 'Compile', ((1, 'pSource'),(1, 'pSourceName'),(1, 'pEntryPoint'),(1, 'pTargetProfile'),(1, 'pArguments'),(1, 'argCount'),(1, 'pDefines'),(1, 'defineCount'),(1, 'pIncludeHandler'),(1, 'ppResult'),)))
     IDxcCompiler.Preprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.DxcDefine),UInt32,win32more.Graphics.Direct3D.Dxc.IDxcIncludeHandler_head,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcOperationResult_head), use_last_error=False)(4, 'Preprocess', ((1, 'pSource'),(1, 'pSourceName'),(1, 'pArguments'),(1, 'argCount'),(1, 'pDefines'),(1, 'defineCount'),(1, 'pIncludeHandler'),(1, 'ppResult'),)))
     IDxcCompiler.Disassemble = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding_head), use_last_error=False)(5, 'Disassemble', ((1, 'pSource'),(1, 'ppDisassembly'),)))
+    win32more.System.Com.IUnknown
     return IDxcCompiler
 def _define_IDxcCompiler2_head():
     class IDxcCompiler2(win32more.Graphics.Direct3D.Dxc.IDxcCompiler_head):
@@ -175,6 +184,7 @@ def _define_IDxcCompiler2_head():
 def _define_IDxcCompiler2():
     IDxcCompiler2 = win32more.Graphics.Direct3D.Dxc.IDxcCompiler2_head
     IDxcCompiler2.CompileWithDebug = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.DxcDefine),UInt32,win32more.Graphics.Direct3D.Dxc.IDxcIncludeHandler_head,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcOperationResult_head),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlob_head), use_last_error=False)(6, 'CompileWithDebug', ((1, 'pSource'),(1, 'pSourceName'),(1, 'pEntryPoint'),(1, 'pTargetProfile'),(1, 'pArguments'),(1, 'argCount'),(1, 'pDefines'),(1, 'defineCount'),(1, 'pIncludeHandler'),(1, 'ppResult'),(1, 'ppDebugBlobName'),(1, 'ppDebugBlob'),)))
+    win32more.Graphics.Direct3D.Dxc.IDxcCompiler
     return IDxcCompiler2
 def _define_IDxcLinker_head():
     class IDxcLinker(win32more.System.Com.IUnknown_head):
@@ -184,6 +194,7 @@ def _define_IDxcLinker():
     IDxcLinker = win32more.Graphics.Direct3D.Dxc.IDxcLinker_head
     IDxcLinker.RegisterLibrary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head, use_last_error=False)(3, 'RegisterLibrary', ((1, 'pLibName'),(1, 'pLib'),)))
     IDxcLinker.Link = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcOperationResult_head), use_last_error=False)(4, 'Link', ((1, 'pEntryName'),(1, 'pTargetProfile'),(1, 'pLibNames'),(1, 'libCount'),(1, 'pArguments'),(1, 'argCount'),(1, 'ppResult'),)))
+    win32more.System.Com.IUnknown
     return IDxcLinker
 def _define_IDxcUtils_head():
     class IDxcUtils(win32more.System.Com.IUnknown_head):
@@ -204,6 +215,7 @@ def _define_IDxcUtils():
     IDxcUtils.CreateReflection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.Dxc.DxcBuffer_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(13, 'CreateReflection', ((1, 'pData'),(1, 'iid'),(1, 'ppvReflection'),)))
     IDxcUtils.BuildArguments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.DxcDefine),UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcCompilerArgs_head), use_last_error=False)(14, 'BuildArguments', ((1, 'pSourceName'),(1, 'pEntryPoint'),(1, 'pTargetProfile'),(1, 'pArguments'),(1, 'argCount'),(1, 'pDefines'),(1, 'defineCount'),(1, 'ppArgs'),)))
     IDxcUtils.GetPDBContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlob_head),POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlob_head), use_last_error=False)(15, 'GetPDBContents', ((1, 'pPDBBlob'),(1, 'ppHash'),(1, 'ppContainer'),)))
+    win32more.System.Com.IUnknown
     return IDxcUtils
 DXC_OUT_KIND = Int32
 DXC_OUT_NONE = 0
@@ -229,6 +241,7 @@ def _define_IDxcResult():
     IDxcResult.GetNumOutputs = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(8, 'GetNumOutputs', ()))
     IDxcResult.GetOutputByIndex = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D.Dxc.DXC_OUT_KIND,UInt32, use_last_error=False)(9, 'GetOutputByIndex', ((1, 'Index'),)))
     IDxcResult.PrimaryOutput = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D.Dxc.DXC_OUT_KIND, use_last_error=False)(10, 'PrimaryOutput', ()))
+    win32more.Graphics.Direct3D.Dxc.IDxcOperationResult
     return IDxcResult
 def _define_IDxcExtraOutputs_head():
     class IDxcExtraOutputs(win32more.System.Com.IUnknown_head):
@@ -238,6 +251,7 @@ def _define_IDxcExtraOutputs():
     IDxcExtraOutputs = win32more.Graphics.Direct3D.Dxc.IDxcExtraOutputs_head
     IDxcExtraOutputs.GetOutputCount = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(3, 'GetOutputCount', ()))
     IDxcExtraOutputs.GetOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p),POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlobUtf16_head),POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlobUtf16_head), use_last_error=False)(4, 'GetOutput', ((1, 'uIndex'),(1, 'iid'),(1, 'ppvObject'),(1, 'ppOutputType'),(1, 'ppOutputName'),)))
+    win32more.System.Com.IUnknown
     return IDxcExtraOutputs
 def _define_IDxcCompiler3_head():
     class IDxcCompiler3(win32more.System.Com.IUnknown_head):
@@ -247,6 +261,7 @@ def _define_IDxcCompiler3():
     IDxcCompiler3 = win32more.Graphics.Direct3D.Dxc.IDxcCompiler3_head
     IDxcCompiler3.Compile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.Dxc.DxcBuffer_head),POINTER(win32more.Foundation.PWSTR),UInt32,win32more.Graphics.Direct3D.Dxc.IDxcIncludeHandler_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'Compile', ((1, 'pSource'),(1, 'pArguments'),(1, 'argCount'),(1, 'pIncludeHandler'),(1, 'riid'),(1, 'ppResult'),)))
     IDxcCompiler3.Disassemble = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.Dxc.DxcBuffer_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'Disassemble', ((1, 'pObject'),(1, 'riid'),(1, 'ppResult'),)))
+    win32more.System.Com.IUnknown
     return IDxcCompiler3
 def _define_IDxcValidator_head():
     class IDxcValidator(win32more.System.Com.IUnknown_head):
@@ -255,6 +270,7 @@ def _define_IDxcValidator_head():
 def _define_IDxcValidator():
     IDxcValidator = win32more.Graphics.Direct3D.Dxc.IDxcValidator_head
     IDxcValidator.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcOperationResult_head), use_last_error=False)(3, 'Validate', ((1, 'pShader'),(1, 'Flags'),(1, 'ppResult'),)))
+    win32more.System.Com.IUnknown
     return IDxcValidator
 def _define_IDxcValidator2_head():
     class IDxcValidator2(win32more.Graphics.Direct3D.Dxc.IDxcValidator_head):
@@ -263,6 +279,7 @@ def _define_IDxcValidator2_head():
 def _define_IDxcValidator2():
     IDxcValidator2 = win32more.Graphics.Direct3D.Dxc.IDxcValidator2_head
     IDxcValidator2.ValidateWithDebug = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.DxcBuffer_head),POINTER(win32more.Graphics.Direct3D.Dxc.IDxcOperationResult_head), use_last_error=False)(4, 'ValidateWithDebug', ((1, 'pShader'),(1, 'Flags'),(1, 'pOptDebugBitcode'),(1, 'ppResult'),)))
+    win32more.Graphics.Direct3D.Dxc.IDxcValidator
     return IDxcValidator2
 def _define_IDxcContainerBuilder_head():
     class IDxcContainerBuilder(win32more.System.Com.IUnknown_head):
@@ -274,6 +291,7 @@ def _define_IDxcContainerBuilder():
     IDxcContainerBuilder.AddPart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head, use_last_error=False)(4, 'AddPart', ((1, 'fourCC'),(1, 'pSource'),)))
     IDxcContainerBuilder.RemovePart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'RemovePart', ((1, 'fourCC'),)))
     IDxcContainerBuilder.SerializeContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcOperationResult_head), use_last_error=False)(6, 'SerializeContainer', ((1, 'ppResult'),)))
+    win32more.System.Com.IUnknown
     return IDxcContainerBuilder
 def _define_IDxcAssembler_head():
     class IDxcAssembler(win32more.System.Com.IUnknown_head):
@@ -282,6 +300,7 @@ def _define_IDxcAssembler_head():
 def _define_IDxcAssembler():
     IDxcAssembler = win32more.Graphics.Direct3D.Dxc.IDxcAssembler_head
     IDxcAssembler.AssembleToContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcOperationResult_head), use_last_error=False)(3, 'AssembleToContainer', ((1, 'pShader'),(1, 'ppResult'),)))
+    win32more.System.Com.IUnknown
     return IDxcAssembler
 def _define_IDxcContainerReflection_head():
     class IDxcContainerReflection(win32more.System.Com.IUnknown_head):
@@ -295,6 +314,7 @@ def _define_IDxcContainerReflection():
     IDxcContainerReflection.GetPartContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlob_head), use_last_error=False)(6, 'GetPartContent', ((1, 'idx'),(1, 'ppResult'),)))
     IDxcContainerReflection.FindFirstPartKind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(7, 'FindFirstPartKind', ((1, 'kind'),(1, 'pResult'),)))
     IDxcContainerReflection.GetPartReflection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'GetPartReflection', ((1, 'idx'),(1, 'iid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return IDxcContainerReflection
 def _define_IDxcOptimizerPass_head():
     class IDxcOptimizerPass(win32more.System.Com.IUnknown_head):
@@ -307,6 +327,7 @@ def _define_IDxcOptimizerPass():
     IDxcOptimizerPass.GetOptionArgCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetOptionArgCount', ((1, 'pCount'),)))
     IDxcOptimizerPass.GetOptionArgName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetOptionArgName', ((1, 'argIndex'),(1, 'ppResult'),)))
     IDxcOptimizerPass.GetOptionArgDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetOptionArgDescription', ((1, 'argIndex'),(1, 'ppResult'),)))
+    win32more.System.Com.IUnknown
     return IDxcOptimizerPass
 def _define_IDxcOptimizer_head():
     class IDxcOptimizer(win32more.System.Com.IUnknown_head):
@@ -317,6 +338,7 @@ def _define_IDxcOptimizer():
     IDxcOptimizer.GetAvailablePassCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetAvailablePassCount', ((1, 'pCount'),)))
     IDxcOptimizer.GetAvailablePass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcOptimizerPass_head), use_last_error=False)(4, 'GetAvailablePass', ((1, 'index'),(1, 'ppResult'),)))
     IDxcOptimizer.RunOptimizer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D.Dxc.IDxcBlob_head,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlob_head),POINTER(win32more.Graphics.Direct3D.Dxc.IDxcBlobEncoding_head), use_last_error=False)(5, 'RunOptimizer', ((1, 'pBlob'),(1, 'ppOptions'),(1, 'optionCount'),(1, 'pOutputModule'),(1, 'ppOutputText'),)))
+    win32more.System.Com.IUnknown
     return IDxcOptimizer
 def _define_IDxcVersionInfo_head():
     class IDxcVersionInfo(win32more.System.Com.IUnknown_head):
@@ -326,6 +348,7 @@ def _define_IDxcVersionInfo():
     IDxcVersionInfo = win32more.Graphics.Direct3D.Dxc.IDxcVersionInfo_head
     IDxcVersionInfo.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetVersion', ((1, 'pMajor'),(1, 'pMinor'),)))
     IDxcVersionInfo.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetFlags', ((1, 'pFlags'),)))
+    win32more.System.Com.IUnknown
     return IDxcVersionInfo
 def _define_IDxcVersionInfo2_head():
     class IDxcVersionInfo2(win32more.Graphics.Direct3D.Dxc.IDxcVersionInfo_head):
@@ -334,6 +357,7 @@ def _define_IDxcVersionInfo2_head():
 def _define_IDxcVersionInfo2():
     IDxcVersionInfo2 = win32more.Graphics.Direct3D.Dxc.IDxcVersionInfo2_head
     IDxcVersionInfo2.GetCommitInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(SByte)), use_last_error=False)(5, 'GetCommitInfo', ((1, 'pCommitCount'),(1, 'pCommitHash'),)))
+    win32more.Graphics.Direct3D.Dxc.IDxcVersionInfo
     return IDxcVersionInfo2
 def _define_IDxcVersionInfo3_head():
     class IDxcVersionInfo3(win32more.System.Com.IUnknown_head):
@@ -342,6 +366,7 @@ def _define_IDxcVersionInfo3_head():
 def _define_IDxcVersionInfo3():
     IDxcVersionInfo3 = win32more.Graphics.Direct3D.Dxc.IDxcVersionInfo3_head
     IDxcVersionInfo3.GetCustomVersionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(SByte)), use_last_error=False)(3, 'GetCustomVersionString', ((1, 'pVersionString'),)))
+    win32more.System.Com.IUnknown
     return IDxcVersionInfo3
 def _define_DxcArgPair_head():
     class DxcArgPair(Structure):
@@ -384,6 +409,7 @@ def _define_IDxcPdbUtils():
     IDxcPdbUtils.CompileForFullPDB = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.Dxc.IDxcResult_head), use_last_error=False)(24, 'CompileForFullPDB', ((1, 'ppResult'),)))
     IDxcPdbUtils.OverrideArgs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.Dxc.DxcArgPair_head),UInt32, use_last_error=False)(25, 'OverrideArgs', ((1, 'pArgPairs'),(1, 'uNumArgPairs'),)))
     IDxcPdbUtils.OverrideRootSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(26, 'OverrideRootSignature', ((1, 'pRootSignature'),)))
+    win32more.System.Com.IUnknown
     return IDxcPdbUtils
 def _define_DxcCreateInstance():
     try:

@@ -561,6 +561,7 @@ def _define_IRTCClient():
     IRTCClient.SendDTMF = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_DTMF, use_last_error=False)(42, 'SendDTMF', ((1, 'enDTMF'),)))
     IRTCClient.InvokeTuningWizard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr, use_last_error=False)(43, 'InvokeTuningWizard', ((1, 'hwndParent'),)))
     IRTCClient.get_IsTuned = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(44, 'get_IsTuned', ((1, 'pfTuned'),)))
+    win32more.System.Com.IUnknown
     return IRTCClient
 def _define_IRTCClient2_head():
     class IRTCClient2(win32more.System.RealTimeCommunications.IRTCClient_head):
@@ -581,6 +582,7 @@ def _define_IRTCClient2():
     IRTCClient2.get_PreferredSecurityLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_SECURITY_TYPE,POINTER(win32more.System.RealTimeCommunications.RTC_SECURITY_LEVEL), use_last_error=False)(55, 'get_PreferredSecurityLevel', ((1, 'enSecurityType'),(1, 'penSecurityLevel'),)))
     IRTCClient2.put_AllowedPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.RealTimeCommunications.RTC_LISTEN_MODE, use_last_error=False)(56, 'put_AllowedPorts', ((1, 'lTransport'),(1, 'enListenMode'),)))
     IRTCClient2.get_AllowedPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.RealTimeCommunications.RTC_LISTEN_MODE), use_last_error=False)(57, 'get_AllowedPorts', ((1, 'lTransport'),(1, 'penListenMode'),)))
+    win32more.System.RealTimeCommunications.IRTCClient
     return IRTCClient2
 def _define_IRTCClientPresence_head():
     class IRTCClientPresence(win32more.System.Com.IUnknown_head):
@@ -606,6 +608,7 @@ def _define_IRTCClientPresence():
     IRTCClientPresence.put_OfferWatcherMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_OFFER_WATCHER_MODE, use_last_error=False)(18, 'put_OfferWatcherMode', ((1, 'enMode'),)))
     IRTCClientPresence.get_PrivacyMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_PRIVACY_MODE), use_last_error=False)(19, 'get_PrivacyMode', ((1, 'penMode'),)))
     IRTCClientPresence.put_PrivacyMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_PRIVACY_MODE, use_last_error=False)(20, 'put_PrivacyMode', ((1, 'enMode'),)))
+    win32more.System.Com.IUnknown
     return IRTCClientPresence
 def _define_IRTCClientPresence2_head():
     class IRTCClientPresence2(win32more.System.RealTimeCommunications.IRTCClientPresence_head):
@@ -628,6 +631,7 @@ def _define_IRTCClientPresence2():
     IRTCClientPresence2.GetPresenceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(33, 'GetPresenceData', ((1, 'pbstrNamespace'),(1, 'pbstrData'),)))
     IRTCClientPresence2.GetLocalPresenceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_PRESENCE_STATUS),POINTER(win32more.Foundation.BSTR), use_last_error=False)(34, 'GetLocalPresenceInfo', ((1, 'penStatus'),(1, 'pbstrNotes'),)))
     IRTCClientPresence2.AddBuddyEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int16,win32more.System.RealTimeCommunications.RTC_BUDDY_SUBSCRIPTION_TYPE,win32more.System.RealTimeCommunications.IRTCProfile_head,Int32,POINTER(win32more.System.RealTimeCommunications.IRTCBuddy2_head), use_last_error=False)(35, 'AddBuddyEx', ((1, 'bstrPresentityURI'),(1, 'bstrUserName'),(1, 'bstrData'),(1, 'fPersistent'),(1, 'enSubscriptionType'),(1, 'pProfile'),(1, 'lFlags'),(1, 'ppBuddy'),)))
+    win32more.System.RealTimeCommunications.IRTCClientPresence
     return IRTCClientPresence2
 def _define_IRTCClientProvisioning_head():
     class IRTCClientProvisioning(win32more.System.Com.IUnknown_head):
@@ -642,6 +646,7 @@ def _define_IRTCClientProvisioning():
     IRTCClientProvisioning.get_Profiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCCollection_head), use_last_error=False)(7, 'get_Profiles', ((1, 'ppCollection'),)))
     IRTCClientProvisioning.GetProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,IntPtr, use_last_error=False)(8, 'GetProfile', ((1, 'bstrUserAccount'),(1, 'bstrUserPassword'),(1, 'bstrUserURI'),(1, 'bstrServer'),(1, 'lTransport'),(1, 'lCookie'),)))
     IRTCClientProvisioning.get_SessionCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_SessionCapabilities', ((1, 'plSupportedSessions'),)))
+    win32more.System.Com.IUnknown
     return IRTCClientProvisioning
 def _define_IRTCClientProvisioning2_head():
     class IRTCClientProvisioning2(win32more.System.RealTimeCommunications.IRTCClientProvisioning_head):
@@ -650,6 +655,7 @@ def _define_IRTCClientProvisioning2_head():
 def _define_IRTCClientProvisioning2():
     IRTCClientProvisioning2 = win32more.System.RealTimeCommunications.IRTCClientProvisioning2_head
     IRTCClientProvisioning2.EnableProfileEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.IRTCProfile_head,Int32,Int32, use_last_error=False)(10, 'EnableProfileEx', ((1, 'pProfile'),(1, 'lRegisterFlags'),(1, 'lRoamingFlags'),)))
+    win32more.System.RealTimeCommunications.IRTCClientProvisioning
     return IRTCClientProvisioning2
 def _define_IRTCProfile_head():
     class IRTCProfile(win32more.System.Com.IUnknown_head):
@@ -675,6 +681,7 @@ def _define_IRTCProfile():
     IRTCProfile.SetCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(18, 'SetCredentials', ((1, 'bstrUserURI'),(1, 'bstrUserAccount'),(1, 'bstrPassword'),)))
     IRTCProfile.get_SessionCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(19, 'get_SessionCapabilities', ((1, 'plSupportedSessions'),)))
     IRTCProfile.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_REGISTRATION_STATE), use_last_error=False)(20, 'get_State', ((1, 'penState'),)))
+    win32more.System.Com.IUnknown
     return IRTCProfile
 def _define_IRTCProfile2_head():
     class IRTCProfile2(win32more.System.RealTimeCommunications.IRTCProfile_head):
@@ -686,6 +693,7 @@ def _define_IRTCProfile2():
     IRTCProfile2.put_Realm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(22, 'put_Realm', ((1, 'bstrRealm'),)))
     IRTCProfile2.get_AllowedAuth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_AllowedAuth', ((1, 'plAllowedAuth'),)))
     IRTCProfile2.put_AllowedAuth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(24, 'put_AllowedAuth', ((1, 'lAllowedAuth'),)))
+    win32more.System.RealTimeCommunications.IRTCProfile
     return IRTCProfile2
 def _define_IRTCSession_head():
     class IRTCSession(win32more.System.Com.IUnknown_head):
@@ -713,6 +721,7 @@ def _define_IRTCSession():
     IRTCSession.AddStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,IntPtr, use_last_error=False)(20, 'AddStream', ((1, 'lMediaType'),(1, 'lCookie'),)))
     IRTCSession.RemoveStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,IntPtr, use_last_error=False)(21, 'RemoveStream', ((1, 'lMediaType'),(1, 'lCookie'),)))
     IRTCSession.put_EncryptionKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(22, 'put_EncryptionKey', ((1, 'lMediaType'),(1, 'EncryptionKey'),)))
+    win32more.System.Com.IUnknown
     return IRTCSession
 def _define_IRTCSession2_head():
     class IRTCSession2(win32more.System.RealTimeCommunications.IRTCSession_head):
@@ -726,6 +735,7 @@ def _define_IRTCSession2():
     IRTCSession2.IsSecurityEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_SECURITY_TYPE,POINTER(Int16), use_last_error=False)(26, 'IsSecurityEnabled', ((1, 'enSecurityType'),(1, 'pfSecurityEnabled'),)))
     IRTCSession2.AnswerWithSessionDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(27, 'AnswerWithSessionDescription', ((1, 'bstrContentType'),(1, 'bstrSessionDescription'),)))
     IRTCSession2.ReInviteWithSessionDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,IntPtr, use_last_error=False)(28, 'ReInviteWithSessionDescription', ((1, 'bstrContentType'),(1, 'bstrSessionDescription'),(1, 'lCookie'),)))
+    win32more.System.RealTimeCommunications.IRTCSession
     return IRTCSession2
 def _define_IRTCSessionCallControl_head():
     class IRTCSessionCallControl(win32more.System.Com.IUnknown_head):
@@ -742,6 +752,7 @@ def _define_IRTCSessionCallControl():
     IRTCSessionCallControl.put_ReferCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_ReferCookie', ((1, 'bstrReferCookie'),)))
     IRTCSessionCallControl.get_ReferCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_ReferCookie', ((1, 'pbstrReferCookie'),)))
     IRTCSessionCallControl.get_IsReferred = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(11, 'get_IsReferred', ((1, 'pfIsReferred'),)))
+    win32more.System.Com.IUnknown
     return IRTCSessionCallControl
 def _define_IRTCParticipant_head():
     class IRTCParticipant(win32more.System.Com.IUnknown_head):
@@ -754,6 +765,7 @@ def _define_IRTCParticipant():
     IRTCParticipant.get_Removable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(5, 'get_Removable', ((1, 'pfRemovable'),)))
     IRTCParticipant.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_PARTICIPANT_STATE), use_last_error=False)(6, 'get_State', ((1, 'penState'),)))
     IRTCParticipant.get_Session = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCSession_head), use_last_error=False)(7, 'get_Session', ((1, 'ppSession'),)))
+    win32more.System.Com.IUnknown
     return IRTCParticipant
 def _define_IRTCRoamingEvent_head():
     class IRTCRoamingEvent(win32more.System.Com.IDispatch_head):
@@ -765,6 +777,7 @@ def _define_IRTCRoamingEvent():
     IRTCRoamingEvent.get_Profile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCProfile2_head), use_last_error=False)(8, 'get_Profile', ((1, 'ppProfile'),)))
     IRTCRoamingEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_StatusCode', ((1, 'plStatusCode'),)))
     IRTCRoamingEvent.get_StatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_StatusText', ((1, 'pbstrStatusText'),)))
+    win32more.System.Com.IDispatch
     return IRTCRoamingEvent
 def _define_IRTCProfileEvent_head():
     class IRTCProfileEvent(win32more.System.Com.IDispatch_head):
@@ -775,6 +788,7 @@ def _define_IRTCProfileEvent():
     IRTCProfileEvent.get_Profile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCProfile_head), use_last_error=False)(7, 'get_Profile', ((1, 'ppProfile'),)))
     IRTCProfileEvent.get_Cookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr), use_last_error=False)(8, 'get_Cookie', ((1, 'plCookie'),)))
     IRTCProfileEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_StatusCode', ((1, 'plStatusCode'),)))
+    win32more.System.Com.IDispatch
     return IRTCProfileEvent
 def _define_IRTCProfileEvent2_head():
     class IRTCProfileEvent2(win32more.System.RealTimeCommunications.IRTCProfileEvent_head):
@@ -783,6 +797,7 @@ def _define_IRTCProfileEvent2_head():
 def _define_IRTCProfileEvent2():
     IRTCProfileEvent2 = win32more.System.RealTimeCommunications.IRTCProfileEvent2_head
     IRTCProfileEvent2.get_EventType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_PROFILE_EVENT_TYPE), use_last_error=False)(10, 'get_EventType', ((1, 'pEventType'),)))
+    win32more.System.RealTimeCommunications.IRTCProfileEvent
     return IRTCProfileEvent2
 def _define_IRTCClientEvent_head():
     class IRTCClientEvent(win32more.System.Com.IDispatch_head):
@@ -792,6 +807,7 @@ def _define_IRTCClientEvent():
     IRTCClientEvent = win32more.System.RealTimeCommunications.IRTCClientEvent_head
     IRTCClientEvent.get_EventType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_CLIENT_EVENT_TYPE), use_last_error=False)(7, 'get_EventType', ((1, 'penEventType'),)))
     IRTCClientEvent.get_Client = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCClient_head), use_last_error=False)(8, 'get_Client', ((1, 'ppClient'),)))
+    win32more.System.Com.IDispatch
     return IRTCClientEvent
 def _define_IRTCRegistrationStateChangeEvent_head():
     class IRTCRegistrationStateChangeEvent(win32more.System.Com.IDispatch_head):
@@ -803,6 +819,7 @@ def _define_IRTCRegistrationStateChangeEvent():
     IRTCRegistrationStateChangeEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_REGISTRATION_STATE), use_last_error=False)(8, 'get_State', ((1, 'penState'),)))
     IRTCRegistrationStateChangeEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_StatusCode', ((1, 'plStatusCode'),)))
     IRTCRegistrationStateChangeEvent.get_StatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_StatusText', ((1, 'pbstrStatusText'),)))
+    win32more.System.Com.IDispatch
     return IRTCRegistrationStateChangeEvent
 def _define_IRTCSessionStateChangeEvent_head():
     class IRTCSessionStateChangeEvent(win32more.System.Com.IDispatch_head):
@@ -814,6 +831,7 @@ def _define_IRTCSessionStateChangeEvent():
     IRTCSessionStateChangeEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_SESSION_STATE), use_last_error=False)(8, 'get_State', ((1, 'penState'),)))
     IRTCSessionStateChangeEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_StatusCode', ((1, 'plStatusCode'),)))
     IRTCSessionStateChangeEvent.get_StatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_StatusText', ((1, 'pbstrStatusText'),)))
+    win32more.System.Com.IDispatch
     return IRTCSessionStateChangeEvent
 def _define_IRTCSessionStateChangeEvent2_head():
     class IRTCSessionStateChangeEvent2(win32more.System.RealTimeCommunications.IRTCSessionStateChangeEvent_head):
@@ -825,6 +843,7 @@ def _define_IRTCSessionStateChangeEvent2():
     IRTCSessionStateChangeEvent2.get_RemotePreferredSecurityLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_SECURITY_TYPE,POINTER(win32more.System.RealTimeCommunications.RTC_SECURITY_LEVEL), use_last_error=False)(12, 'get_RemotePreferredSecurityLevel', ((1, 'enSecurityType'),(1, 'penSecurityLevel'),)))
     IRTCSessionStateChangeEvent2.get_IsForked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(13, 'get_IsForked', ((1, 'pfIsForked'),)))
     IRTCSessionStateChangeEvent2.GetRemoteSessionDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'GetRemoteSessionDescription', ((1, 'pbstrContentType'),(1, 'pbstrSessionDescription'),)))
+    win32more.System.RealTimeCommunications.IRTCSessionStateChangeEvent
     return IRTCSessionStateChangeEvent2
 def _define_IRTCSessionOperationCompleteEvent_head():
     class IRTCSessionOperationCompleteEvent(win32more.System.Com.IDispatch_head):
@@ -836,6 +855,7 @@ def _define_IRTCSessionOperationCompleteEvent():
     IRTCSessionOperationCompleteEvent.get_Cookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr), use_last_error=False)(8, 'get_Cookie', ((1, 'plCookie'),)))
     IRTCSessionOperationCompleteEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_StatusCode', ((1, 'plStatusCode'),)))
     IRTCSessionOperationCompleteEvent.get_StatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_StatusText', ((1, 'pbstrStatusText'),)))
+    win32more.System.Com.IDispatch
     return IRTCSessionOperationCompleteEvent
 def _define_IRTCSessionOperationCompleteEvent2_head():
     class IRTCSessionOperationCompleteEvent2(win32more.System.RealTimeCommunications.IRTCSessionOperationCompleteEvent_head):
@@ -845,6 +865,7 @@ def _define_IRTCSessionOperationCompleteEvent2():
     IRTCSessionOperationCompleteEvent2 = win32more.System.RealTimeCommunications.IRTCSessionOperationCompleteEvent2_head
     IRTCSessionOperationCompleteEvent2.get_Participant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCParticipant_head), use_last_error=False)(11, 'get_Participant', ((1, 'ppParticipant'),)))
     IRTCSessionOperationCompleteEvent2.GetRemoteSessionDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'GetRemoteSessionDescription', ((1, 'pbstrContentType'),(1, 'pbstrSessionDescription'),)))
+    win32more.System.RealTimeCommunications.IRTCSessionOperationCompleteEvent
     return IRTCSessionOperationCompleteEvent2
 def _define_IRTCParticipantStateChangeEvent_head():
     class IRTCParticipantStateChangeEvent(win32more.System.Com.IDispatch_head):
@@ -855,6 +876,7 @@ def _define_IRTCParticipantStateChangeEvent():
     IRTCParticipantStateChangeEvent.get_Participant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCParticipant_head), use_last_error=False)(7, 'get_Participant', ((1, 'ppParticipant'),)))
     IRTCParticipantStateChangeEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_PARTICIPANT_STATE), use_last_error=False)(8, 'get_State', ((1, 'penState'),)))
     IRTCParticipantStateChangeEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_StatusCode', ((1, 'plStatusCode'),)))
+    win32more.System.Com.IDispatch
     return IRTCParticipantStateChangeEvent
 def _define_IRTCMediaEvent_head():
     class IRTCMediaEvent(win32more.System.Com.IDispatch_head):
@@ -865,6 +887,7 @@ def _define_IRTCMediaEvent():
     IRTCMediaEvent.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_MediaType', ((1, 'pMediaType'),)))
     IRTCMediaEvent.get_EventType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_MEDIA_EVENT_TYPE), use_last_error=False)(8, 'get_EventType', ((1, 'penEventType'),)))
     IRTCMediaEvent.get_EventReason = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_MEDIA_EVENT_REASON), use_last_error=False)(9, 'get_EventReason', ((1, 'penEventReason'),)))
+    win32more.System.Com.IDispatch
     return IRTCMediaEvent
 def _define_IRTCIntensityEvent_head():
     class IRTCIntensityEvent(win32more.System.Com.IDispatch_head):
@@ -876,6 +899,7 @@ def _define_IRTCIntensityEvent():
     IRTCIntensityEvent.get_Min = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Min', ((1, 'plMin'),)))
     IRTCIntensityEvent.get_Max = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Max', ((1, 'plMax'),)))
     IRTCIntensityEvent.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_AUDIO_DEVICE), use_last_error=False)(10, 'get_Direction', ((1, 'penDirection'),)))
+    win32more.System.Com.IDispatch
     return IRTCIntensityEvent
 def _define_IRTCMessagingEvent_head():
     class IRTCMessagingEvent(win32more.System.Com.IDispatch_head):
@@ -889,6 +913,7 @@ def _define_IRTCMessagingEvent():
     IRTCMessagingEvent.get_Message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Message', ((1, 'pbstrMessage'),)))
     IRTCMessagingEvent.get_MessageHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_MessageHeader', ((1, 'pbstrMessageHeader'),)))
     IRTCMessagingEvent.get_UserStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_MESSAGING_USER_STATUS), use_last_error=False)(12, 'get_UserStatus', ((1, 'penUserStatus'),)))
+    win32more.System.Com.IDispatch
     return IRTCMessagingEvent
 def _define_IRTCBuddyEvent_head():
     class IRTCBuddyEvent(win32more.System.Com.IDispatch_head):
@@ -897,6 +922,7 @@ def _define_IRTCBuddyEvent_head():
 def _define_IRTCBuddyEvent():
     IRTCBuddyEvent = win32more.System.RealTimeCommunications.IRTCBuddyEvent_head
     IRTCBuddyEvent.get_Buddy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCBuddy_head), use_last_error=False)(7, 'get_Buddy', ((1, 'ppBuddy'),)))
+    win32more.System.Com.IDispatch
     return IRTCBuddyEvent
 def _define_IRTCBuddyEvent2_head():
     class IRTCBuddyEvent2(win32more.System.RealTimeCommunications.IRTCBuddyEvent_head):
@@ -907,6 +933,7 @@ def _define_IRTCBuddyEvent2():
     IRTCBuddyEvent2.get_EventType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_BUDDY_EVENT_TYPE), use_last_error=False)(8, 'get_EventType', ((1, 'pEventType'),)))
     IRTCBuddyEvent2.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_StatusCode', ((1, 'plStatusCode'),)))
     IRTCBuddyEvent2.get_StatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_StatusText', ((1, 'pbstrStatusText'),)))
+    win32more.System.RealTimeCommunications.IRTCBuddyEvent
     return IRTCBuddyEvent2
 def _define_IRTCWatcherEvent_head():
     class IRTCWatcherEvent(win32more.System.Com.IDispatch_head):
@@ -915,6 +942,7 @@ def _define_IRTCWatcherEvent_head():
 def _define_IRTCWatcherEvent():
     IRTCWatcherEvent = win32more.System.RealTimeCommunications.IRTCWatcherEvent_head
     IRTCWatcherEvent.get_Watcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCWatcher_head), use_last_error=False)(7, 'get_Watcher', ((1, 'ppWatcher'),)))
+    win32more.System.Com.IDispatch
     return IRTCWatcherEvent
 def _define_IRTCWatcherEvent2_head():
     class IRTCWatcherEvent2(win32more.System.RealTimeCommunications.IRTCWatcherEvent_head):
@@ -924,6 +952,7 @@ def _define_IRTCWatcherEvent2():
     IRTCWatcherEvent2 = win32more.System.RealTimeCommunications.IRTCWatcherEvent2_head
     IRTCWatcherEvent2.get_EventType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_WATCHER_EVENT_TYPE), use_last_error=False)(8, 'get_EventType', ((1, 'pEventType'),)))
     IRTCWatcherEvent2.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_StatusCode', ((1, 'plStatusCode'),)))
+    win32more.System.RealTimeCommunications.IRTCWatcherEvent
     return IRTCWatcherEvent2
 def _define_IRTCBuddyGroupEvent_head():
     class IRTCBuddyGroupEvent(win32more.System.Com.IDispatch_head):
@@ -935,6 +964,7 @@ def _define_IRTCBuddyGroupEvent():
     IRTCBuddyGroupEvent.get_Group = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCBuddyGroup_head), use_last_error=False)(8, 'get_Group', ((1, 'ppGroup'),)))
     IRTCBuddyGroupEvent.get_Buddy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCBuddy2_head), use_last_error=False)(9, 'get_Buddy', ((1, 'ppBuddy'),)))
     IRTCBuddyGroupEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_StatusCode', ((1, 'plStatusCode'),)))
+    win32more.System.Com.IDispatch
     return IRTCBuddyGroupEvent
 def _define_IRTCInfoEvent_head():
     class IRTCInfoEvent(win32more.System.Com.IDispatch_head):
@@ -946,6 +976,7 @@ def _define_IRTCInfoEvent():
     IRTCInfoEvent.get_Participant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCParticipant_head), use_last_error=False)(8, 'get_Participant', ((1, 'ppParticipant'),)))
     IRTCInfoEvent.get_Info = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Info', ((1, 'pbstrInfo'),)))
     IRTCInfoEvent.get_InfoHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_InfoHeader', ((1, 'pbstrInfoHeader'),)))
+    win32more.System.Com.IDispatch
     return IRTCInfoEvent
 def _define_IRTCMediaRequestEvent_head():
     class IRTCMediaRequestEvent(win32more.System.Com.IDispatch_head):
@@ -960,6 +991,7 @@ def _define_IRTCMediaRequestEvent():
     IRTCMediaRequestEvent.get_RemotePreferredSecurityLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_SECURITY_TYPE,POINTER(win32more.System.RealTimeCommunications.RTC_SECURITY_LEVEL), use_last_error=False)(11, 'get_RemotePreferredSecurityLevel', ((1, 'enSecurityType'),(1, 'penSecurityLevel'),)))
     IRTCMediaRequestEvent.Reject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Reject', ()))
     IRTCMediaRequestEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_REINVITE_STATE), use_last_error=False)(13, 'get_State', ((1, 'pState'),)))
+    win32more.System.Com.IDispatch
     return IRTCMediaRequestEvent
 def _define_IRTCReInviteEvent_head():
     class IRTCReInviteEvent(win32more.System.Com.IDispatch_head):
@@ -972,6 +1004,7 @@ def _define_IRTCReInviteEvent():
     IRTCReInviteEvent.Reject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Reject', ()))
     IRTCReInviteEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_REINVITE_STATE), use_last_error=False)(10, 'get_State', ((1, 'pState'),)))
     IRTCReInviteEvent.GetRemoteSessionDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'GetRemoteSessionDescription', ((1, 'pbstrContentType'),(1, 'pbstrSessionDescription'),)))
+    win32more.System.Com.IDispatch
     return IRTCReInviteEvent
 def _define_IRTCPresencePropertyEvent_head():
     class IRTCPresencePropertyEvent(win32more.System.Com.IDispatch_head):
@@ -983,6 +1016,7 @@ def _define_IRTCPresencePropertyEvent():
     IRTCPresencePropertyEvent.get_StatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_StatusText', ((1, 'pbstrStatusText'),)))
     IRTCPresencePropertyEvent.get_PresenceProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_PRESENCE_PROPERTY), use_last_error=False)(9, 'get_PresenceProperty', ((1, 'penPresProp'),)))
     IRTCPresencePropertyEvent.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Value', ((1, 'pbstrValue'),)))
+    win32more.System.Com.IDispatch
     return IRTCPresencePropertyEvent
 def _define_IRTCPresenceDataEvent_head():
     class IRTCPresenceDataEvent(win32more.System.Com.IDispatch_head):
@@ -993,6 +1027,7 @@ def _define_IRTCPresenceDataEvent():
     IRTCPresenceDataEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_StatusCode', ((1, 'plStatusCode'),)))
     IRTCPresenceDataEvent.get_StatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_StatusText', ((1, 'pbstrStatusText'),)))
     IRTCPresenceDataEvent.GetPresenceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'GetPresenceData', ((1, 'pbstrNamespace'),(1, 'pbstrData'),)))
+    win32more.System.Com.IDispatch
     return IRTCPresenceDataEvent
 def _define_IRTCPresenceStatusEvent_head():
     class IRTCPresenceStatusEvent(win32more.System.Com.IDispatch_head):
@@ -1003,6 +1038,7 @@ def _define_IRTCPresenceStatusEvent():
     IRTCPresenceStatusEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_StatusCode', ((1, 'plStatusCode'),)))
     IRTCPresenceStatusEvent.get_StatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_StatusText', ((1, 'pbstrStatusText'),)))
     IRTCPresenceStatusEvent.GetLocalPresenceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_PRESENCE_STATUS),POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'GetLocalPresenceInfo', ((1, 'penStatus'),(1, 'pbstrNotes'),)))
+    win32more.System.Com.IDispatch
     return IRTCPresenceStatusEvent
 def _define_IRTCCollection_head():
     class IRTCCollection(win32more.System.Com.IDispatch_head):
@@ -1013,6 +1049,7 @@ def _define_IRTCCollection():
     IRTCCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'lCount'),)))
     IRTCCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'Index'),(1, 'pVariant'),)))
     IRTCCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppNewEnum'),)))
+    win32more.System.Com.IDispatch
     return IRTCCollection
 def _define_IRTCEnumParticipants_head():
     class IRTCEnumParticipants(win32more.System.Com.IUnknown_head):
@@ -1024,6 +1061,7 @@ def _define_IRTCEnumParticipants():
     IRTCEnumParticipants.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IRTCEnumParticipants.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IRTCEnumParticipants.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCEnumParticipants_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IRTCEnumParticipants
 def _define_IRTCEnumProfiles_head():
     class IRTCEnumProfiles(win32more.System.Com.IUnknown_head):
@@ -1035,6 +1073,7 @@ def _define_IRTCEnumProfiles():
     IRTCEnumProfiles.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IRTCEnumProfiles.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IRTCEnumProfiles.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCEnumProfiles_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IRTCEnumProfiles
 def _define_IRTCEnumBuddies_head():
     class IRTCEnumBuddies(win32more.System.Com.IUnknown_head):
@@ -1046,6 +1085,7 @@ def _define_IRTCEnumBuddies():
     IRTCEnumBuddies.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IRTCEnumBuddies.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IRTCEnumBuddies.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCEnumBuddies_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IRTCEnumBuddies
 def _define_IRTCEnumWatchers_head():
     class IRTCEnumWatchers(win32more.System.Com.IUnknown_head):
@@ -1057,6 +1097,7 @@ def _define_IRTCEnumWatchers():
     IRTCEnumWatchers.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IRTCEnumWatchers.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IRTCEnumWatchers.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCEnumWatchers_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IRTCEnumWatchers
 def _define_IRTCEnumGroups_head():
     class IRTCEnumGroups(win32more.System.Com.IUnknown_head):
@@ -1068,6 +1109,7 @@ def _define_IRTCEnumGroups():
     IRTCEnumGroups.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IRTCEnumGroups.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IRTCEnumGroups.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCEnumGroups_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IRTCEnumGroups
 def _define_IRTCPresenceContact_head():
     class IRTCPresenceContact(win32more.System.Com.IUnknown_head):
@@ -1083,6 +1125,7 @@ def _define_IRTCPresenceContact():
     IRTCPresenceContact.put_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_Data', ((1, 'bstrData'),)))
     IRTCPresenceContact.get_Persistent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_Persistent', ((1, 'pfPersistent'),)))
     IRTCPresenceContact.put_Persistent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(10, 'put_Persistent', ((1, 'fPersistent'),)))
+    win32more.System.Com.IUnknown
     return IRTCPresenceContact
 def _define_IRTCBuddy_head():
     class IRTCBuddy(win32more.System.RealTimeCommunications.IRTCPresenceContact_head):
@@ -1092,6 +1135,7 @@ def _define_IRTCBuddy():
     IRTCBuddy = win32more.System.RealTimeCommunications.IRTCBuddy_head
     IRTCBuddy.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_PRESENCE_STATUS), use_last_error=False)(11, 'get_Status', ((1, 'penStatus'),)))
     IRTCBuddy.get_Notes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_Notes', ((1, 'pbstrNotes'),)))
+    win32more.System.RealTimeCommunications.IRTCPresenceContact
     return IRTCBuddy
 def _define_IRTCBuddy2_head():
     class IRTCBuddy2(win32more.System.RealTimeCommunications.IRTCBuddy_head):
@@ -1107,6 +1151,7 @@ def _define_IRTCBuddy2():
     IRTCBuddy2.EnumeratePresenceDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCEnumPresenceDevices_head), use_last_error=False)(18, 'EnumeratePresenceDevices', ((1, 'ppEnumDevices'),)))
     IRTCBuddy2.get_PresenceDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCCollection_head), use_last_error=False)(19, 'get_PresenceDevices', ((1, 'ppDevicesCollection'),)))
     IRTCBuddy2.get_SubscriptionType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_BUDDY_SUBSCRIPTION_TYPE), use_last_error=False)(20, 'get_SubscriptionType', ((1, 'penSubscriptionType'),)))
+    win32more.System.RealTimeCommunications.IRTCBuddy
     return IRTCBuddy2
 def _define_IRTCWatcher_head():
     class IRTCWatcher(win32more.System.RealTimeCommunications.IRTCPresenceContact_head):
@@ -1116,6 +1161,7 @@ def _define_IRTCWatcher():
     IRTCWatcher = win32more.System.RealTimeCommunications.IRTCWatcher_head
     IRTCWatcher.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_WATCHER_STATE), use_last_error=False)(11, 'get_State', ((1, 'penState'),)))
     IRTCWatcher.put_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_WATCHER_STATE, use_last_error=False)(12, 'put_State', ((1, 'enState'),)))
+    win32more.System.RealTimeCommunications.IRTCPresenceContact
     return IRTCWatcher
 def _define_IRTCWatcher2_head():
     class IRTCWatcher2(win32more.System.RealTimeCommunications.IRTCWatcher_head):
@@ -1125,6 +1171,7 @@ def _define_IRTCWatcher2():
     IRTCWatcher2 = win32more.System.RealTimeCommunications.IRTCWatcher2_head
     IRTCWatcher2.get_Profile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCProfile2_head), use_last_error=False)(13, 'get_Profile', ((1, 'ppProfile'),)))
     IRTCWatcher2.get_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_ACE_SCOPE), use_last_error=False)(14, 'get_Scope', ((1, 'penScope'),)))
+    win32more.System.RealTimeCommunications.IRTCWatcher
     return IRTCWatcher2
 def _define_IRTCBuddyGroup_head():
     class IRTCBuddyGroup(win32more.System.Com.IUnknown_head):
@@ -1141,6 +1188,7 @@ def _define_IRTCBuddyGroup():
     IRTCBuddyGroup.get_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Data', ((1, 'pbstrData'),)))
     IRTCBuddyGroup.put_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_Data', ((1, 'bstrData'),)))
     IRTCBuddyGroup.get_Profile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCProfile2_head), use_last_error=False)(11, 'get_Profile', ((1, 'ppProfile'),)))
+    win32more.System.Com.IUnknown
     return IRTCBuddyGroup
 def _define_IRTCEventNotification_head():
     class IRTCEventNotification(win32more.System.Com.IUnknown_head):
@@ -1149,6 +1197,7 @@ def _define_IRTCEventNotification_head():
 def _define_IRTCEventNotification():
     IRTCEventNotification = win32more.System.RealTimeCommunications.IRTCEventNotification_head
     IRTCEventNotification.Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_EVENT,win32more.System.Com.IDispatch_head, use_last_error=False)(3, 'Event', ((1, 'RTCEvent'),(1, 'pEvent'),)))
+    win32more.System.Com.IUnknown
     return IRTCEventNotification
 def _define_IRTCPortManager_head():
     class IRTCPortManager(win32more.System.Com.IUnknown_head):
@@ -1159,6 +1208,7 @@ def _define_IRTCPortManager():
     IRTCPortManager.GetMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.RealTimeCommunications.RTC_PORT_TYPE,POINTER(win32more.Foundation.BSTR),POINTER(Int32),POINTER(win32more.Foundation.BSTR),POINTER(Int32), use_last_error=False)(3, 'GetMapping', ((1, 'bstrRemoteAddress'),(1, 'enPortType'),(1, 'pbstrInternalLocalAddress'),(1, 'plInternalLocalPort'),(1, 'pbstrExternalLocalAddress'),(1, 'plExternalLocalPort'),)))
     IRTCPortManager.UpdateRemoteAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,Int32, use_last_error=False)(4, 'UpdateRemoteAddress', ((1, 'bstrRemoteAddress'),(1, 'bstrInternalLocalAddress'),(1, 'lInternalLocalPort'),(1, 'bstrExternalLocalAddress'),(1, 'lExternalLocalPort'),)))
     IRTCPortManager.ReleaseMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,Int32, use_last_error=False)(5, 'ReleaseMapping', ((1, 'bstrInternalLocalAddress'),(1, 'lInternalLocalPort'),(1, 'bstrExternalLocalAddress'),(1, 'lExternalLocalAddress'),)))
+    win32more.System.Com.IUnknown
     return IRTCPortManager
 def _define_IRTCSessionPortManagement_head():
     class IRTCSessionPortManagement(win32more.System.Com.IUnknown_head):
@@ -1167,6 +1217,7 @@ def _define_IRTCSessionPortManagement_head():
 def _define_IRTCSessionPortManagement():
     IRTCSessionPortManagement = win32more.System.RealTimeCommunications.IRTCSessionPortManagement_head
     IRTCSessionPortManagement.SetPortManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.IRTCPortManager_head, use_last_error=False)(3, 'SetPortManager', ((1, 'pPortManager'),)))
+    win32more.System.Com.IUnknown
     return IRTCSessionPortManagement
 def _define_IRTCClientPortManagement_head():
     class IRTCClientPortManagement(win32more.System.Com.IUnknown_head):
@@ -1177,6 +1228,7 @@ def _define_IRTCClientPortManagement():
     IRTCClientPortManagement.StartListenAddressAndPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(3, 'StartListenAddressAndPort', ((1, 'bstrInternalLocalAddress'),(1, 'lInternalLocalPort'),)))
     IRTCClientPortManagement.StopListenAddressAndPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(4, 'StopListenAddressAndPort', ((1, 'bstrInternalLocalAddress'),(1, 'lInternalLocalPort'),)))
     IRTCClientPortManagement.GetPortRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_PORT_TYPE,POINTER(Int32),POINTER(Int32), use_last_error=False)(5, 'GetPortRange', ((1, 'enPortType'),(1, 'plMinValue'),(1, 'plMaxValue'),)))
+    win32more.System.Com.IUnknown
     return IRTCClientPortManagement
 def _define_IRTCUserSearch_head():
     class IRTCUserSearch(win32more.System.Com.IUnknown_head):
@@ -1186,6 +1238,7 @@ def _define_IRTCUserSearch():
     IRTCUserSearch = win32more.System.RealTimeCommunications.IRTCUserSearch_head
     IRTCUserSearch.CreateQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCUserSearchQuery_head), use_last_error=False)(3, 'CreateQuery', ((1, 'ppQuery'),)))
     IRTCUserSearch.ExecuteSearch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.IRTCUserSearchQuery_head,win32more.System.RealTimeCommunications.IRTCProfile_head,IntPtr, use_last_error=False)(4, 'ExecuteSearch', ((1, 'pQuery'),(1, 'pProfile'),(1, 'lCookie'),)))
+    win32more.System.Com.IUnknown
     return IRTCUserSearch
 def _define_IRTCUserSearchQuery_head():
     class IRTCUserSearchQuery(win32more.System.Com.IUnknown_head):
@@ -1200,6 +1253,7 @@ def _define_IRTCUserSearchQuery():
     IRTCUserSearchQuery.get_SearchPreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_USER_SEARCH_PREFERENCE,POINTER(Int32), use_last_error=False)(7, 'get_SearchPreference', ((1, 'enPreference'),(1, 'plValue'),)))
     IRTCUserSearchQuery.put_SearchDomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_SearchDomain', ((1, 'bstrDomain'),)))
     IRTCUserSearchQuery.get_SearchDomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_SearchDomain', ((1, 'pbstrDomain'),)))
+    win32more.System.Com.IUnknown
     return IRTCUserSearchQuery
 def _define_IRTCUserSearchResult_head():
     class IRTCUserSearchResult(win32more.System.Com.IUnknown_head):
@@ -1208,6 +1262,7 @@ def _define_IRTCUserSearchResult_head():
 def _define_IRTCUserSearchResult():
     IRTCUserSearchResult = win32more.System.RealTimeCommunications.IRTCUserSearchResult_head
     IRTCUserSearchResult.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_USER_SEARCH_COLUMN,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_Value', ((1, 'enColumn'),(1, 'pbstrValue'),)))
+    win32more.System.Com.IUnknown
     return IRTCUserSearchResult
 def _define_IRTCEnumUserSearchResults_head():
     class IRTCEnumUserSearchResults(win32more.System.Com.IUnknown_head):
@@ -1219,6 +1274,7 @@ def _define_IRTCEnumUserSearchResults():
     IRTCEnumUserSearchResults.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IRTCEnumUserSearchResults.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IRTCEnumUserSearchResults.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCEnumUserSearchResults_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IRTCEnumUserSearchResults
 def _define_IRTCUserSearchResultsEvent_head():
     class IRTCUserSearchResultsEvent(win32more.System.Com.IDispatch_head):
@@ -1233,6 +1289,7 @@ def _define_IRTCUserSearchResultsEvent():
     IRTCUserSearchResultsEvent.get_Cookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr), use_last_error=False)(11, 'get_Cookie', ((1, 'plCookie'),)))
     IRTCUserSearchResultsEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_StatusCode', ((1, 'plStatusCode'),)))
     IRTCUserSearchResultsEvent.get_MoreAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(13, 'get_MoreAvailable', ((1, 'pfMoreAvailable'),)))
+    win32more.System.Com.IDispatch
     return IRTCUserSearchResultsEvent
 def _define_IRTCSessionReferStatusEvent_head():
     class IRTCSessionReferStatusEvent(win32more.System.Com.IDispatch_head):
@@ -1244,6 +1301,7 @@ def _define_IRTCSessionReferStatusEvent():
     IRTCSessionReferStatusEvent.get_ReferStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.RTC_SESSION_REFER_STATUS), use_last_error=False)(8, 'get_ReferStatus', ((1, 'penReferStatus'),)))
     IRTCSessionReferStatusEvent.get_StatusCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_StatusCode', ((1, 'plStatusCode'),)))
     IRTCSessionReferStatusEvent.get_StatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_StatusText', ((1, 'pbstrStatusText'),)))
+    win32more.System.Com.IDispatch
     return IRTCSessionReferStatusEvent
 def _define_IRTCSessionReferredEvent_head():
     class IRTCSessionReferredEvent(win32more.System.Com.IDispatch_head):
@@ -1258,6 +1316,7 @@ def _define_IRTCSessionReferredEvent():
     IRTCSessionReferredEvent.Accept = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Accept', ()))
     IRTCSessionReferredEvent.Reject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Reject', ()))
     IRTCSessionReferredEvent.SetReferredSessionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_SESSION_STATE, use_last_error=False)(13, 'SetReferredSessionState', ((1, 'enState'),)))
+    win32more.System.Com.IDispatch
     return IRTCSessionReferredEvent
 def _define_IRTCSessionDescriptionManager_head():
     class IRTCSessionDescriptionManager(win32more.System.Com.IUnknown_head):
@@ -1266,6 +1325,7 @@ def _define_IRTCSessionDescriptionManager_head():
 def _define_IRTCSessionDescriptionManager():
     IRTCSessionDescriptionManager = win32more.System.RealTimeCommunications.IRTCSessionDescriptionManager_head
     IRTCSessionDescriptionManager.EvaluateSessionDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(3, 'EvaluateSessionDescription', ((1, 'bstrContentType'),(1, 'bstrSessionDescription'),(1, 'pfApplicationSession'),)))
+    win32more.System.Com.IUnknown
     return IRTCSessionDescriptionManager
 def _define_IRTCEnumPresenceDevices_head():
     class IRTCEnumPresenceDevices(win32more.System.Com.IUnknown_head):
@@ -1277,6 +1337,7 @@ def _define_IRTCEnumPresenceDevices():
     IRTCEnumPresenceDevices.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IRTCEnumPresenceDevices.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IRTCEnumPresenceDevices.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.IRTCEnumPresenceDevices_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IRTCEnumPresenceDevices
 def _define_IRTCPresenceDevice_head():
     class IRTCPresenceDevice(win32more.System.Com.IUnknown_head):
@@ -1288,6 +1349,7 @@ def _define_IRTCPresenceDevice():
     IRTCPresenceDevice.get_Notes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_Notes', ((1, 'pbstrNotes'),)))
     IRTCPresenceDevice.get_PresenceProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.RealTimeCommunications.RTC_PRESENCE_PROPERTY,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_PresenceProperty', ((1, 'enProperty'),(1, 'pbstrProperty'),)))
     IRTCPresenceDevice.GetPresenceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetPresenceData', ((1, 'pbstrNamespace'),(1, 'pbstrData'),)))
+    win32more.System.Com.IUnknown
     return IRTCPresenceDevice
 def _define_IRTCDispatchEventNotification_head():
     class IRTCDispatchEventNotification(win32more.System.Com.IDispatch_head):
@@ -1295,6 +1357,7 @@ def _define_IRTCDispatchEventNotification_head():
     return IRTCDispatchEventNotification
 def _define_IRTCDispatchEventNotification():
     IRTCDispatchEventNotification = win32more.System.RealTimeCommunications.IRTCDispatchEventNotification_head
+    win32more.System.Com.IDispatch
     return IRTCDispatchEventNotification
 def _define_TRANSPORT_SETTING_head():
     class TRANSPORT_SETTING(Structure):
@@ -1316,6 +1379,7 @@ def _define_ITransportSettingsInternal():
     ITransportSettingsInternal = win32more.System.RealTimeCommunications.ITransportSettingsInternal_head
     ITransportSettingsInternal.ApplySetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.TRANSPORT_SETTING_head), use_last_error=False)(3, 'ApplySetting', ((1, 'Setting'),)))
     ITransportSettingsInternal.QuerySetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.RealTimeCommunications.TRANSPORT_SETTING_head), use_last_error=False)(4, 'QuerySetting', ((1, 'Setting'),)))
+    win32more.System.Com.IUnknown
     return ITransportSettingsInternal
 def _define_INetworkTransportSettings_head():
     class INetworkTransportSettings(win32more.System.Com.IUnknown_head):
@@ -1325,6 +1389,7 @@ def _define_INetworkTransportSettings():
     INetworkTransportSettings = win32more.System.RealTimeCommunications.INetworkTransportSettings_head
     INetworkTransportSettings.ApplySetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.WinSock.TRANSPORT_SETTING_ID_head),UInt32,POINTER(Byte),POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(3, 'ApplySetting', ((1, 'SettingId'),(1, 'LengthIn'),(1, 'ValueIn'),(1, 'LengthOut'),(1, 'ValueOut'),)))
     INetworkTransportSettings.QuerySetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.WinSock.TRANSPORT_SETTING_ID_head),UInt32,POINTER(Byte),POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(4, 'QuerySetting', ((1, 'SettingId'),(1, 'LengthIn'),(1, 'ValueIn'),(1, 'LengthOut'),(1, 'ValueOut'),)))
+    win32more.System.Com.IUnknown
     return INetworkTransportSettings
 def _define_INotificationTransportSync_head():
     class INotificationTransportSync(win32more.System.Com.IUnknown_head):
@@ -1334,6 +1399,7 @@ def _define_INotificationTransportSync():
     INotificationTransportSync = win32more.System.RealTimeCommunications.INotificationTransportSync_head
     INotificationTransportSync.CompleteDelivery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'CompleteDelivery', ()))
     INotificationTransportSync.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Flush', ()))
+    win32more.System.Com.IUnknown
     return INotificationTransportSync
 __all__ = [
     "RTCCS_FORCE_PROFILE",

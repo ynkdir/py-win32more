@@ -210,6 +210,7 @@ def _define_IRDPSRAPIDebug():
     IRDPSRAPIDebug = win32more.System.DesktopSharing.IRDPSRAPIDebug_head
     IRDPSRAPIDebug.put_CLXCmdLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(3, 'put_CLXCmdLine', ((1, 'CLXCmdLine'),)))
     IRDPSRAPIDebug.get_CLXCmdLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_CLXCmdLine', ((1, 'pCLXCmdLine'),)))
+    win32more.System.Com.IUnknown
     return IRDPSRAPIDebug
 def _define_IRDPSRAPIPerfCounterLogger_head():
     class IRDPSRAPIPerfCounterLogger(win32more.System.Com.IUnknown_head):
@@ -218,6 +219,7 @@ def _define_IRDPSRAPIPerfCounterLogger_head():
 def _define_IRDPSRAPIPerfCounterLogger():
     IRDPSRAPIPerfCounterLogger = win32more.System.DesktopSharing.IRDPSRAPIPerfCounterLogger_head
     IRDPSRAPIPerfCounterLogger.LogValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(3, 'LogValue', ((1, 'lValue'),)))
+    win32more.System.Com.IUnknown
     return IRDPSRAPIPerfCounterLogger
 def _define_IRDPSRAPIPerfCounterLoggingManager_head():
     class IRDPSRAPIPerfCounterLoggingManager(win32more.System.Com.IUnknown_head):
@@ -226,6 +228,7 @@ def _define_IRDPSRAPIPerfCounterLoggingManager_head():
 def _define_IRDPSRAPIPerfCounterLoggingManager():
     IRDPSRAPIPerfCounterLoggingManager = win32more.System.DesktopSharing.IRDPSRAPIPerfCounterLoggingManager_head
     IRDPSRAPIPerfCounterLoggingManager.CreateLogger = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.DesktopSharing.IRDPSRAPIPerfCounterLogger_head), use_last_error=False)(3, 'CreateLogger', ((1, 'bstrCounterName'),(1, 'ppLogger'),)))
+    win32more.System.Com.IUnknown
     return IRDPSRAPIPerfCounterLoggingManager
 def _define_IRDPSRAPIAudioStream_head():
     class IRDPSRAPIAudioStream(win32more.System.Com.IUnknown_head):
@@ -238,6 +241,7 @@ def _define_IRDPSRAPIAudioStream():
     IRDPSRAPIAudioStream.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Stop', ()))
     IRDPSRAPIAudioStream.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32),POINTER(UInt64), use_last_error=False)(6, 'GetBuffer', ((1, 'ppbData'),(1, 'pcbData'),(1, 'pTimestamp'),)))
     IRDPSRAPIAudioStream.FreeBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'FreeBuffer', ()))
+    win32more.System.Com.IUnknown
     return IRDPSRAPIAudioStream
 def _define_IRDPSRAPIClipboardUseEvents_head():
     class IRDPSRAPIClipboardUseEvents(win32more.System.Com.IUnknown_head):
@@ -246,6 +250,7 @@ def _define_IRDPSRAPIClipboardUseEvents_head():
 def _define_IRDPSRAPIClipboardUseEvents():
     IRDPSRAPIClipboardUseEvents = win32more.System.DesktopSharing.IRDPSRAPIClipboardUseEvents_head
     IRDPSRAPIClipboardUseEvents.OnPasteFromClipboard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IDispatch_head,POINTER(Int16), use_last_error=False)(3, 'OnPasteFromClipboard', ((1, 'clipboardFormat'),(1, 'pAttendee'),(1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IRDPSRAPIClipboardUseEvents
 def _define_IRDPSRAPIWindow_head():
     class IRDPSRAPIWindow(win32more.System.Com.IDispatch_head):
@@ -260,6 +265,7 @@ def _define_IRDPSRAPIWindow():
     IRDPSRAPIWindow.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_Name', ((1, 'pRetVal'),)))
     IRDPSRAPIWindow.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Show', ()))
     IRDPSRAPIWindow.get_Flags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(13, 'get_Flags', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIWindow
 def _define_IRDPSRAPIWindowList_head():
     class IRDPSRAPIWindowList(win32more.System.Com.IDispatch_head):
@@ -269,6 +275,7 @@ def _define_IRDPSRAPIWindowList():
     IRDPSRAPIWindowList = win32more.System.DesktopSharing.IRDPSRAPIWindowList_head
     IRDPSRAPIWindowList.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'retval'),)))
     IRDPSRAPIWindowList.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.DesktopSharing.IRDPSRAPIWindow_head), use_last_error=False)(8, 'get_Item', ((1, 'item'),(1, 'pWindow'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIWindowList
 def _define_IRDPSRAPIApplication_head():
     class IRDPSRAPIApplication(win32more.System.Com.IDispatch_head):
@@ -282,6 +289,7 @@ def _define_IRDPSRAPIApplication():
     IRDPSRAPIApplication.put_Shared = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(10, 'put_Shared', ((1, 'NewVal'),)))
     IRDPSRAPIApplication.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_Name', ((1, 'pRetVal'),)))
     IRDPSRAPIApplication.get_Flags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_Flags', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIApplication
 def _define_IRDPSRAPIApplicationList_head():
     class IRDPSRAPIApplicationList(win32more.System.Com.IDispatch_head):
@@ -291,6 +299,7 @@ def _define_IRDPSRAPIApplicationList():
     IRDPSRAPIApplicationList = win32more.System.DesktopSharing.IRDPSRAPIApplicationList_head
     IRDPSRAPIApplicationList.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'retval'),)))
     IRDPSRAPIApplicationList.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.DesktopSharing.IRDPSRAPIApplication_head), use_last_error=False)(8, 'get_Item', ((1, 'item'),(1, 'pApplication'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIApplicationList
 def _define_IRDPSRAPIApplicationFilter_head():
     class IRDPSRAPIApplicationFilter(win32more.System.Com.IDispatch_head):
@@ -302,6 +311,7 @@ def _define_IRDPSRAPIApplicationFilter():
     IRDPSRAPIApplicationFilter.get_Windows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DesktopSharing.IRDPSRAPIWindowList_head), use_last_error=False)(8, 'get_Windows', ((1, 'pWindows'),)))
     IRDPSRAPIApplicationFilter.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_Enabled', ((1, 'pRetVal'),)))
     IRDPSRAPIApplicationFilter.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(10, 'put_Enabled', ((1, 'NewVal'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIApplicationFilter
 def _define_IRDPSRAPISessionProperties_head():
     class IRDPSRAPISessionProperties(win32more.System.Com.IDispatch_head):
@@ -311,6 +321,7 @@ def _define_IRDPSRAPISessionProperties():
     IRDPSRAPISessionProperties = win32more.System.DesktopSharing.IRDPSRAPISessionProperties_head
     IRDPSRAPISessionProperties.get_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Property', ((1, 'PropertyName'),(1, 'pVal'),)))
     IRDPSRAPISessionProperties.put_Property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_Property', ((1, 'PropertyName'),(1, 'newVal'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPISessionProperties
 def _define_IRDPSRAPIInvitation_head():
     class IRDPSRAPIInvitation(win32more.System.Com.IDispatch_head):
@@ -325,6 +336,7 @@ def _define_IRDPSRAPIInvitation():
     IRDPSRAPIInvitation.put_AttendeeLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'put_AttendeeLimit', ((1, 'NewVal'),)))
     IRDPSRAPIInvitation.get_Revoked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(12, 'get_Revoked', ((1, 'pRetVal'),)))
     IRDPSRAPIInvitation.put_Revoked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(13, 'put_Revoked', ((1, 'NewVal'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIInvitation
 def _define_IRDPSRAPIInvitationManager_head():
     class IRDPSRAPIInvitationManager(win32more.System.Com.IDispatch_head):
@@ -336,6 +348,7 @@ def _define_IRDPSRAPIInvitationManager():
     IRDPSRAPIInvitationManager.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.DesktopSharing.IRDPSRAPIInvitation_head), use_last_error=False)(8, 'get_Item', ((1, 'item'),(1, 'ppInvitation'),)))
     IRDPSRAPIInvitationManager.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'pRetVal'),)))
     IRDPSRAPIInvitationManager.CreateInvitation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.DesktopSharing.IRDPSRAPIInvitation_head), use_last_error=False)(10, 'CreateInvitation', ((1, 'bstrAuthString'),(1, 'bstrGroupName'),(1, 'bstrPassword'),(1, 'AttendeeLimit'),(1, 'ppInvitation'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIInvitationManager
 def _define_IRDPSRAPITcpConnectionInfo_head():
     class IRDPSRAPITcpConnectionInfo(win32more.System.Com.IDispatch_head):
@@ -348,6 +361,7 @@ def _define_IRDPSRAPITcpConnectionInfo():
     IRDPSRAPITcpConnectionInfo.get_LocalIP = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_LocalIP', ((1, 'pbsrLocalIP'),)))
     IRDPSRAPITcpConnectionInfo.get_PeerPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_PeerPort', ((1, 'plPort'),)))
     IRDPSRAPITcpConnectionInfo.get_PeerIP = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_PeerIP', ((1, 'pbstrIP'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPITcpConnectionInfo
 def _define_IRDPSRAPIAttendee_head():
     class IRDPSRAPIAttendee(win32more.System.Com.IDispatch_head):
@@ -363,6 +377,7 @@ def _define_IRDPSRAPIAttendee():
     IRDPSRAPIAttendee.TerminateConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'TerminateConnection', ()))
     IRDPSRAPIAttendee.get_Flags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_Flags', ((1, 'plFlags'),)))
     IRDPSRAPIAttendee.get_ConnectivityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(14, 'get_ConnectivityInfo', ((1, 'ppVal'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIAttendee
 def _define_IRDPSRAPIAttendeeManager_head():
     class IRDPSRAPIAttendeeManager(win32more.System.Com.IDispatch_head):
@@ -372,6 +387,7 @@ def _define_IRDPSRAPIAttendeeManager():
     IRDPSRAPIAttendeeManager = win32more.System.DesktopSharing.IRDPSRAPIAttendeeManager_head
     IRDPSRAPIAttendeeManager.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'retval'),)))
     IRDPSRAPIAttendeeManager.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.DesktopSharing.IRDPSRAPIAttendee_head), use_last_error=False)(8, 'get_Item', ((1, 'id'),(1, 'ppItem'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIAttendeeManager
 def _define_IRDPSRAPIAttendeeDisconnectInfo_head():
     class IRDPSRAPIAttendeeDisconnectInfo(win32more.System.Com.IDispatch_head):
@@ -382,6 +398,7 @@ def _define_IRDPSRAPIAttendeeDisconnectInfo():
     IRDPSRAPIAttendeeDisconnectInfo.get_Attendee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DesktopSharing.IRDPSRAPIAttendee_head), use_last_error=False)(7, 'get_Attendee', ((1, 'retval'),)))
     IRDPSRAPIAttendeeDisconnectInfo.get_Reason = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DesktopSharing.ATTENDEE_DISCONNECT_REASON), use_last_error=False)(8, 'get_Reason', ((1, 'pReason'),)))
     IRDPSRAPIAttendeeDisconnectInfo.get_Code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Code', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIAttendeeDisconnectInfo
 def _define_IRDPSRAPIVirtualChannel_head():
     class IRDPSRAPIVirtualChannel(win32more.System.Com.IDispatch_head):
@@ -394,6 +411,7 @@ def _define_IRDPSRAPIVirtualChannel():
     IRDPSRAPIVirtualChannel.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Name', ((1, 'pbstrName'),)))
     IRDPSRAPIVirtualChannel.get_Flags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_Flags', ((1, 'plFlags'),)))
     IRDPSRAPIVirtualChannel.get_Priority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DesktopSharing.CHANNEL_PRIORITY), use_last_error=False)(11, 'get_Priority', ((1, 'pPriority'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIVirtualChannel
 def _define_IRDPSRAPIVirtualChannelManager_head():
     class IRDPSRAPIVirtualChannelManager(win32more.System.Com.IDispatch_head):
@@ -404,6 +422,7 @@ def _define_IRDPSRAPIVirtualChannelManager():
     IRDPSRAPIVirtualChannelManager.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'retval'),)))
     IRDPSRAPIVirtualChannelManager.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.DesktopSharing.IRDPSRAPIVirtualChannel_head), use_last_error=False)(8, 'get_Item', ((1, 'item'),(1, 'pChannel'),)))
     IRDPSRAPIVirtualChannelManager.CreateVirtualChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.DesktopSharing.CHANNEL_PRIORITY,UInt32,POINTER(win32more.System.DesktopSharing.IRDPSRAPIVirtualChannel_head), use_last_error=False)(9, 'CreateVirtualChannel', ((1, 'bstrChannelName'),(1, 'Priority'),(1, 'ChannelFlags'),(1, 'ppChannel'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIVirtualChannelManager
 def _define_IRDPSRAPIViewer_head():
     class IRDPSRAPIViewer(win32more.System.Com.IDispatch_head):
@@ -425,6 +444,7 @@ def _define_IRDPSRAPIViewer():
     IRDPSRAPIViewer.RequestColorDepthChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(18, 'RequestColorDepthChange', ((1, 'Bpp'),)))
     IRDPSRAPIViewer.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DesktopSharing.IRDPSRAPISessionProperties_head), use_last_error=False)(19, 'get_Properties', ((1, 'ppVal'),)))
     IRDPSRAPIViewer.StartReverseConnectListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'StartReverseConnectListener', ((1, 'bstrConnectionString'),(1, 'bstrUserName'),(1, 'bstrPassword'),(1, 'pbstrReverseConnectString'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIViewer
 def _define_IRDPViewerInputSink_head():
     class IRDPViewerInputSink(win32more.System.Com.IUnknown_head):
@@ -440,6 +460,7 @@ def _define_IRDPViewerInputSink():
     IRDPViewerInputSink.BeginTouchFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'BeginTouchFrame', ()))
     IRDPViewerInputSink.AddTouchInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,Int32,Int32, use_last_error=False)(9, 'AddTouchInput', ((1, 'contactId'),(1, 'event'),(1, 'x'),(1, 'y'),)))
     IRDPViewerInputSink.EndTouchFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'EndTouchFrame', ()))
+    win32more.System.Com.IUnknown
     return IRDPViewerInputSink
 def _define_IRDPSRAPIFrameBuffer_head():
     class IRDPSRAPIFrameBuffer(win32more.System.Com.IDispatch_head):
@@ -451,6 +472,7 @@ def _define_IRDPSRAPIFrameBuffer():
     IRDPSRAPIFrameBuffer.get_Height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Height', ((1, 'plHeight'),)))
     IRDPSRAPIFrameBuffer.get_Bpp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Bpp', ((1, 'plBpp'),)))
     IRDPSRAPIFrameBuffer.GetFrameBufferBits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(10, 'GetFrameBufferBits', ((1, 'x'),(1, 'y'),(1, 'Width'),(1, 'Heigth'),(1, 'ppBits'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPIFrameBuffer
 def _define_IRDPSRAPITransportStreamBuffer_head():
     class IRDPSRAPITransportStreamBuffer(win32more.System.Com.IUnknown_head):
@@ -468,6 +490,7 @@ def _define_IRDPSRAPITransportStreamBuffer():
     IRDPSRAPITransportStreamBuffer.put_Flags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_Flags', ((1, 'lFlags'),)))
     IRDPSRAPITransportStreamBuffer.get_Context = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, 'get_Context', ((1, 'ppContext'),)))
     IRDPSRAPITransportStreamBuffer.put_Context = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(12, 'put_Context', ((1, 'pContext'),)))
+    win32more.System.Com.IUnknown
     return IRDPSRAPITransportStreamBuffer
 def _define_IRDPSRAPITransportStreamEvents_head():
     class IRDPSRAPITransportStreamEvents(win32more.System.Com.IUnknown_head):
@@ -478,6 +501,7 @@ def _define_IRDPSRAPITransportStreamEvents():
     IRDPSRAPITransportStreamEvents.OnWriteCompleted = COMMETHOD(WINFUNCTYPE(Void,win32more.System.DesktopSharing.IRDPSRAPITransportStreamBuffer_head, use_last_error=False)(3, 'OnWriteCompleted', ((1, 'pBuffer'),)))
     IRDPSRAPITransportStreamEvents.OnReadCompleted = COMMETHOD(WINFUNCTYPE(Void,win32more.System.DesktopSharing.IRDPSRAPITransportStreamBuffer_head, use_last_error=False)(4, 'OnReadCompleted', ((1, 'pBuffer'),)))
     IRDPSRAPITransportStreamEvents.OnStreamClosed = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.HRESULT, use_last_error=False)(5, 'OnStreamClosed', ((1, 'hrReason'),)))
+    win32more.System.Com.IUnknown
     return IRDPSRAPITransportStreamEvents
 def _define_IRDPSRAPITransportStream_head():
     class IRDPSRAPITransportStream(win32more.System.Com.IUnknown_head):
@@ -491,6 +515,7 @@ def _define_IRDPSRAPITransportStream():
     IRDPSRAPITransportStream.ReadBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DesktopSharing.IRDPSRAPITransportStreamBuffer_head, use_last_error=False)(6, 'ReadBuffer', ((1, 'pBuffer'),)))
     IRDPSRAPITransportStream.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DesktopSharing.IRDPSRAPITransportStreamEvents_head, use_last_error=False)(7, 'Open', ((1, 'pCallbacks'),)))
     IRDPSRAPITransportStream.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IRDPSRAPITransportStream
 def _define_IRDPSRAPISharingSession_head():
     class IRDPSRAPISharingSession(win32more.System.Com.IDispatch_head):
@@ -512,6 +537,7 @@ def _define_IRDPSRAPISharingSession():
     IRDPSRAPISharingSession.ConnectToClient = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(18, 'ConnectToClient', ((1, 'bstrConnectionString'),)))
     IRDPSRAPISharingSession.SetDesktopSharedRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32, use_last_error=False)(19, 'SetDesktopSharedRect', ((1, 'left'),(1, 'top'),(1, 'right'),(1, 'bottom'),)))
     IRDPSRAPISharingSession.GetDesktopSharedRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(Int32),POINTER(Int32), use_last_error=False)(20, 'GetDesktopSharedRect', ((1, 'pleft'),(1, 'ptop'),(1, 'pright'),(1, 'pbottom'),)))
+    win32more.System.Com.IDispatch
     return IRDPSRAPISharingSession
 def _define_IRDPSRAPISharingSession2_head():
     class IRDPSRAPISharingSession2(win32more.System.DesktopSharing.IRDPSRAPISharingSession_head):
@@ -522,6 +548,7 @@ def _define_IRDPSRAPISharingSession2():
     IRDPSRAPISharingSession2.ConnectUsingTransportStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DesktopSharing.IRDPSRAPITransportStream_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(21, 'ConnectUsingTransportStream', ((1, 'pStream'),(1, 'bstrGroup'),(1, 'bstrAuthenticatedAttendeeName'),)))
     IRDPSRAPISharingSession2.get_FrameBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DesktopSharing.IRDPSRAPIFrameBuffer_head), use_last_error=False)(22, 'get_FrameBuffer', ((1, 'ppVal'),)))
     IRDPSRAPISharingSession2.SendControlLevelChangeResponse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.DesktopSharing.IRDPSRAPIAttendee_head,win32more.System.DesktopSharing.CTRL_LEVEL,Int32, use_last_error=False)(23, 'SendControlLevelChangeResponse', ((1, 'pAttendee'),(1, 'RequestedLevel'),(1, 'ReasonCode'),)))
+    win32more.System.DesktopSharing.IRDPSRAPISharingSession
     return IRDPSRAPISharingSession2
 __MIDL___MIDL_itf_rdpencomapi_0000_0027_0001 = Int32
 CONST_MAX_CHANNEL_MESSAGE_SIZE = 1024
@@ -554,6 +581,7 @@ def _define__IRDPSessionEvents_head():
     return _IRDPSessionEvents
 def _define__IRDPSessionEvents():
     _IRDPSessionEvents = win32more.System.DesktopSharing._IRDPSessionEvents_head
+    win32more.System.Com.IDispatch
     return _IRDPSessionEvents
 __all__ = [
     "DISPID_RDPSRAPI_METHOD_OPEN",

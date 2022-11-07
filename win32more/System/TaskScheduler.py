@@ -159,6 +159,7 @@ def _define_ITaskTrigger():
     ITaskTrigger.SetTrigger = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.TaskScheduler.TASK_TRIGGER_head), use_last_error=False)(3, 'SetTrigger', ((1, 'pTrigger'),)))
     ITaskTrigger.GetTrigger = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.TaskScheduler.TASK_TRIGGER_head), use_last_error=False)(4, 'GetTrigger', ((1, 'pTrigger'),)))
     ITaskTrigger.GetTriggerString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetTriggerString', ((1, 'ppwszTrigger'),)))
+    win32more.System.Com.IUnknown
     return ITaskTrigger
 def _define_IScheduledWorkItem_head():
     class IScheduledWorkItem(win32more.System.Com.IUnknown_head):
@@ -195,6 +196,7 @@ def _define_IScheduledWorkItem():
     IScheduledWorkItem.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(29, 'GetFlags', ((1, 'pdwFlags'),)))
     IScheduledWorkItem.SetAccountInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(30, 'SetAccountInformation', ((1, 'pwszAccountName'),(1, 'pwszPassword'),)))
     IScheduledWorkItem.GetAccountInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(31, 'GetAccountInformation', ((1, 'ppwszAccountName'),)))
+    win32more.System.Com.IUnknown
     return IScheduledWorkItem
 def _define_ITask_head():
     class ITask(win32more.System.TaskScheduler.IScheduledWorkItem_head):
@@ -214,6 +216,7 @@ def _define_ITask():
     ITask.GetTaskFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(41, 'GetTaskFlags', ((1, 'pdwFlags'),)))
     ITask.SetMaxRunTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(42, 'SetMaxRunTime', ((1, 'dwMaxRunTimeMS'),)))
     ITask.GetMaxRunTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(43, 'GetMaxRunTime', ((1, 'pdwMaxRunTimeMS'),)))
+    win32more.System.TaskScheduler.IScheduledWorkItem
     return ITask
 def _define_IEnumWorkItems_head():
     class IEnumWorkItems(win32more.System.Com.IUnknown_head):
@@ -225,6 +228,7 @@ def _define_IEnumWorkItems():
     IEnumWorkItems.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumWorkItems.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumWorkItems.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.TaskScheduler.IEnumWorkItems_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnumWorkItems'),)))
+    win32more.System.Com.IUnknown
     return IEnumWorkItems
 def _define_ITaskScheduler_head():
     class ITaskScheduler(win32more.System.Com.IUnknown_head):
@@ -240,6 +244,7 @@ def _define_ITaskScheduler():
     ITaskScheduler.NewWorkItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'NewWorkItem', ((1, 'pwszTaskName'),(1, 'rclsid'),(1, 'riid'),(1, 'ppUnk'),)))
     ITaskScheduler.AddWorkItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.TaskScheduler.IScheduledWorkItem_head, use_last_error=False)(9, 'AddWorkItem', ((1, 'pwszTaskName'),(1, 'pWorkItem'),)))
     ITaskScheduler.IsOfType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(10, 'IsOfType', ((1, 'pwszName'),(1, 'riid'),)))
+    win32more.System.Com.IUnknown
     return ITaskScheduler
 TASKPAGE = Int32
 TASKPAGE_TASK = 0
@@ -252,6 +257,7 @@ def _define_IProvideTaskPage_head():
 def _define_IProvideTaskPage():
     IProvideTaskPage = win32more.System.TaskScheduler.IProvideTaskPage_head
     IProvideTaskPage.GetPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.TaskScheduler.TASKPAGE,win32more.Foundation.BOOL,POINTER(win32more.UI.Controls.HPROPSHEETPAGE), use_last_error=False)(3, 'GetPage', ((1, 'tpType'),(1, 'fPersistChanges'),(1, 'phPage'),)))
+    win32more.System.Com.IUnknown
     return IProvideTaskPage
 TaskScheduler = Guid('0f87369f-a4e5-4cfc-bd3e-73e6154572dd')
 TaskHandlerPS = Guid('f2a69db7-da2c-4352-9066-86fee6dacac9')
@@ -340,6 +346,7 @@ def _define_ITaskFolderCollection():
     ITaskFolderCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pCount'),)))
     ITaskFolderCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.TaskScheduler.ITaskFolder_head), use_last_error=False)(8, 'get_Item', ((1, 'index'),(1, 'ppFolder'),)))
     ITaskFolderCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnum'),)))
+    win32more.System.Com.IDispatch
     return ITaskFolderCollection
 def _define_ITaskService_head():
     class ITaskService(win32more.System.Com.IDispatch_head):
@@ -356,6 +363,7 @@ def _define_ITaskService():
     ITaskService.get_ConnectedUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_ConnectedUser', ((1, 'pUser'),)))
     ITaskService.get_ConnectedDomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_ConnectedDomain', ((1, 'pDomain'),)))
     ITaskService.get_HighestVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'get_HighestVersion', ((1, 'pVersion'),)))
+    win32more.System.Com.IDispatch
     return ITaskService
 def _define_ITaskHandler_head():
     class ITaskHandler(win32more.System.Com.IUnknown_head):
@@ -367,6 +375,7 @@ def _define_ITaskHandler():
     ITaskHandler.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(4, 'Stop', ((1, 'pRetCode'),)))
     ITaskHandler.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Pause', ()))
     ITaskHandler.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Resume', ()))
+    win32more.System.Com.IUnknown
     return ITaskHandler
 def _define_ITaskHandlerStatus_head():
     class ITaskHandlerStatus(win32more.System.Com.IUnknown_head):
@@ -376,6 +385,7 @@ def _define_ITaskHandlerStatus():
     ITaskHandlerStatus = win32more.System.TaskScheduler.ITaskHandlerStatus_head
     ITaskHandlerStatus.UpdateStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,win32more.Foundation.BSTR, use_last_error=False)(3, 'UpdateStatus', ((1, 'percentComplete'),(1, 'statusMessage'),)))
     ITaskHandlerStatus.TaskCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'TaskCompleted', ((1, 'taskErrCode'),)))
+    win32more.System.Com.IUnknown
     return ITaskHandlerStatus
 def _define_ITaskVariables_head():
     class ITaskVariables(win32more.System.Com.IUnknown_head):
@@ -386,6 +396,7 @@ def _define_ITaskVariables():
     ITaskVariables.GetInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetInput', ((1, 'pInput'),)))
     ITaskVariables.SetOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(4, 'SetOutput', ((1, 'input'),)))
     ITaskVariables.GetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetContext', ((1, 'pContext'),)))
+    win32more.System.Com.IUnknown
     return ITaskVariables
 def _define_ITaskNamedValuePair_head():
     class ITaskNamedValuePair(win32more.System.Com.IDispatch_head):
@@ -397,6 +408,7 @@ def _define_ITaskNamedValuePair():
     ITaskNamedValuePair.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_Name', ((1, 'name'),)))
     ITaskNamedValuePair.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Value', ((1, 'pValue'),)))
     ITaskNamedValuePair.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_Value', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return ITaskNamedValuePair
 def _define_ITaskNamedValueCollection_head():
     class ITaskNamedValueCollection(win32more.System.Com.IDispatch_head):
@@ -410,6 +422,7 @@ def _define_ITaskNamedValueCollection():
     ITaskNamedValueCollection.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.TaskScheduler.ITaskNamedValuePair_head), use_last_error=False)(10, 'Create', ((1, 'name'),(1, 'value'),(1, 'ppPair'),)))
     ITaskNamedValueCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'index'),)))
     ITaskNamedValueCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
+    win32more.System.Com.IDispatch
     return ITaskNamedValueCollection
 def _define_IRunningTask_head():
     class IRunningTask(win32more.System.Com.IDispatch_head):
@@ -425,6 +438,7 @@ def _define_IRunningTask():
     IRunningTask.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Stop', ()))
     IRunningTask.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Refresh', ()))
     IRunningTask.get_EnginePID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'get_EnginePID', ((1, 'pPID'),)))
+    win32more.System.Com.IDispatch
     return IRunningTask
 def _define_IRunningTaskCollection_head():
     class IRunningTaskCollection(win32more.System.Com.IDispatch_head):
@@ -435,6 +449,7 @@ def _define_IRunningTaskCollection():
     IRunningTaskCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pCount'),)))
     IRunningTaskCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.TaskScheduler.IRunningTask_head), use_last_error=False)(8, 'get_Item', ((1, 'index'),(1, 'ppRunningTask'),)))
     IRunningTaskCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnum'),)))
+    win32more.System.Com.IDispatch
     return IRunningTaskCollection
 def _define_IRegisteredTask_head():
     class IRegisteredTask(win32more.System.Com.IDispatch_head):
@@ -460,6 +475,7 @@ def _define_IRegisteredTask():
     IRegisteredTask.SetSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(22, 'SetSecurityDescriptor', ((1, 'sddl'),(1, 'flags'),)))
     IRegisteredTask.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(23, 'Stop', ((1, 'flags'),)))
     IRegisteredTask.GetRunTimes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head),POINTER(win32more.Foundation.SYSTEMTIME_head),POINTER(UInt32),POINTER(POINTER(win32more.Foundation.SYSTEMTIME_head)), use_last_error=False)(24, 'GetRunTimes', ((1, 'pstStart'),(1, 'pstEnd'),(1, 'pCount'),(1, 'pRunTimes'),)))
+    win32more.System.Com.IDispatch
     return IRegisteredTask
 def _define_ITrigger_head():
     class ITrigger(win32more.System.Com.IDispatch_head):
@@ -480,6 +496,7 @@ def _define_ITrigger():
     ITrigger.put_EndBoundary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'put_EndBoundary', ((1, 'end'),)))
     ITrigger.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(18, 'get_Enabled', ((1, 'pEnabled'),)))
     ITrigger.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(19, 'put_Enabled', ((1, 'enabled'),)))
+    win32more.System.Com.IDispatch
     return ITrigger
 def _define_IIdleTrigger_head():
     class IIdleTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -487,6 +504,7 @@ def _define_IIdleTrigger_head():
     return IIdleTrigger
 def _define_IIdleTrigger():
     IIdleTrigger = win32more.System.TaskScheduler.IIdleTrigger_head
+    win32more.System.TaskScheduler.ITrigger
     return IIdleTrigger
 def _define_ILogonTrigger_head():
     class ILogonTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -498,6 +516,7 @@ def _define_ILogonTrigger():
     ILogonTrigger.put_Delay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(21, 'put_Delay', ((1, 'delay'),)))
     ILogonTrigger.get_UserId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_UserId', ((1, 'pUser'),)))
     ILogonTrigger.put_UserId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(23, 'put_UserId', ((1, 'user'),)))
+    win32more.System.TaskScheduler.ITrigger
     return ILogonTrigger
 def _define_ISessionStateChangeTrigger_head():
     class ISessionStateChangeTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -511,6 +530,7 @@ def _define_ISessionStateChangeTrigger():
     ISessionStateChangeTrigger.put_UserId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(23, 'put_UserId', ((1, 'user'),)))
     ISessionStateChangeTrigger.get_StateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.TaskScheduler.TASK_SESSION_STATE_CHANGE_TYPE), use_last_error=False)(24, 'get_StateChange', ((1, 'pType'),)))
     ISessionStateChangeTrigger.put_StateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.TaskScheduler.TASK_SESSION_STATE_CHANGE_TYPE, use_last_error=False)(25, 'put_StateChange', ((1, 'type'),)))
+    win32more.System.TaskScheduler.ITrigger
     return ISessionStateChangeTrigger
 def _define_IEventTrigger_head():
     class IEventTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -524,6 +544,7 @@ def _define_IEventTrigger():
     IEventTrigger.put_Delay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(23, 'put_Delay', ((1, 'delay'),)))
     IEventTrigger.get_ValueQueries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.TaskScheduler.ITaskNamedValueCollection_head), use_last_error=False)(24, 'get_ValueQueries', ((1, 'ppNamedXPaths'),)))
     IEventTrigger.put_ValueQueries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.TaskScheduler.ITaskNamedValueCollection_head, use_last_error=False)(25, 'put_ValueQueries', ((1, 'pNamedXPaths'),)))
+    win32more.System.TaskScheduler.ITrigger
     return IEventTrigger
 def _define_ITimeTrigger_head():
     class ITimeTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -533,6 +554,7 @@ def _define_ITimeTrigger():
     ITimeTrigger = win32more.System.TaskScheduler.ITimeTrigger_head
     ITimeTrigger.get_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'get_RandomDelay', ((1, 'pRandomDelay'),)))
     ITimeTrigger.put_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(21, 'put_RandomDelay', ((1, 'randomDelay'),)))
+    win32more.System.TaskScheduler.ITrigger
     return ITimeTrigger
 def _define_IDailyTrigger_head():
     class IDailyTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -544,6 +566,7 @@ def _define_IDailyTrigger():
     IDailyTrigger.put_DaysInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(21, 'put_DaysInterval', ((1, 'days'),)))
     IDailyTrigger.get_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_RandomDelay', ((1, 'pRandomDelay'),)))
     IDailyTrigger.put_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(23, 'put_RandomDelay', ((1, 'randomDelay'),)))
+    win32more.System.TaskScheduler.ITrigger
     return IDailyTrigger
 def _define_IWeeklyTrigger_head():
     class IWeeklyTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -557,6 +580,7 @@ def _define_IWeeklyTrigger():
     IWeeklyTrigger.put_WeeksInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(23, 'put_WeeksInterval', ((1, 'weeks'),)))
     IWeeklyTrigger.get_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(24, 'get_RandomDelay', ((1, 'pRandomDelay'),)))
     IWeeklyTrigger.put_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(25, 'put_RandomDelay', ((1, 'randomDelay'),)))
+    win32more.System.TaskScheduler.ITrigger
     return IWeeklyTrigger
 def _define_IMonthlyTrigger_head():
     class IMonthlyTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -572,6 +596,7 @@ def _define_IMonthlyTrigger():
     IMonthlyTrigger.put_RunOnLastDayOfMonth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(25, 'put_RunOnLastDayOfMonth', ((1, 'lastDay'),)))
     IMonthlyTrigger.get_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'get_RandomDelay', ((1, 'pRandomDelay'),)))
     IMonthlyTrigger.put_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(27, 'put_RandomDelay', ((1, 'randomDelay'),)))
+    win32more.System.TaskScheduler.ITrigger
     return IMonthlyTrigger
 def _define_IMonthlyDOWTrigger_head():
     class IMonthlyDOWTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -589,6 +614,7 @@ def _define_IMonthlyDOWTrigger():
     IMonthlyDOWTrigger.put_RunOnLastWeekOfMonth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(27, 'put_RunOnLastWeekOfMonth', ((1, 'lastWeek'),)))
     IMonthlyDOWTrigger.get_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(28, 'get_RandomDelay', ((1, 'pRandomDelay'),)))
     IMonthlyDOWTrigger.put_RandomDelay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(29, 'put_RandomDelay', ((1, 'randomDelay'),)))
+    win32more.System.TaskScheduler.ITrigger
     return IMonthlyDOWTrigger
 def _define_IBootTrigger_head():
     class IBootTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -598,6 +624,7 @@ def _define_IBootTrigger():
     IBootTrigger = win32more.System.TaskScheduler.IBootTrigger_head
     IBootTrigger.get_Delay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'get_Delay', ((1, 'pDelay'),)))
     IBootTrigger.put_Delay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(21, 'put_Delay', ((1, 'delay'),)))
+    win32more.System.TaskScheduler.ITrigger
     return IBootTrigger
 def _define_IRegistrationTrigger_head():
     class IRegistrationTrigger(win32more.System.TaskScheduler.ITrigger_head):
@@ -607,6 +634,7 @@ def _define_IRegistrationTrigger():
     IRegistrationTrigger = win32more.System.TaskScheduler.IRegistrationTrigger_head
     IRegistrationTrigger.get_Delay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'get_Delay', ((1, 'pDelay'),)))
     IRegistrationTrigger.put_Delay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(21, 'put_Delay', ((1, 'delay'),)))
+    win32more.System.TaskScheduler.ITrigger
     return IRegistrationTrigger
 def _define_IAction_head():
     class IAction(win32more.System.Com.IDispatch_head):
@@ -617,6 +645,7 @@ def _define_IAction():
     IAction.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Id', ((1, 'pId'),)))
     IAction.put_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_Id', ((1, 'Id'),)))
     IAction.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.TaskScheduler.TASK_ACTION_TYPE), use_last_error=False)(9, 'get_Type', ((1, 'pType'),)))
+    win32more.System.Com.IDispatch
     return IAction
 def _define_IExecAction_head():
     class IExecAction(win32more.System.TaskScheduler.IAction_head):
@@ -630,6 +659,7 @@ def _define_IExecAction():
     IExecAction.put_Arguments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_Arguments', ((1, 'argument'),)))
     IExecAction.get_WorkingDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_WorkingDirectory', ((1, 'pWorkingDirectory'),)))
     IExecAction.put_WorkingDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'put_WorkingDirectory', ((1, 'workingDirectory'),)))
+    win32more.System.TaskScheduler.IAction
     return IExecAction
 def _define_IExecAction2_head():
     class IExecAction2(win32more.System.TaskScheduler.IExecAction_head):
@@ -639,6 +669,7 @@ def _define_IExecAction2():
     IExecAction2 = win32more.System.TaskScheduler.IExecAction2_head
     IExecAction2.get_HideAppWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(16, 'get_HideAppWindow', ((1, 'pHideAppWindow'),)))
     IExecAction2.put_HideAppWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'put_HideAppWindow', ((1, 'hideAppWindow'),)))
+    win32more.System.TaskScheduler.IExecAction
     return IExecAction2
 def _define_IShowMessageAction_head():
     class IShowMessageAction(win32more.System.TaskScheduler.IAction_head):
@@ -650,6 +681,7 @@ def _define_IShowMessageAction():
     IShowMessageAction.put_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_Title', ((1, 'title'),)))
     IShowMessageAction.get_MessageBody = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_MessageBody', ((1, 'pMessageBody'),)))
     IShowMessageAction.put_MessageBody = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_MessageBody', ((1, 'messageBody'),)))
+    win32more.System.TaskScheduler.IAction
     return IShowMessageAction
 def _define_IComHandlerAction_head():
     class IComHandlerAction(win32more.System.TaskScheduler.IAction_head):
@@ -661,6 +693,7 @@ def _define_IComHandlerAction():
     IComHandlerAction.put_ClassId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_ClassId', ((1, 'clsid'),)))
     IComHandlerAction.get_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_Data', ((1, 'pData'),)))
     IComHandlerAction.put_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_Data', ((1, 'data'),)))
+    win32more.System.TaskScheduler.IAction
     return IComHandlerAction
 def _define_IEmailAction_head():
     class IEmailAction(win32more.System.TaskScheduler.IAction_head):
@@ -688,6 +721,7 @@ def _define_IEmailAction():
     IEmailAction.put_Body = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(27, 'put_Body', ((1, 'body'),)))
     IEmailAction.get_Attachments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(28, 'get_Attachments', ((1, 'pAttachements'),)))
     IEmailAction.put_Attachments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(29, 'put_Attachments', ((1, 'pAttachements'),)))
+    win32more.System.TaskScheduler.IAction
     return IEmailAction
 def _define_ITriggerCollection_head():
     class ITriggerCollection(win32more.System.Com.IDispatch_head):
@@ -701,6 +735,7 @@ def _define_ITriggerCollection():
     ITriggerCollection.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.TaskScheduler.TASK_TRIGGER_TYPE2,POINTER(win32more.System.TaskScheduler.ITrigger_head), use_last_error=False)(10, 'Create', ((1, 'type'),(1, 'ppTrigger'),)))
     ITriggerCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(11, 'Remove', ((1, 'index'),)))
     ITriggerCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
+    win32more.System.Com.IDispatch
     return ITriggerCollection
 def _define_IActionCollection_head():
     class IActionCollection(win32more.System.Com.IDispatch_head):
@@ -718,6 +753,7 @@ def _define_IActionCollection():
     IActionCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Clear', ()))
     IActionCollection.get_Context = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_Context', ((1, 'pContext'),)))
     IActionCollection.put_Context = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(16, 'put_Context', ((1, 'context'),)))
+    win32more.System.Com.IDispatch
     return IActionCollection
 def _define_IPrincipal_head():
     class IPrincipal(win32more.System.Com.IDispatch_head):
@@ -737,6 +773,7 @@ def _define_IPrincipal():
     IPrincipal.put_GroupId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(16, 'put_GroupId', ((1, 'group'),)))
     IPrincipal.get_RunLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.TaskScheduler.TASK_RUNLEVEL_TYPE), use_last_error=False)(17, 'get_RunLevel', ((1, 'pRunLevel'),)))
     IPrincipal.put_RunLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.TaskScheduler.TASK_RUNLEVEL_TYPE, use_last_error=False)(18, 'put_RunLevel', ((1, 'runLevel'),)))
+    win32more.System.Com.IDispatch
     return IPrincipal
 def _define_IPrincipal2_head():
     class IPrincipal2(win32more.System.Com.IDispatch_head):
@@ -749,6 +786,7 @@ def _define_IPrincipal2():
     IPrincipal2.get_RequiredPrivilegeCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_RequiredPrivilegeCount', ((1, 'pCount'),)))
     IPrincipal2.get_RequiredPrivilege = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_RequiredPrivilege', ((1, 'index'),(1, 'pPrivilege'),)))
     IPrincipal2.AddRequiredPrivilege = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'AddRequiredPrivilege', ((1, 'privilege'),)))
+    win32more.System.Com.IDispatch
     return IPrincipal2
 def _define_IRegistrationInfo_head():
     class IRegistrationInfo(win32more.System.Com.IDispatch_head):
@@ -774,6 +812,7 @@ def _define_IRegistrationInfo():
     IRegistrationInfo.put_SecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(22, 'put_SecurityDescriptor', ((1, 'sddl'),)))
     IRegistrationInfo.get_Source = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(23, 'get_Source', ((1, 'pSource'),)))
     IRegistrationInfo.put_Source = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(24, 'put_Source', ((1, 'source'),)))
+    win32more.System.Com.IDispatch
     return IRegistrationInfo
 def _define_ITaskDefinition_head():
     class ITaskDefinition(win32more.System.Com.IDispatch_head):
@@ -795,6 +834,7 @@ def _define_ITaskDefinition():
     ITaskDefinition.put_Actions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.TaskScheduler.IActionCollection_head, use_last_error=False)(18, 'put_Actions', ((1, 'pActions'),)))
     ITaskDefinition.get_XmlText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_XmlText', ((1, 'pXml'),)))
     ITaskDefinition.put_XmlText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(20, 'put_XmlText', ((1, 'xml'),)))
+    win32more.System.Com.IDispatch
     return ITaskDefinition
 def _define_ITaskSettings_head():
     class ITaskSettings(win32more.System.Com.IDispatch_head):
@@ -842,6 +882,7 @@ def _define_ITaskSettings():
     ITaskSettings.put_WakeToRun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(44, 'put_WakeToRun', ((1, 'wake'),)))
     ITaskSettings.get_NetworkSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.TaskScheduler.INetworkSettings_head), use_last_error=False)(45, 'get_NetworkSettings', ((1, 'ppNetworkSettings'),)))
     ITaskSettings.put_NetworkSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.TaskScheduler.INetworkSettings_head, use_last_error=False)(46, 'put_NetworkSettings', ((1, 'pNetworkSettings'),)))
+    win32more.System.Com.IDispatch
     return ITaskSettings
 def _define_ITaskSettings2_head():
     class ITaskSettings2(win32more.System.Com.IDispatch_head):
@@ -853,6 +894,7 @@ def _define_ITaskSettings2():
     ITaskSettings2.put_DisallowStartOnRemoteAppSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(8, 'put_DisallowStartOnRemoteAppSession', ((1, 'disallowStart'),)))
     ITaskSettings2.get_UseUnifiedSchedulingEngine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_UseUnifiedSchedulingEngine', ((1, 'pUseUnifiedEngine'),)))
     ITaskSettings2.put_UseUnifiedSchedulingEngine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(10, 'put_UseUnifiedSchedulingEngine', ((1, 'useUnifiedEngine'),)))
+    win32more.System.Com.IDispatch
     return ITaskSettings2
 def _define_ITaskSettings3_head():
     class ITaskSettings3(win32more.System.TaskScheduler.ITaskSettings_head):
@@ -869,6 +911,7 @@ def _define_ITaskSettings3():
     ITaskSettings3.CreateMaintenanceSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.TaskScheduler.IMaintenanceSettings_head), use_last_error=False)(53, 'CreateMaintenanceSettings', ((1, 'ppMaintenanceSettings'),)))
     ITaskSettings3.get_Volatile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(54, 'get_Volatile', ((1, 'pVolatile'),)))
     ITaskSettings3.put_Volatile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(55, 'put_Volatile', ((1, 'Volatile'),)))
+    win32more.System.TaskScheduler.ITaskSettings
     return ITaskSettings3
 def _define_IMaintenanceSettings_head():
     class IMaintenanceSettings(win32more.System.Com.IDispatch_head):
@@ -882,6 +925,7 @@ def _define_IMaintenanceSettings():
     IMaintenanceSettings.get_Deadline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Deadline', ((1, 'target'),)))
     IMaintenanceSettings.put_Exclusive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(11, 'put_Exclusive', ((1, 'value'),)))
     IMaintenanceSettings.get_Exclusive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(12, 'get_Exclusive', ((1, 'target'),)))
+    win32more.System.Com.IDispatch
     return IMaintenanceSettings
 def _define_IRegisteredTaskCollection_head():
     class IRegisteredTaskCollection(win32more.System.Com.IDispatch_head):
@@ -892,6 +936,7 @@ def _define_IRegisteredTaskCollection():
     IRegisteredTaskCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pCount'),)))
     IRegisteredTaskCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.TaskScheduler.IRegisteredTask_head), use_last_error=False)(8, 'get_Item', ((1, 'index'),(1, 'ppRegisteredTask'),)))
     IRegisteredTaskCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnum'),)))
+    win32more.System.Com.IDispatch
     return IRegisteredTaskCollection
 def _define_ITaskFolder_head():
     class ITaskFolder(win32more.System.Com.IDispatch_head):
@@ -912,6 +957,7 @@ def _define_ITaskFolder():
     ITaskFolder.RegisterTaskDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.TaskScheduler.ITaskDefinition_head,Int32,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.TaskScheduler.TASK_LOGON_TYPE,win32more.System.Com.VARIANT,POINTER(win32more.System.TaskScheduler.IRegisteredTask_head), use_last_error=False)(17, 'RegisterTaskDefinition', ((1, 'path'),(1, 'pDefinition'),(1, 'flags'),(1, 'userId'),(1, 'password'),(1, 'logonType'),(1, 'sddl'),(1, 'ppTask'),)))
     ITaskFolder.GetSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'GetSecurityDescriptor', ((1, 'securityInformation'),(1, 'pSddl'),)))
     ITaskFolder.SetSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(19, 'SetSecurityDescriptor', ((1, 'sddl'),(1, 'flags'),)))
+    win32more.System.Com.IDispatch
     return ITaskFolder
 def _define_IIdleSettings_head():
     class IIdleSettings(win32more.System.Com.IDispatch_head):
@@ -927,6 +973,7 @@ def _define_IIdleSettings():
     IIdleSettings.put_StopOnIdleEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(12, 'put_StopOnIdleEnd', ((1, 'stop'),)))
     IIdleSettings.get_RestartOnIdle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(13, 'get_RestartOnIdle', ((1, 'pRestart'),)))
     IIdleSettings.put_RestartOnIdle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(14, 'put_RestartOnIdle', ((1, 'restart'),)))
+    win32more.System.Com.IDispatch
     return IIdleSettings
 def _define_INetworkSettings_head():
     class INetworkSettings(win32more.System.Com.IDispatch_head):
@@ -938,6 +985,7 @@ def _define_INetworkSettings():
     INetworkSettings.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_Name', ((1, 'name'),)))
     INetworkSettings.get_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Id', ((1, 'pId'),)))
     INetworkSettings.put_Id = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_Id', ((1, 'id'),)))
+    win32more.System.Com.IDispatch
     return INetworkSettings
 def _define_IRepetitionPattern_head():
     class IRepetitionPattern(win32more.System.Com.IDispatch_head):
@@ -951,6 +999,7 @@ def _define_IRepetitionPattern():
     IRepetitionPattern.put_Duration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_Duration', ((1, 'duration'),)))
     IRepetitionPattern.get_StopAtDurationEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(11, 'get_StopAtDurationEnd', ((1, 'pStop'),)))
     IRepetitionPattern.put_StopAtDurationEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(12, 'put_StopAtDurationEnd', ((1, 'stop'),)))
+    win32more.System.Com.IDispatch
     return IRepetitionPattern
 __all__ = [
     "TASK_SUNDAY",

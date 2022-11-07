@@ -129,6 +129,7 @@ def _define_ISceSvcAttachmentPersistInfo():
     ISceSvcAttachmentPersistInfo.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(SByte),POINTER(c_void_p),POINTER(c_void_p),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'Save', ((1, 'lpTemplateName'),(1, 'scesvcHandle'),(1, 'ppvData'),(1, 'pbOverwriteAll'),)))
     ISceSvcAttachmentPersistInfo.IsDirty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(SByte), use_last_error=False)(4, 'IsDirty', ((1, 'lpTemplateName'),)))
     ISceSvcAttachmentPersistInfo.FreeBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p, use_last_error=False)(5, 'FreeBuffer', ((1, 'pvData'),)))
+    win32more.System.Com.IUnknown
     return ISceSvcAttachmentPersistInfo
 def _define_ISceSvcAttachmentData_head():
     class ISceSvcAttachmentData(win32more.System.Com.IUnknown_head):
@@ -140,6 +141,7 @@ def _define_ISceSvcAttachmentData():
     ISceSvcAttachmentData.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(SByte),POINTER(SByte),win32more.Security.ConfigurationSnapin.ISceSvcAttachmentPersistInfo_head,POINTER(c_void_p), use_last_error=False)(4, 'Initialize', ((1, 'lpServiceName'),(1, 'lpTemplateName'),(1, 'lpSceSvcPersistInfo'),(1, 'pscesvcHandle'),)))
     ISceSvcAttachmentData.FreeBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p, use_last_error=False)(5, 'FreeBuffer', ((1, 'pvData'),)))
     ISceSvcAttachmentData.CloseHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p, use_last_error=False)(6, 'CloseHandle', ((1, 'scesvcHandle'),)))
+    win32more.System.Com.IUnknown
     return ISceSvcAttachmentData
 __all__ = [
     "cNodetypeSceTemplateServices",

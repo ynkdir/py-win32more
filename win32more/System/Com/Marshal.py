@@ -28,6 +28,7 @@ def _define_IMarshal():
     IMarshal.UnmarshalInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'UnmarshalInterface', ((1, 'pStm'),(1, 'riid'),(1, 'ppv'),)))
     IMarshal.ReleaseMarshalData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(7, 'ReleaseMarshalData', ((1, 'pStm'),)))
     IMarshal.DisconnectObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'DisconnectObject', ((1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return IMarshal
 def _define_IMarshal2_head():
     class IMarshal2(win32more.System.Com.Marshal.IMarshal_head):
@@ -35,6 +36,7 @@ def _define_IMarshal2_head():
     return IMarshal2
 def _define_IMarshal2():
     IMarshal2 = win32more.System.Com.Marshal.IMarshal2_head
+    win32more.System.Com.Marshal.IMarshal
     return IMarshal2
 def _define_IMarshalingStream_head():
     class IMarshalingStream(win32more.System.Com.IStream_head):
@@ -43,6 +45,7 @@ def _define_IMarshalingStream_head():
 def _define_IMarshalingStream():
     IMarshalingStream = win32more.System.Com.Marshal.IMarshalingStream_head
     IMarshalingStream.GetMarshalingContextAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.CO_MARSHALING_CONTEXT_ATTRIBUTES,POINTER(UIntPtr), use_last_error=False)(14, 'GetMarshalingContextAttribute', ((1, 'attribute'),(1, 'pAttributeValue'),)))
+    win32more.System.Com.IStream
     return IMarshalingStream
 STDMSHLFLAGS = Int32
 SMEXF_SERVER = 1

@@ -44,6 +44,7 @@ def _define_IDirect3DDevice9On12():
     IDirect3DDevice9On12.GetD3D12Device = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetD3D12Device', ((1, 'riid'),(1, 'ppvDevice'),)))
     IDirect3DDevice9On12.UnwrapUnderlyingResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.IDirect3DResource9_head,win32more.Graphics.Direct3D12.ID3D12CommandQueue_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'UnwrapUnderlyingResource', ((1, 'pResource'),(1, 'pCommandQueue'),(1, 'riid'),(1, 'ppvResource12'),)))
     IDirect3DDevice9On12.ReturnUnderlyingResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.IDirect3DResource9_head,UInt32,POINTER(UInt64),POINTER(win32more.Graphics.Direct3D12.ID3D12Fence_head), use_last_error=False)(5, 'ReturnUnderlyingResource', ((1, 'pResource'),(1, 'NumSync'),(1, 'pSignalValues'),(1, 'ppFences'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DDevice9On12
 def _define_Direct3DCreate9On12Ex():
     try:

@@ -442,6 +442,7 @@ def _define_ID3D10DeviceChild():
     ID3D10DeviceChild.GetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),c_void_p, use_last_error=False)(4, 'GetPrivateData', ((1, 'guid'),(1, 'pDataSize'),(1, 'pData'),)))
     ID3D10DeviceChild.SetPrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,c_void_p, use_last_error=False)(5, 'SetPrivateData', ((1, 'guid'),(1, 'DataSize'),(1, 'pData'),)))
     ID3D10DeviceChild.SetPrivateDataInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'SetPrivateDataInterface', ((1, 'guid'),(1, 'pData'),)))
+    win32more.System.Com.IUnknown
     return ID3D10DeviceChild
 D3D10_COMPARISON_FUNC = Int32
 D3D10_COMPARISON_NEVER = 1
@@ -501,6 +502,7 @@ def _define_ID3D10DepthStencilState_head():
 def _define_ID3D10DepthStencilState():
     ID3D10DepthStencilState = win32more.Graphics.Direct3D10.ID3D10DepthStencilState_head
     ID3D10DepthStencilState.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_DEPTH_STENCIL_DESC_head), use_last_error=False)(7, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10DepthStencilState
 D3D10_BLEND = Int32
 D3D10_BLEND_ZERO = 1
@@ -557,6 +559,7 @@ def _define_ID3D10BlendState_head():
 def _define_ID3D10BlendState():
     ID3D10BlendState = win32more.Graphics.Direct3D10.ID3D10BlendState_head
     ID3D10BlendState.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_BLEND_DESC_head), use_last_error=False)(7, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10BlendState
 def _define_D3D10_RASTERIZER_DESC_head():
     class D3D10_RASTERIZER_DESC(Structure):
@@ -584,6 +587,7 @@ def _define_ID3D10RasterizerState_head():
 def _define_ID3D10RasterizerState():
     ID3D10RasterizerState = win32more.Graphics.Direct3D10.ID3D10RasterizerState_head
     ID3D10RasterizerState.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_RASTERIZER_DESC_head), use_last_error=False)(7, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10RasterizerState
 def _define_D3D10_SUBRESOURCE_DATA_head():
     class D3D10_SUBRESOURCE_DATA(Structure):
@@ -606,6 +610,7 @@ def _define_ID3D10Resource():
     ID3D10Resource.GetType = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_RESOURCE_DIMENSION), use_last_error=False)(7, 'GetType', ((1, 'rType'),)))
     ID3D10Resource.SetEvictionPriority = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(8, 'SetEvictionPriority', ((1, 'EvictionPriority'),)))
     ID3D10Resource.GetEvictionPriority = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(9, 'GetEvictionPriority', ()))
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10Resource
 def _define_D3D10_BUFFER_DESC_head():
     class D3D10_BUFFER_DESC(Structure):
@@ -630,6 +635,7 @@ def _define_ID3D10Buffer():
     ID3D10Buffer.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D10.D3D10_MAP,UInt32,POINTER(c_void_p), use_last_error=False)(10, 'Map', ((1, 'MapType'),(1, 'MapFlags'),(1, 'ppData'),)))
     ID3D10Buffer.Unmap = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(11, 'Unmap', ()))
     ID3D10Buffer.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_BUFFER_DESC_head), use_last_error=False)(12, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10Resource
     return ID3D10Buffer
 def _define_D3D10_TEXTURE1D_DESC_head():
     class D3D10_TEXTURE1D_DESC(Structure):
@@ -657,6 +663,7 @@ def _define_ID3D10Texture1D():
     ID3D10Texture1D.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D10.D3D10_MAP,UInt32,POINTER(c_void_p), use_last_error=False)(10, 'Map', ((1, 'Subresource'),(1, 'MapType'),(1, 'MapFlags'),(1, 'ppData'),)))
     ID3D10Texture1D.Unmap = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(11, 'Unmap', ((1, 'Subresource'),)))
     ID3D10Texture1D.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_TEXTURE1D_DESC_head), use_last_error=False)(12, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10Resource
     return ID3D10Texture1D
 def _define_D3D10_TEXTURE2D_DESC_head():
     class D3D10_TEXTURE2D_DESC(Structure):
@@ -697,6 +704,7 @@ def _define_ID3D10Texture2D():
     ID3D10Texture2D.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D10.D3D10_MAP,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_MAPPED_TEXTURE2D_head), use_last_error=False)(10, 'Map', ((1, 'Subresource'),(1, 'MapType'),(1, 'MapFlags'),(1, 'pMappedTex2D'),)))
     ID3D10Texture2D.Unmap = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(11, 'Unmap', ((1, 'Subresource'),)))
     ID3D10Texture2D.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_TEXTURE2D_DESC_head), use_last_error=False)(12, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10Resource
     return ID3D10Texture2D
 def _define_D3D10_TEXTURE3D_DESC_head():
     class D3D10_TEXTURE3D_DESC(Structure):
@@ -737,6 +745,7 @@ def _define_ID3D10Texture3D():
     ID3D10Texture3D.Map = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D10.D3D10_MAP,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_MAPPED_TEXTURE3D_head), use_last_error=False)(10, 'Map', ((1, 'Subresource'),(1, 'MapType'),(1, 'MapFlags'),(1, 'pMappedTex3D'),)))
     ID3D10Texture3D.Unmap = COMMETHOD(WINFUNCTYPE(Void,UInt32, use_last_error=False)(11, 'Unmap', ((1, 'Subresource'),)))
     ID3D10Texture3D.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_TEXTURE3D_DESC_head), use_last_error=False)(12, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10Resource
     return ID3D10Texture3D
 D3D10_TEXTURECUBE_FACE = Int32
 D3D10_TEXTURECUBE_FACE_POSITIVE_X = 0
@@ -752,6 +761,7 @@ def _define_ID3D10View_head():
 def _define_ID3D10View():
     ID3D10View = win32more.Graphics.Direct3D10.ID3D10View_head
     ID3D10View.GetResource = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.ID3D10Resource_head), use_last_error=False)(7, 'GetResource', ((1, 'ppResource'),)))
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10View
 def _define_D3D10_BUFFER_SRV_head():
     class D3D10_BUFFER_SRV(Structure):
@@ -906,6 +916,7 @@ def _define_ID3D10ShaderResourceView_head():
 def _define_ID3D10ShaderResourceView():
     ID3D10ShaderResourceView = win32more.Graphics.Direct3D10.ID3D10ShaderResourceView_head
     ID3D10ShaderResourceView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_SHADER_RESOURCE_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10View
     return ID3D10ShaderResourceView
 def _define_D3D10_BUFFER_RTV_head():
     class D3D10_BUFFER_RTV(Structure):
@@ -1045,6 +1056,7 @@ def _define_ID3D10RenderTargetView_head():
 def _define_ID3D10RenderTargetView():
     ID3D10RenderTargetView = win32more.Graphics.Direct3D10.ID3D10RenderTargetView_head
     ID3D10RenderTargetView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_RENDER_TARGET_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10View
     return ID3D10RenderTargetView
 def _define_D3D10_TEX1D_DSV_head():
     class D3D10_TEX1D_DSV(Structure):
@@ -1143,6 +1155,7 @@ def _define_ID3D10DepthStencilView_head():
 def _define_ID3D10DepthStencilView():
     ID3D10DepthStencilView = win32more.Graphics.Direct3D10.ID3D10DepthStencilView_head
     ID3D10DepthStencilView.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_DEPTH_STENCIL_VIEW_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10View
     return ID3D10DepthStencilView
 def _define_ID3D10VertexShader_head():
     class ID3D10VertexShader(win32more.Graphics.Direct3D10.ID3D10DeviceChild_head):
@@ -1150,6 +1163,7 @@ def _define_ID3D10VertexShader_head():
     return ID3D10VertexShader
 def _define_ID3D10VertexShader():
     ID3D10VertexShader = win32more.Graphics.Direct3D10.ID3D10VertexShader_head
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10VertexShader
 def _define_ID3D10GeometryShader_head():
     class ID3D10GeometryShader(win32more.Graphics.Direct3D10.ID3D10DeviceChild_head):
@@ -1157,6 +1171,7 @@ def _define_ID3D10GeometryShader_head():
     return ID3D10GeometryShader
 def _define_ID3D10GeometryShader():
     ID3D10GeometryShader = win32more.Graphics.Direct3D10.ID3D10GeometryShader_head
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10GeometryShader
 def _define_ID3D10PixelShader_head():
     class ID3D10PixelShader(win32more.Graphics.Direct3D10.ID3D10DeviceChild_head):
@@ -1164,6 +1179,7 @@ def _define_ID3D10PixelShader_head():
     return ID3D10PixelShader
 def _define_ID3D10PixelShader():
     ID3D10PixelShader = win32more.Graphics.Direct3D10.ID3D10PixelShader_head
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10PixelShader
 def _define_ID3D10InputLayout_head():
     class ID3D10InputLayout(win32more.Graphics.Direct3D10.ID3D10DeviceChild_head):
@@ -1171,6 +1187,7 @@ def _define_ID3D10InputLayout_head():
     return ID3D10InputLayout
 def _define_ID3D10InputLayout():
     ID3D10InputLayout = win32more.Graphics.Direct3D10.ID3D10InputLayout_head
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10InputLayout
 D3D10_FILTER = Int32
 D3D10_FILTER_MIN_MAG_MIP_POINT = 0
@@ -1227,6 +1244,7 @@ def _define_ID3D10SamplerState_head():
 def _define_ID3D10SamplerState():
     ID3D10SamplerState = win32more.Graphics.Direct3D10.ID3D10SamplerState_head
     ID3D10SamplerState.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_SAMPLER_DESC_head), use_last_error=False)(7, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10SamplerState
 D3D10_FORMAT_SUPPORT = Int32
 D3D10_FORMAT_SUPPORT_BUFFER = 1
@@ -1264,6 +1282,7 @@ def _define_ID3D10Asynchronous():
     ID3D10Asynchronous.End = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(8, 'End', ()))
     ID3D10Asynchronous.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,UInt32, use_last_error=False)(9, 'GetData', ((1, 'pData'),(1, 'DataSize'),(1, 'GetDataFlags'),)))
     ID3D10Asynchronous.GetDataSize = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(10, 'GetDataSize', ()))
+    win32more.Graphics.Direct3D10.ID3D10DeviceChild
     return ID3D10Asynchronous
 D3D10_ASYNC_GETDATA_FLAG = Int32
 D3D10_ASYNC_GETDATA_DONOTFLUSH = 1
@@ -1296,6 +1315,7 @@ def _define_ID3D10Query_head():
 def _define_ID3D10Query():
     ID3D10Query = win32more.Graphics.Direct3D10.ID3D10Query_head
     ID3D10Query.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_QUERY_DESC_head), use_last_error=False)(11, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10Asynchronous
     return ID3D10Query
 def _define_ID3D10Predicate_head():
     class ID3D10Predicate(win32more.Graphics.Direct3D10.ID3D10Query_head):
@@ -1303,6 +1323,7 @@ def _define_ID3D10Predicate_head():
     return ID3D10Predicate
 def _define_ID3D10Predicate():
     ID3D10Predicate = win32more.Graphics.Direct3D10.ID3D10Predicate_head
+    win32more.Graphics.Direct3D10.ID3D10Query
     return ID3D10Predicate
 def _define_D3D10_QUERY_DATA_TIMESTAMP_DISJOINT_head():
     class D3D10_QUERY_DATA_TIMESTAMP_DISJOINT(Structure):
@@ -1398,6 +1419,7 @@ def _define_ID3D10Counter_head():
 def _define_ID3D10Counter():
     ID3D10Counter = win32more.Graphics.Direct3D10.ID3D10Counter_head
     ID3D10Counter.GetDesc = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_COUNTER_DESC_head), use_last_error=False)(11, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10Asynchronous
     return ID3D10Counter
 def _define_ID3D10Device_head():
     class ID3D10Device(win32more.System.Com.IUnknown_head):
@@ -1500,6 +1522,7 @@ def _define_ID3D10Device():
     ID3D10Device.OpenSharedResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(95, 'OpenSharedResource', ((1, 'hResource'),(1, 'ReturnedInterface'),(1, 'ppResource'),)))
     ID3D10Device.SetTextFilterSize = COMMETHOD(WINFUNCTYPE(Void,UInt32,UInt32, use_last_error=False)(96, 'SetTextFilterSize', ((1, 'Width'),(1, 'Height'),)))
     ID3D10Device.GetTextFilterSize = COMMETHOD(WINFUNCTYPE(Void,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(97, 'GetTextFilterSize', ((1, 'pWidth'),(1, 'pHeight'),)))
+    win32more.System.Com.IUnknown
     return ID3D10Device
 def _define_ID3D10Multithread_head():
     class ID3D10Multithread(win32more.System.Com.IUnknown_head):
@@ -1511,6 +1534,7 @@ def _define_ID3D10Multithread():
     ID3D10Multithread.Leave = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(4, 'Leave', ()))
     ID3D10Multithread.SetMultithreadProtected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetMultithreadProtected', ((1, 'bMTProtect'),)))
     ID3D10Multithread.GetMultithreadProtected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(6, 'GetMultithreadProtected', ()))
+    win32more.System.Com.IUnknown
     return ID3D10Multithread
 D3D10_CREATE_DEVICE_FLAG = Int32
 D3D10_CREATE_DEVICE_SINGLETHREADED = 1
@@ -1535,6 +1559,7 @@ def _define_ID3D10Debug():
     ID3D10Debug.SetSwapChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISwapChain_head, use_last_error=False)(7, 'SetSwapChain', ((1, 'pSwapChain'),)))
     ID3D10Debug.GetSwapChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.IDXGISwapChain_head), use_last_error=False)(8, 'GetSwapChain', ((1, 'ppSwapChain'),)))
     ID3D10Debug.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Validate', ()))
+    win32more.System.Com.IUnknown
     return ID3D10Debug
 def _define_ID3D10SwitchToRef_head():
     class ID3D10SwitchToRef(win32more.System.Com.IUnknown_head):
@@ -1544,6 +1569,7 @@ def _define_ID3D10SwitchToRef():
     ID3D10SwitchToRef = win32more.Graphics.Direct3D10.ID3D10SwitchToRef_head
     ID3D10SwitchToRef.SetUseRef = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.BOOL, use_last_error=False)(3, 'SetUseRef', ((1, 'UseRef'),)))
     ID3D10SwitchToRef.GetUseRef = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(4, 'GetUseRef', ()))
+    win32more.System.Com.IUnknown
     return ID3D10SwitchToRef
 D3D10_MESSAGE_CATEGORY = Int32
 D3D10_MESSAGE_CATEGORY_APPLICATION_DEFINED = 0
@@ -2152,6 +2178,7 @@ def _define_ID3D10InfoQueue():
     ID3D10InfoQueue.GetBreakOnID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Graphics.Direct3D10.D3D10_MESSAGE_ID, use_last_error=False)(35, 'GetBreakOnID', ((1, 'ID'),)))
     ID3D10InfoQueue.SetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.BOOL, use_last_error=False)(36, 'SetMuteDebugOutput', ((1, 'bMute'),)))
     ID3D10InfoQueue.GetMuteDebugOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(37, 'GetMuteDebugOutput', ()))
+    win32more.System.Com.IUnknown
     return ID3D10InfoQueue
 D3D10_DRIVER_TYPE = Int32
 D3D10_DRIVER_TYPE_HARDWARE = 0
@@ -2315,6 +2342,7 @@ def _define_ID3D10ShaderReflection():
     ID3D10ShaderReflection.GetResourceBindingDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_SHADER_INPUT_BIND_DESC_head), use_last_error=False)(6, 'GetResourceBindingDesc', ((1, 'ResourceIndex'),(1, 'pDesc'),)))
     ID3D10ShaderReflection.GetInputParameterDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_SIGNATURE_PARAMETER_DESC_head), use_last_error=False)(7, 'GetInputParameterDesc', ((1, 'ParameterIndex'),(1, 'pDesc'),)))
     ID3D10ShaderReflection.GetOutputParameterDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_SIGNATURE_PARAMETER_DESC_head), use_last_error=False)(8, 'GetOutputParameterDesc', ((1, 'ParameterIndex'),(1, 'pDesc'),)))
+    win32more.System.Com.IUnknown
     return ID3D10ShaderReflection
 D3D10_DEVICE_STATE_TYPES = Int32
 D3D10_DST_SO_BUFFERS = 1
@@ -2384,6 +2412,7 @@ def _define_ID3D10StateBlock():
     ID3D10StateBlock.Apply = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Apply', ()))
     ID3D10StateBlock.ReleaseAllDeviceObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ReleaseAllDeviceObjects', ()))
     ID3D10StateBlock.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10Device_head), use_last_error=False)(6, 'GetDevice', ((1, 'ppDevice'),)))
+    win32more.System.Com.IUnknown
     return ID3D10StateBlock
 def _define_D3D10_EFFECT_TYPE_DESC_head():
     class D3D10_EFFECT_TYPE_DESC(Structure):
@@ -2483,6 +2512,7 @@ def _define_ID3D10EffectScalarVariable():
     ID3D10EffectScalarVariable.GetBool = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(34, 'GetBool', ((1, 'pValue'),)))
     ID3D10EffectScalarVariable.SetBoolArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),UInt32,UInt32, use_last_error=False)(35, 'SetBoolArray', ((1, 'pData'),(1, 'Offset'),(1, 'Count'),)))
     ID3D10EffectScalarVariable.GetBoolArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),UInt32,UInt32, use_last_error=False)(36, 'GetBoolArray', ((1, 'pData'),(1, 'Offset'),(1, 'Count'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectScalarVariable
 def _define_ID3D10EffectVectorVariable_head():
     class ID3D10EffectVectorVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2502,6 +2532,7 @@ def _define_ID3D10EffectVectorVariable():
     ID3D10EffectVectorVariable.GetBoolVectorArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),UInt32,UInt32, use_last_error=False)(34, 'GetBoolVectorArray', ((1, 'pData'),(1, 'Offset'),(1, 'Count'),)))
     ID3D10EffectVectorVariable.GetIntVectorArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UInt32,UInt32, use_last_error=False)(35, 'GetIntVectorArray', ((1, 'pData'),(1, 'Offset'),(1, 'Count'),)))
     ID3D10EffectVectorVariable.GetFloatVectorArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,UInt32, use_last_error=False)(36, 'GetFloatVectorArray', ((1, 'pData'),(1, 'Offset'),(1, 'Count'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectVectorVariable
 def _define_ID3D10EffectMatrixVariable_head():
     class ID3D10EffectMatrixVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2517,6 +2548,7 @@ def _define_ID3D10EffectMatrixVariable():
     ID3D10EffectMatrixVariable.GetMatrixTranspose = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(30, 'GetMatrixTranspose', ((1, 'pData'),)))
     ID3D10EffectMatrixVariable.SetMatrixTransposeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,UInt32, use_last_error=False)(31, 'SetMatrixTransposeArray', ((1, 'pData'),(1, 'Offset'),(1, 'Count'),)))
     ID3D10EffectMatrixVariable.GetMatrixTransposeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,UInt32, use_last_error=False)(32, 'GetMatrixTransposeArray', ((1, 'pData'),(1, 'Offset'),(1, 'Count'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectMatrixVariable
 def _define_ID3D10EffectStringVariable_head():
     class ID3D10EffectStringVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2526,6 +2558,7 @@ def _define_ID3D10EffectStringVariable():
     ID3D10EffectStringVariable = win32more.Graphics.Direct3D10.ID3D10EffectStringVariable_head
     ID3D10EffectStringVariable.GetString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PSTR), use_last_error=False)(25, 'GetString', ((1, 'ppString'),)))
     ID3D10EffectStringVariable.GetStringArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PSTR),UInt32,UInt32, use_last_error=False)(26, 'GetStringArray', ((1, 'ppStrings'),(1, 'Offset'),(1, 'Count'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectStringVariable
 def _define_ID3D10EffectShaderResourceVariable_head():
     class ID3D10EffectShaderResourceVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2537,6 +2570,7 @@ def _define_ID3D10EffectShaderResourceVariable():
     ID3D10EffectShaderResourceVariable.GetResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10ShaderResourceView_head), use_last_error=False)(26, 'GetResource', ((1, 'ppResource'),)))
     ID3D10EffectShaderResourceVariable.SetResourceArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10ShaderResourceView_head),UInt32,UInt32, use_last_error=False)(27, 'SetResourceArray', ((1, 'ppResources'),(1, 'Offset'),(1, 'Count'),)))
     ID3D10EffectShaderResourceVariable.GetResourceArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10ShaderResourceView_head),UInt32,UInt32, use_last_error=False)(28, 'GetResourceArray', ((1, 'ppResources'),(1, 'Offset'),(1, 'Count'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectShaderResourceVariable
 def _define_ID3D10EffectRenderTargetViewVariable_head():
     class ID3D10EffectRenderTargetViewVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2548,6 +2582,7 @@ def _define_ID3D10EffectRenderTargetViewVariable():
     ID3D10EffectRenderTargetViewVariable.GetRenderTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10RenderTargetView_head), use_last_error=False)(26, 'GetRenderTarget', ((1, 'ppResource'),)))
     ID3D10EffectRenderTargetViewVariable.SetRenderTargetArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10RenderTargetView_head),UInt32,UInt32, use_last_error=False)(27, 'SetRenderTargetArray', ((1, 'ppResources'),(1, 'Offset'),(1, 'Count'),)))
     ID3D10EffectRenderTargetViewVariable.GetRenderTargetArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10RenderTargetView_head),UInt32,UInt32, use_last_error=False)(28, 'GetRenderTargetArray', ((1, 'ppResources'),(1, 'Offset'),(1, 'Count'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectRenderTargetViewVariable
 def _define_ID3D10EffectDepthStencilViewVariable_head():
     class ID3D10EffectDepthStencilViewVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2559,6 +2594,7 @@ def _define_ID3D10EffectDepthStencilViewVariable():
     ID3D10EffectDepthStencilViewVariable.GetDepthStencil = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10DepthStencilView_head), use_last_error=False)(26, 'GetDepthStencil', ((1, 'ppResource'),)))
     ID3D10EffectDepthStencilViewVariable.SetDepthStencilArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10DepthStencilView_head),UInt32,UInt32, use_last_error=False)(27, 'SetDepthStencilArray', ((1, 'ppResources'),(1, 'Offset'),(1, 'Count'),)))
     ID3D10EffectDepthStencilViewVariable.GetDepthStencilArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10DepthStencilView_head),UInt32,UInt32, use_last_error=False)(28, 'GetDepthStencilArray', ((1, 'ppResources'),(1, 'Offset'),(1, 'Count'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectDepthStencilViewVariable
 def _define_ID3D10EffectConstantBuffer_head():
     class ID3D10EffectConstantBuffer(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2570,6 +2606,7 @@ def _define_ID3D10EffectConstantBuffer():
     ID3D10EffectConstantBuffer.GetConstantBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10Buffer_head), use_last_error=False)(26, 'GetConstantBuffer', ((1, 'ppConstantBuffer'),)))
     ID3D10EffectConstantBuffer.SetTextureBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D10.ID3D10ShaderResourceView_head, use_last_error=False)(27, 'SetTextureBuffer', ((1, 'pTextureBuffer'),)))
     ID3D10EffectConstantBuffer.GetTextureBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.ID3D10ShaderResourceView_head), use_last_error=False)(28, 'GetTextureBuffer', ((1, 'ppTextureBuffer'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectConstantBuffer
 def _define_D3D10_EFFECT_SHADER_DESC_head():
     class D3D10_EFFECT_SHADER_DESC(Structure):
@@ -2599,6 +2636,7 @@ def _define_ID3D10EffectShaderVariable():
     ID3D10EffectShaderVariable.GetPixelShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.ID3D10PixelShader_head), use_last_error=False)(28, 'GetPixelShader', ((1, 'ShaderIndex'),(1, 'ppPS'),)))
     ID3D10EffectShaderVariable.GetInputSignatureElementDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_SIGNATURE_PARAMETER_DESC_head), use_last_error=False)(29, 'GetInputSignatureElementDesc', ((1, 'ShaderIndex'),(1, 'Element'),(1, 'pDesc'),)))
     ID3D10EffectShaderVariable.GetOutputSignatureElementDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_SIGNATURE_PARAMETER_DESC_head), use_last_error=False)(30, 'GetOutputSignatureElementDesc', ((1, 'ShaderIndex'),(1, 'Element'),(1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectShaderVariable
 def _define_ID3D10EffectBlendVariable_head():
     class ID3D10EffectBlendVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2608,6 +2646,7 @@ def _define_ID3D10EffectBlendVariable():
     ID3D10EffectBlendVariable = win32more.Graphics.Direct3D10.ID3D10EffectBlendVariable_head
     ID3D10EffectBlendVariable.GetBlendState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.ID3D10BlendState_head), use_last_error=False)(25, 'GetBlendState', ((1, 'Index'),(1, 'ppBlendState'),)))
     ID3D10EffectBlendVariable.GetBackingStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_BLEND_DESC_head), use_last_error=False)(26, 'GetBackingStore', ((1, 'Index'),(1, 'pBlendDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectBlendVariable
 def _define_ID3D10EffectDepthStencilVariable_head():
     class ID3D10EffectDepthStencilVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2617,6 +2656,7 @@ def _define_ID3D10EffectDepthStencilVariable():
     ID3D10EffectDepthStencilVariable = win32more.Graphics.Direct3D10.ID3D10EffectDepthStencilVariable_head
     ID3D10EffectDepthStencilVariable.GetDepthStencilState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.ID3D10DepthStencilState_head), use_last_error=False)(25, 'GetDepthStencilState', ((1, 'Index'),(1, 'ppDepthStencilState'),)))
     ID3D10EffectDepthStencilVariable.GetBackingStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_DEPTH_STENCIL_DESC_head), use_last_error=False)(26, 'GetBackingStore', ((1, 'Index'),(1, 'pDepthStencilDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectDepthStencilVariable
 def _define_ID3D10EffectRasterizerVariable_head():
     class ID3D10EffectRasterizerVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2626,6 +2666,7 @@ def _define_ID3D10EffectRasterizerVariable():
     ID3D10EffectRasterizerVariable = win32more.Graphics.Direct3D10.ID3D10EffectRasterizerVariable_head
     ID3D10EffectRasterizerVariable.GetRasterizerState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.ID3D10RasterizerState_head), use_last_error=False)(25, 'GetRasterizerState', ((1, 'Index'),(1, 'ppRasterizerState'),)))
     ID3D10EffectRasterizerVariable.GetBackingStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_RASTERIZER_DESC_head), use_last_error=False)(26, 'GetBackingStore', ((1, 'Index'),(1, 'pRasterizerDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectRasterizerVariable
 def _define_ID3D10EffectSamplerVariable_head():
     class ID3D10EffectSamplerVariable(win32more.Graphics.Direct3D10.ID3D10EffectVariable_head):
@@ -2635,6 +2676,7 @@ def _define_ID3D10EffectSamplerVariable():
     ID3D10EffectSamplerVariable = win32more.Graphics.Direct3D10.ID3D10EffectSamplerVariable_head
     ID3D10EffectSamplerVariable.GetSampler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.ID3D10SamplerState_head), use_last_error=False)(25, 'GetSampler', ((1, 'Index'),(1, 'ppSampler'),)))
     ID3D10EffectSamplerVariable.GetBackingStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D10.D3D10_SAMPLER_DESC_head), use_last_error=False)(26, 'GetBackingStore', ((1, 'Index'),(1, 'pSamplerDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10EffectVariable
     return ID3D10EffectSamplerVariable
 def _define_D3D10_PASS_DESC_head():
     class D3D10_PASS_DESC(Structure):
@@ -2739,6 +2781,7 @@ def _define_ID3D10Effect():
     ID3D10Effect.GetTechniqueByName = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D10.ID3D10EffectTechnique_head,win32more.Foundation.PSTR, use_last_error=False)(13, 'GetTechniqueByName', ((1, 'Name'),)))
     ID3D10Effect.Optimize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Optimize', ()))
     ID3D10Effect.IsOptimized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(15, 'IsOptimized', ()))
+    win32more.System.Com.IUnknown
     return ID3D10Effect
 def _define_ID3D10EffectPool_head():
     class ID3D10EffectPool(win32more.System.Com.IUnknown_head):
@@ -2747,6 +2790,7 @@ def _define_ID3D10EffectPool_head():
 def _define_ID3D10EffectPool():
     ID3D10EffectPool = win32more.Graphics.Direct3D10.ID3D10EffectPool_head
     ID3D10EffectPool.AsEffect = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D10.ID3D10Effect_head, use_last_error=False)(3, 'AsEffect', ()))
+    win32more.System.Com.IUnknown
     return ID3D10EffectPool
 D3D10_FEATURE_LEVEL1 = Int32
 D3D10_FEATURE_LEVEL_10_0 = 40960
@@ -2790,6 +2834,7 @@ def _define_ID3D10BlendState1_head():
 def _define_ID3D10BlendState1():
     ID3D10BlendState1 = win32more.Graphics.Direct3D10.ID3D10BlendState1_head
     ID3D10BlendState1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_BLEND_DESC1_head), use_last_error=False)(8, 'GetDesc1', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10BlendState
     return ID3D10BlendState1
 def _define_D3D10_TEXCUBE_ARRAY_SRV1_head():
     class D3D10_TEXCUBE_ARRAY_SRV1(Structure):
@@ -2840,6 +2885,7 @@ def _define_ID3D10ShaderResourceView1_head():
 def _define_ID3D10ShaderResourceView1():
     ID3D10ShaderResourceView1 = win32more.Graphics.Direct3D10.ID3D10ShaderResourceView1_head
     ID3D10ShaderResourceView1.GetDesc1 = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D10.D3D10_SHADER_RESOURCE_VIEW_DESC1_head), use_last_error=False)(9, 'GetDesc1', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D10.ID3D10ShaderResourceView
     return ID3D10ShaderResourceView1
 D3D10_STANDARD_MULTISAMPLE_QUALITY_LEVELS = Int32
 D3D10_STANDARD_MULTISAMPLE_PATTERN = -1
@@ -2853,6 +2899,7 @@ def _define_ID3D10Device1():
     ID3D10Device1.CreateShaderResourceView1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D10.ID3D10Resource_head,POINTER(win32more.Graphics.Direct3D10.D3D10_SHADER_RESOURCE_VIEW_DESC1_head),POINTER(win32more.Graphics.Direct3D10.ID3D10ShaderResourceView1_head), use_last_error=False)(98, 'CreateShaderResourceView1', ((1, 'pResource'),(1, 'pDesc'),(1, 'ppSRView'),)))
     ID3D10Device1.CreateBlendState1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D10.D3D10_BLEND_DESC1_head),POINTER(win32more.Graphics.Direct3D10.ID3D10BlendState1_head), use_last_error=False)(99, 'CreateBlendState1', ((1, 'pBlendStateDesc'),(1, 'ppBlendState'),)))
     ID3D10Device1.GetFeatureLevel = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D10.D3D10_FEATURE_LEVEL1, use_last_error=False)(100, 'GetFeatureLevel', ()))
+    win32more.Graphics.Direct3D10.ID3D10Device
     return ID3D10Device1
 D3D10_SHADER_DEBUG_REGTYPE = Int32
 D3D10_SHADER_DEBUG_REG_INPUT = 0
@@ -3078,6 +3125,7 @@ def _define_ID3D10ShaderReflection1():
     ID3D10ShaderReflection1.GetGSInputPrimitive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.D3D_PRIMITIVE), use_last_error=False)(15, 'GetGSInputPrimitive', ((1, 'pPrim'),)))
     ID3D10ShaderReflection1.IsLevel9Shader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'IsLevel9Shader', ((1, 'pbLevel9Shader'),)))
     ID3D10ShaderReflection1.IsSampleFrequencyShader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(17, 'IsSampleFrequencyShader', ((1, 'pbSampleFrequency'),)))
+    win32more.System.Com.IUnknown
     return ID3D10ShaderReflection1
 def _define_PFN_D3D10_CREATE_DEVICE1():
     return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIAdapter_head,win32more.Graphics.Direct3D10.D3D10_DRIVER_TYPE,win32more.Foundation.HINSTANCE,UInt32,win32more.Graphics.Direct3D10.D3D10_FEATURE_LEVEL1,UInt32,POINTER(win32more.Graphics.Direct3D10.ID3D10Device1_head), use_last_error=False)

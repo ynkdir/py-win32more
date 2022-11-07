@@ -39,6 +39,7 @@ def _define_IInitializeWithFile_head():
 def _define_IInitializeWithFile():
     IInitializeWithFile = win32more.UI.Shell.PropertiesSystem.IInitializeWithFile_head
     IInitializeWithFile.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'Initialize', ((1, 'pszFilePath'),(1, 'grfMode'),)))
+    win32more.System.Com.IUnknown
     return IInitializeWithFile
 def _define_IInitializeWithStream_head():
     class IInitializeWithStream(win32more.System.Com.IUnknown_head):
@@ -47,6 +48,7 @@ def _define_IInitializeWithStream_head():
 def _define_IInitializeWithStream():
     IInitializeWithStream = win32more.UI.Shell.PropertiesSystem.IInitializeWithStream_head
     IInitializeWithStream.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,UInt32, use_last_error=False)(3, 'Initialize', ((1, 'pstream'),(1, 'grfMode'),)))
+    win32more.System.Com.IUnknown
     return IInitializeWithStream
 def _define_IPropertyStore_head():
     class IPropertyStore(win32more.System.Com.IUnknown_head):
@@ -59,6 +61,7 @@ def _define_IPropertyStore():
     IPropertyStore.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'GetValue', ((1, 'key'),(1, 'pv'),)))
     IPropertyStore.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'SetValue', ((1, 'key'),(1, 'propvar'),)))
     IPropertyStore.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Commit', ()))
+    win32more.System.Com.IUnknown
     return IPropertyStore
 def _define_INamedPropertyStore_head():
     class INamedPropertyStore(win32more.System.Com.IUnknown_head):
@@ -70,6 +73,7 @@ def _define_INamedPropertyStore():
     INamedPropertyStore.SetNamedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(4, 'SetNamedValue', ((1, 'pszName'),(1, 'propvar'),)))
     INamedPropertyStore.GetNameCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetNameCount', ((1, 'pdwCount'),)))
     INamedPropertyStore.GetNameAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetNameAt', ((1, 'iProp'),(1, 'pbstrName'),)))
+    win32more.System.Com.IUnknown
     return INamedPropertyStore
 GETPROPERTYSTOREFLAGS = Int32
 GPS_DEFAULT = 0
@@ -95,6 +99,7 @@ def _define_IObjectWithPropertyKey():
     IObjectWithPropertyKey = win32more.UI.Shell.PropertiesSystem.IObjectWithPropertyKey_head
     IObjectWithPropertyKey.SetPropertyKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(3, 'SetPropertyKey', ((1, 'key'),)))
     IObjectWithPropertyKey.GetPropertyKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(4, 'GetPropertyKey', ((1, 'pkey'),)))
+    win32more.System.Com.IUnknown
     return IObjectWithPropertyKey
 PKA_FLAGS = Int32
 PKA_SET = 0
@@ -107,6 +112,7 @@ def _define_IPropertyChange_head():
 def _define_IPropertyChange():
     IPropertyChange = win32more.UI.Shell.PropertiesSystem.IPropertyChange_head
     IPropertyChange.ApplyToPropVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'ApplyToPropVariant', ((1, 'propvarIn'),(1, 'ppropvarOut'),)))
+    win32more.UI.Shell.PropertiesSystem.IObjectWithPropertyKey
     return IPropertyChange
 def _define_IPropertyChangeArray_head():
     class IPropertyChangeArray(win32more.System.Com.IUnknown_head):
@@ -121,6 +127,7 @@ def _define_IPropertyChangeArray():
     IPropertyChangeArray.AppendOrReplace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyChange_head, use_last_error=False)(7, 'AppendOrReplace', ((1, 'ppropChange'),)))
     IPropertyChangeArray.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'RemoveAt', ((1, 'iIndex'),)))
     IPropertyChangeArray.IsKeyInArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(9, 'IsKeyInArray', ((1, 'key'),)))
+    win32more.System.Com.IUnknown
     return IPropertyChangeArray
 def _define_IPropertyStoreCapabilities_head():
     class IPropertyStoreCapabilities(win32more.System.Com.IUnknown_head):
@@ -129,6 +136,7 @@ def _define_IPropertyStoreCapabilities_head():
 def _define_IPropertyStoreCapabilities():
     IPropertyStoreCapabilities = win32more.UI.Shell.PropertiesSystem.IPropertyStoreCapabilities_head
     IPropertyStoreCapabilities.IsPropertyWritable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(3, 'IsPropertyWritable', ((1, 'key'),)))
+    win32more.System.Com.IUnknown
     return IPropertyStoreCapabilities
 PSC_STATE = Int32
 PSC_NORMAL = 0
@@ -145,6 +153,7 @@ def _define_IPropertyStoreCache():
     IPropertyStoreCache.GetValueAndState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.UI.Shell.PropertiesSystem.PSC_STATE), use_last_error=False)(9, 'GetValueAndState', ((1, 'key'),(1, 'ppropvar'),(1, 'pstate'),)))
     IPropertyStoreCache.SetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.UI.Shell.PropertiesSystem.PSC_STATE, use_last_error=False)(10, 'SetState', ((1, 'key'),(1, 'state'),)))
     IPropertyStoreCache.SetValueAndState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PSC_STATE, use_last_error=False)(11, 'SetValueAndState', ((1, 'key'),(1, 'ppropvar'),(1, 'state'),)))
+    win32more.UI.Shell.PropertiesSystem.IPropertyStore
     return IPropertyStoreCache
 PROPENUMTYPE = Int32
 PET_DISCRETEVALUE = 0
@@ -162,6 +171,7 @@ def _define_IPropertyEnumType():
     IPropertyEnumType.GetRangeMinValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'GetRangeMinValue', ((1, 'ppropvarMin'),)))
     IPropertyEnumType.GetRangeSetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'GetRangeSetValue', ((1, 'ppropvarSet'),)))
     IPropertyEnumType.GetDisplayText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetDisplayText', ((1, 'ppszDisplay'),)))
+    win32more.System.Com.IUnknown
     return IPropertyEnumType
 def _define_IPropertyEnumType2_head():
     class IPropertyEnumType2(win32more.UI.Shell.PropertiesSystem.IPropertyEnumType_head):
@@ -170,6 +180,7 @@ def _define_IPropertyEnumType2_head():
 def _define_IPropertyEnumType2():
     IPropertyEnumType2 = win32more.UI.Shell.PropertiesSystem.IPropertyEnumType2_head
     IPropertyEnumType2.GetImageReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'GetImageReference', ((1, 'ppszImageRes'),)))
+    win32more.UI.Shell.PropertiesSystem.IPropertyEnumType
     return IPropertyEnumType2
 def _define_IPropertyEnumTypeList_head():
     class IPropertyEnumTypeList(win32more.System.Com.IUnknown_head):
@@ -181,6 +192,7 @@ def _define_IPropertyEnumTypeList():
     IPropertyEnumTypeList.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetAt', ((1, 'itype'),(1, 'riid'),(1, 'ppv'),)))
     IPropertyEnumTypeList.GetConditionAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'GetConditionAt', ((1, 'nIndex'),(1, 'riid'),(1, 'ppv'),)))
     IPropertyEnumTypeList.FindMatchingIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(UInt32), use_last_error=False)(6, 'FindMatchingIndex', ((1, 'propvarCmp'),(1, 'pnIndex'),)))
+    win32more.System.Com.IUnknown
     return IPropertyEnumTypeList
 PROPDESC_TYPE_FLAGS = Int32
 PDTF_DEFAULT = 0
@@ -305,6 +317,7 @@ def _define_IPropertyDescription():
     IPropertyDescription.CoerceToCanonicalValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(21, 'CoerceToCanonicalValue', ((1, 'ppropvar'),)))
     IPropertyDescription.FormatForDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPDESC_FORMAT_FLAGS,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(22, 'FormatForDisplay', ((1, 'propvar'),(1, 'pdfFlags'),(1, 'ppszDisplay'),)))
     IPropertyDescription.IsValueCanonical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(23, 'IsValueCanonical', ((1, 'propvar'),)))
+    win32more.System.Com.IUnknown
     return IPropertyDescription
 def _define_IPropertyDescription2_head():
     class IPropertyDescription2(win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head):
@@ -313,6 +326,7 @@ def _define_IPropertyDescription2_head():
 def _define_IPropertyDescription2():
     IPropertyDescription2 = win32more.UI.Shell.PropertiesSystem.IPropertyDescription2_head
     IPropertyDescription2.GetImageReferenceForValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(24, 'GetImageReferenceForValue', ((1, 'propvar'),(1, 'ppszImageRes'),)))
+    win32more.UI.Shell.PropertiesSystem.IPropertyDescription
     return IPropertyDescription2
 def _define_IPropertyDescriptionAliasInfo_head():
     class IPropertyDescriptionAliasInfo(win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head):
@@ -322,6 +336,7 @@ def _define_IPropertyDescriptionAliasInfo():
     IPropertyDescriptionAliasInfo = win32more.UI.Shell.PropertiesSystem.IPropertyDescriptionAliasInfo_head
     IPropertyDescriptionAliasInfo.GetSortByAlias = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(24, 'GetSortByAlias', ((1, 'riid'),(1, 'ppv'),)))
     IPropertyDescriptionAliasInfo.GetAdditionalSortByAliases = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(25, 'GetAdditionalSortByAliases', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.UI.Shell.PropertiesSystem.IPropertyDescription
     return IPropertyDescriptionAliasInfo
 PROPDESC_SEARCHINFO_FLAGS = Int32
 PDSIF_DEFAULT = 0
@@ -347,6 +362,7 @@ def _define_IPropertyDescriptionSearchInfo():
     IPropertyDescriptionSearchInfo.GetColumnIndexType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPDESC_COLUMNINDEX_TYPE), use_last_error=False)(25, 'GetColumnIndexType', ((1, 'ppdciType'),)))
     IPropertyDescriptionSearchInfo.GetProjectionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(26, 'GetProjectionString', ((1, 'ppszProjection'),)))
     IPropertyDescriptionSearchInfo.GetMaxSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(27, 'GetMaxSize', ((1, 'pcbMaxSize'),)))
+    win32more.UI.Shell.PropertiesSystem.IPropertyDescription
     return IPropertyDescriptionSearchInfo
 def _define_IPropertyDescriptionRelatedPropertyInfo_head():
     class IPropertyDescriptionRelatedPropertyInfo(win32more.UI.Shell.PropertiesSystem.IPropertyDescription_head):
@@ -355,6 +371,7 @@ def _define_IPropertyDescriptionRelatedPropertyInfo_head():
 def _define_IPropertyDescriptionRelatedPropertyInfo():
     IPropertyDescriptionRelatedPropertyInfo = win32more.UI.Shell.PropertiesSystem.IPropertyDescriptionRelatedPropertyInfo_head
     IPropertyDescriptionRelatedPropertyInfo.GetRelatedProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(24, 'GetRelatedProperty', ((1, 'pszRelationshipName'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.UI.Shell.PropertiesSystem.IPropertyDescription
     return IPropertyDescriptionRelatedPropertyInfo
 PROPDESC_ENUMFILTER = Int32
 PDEF_ALL = 0
@@ -379,6 +396,7 @@ def _define_IPropertySystem():
     IPropertySystem.RegisterPropertySchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(9, 'RegisterPropertySchema', ((1, 'pszPath'),)))
     IPropertySystem.UnregisterPropertySchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'UnregisterPropertySchema', ((1, 'pszPath'),)))
     IPropertySystem.RefreshPropertySchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'RefreshPropertySchema', ()))
+    win32more.System.Com.IUnknown
     return IPropertySystem
 def _define_IPropertyDescriptionList_head():
     class IPropertyDescriptionList(win32more.System.Com.IUnknown_head):
@@ -388,6 +406,7 @@ def _define_IPropertyDescriptionList():
     IPropertyDescriptionList = win32more.UI.Shell.PropertiesSystem.IPropertyDescriptionList_head
     IPropertyDescriptionList.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pcElem'),)))
     IPropertyDescriptionList.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetAt', ((1, 'iElem'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IPropertyDescriptionList
 def _define_IPropertyStoreFactory_head():
     class IPropertyStoreFactory(win32more.System.Com.IUnknown_head):
@@ -397,6 +416,7 @@ def _define_IPropertyStoreFactory():
     IPropertyStoreFactory = win32more.UI.Shell.PropertiesSystem.IPropertyStoreFactory_head
     IPropertyStoreFactory.GetPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetPropertyStore', ((1, 'flags'),(1, 'pUnkFactory'),(1, 'riid'),(1, 'ppv'),)))
     IPropertyStoreFactory.GetPropertyStoreForKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),UInt32,win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetPropertyStoreForKeys', ((1, 'rgKeys'),(1, 'cKeys'),(1, 'flags'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IPropertyStoreFactory
 def _define_IDelayedPropertyStoreFactory_head():
     class IDelayedPropertyStoreFactory(win32more.UI.Shell.PropertiesSystem.IPropertyStoreFactory_head):
@@ -405,6 +425,7 @@ def _define_IDelayedPropertyStoreFactory_head():
 def _define_IDelayedPropertyStoreFactory():
     IDelayedPropertyStoreFactory = win32more.UI.Shell.PropertiesSystem.IDelayedPropertyStoreFactory_head
     IDelayedPropertyStoreFactory.GetDelayedPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.GETPROPERTYSTOREFLAGS,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'GetDelayedPropertyStore', ((1, 'flags'),(1, 'dwStoreId'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.UI.Shell.PropertiesSystem.IPropertyStoreFactory
     return IDelayedPropertyStoreFactory
 _PERSIST_SPROPSTORE_FLAGS = Int32
 FPSPS_DEFAULT = 0
@@ -426,6 +447,7 @@ def _define_IPersistSerializedPropStorage():
     IPersistSerializedPropStorage.SetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'SetFlags', ((1, 'flags'),)))
     IPersistSerializedPropStorage.SetPropertyStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head),UInt32, use_last_error=False)(4, 'SetPropertyStorage', ((1, 'psps'),(1, 'cb'),)))
     IPersistSerializedPropStorage.GetPropertyStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head)),POINTER(UInt32), use_last_error=False)(5, 'GetPropertyStorage', ((1, 'ppsps'),(1, 'pcb'),)))
+    win32more.System.Com.IUnknown
     return IPersistSerializedPropStorage
 def _define_IPersistSerializedPropStorage2_head():
     class IPersistSerializedPropStorage2(win32more.UI.Shell.PropertiesSystem.IPersistSerializedPropStorage_head):
@@ -435,6 +457,7 @@ def _define_IPersistSerializedPropStorage2():
     IPersistSerializedPropStorage2 = win32more.UI.Shell.PropertiesSystem.IPersistSerializedPropStorage2_head
     IPersistSerializedPropStorage2.GetPropertyStorageSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetPropertyStorageSize', ((1, 'pcb'),)))
     IPersistSerializedPropStorage2.GetPropertyStorageBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.SERIALIZEDPROPSTORAGE_head),UInt32,POINTER(UInt32), use_last_error=False)(7, 'GetPropertyStorageBuffer', ((1, 'psps'),(1, 'cb'),(1, 'pcbWritten'),)))
+    win32more.UI.Shell.PropertiesSystem.IPersistSerializedPropStorage
     return IPersistSerializedPropStorage2
 def _define_IPropertySystemChangeNotify_head():
     class IPropertySystemChangeNotify(win32more.System.Com.IUnknown_head):
@@ -443,6 +466,7 @@ def _define_IPropertySystemChangeNotify_head():
 def _define_IPropertySystemChangeNotify():
     IPropertySystemChangeNotify = win32more.UI.Shell.PropertiesSystem.IPropertySystemChangeNotify_head
     IPropertySystemChangeNotify.SchemaRefreshed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'SchemaRefreshed', ()))
+    win32more.System.Com.IUnknown
     return IPropertySystemChangeNotify
 def _define_ICreateObject_head():
     class ICreateObject(win32more.System.Com.IUnknown_head):
@@ -451,6 +475,7 @@ def _define_ICreateObject_head():
 def _define_ICreateObject():
     ICreateObject = win32more.UI.Shell.PropertiesSystem.ICreateObject_head
     ICreateObject.CreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateObject', ((1, 'clsid'),(1, 'pUnkOuter'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return ICreateObject
 PSTIME_FLAGS = Int32
 PSTF_UTC = 0
@@ -533,6 +558,7 @@ def _define_IPropertyUI():
     IPropertyUI.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYUI_FLAGS), use_last_error=False)(8, 'GetFlags', ((1, 'fmtid'),(1, 'pid'),(1, 'pflags'),)))
     IPropertyUI.FormatForDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Shell.PropertiesSystem.PROPERTYUI_FORMAT_FLAGS,POINTER(Char),UInt32, use_last_error=False)(9, 'FormatForDisplay', ((1, 'fmtid'),(1, 'pid'),(1, 'ppropvar'),(1, 'puiff'),(1, 'pwszText'),(1, 'cchText'),)))
     IPropertyUI.GetHelpInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(10, 'GetHelpInfo', ((1, 'fmtid'),(1, 'pid'),(1, 'pwszHelpFile'),(1, 'cch'),(1, 'puHelpID'),)))
+    win32more.System.Com.IUnknown
     return IPropertyUI
 PDOPSTATUS = Int32
 PDOPS_RUNNING = 1

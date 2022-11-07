@@ -133,6 +133,7 @@ def _define_IDCompositionAnimation():
     IDCompositionAnimation.AddSinusoidal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Single,Single,Single,Single, use_last_error=False)(6, 'AddSinusoidal', ((1, 'beginOffset'),(1, 'bias'),(1, 'amplitude'),(1, 'frequency'),(1, 'phase'),)))
     IDCompositionAnimation.AddRepeat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double, use_last_error=False)(7, 'AddRepeat', ((1, 'beginOffset'),(1, 'durationToRepeat'),)))
     IDCompositionAnimation.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Single, use_last_error=False)(8, 'End', ((1, 'endOffset'),(1, 'endValue'),)))
+    win32more.System.Com.IUnknown
     return IDCompositionAnimation
 def _define_IDCompositionDevice_head():
     class IDCompositionDevice(win32more.System.Com.IUnknown_head):
@@ -164,6 +165,7 @@ def _define_IDCompositionDevice():
     IDCompositionDevice.CreateRectangleClip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionRectangleClip_head), use_last_error=False)(24, 'CreateRectangleClip', ((1, 'clip'),)))
     IDCompositionDevice.CreateAnimation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionAnimation_head), use_last_error=False)(25, 'CreateAnimation', ((1, 'animation'),)))
     IDCompositionDevice.CheckDeviceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(26, 'CheckDeviceState', ((1, 'pfValid'),)))
+    win32more.System.Com.IUnknown
     return IDCompositionDevice
 def _define_IDCompositionTarget_head():
     class IDCompositionTarget(win32more.System.Com.IUnknown_head):
@@ -172,6 +174,7 @@ def _define_IDCompositionTarget_head():
 def _define_IDCompositionTarget():
     IDCompositionTarget = win32more.Graphics.DirectComposition.IDCompositionTarget_head
     IDCompositionTarget.SetRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionVisual_head, use_last_error=False)(3, 'SetRoot', ((1, 'visual'),)))
+    win32more.System.Com.IUnknown
     return IDCompositionTarget
 def _define_IDCompositionVisual_head():
     class IDCompositionVisual(win32more.System.Com.IUnknown_head):
@@ -196,6 +199,7 @@ def _define_IDCompositionVisual():
     IDCompositionVisual.RemoveVisual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionVisual_head, use_last_error=False)(17, 'RemoveVisual', ((1, 'visual'),)))
     IDCompositionVisual.RemoveAllVisuals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'RemoveAllVisuals', ()))
     IDCompositionVisual.SetCompositeMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.DCOMPOSITION_COMPOSITE_MODE, use_last_error=False)(19, 'SetCompositeMode', ((1, 'compositeMode'),)))
+    win32more.System.Com.IUnknown
     return IDCompositionVisual
 def _define_IDCompositionEffect_head():
     class IDCompositionEffect(win32more.System.Com.IUnknown_head):
@@ -203,6 +207,7 @@ def _define_IDCompositionEffect_head():
     return IDCompositionEffect
 def _define_IDCompositionEffect():
     IDCompositionEffect = win32more.Graphics.DirectComposition.IDCompositionEffect_head
+    win32more.System.Com.IUnknown
     return IDCompositionEffect
 def _define_IDCompositionTransform3D_head():
     class IDCompositionTransform3D(win32more.Graphics.DirectComposition.IDCompositionEffect_head):
@@ -210,6 +215,7 @@ def _define_IDCompositionTransform3D_head():
     return IDCompositionTransform3D
 def _define_IDCompositionTransform3D():
     IDCompositionTransform3D = win32more.Graphics.DirectComposition.IDCompositionTransform3D_head
+    win32more.Graphics.DirectComposition.IDCompositionEffect
     return IDCompositionTransform3D
 def _define_IDCompositionTransform_head():
     class IDCompositionTransform(win32more.Graphics.DirectComposition.IDCompositionTransform3D_head):
@@ -217,6 +223,7 @@ def _define_IDCompositionTransform_head():
     return IDCompositionTransform
 def _define_IDCompositionTransform():
     IDCompositionTransform = win32more.Graphics.DirectComposition.IDCompositionTransform_head
+    win32more.Graphics.DirectComposition.IDCompositionTransform3D
     return IDCompositionTransform
 def _define_IDCompositionTranslateTransform_head():
     class IDCompositionTranslateTransform(win32more.Graphics.DirectComposition.IDCompositionTransform_head):
@@ -228,6 +235,7 @@ def _define_IDCompositionTranslateTransform():
     IDCompositionTranslateTransform.SetOffsetX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(4, 'SetOffsetX', ((1, 'offsetX'),)))
     IDCompositionTranslateTransform.SetOffsetY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(5, 'SetOffsetY', ((1, 'animation'),)))
     IDCompositionTranslateTransform.SetOffsetY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(6, 'SetOffsetY', ((1, 'offsetY'),)))
+    win32more.Graphics.DirectComposition.IDCompositionTransform
     return IDCompositionTranslateTransform
 def _define_IDCompositionScaleTransform_head():
     class IDCompositionScaleTransform(win32more.Graphics.DirectComposition.IDCompositionTransform_head):
@@ -243,6 +251,7 @@ def _define_IDCompositionScaleTransform():
     IDCompositionScaleTransform.SetCenterX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(8, 'SetCenterX', ((1, 'centerX'),)))
     IDCompositionScaleTransform.SetCenterY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(9, 'SetCenterY', ((1, 'animation'),)))
     IDCompositionScaleTransform.SetCenterY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(10, 'SetCenterY', ((1, 'centerY'),)))
+    win32more.Graphics.DirectComposition.IDCompositionTransform
     return IDCompositionScaleTransform
 def _define_IDCompositionRotateTransform_head():
     class IDCompositionRotateTransform(win32more.Graphics.DirectComposition.IDCompositionTransform_head):
@@ -256,6 +265,7 @@ def _define_IDCompositionRotateTransform():
     IDCompositionRotateTransform.SetCenterX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(6, 'SetCenterX', ((1, 'centerX'),)))
     IDCompositionRotateTransform.SetCenterY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(7, 'SetCenterY', ((1, 'animation'),)))
     IDCompositionRotateTransform.SetCenterY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(8, 'SetCenterY', ((1, 'centerY'),)))
+    win32more.Graphics.DirectComposition.IDCompositionTransform
     return IDCompositionRotateTransform
 def _define_IDCompositionSkewTransform_head():
     class IDCompositionSkewTransform(win32more.Graphics.DirectComposition.IDCompositionTransform_head):
@@ -271,6 +281,7 @@ def _define_IDCompositionSkewTransform():
     IDCompositionSkewTransform.SetCenterX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(8, 'SetCenterX', ((1, 'centerX'),)))
     IDCompositionSkewTransform.SetCenterY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(9, 'SetCenterY', ((1, 'animation'),)))
     IDCompositionSkewTransform.SetCenterY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(10, 'SetCenterY', ((1, 'centerY'),)))
+    win32more.Graphics.DirectComposition.IDCompositionTransform
     return IDCompositionSkewTransform
 def _define_IDCompositionMatrixTransform_head():
     class IDCompositionMatrixTransform(win32more.Graphics.DirectComposition.IDCompositionTransform_head):
@@ -281,6 +292,7 @@ def _define_IDCompositionMatrixTransform():
     IDCompositionMatrixTransform.SetMatrix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_3X2_F_head), use_last_error=False)(3, 'SetMatrix', ((1, 'matrix'),)))
     IDCompositionMatrixTransform.SetMatrixElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(4, 'SetMatrixElement', ((1, 'row'),(1, 'column'),(1, 'animation'),)))
     IDCompositionMatrixTransform.SetMatrixElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Single, use_last_error=False)(5, 'SetMatrixElement', ((1, 'row'),(1, 'column'),(1, 'value'),)))
+    win32more.Graphics.DirectComposition.IDCompositionTransform
     return IDCompositionMatrixTransform
 def _define_IDCompositionEffectGroup_head():
     class IDCompositionEffectGroup(win32more.Graphics.DirectComposition.IDCompositionEffect_head):
@@ -291,6 +303,7 @@ def _define_IDCompositionEffectGroup():
     IDCompositionEffectGroup.SetOpacity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(3, 'SetOpacity', ((1, 'animation'),)))
     IDCompositionEffectGroup.SetOpacity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(4, 'SetOpacity', ((1, 'opacity'),)))
     IDCompositionEffectGroup.SetTransform3D = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionTransform3D_head, use_last_error=False)(5, 'SetTransform3D', ((1, 'transform3D'),)))
+    win32more.Graphics.DirectComposition.IDCompositionEffect
     return IDCompositionEffectGroup
 def _define_IDCompositionTranslateTransform3D_head():
     class IDCompositionTranslateTransform3D(win32more.Graphics.DirectComposition.IDCompositionTransform3D_head):
@@ -304,6 +317,7 @@ def _define_IDCompositionTranslateTransform3D():
     IDCompositionTranslateTransform3D.SetOffsetY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(6, 'SetOffsetY', ((1, 'offsetY'),)))
     IDCompositionTranslateTransform3D.SetOffsetZ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(7, 'SetOffsetZ', ((1, 'animation'),)))
     IDCompositionTranslateTransform3D.SetOffsetZ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(8, 'SetOffsetZ', ((1, 'offsetZ'),)))
+    win32more.Graphics.DirectComposition.IDCompositionTransform3D
     return IDCompositionTranslateTransform3D
 def _define_IDCompositionScaleTransform3D_head():
     class IDCompositionScaleTransform3D(win32more.Graphics.DirectComposition.IDCompositionTransform3D_head):
@@ -323,6 +337,7 @@ def _define_IDCompositionScaleTransform3D():
     IDCompositionScaleTransform3D.SetCenterY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(12, 'SetCenterY', ((1, 'centerY'),)))
     IDCompositionScaleTransform3D.SetCenterZ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(13, 'SetCenterZ', ((1, 'animation'),)))
     IDCompositionScaleTransform3D.SetCenterZ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(14, 'SetCenterZ', ((1, 'centerZ'),)))
+    win32more.Graphics.DirectComposition.IDCompositionTransform3D
     return IDCompositionScaleTransform3D
 def _define_IDCompositionRotateTransform3D_head():
     class IDCompositionRotateTransform3D(win32more.Graphics.DirectComposition.IDCompositionTransform3D_head):
@@ -344,6 +359,7 @@ def _define_IDCompositionRotateTransform3D():
     IDCompositionRotateTransform3D.SetCenterY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(14, 'SetCenterY', ((1, 'centerY'),)))
     IDCompositionRotateTransform3D.SetCenterZ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(15, 'SetCenterZ', ((1, 'animation'),)))
     IDCompositionRotateTransform3D.SetCenterZ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(16, 'SetCenterZ', ((1, 'centerZ'),)))
+    win32more.Graphics.DirectComposition.IDCompositionTransform3D
     return IDCompositionRotateTransform3D
 def _define_IDCompositionMatrixTransform3D_head():
     class IDCompositionMatrixTransform3D(win32more.Graphics.DirectComposition.IDCompositionTransform3D_head):
@@ -354,6 +370,7 @@ def _define_IDCompositionMatrixTransform3D():
     IDCompositionMatrixTransform3D.SetMatrix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D.D3DMATRIX_head), use_last_error=False)(3, 'SetMatrix', ((1, 'matrix'),)))
     IDCompositionMatrixTransform3D.SetMatrixElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(4, 'SetMatrixElement', ((1, 'row'),(1, 'column'),(1, 'animation'),)))
     IDCompositionMatrixTransform3D.SetMatrixElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Single, use_last_error=False)(5, 'SetMatrixElement', ((1, 'row'),(1, 'column'),(1, 'value'),)))
+    win32more.Graphics.DirectComposition.IDCompositionTransform3D
     return IDCompositionMatrixTransform3D
 def _define_IDCompositionClip_head():
     class IDCompositionClip(win32more.System.Com.IUnknown_head):
@@ -361,6 +378,7 @@ def _define_IDCompositionClip_head():
     return IDCompositionClip
 def _define_IDCompositionClip():
     IDCompositionClip = win32more.Graphics.DirectComposition.IDCompositionClip_head
+    win32more.System.Com.IUnknown
     return IDCompositionClip
 def _define_IDCompositionRectangleClip_head():
     class IDCompositionRectangleClip(win32more.Graphics.DirectComposition.IDCompositionClip_head):
@@ -392,6 +410,7 @@ def _define_IDCompositionRectangleClip():
     IDCompositionRectangleClip.SetBottomRightRadiusX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(24, 'SetBottomRightRadiusX', ((1, 'radius'),)))
     IDCompositionRectangleClip.SetBottomRightRadiusY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(25, 'SetBottomRightRadiusY', ((1, 'animation'),)))
     IDCompositionRectangleClip.SetBottomRightRadiusY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(26, 'SetBottomRightRadiusY', ((1, 'radius'),)))
+    win32more.Graphics.DirectComposition.IDCompositionClip
     return IDCompositionRectangleClip
 def _define_IDCompositionSurface_head():
     class IDCompositionSurface(win32more.System.Com.IUnknown_head):
@@ -404,6 +423,7 @@ def _define_IDCompositionSurface():
     IDCompositionSurface.SuspendDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'SuspendDraw', ()))
     IDCompositionSurface.ResumeDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'ResumeDraw', ()))
     IDCompositionSurface.Scroll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),Int32,Int32, use_last_error=False)(7, 'Scroll', ((1, 'scrollRect'),(1, 'clipRect'),(1, 'offsetX'),(1, 'offsetY'),)))
+    win32more.System.Com.IUnknown
     return IDCompositionSurface
 def _define_IDCompositionVirtualSurface_head():
     class IDCompositionVirtualSurface(win32more.Graphics.DirectComposition.IDCompositionSurface_head):
@@ -413,6 +433,7 @@ def _define_IDCompositionVirtualSurface():
     IDCompositionVirtualSurface = win32more.Graphics.DirectComposition.IDCompositionVirtualSurface_head
     IDCompositionVirtualSurface.Resize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(8, 'Resize', ((1, 'width'),(1, 'height'),)))
     IDCompositionVirtualSurface.Trim = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT),UInt32, use_last_error=False)(9, 'Trim', ((1, 'rectangles'),(1, 'count'),)))
+    win32more.Graphics.DirectComposition.IDCompositionSurface
     return IDCompositionVirtualSurface
 def _define_IDCompositionDevice2_head():
     class IDCompositionDevice2(win32more.System.Com.IUnknown_head):
@@ -441,6 +462,7 @@ def _define_IDCompositionDevice2():
     IDCompositionDevice2.CreateEffectGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionEffectGroup_head), use_last_error=False)(21, 'CreateEffectGroup', ((1, 'effectGroup'),)))
     IDCompositionDevice2.CreateRectangleClip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionRectangleClip_head), use_last_error=False)(22, 'CreateRectangleClip', ((1, 'clip'),)))
     IDCompositionDevice2.CreateAnimation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionAnimation_head), use_last_error=False)(23, 'CreateAnimation', ((1, 'animation'),)))
+    win32more.System.Com.IUnknown
     return IDCompositionDevice2
 def _define_IDCompositionDesktopDevice_head():
     class IDCompositionDesktopDevice(win32more.Graphics.DirectComposition.IDCompositionDevice2_head):
@@ -451,6 +473,7 @@ def _define_IDCompositionDesktopDevice():
     IDCompositionDesktopDevice.CreateTargetForHwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BOOL,POINTER(win32more.Graphics.DirectComposition.IDCompositionTarget_head), use_last_error=False)(24, 'CreateTargetForHwnd', ((1, 'hwnd'),(1, 'topmost'),(1, 'target'),)))
     IDCompositionDesktopDevice.CreateSurfaceFromHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(25, 'CreateSurfaceFromHandle', ((1, 'handle'),(1, 'surface'),)))
     IDCompositionDesktopDevice.CreateSurfaceFromHwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(26, 'CreateSurfaceFromHwnd', ((1, 'hwnd'),(1, 'surface'),)))
+    win32more.Graphics.DirectComposition.IDCompositionDevice2
     return IDCompositionDesktopDevice
 def _define_IDCompositionDeviceDebug_head():
     class IDCompositionDeviceDebug(win32more.System.Com.IUnknown_head):
@@ -460,6 +483,7 @@ def _define_IDCompositionDeviceDebug():
     IDCompositionDeviceDebug = win32more.Graphics.DirectComposition.IDCompositionDeviceDebug_head
     IDCompositionDeviceDebug.EnableDebugCounters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'EnableDebugCounters', ()))
     IDCompositionDeviceDebug.DisableDebugCounters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'DisableDebugCounters', ()))
+    win32more.System.Com.IUnknown
     return IDCompositionDeviceDebug
 def _define_IDCompositionSurfaceFactory_head():
     class IDCompositionSurfaceFactory(win32more.System.Com.IUnknown_head):
@@ -469,6 +493,7 @@ def _define_IDCompositionSurfaceFactory():
     IDCompositionSurfaceFactory = win32more.Graphics.DirectComposition.IDCompositionSurfaceFactory_head
     IDCompositionSurfaceFactory.CreateSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Graphics.Dxgi.Common.DXGI_ALPHA_MODE,POINTER(win32more.Graphics.DirectComposition.IDCompositionSurface_head), use_last_error=False)(3, 'CreateSurface', ((1, 'width'),(1, 'height'),(1, 'pixelFormat'),(1, 'alphaMode'),(1, 'surface'),)))
     IDCompositionSurfaceFactory.CreateVirtualSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Graphics.Dxgi.Common.DXGI_ALPHA_MODE,POINTER(win32more.Graphics.DirectComposition.IDCompositionVirtualSurface_head), use_last_error=False)(4, 'CreateVirtualSurface', ((1, 'initialWidth'),(1, 'initialHeight'),(1, 'pixelFormat'),(1, 'alphaMode'),(1, 'virtualSurface'),)))
+    win32more.System.Com.IUnknown
     return IDCompositionSurfaceFactory
 def _define_IDCompositionVisual2_head():
     class IDCompositionVisual2(win32more.Graphics.DirectComposition.IDCompositionVisual_head):
@@ -478,6 +503,7 @@ def _define_IDCompositionVisual2():
     IDCompositionVisual2 = win32more.Graphics.DirectComposition.IDCompositionVisual2_head
     IDCompositionVisual2.SetOpacityMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.DCOMPOSITION_OPACITY_MODE, use_last_error=False)(20, 'SetOpacityMode', ((1, 'mode'),)))
     IDCompositionVisual2.SetBackFaceVisibility = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.DCOMPOSITION_BACKFACE_VISIBILITY, use_last_error=False)(21, 'SetBackFaceVisibility', ((1, 'visibility'),)))
+    win32more.Graphics.DirectComposition.IDCompositionVisual
     return IDCompositionVisual2
 def _define_IDCompositionVisualDebug_head():
     class IDCompositionVisualDebug(win32more.Graphics.DirectComposition.IDCompositionVisual2_head):
@@ -489,6 +515,7 @@ def _define_IDCompositionVisualDebug():
     IDCompositionVisualDebug.DisableHeatMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(23, 'DisableHeatMap', ()))
     IDCompositionVisualDebug.EnableRedrawRegions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'EnableRedrawRegions', ()))
     IDCompositionVisualDebug.DisableRedrawRegions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'DisableRedrawRegions', ()))
+    win32more.Graphics.DirectComposition.IDCompositionVisual2
     return IDCompositionVisualDebug
 def _define_IDCompositionVisual3_head():
     class IDCompositionVisual3(win32more.Graphics.DirectComposition.IDCompositionVisualDebug_head):
@@ -504,6 +531,7 @@ def _define_IDCompositionVisual3():
     IDCompositionVisual3.SetTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionTransform3D_head, use_last_error=False)(31, 'SetTransform', ((1, 'transform'),)))
     IDCompositionVisual3.SetTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D_MATRIX_4X4_F_head), use_last_error=False)(32, 'SetTransform', ((1, 'matrix'),)))
     IDCompositionVisual3.SetVisible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(33, 'SetVisible', ((1, 'visible'),)))
+    win32more.Graphics.DirectComposition.IDCompositionVisualDebug
     return IDCompositionVisual3
 def _define_IDCompositionDevice3_head():
     class IDCompositionDevice3(win32more.Graphics.DirectComposition.IDCompositionDevice2_head):
@@ -524,6 +552,7 @@ def _define_IDCompositionDevice3():
     IDCompositionDevice3.CreateBlendEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionBlendEffect_head), use_last_error=False)(34, 'CreateBlendEffect', ((1, 'blendEffect'),)))
     IDCompositionDevice3.CreateArithmeticCompositeEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionArithmeticCompositeEffect_head), use_last_error=False)(35, 'CreateArithmeticCompositeEffect', ((1, 'arithmeticCompositeEffect'),)))
     IDCompositionDevice3.CreateAffineTransform2DEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionAffineTransform2DEffect_head), use_last_error=False)(36, 'CreateAffineTransform2DEffect', ((1, 'affineTransform2dEffect'),)))
+    win32more.Graphics.DirectComposition.IDCompositionDevice2
     return IDCompositionDevice3
 def _define_IDCompositionFilterEffect_head():
     class IDCompositionFilterEffect(win32more.Graphics.DirectComposition.IDCompositionEffect_head):
@@ -532,6 +561,7 @@ def _define_IDCompositionFilterEffect_head():
 def _define_IDCompositionFilterEffect():
     IDCompositionFilterEffect = win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head
     IDCompositionFilterEffect.SetInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(3, 'SetInput', ((1, 'index'),(1, 'input'),(1, 'flags'),)))
+    win32more.Graphics.DirectComposition.IDCompositionEffect
     return IDCompositionFilterEffect
 def _define_IDCompositionGaussianBlurEffect_head():
     class IDCompositionGaussianBlurEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -542,6 +572,7 @@ def _define_IDCompositionGaussianBlurEffect():
     IDCompositionGaussianBlurEffect.SetStandardDeviation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(4, 'SetStandardDeviation', ((1, 'animation'),)))
     IDCompositionGaussianBlurEffect.SetStandardDeviation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(5, 'SetStandardDeviation', ((1, 'amount'),)))
     IDCompositionGaussianBlurEffect.SetBorderMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D1_BORDER_MODE, use_last_error=False)(6, 'SetBorderMode', ((1, 'mode'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionGaussianBlurEffect
 def _define_IDCompositionBrightnessEffect_head():
     class IDCompositionBrightnessEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -559,6 +590,7 @@ def _define_IDCompositionBrightnessEffect():
     IDCompositionBrightnessEffect.SetBlackPointX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(11, 'SetBlackPointX', ((1, 'blackPointX'),)))
     IDCompositionBrightnessEffect.SetBlackPointY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(12, 'SetBlackPointY', ((1, 'animation'),)))
     IDCompositionBrightnessEffect.SetBlackPointY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(13, 'SetBlackPointY', ((1, 'blackPointY'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionBrightnessEffect
 def _define_IDCompositionColorMatrixEffect_head():
     class IDCompositionColorMatrixEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -571,6 +603,7 @@ def _define_IDCompositionColorMatrixEffect():
     IDCompositionColorMatrixEffect.SetMatrixElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Single, use_last_error=False)(6, 'SetMatrixElement', ((1, 'row'),(1, 'column'),(1, 'value'),)))
     IDCompositionColorMatrixEffect.SetAlphaMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D1_COLORMATRIX_ALPHA_MODE, use_last_error=False)(7, 'SetAlphaMode', ((1, 'mode'),)))
     IDCompositionColorMatrixEffect.SetClampOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(8, 'SetClampOutput', ((1, 'clamp'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionColorMatrixEffect
 def _define_IDCompositionShadowEffect_head():
     class IDCompositionShadowEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -589,6 +622,7 @@ def _define_IDCompositionShadowEffect():
     IDCompositionShadowEffect.SetBlue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(12, 'SetBlue', ((1, 'amount'),)))
     IDCompositionShadowEffect.SetAlpha = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(13, 'SetAlpha', ((1, 'animation'),)))
     IDCompositionShadowEffect.SetAlpha = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(14, 'SetAlpha', ((1, 'amount'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionShadowEffect
 def _define_IDCompositionHueRotationEffect_head():
     class IDCompositionHueRotationEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -598,6 +632,7 @@ def _define_IDCompositionHueRotationEffect():
     IDCompositionHueRotationEffect = win32more.Graphics.DirectComposition.IDCompositionHueRotationEffect_head
     IDCompositionHueRotationEffect.SetAngle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(4, 'SetAngle', ((1, 'animation'),)))
     IDCompositionHueRotationEffect.SetAngle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(5, 'SetAngle', ((1, 'amountDegrees'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionHueRotationEffect
 def _define_IDCompositionSaturationEffect_head():
     class IDCompositionSaturationEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -607,6 +642,7 @@ def _define_IDCompositionSaturationEffect():
     IDCompositionSaturationEffect = win32more.Graphics.DirectComposition.IDCompositionSaturationEffect_head
     IDCompositionSaturationEffect.SetSaturation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(4, 'SetSaturation', ((1, 'animation'),)))
     IDCompositionSaturationEffect.SetSaturation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(5, 'SetSaturation', ((1, 'ratio'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionSaturationEffect
 def _define_IDCompositionTurbulenceEffect_head():
     class IDCompositionTurbulenceEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -621,6 +657,7 @@ def _define_IDCompositionTurbulenceEffect():
     IDCompositionTurbulenceEffect.SetSeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'SetSeed', ((1, 'seed'),)))
     IDCompositionTurbulenceEffect.SetNoise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D1_TURBULENCE_NOISE, use_last_error=False)(9, 'SetNoise', ((1, 'noise'),)))
     IDCompositionTurbulenceEffect.SetStitchable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(10, 'SetStitchable', ((1, 'stitchable'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionTurbulenceEffect
 def _define_IDCompositionLinearTransferEffect_head():
     class IDCompositionLinearTransferEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -649,6 +686,7 @@ def _define_IDCompositionLinearTransferEffect():
     IDCompositionLinearTransferEffect.SetAlphaSlope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(22, 'SetAlphaSlope', ((1, 'alphaSlope'),)))
     IDCompositionLinearTransferEffect.SetAlphaDisable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(23, 'SetAlphaDisable', ((1, 'alphaDisable'),)))
     IDCompositionLinearTransferEffect.SetClampOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(24, 'SetClampOutput', ((1, 'clampOutput'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionLinearTransferEffect
 def _define_IDCompositionTableTransferEffect_head():
     class IDCompositionTableTransferEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -673,6 +711,7 @@ def _define_IDCompositionTableTransferEffect():
     IDCompositionTableTransferEffect.SetBlueTableValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Single, use_last_error=False)(18, 'SetBlueTableValue', ((1, 'index'),(1, 'value'),)))
     IDCompositionTableTransferEffect.SetAlphaTableValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(19, 'SetAlphaTableValue', ((1, 'index'),(1, 'animation'),)))
     IDCompositionTableTransferEffect.SetAlphaTableValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Single, use_last_error=False)(20, 'SetAlphaTableValue', ((1, 'index'),(1, 'value'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionTableTransferEffect
 def _define_IDCompositionCompositeEffect_head():
     class IDCompositionCompositeEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -681,6 +720,7 @@ def _define_IDCompositionCompositeEffect_head():
 def _define_IDCompositionCompositeEffect():
     IDCompositionCompositeEffect = win32more.Graphics.DirectComposition.IDCompositionCompositeEffect_head
     IDCompositionCompositeEffect.SetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D1_COMPOSITE_MODE, use_last_error=False)(4, 'SetMode', ((1, 'mode'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionCompositeEffect
 def _define_IDCompositionBlendEffect_head():
     class IDCompositionBlendEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -689,6 +729,7 @@ def _define_IDCompositionBlendEffect_head():
 def _define_IDCompositionBlendEffect():
     IDCompositionBlendEffect = win32more.Graphics.DirectComposition.IDCompositionBlendEffect_head
     IDCompositionBlendEffect.SetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.Common.D2D1_BLEND_MODE, use_last_error=False)(4, 'SetMode', ((1, 'mode'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionBlendEffect
 def _define_IDCompositionArithmeticCompositeEffect_head():
     class IDCompositionArithmeticCompositeEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -706,6 +747,7 @@ def _define_IDCompositionArithmeticCompositeEffect():
     IDCompositionArithmeticCompositeEffect.SetCoefficient3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(11, 'SetCoefficient3', ((1, 'Coefficient3'),)))
     IDCompositionArithmeticCompositeEffect.SetCoefficient4 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(12, 'SetCoefficient4', ((1, 'animation'),)))
     IDCompositionArithmeticCompositeEffect.SetCoefficient4 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(13, 'SetCoefficient4', ((1, 'Coefficient4'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionArithmeticCompositeEffect
 def _define_IDCompositionAffineTransform2DEffect_head():
     class IDCompositionAffineTransform2DEffect(win32more.Graphics.DirectComposition.IDCompositionFilterEffect_head):
@@ -720,6 +762,7 @@ def _define_IDCompositionAffineTransform2DEffect():
     IDCompositionAffineTransform2DEffect.SetTransformMatrixElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Single, use_last_error=False)(8, 'SetTransformMatrixElement', ((1, 'row'),(1, 'column'),(1, 'value'),)))
     IDCompositionAffineTransform2DEffect.SetSharpness = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectComposition.IDCompositionAnimation_head, use_last_error=False)(9, 'SetSharpness', ((1, 'animation'),)))
     IDCompositionAffineTransform2DEffect.SetSharpness = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(10, 'SetSharpness', ((1, 'sharpness'),)))
+    win32more.Graphics.DirectComposition.IDCompositionFilterEffect
     return IDCompositionAffineTransform2DEffect
 def _define_DCompositionInkTrailPoint_head():
     class DCompositionInkTrailPoint(Structure):
@@ -743,6 +786,7 @@ def _define_IDCompositionDelegatedInkTrail():
     IDCompositionDelegatedInkTrail.AddTrailPointsWithPrediction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.DCompositionInkTrailPoint),UInt32,POINTER(win32more.Graphics.DirectComposition.DCompositionInkTrailPoint),UInt32,POINTER(UInt32), use_last_error=False)(4, 'AddTrailPointsWithPrediction', ((1, 'inkPoints'),(1, 'inkPointsCount'),(1, 'predictedInkPoints'),(1, 'predictedInkPointsCount'),(1, 'generationId'),)))
     IDCompositionDelegatedInkTrail.RemoveTrailPoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'RemoveTrailPoints', ((1, 'generationId'),)))
     IDCompositionDelegatedInkTrail.StartNewTrail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.Common.D2D1_COLOR_F_head), use_last_error=False)(6, 'StartNewTrail', ((1, 'color'),)))
+    win32more.System.Com.IUnknown
     return IDCompositionDelegatedInkTrail
 def _define_IDCompositionInkTrailDevice_head():
     class IDCompositionInkTrailDevice(win32more.System.Com.IUnknown_head):
@@ -752,6 +796,7 @@ def _define_IDCompositionInkTrailDevice():
     IDCompositionInkTrailDevice = win32more.Graphics.DirectComposition.IDCompositionInkTrailDevice_head
     IDCompositionInkTrailDevice.CreateDelegatedInkTrail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectComposition.IDCompositionDelegatedInkTrail_head), use_last_error=False)(3, 'CreateDelegatedInkTrail', ((1, 'inkTrail'),)))
     IDCompositionInkTrailDevice.CreateDelegatedInkTrailForSwapChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.DirectComposition.IDCompositionDelegatedInkTrail_head), use_last_error=False)(4, 'CreateDelegatedInkTrailForSwapChain', ((1, 'swapChain'),(1, 'inkTrail'),)))
+    win32more.System.Com.IUnknown
     return IDCompositionInkTrailDevice
 def _define_DCompositionCreateDevice():
     try:

@@ -304,6 +304,7 @@ def _define_INetDiagHelper():
     INetDiagHelper.GetAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)), use_last_error=False)(18, 'GetAttributes', ((1, 'pcelt'),(1, 'pprgAttributes'),)))
     INetDiagHelper.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'Cancel', ()))
     INetDiagHelper.Cleanup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'Cleanup', ()))
+    win32more.System.Com.IUnknown
     return INetDiagHelper
 def _define_HypothesisResult_head():
     class HypothesisResult(Structure):
@@ -323,6 +324,7 @@ def _define_INetDiagHelperUtilFactory_head():
 def _define_INetDiagHelperUtilFactory():
     INetDiagHelperUtilFactory = win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelperUtilFactory_head
     INetDiagHelperUtilFactory.CreateUtilityInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateUtilityInstance', ((1, 'riid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return INetDiagHelperUtilFactory
 def _define_INetDiagHelperEx_head():
     class INetDiagHelperEx(win32more.System.Com.IUnknown_head):
@@ -333,6 +335,7 @@ def _define_INetDiagHelperEx():
     INetDiagHelperEx.ReconfirmLowHealth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HypothesisResult),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.DIAGNOSIS_STATUS), use_last_error=False)(3, 'ReconfirmLowHealth', ((1, 'celt'),(1, 'pResults'),(1, 'ppwszUpdatedDescription'),(1, 'pUpdatedStatus'),)))
     INetDiagHelperEx.SetUtilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelperUtilFactory_head, use_last_error=False)(4, 'SetUtilities', ((1, 'pUtilities'),)))
     INetDiagHelperEx.ReproduceFailure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ReproduceFailure', ()))
+    win32more.System.Com.IUnknown
     return INetDiagHelperEx
 def _define_INetDiagHelperInfo_head():
     class INetDiagHelperInfo(win32more.System.Com.IUnknown_head):
@@ -341,6 +344,7 @@ def _define_INetDiagHelperInfo_head():
 def _define_INetDiagHelperInfo():
     INetDiagHelperInfo = win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagHelperInfo_head
     INetDiagHelperInfo.GetAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HelperAttributeInfo_head)), use_last_error=False)(3, 'GetAttributeInfo', ((1, 'pcelt'),(1, 'pprgAttributeInfos'),)))
+    win32more.System.Com.IUnknown
     return INetDiagHelperInfo
 def _define_INetDiagExtensibleHelper_head():
     class INetDiagExtensibleHelper(win32more.System.Com.IUnknown_head):
@@ -349,6 +353,7 @@ def _define_INetDiagExtensibleHelper_head():
 def _define_INetDiagExtensibleHelper():
     INetDiagExtensibleHelper = win32more.NetworkManagement.NetworkDiagnosticsFramework.INetDiagExtensibleHelper_head
     INetDiagExtensibleHelper.ResolveAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE),POINTER(UInt32),POINTER(POINTER(win32more.NetworkManagement.NetworkDiagnosticsFramework.HELPER_ATTRIBUTE_head)), use_last_error=False)(3, 'ResolveAttributes', ((1, 'celt'),(1, 'rgKeyAttributes'),(1, 'pcelt'),(1, 'prgMatchValues'),)))
+    win32more.System.Com.IUnknown
     return INetDiagExtensibleHelper
 def _define_NdfCreateIncident():
     try:

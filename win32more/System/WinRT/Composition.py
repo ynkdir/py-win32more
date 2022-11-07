@@ -28,6 +28,7 @@ def _define_ICompositionDrawingSurfaceInterop():
     ICompositionDrawingSurfaceInterop.Scroll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.RECT_head),Int32,Int32, use_last_error=False)(6, 'Scroll', ((1, 'scrollRect'),(1, 'clipRect'),(1, 'offsetX'),(1, 'offsetY'),)))
     ICompositionDrawingSurfaceInterop.ResumeDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'ResumeDraw', ()))
     ICompositionDrawingSurfaceInterop.SuspendDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'SuspendDraw', ()))
+    win32more.System.Com.IUnknown
     return ICompositionDrawingSurfaceInterop
 def _define_ICompositionDrawingSurfaceInterop2_head():
     class ICompositionDrawingSurfaceInterop2(win32more.System.WinRT.Composition.ICompositionDrawingSurfaceInterop_head):
@@ -36,6 +37,7 @@ def _define_ICompositionDrawingSurfaceInterop2_head():
 def _define_ICompositionDrawingSurfaceInterop2():
     ICompositionDrawingSurfaceInterop2 = win32more.System.WinRT.Composition.ICompositionDrawingSurfaceInterop2_head
     ICompositionDrawingSurfaceInterop2.CopySurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Int32,Int32,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(9, 'CopySurface', ((1, 'destinationResource'),(1, 'destinationOffsetX'),(1, 'destinationOffsetY'),(1, 'sourceRectangle'),)))
+    win32more.System.WinRT.Composition.ICompositionDrawingSurfaceInterop
     return ICompositionDrawingSurfaceInterop2
 def _define_ICompositionGraphicsDeviceInterop_head():
     class ICompositionGraphicsDeviceInterop(win32more.System.Com.IUnknown_head):
@@ -45,6 +47,7 @@ def _define_ICompositionGraphicsDeviceInterop():
     ICompositionGraphicsDeviceInterop = win32more.System.WinRT.Composition.ICompositionGraphicsDeviceInterop_head
     ICompositionGraphicsDeviceInterop.GetRenderingDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetRenderingDevice', ((1, 'value'),)))
     ICompositionGraphicsDeviceInterop.SetRenderingDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'SetRenderingDevice', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return ICompositionGraphicsDeviceInterop
 def _define_ICompositorInterop_head():
     class ICompositorInterop(win32more.System.Com.IUnknown_head):
@@ -55,6 +58,7 @@ def _define_ICompositorInterop():
     ICompositorInterop.CreateCompositionSurfaceForHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,c_void_p, use_last_error=False)(3, 'CreateCompositionSurfaceForHandle', ((1, 'swapChain'),(1, 'result'),)))
     ICompositorInterop.CreateCompositionSurfaceForSwapChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,c_void_p, use_last_error=False)(4, 'CreateCompositionSurfaceForSwapChain', ((1, 'swapChain'),(1, 'result'),)))
     ICompositorInterop.CreateGraphicsDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,c_void_p, use_last_error=False)(5, 'CreateGraphicsDevice', ((1, 'renderingDevice'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return ICompositorInterop
 def _define_ISwapChainInterop_head():
     class ISwapChainInterop(win32more.System.Com.IUnknown_head):
@@ -63,6 +67,7 @@ def _define_ISwapChainInterop_head():
 def _define_ISwapChainInterop():
     ISwapChainInterop = win32more.System.WinRT.Composition.ISwapChainInterop_head
     ISwapChainInterop.SetSwapChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetSwapChain', ((1, 'swapChain'),)))
+    win32more.System.Com.IUnknown
     return ISwapChainInterop
 def _define_IVisualInteractionSourceInterop_head():
     class IVisualInteractionSourceInterop(win32more.System.Com.IUnknown_head):
@@ -71,6 +76,7 @@ def _define_IVisualInteractionSourceInterop_head():
 def _define_IVisualInteractionSourceInterop():
     IVisualInteractionSourceInterop = win32more.System.WinRT.Composition.IVisualInteractionSourceInterop_head
     IVisualInteractionSourceInterop.TryRedirectForManipulation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Pointer.POINTER_INFO_head), use_last_error=False)(3, 'TryRedirectForManipulation', ((1, 'pointerInfo'),)))
+    win32more.System.Com.IUnknown
     return IVisualInteractionSourceInterop
 def _define_ICompositionCapabilitiesInteropFactory_head():
     class ICompositionCapabilitiesInteropFactory(win32more.System.WinRT.IInspectable_head):
@@ -79,6 +85,7 @@ def _define_ICompositionCapabilitiesInteropFactory_head():
 def _define_ICompositionCapabilitiesInteropFactory():
     ICompositionCapabilitiesInteropFactory = win32more.System.WinRT.Composition.ICompositionCapabilitiesInteropFactory_head
     ICompositionCapabilitiesInteropFactory.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,c_void_p, use_last_error=False)(6, 'GetForWindow', ((1, 'hwnd'),(1, 'result'),)))
+    win32more.System.WinRT.IInspectable
     return ICompositionCapabilitiesInteropFactory
 def _define_ICompositorDesktopInterop_head():
     class ICompositorDesktopInterop(win32more.System.Com.IUnknown_head):
@@ -88,6 +95,7 @@ def _define_ICompositorDesktopInterop():
     ICompositorDesktopInterop = win32more.System.WinRT.Composition.ICompositorDesktopInterop_head
     ICompositorDesktopInterop.CreateDesktopWindowTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BOOL,c_void_p, use_last_error=False)(3, 'CreateDesktopWindowTarget', ((1, 'hwndTarget'),(1, 'isTopmost'),(1, 'result'),)))
     ICompositorDesktopInterop.EnsureOnThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'EnsureOnThread', ((1, 'threadId'),)))
+    win32more.System.Com.IUnknown
     return ICompositorDesktopInterop
 def _define_IDesktopWindowTargetInterop_head():
     class IDesktopWindowTargetInterop(win32more.System.Com.IUnknown_head):
@@ -96,6 +104,7 @@ def _define_IDesktopWindowTargetInterop_head():
 def _define_IDesktopWindowTargetInterop():
     IDesktopWindowTargetInterop = win32more.System.WinRT.Composition.IDesktopWindowTargetInterop_head
     IDesktopWindowTargetInterop.get_Hwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(3, 'get_Hwnd', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IDesktopWindowTargetInterop
 __all__ = [
     "ICompositionDrawingSurfaceInterop",

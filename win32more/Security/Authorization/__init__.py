@@ -948,6 +948,7 @@ def _define_IAzAuthorizationStore():
     IAzAuthorizationStore.AddDelegatedPolicyUserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(55, 'AddDelegatedPolicyUserName', ((1, 'bstrDelegatedPolicyUser'),(1, 'varReserved'),)))
     IAzAuthorizationStore.DeleteDelegatedPolicyUserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(56, 'DeleteDelegatedPolicyUserName', ((1, 'bstrDelegatedPolicyUser'),(1, 'varReserved'),)))
     IAzAuthorizationStore.CloseApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(57, 'CloseApplication', ((1, 'bstrApplicationName'),(1, 'lFlag'),)))
+    win32more.System.Com.IDispatch
     return IAzAuthorizationStore
 def _define_IAzAuthorizationStore2_head():
     class IAzAuthorizationStore2(win32more.Security.Authorization.IAzAuthorizationStore_head):
@@ -957,6 +958,7 @@ def _define_IAzAuthorizationStore2():
     IAzAuthorizationStore2 = win32more.Security.Authorization.IAzAuthorizationStore2_head
     IAzAuthorizationStore2.OpenApplication2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.Security.Authorization.IAzApplication2_head), use_last_error=False)(58, 'OpenApplication2', ((1, 'bstrApplicationName'),(1, 'varReserved'),(1, 'ppApplication'),)))
     IAzAuthorizationStore2.CreateApplication2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.Security.Authorization.IAzApplication2_head), use_last_error=False)(59, 'CreateApplication2', ((1, 'bstrApplicationName'),(1, 'varReserved'),(1, 'ppApplication'),)))
+    win32more.Security.Authorization.IAzAuthorizationStore
     return IAzAuthorizationStore2
 def _define_IAzAuthorizationStore3_head():
     class IAzAuthorizationStore3(win32more.Security.Authorization.IAzAuthorizationStore2_head):
@@ -969,6 +971,7 @@ def _define_IAzAuthorizationStore3():
     IAzAuthorizationStore3.UpgradeStoresFunctionalLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(62, 'UpgradeStoresFunctionalLevel', ((1, 'lFunctionalLevel'),)))
     IAzAuthorizationStore3.IsFunctionalLevelUpgradeSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int16), use_last_error=False)(63, 'IsFunctionalLevelUpgradeSupported', ((1, 'lFunctionalLevel'),(1, 'pbSupported'),)))
     IAzAuthorizationStore3.GetSchemaVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32), use_last_error=False)(64, 'GetSchemaVersion', ((1, 'plMajorVersion'),(1, 'plMinorVersion'),)))
+    win32more.Security.Authorization.IAzAuthorizationStore2
     return IAzAuthorizationStore3
 def _define_IAzApplication_head():
     class IAzApplication(win32more.System.Com.IDispatch_head):
@@ -1037,6 +1040,7 @@ def _define_IAzApplication():
     IAzApplication.get_DelegatedPolicyUsersName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(65, 'get_DelegatedPolicyUsersName', ((1, 'pvarDelegatedPolicyUsers'),)))
     IAzApplication.AddDelegatedPolicyUserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(66, 'AddDelegatedPolicyUserName', ((1, 'bstrDelegatedPolicyUser'),(1, 'varReserved'),)))
     IAzApplication.DeleteDelegatedPolicyUserName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(67, 'DeleteDelegatedPolicyUserName', ((1, 'bstrDelegatedPolicyUser'),(1, 'varReserved'),)))
+    win32more.System.Com.IDispatch
     return IAzApplication
 def _define_IAzApplication2_head():
     class IAzApplication2(win32more.Security.Authorization.IAzApplication_head):
@@ -1046,6 +1050,7 @@ def _define_IAzApplication2():
     IAzApplication2 = win32more.Security.Authorization.IAzApplication2_head
     IAzApplication2.InitializeClientContextFromToken2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.System.Com.VARIANT,POINTER(win32more.Security.Authorization.IAzClientContext2_head), use_last_error=False)(68, 'InitializeClientContextFromToken2', ((1, 'ulTokenHandleLowPart'),(1, 'ulTokenHandleHighPart'),(1, 'varReserved'),(1, 'ppClientContext'),)))
     IAzApplication2.InitializeClientContext2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.Security.Authorization.IAzClientContext2_head), use_last_error=False)(69, 'InitializeClientContext2', ((1, 'IdentifyingString'),(1, 'varReserved'),(1, 'ppClientContext'),)))
+    win32more.Security.Authorization.IAzApplication
     return IAzApplication2
 def _define_IAzApplications_head():
     class IAzApplications(win32more.System.Com.IDispatch_head):
@@ -1056,6 +1061,7 @@ def _define_IAzApplications():
     IAzApplications.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Item', ((1, 'Index'),(1, 'pvarObtPtr'),)))
     IAzApplications.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'plCount'),)))
     IAzApplications.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnumPtr'),)))
+    win32more.System.Com.IDispatch
     return IAzApplications
 def _define_IAzOperation_head():
     class IAzOperation(win32more.System.Com.IDispatch_head):
@@ -1075,6 +1081,7 @@ def _define_IAzOperation():
     IAzOperation.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'GetProperty', ((1, 'lPropId'),(1, 'varReserved'),(1, 'pvarProp'),)))
     IAzOperation.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(17, 'SetProperty', ((1, 'lPropId'),(1, 'varProp'),(1, 'varReserved'),)))
     IAzOperation.Submit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT, use_last_error=False)(18, 'Submit', ((1, 'lFlags'),(1, 'varReserved'),)))
+    win32more.System.Com.IDispatch
     return IAzOperation
 def _define_IAzOperations_head():
     class IAzOperations(win32more.System.Com.IDispatch_head):
@@ -1085,6 +1092,7 @@ def _define_IAzOperations():
     IAzOperations.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Item', ((1, 'Index'),(1, 'pvarObtPtr'),)))
     IAzOperations.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'plCount'),)))
     IAzOperations.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnumPtr'),)))
+    win32more.System.Com.IDispatch
     return IAzOperations
 def _define_IAzTask_head():
     class IAzTask(win32more.System.Com.IDispatch_head):
@@ -1118,6 +1126,7 @@ def _define_IAzTask():
     IAzTask.AddPropertyItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(30, 'AddPropertyItem', ((1, 'lPropId'),(1, 'varProp'),(1, 'varReserved'),)))
     IAzTask.DeletePropertyItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(31, 'DeletePropertyItem', ((1, 'lPropId'),(1, 'varProp'),(1, 'varReserved'),)))
     IAzTask.Submit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT, use_last_error=False)(32, 'Submit', ((1, 'lFlags'),(1, 'varReserved'),)))
+    win32more.System.Com.IDispatch
     return IAzTask
 def _define_IAzTasks_head():
     class IAzTasks(win32more.System.Com.IDispatch_head):
@@ -1128,6 +1137,7 @@ def _define_IAzTasks():
     IAzTasks.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Item', ((1, 'Index'),(1, 'pvarObtPtr'),)))
     IAzTasks.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'plCount'),)))
     IAzTasks.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnumPtr'),)))
+    win32more.System.Com.IDispatch
     return IAzTasks
 def _define_IAzScope_head():
     class IAzScope(win32more.System.Com.IDispatch_head):
@@ -1173,6 +1183,7 @@ def _define_IAzScope():
     IAzScope.DeletePolicyAdministratorName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(42, 'DeletePolicyAdministratorName', ((1, 'bstrAdmin'),(1, 'varReserved'),)))
     IAzScope.AddPolicyReaderName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(43, 'AddPolicyReaderName', ((1, 'bstrReader'),(1, 'varReserved'),)))
     IAzScope.DeletePolicyReaderName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(44, 'DeletePolicyReaderName', ((1, 'bstrReader'),(1, 'varReserved'),)))
+    win32more.System.Com.IDispatch
     return IAzScope
 def _define_IAzScopes_head():
     class IAzScopes(win32more.System.Com.IDispatch_head):
@@ -1183,6 +1194,7 @@ def _define_IAzScopes():
     IAzScopes.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Item', ((1, 'Index'),(1, 'pvarObtPtr'),)))
     IAzScopes.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'plCount'),)))
     IAzScopes.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnumPtr'),)))
+    win32more.System.Com.IDispatch
     return IAzScopes
 def _define_IAzApplicationGroup_head():
     class IAzApplicationGroup(win32more.System.Com.IDispatch_head):
@@ -1222,6 +1234,7 @@ def _define_IAzApplicationGroup():
     IAzApplicationGroup.DeleteNonMemberName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(36, 'DeleteNonMemberName', ((1, 'bstrProp'),(1, 'varReserved'),)))
     IAzApplicationGroup.get_MembersName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(37, 'get_MembersName', ((1, 'pvarProp'),)))
     IAzApplicationGroup.get_NonMembersName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(38, 'get_NonMembersName', ((1, 'pvarProp'),)))
+    win32more.System.Com.IDispatch
     return IAzApplicationGroup
 def _define_IAzApplicationGroups_head():
     class IAzApplicationGroups(win32more.System.Com.IDispatch_head):
@@ -1232,6 +1245,7 @@ def _define_IAzApplicationGroups():
     IAzApplicationGroups.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Item', ((1, 'Index'),(1, 'pvarObtPtr'),)))
     IAzApplicationGroups.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'plCount'),)))
     IAzApplicationGroups.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnumPtr'),)))
+    win32more.System.Com.IDispatch
     return IAzApplicationGroups
 def _define_IAzRole_head():
     class IAzRole(win32more.System.Com.IDispatch_head):
@@ -1266,6 +1280,7 @@ def _define_IAzRole():
     IAzRole.AddMemberName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(31, 'AddMemberName', ((1, 'bstrProp'),(1, 'varReserved'),)))
     IAzRole.DeleteMemberName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(32, 'DeleteMemberName', ((1, 'bstrProp'),(1, 'varReserved'),)))
     IAzRole.get_MembersName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(33, 'get_MembersName', ((1, 'pvarProp'),)))
+    win32more.System.Com.IDispatch
     return IAzRole
 def _define_IAzRoles_head():
     class IAzRoles(win32more.System.Com.IDispatch_head):
@@ -1276,6 +1291,7 @@ def _define_IAzRoles():
     IAzRoles.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Item', ((1, 'Index'),(1, 'pvarObtPtr'),)))
     IAzRoles.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'plCount'),)))
     IAzRoles.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnumPtr'),)))
+    win32more.System.Com.IDispatch
     return IAzRoles
 def _define_IAzClientContext_head():
     class IAzClientContext(win32more.System.Com.IDispatch_head):
@@ -1296,6 +1312,7 @@ def _define_IAzClientContext():
     IAzClientContext.GetRoles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'GetRoles', ((1, 'bstrScopeName'),(1, 'pvarRoleNames'),)))
     IAzClientContext.get_RoleForAccessCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_RoleForAccessCheck', ((1, 'pbstrProp'),)))
     IAzClientContext.put_RoleForAccessCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(19, 'put_RoleForAccessCheck', ((1, 'bstrProp'),)))
+    win32more.System.Com.IDispatch
     return IAzClientContext
 def _define_IAzClientContext2_head():
     class IAzClientContext2(win32more.Security.Authorization.IAzClientContext_head):
@@ -1309,6 +1326,7 @@ def _define_IAzClientContext2():
     IAzClientContext2.AddStringSids = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(23, 'AddStringSids', ((1, 'varStringSids'),)))
     IAzClientContext2.put_LDAPQueryDN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(24, 'put_LDAPQueryDN', ((1, 'bstrLDAPQueryDN'),)))
     IAzClientContext2.get_LDAPQueryDN = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(25, 'get_LDAPQueryDN', ((1, 'pbstrLDAPQueryDN'),)))
+    win32more.Security.Authorization.IAzClientContext
     return IAzClientContext2
 def _define_IAzBizRuleContext_head():
     class IAzBizRuleContext(win32more.System.Com.IDispatch_head):
@@ -1320,6 +1338,7 @@ def _define_IAzBizRuleContext():
     IAzBizRuleContext.put_BusinessRuleString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_BusinessRuleString', ((1, 'bstrBusinessRuleString'),)))
     IAzBizRuleContext.get_BusinessRuleString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_BusinessRuleString', ((1, 'pbstrBusinessRuleString'),)))
     IAzBizRuleContext.GetParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'GetParameter', ((1, 'bstrParameterName'),(1, 'pvarParameterValue'),)))
+    win32more.System.Com.IDispatch
     return IAzBizRuleContext
 def _define_IAzBizRuleParameters_head():
     class IAzBizRuleParameters(win32more.System.Com.IDispatch_head):
@@ -1333,6 +1352,7 @@ def _define_IAzBizRuleParameters():
     IAzBizRuleParameters.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'Remove', ((1, 'varParameterName'),)))
     IAzBizRuleParameters.RemoveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'RemoveAll', ()))
     IAzBizRuleParameters.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_Count', ((1, 'plCount'),)))
+    win32more.System.Com.IDispatch
     return IAzBizRuleParameters
 def _define_IAzBizRuleInterfaces_head():
     class IAzBizRuleInterfaces(win32more.System.Com.IDispatch_head):
@@ -1346,6 +1366,7 @@ def _define_IAzBizRuleInterfaces():
     IAzBizRuleInterfaces.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'Remove', ((1, 'bstrInterfaceName'),)))
     IAzBizRuleInterfaces.RemoveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'RemoveAll', ()))
     IAzBizRuleInterfaces.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_Count', ((1, 'plCount'),)))
+    win32more.System.Com.IDispatch
     return IAzBizRuleInterfaces
 def _define_IAzClientContext3_head():
     class IAzClientContext3(win32more.Security.Authorization.IAzClientContext2_head):
@@ -1361,6 +1382,7 @@ def _define_IAzClientContext3():
     IAzClientContext3.get_BizRuleInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.IAzBizRuleInterfaces_head), use_last_error=False)(31, 'get_BizRuleInterfaces', ((1, 'ppBizRuleInterfaces'),)))
     IAzClientContext3.GetGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Security.Authorization.AZ_PROP_CONSTANTS,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(32, 'GetGroups', ((1, 'bstrScopeName'),(1, 'ulOptions'),(1, 'pGroupArray'),)))
     IAzClientContext3.get_Sids = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(33, 'get_Sids', ((1, 'pStringSidArray'),)))
+    win32more.Security.Authorization.IAzClientContext2
     return IAzClientContext3
 def _define_IAzScope2_head():
     class IAzScope2(win32more.Security.Authorization.IAzScope_head):
@@ -1376,6 +1398,7 @@ def _define_IAzScope2():
     IAzScope2.CreateRoleAssignment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Security.Authorization.IAzRoleAssignment_head), use_last_error=False)(50, 'CreateRoleAssignment', ((1, 'bstrRoleAssignmentName'),(1, 'ppRoleAssignment'),)))
     IAzScope2.OpenRoleAssignment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Security.Authorization.IAzRoleAssignment_head), use_last_error=False)(51, 'OpenRoleAssignment', ((1, 'bstrRoleAssignmentName'),(1, 'ppRoleAssignment'),)))
     IAzScope2.DeleteRoleAssignment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(52, 'DeleteRoleAssignment', ((1, 'bstrRoleAssignmentName'),)))
+    win32more.Security.Authorization.IAzScope
     return IAzScope2
 def _define_IAzApplication3_head():
     class IAzApplication3(win32more.Security.Authorization.IAzApplication2_head):
@@ -1397,6 +1420,7 @@ def _define_IAzApplication3():
     IAzApplication3.DeleteRoleAssignment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(81, 'DeleteRoleAssignment', ((1, 'bstrRoleAssignmentName'),)))
     IAzApplication3.get_BizRulesEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(82, 'get_BizRulesEnabled', ((1, 'pbEnabled'),)))
     IAzApplication3.put_BizRulesEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(83, 'put_BizRulesEnabled', ((1, 'bEnabled'),)))
+    win32more.Security.Authorization.IAzApplication2
     return IAzApplication3
 def _define_IAzOperation2_head():
     class IAzOperation2(win32more.Security.Authorization.IAzOperation_head):
@@ -1405,6 +1429,7 @@ def _define_IAzOperation2_head():
 def _define_IAzOperation2():
     IAzOperation2 = win32more.Security.Authorization.IAzOperation2_head
     IAzOperation2.RoleAssignments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,POINTER(win32more.Security.Authorization.IAzRoleAssignments_head), use_last_error=False)(19, 'RoleAssignments', ((1, 'bstrScopeName'),(1, 'bRecursive'),(1, 'ppRoleAssignments'),)))
+    win32more.Security.Authorization.IAzOperation
     return IAzOperation2
 def _define_IAzRoleDefinitions_head():
     class IAzRoleDefinitions(win32more.System.Com.IDispatch_head):
@@ -1415,6 +1440,7 @@ def _define_IAzRoleDefinitions():
     IAzRoleDefinitions.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Item', ((1, 'Index'),(1, 'pvarObtPtr'),)))
     IAzRoleDefinitions.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'plCount'),)))
     IAzRoleDefinitions.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnumPtr'),)))
+    win32more.System.Com.IDispatch
     return IAzRoleDefinitions
 def _define_IAzRoleDefinition_head():
     class IAzRoleDefinition(win32more.Security.Authorization.IAzTask_head):
@@ -1426,6 +1452,7 @@ def _define_IAzRoleDefinition():
     IAzRoleDefinition.AddRoleDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(34, 'AddRoleDefinition', ((1, 'bstrRoleDefinition'),)))
     IAzRoleDefinition.DeleteRoleDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(35, 'DeleteRoleDefinition', ((1, 'bstrRoleDefinition'),)))
     IAzRoleDefinition.get_RoleDefinitions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.IAzRoleDefinitions_head), use_last_error=False)(36, 'get_RoleDefinitions', ((1, 'ppRoleDefinitions'),)))
+    win32more.Security.Authorization.IAzTask
     return IAzRoleDefinition
 def _define_IAzRoleAssignment_head():
     class IAzRoleAssignment(win32more.Security.Authorization.IAzRole_head):
@@ -1437,6 +1464,7 @@ def _define_IAzRoleAssignment():
     IAzRoleAssignment.DeleteRoleDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(35, 'DeleteRoleDefinition', ((1, 'bstrRoleDefinition'),)))
     IAzRoleAssignment.get_RoleDefinitions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.IAzRoleDefinitions_head), use_last_error=False)(36, 'get_RoleDefinitions', ((1, 'ppRoleDefinitions'),)))
     IAzRoleAssignment.get_Scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.IAzScope_head), use_last_error=False)(37, 'get_Scope', ((1, 'ppScope'),)))
+    win32more.Security.Authorization.IAzRole
     return IAzRoleAssignment
 def _define_IAzRoleAssignments_head():
     class IAzRoleAssignments(win32more.System.Com.IDispatch_head):
@@ -1447,6 +1475,7 @@ def _define_IAzRoleAssignments():
     IAzRoleAssignments.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Item', ((1, 'Index'),(1, 'pvarObtPtr'),)))
     IAzRoleAssignments.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'plCount'),)))
     IAzRoleAssignments.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppEnumPtr'),)))
+    win32more.System.Com.IDispatch
     return IAzRoleAssignments
 def _define_IAzPrincipalLocator_head():
     class IAzPrincipalLocator(win32more.System.Com.IDispatch_head):
@@ -1456,6 +1485,7 @@ def _define_IAzPrincipalLocator():
     IAzPrincipalLocator = win32more.Security.Authorization.IAzPrincipalLocator_head
     IAzPrincipalLocator.get_NameResolver = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.IAzNameResolver_head), use_last_error=False)(7, 'get_NameResolver', ((1, 'ppNameResolver'),)))
     IAzPrincipalLocator.get_ObjectPicker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.IAzObjectPicker_head), use_last_error=False)(8, 'get_ObjectPicker', ((1, 'ppObjectPicker'),)))
+    win32more.System.Com.IDispatch
     return IAzPrincipalLocator
 def _define_IAzNameResolver_head():
     class IAzNameResolver(win32more.System.Com.IDispatch_head):
@@ -1465,6 +1495,7 @@ def _define_IAzNameResolver():
     IAzNameResolver = win32more.Security.Authorization.IAzNameResolver_head
     IAzNameResolver.NameFromSid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32),POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'NameFromSid', ((1, 'bstrSid'),(1, 'pSidType'),(1, 'pbstrName'),)))
     IAzNameResolver.NamesFromSids = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'NamesFromSids', ((1, 'vSids'),(1, 'pvSidTypes'),(1, 'pvNames'),)))
+    win32more.System.Com.IDispatch
     return IAzNameResolver
 def _define_IAzObjectPicker_head():
     class IAzObjectPicker(win32more.System.Com.IDispatch_head):
@@ -1474,6 +1505,7 @@ def _define_IAzObjectPicker():
     IAzObjectPicker = win32more.Security.Authorization.IAzObjectPicker_head
     IAzObjectPicker.GetPrincipals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'GetPrincipals', ((1, 'hParentWnd'),(1, 'bstrTitle'),(1, 'pvSidTypes'),(1, 'pvNames'),(1, 'pvSids'),)))
     IAzObjectPicker.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Name', ((1, 'pbstrName'),)))
+    win32more.System.Com.IDispatch
     return IAzObjectPicker
 def _define_IAzApplicationGroup2_head():
     class IAzApplicationGroup2(win32more.Security.Authorization.IAzApplicationGroup_head):
@@ -1488,6 +1520,7 @@ def _define_IAzApplicationGroup2():
     IAzApplicationGroup2.get_BizRuleImportedPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(43, 'get_BizRuleImportedPath', ((1, 'pbstrProp'),)))
     IAzApplicationGroup2.put_BizRuleImportedPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(44, 'put_BizRuleImportedPath', ((1, 'bstrProp'),)))
     IAzApplicationGroup2.RoleAssignments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,POINTER(win32more.Security.Authorization.IAzRoleAssignments_head), use_last_error=False)(45, 'RoleAssignments', ((1, 'bstrScopeName'),(1, 'bRecursive'),(1, 'ppRoleAssignments'),)))
+    win32more.Security.Authorization.IAzApplicationGroup
     return IAzApplicationGroup2
 def _define_IAzTask2_head():
     class IAzTask2(win32more.Security.Authorization.IAzTask_head):
@@ -1496,6 +1529,7 @@ def _define_IAzTask2_head():
 def _define_IAzTask2():
     IAzTask2 = win32more.Security.Authorization.IAzTask2_head
     IAzTask2.RoleAssignments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,POINTER(win32more.Security.Authorization.IAzRoleAssignments_head), use_last_error=False)(33, 'RoleAssignments', ((1, 'bstrScopeName'),(1, 'bRecursive'),(1, 'ppRoleAssignments'),)))
+    win32more.Security.Authorization.IAzTask
     return IAzTask2
 AZ_PROP_CONSTANTS = Int32
 AZ_PROP_NAME = 1

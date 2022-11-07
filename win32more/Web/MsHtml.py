@@ -6900,6 +6900,7 @@ def _define_IHTMLFiltersCollection():
     IHTMLFiltersCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLFiltersCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLFiltersCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'item', ((1, 'pvarIndex'),(1, 'pvarResult'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFiltersCollection
 def _define_IIE70DispatchEx_head():
     class IIE70DispatchEx(win32more.System.Ole.IDispatchEx_head):
@@ -6907,6 +6908,7 @@ def _define_IIE70DispatchEx_head():
     return IIE70DispatchEx
 def _define_IIE70DispatchEx():
     IIE70DispatchEx = win32more.Web.MsHtml.IIE70DispatchEx_head
+    win32more.System.Ole.IDispatchEx
     return IIE70DispatchEx
 def _define_IIE80DispatchEx_head():
     class IIE80DispatchEx(win32more.System.Ole.IDispatchEx_head):
@@ -6914,6 +6916,7 @@ def _define_IIE80DispatchEx_head():
     return IIE80DispatchEx
 def _define_IIE80DispatchEx():
     IIE80DispatchEx = win32more.Web.MsHtml.IIE80DispatchEx_head
+    win32more.System.Ole.IDispatchEx
     return IIE80DispatchEx
 htmlDesignMode = Int32
 htmlDesignMode_htmlDesignModeInherit = -2
@@ -9200,6 +9203,7 @@ def _define_IHTMLEventObj():
     IHTMLEventObj.get_screenX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(29, 'get_screenX', ((1, 'p'),)))
     IHTMLEventObj.get_screenY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(30, 'get_screenY', ((1, 'p'),)))
     IHTMLEventObj.get_srcFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(31, 'get_srcFilter', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLEventObj
 def _define_IElementBehaviorSite_head():
     class IElementBehaviorSite(win32more.System.Com.IUnknown_head):
@@ -9209,6 +9213,7 @@ def _define_IElementBehaviorSite():
     IElementBehaviorSite = win32more.Web.MsHtml.IElementBehaviorSite_head
     IElementBehaviorSite.GetElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(3, 'GetElement', ((1, 'ppElement'),)))
     IElementBehaviorSite.RegisterNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(4, 'RegisterNotification', ((1, 'lEvent'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorSite
 def _define_IElementBehavior_head():
     class IElementBehavior(win32more.System.Com.IUnknown_head):
@@ -9219,6 +9224,7 @@ def _define_IElementBehavior():
     IElementBehavior.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IElementBehaviorSite_head, use_last_error=False)(3, 'Init', ((1, 'pBehaviorSite'),)))
     IElementBehavior.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(4, 'Notify', ((1, 'lEvent'),(1, 'pVar'),)))
     IElementBehavior.Detach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Detach', ()))
+    win32more.System.Com.IUnknown
     return IElementBehavior
 def _define_IElementBehaviorFactory_head():
     class IElementBehaviorFactory(win32more.System.Com.IUnknown_head):
@@ -9227,6 +9233,7 @@ def _define_IElementBehaviorFactory_head():
 def _define_IElementBehaviorFactory():
     IElementBehaviorFactory = win32more.Web.MsHtml.IElementBehaviorFactory_head
     IElementBehaviorFactory.FindBehavior = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Web.MsHtml.IElementBehaviorSite_head,POINTER(win32more.Web.MsHtml.IElementBehavior_head), use_last_error=False)(3, 'FindBehavior', ((1, 'bstrBehavior'),(1, 'bstrBehaviorUrl'),(1, 'pSite'),(1, 'ppBehavior'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorFactory
 def _define_IElementBehaviorSiteOM_head():
     class IElementBehaviorSiteOM(win32more.System.Com.IUnknown_head):
@@ -9240,6 +9247,7 @@ def _define_IElementBehaviorSiteOM():
     IElementBehaviorSiteOM.CreateEventObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLEventObj_head), use_last_error=False)(6, 'CreateEventObject', ((1, 'ppEventObject'),)))
     IElementBehaviorSiteOM.RegisterName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'RegisterName', ((1, 'pchName'),)))
     IElementBehaviorSiteOM.RegisterUrn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'RegisterUrn', ((1, 'pchUrn'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorSiteOM
 def _define_IElementBehaviorRender_head():
     class IElementBehaviorRender(win32more.System.Com.IUnknown_head):
@@ -9250,6 +9258,7 @@ def _define_IElementBehaviorRender():
     IElementBehaviorRender.Draw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC,Int32,POINTER(win32more.Foundation.RECT_head),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Draw', ((1, 'hdc'),(1, 'lLayer'),(1, 'pRect'),(1, 'pReserved'),)))
     IElementBehaviorRender.GetRenderInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'GetRenderInfo', ((1, 'plRenderInfo'),)))
     IElementBehaviorRender.HitTestPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head),win32more.System.Com.IUnknown_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'HitTestPoint', ((1, 'pPoint'),(1, 'pReserved'),(1, 'pbHit'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorRender
 def _define_IElementBehaviorSiteRender_head():
     class IElementBehaviorSiteRender(win32more.System.Com.IUnknown_head):
@@ -9260,6 +9269,7 @@ def _define_IElementBehaviorSiteRender():
     IElementBehaviorSiteRender.Invalidate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(3, 'Invalidate', ((1, 'pRect'),)))
     IElementBehaviorSiteRender.InvalidateRenderInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'InvalidateRenderInfo', ()))
     IElementBehaviorSiteRender.InvalidateStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'InvalidateStyle', ()))
+    win32more.System.Com.IUnknown
     return IElementBehaviorSiteRender
 def _define_IDOMEvent_head():
     class IDOMEvent(win32more.System.Com.IDispatch_head):
@@ -9283,6 +9293,7 @@ def _define_IDOMEvent():
     IDOMEvent.put_cancelBubble = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(20, 'put_cancelBubble', ((1, 'v'),)))
     IDOMEvent.get_cancelBubble = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(21, 'get_cancelBubble', ((1, 'p'),)))
     IDOMEvent.get_srcElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(22, 'get_srcElement', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMEvent
 def _define_IHTMLDOMConstructor_head():
     class IHTMLDOMConstructor(win32more.System.Com.IDispatch_head):
@@ -9295,6 +9306,7 @@ def _define_IHTMLDOMConstructor():
     IHTMLDOMConstructor.LookupSetter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'LookupSetter', ((1, 'propname'),(1, 'ppDispHandler'),)))
     IHTMLDOMConstructor.DefineGetter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'DefineGetter', ((1, 'propname'),(1, 'pdispHandler'),)))
     IHTMLDOMConstructor.DefineSetter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'DefineSetter', ((1, 'propname'),(1, 'pdispHandler'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMConstructor
 def _define_IHTMLStyleSheetRule_head():
     class IHTMLStyleSheetRule(win32more.System.Com.IDispatch_head):
@@ -9306,6 +9318,7 @@ def _define_IHTMLStyleSheetRule():
     IHTMLStyleSheetRule.get_selectorText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_selectorText', ((1, 'p'),)))
     IHTMLStyleSheetRule.get_style = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLRuleStyle_head), use_last_error=False)(9, 'get_style', ((1, 'p'),)))
     IHTMLStyleSheetRule.get_readOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_readOnly', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetRule
 def _define_IHTMLCSSStyleDeclaration_head():
     class IHTMLCSSStyleDeclaration(win32more.System.Com.IDispatch_head):
@@ -9687,6 +9700,7 @@ def _define_IHTMLCSSStyleDeclaration():
     IHTMLCSSStyleDeclaration.get_msTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(378, 'get_msTransform', ((1, 'p'),)))
     IHTMLCSSStyleDeclaration.put_msTransformOrigin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(379, 'put_msTransformOrigin', ((1, 'v'),)))
     IHTMLCSSStyleDeclaration.get_msTransformOrigin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(380, 'get_msTransformOrigin', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCSSStyleDeclaration
 def _define_IHTMLCSSStyleDeclaration2_head():
     class IHTMLCSSStyleDeclaration2(win32more.System.Com.IDispatch_head):
@@ -9922,6 +9936,7 @@ def _define_IHTMLCSSStyleDeclaration2():
     IHTMLCSSStyleDeclaration2.get_animation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(232, 'get_animation', ((1, 'p'),)))
     IHTMLCSSStyleDeclaration2.put_animationFillMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(233, 'put_animationFillMode', ((1, 'v'),)))
     IHTMLCSSStyleDeclaration2.get_animationFillMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(234, 'get_animationFillMode', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCSSStyleDeclaration2
 def _define_IHTMLCSSStyleDeclaration3_head():
     class IHTMLCSSStyleDeclaration3(win32more.System.Com.IDispatch_head):
@@ -9969,6 +9984,7 @@ def _define_IHTMLCSSStyleDeclaration3():
     IHTMLCSSStyleDeclaration3.get_msTextCombineHorizontal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(44, 'get_msTextCombineHorizontal', ((1, 'p'),)))
     IHTMLCSSStyleDeclaration3.put_touchAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(45, 'put_touchAction', ((1, 'v'),)))
     IHTMLCSSStyleDeclaration3.get_touchAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(46, 'get_touchAction', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCSSStyleDeclaration3
 def _define_IHTMLCSSStyleDeclaration4_head():
     class IHTMLCSSStyleDeclaration4(win32more.System.Com.IDispatch_head):
@@ -10066,6 +10082,7 @@ def _define_IHTMLCSSStyleDeclaration4():
     IHTMLCSSStyleDeclaration4.get_webkitBoxSizing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(94, 'get_webkitBoxSizing', ((1, 'p'),)))
     IHTMLCSSStyleDeclaration4.put_webkitAnimationFillMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(95, 'put_webkitAnimationFillMode', ((1, 'v'),)))
     IHTMLCSSStyleDeclaration4.get_webkitAnimationFillMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(96, 'get_webkitAnimationFillMode', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCSSStyleDeclaration4
 def _define_IHTMLStyleEnabled_head():
     class IHTMLStyleEnabled(win32more.System.Com.IDispatch_head):
@@ -10075,6 +10092,7 @@ def _define_IHTMLStyleEnabled():
     IHTMLStyleEnabled = win32more.Web.MsHtml.IHTMLStyleEnabled_head
     IHTMLStyleEnabled.msGetPropertyEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(7, 'msGetPropertyEnabled', ((1, 'name'),(1, 'p'),)))
     IHTMLStyleEnabled.msPutPropertyEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(8, 'msPutPropertyEnabled', ((1, 'name'),(1, 'b'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleEnabled
 def _define_DispHTMLCSSStyleDeclaration_head():
     class DispHTMLCSSStyleDeclaration(win32more.System.Com.IDispatch_head):
@@ -10082,6 +10100,7 @@ def _define_DispHTMLCSSStyleDeclaration_head():
     return DispHTMLCSSStyleDeclaration
 def _define_DispHTMLCSSStyleDeclaration():
     DispHTMLCSSStyleDeclaration = win32more.Web.MsHtml.DispHTMLCSSStyleDeclaration_head
+    win32more.System.Com.IDispatch
     return DispHTMLCSSStyleDeclaration
 def _define_IHTMLStyle_head():
     class IHTMLStyle(win32more.System.Com.IDispatch_head):
@@ -10268,6 +10287,7 @@ def _define_IHTMLStyle():
     IHTMLStyle.getAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(183, 'getAttribute', ((1, 'strAttributeName'),(1, 'lFlags'),(1, 'AttributeValue'),)))
     IHTMLStyle.removeAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(Int16), use_last_error=False)(184, 'removeAttribute', ((1, 'strAttributeName'),(1, 'lFlags'),(1, 'pfSuccess'),)))
     IHTMLStyle.toString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(185, 'toString', ((1, 'String'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyle
 def _define_IHTMLStyle2_head():
     class IHTMLStyle2(win32more.System.Com.IDispatch_head):
@@ -10338,6 +10358,7 @@ def _define_IHTMLStyle2():
     IHTMLStyle2.get_overflowY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(67, 'get_overflowY', ((1, 'p'),)))
     IHTMLStyle2.put_accelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(68, 'put_accelerator', ((1, 'v'),)))
     IHTMLStyle2.get_accelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(69, 'get_accelerator', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyle2
 def _define_IHTMLStyle3_head():
     class IHTMLStyle3(win32more.System.Com.IDispatch_head):
@@ -10375,6 +10396,7 @@ def _define_IHTMLStyle3():
     IHTMLStyle3.get_textAlignLast = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(34, 'get_textAlignLast', ((1, 'p'),)))
     IHTMLStyle3.put_textKashidaSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(35, 'put_textKashidaSpace', ((1, 'v'),)))
     IHTMLStyle3.get_textKashidaSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(36, 'get_textKashidaSpace', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyle3
 def _define_IHTMLStyle4_head():
     class IHTMLStyle4(win32more.System.Com.IDispatch_head):
@@ -10386,6 +10408,7 @@ def _define_IHTMLStyle4():
     IHTMLStyle4.get_textOverflow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_textOverflow', ((1, 'p'),)))
     IHTMLStyle4.put_minHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_minHeight', ((1, 'v'),)))
     IHTMLStyle4.get_minHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_minHeight', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyle4
 def _define_IHTMLStyle5_head():
     class IHTMLStyle5(win32more.System.Com.IDispatch_head):
@@ -10401,6 +10424,7 @@ def _define_IHTMLStyle5():
     IHTMLStyle5.get_minWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_minWidth', ((1, 'p'),)))
     IHTMLStyle5.put_maxWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(13, 'put_maxWidth', ((1, 'v'),)))
     IHTMLStyle5.get_maxWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'get_maxWidth', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyle5
 def _define_IHTMLStyle6_head():
     class IHTMLStyle6(win32more.System.Com.IDispatch_head):
@@ -10440,6 +10464,7 @@ def _define_IHTMLStyle6():
     IHTMLStyle6.get_msBlockProgression = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(36, 'get_msBlockProgression', ((1, 'p'),)))
     IHTMLStyle6.put_quotes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(37, 'put_quotes', ((1, 'v'),)))
     IHTMLStyle6.get_quotes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(38, 'get_quotes', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyle6
 def _define_IHTMLRuleStyle_head():
     class IHTMLRuleStyle(win32more.System.Com.IDispatch_head):
@@ -10609,6 +10634,7 @@ def _define_IHTMLRuleStyle():
     IHTMLRuleStyle.setAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,Int32, use_last_error=False)(166, 'setAttribute', ((1, 'strAttributeName'),(1, 'AttributeValue'),(1, 'lFlags'),)))
     IHTMLRuleStyle.getAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(167, 'getAttribute', ((1, 'strAttributeName'),(1, 'lFlags'),(1, 'AttributeValue'),)))
     IHTMLRuleStyle.removeAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(Int16), use_last_error=False)(168, 'removeAttribute', ((1, 'strAttributeName'),(1, 'lFlags'),(1, 'pfSuccess'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRuleStyle
 def _define_IHTMLRuleStyle2_head():
     class IHTMLRuleStyle2(win32more.System.Com.IDispatch_head):
@@ -10676,6 +10702,7 @@ def _define_IHTMLRuleStyle2():
     IHTMLRuleStyle2.get_overflowY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(64, 'get_overflowY', ((1, 'p'),)))
     IHTMLRuleStyle2.put_accelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(65, 'put_accelerator', ((1, 'v'),)))
     IHTMLRuleStyle2.get_accelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(66, 'get_accelerator', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRuleStyle2
 def _define_IHTMLRuleStyle3_head():
     class IHTMLRuleStyle3(win32more.System.Com.IDispatch_head):
@@ -10713,6 +10740,7 @@ def _define_IHTMLRuleStyle3():
     IHTMLRuleStyle3.get_textAlignLast = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(34, 'get_textAlignLast', ((1, 'p'),)))
     IHTMLRuleStyle3.put_textKashidaSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(35, 'put_textKashidaSpace', ((1, 'v'),)))
     IHTMLRuleStyle3.get_textKashidaSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(36, 'get_textKashidaSpace', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRuleStyle3
 def _define_IHTMLRuleStyle4_head():
     class IHTMLRuleStyle4(win32more.System.Com.IDispatch_head):
@@ -10724,6 +10752,7 @@ def _define_IHTMLRuleStyle4():
     IHTMLRuleStyle4.get_textOverflow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_textOverflow', ((1, 'p'),)))
     IHTMLRuleStyle4.put_minHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_minHeight', ((1, 'v'),)))
     IHTMLRuleStyle4.get_minHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_minHeight', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRuleStyle4
 def _define_IHTMLRuleStyle5_head():
     class IHTMLRuleStyle5(win32more.System.Com.IDispatch_head):
@@ -10739,6 +10768,7 @@ def _define_IHTMLRuleStyle5():
     IHTMLRuleStyle5.get_minWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_minWidth', ((1, 'p'),)))
     IHTMLRuleStyle5.put_maxWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(13, 'put_maxWidth', ((1, 'v'),)))
     IHTMLRuleStyle5.get_maxWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'get_maxWidth', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRuleStyle5
 def _define_IHTMLRuleStyle6_head():
     class IHTMLRuleStyle6(win32more.System.Com.IDispatch_head):
@@ -10778,6 +10808,7 @@ def _define_IHTMLRuleStyle6():
     IHTMLRuleStyle6.get_msBlockProgression = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(36, 'get_msBlockProgression', ((1, 'p'),)))
     IHTMLRuleStyle6.put_quotes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(37, 'put_quotes', ((1, 'v'),)))
     IHTMLRuleStyle6.get_quotes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(38, 'get_quotes', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRuleStyle6
 def _define_DispHTMLStyle_head():
     class DispHTMLStyle(win32more.System.Com.IDispatch_head):
@@ -10785,6 +10816,7 @@ def _define_DispHTMLStyle_head():
     return DispHTMLStyle
 def _define_DispHTMLStyle():
     DispHTMLStyle = win32more.Web.MsHtml.DispHTMLStyle_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyle
 def _define_DispHTMLRuleStyle_head():
     class DispHTMLRuleStyle(win32more.System.Com.IDispatch_head):
@@ -10792,6 +10824,7 @@ def _define_DispHTMLRuleStyle_head():
     return DispHTMLRuleStyle
 def _define_DispHTMLRuleStyle():
     DispHTMLRuleStyle = win32more.Web.MsHtml.DispHTMLRuleStyle_head
+    win32more.System.Com.IDispatch
     return DispHTMLRuleStyle
 def _define_IHTMLStyleSheetRulesCollection_head():
     class IHTMLStyleSheetRulesCollection(win32more.System.Com.IDispatch_head):
@@ -10801,6 +10834,7 @@ def _define_IHTMLStyleSheetRulesCollection():
     IHTMLStyleSheetRulesCollection = win32more.Web.MsHtml.IHTMLStyleSheetRulesCollection_head
     IHTMLStyleSheetRulesCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLStyleSheetRulesCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.IHTMLStyleSheetRule_head), use_last_error=False)(8, 'item', ((1, 'index'),(1, 'ppHTMLStyleSheetRule'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetRulesCollection
 def _define_IHTMLStyleSheet_head():
     class IHTMLStyleSheet(win32more.System.Com.IDispatch_head):
@@ -10829,6 +10863,7 @@ def _define_IHTMLStyleSheet():
     IHTMLStyleSheet.put_cssText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(25, 'put_cssText', ((1, 'v'),)))
     IHTMLStyleSheet.get_cssText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'get_cssText', ((1, 'p'),)))
     IHTMLStyleSheet.get_rules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLStyleSheetRulesCollection_head), use_last_error=False)(27, 'get_rules', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheet
 def _define_IHTMLCSSRule_head():
     class IHTMLCSSRule(win32more.System.Com.IDispatch_head):
@@ -10841,6 +10876,7 @@ def _define_IHTMLCSSRule():
     IHTMLCSSRule.get_cssText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_cssText', ((1, 'p'),)))
     IHTMLCSSRule.get_parentRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLCSSRule_head), use_last_error=False)(10, 'get_parentRule', ((1, 'p'),)))
     IHTMLCSSRule.get_parentStyleSheet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLStyleSheet_head), use_last_error=False)(11, 'get_parentStyleSheet', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCSSRule
 def _define_IHTMLCSSImportRule_head():
     class IHTMLCSSImportRule(win32more.System.Com.IDispatch_head):
@@ -10852,6 +10888,7 @@ def _define_IHTMLCSSImportRule():
     IHTMLCSSImportRule.put_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_media', ((1, 'v'),)))
     IHTMLCSSImportRule.get_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_media', ((1, 'p'),)))
     IHTMLCSSImportRule.get_styleSheet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLStyleSheet_head), use_last_error=False)(10, 'get_styleSheet', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCSSImportRule
 def _define_IHTMLCSSMediaRule_head():
     class IHTMLCSSMediaRule(win32more.System.Com.IDispatch_head):
@@ -10864,6 +10901,7 @@ def _define_IHTMLCSSMediaRule():
     IHTMLCSSMediaRule.get_cssRules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLStyleSheetRulesCollection_head), use_last_error=False)(9, 'get_cssRules', ((1, 'p'),)))
     IHTMLCSSMediaRule.insertRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(Int32), use_last_error=False)(10, 'insertRule', ((1, 'bstrRule'),(1, 'lIndex'),(1, 'plNewIndex'),)))
     IHTMLCSSMediaRule.deleteRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'deleteRule', ((1, 'lIndex'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCSSMediaRule
 def _define_IHTMLCSSMediaList_head():
     class IHTMLCSSMediaList(win32more.System.Com.IDispatch_head):
@@ -10877,6 +10915,7 @@ def _define_IHTMLCSSMediaList():
     IHTMLCSSMediaList.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'item', ((1, 'index'),(1, 'pbstrMedium'),)))
     IHTMLCSSMediaList.appendMedium = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'appendMedium', ((1, 'bstrMedium'),)))
     IHTMLCSSMediaList.deleteMedium = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'deleteMedium', ((1, 'bstrMedium'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCSSMediaList
 def _define_IHTMLCSSNamespaceRule_head():
     class IHTMLCSSNamespaceRule(win32more.System.Com.IDispatch_head):
@@ -10886,6 +10925,7 @@ def _define_IHTMLCSSNamespaceRule():
     IHTMLCSSNamespaceRule = win32more.Web.MsHtml.IHTMLCSSNamespaceRule_head
     IHTMLCSSNamespaceRule.get_namespaceURI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_namespaceURI', ((1, 'p'),)))
     IHTMLCSSNamespaceRule.get_prefix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_prefix', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCSSNamespaceRule
 def _define_IHTMLMSCSSKeyframeRule_head():
     class IHTMLMSCSSKeyframeRule(win32more.System.Com.IDispatch_head):
@@ -10896,6 +10936,7 @@ def _define_IHTMLMSCSSKeyframeRule():
     IHTMLMSCSSKeyframeRule.put_keyText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_keyText', ((1, 'v'),)))
     IHTMLMSCSSKeyframeRule.get_keyText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_keyText', ((1, 'p'),)))
     IHTMLMSCSSKeyframeRule.get_style = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLRuleStyle_head), use_last_error=False)(9, 'get_style', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMSCSSKeyframeRule
 def _define_IHTMLMSCSSKeyframesRule_head():
     class IHTMLMSCSSKeyframesRule(win32more.System.Com.IDispatch_head):
@@ -10909,6 +10950,7 @@ def _define_IHTMLMSCSSKeyframesRule():
     IHTMLMSCSSKeyframesRule.appendRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'appendRule', ((1, 'bstrRule'),)))
     IHTMLMSCSSKeyframesRule.deleteRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'deleteRule', ((1, 'bstrKey'),)))
     IHTMLMSCSSKeyframesRule.findRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLMSCSSKeyframeRule_head), use_last_error=False)(12, 'findRule', ((1, 'bstrKey'),(1, 'ppMSKeyframeRule'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMSCSSKeyframesRule
 def _define_DispHTMLCSSRule_head():
     class DispHTMLCSSRule(win32more.System.Com.IDispatch_head):
@@ -10916,6 +10958,7 @@ def _define_DispHTMLCSSRule_head():
     return DispHTMLCSSRule
 def _define_DispHTMLCSSRule():
     DispHTMLCSSRule = win32more.Web.MsHtml.DispHTMLCSSRule_head
+    win32more.System.Com.IDispatch
     return DispHTMLCSSRule
 def _define_DispHTMLCSSImportRule_head():
     class DispHTMLCSSImportRule(win32more.System.Com.IDispatch_head):
@@ -10923,6 +10966,7 @@ def _define_DispHTMLCSSImportRule_head():
     return DispHTMLCSSImportRule
 def _define_DispHTMLCSSImportRule():
     DispHTMLCSSImportRule = win32more.Web.MsHtml.DispHTMLCSSImportRule_head
+    win32more.System.Com.IDispatch
     return DispHTMLCSSImportRule
 def _define_DispHTMLCSSMediaRule_head():
     class DispHTMLCSSMediaRule(win32more.System.Com.IDispatch_head):
@@ -10930,6 +10974,7 @@ def _define_DispHTMLCSSMediaRule_head():
     return DispHTMLCSSMediaRule
 def _define_DispHTMLCSSMediaRule():
     DispHTMLCSSMediaRule = win32more.Web.MsHtml.DispHTMLCSSMediaRule_head
+    win32more.System.Com.IDispatch
     return DispHTMLCSSMediaRule
 def _define_DispHTMLCSSMediaList_head():
     class DispHTMLCSSMediaList(win32more.System.Com.IDispatch_head):
@@ -10937,6 +10982,7 @@ def _define_DispHTMLCSSMediaList_head():
     return DispHTMLCSSMediaList
 def _define_DispHTMLCSSMediaList():
     DispHTMLCSSMediaList = win32more.Web.MsHtml.DispHTMLCSSMediaList_head
+    win32more.System.Com.IDispatch
     return DispHTMLCSSMediaList
 def _define_DispHTMLCSSNamespaceRule_head():
     class DispHTMLCSSNamespaceRule(win32more.System.Com.IDispatch_head):
@@ -10944,6 +10990,7 @@ def _define_DispHTMLCSSNamespaceRule_head():
     return DispHTMLCSSNamespaceRule
 def _define_DispHTMLCSSNamespaceRule():
     DispHTMLCSSNamespaceRule = win32more.Web.MsHtml.DispHTMLCSSNamespaceRule_head
+    win32more.System.Com.IDispatch
     return DispHTMLCSSNamespaceRule
 def _define_DispHTMLMSCSSKeyframeRule_head():
     class DispHTMLMSCSSKeyframeRule(win32more.System.Com.IDispatch_head):
@@ -10951,6 +10998,7 @@ def _define_DispHTMLMSCSSKeyframeRule_head():
     return DispHTMLMSCSSKeyframeRule
 def _define_DispHTMLMSCSSKeyframeRule():
     DispHTMLMSCSSKeyframeRule = win32more.Web.MsHtml.DispHTMLMSCSSKeyframeRule_head
+    win32more.System.Com.IDispatch
     return DispHTMLMSCSSKeyframeRule
 def _define_DispHTMLMSCSSKeyframesRule_head():
     class DispHTMLMSCSSKeyframesRule(win32more.System.Com.IDispatch_head):
@@ -10958,6 +11006,7 @@ def _define_DispHTMLMSCSSKeyframesRule_head():
     return DispHTMLMSCSSKeyframesRule
 def _define_DispHTMLMSCSSKeyframesRule():
     DispHTMLMSCSSKeyframesRule = win32more.Web.MsHtml.DispHTMLMSCSSKeyframesRule_head
+    win32more.System.Com.IDispatch
     return DispHTMLMSCSSKeyframesRule
 def _define_IHTMLRenderStyle_head():
     class IHTMLRenderStyle(win32more.System.Com.IDispatch_head):
@@ -10983,6 +11032,7 @@ def _define_IHTMLRenderStyle():
     IHTMLRenderStyle.get_defaultTextSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_defaultTextSelection', ((1, 'p'),)))
     IHTMLRenderStyle.put_textDecoration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(23, 'put_textDecoration', ((1, 'v'),)))
     IHTMLRenderStyle.get_textDecoration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(24, 'get_textDecoration', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRenderStyle
 def _define_DispHTMLRenderStyle_head():
     class DispHTMLRenderStyle(win32more.System.Com.IDispatch_head):
@@ -10990,6 +11040,7 @@ def _define_DispHTMLRenderStyle_head():
     return DispHTMLRenderStyle
 def _define_DispHTMLRenderStyle():
     DispHTMLRenderStyle = win32more.Web.MsHtml.DispHTMLRenderStyle_head
+    win32more.System.Com.IDispatch
     return DispHTMLRenderStyle
 def _define_IHTMLCurrentStyle_head():
     class IHTMLCurrentStyle(win32more.System.Com.IDispatch_head):
@@ -11088,6 +11139,7 @@ def _define_IHTMLCurrentStyle():
     IHTMLCurrentStyle.get_overflowX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(95, 'get_overflowX', ((1, 'p'),)))
     IHTMLCurrentStyle.get_overflowY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(96, 'get_overflowY', ((1, 'p'),)))
     IHTMLCurrentStyle.get_textTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(97, 'get_textTransform', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCurrentStyle
 def _define_IHTMLCurrentStyle2_head():
     class IHTMLCurrentStyle2(win32more.System.Com.IDispatch_head):
@@ -11113,6 +11165,7 @@ def _define_IHTMLCurrentStyle2():
     IHTMLCurrentStyle2.get_textAlignLast = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_textAlignLast', ((1, 'p'),)))
     IHTMLCurrentStyle2.get_textKashidaSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(23, 'get_textKashidaSpace', ((1, 'p'),)))
     IHTMLCurrentStyle2.get_isBlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(24, 'get_isBlock', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCurrentStyle2
 def _define_IHTMLCurrentStyle3_head():
     class IHTMLCurrentStyle3(win32more.System.Com.IDispatch_head):
@@ -11124,6 +11177,7 @@ def _define_IHTMLCurrentStyle3():
     IHTMLCurrentStyle3.get_minHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_minHeight', ((1, 'p'),)))
     IHTMLCurrentStyle3.get_wordSpacing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_wordSpacing', ((1, 'p'),)))
     IHTMLCurrentStyle3.get_whiteSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_whiteSpace', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCurrentStyle3
 def _define_IHTMLCurrentStyle4_head():
     class IHTMLCurrentStyle4(win32more.System.Com.IDispatch_head):
@@ -11135,6 +11189,7 @@ def _define_IHTMLCurrentStyle4():
     IHTMLCurrentStyle4.get_maxHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_maxHeight', ((1, 'p'),)))
     IHTMLCurrentStyle4.get_minWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_minWidth', ((1, 'p'),)))
     IHTMLCurrentStyle4.get_maxWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_maxWidth', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCurrentStyle4
 def _define_IHTMLCurrentStyle5_head():
     class IHTMLCurrentStyle5(win32more.System.Com.IDispatch_head):
@@ -11155,6 +11210,7 @@ def _define_IHTMLCurrentStyle5():
     IHTMLCurrentStyle5.get_emptyCells = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_emptyCells', ((1, 'p'),)))
     IHTMLCurrentStyle5.get_msBlockProgression = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_msBlockProgression', ((1, 'p'),)))
     IHTMLCurrentStyle5.get_quotes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_quotes', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCurrentStyle5
 def _define_DispHTMLCurrentStyle_head():
     class DispHTMLCurrentStyle(win32more.System.Com.IDispatch_head):
@@ -11162,6 +11218,7 @@ def _define_DispHTMLCurrentStyle_head():
     return DispHTMLCurrentStyle
 def _define_DispHTMLCurrentStyle():
     DispHTMLCurrentStyle = win32more.Web.MsHtml.DispHTMLCurrentStyle_head
+    win32more.System.Com.IDispatch
     return DispHTMLCurrentStyle
 def _define_IHTMLElement_head():
     class IHTMLElement(win32more.System.Com.IDispatch_head):
@@ -11256,6 +11313,7 @@ def _define_IHTMLElement():
     IHTMLElement.get_onfilterchange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(91, 'get_onfilterchange', ((1, 'p'),)))
     IHTMLElement.get_children = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(92, 'get_children', ((1, 'p'),)))
     IHTMLElement.get_all = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(93, 'get_all', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElement
 def _define_IHTMLRect_head():
     class IHTMLRect(win32more.System.Com.IDispatch_head):
@@ -11271,6 +11329,7 @@ def _define_IHTMLRect():
     IHTMLRect.get_right = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_right', ((1, 'p'),)))
     IHTMLRect.put_bottom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(13, 'put_bottom', ((1, 'v'),)))
     IHTMLRect.get_bottom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_bottom', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRect
 def _define_IHTMLRect2_head():
     class IHTMLRect2(win32more.System.Com.IDispatch_head):
@@ -11280,6 +11339,7 @@ def _define_IHTMLRect2():
     IHTMLRect2 = win32more.Web.MsHtml.IHTMLRect2_head
     IHTMLRect2.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(7, 'get_width', ((1, 'p'),)))
     IHTMLRect2.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_height', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRect2
 def _define_IHTMLRectCollection_head():
     class IHTMLRectCollection(win32more.System.Com.IDispatch_head):
@@ -11290,6 +11350,7 @@ def _define_IHTMLRectCollection():
     IHTMLRectCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLRectCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLRectCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'item', ((1, 'pvarIndex'),(1, 'pvarResult'),)))
+    win32more.System.Com.IDispatch
     return IHTMLRectCollection
 def _define_IHTMLElementCollection_head():
     class IHTMLElementCollection(win32more.System.Com.IDispatch_head):
@@ -11303,6 +11364,7 @@ def _define_IHTMLElementCollection():
     IHTMLElementCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(10, 'get__newEnum', ((1, 'p'),)))
     IHTMLElementCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'item', ((1, 'name'),(1, 'index'),(1, 'pdisp'),)))
     IHTMLElementCollection.tags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(12, 'tags', ((1, 'tagName'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElementCollection
 def _define_IHTMLElement2_head():
     class IHTMLElement2(win32more.System.Com.IDispatch_head):
@@ -11408,6 +11470,7 @@ def _define_IHTMLElement2():
     IHTMLElement2.get_onbeforeeditfocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(102, 'get_onbeforeeditfocus', ((1, 'p'),)))
     IHTMLElement2.get_readyStateValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(103, 'get_readyStateValue', ((1, 'p'),)))
     IHTMLElement2.getElementsByTagName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElementCollection_head), use_last_error=False)(104, 'getElementsByTagName', ((1, 'v'),(1, 'pelColl'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElement2
 def _define_IHTMLAttributeCollection3_head():
     class IHTMLAttributeCollection3(win32more.System.Com.IDispatch_head):
@@ -11420,6 +11483,7 @@ def _define_IHTMLAttributeCollection3():
     IHTMLAttributeCollection3.removeNamedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLDOMAttribute_head), use_last_error=False)(9, 'removeNamedItem', ((1, 'bstrName'),(1, 'ppNodeOut'),)))
     IHTMLAttributeCollection3.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.IHTMLDOMAttribute_head), use_last_error=False)(10, 'item', ((1, 'index'),(1, 'ppNodeOut'),)))
     IHTMLAttributeCollection3.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_length', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAttributeCollection3
 def _define_IDOMDocumentType_head():
     class IDOMDocumentType(win32more.System.Com.IDispatch_head):
@@ -11433,6 +11497,7 @@ def _define_IDOMDocumentType():
     IDOMDocumentType.get_publicId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_publicId', ((1, 'p'),)))
     IDOMDocumentType.get_systemId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'get_systemId', ((1, 'p'),)))
     IDOMDocumentType.get_internalSubset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_internalSubset', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMDocumentType
 def _define_IHTMLDocument7_head():
     class IHTMLDocument7(win32more.System.Com.IDispatch_head):
@@ -11544,6 +11609,7 @@ def _define_IHTMLDocument7():
     IHTMLDocument7.putref_body = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLElement_head, use_last_error=False)(108, 'putref_body', ((1, 'v'),)))
     IHTMLDocument7.get_body = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(109, 'get_body', ((1, 'p'),)))
     IHTMLDocument7.get_head = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(110, 'get_head', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDocument7
 def _define_IHTMLDOMNode_head():
     class IHTMLDOMNode(win32more.System.Com.IDispatch_head):
@@ -11571,6 +11637,7 @@ def _define_IHTMLDOMNode():
     IHTMLDOMNode.get_lastChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDOMNode_head), use_last_error=False)(24, 'get_lastChild', ((1, 'p'),)))
     IHTMLDOMNode.get_previousSibling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDOMNode_head), use_last_error=False)(25, 'get_previousSibling', ((1, 'p'),)))
     IHTMLDOMNode.get_nextSibling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDOMNode_head), use_last_error=False)(26, 'get_nextSibling', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMNode
 def _define_IHTMLDOMNode2_head():
     class IHTMLDOMNode2(win32more.System.Com.IDispatch_head):
@@ -11579,6 +11646,7 @@ def _define_IHTMLDOMNode2_head():
 def _define_IHTMLDOMNode2():
     IHTMLDOMNode2 = win32more.Web.MsHtml.IHTMLDOMNode2_head
     IHTMLDOMNode2.get_ownerDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'get_ownerDocument', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMNode2
 def _define_IHTMLDOMNode3_head():
     class IHTMLDOMNode3(win32more.System.Com.IDispatch_head):
@@ -11603,6 +11671,7 @@ def _define_IHTMLDOMNode3():
     IHTMLDOMNode3.isSameNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLDOMNode3_head,POINTER(Int16), use_last_error=False)(21, 'isSameNode', ((1, 'otherNode'),(1, 'isSame'),)))
     IHTMLDOMNode3.compareDocumentPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLDOMNode_head,POINTER(UInt16), use_last_error=False)(22, 'compareDocumentPosition', ((1, 'otherNode'),(1, 'flags'),)))
     IHTMLDOMNode3.isSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(Int16), use_last_error=False)(23, 'isSupported', ((1, 'feature'),(1, 'version'),(1, 'pfisSupported'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMNode3
 def _define_IHTMLDOMAttribute_head():
     class IHTMLDOMAttribute(win32more.System.Com.IDispatch_head):
@@ -11614,6 +11683,7 @@ def _define_IHTMLDOMAttribute():
     IHTMLDOMAttribute.put_nodeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_nodeValue', ((1, 'v'),)))
     IHTMLDOMAttribute.get_nodeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_nodeValue', ((1, 'p'),)))
     IHTMLDOMAttribute.get_specified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_specified', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMAttribute
 def _define_IHTMLDOMAttribute2_head():
     class IHTMLDOMAttribute2(win32more.System.Com.IDispatch_head):
@@ -11640,6 +11710,7 @@ def _define_IHTMLDOMAttribute2():
     IHTMLDOMAttribute2.appendChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLDOMNode_head,POINTER(win32more.Web.MsHtml.IHTMLDOMNode_head), use_last_error=False)(23, 'appendChild', ((1, 'newChild'),(1, 'node'),)))
     IHTMLDOMAttribute2.hasChildNodes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(24, 'hasChildNodes', ((1, 'fChildren'),)))
     IHTMLDOMAttribute2.cloneNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,POINTER(win32more.Web.MsHtml.IHTMLDOMAttribute_head), use_last_error=False)(25, 'cloneNode', ((1, 'fDeep'),(1, 'clonedNode'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMAttribute2
 def _define_IHTMLDOMAttribute3_head():
     class IHTMLDOMAttribute3(win32more.System.Com.IDispatch_head):
@@ -11653,6 +11724,7 @@ def _define_IHTMLDOMAttribute3():
     IHTMLDOMAttribute3.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_value', ((1, 'p'),)))
     IHTMLDOMAttribute3.get_specified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(11, 'get_specified', ((1, 'p'),)))
     IHTMLDOMAttribute3.get_ownerElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement2_head), use_last_error=False)(12, 'get_ownerElement', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMAttribute3
 def _define_IHTMLDOMAttribute4_head():
     class IHTMLDOMAttribute4(win32more.System.Com.IDispatch_head):
@@ -11673,6 +11745,7 @@ def _define_IHTMLDOMAttribute4():
     IHTMLDOMAttribute4.hasChildNodes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(17, 'hasChildNodes', ((1, 'fChildren'),)))
     IHTMLDOMAttribute4.normalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'normalize', ()))
     IHTMLDOMAttribute4.get_specified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(19, 'get_specified', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMAttribute4
 def _define_IHTMLDOMTextNode_head():
     class IHTMLDOMTextNode(win32more.System.Com.IDispatch_head):
@@ -11685,6 +11758,7 @@ def _define_IHTMLDOMTextNode():
     IHTMLDOMTextNode.toString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'toString', ((1, 'String'),)))
     IHTMLDOMTextNode.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_length', ((1, 'p'),)))
     IHTMLDOMTextNode.splitText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.IHTMLDOMNode_head), use_last_error=False)(11, 'splitText', ((1, 'offset'),(1, 'pRetNode'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMTextNode
 def _define_IHTMLDOMTextNode2_head():
     class IHTMLDOMTextNode2(win32more.System.Com.IDispatch_head):
@@ -11697,6 +11771,7 @@ def _define_IHTMLDOMTextNode2():
     IHTMLDOMTextNode2.insertData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(9, 'insertData', ((1, 'offset'),(1, 'bstrstring'),)))
     IHTMLDOMTextNode2.deleteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(10, 'deleteData', ((1, 'offset'),(1, 'Count'),)))
     IHTMLDOMTextNode2.replaceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(11, 'replaceData', ((1, 'offset'),(1, 'Count'),(1, 'bstrstring'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMTextNode2
 def _define_IHTMLDOMTextNode3_head():
     class IHTMLDOMTextNode3(win32more.System.Com.IDispatch_head):
@@ -11713,6 +11788,7 @@ def _define_IHTMLDOMTextNode3():
     IHTMLDOMTextNode3.replaceWholeText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLDOMNode_head), use_last_error=False)(13, 'replaceWholeText', ((1, 'bstrText'),(1, 'ppRetNode'),)))
     IHTMLDOMTextNode3.hasAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(14, 'hasAttributes', ((1, 'pfHasAttributes'),)))
     IHTMLDOMTextNode3.normalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'normalize', ()))
+    win32more.System.Com.IDispatch
     return IHTMLDOMTextNode3
 def _define_IHTMLDOMImplementation_head():
     class IHTMLDOMImplementation(win32more.System.Com.IDispatch_head):
@@ -11721,6 +11797,7 @@ def _define_IHTMLDOMImplementation_head():
 def _define_IHTMLDOMImplementation():
     IHTMLDOMImplementation = win32more.Web.MsHtml.IHTMLDOMImplementation_head
     IHTMLDOMImplementation.hasFeature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(Int16), use_last_error=False)(7, 'hasFeature', ((1, 'bstrfeature'),(1, 'version'),(1, 'pfHasFeature'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMImplementation
 def _define_IHTMLDOMImplementation2_head():
     class IHTMLDOMImplementation2(win32more.System.Com.IDispatch_head):
@@ -11732,6 +11809,7 @@ def _define_IHTMLDOMImplementation2():
     IHTMLDOMImplementation2.createDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),win32more.Web.MsHtml.IDOMDocumentType_head,POINTER(win32more.Web.MsHtml.IHTMLDocument7_head), use_last_error=False)(8, 'createDocument', ((1, 'pvarNS'),(1, 'pvarTagName'),(1, 'pDocumentType'),(1, 'ppnewDocument'),)))
     IHTMLDOMImplementation2.createHTMLDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLDocument7_head), use_last_error=False)(9, 'createHTMLDocument', ((1, 'bstrTitle'),(1, 'ppnewDocument'),)))
     IHTMLDOMImplementation2.hasFeature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(Int16), use_last_error=False)(10, 'hasFeature', ((1, 'bstrfeature'),(1, 'version'),(1, 'pfHasFeature'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMImplementation2
 def _define_DispHTMLDOMAttribute_head():
     class DispHTMLDOMAttribute(win32more.System.Com.IDispatch_head):
@@ -11739,6 +11817,7 @@ def _define_DispHTMLDOMAttribute_head():
     return DispHTMLDOMAttribute
 def _define_DispHTMLDOMAttribute():
     DispHTMLDOMAttribute = win32more.Web.MsHtml.DispHTMLDOMAttribute_head
+    win32more.System.Com.IDispatch
     return DispHTMLDOMAttribute
 def _define_DispHTMLDOMTextNode_head():
     class DispHTMLDOMTextNode(win32more.System.Com.IDispatch_head):
@@ -11746,6 +11825,7 @@ def _define_DispHTMLDOMTextNode_head():
     return DispHTMLDOMTextNode
 def _define_DispHTMLDOMTextNode():
     DispHTMLDOMTextNode = win32more.Web.MsHtml.DispHTMLDOMTextNode_head
+    win32more.System.Com.IDispatch
     return DispHTMLDOMTextNode
 def _define_DispHTMLDOMImplementation_head():
     class DispHTMLDOMImplementation(win32more.System.Com.IDispatch_head):
@@ -11753,6 +11833,7 @@ def _define_DispHTMLDOMImplementation_head():
     return DispHTMLDOMImplementation
 def _define_DispHTMLDOMImplementation():
     DispHTMLDOMImplementation = win32more.Web.MsHtml.DispHTMLDOMImplementation_head
+    win32more.System.Com.IDispatch
     return DispHTMLDOMImplementation
 def _define_IHTMLAttributeCollection_head():
     class IHTMLAttributeCollection(win32more.System.Com.IDispatch_head):
@@ -11763,6 +11844,7 @@ def _define_IHTMLAttributeCollection():
     IHTMLAttributeCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLAttributeCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLAttributeCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'item', ((1, 'name'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAttributeCollection
 def _define_IHTMLAttributeCollection2_head():
     class IHTMLAttributeCollection2(win32more.System.Com.IDispatch_head):
@@ -11773,6 +11855,7 @@ def _define_IHTMLAttributeCollection2():
     IHTMLAttributeCollection2.getNamedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLDOMAttribute_head), use_last_error=False)(7, 'getNamedItem', ((1, 'bstrName'),(1, 'newretNode'),)))
     IHTMLAttributeCollection2.setNamedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLDOMAttribute_head,POINTER(win32more.Web.MsHtml.IHTMLDOMAttribute_head), use_last_error=False)(8, 'setNamedItem', ((1, 'ppNode'),(1, 'newretNode'),)))
     IHTMLAttributeCollection2.removeNamedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLDOMAttribute_head), use_last_error=False)(9, 'removeNamedItem', ((1, 'bstrName'),(1, 'newretNode'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAttributeCollection2
 def _define_IHTMLAttributeCollection4_head():
     class IHTMLAttributeCollection4(win32more.System.Com.IDispatch_head):
@@ -11788,6 +11871,7 @@ def _define_IHTMLAttributeCollection4():
     IHTMLAttributeCollection4.removeNamedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLDOMAttribute2_head), use_last_error=False)(12, 'removeNamedItem', ((1, 'bstrName'),(1, 'ppNodeOut'),)))
     IHTMLAttributeCollection4.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.IHTMLDOMAttribute2_head), use_last_error=False)(13, 'item', ((1, 'index'),(1, 'ppNodeOut'),)))
     IHTMLAttributeCollection4.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_length', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAttributeCollection4
 def _define_IHTMLDOMChildrenCollection_head():
     class IHTMLDOMChildrenCollection(win32more.System.Com.IDispatch_head):
@@ -11798,6 +11882,7 @@ def _define_IHTMLDOMChildrenCollection():
     IHTMLDOMChildrenCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLDOMChildrenCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLDOMChildrenCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'item', ((1, 'index'),(1, 'ppItem'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMChildrenCollection
 def _define_IHTMLDOMChildrenCollection2_head():
     class IHTMLDOMChildrenCollection2(win32more.System.Com.IDispatch_head):
@@ -11806,6 +11891,7 @@ def _define_IHTMLDOMChildrenCollection2_head():
 def _define_IHTMLDOMChildrenCollection2():
     IHTMLDOMChildrenCollection2 = win32more.Web.MsHtml.IHTMLDOMChildrenCollection2_head
     IHTMLDOMChildrenCollection2.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'item', ((1, 'index'),(1, 'ppItem'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMChildrenCollection2
 def _define_DispHTMLAttributeCollection_head():
     class DispHTMLAttributeCollection(win32more.System.Com.IDispatch_head):
@@ -11813,6 +11899,7 @@ def _define_DispHTMLAttributeCollection_head():
     return DispHTMLAttributeCollection
 def _define_DispHTMLAttributeCollection():
     DispHTMLAttributeCollection = win32more.Web.MsHtml.DispHTMLAttributeCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLAttributeCollection
 def _define_DispStaticNodeList_head():
     class DispStaticNodeList(win32more.System.Com.IDispatch_head):
@@ -11820,6 +11907,7 @@ def _define_DispStaticNodeList_head():
     return DispStaticNodeList
 def _define_DispStaticNodeList():
     DispStaticNodeList = win32more.Web.MsHtml.DispStaticNodeList_head
+    win32more.System.Com.IDispatch
     return DispStaticNodeList
 def _define_DispDOMChildrenCollection_head():
     class DispDOMChildrenCollection(win32more.System.Com.IDispatch_head):
@@ -11827,6 +11915,7 @@ def _define_DispDOMChildrenCollection_head():
     return DispDOMChildrenCollection
 def _define_DispDOMChildrenCollection():
     DispDOMChildrenCollection = win32more.Web.MsHtml.DispDOMChildrenCollection_head
+    win32more.System.Com.IDispatch
     return DispDOMChildrenCollection
 def _define_HTMLElementEvents4_head():
     class HTMLElementEvents4(win32more.System.Com.IDispatch_head):
@@ -11834,6 +11923,7 @@ def _define_HTMLElementEvents4_head():
     return HTMLElementEvents4
 def _define_HTMLElementEvents4():
     HTMLElementEvents4 = win32more.Web.MsHtml.HTMLElementEvents4_head
+    win32more.System.Com.IDispatch
     return HTMLElementEvents4
 def _define_HTMLElementEvents3_head():
     class HTMLElementEvents3(win32more.System.Com.IDispatch_head):
@@ -11841,6 +11931,7 @@ def _define_HTMLElementEvents3_head():
     return HTMLElementEvents3
 def _define_HTMLElementEvents3():
     HTMLElementEvents3 = win32more.Web.MsHtml.HTMLElementEvents3_head
+    win32more.System.Com.IDispatch
     return HTMLElementEvents3
 def _define_HTMLElementEvents2_head():
     class HTMLElementEvents2(win32more.System.Com.IDispatch_head):
@@ -11848,6 +11939,7 @@ def _define_HTMLElementEvents2_head():
     return HTMLElementEvents2
 def _define_HTMLElementEvents2():
     HTMLElementEvents2 = win32more.Web.MsHtml.HTMLElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLElementEvents2
 def _define_HTMLElementEvents_head():
     class HTMLElementEvents(win32more.System.Com.IDispatch_head):
@@ -11855,6 +11947,7 @@ def _define_HTMLElementEvents_head():
     return HTMLElementEvents
 def _define_HTMLElementEvents():
     HTMLElementEvents = win32more.Web.MsHtml.HTMLElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLElementEvents
 def _define_IRulesAppliedCollection_head():
     class IRulesAppliedCollection(win32more.System.Com.IDispatch_head):
@@ -11870,6 +11963,7 @@ def _define_IRulesAppliedCollection():
     IRulesAppliedCollection.property = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'property', ((1, 'index'),(1, 'pbstrProperty'),)))
     IRulesAppliedCollection.propertyInheritedTrace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Web.MsHtml.IRulesApplied_head), use_last_error=False)(13, 'propertyInheritedTrace', ((1, 'name'),(1, 'index'),(1, 'ppRulesApplied'),)))
     IRulesAppliedCollection.propertyInheritedTraceLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(14, 'propertyInheritedTraceLength', ((1, 'name'),(1, 'pLength'),)))
+    win32more.System.Com.IDispatch
     return IRulesAppliedCollection
 def _define_IHTMLElement3_head():
     class IHTMLElement3(win32more.System.Com.IDispatch_head):
@@ -11920,6 +12014,7 @@ def _define_IHTMLElement3():
     IHTMLElement3.get_ondeactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(47, 'get_ondeactivate', ((1, 'p'),)))
     IHTMLElement3.dragDrop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(48, 'dragDrop', ((1, 'pfRet'),)))
     IHTMLElement3.get_glyphMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(49, 'get_glyphMode', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElement3
 def _define_IHTMLElement4_head():
     class IHTMLElement4(win32more.System.Com.IDispatch_head):
@@ -11939,6 +12034,7 @@ def _define_IHTMLElement4():
     IHTMLElement4.get_onfocusin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'get_onfocusin', ((1, 'p'),)))
     IHTMLElement4.put_onfocusout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(17, 'put_onfocusout', ((1, 'v'),)))
     IHTMLElement4.get_onfocusout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'get_onfocusout', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElement4
 def _define_IElementSelector_head():
     class IElementSelector(win32more.System.Com.IDispatch_head):
@@ -11948,6 +12044,7 @@ def _define_IElementSelector():
     IElementSelector = win32more.Web.MsHtml.IElementSelector_head
     IElementSelector.querySelector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(7, 'querySelector', ((1, 'v'),(1, 'pel'),)))
     IElementSelector.querySelectorAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLDOMChildrenCollection_head), use_last_error=False)(8, 'querySelectorAll', ((1, 'v'),(1, 'pel'),)))
+    win32more.System.Com.IDispatch
     return IElementSelector
 def _define_IHTMLElementRender_head():
     class IHTMLElementRender(win32more.System.Com.IUnknown_head):
@@ -11957,6 +12054,7 @@ def _define_IHTMLElementRender():
     IHTMLElementRender = win32more.Web.MsHtml.IHTMLElementRender_head
     IHTMLElementRender.DrawToDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC, use_last_error=False)(3, 'DrawToDC', ((1, 'hDC'),)))
     IHTMLElementRender.SetDocumentPrinter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Graphics.Gdi.HDC, use_last_error=False)(4, 'SetDocumentPrinter', ((1, 'bstrPrinterName'),(1, 'hDC'),)))
+    win32more.System.Com.IUnknown
     return IHTMLElementRender
 def _define_IHTMLUniqueName_head():
     class IHTMLUniqueName(win32more.System.Com.IDispatch_head):
@@ -11966,6 +12064,7 @@ def _define_IHTMLUniqueName():
     IHTMLUniqueName = win32more.Web.MsHtml.IHTMLUniqueName_head
     IHTMLUniqueName.get_uniqueNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_uniqueNumber', ((1, 'p'),)))
     IHTMLUniqueName.get_uniqueID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_uniqueID', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLUniqueName
 def _define_IHTMLElement5_head():
     class IHTMLElement5(win32more.System.Com.IDispatch_head):
@@ -12038,6 +12137,7 @@ def _define_IHTMLElement5():
     IHTMLElement5.get_ariaLive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(69, 'get_ariaLive', ((1, 'p'),)))
     IHTMLElement5.put_ariaRelevant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(70, 'put_ariaRelevant', ((1, 'v'),)))
     IHTMLElement5.get_ariaRelevant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(71, 'get_ariaRelevant', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElement5
 def _define_IHTMLElement6_head():
     class IHTMLElement6(win32more.System.Com.IDispatch_head):
@@ -12120,6 +12220,7 @@ def _define_IHTMLElement6():
     IHTMLElement6.put_onwaiting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(79, 'put_onwaiting', ((1, 'v'),)))
     IHTMLElement6.get_onwaiting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(80, 'get_onwaiting', ((1, 'p'),)))
     IHTMLElement6.hasAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(81, 'hasAttributes', ((1, 'pfHasAttributes'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElement6
 def _define_IHTMLElement7_head():
     class IHTMLElement7(win32more.System.Com.IDispatch_head):
@@ -12181,6 +12282,7 @@ def _define_IHTMLElement7():
     IHTMLElement7.get_onmsmanipulationstatechanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(58, 'get_onmsmanipulationstatechanged', ((1, 'p'),)))
     IHTMLElement7.put_oncuechange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(59, 'put_oncuechange', ((1, 'v'),)))
     IHTMLElement7.get_oncuechange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(60, 'get_oncuechange', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElement7
 def _define_IHTMLElementAppliedStyles_head():
     class IHTMLElementAppliedStyles(win32more.System.Com.IDispatch_head):
@@ -12190,6 +12292,7 @@ def _define_IHTMLElementAppliedStyles():
     IHTMLElementAppliedStyles = win32more.Web.MsHtml.IHTMLElementAppliedStyles_head
     IHTMLElementAppliedStyles.msGetRulesApplied = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IRulesAppliedCollection_head), use_last_error=False)(7, 'msGetRulesApplied', ((1, 'ppRulesAppliedCollection'),)))
     IHTMLElementAppliedStyles.msGetRulesAppliedWithAncestor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Web.MsHtml.IRulesAppliedCollection_head), use_last_error=False)(8, 'msGetRulesAppliedWithAncestor', ((1, 'varContext'),(1, 'ppRulesAppliedCollection'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElementAppliedStyles
 def _define_IElementTraversal_head():
     class IElementTraversal(win32more.System.Com.IDispatch_head):
@@ -12202,6 +12305,7 @@ def _define_IElementTraversal():
     IElementTraversal.get_previousElementSibling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(9, 'get_previousElementSibling', ((1, 'p'),)))
     IElementTraversal.get_nextElementSibling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(10, 'get_nextElementSibling', ((1, 'p'),)))
     IElementTraversal.get_childElementCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_childElementCount', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IElementTraversal
 def _define_IHTMLDatabinding_head():
     class IHTMLDatabinding(win32more.System.Com.IDispatch_head):
@@ -12215,6 +12319,7 @@ def _define_IHTMLDatabinding():
     IHTMLDatabinding.get_dataSrc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_dataSrc', ((1, 'p'),)))
     IHTMLDatabinding.put_dataFormatAs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_dataFormatAs', ((1, 'v'),)))
     IHTMLDatabinding.get_dataFormatAs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_dataFormatAs', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDatabinding
 def _define_IHTMLDocument_head():
     class IHTMLDocument(win32more.System.Com.IDispatch_head):
@@ -12223,6 +12328,7 @@ def _define_IHTMLDocument_head():
 def _define_IHTMLDocument():
     IHTMLDocument = win32more.Web.MsHtml.IHTMLDocument_head
     IHTMLDocument.get_Script = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'get_Script', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDocument
 def _define_IHTMLElementDefaults_head():
     class IHTMLElementDefaults(win32more.System.Com.IDispatch_head):
@@ -12251,6 +12357,7 @@ def _define_IHTMLElementDefaults():
     IHTMLElementDefaults.get_viewLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDocument_head), use_last_error=False)(25, 'get_viewLink', ((1, 'p'),)))
     IHTMLElementDefaults.put_frozen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(26, 'put_frozen', ((1, 'v'),)))
     IHTMLElementDefaults.get_frozen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(27, 'get_frozen', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElementDefaults
 def _define_DispHTMLDefaults_head():
     class DispHTMLDefaults(win32more.System.Com.IDispatch_head):
@@ -12258,6 +12365,7 @@ def _define_DispHTMLDefaults_head():
     return DispHTMLDefaults
 def _define_DispHTMLDefaults():
     DispHTMLDefaults = win32more.Web.MsHtml.DispHTMLDefaults_head
+    win32more.System.Com.IDispatch
     return DispHTMLDefaults
 def _define_IHTCDefaultDispatch_head():
     class IHTCDefaultDispatch(win32more.System.Com.IDispatch_head):
@@ -12269,6 +12377,7 @@ def _define_IHTCDefaultDispatch():
     IHTCDefaultDispatch.createEventObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLEventObj_head), use_last_error=False)(8, 'createEventObject', ((1, 'eventObj'),)))
     IHTCDefaultDispatch.get_defaults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'get_defaults', ((1, 'p'),)))
     IHTCDefaultDispatch.get_document = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'get_document', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTCDefaultDispatch
 def _define_IHTCPropertyBehavior_head():
     class IHTCPropertyBehavior(win32more.System.Com.IDispatch_head):
@@ -12279,6 +12388,7 @@ def _define_IHTCPropertyBehavior():
     IHTCPropertyBehavior.fireChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'fireChange', ()))
     IHTCPropertyBehavior.put_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_value', ((1, 'v'),)))
     IHTCPropertyBehavior.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_value', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTCPropertyBehavior
 def _define_IHTCMethodBehavior_head():
     class IHTCMethodBehavior(win32more.System.Com.IDispatch_head):
@@ -12286,6 +12396,7 @@ def _define_IHTCMethodBehavior_head():
     return IHTCMethodBehavior
 def _define_IHTCMethodBehavior():
     IHTCMethodBehavior = win32more.Web.MsHtml.IHTCMethodBehavior_head
+    win32more.System.Com.IDispatch
     return IHTCMethodBehavior
 def _define_IHTCEventBehavior_head():
     class IHTCEventBehavior(win32more.System.Com.IDispatch_head):
@@ -12294,6 +12405,7 @@ def _define_IHTCEventBehavior_head():
 def _define_IHTCEventBehavior():
     IHTCEventBehavior = win32more.Web.MsHtml.IHTCEventBehavior_head
     IHTCEventBehavior.fire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLEventObj_head, use_last_error=False)(7, 'fire', ((1, 'pvar'),)))
+    win32more.System.Com.IDispatch
     return IHTCEventBehavior
 def _define_IHTCAttachBehavior_head():
     class IHTCAttachBehavior(win32more.System.Com.IDispatch_head):
@@ -12303,6 +12415,7 @@ def _define_IHTCAttachBehavior():
     IHTCAttachBehavior = win32more.Web.MsHtml.IHTCAttachBehavior_head
     IHTCAttachBehavior.fireEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(7, 'fireEvent', ((1, 'evt'),)))
     IHTCAttachBehavior.detachEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'detachEvent', ()))
+    win32more.System.Com.IDispatch
     return IHTCAttachBehavior
 def _define_IHTCAttachBehavior2_head():
     class IHTCAttachBehavior2(win32more.System.Com.IDispatch_head):
@@ -12311,6 +12424,7 @@ def _define_IHTCAttachBehavior2_head():
 def _define_IHTCAttachBehavior2():
     IHTCAttachBehavior2 = win32more.Web.MsHtml.IHTCAttachBehavior2_head
     IHTCAttachBehavior2.fireEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(7, 'fireEvent', ((1, 'evt'),)))
+    win32more.System.Com.IDispatch
     return IHTCAttachBehavior2
 def _define_IHTCDescBehavior_head():
     class IHTCDescBehavior(win32more.System.Com.IDispatch_head):
@@ -12320,6 +12434,7 @@ def _define_IHTCDescBehavior():
     IHTCDescBehavior = win32more.Web.MsHtml.IHTCDescBehavior_head
     IHTCDescBehavior.get_urn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_urn', ((1, 'p'),)))
     IHTCDescBehavior.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_name', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTCDescBehavior
 def _define_DispHTCDefaultDispatch_head():
     class DispHTCDefaultDispatch(win32more.System.Com.IDispatch_head):
@@ -12327,6 +12442,7 @@ def _define_DispHTCDefaultDispatch_head():
     return DispHTCDefaultDispatch
 def _define_DispHTCDefaultDispatch():
     DispHTCDefaultDispatch = win32more.Web.MsHtml.DispHTCDefaultDispatch_head
+    win32more.System.Com.IDispatch
     return DispHTCDefaultDispatch
 def _define_DispHTCPropertyBehavior_head():
     class DispHTCPropertyBehavior(win32more.System.Com.IDispatch_head):
@@ -12334,6 +12450,7 @@ def _define_DispHTCPropertyBehavior_head():
     return DispHTCPropertyBehavior
 def _define_DispHTCPropertyBehavior():
     DispHTCPropertyBehavior = win32more.Web.MsHtml.DispHTCPropertyBehavior_head
+    win32more.System.Com.IDispatch
     return DispHTCPropertyBehavior
 def _define_DispHTCMethodBehavior_head():
     class DispHTCMethodBehavior(win32more.System.Com.IDispatch_head):
@@ -12341,6 +12458,7 @@ def _define_DispHTCMethodBehavior_head():
     return DispHTCMethodBehavior
 def _define_DispHTCMethodBehavior():
     DispHTCMethodBehavior = win32more.Web.MsHtml.DispHTCMethodBehavior_head
+    win32more.System.Com.IDispatch
     return DispHTCMethodBehavior
 def _define_DispHTCEventBehavior_head():
     class DispHTCEventBehavior(win32more.System.Com.IDispatch_head):
@@ -12348,6 +12466,7 @@ def _define_DispHTCEventBehavior_head():
     return DispHTCEventBehavior
 def _define_DispHTCEventBehavior():
     DispHTCEventBehavior = win32more.Web.MsHtml.DispHTCEventBehavior_head
+    win32more.System.Com.IDispatch
     return DispHTCEventBehavior
 def _define_DispHTCAttachBehavior_head():
     class DispHTCAttachBehavior(win32more.System.Com.IDispatch_head):
@@ -12355,6 +12474,7 @@ def _define_DispHTCAttachBehavior_head():
     return DispHTCAttachBehavior
 def _define_DispHTCAttachBehavior():
     DispHTCAttachBehavior = win32more.Web.MsHtml.DispHTCAttachBehavior_head
+    win32more.System.Com.IDispatch
     return DispHTCAttachBehavior
 def _define_DispHTCDescBehavior_head():
     class DispHTCDescBehavior(win32more.System.Com.IDispatch_head):
@@ -12362,6 +12482,7 @@ def _define_DispHTCDescBehavior_head():
     return DispHTCDescBehavior
 def _define_DispHTCDescBehavior():
     DispHTCDescBehavior = win32more.Web.MsHtml.DispHTCDescBehavior_head
+    win32more.System.Com.IDispatch
     return DispHTCDescBehavior
 def _define_IHTMLUrnCollection_head():
     class IHTMLUrnCollection(win32more.System.Com.IDispatch_head):
@@ -12371,6 +12492,7 @@ def _define_IHTMLUrnCollection():
     IHTMLUrnCollection = win32more.Web.MsHtml.IHTMLUrnCollection_head
     IHTMLUrnCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLUrnCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'item', ((1, 'index'),(1, 'ppUrn'),)))
+    win32more.System.Com.IDispatch
     return IHTMLUrnCollection
 def _define_DispHTMLUrnCollection_head():
     class DispHTMLUrnCollection(win32more.System.Com.IDispatch_head):
@@ -12378,6 +12500,7 @@ def _define_DispHTMLUrnCollection_head():
     return DispHTMLUrnCollection
 def _define_DispHTMLUrnCollection():
     DispHTMLUrnCollection = win32more.Web.MsHtml.DispHTMLUrnCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLUrnCollection
 def _define_IHTMLGenericElement_head():
     class IHTMLGenericElement(win32more.System.Com.IDispatch_head):
@@ -12387,6 +12510,7 @@ def _define_IHTMLGenericElement():
     IHTMLGenericElement = win32more.Web.MsHtml.IHTMLGenericElement_head
     IHTMLGenericElement.get_recordset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'get_recordset', ((1, 'p'),)))
     IHTMLGenericElement.namedRecordset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'namedRecordset', ((1, 'dataMember'),(1, 'hierarchy'),(1, 'ppRecordset'),)))
+    win32more.System.Com.IDispatch
     return IHTMLGenericElement
 def _define_DispHTMLGenericElement_head():
     class DispHTMLGenericElement(win32more.System.Com.IDispatch_head):
@@ -12394,6 +12518,7 @@ def _define_DispHTMLGenericElement_head():
     return DispHTMLGenericElement
 def _define_DispHTMLGenericElement():
     DispHTMLGenericElement = win32more.Web.MsHtml.DispHTMLGenericElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLGenericElement
 def _define_IHTMLStyleSheetRuleApplied_head():
     class IHTMLStyleSheetRuleApplied(win32more.System.Com.IDispatch_head):
@@ -12403,6 +12528,7 @@ def _define_IHTMLStyleSheetRuleApplied():
     IHTMLStyleSheetRuleApplied = win32more.Web.MsHtml.IHTMLStyleSheetRuleApplied_head
     IHTMLStyleSheetRuleApplied.get_msSpecificity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_msSpecificity', ((1, 'p'),)))
     IHTMLStyleSheetRuleApplied.msGetSpecificity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(8, 'msGetSpecificity', ((1, 'index'),(1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetRuleApplied
 def _define_IHTMLStyleSheetRule2_head():
     class IHTMLStyleSheetRule2(win32more.System.Com.IDispatch_head):
@@ -12412,6 +12538,7 @@ def _define_IHTMLStyleSheetRule2():
     IHTMLStyleSheetRule2 = win32more.Web.MsHtml.IHTMLStyleSheetRule2_head
     IHTMLStyleSheetRule2.put_selectorText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_selectorText', ((1, 'v'),)))
     IHTMLStyleSheetRule2.get_selectorText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_selectorText', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetRule2
 def _define_IHTMLStyleSheetRulesCollection2_head():
     class IHTMLStyleSheetRulesCollection2(win32more.System.Com.IDispatch_head):
@@ -12421,6 +12548,7 @@ def _define_IHTMLStyleSheetRulesCollection2():
     IHTMLStyleSheetRulesCollection2 = win32more.Web.MsHtml.IHTMLStyleSheetRulesCollection2_head
     IHTMLStyleSheetRulesCollection2.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLStyleSheetRulesCollection2.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.IHTMLCSSRule_head), use_last_error=False)(8, 'item', ((1, 'index'),(1, 'ppHTMLCSSRule'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetRulesCollection2
 def _define_DispHTMLStyleSheetRule_head():
     class DispHTMLStyleSheetRule(win32more.System.Com.IDispatch_head):
@@ -12428,6 +12556,7 @@ def _define_DispHTMLStyleSheetRule_head():
     return DispHTMLStyleSheetRule
 def _define_DispHTMLStyleSheetRule():
     DispHTMLStyleSheetRule = win32more.Web.MsHtml.DispHTMLStyleSheetRule_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleSheetRule
 def _define_DispHTMLStyleSheetRulesCollection_head():
     class DispHTMLStyleSheetRulesCollection(win32more.System.Com.IDispatch_head):
@@ -12435,6 +12564,7 @@ def _define_DispHTMLStyleSheetRulesCollection_head():
     return DispHTMLStyleSheetRulesCollection
 def _define_DispHTMLStyleSheetRulesCollection():
     DispHTMLStyleSheetRulesCollection = win32more.Web.MsHtml.DispHTMLStyleSheetRulesCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleSheetRulesCollection
 def _define_IHTMLStyleSheetPage_head():
     class IHTMLStyleSheetPage(win32more.System.Com.IDispatch_head):
@@ -12444,6 +12574,7 @@ def _define_IHTMLStyleSheetPage():
     IHTMLStyleSheetPage = win32more.Web.MsHtml.IHTMLStyleSheetPage_head
     IHTMLStyleSheetPage.get_selector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_selector', ((1, 'p'),)))
     IHTMLStyleSheetPage.get_pseudoClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_pseudoClass', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetPage
 def _define_IHTMLStyleSheetPage2_head():
     class IHTMLStyleSheetPage2(win32more.System.Com.IDispatch_head):
@@ -12454,6 +12585,7 @@ def _define_IHTMLStyleSheetPage2():
     IHTMLStyleSheetPage2.put_selectorText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_selectorText', ((1, 'v'),)))
     IHTMLStyleSheetPage2.get_selectorText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_selectorText', ((1, 'p'),)))
     IHTMLStyleSheetPage2.get_style = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLRuleStyle_head), use_last_error=False)(9, 'get_style', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetPage2
 def _define_IHTMLStyleSheetPagesCollection_head():
     class IHTMLStyleSheetPagesCollection(win32more.System.Com.IDispatch_head):
@@ -12463,6 +12595,7 @@ def _define_IHTMLStyleSheetPagesCollection():
     IHTMLStyleSheetPagesCollection = win32more.Web.MsHtml.IHTMLStyleSheetPagesCollection_head
     IHTMLStyleSheetPagesCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLStyleSheetPagesCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.IHTMLStyleSheetPage_head), use_last_error=False)(8, 'item', ((1, 'index'),(1, 'ppHTMLStyleSheetPage'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetPagesCollection
 def _define_DispHTMLStyleSheetPage_head():
     class DispHTMLStyleSheetPage(win32more.System.Com.IDispatch_head):
@@ -12470,6 +12603,7 @@ def _define_DispHTMLStyleSheetPage_head():
     return DispHTMLStyleSheetPage
 def _define_DispHTMLStyleSheetPage():
     DispHTMLStyleSheetPage = win32more.Web.MsHtml.DispHTMLStyleSheetPage_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleSheetPage
 def _define_DispHTMLStyleSheetPagesCollection_head():
     class DispHTMLStyleSheetPagesCollection(win32more.System.Com.IDispatch_head):
@@ -12477,6 +12611,7 @@ def _define_DispHTMLStyleSheetPagesCollection_head():
     return DispHTMLStyleSheetPagesCollection
 def _define_DispHTMLStyleSheetPagesCollection():
     DispHTMLStyleSheetPagesCollection = win32more.Web.MsHtml.DispHTMLStyleSheetPagesCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleSheetPagesCollection
 def _define_IHTMLStyleSheetsCollection_head():
     class IHTMLStyleSheetsCollection(win32more.System.Com.IDispatch_head):
@@ -12487,6 +12622,7 @@ def _define_IHTMLStyleSheetsCollection():
     IHTMLStyleSheetsCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLStyleSheetsCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLStyleSheetsCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'item', ((1, 'pvarIndex'),(1, 'pvarResult'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetsCollection
 def _define_IHTMLStyleSheet2_head():
     class IHTMLStyleSheet2(win32more.System.Com.IDispatch_head):
@@ -12496,6 +12632,7 @@ def _define_IHTMLStyleSheet2():
     IHTMLStyleSheet2 = win32more.Web.MsHtml.IHTMLStyleSheet2_head
     IHTMLStyleSheet2.get_pages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLStyleSheetPagesCollection_head), use_last_error=False)(7, 'get_pages', ((1, 'p'),)))
     IHTMLStyleSheet2.addPageRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(Int32), use_last_error=False)(8, 'addPageRule', ((1, 'bstrSelector'),(1, 'bstrStyle'),(1, 'lIndex'),(1, 'plNewIndex'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheet2
 def _define_IHTMLStyleSheet3_head():
     class IHTMLStyleSheet3(win32more.System.Com.IDispatch_head):
@@ -12507,6 +12644,7 @@ def _define_IHTMLStyleSheet3():
     IHTMLStyleSheet3.get_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_href', ((1, 'p'),)))
     IHTMLStyleSheet3.get_isAlternate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_isAlternate', ((1, 'p'),)))
     IHTMLStyleSheet3.get_isPrefAlternate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_isPrefAlternate', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheet3
 def _define_IHTMLStyleSheet4_head():
     class IHTMLStyleSheet4(win32more.System.Com.IDispatch_head):
@@ -12523,6 +12661,7 @@ def _define_IHTMLStyleSheet4():
     IHTMLStyleSheet4.get_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_media', ((1, 'p'),)))
     IHTMLStyleSheet4.insertRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(Int32), use_last_error=False)(14, 'insertRule', ((1, 'bstrRule'),(1, 'lIndex'),(1, 'plNewIndex'),)))
     IHTMLStyleSheet4.deleteRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(15, 'deleteRule', ((1, 'lIndex'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheet4
 def _define_DispHTMLStyleSheet_head():
     class DispHTMLStyleSheet(win32more.System.Com.IDispatch_head):
@@ -12530,6 +12669,7 @@ def _define_DispHTMLStyleSheet_head():
     return DispHTMLStyleSheet
 def _define_DispHTMLStyleSheet():
     DispHTMLStyleSheet = win32more.Web.MsHtml.DispHTMLStyleSheet_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleSheet
 def _define_IHTMLStyleSheetsCollection2_head():
     class IHTMLStyleSheetsCollection2(win32more.System.Com.IDispatch_head):
@@ -12538,6 +12678,7 @@ def _define_IHTMLStyleSheetsCollection2_head():
 def _define_IHTMLStyleSheetsCollection2():
     IHTMLStyleSheetsCollection2 = win32more.Web.MsHtml.IHTMLStyleSheetsCollection2_head
     IHTMLStyleSheetsCollection2.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'item', ((1, 'index'),(1, 'pvarResult'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetsCollection2
 def _define_DispHTMLStyleSheetsCollection_head():
     class DispHTMLStyleSheetsCollection(win32more.System.Com.IDispatch_head):
@@ -12545,6 +12686,7 @@ def _define_DispHTMLStyleSheetsCollection_head():
     return DispHTMLStyleSheetsCollection
 def _define_DispHTMLStyleSheetsCollection():
     DispHTMLStyleSheetsCollection = win32more.Web.MsHtml.DispHTMLStyleSheetsCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleSheetsCollection
 def _define_HTMLLinkElementEvents2_head():
     class HTMLLinkElementEvents2(win32more.System.Com.IDispatch_head):
@@ -12552,6 +12694,7 @@ def _define_HTMLLinkElementEvents2_head():
     return HTMLLinkElementEvents2
 def _define_HTMLLinkElementEvents2():
     HTMLLinkElementEvents2 = win32more.Web.MsHtml.HTMLLinkElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLLinkElementEvents2
 def _define_HTMLLinkElementEvents_head():
     class HTMLLinkElementEvents(win32more.System.Com.IDispatch_head):
@@ -12559,6 +12702,7 @@ def _define_HTMLLinkElementEvents_head():
     return HTMLLinkElementEvents
 def _define_HTMLLinkElementEvents():
     HTMLLinkElementEvents = win32more.Web.MsHtml.HTMLLinkElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLLinkElementEvents
 def _define_IHTMLLinkElement_head():
     class IHTMLLinkElement(win32more.System.Com.IDispatch_head):
@@ -12586,6 +12730,7 @@ def _define_IHTMLLinkElement():
     IHTMLLinkElement.get_disabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(24, 'get_disabled', ((1, 'p'),)))
     IHTMLLinkElement.put_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(25, 'put_media', ((1, 'v'),)))
     IHTMLLinkElement.get_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'get_media', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLinkElement
 def _define_IHTMLLinkElement2_head():
     class IHTMLLinkElement2(win32more.System.Com.IDispatch_head):
@@ -12595,6 +12740,7 @@ def _define_IHTMLLinkElement2():
     IHTMLLinkElement2 = win32more.Web.MsHtml.IHTMLLinkElement2_head
     IHTMLLinkElement2.put_target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_target', ((1, 'v'),)))
     IHTMLLinkElement2.get_target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_target', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLinkElement2
 def _define_IHTMLLinkElement3_head():
     class IHTMLLinkElement3(win32more.System.Com.IDispatch_head):
@@ -12606,6 +12752,7 @@ def _define_IHTMLLinkElement3():
     IHTMLLinkElement3.get_charset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_charset', ((1, 'p'),)))
     IHTMLLinkElement3.put_hreflang = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_hreflang', ((1, 'v'),)))
     IHTMLLinkElement3.get_hreflang = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_hreflang', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLinkElement3
 def _define_IHTMLLinkElement4_head():
     class IHTMLLinkElement4(win32more.System.Com.IDispatch_head):
@@ -12615,6 +12762,7 @@ def _define_IHTMLLinkElement4():
     IHTMLLinkElement4 = win32more.Web.MsHtml.IHTMLLinkElement4_head
     IHTMLLinkElement4.put_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_href', ((1, 'v'),)))
     IHTMLLinkElement4.get_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_href', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLinkElement4
 def _define_IHTMLLinkElement5_head():
     class IHTMLLinkElement5(win32more.System.Com.IDispatch_head):
@@ -12623,6 +12771,7 @@ def _define_IHTMLLinkElement5_head():
 def _define_IHTMLLinkElement5():
     IHTMLLinkElement5 = win32more.Web.MsHtml.IHTMLLinkElement5_head
     IHTMLLinkElement5.get_sheet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLStyleSheet_head), use_last_error=False)(7, 'get_sheet', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLinkElement5
 def _define_DispHTMLLinkElement_head():
     class DispHTMLLinkElement(win32more.System.Com.IDispatch_head):
@@ -12630,6 +12779,7 @@ def _define_DispHTMLLinkElement_head():
     return DispHTMLLinkElement
 def _define_DispHTMLLinkElement():
     DispHTMLLinkElement = win32more.Web.MsHtml.DispHTMLLinkElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLLinkElement
 def _define_IHTMLTxtRange_head():
     class IHTMLTxtRange(win32more.System.Com.IDispatch_head):
@@ -12667,6 +12817,7 @@ def _define_IHTMLTxtRange():
     IHTMLTxtRange.queryCommandValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(34, 'queryCommandValue', ((1, 'cmdID'),(1, 'pcmdValue'),)))
     IHTMLTxtRange.execCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,win32more.System.Com.VARIANT,POINTER(Int16), use_last_error=False)(35, 'execCommand', ((1, 'cmdID'),(1, 'showUI'),(1, 'value'),(1, 'pfRet'),)))
     IHTMLTxtRange.execCommandShowHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(36, 'execCommandShowHelp', ((1, 'cmdID'),(1, 'pfRet'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTxtRange
 def _define_IHTMLTextRangeMetrics_head():
     class IHTMLTextRangeMetrics(win32more.System.Com.IDispatch_head):
@@ -12680,6 +12831,7 @@ def _define_IHTMLTextRangeMetrics():
     IHTMLTextRangeMetrics.get_boundingLeft = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_boundingLeft', ((1, 'p'),)))
     IHTMLTextRangeMetrics.get_boundingWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_boundingWidth', ((1, 'p'),)))
     IHTMLTextRangeMetrics.get_boundingHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_boundingHeight', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTextRangeMetrics
 def _define_IHTMLTextRangeMetrics2_head():
     class IHTMLTextRangeMetrics2(win32more.System.Com.IDispatch_head):
@@ -12689,6 +12841,7 @@ def _define_IHTMLTextRangeMetrics2():
     IHTMLTextRangeMetrics2 = win32more.Web.MsHtml.IHTMLTextRangeMetrics2_head
     IHTMLTextRangeMetrics2.getClientRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLRectCollection_head), use_last_error=False)(7, 'getClientRects', ((1, 'pRectCol'),)))
     IHTMLTextRangeMetrics2.getBoundingClientRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLRect_head), use_last_error=False)(8, 'getBoundingClientRect', ((1, 'pRect'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTextRangeMetrics2
 def _define_IHTMLTxtRangeCollection_head():
     class IHTMLTxtRangeCollection(win32more.System.Com.IDispatch_head):
@@ -12699,6 +12852,7 @@ def _define_IHTMLTxtRangeCollection():
     IHTMLTxtRangeCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLTxtRangeCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLTxtRangeCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'item', ((1, 'pvarIndex'),(1, 'pvarResult'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTxtRangeCollection
 def _define_IHTMLDOMRange_head():
     class IHTMLDOMRange(win32more.System.Com.IDispatch_head):
@@ -12732,6 +12886,7 @@ def _define_IHTMLDOMRange():
     IHTMLDOMRange.detach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(30, 'detach', ()))
     IHTMLDOMRange.getClientRects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLRectCollection_head), use_last_error=False)(31, 'getClientRects', ((1, 'ppRectCol'),)))
     IHTMLDOMRange.getBoundingClientRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLRect_head), use_last_error=False)(32, 'getBoundingClientRect', ((1, 'ppRect'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMRange
 def _define_DispHTMLDOMRange_head():
     class DispHTMLDOMRange(win32more.System.Com.IDispatch_head):
@@ -12739,6 +12894,7 @@ def _define_DispHTMLDOMRange_head():
     return DispHTMLDOMRange
 def _define_DispHTMLDOMRange():
     DispHTMLDOMRange = win32more.Web.MsHtml.DispHTMLDOMRange_head
+    win32more.System.Com.IDispatch
     return DispHTMLDOMRange
 def _define_HTMLFormElementEvents2_head():
     class HTMLFormElementEvents2(win32more.System.Com.IDispatch_head):
@@ -12746,6 +12902,7 @@ def _define_HTMLFormElementEvents2_head():
     return HTMLFormElementEvents2
 def _define_HTMLFormElementEvents2():
     HTMLFormElementEvents2 = win32more.Web.MsHtml.HTMLFormElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLFormElementEvents2
 def _define_HTMLFormElementEvents_head():
     class HTMLFormElementEvents(win32more.System.Com.IDispatch_head):
@@ -12753,6 +12910,7 @@ def _define_HTMLFormElementEvents_head():
     return HTMLFormElementEvents
 def _define_HTMLFormElementEvents():
     HTMLFormElementEvents = win32more.Web.MsHtml.HTMLFormElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLFormElementEvents
 def _define_IHTMLFormElement_head():
     class IHTMLFormElement(win32more.System.Com.IDispatch_head):
@@ -12784,6 +12942,7 @@ def _define_IHTMLFormElement():
     IHTMLFormElement.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(28, 'get__newEnum', ((1, 'p'),)))
     IHTMLFormElement.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(29, 'item', ((1, 'name'),(1, 'index'),(1, 'pdisp'),)))
     IHTMLFormElement.tags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(30, 'tags', ((1, 'tagName'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFormElement
 def _define_IHTMLFormElement2_head():
     class IHTMLFormElement2(win32more.System.Com.IDispatch_head):
@@ -12794,6 +12953,7 @@ def _define_IHTMLFormElement2():
     IHTMLFormElement2.put_acceptCharset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_acceptCharset', ((1, 'v'),)))
     IHTMLFormElement2.get_acceptCharset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_acceptCharset', ((1, 'p'),)))
     IHTMLFormElement2.urns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'urns', ((1, 'urn'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFormElement2
 def _define_IHTMLFormElement3_head():
     class IHTMLFormElement3(win32more.System.Com.IDispatch_head):
@@ -12802,6 +12962,7 @@ def _define_IHTMLFormElement3_head():
 def _define_IHTMLFormElement3():
     IHTMLFormElement3 = win32more.Web.MsHtml.IHTMLFormElement3_head
     IHTMLFormElement3.namedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'namedItem', ((1, 'name'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFormElement3
 def _define_IHTMLSubmitData_head():
     class IHTMLSubmitData(win32more.System.Com.IDispatch_head):
@@ -12812,6 +12973,7 @@ def _define_IHTMLSubmitData():
     IHTMLSubmitData.appendNameValuePair = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(7, 'appendNameValuePair', ((1, 'name'),(1, 'value'),)))
     IHTMLSubmitData.appendNameFilePair = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(8, 'appendNameFilePair', ((1, 'name'),(1, 'filename'),)))
     IHTMLSubmitData.appendItemSeparator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'appendItemSeparator', ()))
+    win32more.System.Com.IDispatch
     return IHTMLSubmitData
 def _define_IHTMLFormElement4_head():
     class IHTMLFormElement4(win32more.System.Com.IDispatch_head):
@@ -12821,6 +12983,7 @@ def _define_IHTMLFormElement4():
     IHTMLFormElement4 = win32more.Web.MsHtml.IHTMLFormElement4_head
     IHTMLFormElement4.put_action = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_action', ((1, 'v'),)))
     IHTMLFormElement4.get_action = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_action', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFormElement4
 def _define_DispHTMLFormElement_head():
     class DispHTMLFormElement(win32more.System.Com.IDispatch_head):
@@ -12828,6 +12991,7 @@ def _define_DispHTMLFormElement_head():
     return DispHTMLFormElement
 def _define_DispHTMLFormElement():
     DispHTMLFormElement = win32more.Web.MsHtml.DispHTMLFormElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLFormElement
 def _define_HTMLControlElementEvents2_head():
     class HTMLControlElementEvents2(win32more.System.Com.IDispatch_head):
@@ -12835,6 +12999,7 @@ def _define_HTMLControlElementEvents2_head():
     return HTMLControlElementEvents2
 def _define_HTMLControlElementEvents2():
     HTMLControlElementEvents2 = win32more.Web.MsHtml.HTMLControlElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLControlElementEvents2
 def _define_HTMLControlElementEvents_head():
     class HTMLControlElementEvents(win32more.System.Com.IDispatch_head):
@@ -12842,6 +13007,7 @@ def _define_HTMLControlElementEvents_head():
     return HTMLControlElementEvents
 def _define_HTMLControlElementEvents():
     HTMLControlElementEvents = win32more.Web.MsHtml.HTMLControlElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLControlElementEvents
 def _define_IHTMLControlElement_head():
     class IHTMLControlElement(win32more.System.Com.IDispatch_head):
@@ -12867,6 +13033,7 @@ def _define_IHTMLControlElement():
     IHTMLControlElement.get_clientWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_clientWidth', ((1, 'p'),)))
     IHTMLControlElement.get_clientTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_clientTop', ((1, 'p'),)))
     IHTMLControlElement.get_clientLeft = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(24, 'get_clientLeft', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLControlElement
 def _define_IHTMLTextElement_head():
     class IHTMLTextElement(win32more.System.Com.IDispatch_head):
@@ -12874,6 +13041,7 @@ def _define_IHTMLTextElement_head():
     return IHTMLTextElement
 def _define_IHTMLTextElement():
     IHTMLTextElement = win32more.Web.MsHtml.IHTMLTextElement_head
+    win32more.System.Com.IDispatch
     return IHTMLTextElement
 def _define_DispHTMLTextElement_head():
     class DispHTMLTextElement(win32more.System.Com.IDispatch_head):
@@ -12881,6 +13049,7 @@ def _define_DispHTMLTextElement_head():
     return DispHTMLTextElement
 def _define_DispHTMLTextElement():
     DispHTMLTextElement = win32more.Web.MsHtml.DispHTMLTextElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLTextElement
 def _define_HTMLTextContainerEvents2_head():
     class HTMLTextContainerEvents2(win32more.System.Com.IDispatch_head):
@@ -12888,6 +13057,7 @@ def _define_HTMLTextContainerEvents2_head():
     return HTMLTextContainerEvents2
 def _define_HTMLTextContainerEvents2():
     HTMLTextContainerEvents2 = win32more.Web.MsHtml.HTMLTextContainerEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLTextContainerEvents2
 def _define_HTMLTextContainerEvents_head():
     class HTMLTextContainerEvents(win32more.System.Com.IDispatch_head):
@@ -12895,6 +13065,7 @@ def _define_HTMLTextContainerEvents_head():
     return HTMLTextContainerEvents
 def _define_HTMLTextContainerEvents():
     HTMLTextContainerEvents = win32more.Web.MsHtml.HTMLTextContainerEvents_head
+    win32more.System.Com.IDispatch
     return HTMLTextContainerEvents
 def _define_IHTMLTextContainer_head():
     class IHTMLTextContainer(win32more.System.Com.IDispatch_head):
@@ -12911,6 +13082,7 @@ def _define_IHTMLTextContainer():
     IHTMLTextContainer.get_scrollLeft = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_scrollLeft', ((1, 'p'),)))
     IHTMLTextContainer.put_onscroll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(14, 'put_onscroll', ((1, 'v'),)))
     IHTMLTextContainer.get_onscroll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_onscroll', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTextContainer
 def _define_IHTMLControlRange_head():
     class IHTMLControlRange(win32more.System.Com.IDispatch_head):
@@ -12933,6 +13105,7 @@ def _define_IHTMLControlRange():
     IHTMLControlRange.execCommandShowHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(19, 'execCommandShowHelp', ((1, 'cmdID'),(1, 'pfRet'),)))
     IHTMLControlRange.commonParentElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(20, 'commonParentElement', ((1, 'parent'),)))
     IHTMLControlRange.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(21, 'get_length', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLControlRange
 def _define_IHTMLControlRange2_head():
     class IHTMLControlRange2(win32more.System.Com.IDispatch_head):
@@ -12941,6 +13114,7 @@ def _define_IHTMLControlRange2_head():
 def _define_IHTMLControlRange2():
     IHTMLControlRange2 = win32more.Web.MsHtml.IHTMLControlRange2_head
     IHTMLControlRange2.addElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLElement_head, use_last_error=False)(7, 'addElement', ((1, 'item'),)))
+    win32more.System.Com.IDispatch
     return IHTMLControlRange2
 def _define_HTMLImgEvents2_head():
     class HTMLImgEvents2(win32more.System.Com.IDispatch_head):
@@ -12948,6 +13122,7 @@ def _define_HTMLImgEvents2_head():
     return HTMLImgEvents2
 def _define_HTMLImgEvents2():
     HTMLImgEvents2 = win32more.Web.MsHtml.HTMLImgEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLImgEvents2
 def _define_HTMLImgEvents_head():
     class HTMLImgEvents(win32more.System.Com.IDispatch_head):
@@ -12955,6 +13130,7 @@ def _define_HTMLImgEvents_head():
     return HTMLImgEvents
 def _define_HTMLImgEvents():
     HTMLImgEvents = win32more.Web.MsHtml.HTMLImgEvents_head
+    win32more.System.Com.IDispatch
     return HTMLImgEvents
 def _define_IHTMLImgElement_head():
     class IHTMLImgElement(win32more.System.Com.IDispatch_head):
@@ -13010,6 +13186,7 @@ def _define_IHTMLImgElement():
     IHTMLImgElement.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(52, 'get_height', ((1, 'p'),)))
     IHTMLImgElement.put_start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(53, 'put_start', ((1, 'v'),)))
     IHTMLImgElement.get_start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(54, 'get_start', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLImgElement
 def _define_IHTMLImgElement2_head():
     class IHTMLImgElement2(win32more.System.Com.IDispatch_head):
@@ -13019,6 +13196,7 @@ def _define_IHTMLImgElement2():
     IHTMLImgElement2 = win32more.Web.MsHtml.IHTMLImgElement2_head
     IHTMLImgElement2.put_longDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_longDesc', ((1, 'v'),)))
     IHTMLImgElement2.get_longDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_longDesc', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLImgElement2
 def _define_IHTMLImgElement3_head():
     class IHTMLImgElement3(win32more.System.Com.IDispatch_head):
@@ -13034,6 +13212,7 @@ def _define_IHTMLImgElement3():
     IHTMLImgElement3.get_lowsrc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_lowsrc', ((1, 'p'),)))
     IHTMLImgElement3.put_dynsrc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_dynsrc', ((1, 'v'),)))
     IHTMLImgElement3.get_dynsrc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_dynsrc', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLImgElement3
 def _define_IHTMLImgElement4_head():
     class IHTMLImgElement4(win32more.System.Com.IDispatch_head):
@@ -13043,6 +13222,7 @@ def _define_IHTMLImgElement4():
     IHTMLImgElement4 = win32more.Web.MsHtml.IHTMLImgElement4_head
     IHTMLImgElement4.get_naturalWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_naturalWidth', ((1, 'p'),)))
     IHTMLImgElement4.get_naturalHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_naturalHeight', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLImgElement4
 def _define_IHTMLMSImgElement_head():
     class IHTMLMSImgElement(win32more.System.Com.IDispatch_head):
@@ -13054,6 +13234,7 @@ def _define_IHTMLMSImgElement():
     IHTMLMSImgElement.get_msPlayToDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_msPlayToDisabled', ((1, 'p'),)))
     IHTMLMSImgElement.put_msPlayToPrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(9, 'put_msPlayToPrimary', ((1, 'v'),)))
     IHTMLMSImgElement.get_msPlayToPrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_msPlayToPrimary', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMSImgElement
 def _define_IHTMLImageElementFactory_head():
     class IHTMLImageElementFactory(win32more.System.Com.IDispatch_head):
@@ -13062,6 +13243,7 @@ def _define_IHTMLImageElementFactory_head():
 def _define_IHTMLImageElementFactory():
     IHTMLImageElementFactory = win32more.Web.MsHtml.IHTMLImageElementFactory_head
     IHTMLImageElementFactory.create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.Web.MsHtml.IHTMLImgElement_head), use_last_error=False)(7, 'create', ((1, 'width'),(1, 'height'),(1, '__MIDL__IHTMLImageElementFactory0000'),)))
+    win32more.System.Com.IDispatch
     return IHTMLImageElementFactory
 def _define_DispHTMLImg_head():
     class DispHTMLImg(win32more.System.Com.IDispatch_head):
@@ -13069,6 +13251,7 @@ def _define_DispHTMLImg_head():
     return DispHTMLImg
 def _define_DispHTMLImg():
     DispHTMLImg = win32more.Web.MsHtml.DispHTMLImg_head
+    win32more.System.Com.IDispatch
     return DispHTMLImg
 def _define_IHTMLBodyElement_head():
     class IHTMLBodyElement(win32more.System.Com.IDispatch_head):
@@ -13111,6 +13294,7 @@ def _define_IHTMLBodyElement():
     IHTMLBodyElement.put_onbeforeunload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(39, 'put_onbeforeunload', ((1, 'v'),)))
     IHTMLBodyElement.get_onbeforeunload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(40, 'get_onbeforeunload', ((1, 'p'),)))
     IHTMLBodyElement.createTextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLTxtRange_head), use_last_error=False)(41, 'createTextRange', ((1, 'range'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBodyElement
 def _define_IHTMLBodyElement2_head():
     class IHTMLBodyElement2(win32more.System.Com.IDispatch_head):
@@ -13122,6 +13306,7 @@ def _define_IHTMLBodyElement2():
     IHTMLBodyElement2.get_onbeforeprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_onbeforeprint', ((1, 'p'),)))
     IHTMLBodyElement2.put_onafterprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_onafterprint', ((1, 'v'),)))
     IHTMLBodyElement2.get_onafterprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_onafterprint', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBodyElement2
 def _define_IHTMLBodyElement3_head():
     class IHTMLBodyElement3(win32more.System.Com.IDispatch_head):
@@ -13137,6 +13322,7 @@ def _define_IHTMLBodyElement3():
     IHTMLBodyElement3.get_onoffline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_onoffline', ((1, 'p'),)))
     IHTMLBodyElement3.put_onhashchange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(13, 'put_onhashchange', ((1, 'v'),)))
     IHTMLBodyElement3.get_onhashchange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'get_onhashchange', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBodyElement3
 def _define_IHTMLBodyElement4_head():
     class IHTMLBodyElement4(win32more.System.Com.IDispatch_head):
@@ -13148,6 +13334,7 @@ def _define_IHTMLBodyElement4():
     IHTMLBodyElement4.get_onmessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_onmessage', ((1, 'p'),)))
     IHTMLBodyElement4.put_onstorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_onstorage', ((1, 'v'),)))
     IHTMLBodyElement4.get_onstorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_onstorage', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBodyElement4
 def _define_IHTMLBodyElement5_head():
     class IHTMLBodyElement5(win32more.System.Com.IDispatch_head):
@@ -13157,6 +13344,7 @@ def _define_IHTMLBodyElement5():
     IHTMLBodyElement5 = win32more.Web.MsHtml.IHTMLBodyElement5_head
     IHTMLBodyElement5.put_onpopstate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(7, 'put_onpopstate', ((1, 'v'),)))
     IHTMLBodyElement5.get_onpopstate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_onpopstate', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBodyElement5
 def _define_DispHTMLBody_head():
     class DispHTMLBody(win32more.System.Com.IDispatch_head):
@@ -13164,6 +13352,7 @@ def _define_DispHTMLBody_head():
     return DispHTMLBody
 def _define_DispHTMLBody():
     DispHTMLBody = win32more.Web.MsHtml.DispHTMLBody_head
+    win32more.System.Com.IDispatch
     return DispHTMLBody
 def _define_IHTMLFontElement_head():
     class IHTMLFontElement(win32more.System.Com.IDispatch_head):
@@ -13177,6 +13366,7 @@ def _define_IHTMLFontElement():
     IHTMLFontElement.get_face = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_face', ((1, 'p'),)))
     IHTMLFontElement.put_size = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(11, 'put_size', ((1, 'v'),)))
     IHTMLFontElement.get_size = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_size', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFontElement
 def _define_DispHTMLFontElement_head():
     class DispHTMLFontElement(win32more.System.Com.IDispatch_head):
@@ -13184,6 +13374,7 @@ def _define_DispHTMLFontElement_head():
     return DispHTMLFontElement
 def _define_DispHTMLFontElement():
     DispHTMLFontElement = win32more.Web.MsHtml.DispHTMLFontElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLFontElement
 def _define_HTMLAnchorEvents2_head():
     class HTMLAnchorEvents2(win32more.System.Com.IDispatch_head):
@@ -13191,6 +13382,7 @@ def _define_HTMLAnchorEvents2_head():
     return HTMLAnchorEvents2
 def _define_HTMLAnchorEvents2():
     HTMLAnchorEvents2 = win32more.Web.MsHtml.HTMLAnchorEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLAnchorEvents2
 def _define_HTMLAnchorEvents_head():
     class HTMLAnchorEvents(win32more.System.Com.IDispatch_head):
@@ -13198,6 +13390,7 @@ def _define_HTMLAnchorEvents_head():
     return HTMLAnchorEvents
 def _define_HTMLAnchorEvents():
     HTMLAnchorEvents = win32more.Web.MsHtml.HTMLAnchorEvents_head
+    win32more.System.Com.IDispatch
     return HTMLAnchorEvents
 def _define_IHTMLAnchorElement_head():
     class IHTMLAnchorElement(win32more.System.Com.IDispatch_head):
@@ -13246,6 +13439,7 @@ def _define_IHTMLAnchorElement():
     IHTMLAnchorElement.get_tabIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(45, 'get_tabIndex', ((1, 'p'),)))
     IHTMLAnchorElement.focus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(46, 'focus', ()))
     IHTMLAnchorElement.blur = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(47, 'blur', ()))
+    win32more.System.Com.IDispatch
     return IHTMLAnchorElement
 def _define_IHTMLAnchorElement2_head():
     class IHTMLAnchorElement2(win32more.System.Com.IDispatch_head):
@@ -13263,6 +13457,7 @@ def _define_IHTMLAnchorElement2():
     IHTMLAnchorElement2.get_shape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_shape', ((1, 'p'),)))
     IHTMLAnchorElement2.put_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'put_type', ((1, 'v'),)))
     IHTMLAnchorElement2.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_type', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAnchorElement2
 def _define_IHTMLAnchorElement3_head():
     class IHTMLAnchorElement3(win32more.System.Com.IDispatch_head):
@@ -13276,6 +13471,7 @@ def _define_IHTMLAnchorElement3():
     IHTMLAnchorElement3.get_coords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_coords', ((1, 'p'),)))
     IHTMLAnchorElement3.put_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_href', ((1, 'v'),)))
     IHTMLAnchorElement3.get_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_href', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAnchorElement3
 def _define_DispHTMLAnchorElement_head():
     class DispHTMLAnchorElement(win32more.System.Com.IDispatch_head):
@@ -13283,6 +13479,7 @@ def _define_DispHTMLAnchorElement_head():
     return DispHTMLAnchorElement
 def _define_DispHTMLAnchorElement():
     DispHTMLAnchorElement = win32more.Web.MsHtml.DispHTMLAnchorElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLAnchorElement
 def _define_HTMLLabelEvents2_head():
     class HTMLLabelEvents2(win32more.System.Com.IDispatch_head):
@@ -13290,6 +13487,7 @@ def _define_HTMLLabelEvents2_head():
     return HTMLLabelEvents2
 def _define_HTMLLabelEvents2():
     HTMLLabelEvents2 = win32more.Web.MsHtml.HTMLLabelEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLLabelEvents2
 def _define_HTMLLabelEvents_head():
     class HTMLLabelEvents(win32more.System.Com.IDispatch_head):
@@ -13297,6 +13495,7 @@ def _define_HTMLLabelEvents_head():
     return HTMLLabelEvents
 def _define_HTMLLabelEvents():
     HTMLLabelEvents = win32more.Web.MsHtml.HTMLLabelEvents_head
+    win32more.System.Com.IDispatch
     return HTMLLabelEvents
 def _define_IHTMLLabelElement_head():
     class IHTMLLabelElement(win32more.System.Com.IDispatch_head):
@@ -13308,6 +13507,7 @@ def _define_IHTMLLabelElement():
     IHTMLLabelElement.get_htmlFor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_htmlFor', ((1, 'p'),)))
     IHTMLLabelElement.put_accessKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_accessKey', ((1, 'v'),)))
     IHTMLLabelElement.get_accessKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_accessKey', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLabelElement
 def _define_IHTMLLabelElement2_head():
     class IHTMLLabelElement2(win32more.System.Com.IDispatch_head):
@@ -13316,6 +13516,7 @@ def _define_IHTMLLabelElement2_head():
 def _define_IHTMLLabelElement2():
     IHTMLLabelElement2 = win32more.Web.MsHtml.IHTMLLabelElement2_head
     IHTMLLabelElement2.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(7, 'get_form', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLabelElement2
 def _define_DispHTMLLabelElement_head():
     class DispHTMLLabelElement(win32more.System.Com.IDispatch_head):
@@ -13323,6 +13524,7 @@ def _define_DispHTMLLabelElement_head():
     return DispHTMLLabelElement
 def _define_DispHTMLLabelElement():
     DispHTMLLabelElement = win32more.Web.MsHtml.DispHTMLLabelElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLLabelElement
 def _define_IHTMLListElement_head():
     class IHTMLListElement(win32more.System.Com.IDispatch_head):
@@ -13330,6 +13532,7 @@ def _define_IHTMLListElement_head():
     return IHTMLListElement
 def _define_IHTMLListElement():
     IHTMLListElement = win32more.Web.MsHtml.IHTMLListElement_head
+    win32more.System.Com.IDispatch
     return IHTMLListElement
 def _define_IHTMLListElement2_head():
     class IHTMLListElement2(win32more.System.Com.IDispatch_head):
@@ -13339,6 +13542,7 @@ def _define_IHTMLListElement2():
     IHTMLListElement2 = win32more.Web.MsHtml.IHTMLListElement2_head
     IHTMLListElement2.put_compact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(7, 'put_compact', ((1, 'v'),)))
     IHTMLListElement2.get_compact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_compact', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLListElement2
 def _define_DispHTMLListElement_head():
     class DispHTMLListElement(win32more.System.Com.IDispatch_head):
@@ -13346,6 +13550,7 @@ def _define_DispHTMLListElement_head():
     return DispHTMLListElement
 def _define_DispHTMLListElement():
     DispHTMLListElement = win32more.Web.MsHtml.DispHTMLListElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLListElement
 def _define_IHTMLUListElement_head():
     class IHTMLUListElement(win32more.System.Com.IDispatch_head):
@@ -13357,6 +13562,7 @@ def _define_IHTMLUListElement():
     IHTMLUListElement.get_compact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_compact', ((1, 'p'),)))
     IHTMLUListElement.put_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_type', ((1, 'v'),)))
     IHTMLUListElement.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_type', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLUListElement
 def _define_DispHTMLUListElement_head():
     class DispHTMLUListElement(win32more.System.Com.IDispatch_head):
@@ -13364,6 +13570,7 @@ def _define_DispHTMLUListElement_head():
     return DispHTMLUListElement
 def _define_DispHTMLUListElement():
     DispHTMLUListElement = win32more.Web.MsHtml.DispHTMLUListElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLUListElement
 def _define_IHTMLOListElement_head():
     class IHTMLOListElement(win32more.System.Com.IDispatch_head):
@@ -13377,6 +13584,7 @@ def _define_IHTMLOListElement():
     IHTMLOListElement.get_start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_start', ((1, 'p'),)))
     IHTMLOListElement.put_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_type', ((1, 'v'),)))
     IHTMLOListElement.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_type', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLOListElement
 def _define_DispHTMLOListElement_head():
     class DispHTMLOListElement(win32more.System.Com.IDispatch_head):
@@ -13384,6 +13592,7 @@ def _define_DispHTMLOListElement_head():
     return DispHTMLOListElement
 def _define_DispHTMLOListElement():
     DispHTMLOListElement = win32more.Web.MsHtml.DispHTMLOListElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLOListElement
 def _define_IHTMLLIElement_head():
     class IHTMLLIElement(win32more.System.Com.IDispatch_head):
@@ -13395,6 +13604,7 @@ def _define_IHTMLLIElement():
     IHTMLLIElement.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_type', ((1, 'p'),)))
     IHTMLLIElement.put_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'put_value', ((1, 'v'),)))
     IHTMLLIElement.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_value', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLIElement
 def _define_DispHTMLLIElement_head():
     class DispHTMLLIElement(win32more.System.Com.IDispatch_head):
@@ -13402,6 +13612,7 @@ def _define_DispHTMLLIElement_head():
     return DispHTMLLIElement
 def _define_DispHTMLLIElement():
     DispHTMLLIElement = win32more.Web.MsHtml.DispHTMLLIElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLLIElement
 def _define_IHTMLBlockElement_head():
     class IHTMLBlockElement(win32more.System.Com.IDispatch_head):
@@ -13411,6 +13622,7 @@ def _define_IHTMLBlockElement():
     IHTMLBlockElement = win32more.Web.MsHtml.IHTMLBlockElement_head
     IHTMLBlockElement.put_clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_clear', ((1, 'v'),)))
     IHTMLBlockElement.get_clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_clear', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBlockElement
 def _define_IHTMLBlockElement2_head():
     class IHTMLBlockElement2(win32more.System.Com.IDispatch_head):
@@ -13422,6 +13634,7 @@ def _define_IHTMLBlockElement2():
     IHTMLBlockElement2.get_cite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_cite', ((1, 'p'),)))
     IHTMLBlockElement2.put_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_width', ((1, 'v'),)))
     IHTMLBlockElement2.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_width', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBlockElement2
 def _define_IHTMLBlockElement3_head():
     class IHTMLBlockElement3(win32more.System.Com.IDispatch_head):
@@ -13431,6 +13644,7 @@ def _define_IHTMLBlockElement3():
     IHTMLBlockElement3 = win32more.Web.MsHtml.IHTMLBlockElement3_head
     IHTMLBlockElement3.put_cite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_cite', ((1, 'v'),)))
     IHTMLBlockElement3.get_cite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_cite', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBlockElement3
 def _define_DispHTMLBlockElement_head():
     class DispHTMLBlockElement(win32more.System.Com.IDispatch_head):
@@ -13438,6 +13652,7 @@ def _define_DispHTMLBlockElement_head():
     return DispHTMLBlockElement
 def _define_DispHTMLBlockElement():
     DispHTMLBlockElement = win32more.Web.MsHtml.DispHTMLBlockElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLBlockElement
 def _define_IHTMLDivElement_head():
     class IHTMLDivElement(win32more.System.Com.IDispatch_head):
@@ -13449,6 +13664,7 @@ def _define_IHTMLDivElement():
     IHTMLDivElement.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_align', ((1, 'p'),)))
     IHTMLDivElement.put_noWrap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(9, 'put_noWrap', ((1, 'v'),)))
     IHTMLDivElement.get_noWrap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_noWrap', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDivElement
 def _define_DispHTMLDivElement_head():
     class DispHTMLDivElement(win32more.System.Com.IDispatch_head):
@@ -13456,6 +13672,7 @@ def _define_DispHTMLDivElement_head():
     return DispHTMLDivElement
 def _define_DispHTMLDivElement():
     DispHTMLDivElement = win32more.Web.MsHtml.DispHTMLDivElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLDivElement
 def _define_IHTMLDDElement_head():
     class IHTMLDDElement(win32more.System.Com.IDispatch_head):
@@ -13465,6 +13682,7 @@ def _define_IHTMLDDElement():
     IHTMLDDElement = win32more.Web.MsHtml.IHTMLDDElement_head
     IHTMLDDElement.put_noWrap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(7, 'put_noWrap', ((1, 'v'),)))
     IHTMLDDElement.get_noWrap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_noWrap', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDDElement
 def _define_DispHTMLDDElement_head():
     class DispHTMLDDElement(win32more.System.Com.IDispatch_head):
@@ -13472,6 +13690,7 @@ def _define_DispHTMLDDElement_head():
     return DispHTMLDDElement
 def _define_DispHTMLDDElement():
     DispHTMLDDElement = win32more.Web.MsHtml.DispHTMLDDElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLDDElement
 def _define_IHTMLDTElement_head():
     class IHTMLDTElement(win32more.System.Com.IDispatch_head):
@@ -13481,6 +13700,7 @@ def _define_IHTMLDTElement():
     IHTMLDTElement = win32more.Web.MsHtml.IHTMLDTElement_head
     IHTMLDTElement.put_noWrap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(7, 'put_noWrap', ((1, 'v'),)))
     IHTMLDTElement.get_noWrap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_noWrap', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDTElement
 def _define_DispHTMLDTElement_head():
     class DispHTMLDTElement(win32more.System.Com.IDispatch_head):
@@ -13488,6 +13708,7 @@ def _define_DispHTMLDTElement_head():
     return DispHTMLDTElement
 def _define_DispHTMLDTElement():
     DispHTMLDTElement = win32more.Web.MsHtml.DispHTMLDTElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLDTElement
 def _define_IHTMLBRElement_head():
     class IHTMLBRElement(win32more.System.Com.IDispatch_head):
@@ -13497,6 +13718,7 @@ def _define_IHTMLBRElement():
     IHTMLBRElement = win32more.Web.MsHtml.IHTMLBRElement_head
     IHTMLBRElement.put_clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_clear', ((1, 'v'),)))
     IHTMLBRElement.get_clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_clear', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBRElement
 def _define_DispHTMLBRElement_head():
     class DispHTMLBRElement(win32more.System.Com.IDispatch_head):
@@ -13504,6 +13726,7 @@ def _define_DispHTMLBRElement_head():
     return DispHTMLBRElement
 def _define_DispHTMLBRElement():
     DispHTMLBRElement = win32more.Web.MsHtml.DispHTMLBRElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLBRElement
 def _define_IHTMLDListElement_head():
     class IHTMLDListElement(win32more.System.Com.IDispatch_head):
@@ -13513,6 +13736,7 @@ def _define_IHTMLDListElement():
     IHTMLDListElement = win32more.Web.MsHtml.IHTMLDListElement_head
     IHTMLDListElement.put_compact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(7, 'put_compact', ((1, 'v'),)))
     IHTMLDListElement.get_compact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_compact', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDListElement
 def _define_DispHTMLDListElement_head():
     class DispHTMLDListElement(win32more.System.Com.IDispatch_head):
@@ -13520,6 +13744,7 @@ def _define_DispHTMLDListElement_head():
     return DispHTMLDListElement
 def _define_DispHTMLDListElement():
     DispHTMLDListElement = win32more.Web.MsHtml.DispHTMLDListElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLDListElement
 def _define_IHTMLHRElement_head():
     class IHTMLHRElement(win32more.System.Com.IDispatch_head):
@@ -13537,6 +13762,7 @@ def _define_IHTMLHRElement():
     IHTMLHRElement.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'get_width', ((1, 'p'),)))
     IHTMLHRElement.put_size = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(15, 'put_size', ((1, 'v'),)))
     IHTMLHRElement.get_size = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'get_size', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLHRElement
 def _define_DispHTMLHRElement_head():
     class DispHTMLHRElement(win32more.System.Com.IDispatch_head):
@@ -13544,6 +13770,7 @@ def _define_DispHTMLHRElement_head():
     return DispHTMLHRElement
 def _define_DispHTMLHRElement():
     DispHTMLHRElement = win32more.Web.MsHtml.DispHTMLHRElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLHRElement
 def _define_IHTMLParaElement_head():
     class IHTMLParaElement(win32more.System.Com.IDispatch_head):
@@ -13553,6 +13780,7 @@ def _define_IHTMLParaElement():
     IHTMLParaElement = win32more.Web.MsHtml.IHTMLParaElement_head
     IHTMLParaElement.put_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_align', ((1, 'v'),)))
     IHTMLParaElement.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_align', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLParaElement
 def _define_DispHTMLParaElement_head():
     class DispHTMLParaElement(win32more.System.Com.IDispatch_head):
@@ -13560,6 +13788,7 @@ def _define_DispHTMLParaElement_head():
     return DispHTMLParaElement
 def _define_DispHTMLParaElement():
     DispHTMLParaElement = win32more.Web.MsHtml.DispHTMLParaElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLParaElement
 def _define_IHTMLElementCollection2_head():
     class IHTMLElementCollection2(win32more.System.Com.IDispatch_head):
@@ -13568,6 +13797,7 @@ def _define_IHTMLElementCollection2_head():
 def _define_IHTMLElementCollection2():
     IHTMLElementCollection2 = win32more.Web.MsHtml.IHTMLElementCollection2_head
     IHTMLElementCollection2.urns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'urns', ((1, 'urn'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElementCollection2
 def _define_IHTMLElementCollection3_head():
     class IHTMLElementCollection3(win32more.System.Com.IDispatch_head):
@@ -13576,6 +13806,7 @@ def _define_IHTMLElementCollection3_head():
 def _define_IHTMLElementCollection3():
     IHTMLElementCollection3 = win32more.Web.MsHtml.IHTMLElementCollection3_head
     IHTMLElementCollection3.namedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'namedItem', ((1, 'name'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElementCollection3
 def _define_IHTMLElementCollection4_head():
     class IHTMLElementCollection4(win32more.System.Com.IDispatch_head):
@@ -13586,6 +13817,7 @@ def _define_IHTMLElementCollection4():
     IHTMLElementCollection4.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLElementCollection4.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.IHTMLElement2_head), use_last_error=False)(8, 'item', ((1, 'index'),(1, 'pNode'),)))
     IHTMLElementCollection4.namedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElement2_head), use_last_error=False)(9, 'namedItem', ((1, 'name'),(1, 'pNode'),)))
+    win32more.System.Com.IDispatch
     return IHTMLElementCollection4
 def _define_DispHTMLElementCollection_head():
     class DispHTMLElementCollection(win32more.System.Com.IDispatch_head):
@@ -13593,6 +13825,7 @@ def _define_DispHTMLElementCollection_head():
     return DispHTMLElementCollection
 def _define_DispHTMLElementCollection():
     DispHTMLElementCollection = win32more.Web.MsHtml.DispHTMLElementCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLElementCollection
 def _define_IHTMLHeaderElement_head():
     class IHTMLHeaderElement(win32more.System.Com.IDispatch_head):
@@ -13602,6 +13835,7 @@ def _define_IHTMLHeaderElement():
     IHTMLHeaderElement = win32more.Web.MsHtml.IHTMLHeaderElement_head
     IHTMLHeaderElement.put_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_align', ((1, 'v'),)))
     IHTMLHeaderElement.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_align', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLHeaderElement
 def _define_DispHTMLHeaderElement_head():
     class DispHTMLHeaderElement(win32more.System.Com.IDispatch_head):
@@ -13609,6 +13843,7 @@ def _define_DispHTMLHeaderElement_head():
     return DispHTMLHeaderElement
 def _define_DispHTMLHeaderElement():
     DispHTMLHeaderElement = win32more.Web.MsHtml.DispHTMLHeaderElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLHeaderElement
 def _define_HTMLSelectElementEvents2_head():
     class HTMLSelectElementEvents2(win32more.System.Com.IDispatch_head):
@@ -13616,6 +13851,7 @@ def _define_HTMLSelectElementEvents2_head():
     return HTMLSelectElementEvents2
 def _define_HTMLSelectElementEvents2():
     HTMLSelectElementEvents2 = win32more.Web.MsHtml.HTMLSelectElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLSelectElementEvents2
 def _define_HTMLSelectElementEvents_head():
     class HTMLSelectElementEvents(win32more.System.Com.IDispatch_head):
@@ -13623,6 +13859,7 @@ def _define_HTMLSelectElementEvents_head():
     return HTMLSelectElementEvents
 def _define_HTMLSelectElementEvents():
     HTMLSelectElementEvents = win32more.Web.MsHtml.HTMLSelectElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLSelectElementEvents
 def _define_IHTMLOptionElement_head():
     class IHTMLOptionElement(win32more.System.Com.IDispatch_head):
@@ -13641,6 +13878,7 @@ def _define_IHTMLOptionElement():
     IHTMLOptionElement.put_text = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'put_text', ((1, 'v'),)))
     IHTMLOptionElement.get_text = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_text', ((1, 'p'),)))
     IHTMLOptionElement.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(17, 'get_form', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLOptionElement
 def _define_IHTMLSelectElementEx_head():
     class IHTMLSelectElementEx(win32more.System.Com.IUnknown_head):
@@ -13652,6 +13890,7 @@ def _define_IHTMLSelectElementEx():
     IHTMLSelectElementEx.SetSelectExFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetSelectExFlags', ((1, 'lFlags'),)))
     IHTMLSelectElementEx.GetSelectExFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetSelectExFlags', ((1, 'pFlags'),)))
     IHTMLSelectElementEx.GetDropdownOpen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetDropdownOpen', ((1, 'pfOpen'),)))
+    win32more.System.Com.IUnknown
     return IHTMLSelectElementEx
 def _define_IHTMLSelectElement_head():
     class IHTMLSelectElement(win32more.System.Com.IDispatch_head):
@@ -13683,6 +13922,7 @@ def _define_IHTMLSelectElement():
     IHTMLSelectElement.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(28, 'get__newEnum', ((1, 'p'),)))
     IHTMLSelectElement.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(29, 'item', ((1, 'name'),(1, 'index'),(1, 'pdisp'),)))
     IHTMLSelectElement.tags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(30, 'tags', ((1, 'tagName'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSelectElement
 def _define_IHTMLSelectElement2_head():
     class IHTMLSelectElement2(win32more.System.Com.IDispatch_head):
@@ -13691,6 +13931,7 @@ def _define_IHTMLSelectElement2_head():
 def _define_IHTMLSelectElement2():
     IHTMLSelectElement2 = win32more.Web.MsHtml.IHTMLSelectElement2_head
     IHTMLSelectElement2.urns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'urns', ((1, 'urn'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSelectElement2
 def _define_IHTMLSelectElement4_head():
     class IHTMLSelectElement4(win32more.System.Com.IDispatch_head):
@@ -13699,6 +13940,7 @@ def _define_IHTMLSelectElement4_head():
 def _define_IHTMLSelectElement4():
     IHTMLSelectElement4 = win32more.Web.MsHtml.IHTMLSelectElement4_head
     IHTMLSelectElement4.namedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'namedItem', ((1, 'name'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSelectElement4
 def _define_IHTMLSelectElement5_head():
     class IHTMLSelectElement5(win32more.System.Com.IDispatch_head):
@@ -13707,6 +13949,7 @@ def _define_IHTMLSelectElement5_head():
 def _define_IHTMLSelectElement5():
     IHTMLSelectElement5 = win32more.Web.MsHtml.IHTMLSelectElement5_head
     IHTMLSelectElement5.add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLOptionElement_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'add', ((1, 'pElem'),(1, 'pvarBefore'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSelectElement5
 def _define_IHTMLSelectElement6_head():
     class IHTMLSelectElement6(win32more.System.Com.IDispatch_head):
@@ -13717,6 +13960,7 @@ def _define_IHTMLSelectElement6():
     IHTMLSelectElement6.add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLOptionElement_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'add', ((1, 'pElem'),(1, 'pvarBefore'),)))
     IHTMLSelectElement6.put_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_value', ((1, 'v'),)))
     IHTMLSelectElement6.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_value', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSelectElement6
 def _define_DispHTMLSelectElement_head():
     class DispHTMLSelectElement(win32more.System.Com.IDispatch_head):
@@ -13724,6 +13968,7 @@ def _define_DispHTMLSelectElement_head():
     return DispHTMLSelectElement
 def _define_DispHTMLSelectElement():
     DispHTMLSelectElement = win32more.Web.MsHtml.DispHTMLSelectElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLSelectElement
 def _define_DispHTMLWndSelectElement_head():
     class DispHTMLWndSelectElement(win32more.System.Com.IDispatch_head):
@@ -13731,6 +13976,7 @@ def _define_DispHTMLWndSelectElement_head():
     return DispHTMLWndSelectElement
 def _define_DispHTMLWndSelectElement():
     DispHTMLWndSelectElement = win32more.Web.MsHtml.DispHTMLWndSelectElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLWndSelectElement
 def _define_IHTMLSelectionObject_head():
     class IHTMLSelectionObject(win32more.System.Com.IDispatch_head):
@@ -13742,6 +13988,7 @@ def _define_IHTMLSelectionObject():
     IHTMLSelectionObject.empty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'empty', ()))
     IHTMLSelectionObject.clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'clear', ()))
     IHTMLSelectionObject.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_type', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSelectionObject
 def _define_IHTMLSelectionObject2_head():
     class IHTMLSelectionObject2(win32more.System.Com.IDispatch_head):
@@ -13751,6 +13998,7 @@ def _define_IHTMLSelectionObject2():
     IHTMLSelectionObject2 = win32more.Web.MsHtml.IHTMLSelectionObject2_head
     IHTMLSelectionObject2.createRangeCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'createRangeCollection', ((1, 'rangeCollection'),)))
     IHTMLSelectionObject2.get_typeDetail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_typeDetail', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSelectionObject2
 def _define_IHTMLSelection_head():
     class IHTMLSelection(win32more.System.Com.IDispatch_head):
@@ -13774,6 +14022,7 @@ def _define_IHTMLSelection():
     IHTMLSelection.removeRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(20, 'removeRange', ((1, 'range'),)))
     IHTMLSelection.removeAllRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'removeAllRanges', ()))
     IHTMLSelection.toString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'toString', ((1, 'pSelectionString'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSelection
 def _define_IHTMLOptionElement3_head():
     class IHTMLOptionElement3(win32more.System.Com.IDispatch_head):
@@ -13783,6 +14032,7 @@ def _define_IHTMLOptionElement3():
     IHTMLOptionElement3 = win32more.Web.MsHtml.IHTMLOptionElement3_head
     IHTMLOptionElement3.put_label = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_label', ((1, 'v'),)))
     IHTMLOptionElement3.get_label = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_label', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLOptionElement3
 def _define_IHTMLOptionElement4_head():
     class IHTMLOptionElement4(win32more.System.Com.IDispatch_head):
@@ -13792,6 +14042,7 @@ def _define_IHTMLOptionElement4():
     IHTMLOptionElement4 = win32more.Web.MsHtml.IHTMLOptionElement4_head
     IHTMLOptionElement4.put_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_value', ((1, 'v'),)))
     IHTMLOptionElement4.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_value', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLOptionElement4
 def _define_IHTMLOptionElementFactory_head():
     class IHTMLOptionElementFactory(win32more.System.Com.IDispatch_head):
@@ -13800,6 +14051,7 @@ def _define_IHTMLOptionElementFactory_head():
 def _define_IHTMLOptionElementFactory():
     IHTMLOptionElementFactory = win32more.Web.MsHtml.IHTMLOptionElementFactory_head
     IHTMLOptionElementFactory.create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.Web.MsHtml.IHTMLOptionElement_head), use_last_error=False)(7, 'create', ((1, 'text'),(1, 'value'),(1, 'defaultselected'),(1, 'selected'),(1, '__MIDL__IHTMLOptionElementFactory0000'),)))
+    win32more.System.Com.IDispatch
     return IHTMLOptionElementFactory
 def _define_DispHTMLOptionElement_head():
     class DispHTMLOptionElement(win32more.System.Com.IDispatch_head):
@@ -13807,6 +14059,7 @@ def _define_DispHTMLOptionElement_head():
     return DispHTMLOptionElement
 def _define_DispHTMLOptionElement():
     DispHTMLOptionElement = win32more.Web.MsHtml.DispHTMLOptionElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLOptionElement
 def _define_DispHTMLWndOptionElement_head():
     class DispHTMLWndOptionElement(win32more.System.Com.IDispatch_head):
@@ -13814,6 +14067,7 @@ def _define_DispHTMLWndOptionElement_head():
     return DispHTMLWndOptionElement
 def _define_DispHTMLWndOptionElement():
     DispHTMLWndOptionElement = win32more.Web.MsHtml.DispHTMLWndOptionElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLWndOptionElement
 def _define_HTMLButtonElementEvents2_head():
     class HTMLButtonElementEvents2(win32more.System.Com.IDispatch_head):
@@ -13821,6 +14075,7 @@ def _define_HTMLButtonElementEvents2_head():
     return HTMLButtonElementEvents2
 def _define_HTMLButtonElementEvents2():
     HTMLButtonElementEvents2 = win32more.Web.MsHtml.HTMLButtonElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLButtonElementEvents2
 def _define_HTMLButtonElementEvents_head():
     class HTMLButtonElementEvents(win32more.System.Com.IDispatch_head):
@@ -13828,6 +14083,7 @@ def _define_HTMLButtonElementEvents_head():
     return HTMLButtonElementEvents
 def _define_HTMLButtonElementEvents():
     HTMLButtonElementEvents = win32more.Web.MsHtml.HTMLButtonElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLButtonElementEvents
 def _define_HTMLInputTextElementEvents2_head():
     class HTMLInputTextElementEvents2(win32more.System.Com.IDispatch_head):
@@ -13835,6 +14091,7 @@ def _define_HTMLInputTextElementEvents2_head():
     return HTMLInputTextElementEvents2
 def _define_HTMLInputTextElementEvents2():
     HTMLInputTextElementEvents2 = win32more.Web.MsHtml.HTMLInputTextElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLInputTextElementEvents2
 def _define_HTMLOptionButtonElementEvents2_head():
     class HTMLOptionButtonElementEvents2(win32more.System.Com.IDispatch_head):
@@ -13842,6 +14099,7 @@ def _define_HTMLOptionButtonElementEvents2_head():
     return HTMLOptionButtonElementEvents2
 def _define_HTMLOptionButtonElementEvents2():
     HTMLOptionButtonElementEvents2 = win32more.Web.MsHtml.HTMLOptionButtonElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLOptionButtonElementEvents2
 def _define_HTMLInputFileElementEvents2_head():
     class HTMLInputFileElementEvents2(win32more.System.Com.IDispatch_head):
@@ -13849,6 +14107,7 @@ def _define_HTMLInputFileElementEvents2_head():
     return HTMLInputFileElementEvents2
 def _define_HTMLInputFileElementEvents2():
     HTMLInputFileElementEvents2 = win32more.Web.MsHtml.HTMLInputFileElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLInputFileElementEvents2
 def _define_HTMLInputImageEvents2_head():
     class HTMLInputImageEvents2(win32more.System.Com.IDispatch_head):
@@ -13856,6 +14115,7 @@ def _define_HTMLInputImageEvents2_head():
     return HTMLInputImageEvents2
 def _define_HTMLInputImageEvents2():
     HTMLInputImageEvents2 = win32more.Web.MsHtml.HTMLInputImageEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLInputImageEvents2
 def _define_HTMLInputTextElementEvents_head():
     class HTMLInputTextElementEvents(win32more.System.Com.IDispatch_head):
@@ -13863,6 +14123,7 @@ def _define_HTMLInputTextElementEvents_head():
     return HTMLInputTextElementEvents
 def _define_HTMLInputTextElementEvents():
     HTMLInputTextElementEvents = win32more.Web.MsHtml.HTMLInputTextElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLInputTextElementEvents
 def _define_HTMLOptionButtonElementEvents_head():
     class HTMLOptionButtonElementEvents(win32more.System.Com.IDispatch_head):
@@ -13870,6 +14131,7 @@ def _define_HTMLOptionButtonElementEvents_head():
     return HTMLOptionButtonElementEvents
 def _define_HTMLOptionButtonElementEvents():
     HTMLOptionButtonElementEvents = win32more.Web.MsHtml.HTMLOptionButtonElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLOptionButtonElementEvents
 def _define_HTMLInputFileElementEvents_head():
     class HTMLInputFileElementEvents(win32more.System.Com.IDispatch_head):
@@ -13877,6 +14139,7 @@ def _define_HTMLInputFileElementEvents_head():
     return HTMLInputFileElementEvents
 def _define_HTMLInputFileElementEvents():
     HTMLInputFileElementEvents = win32more.Web.MsHtml.HTMLInputFileElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLInputFileElementEvents
 def _define_HTMLInputImageEvents_head():
     class HTMLInputImageEvents(win32more.System.Com.IDispatch_head):
@@ -13884,6 +14147,7 @@ def _define_HTMLInputImageEvents_head():
     return HTMLInputImageEvents
 def _define_HTMLInputImageEvents():
     HTMLInputImageEvents = win32more.Web.MsHtml.HTMLInputImageEvents_head
+    win32more.System.Com.IDispatch
     return HTMLInputImageEvents
 def _define_IHTMLInputElement_head():
     class IHTMLInputElement(win32more.System.Com.IDispatch_head):
@@ -13956,6 +14220,7 @@ def _define_IHTMLInputElement():
     IHTMLInputElement.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(69, 'get_height', ((1, 'p'),)))
     IHTMLInputElement.put_start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(70, 'put_start', ((1, 'v'),)))
     IHTMLInputElement.get_start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(71, 'get_start', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputElement
 def _define_IHTMLInputElement2_head():
     class IHTMLInputElement2(win32more.System.Com.IDispatch_head):
@@ -13967,6 +14232,7 @@ def _define_IHTMLInputElement2():
     IHTMLInputElement2.get_accept = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_accept', ((1, 'p'),)))
     IHTMLInputElement2.put_useMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_useMap', ((1, 'v'),)))
     IHTMLInputElement2.get_useMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_useMap', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputElement2
 def _define_IHTMLInputElement3_head():
     class IHTMLInputElement3(win32more.System.Com.IDispatch_head):
@@ -13982,6 +14248,7 @@ def _define_IHTMLInputElement3():
     IHTMLInputElement3.get_vrml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_vrml', ((1, 'p'),)))
     IHTMLInputElement3.put_dynsrc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_dynsrc', ((1, 'v'),)))
     IHTMLInputElement3.get_dynsrc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_dynsrc', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputElement3
 def _define_IHTMLInputButtonElement_head():
     class IHTMLInputButtonElement(win32more.System.Com.IDispatch_head):
@@ -14000,6 +14267,7 @@ def _define_IHTMLInputButtonElement():
     IHTMLInputButtonElement.get_disabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(15, 'get_disabled', ((1, 'p'),)))
     IHTMLInputButtonElement.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(16, 'get_form', ((1, 'p'),)))
     IHTMLInputButtonElement.createTextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLTxtRange_head), use_last_error=False)(17, 'createTextRange', ((1, 'range'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputButtonElement
 def _define_IHTMLInputHiddenElement_head():
     class IHTMLInputHiddenElement(win32more.System.Com.IDispatch_head):
@@ -14018,6 +14286,7 @@ def _define_IHTMLInputHiddenElement():
     IHTMLInputHiddenElement.get_disabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(15, 'get_disabled', ((1, 'p'),)))
     IHTMLInputHiddenElement.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(16, 'get_form', ((1, 'p'),)))
     IHTMLInputHiddenElement.createTextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLTxtRange_head), use_last_error=False)(17, 'createTextRange', ((1, 'range'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputHiddenElement
 def _define_IHTMLInputTextElement_head():
     class IHTMLInputTextElement(win32more.System.Com.IDispatch_head):
@@ -14049,6 +14318,7 @@ def _define_IHTMLInputTextElement():
     IHTMLInputTextElement.put_readOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(28, 'put_readOnly', ((1, 'v'),)))
     IHTMLInputTextElement.get_readOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(29, 'get_readOnly', ((1, 'p'),)))
     IHTMLInputTextElement.createTextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLTxtRange_head), use_last_error=False)(30, 'createTextRange', ((1, 'range'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputTextElement
 def _define_IHTMLInputTextElement2_head():
     class IHTMLInputTextElement2(win32more.System.Com.IDispatch_head):
@@ -14061,6 +14331,7 @@ def _define_IHTMLInputTextElement2():
     IHTMLInputTextElement2.put_selectionEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'put_selectionEnd', ((1, 'v'),)))
     IHTMLInputTextElement2.get_selectionEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_selectionEnd', ((1, 'p'),)))
     IHTMLInputTextElement2.setSelectionRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(11, 'setSelectionRange', ((1, 'start'),(1, 'end'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputTextElement2
 def _define_IHTMLInputFileElement_head():
     class IHTMLInputFileElement(win32more.System.Com.IDispatch_head):
@@ -14087,6 +14358,7 @@ def _define_IHTMLInputFileElement():
     IHTMLInputFileElement.get_onselect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(23, 'get_onselect', ((1, 'p'),)))
     IHTMLInputFileElement.put_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(24, 'put_value', ((1, 'v'),)))
     IHTMLInputFileElement.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(25, 'get_value', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputFileElement
 def _define_IHTMLOptionButtonElement_head():
     class IHTMLOptionButtonElement(win32more.System.Com.IDispatch_head):
@@ -14112,6 +14384,7 @@ def _define_IHTMLOptionButtonElement():
     IHTMLOptionButtonElement.put_indeterminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(22, 'put_indeterminate', ((1, 'v'),)))
     IHTMLOptionButtonElement.get_indeterminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(23, 'get_indeterminate', ((1, 'p'),)))
     IHTMLOptionButtonElement.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(24, 'get_form', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLOptionButtonElement
 def _define_IHTMLInputImage_head():
     class IHTMLInputImage(win32more.System.Com.IDispatch_head):
@@ -14158,6 +14431,7 @@ def _define_IHTMLInputImage():
     IHTMLInputImage.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(43, 'get_height', ((1, 'p'),)))
     IHTMLInputImage.put_start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(44, 'put_start', ((1, 'v'),)))
     IHTMLInputImage.get_start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(45, 'get_start', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputImage
 def _define_IHTMLInputRangeElement_head():
     class IHTMLInputRangeElement(win32more.System.Com.IDispatch_head):
@@ -14184,6 +14458,7 @@ def _define_IHTMLInputRangeElement():
     IHTMLInputRangeElement.get_valueAsNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(23, 'get_valueAsNumber', ((1, 'p'),)))
     IHTMLInputRangeElement.stepUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(24, 'stepUp', ((1, 'n'),)))
     IHTMLInputRangeElement.stepDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(25, 'stepDown', ((1, 'n'),)))
+    win32more.System.Com.IDispatch
     return IHTMLInputRangeElement
 def _define_DispHTMLInputElement_head():
     class DispHTMLInputElement(win32more.System.Com.IDispatch_head):
@@ -14191,6 +14466,7 @@ def _define_DispHTMLInputElement_head():
     return DispHTMLInputElement
 def _define_DispHTMLInputElement():
     DispHTMLInputElement = win32more.Web.MsHtml.DispHTMLInputElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLInputElement
 def _define_IHTMLTextAreaElement_head():
     class IHTMLTextAreaElement(win32more.System.Com.IDispatch_head):
@@ -14224,6 +14500,7 @@ def _define_IHTMLTextAreaElement():
     IHTMLTextAreaElement.put_wrap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(30, 'put_wrap', ((1, 'v'),)))
     IHTMLTextAreaElement.get_wrap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(31, 'get_wrap', ((1, 'p'),)))
     IHTMLTextAreaElement.createTextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLTxtRange_head), use_last_error=False)(32, 'createTextRange', ((1, 'range'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTextAreaElement
 def _define_IHTMLTextAreaElement2_head():
     class IHTMLTextAreaElement2(win32more.System.Com.IDispatch_head):
@@ -14236,6 +14513,7 @@ def _define_IHTMLTextAreaElement2():
     IHTMLTextAreaElement2.put_selectionEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'put_selectionEnd', ((1, 'v'),)))
     IHTMLTextAreaElement2.get_selectionEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_selectionEnd', ((1, 'p'),)))
     IHTMLTextAreaElement2.setSelectionRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(11, 'setSelectionRange', ((1, 'start'),(1, 'end'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTextAreaElement2
 def _define_DispHTMLTextAreaElement_head():
     class DispHTMLTextAreaElement(win32more.System.Com.IDispatch_head):
@@ -14243,6 +14521,7 @@ def _define_DispHTMLTextAreaElement_head():
     return DispHTMLTextAreaElement
 def _define_DispHTMLTextAreaElement():
     DispHTMLTextAreaElement = win32more.Web.MsHtml.DispHTMLTextAreaElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLTextAreaElement
 def _define_DispHTMLRichtextElement_head():
     class DispHTMLRichtextElement(win32more.System.Com.IDispatch_head):
@@ -14250,6 +14529,7 @@ def _define_DispHTMLRichtextElement_head():
     return DispHTMLRichtextElement
 def _define_DispHTMLRichtextElement():
     DispHTMLRichtextElement = win32more.Web.MsHtml.DispHTMLRichtextElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLRichtextElement
 def _define_IHTMLButtonElement_head():
     class IHTMLButtonElement(win32more.System.Com.IDispatch_head):
@@ -14268,6 +14548,7 @@ def _define_IHTMLButtonElement():
     IHTMLButtonElement.get_disabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(15, 'get_disabled', ((1, 'p'),)))
     IHTMLButtonElement.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(16, 'get_form', ((1, 'p'),)))
     IHTMLButtonElement.createTextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLTxtRange_head), use_last_error=False)(17, 'createTextRange', ((1, 'range'),)))
+    win32more.System.Com.IDispatch
     return IHTMLButtonElement
 def _define_IHTMLButtonElement2_head():
     class IHTMLButtonElement2(win32more.System.Com.IDispatch_head):
@@ -14277,6 +14558,7 @@ def _define_IHTMLButtonElement2():
     IHTMLButtonElement2 = win32more.Web.MsHtml.IHTMLButtonElement2_head
     IHTMLButtonElement2.put_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_type', ((1, 'v'),)))
     IHTMLButtonElement2.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_type', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLButtonElement2
 def _define_DispHTMLButtonElement_head():
     class DispHTMLButtonElement(win32more.System.Com.IDispatch_head):
@@ -14284,6 +14566,7 @@ def _define_DispHTMLButtonElement_head():
     return DispHTMLButtonElement
 def _define_DispHTMLButtonElement():
     DispHTMLButtonElement = win32more.Web.MsHtml.DispHTMLButtonElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLButtonElement
 def _define_HTMLMarqueeElementEvents2_head():
     class HTMLMarqueeElementEvents2(win32more.System.Com.IDispatch_head):
@@ -14291,6 +14574,7 @@ def _define_HTMLMarqueeElementEvents2_head():
     return HTMLMarqueeElementEvents2
 def _define_HTMLMarqueeElementEvents2():
     HTMLMarqueeElementEvents2 = win32more.Web.MsHtml.HTMLMarqueeElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLMarqueeElementEvents2
 def _define_HTMLMarqueeElementEvents_head():
     class HTMLMarqueeElementEvents(win32more.System.Com.IDispatch_head):
@@ -14298,6 +14582,7 @@ def _define_HTMLMarqueeElementEvents_head():
     return HTMLMarqueeElementEvents
 def _define_HTMLMarqueeElementEvents():
     HTMLMarqueeElementEvents = win32more.Web.MsHtml.HTMLMarqueeElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLMarqueeElementEvents
 def _define_IHTMLMarqueeElement_head():
     class IHTMLMarqueeElement(win32more.System.Com.IDispatch_head):
@@ -14335,6 +14620,7 @@ def _define_IHTMLMarqueeElement():
     IHTMLMarqueeElement.get_trueSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(34, 'get_trueSpeed', ((1, 'p'),)))
     IHTMLMarqueeElement.start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(35, 'start', ()))
     IHTMLMarqueeElement.stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(36, 'stop', ()))
+    win32more.System.Com.IDispatch
     return IHTMLMarqueeElement
 def _define_DispHTMLMarqueeElement_head():
     class DispHTMLMarqueeElement(win32more.System.Com.IDispatch_head):
@@ -14342,6 +14628,7 @@ def _define_DispHTMLMarqueeElement_head():
     return DispHTMLMarqueeElement
 def _define_DispHTMLMarqueeElement():
     DispHTMLMarqueeElement = win32more.Web.MsHtml.DispHTMLMarqueeElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLMarqueeElement
 def _define_IHTMLHtmlElement_head():
     class IHTMLHtmlElement(win32more.System.Com.IDispatch_head):
@@ -14351,6 +14638,7 @@ def _define_IHTMLHtmlElement():
     IHTMLHtmlElement = win32more.Web.MsHtml.IHTMLHtmlElement_head
     IHTMLHtmlElement.put_version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_version', ((1, 'v'),)))
     IHTMLHtmlElement.get_version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_version', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLHtmlElement
 def _define_IHTMLHeadElement_head():
     class IHTMLHeadElement(win32more.System.Com.IDispatch_head):
@@ -14360,6 +14648,7 @@ def _define_IHTMLHeadElement():
     IHTMLHeadElement = win32more.Web.MsHtml.IHTMLHeadElement_head
     IHTMLHeadElement.put_profile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_profile', ((1, 'v'),)))
     IHTMLHeadElement.get_profile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_profile', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLHeadElement
 def _define_IHTMLHeadElement2_head():
     class IHTMLHeadElement2(win32more.System.Com.IDispatch_head):
@@ -14369,6 +14658,7 @@ def _define_IHTMLHeadElement2():
     IHTMLHeadElement2 = win32more.Web.MsHtml.IHTMLHeadElement2_head
     IHTMLHeadElement2.put_profile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_profile', ((1, 'v'),)))
     IHTMLHeadElement2.get_profile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_profile', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLHeadElement2
 def _define_IHTMLTitleElement_head():
     class IHTMLTitleElement(win32more.System.Com.IDispatch_head):
@@ -14378,6 +14668,7 @@ def _define_IHTMLTitleElement():
     IHTMLTitleElement = win32more.Web.MsHtml.IHTMLTitleElement_head
     IHTMLTitleElement.put_text = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_text', ((1, 'v'),)))
     IHTMLTitleElement.get_text = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_text', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTitleElement
 def _define_IHTMLMetaElement_head():
     class IHTMLMetaElement(win32more.System.Com.IDispatch_head):
@@ -14395,6 +14686,7 @@ def _define_IHTMLMetaElement():
     IHTMLMetaElement.get_url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_url', ((1, 'p'),)))
     IHTMLMetaElement.put_charset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'put_charset', ((1, 'v'),)))
     IHTMLMetaElement.get_charset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_charset', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMetaElement
 def _define_IHTMLMetaElement2_head():
     class IHTMLMetaElement2(win32more.System.Com.IDispatch_head):
@@ -14404,6 +14696,7 @@ def _define_IHTMLMetaElement2():
     IHTMLMetaElement2 = win32more.Web.MsHtml.IHTMLMetaElement2_head
     IHTMLMetaElement2.put_scheme = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_scheme', ((1, 'v'),)))
     IHTMLMetaElement2.get_scheme = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_scheme', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMetaElement2
 def _define_IHTMLMetaElement3_head():
     class IHTMLMetaElement3(win32more.System.Com.IDispatch_head):
@@ -14413,6 +14706,7 @@ def _define_IHTMLMetaElement3():
     IHTMLMetaElement3 = win32more.Web.MsHtml.IHTMLMetaElement3_head
     IHTMLMetaElement3.put_url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_url', ((1, 'v'),)))
     IHTMLMetaElement3.get_url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_url', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMetaElement3
 def _define_IHTMLBaseElement_head():
     class IHTMLBaseElement(win32more.System.Com.IDispatch_head):
@@ -14424,6 +14718,7 @@ def _define_IHTMLBaseElement():
     IHTMLBaseElement.get_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_href', ((1, 'p'),)))
     IHTMLBaseElement.put_target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_target', ((1, 'v'),)))
     IHTMLBaseElement.get_target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_target', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBaseElement
 def _define_IHTMLBaseElement2_head():
     class IHTMLBaseElement2(win32more.System.Com.IDispatch_head):
@@ -14433,6 +14728,7 @@ def _define_IHTMLBaseElement2():
     IHTMLBaseElement2 = win32more.Web.MsHtml.IHTMLBaseElement2_head
     IHTMLBaseElement2.put_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_href', ((1, 'v'),)))
     IHTMLBaseElement2.get_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_href', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBaseElement2
 def _define_DispHTMLHtmlElement_head():
     class DispHTMLHtmlElement(win32more.System.Com.IDispatch_head):
@@ -14440,6 +14736,7 @@ def _define_DispHTMLHtmlElement_head():
     return DispHTMLHtmlElement
 def _define_DispHTMLHtmlElement():
     DispHTMLHtmlElement = win32more.Web.MsHtml.DispHTMLHtmlElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLHtmlElement
 def _define_DispHTMLHeadElement_head():
     class DispHTMLHeadElement(win32more.System.Com.IDispatch_head):
@@ -14447,6 +14744,7 @@ def _define_DispHTMLHeadElement_head():
     return DispHTMLHeadElement
 def _define_DispHTMLHeadElement():
     DispHTMLHeadElement = win32more.Web.MsHtml.DispHTMLHeadElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLHeadElement
 def _define_DispHTMLTitleElement_head():
     class DispHTMLTitleElement(win32more.System.Com.IDispatch_head):
@@ -14454,6 +14752,7 @@ def _define_DispHTMLTitleElement_head():
     return DispHTMLTitleElement
 def _define_DispHTMLTitleElement():
     DispHTMLTitleElement = win32more.Web.MsHtml.DispHTMLTitleElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLTitleElement
 def _define_DispHTMLMetaElement_head():
     class DispHTMLMetaElement(win32more.System.Com.IDispatch_head):
@@ -14461,6 +14760,7 @@ def _define_DispHTMLMetaElement_head():
     return DispHTMLMetaElement
 def _define_DispHTMLMetaElement():
     DispHTMLMetaElement = win32more.Web.MsHtml.DispHTMLMetaElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLMetaElement
 def _define_DispHTMLBaseElement_head():
     class DispHTMLBaseElement(win32more.System.Com.IDispatch_head):
@@ -14468,6 +14768,7 @@ def _define_DispHTMLBaseElement_head():
     return DispHTMLBaseElement
 def _define_DispHTMLBaseElement():
     DispHTMLBaseElement = win32more.Web.MsHtml.DispHTMLBaseElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLBaseElement
 def _define_IHTMLIsIndexElement_head():
     class IHTMLIsIndexElement(win32more.System.Com.IDispatch_head):
@@ -14479,6 +14780,7 @@ def _define_IHTMLIsIndexElement():
     IHTMLIsIndexElement.get_prompt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_prompt', ((1, 'p'),)))
     IHTMLIsIndexElement.put_action = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_action', ((1, 'v'),)))
     IHTMLIsIndexElement.get_action = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_action', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLIsIndexElement
 def _define_IHTMLIsIndexElement2_head():
     class IHTMLIsIndexElement2(win32more.System.Com.IDispatch_head):
@@ -14487,6 +14789,7 @@ def _define_IHTMLIsIndexElement2_head():
 def _define_IHTMLIsIndexElement2():
     IHTMLIsIndexElement2 = win32more.Web.MsHtml.IHTMLIsIndexElement2_head
     IHTMLIsIndexElement2.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(7, 'get_form', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLIsIndexElement2
 def _define_IHTMLNextIdElement_head():
     class IHTMLNextIdElement(win32more.System.Com.IDispatch_head):
@@ -14496,6 +14799,7 @@ def _define_IHTMLNextIdElement():
     IHTMLNextIdElement = win32more.Web.MsHtml.IHTMLNextIdElement_head
     IHTMLNextIdElement.put_n = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_n', ((1, 'v'),)))
     IHTMLNextIdElement.get_n = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_n', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLNextIdElement
 def _define_DispHTMLIsIndexElement_head():
     class DispHTMLIsIndexElement(win32more.System.Com.IDispatch_head):
@@ -14503,6 +14807,7 @@ def _define_DispHTMLIsIndexElement_head():
     return DispHTMLIsIndexElement
 def _define_DispHTMLIsIndexElement():
     DispHTMLIsIndexElement = win32more.Web.MsHtml.DispHTMLIsIndexElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLIsIndexElement
 def _define_DispHTMLNextIdElement_head():
     class DispHTMLNextIdElement(win32more.System.Com.IDispatch_head):
@@ -14510,6 +14815,7 @@ def _define_DispHTMLNextIdElement_head():
     return DispHTMLNextIdElement
 def _define_DispHTMLNextIdElement():
     DispHTMLNextIdElement = win32more.Web.MsHtml.DispHTMLNextIdElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLNextIdElement
 def _define_IHTMLBaseFontElement_head():
     class IHTMLBaseFontElement(win32more.System.Com.IDispatch_head):
@@ -14523,6 +14829,7 @@ def _define_IHTMLBaseFontElement():
     IHTMLBaseFontElement.get_face = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_face', ((1, 'p'),)))
     IHTMLBaseFontElement.put_size = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'put_size', ((1, 'v'),)))
     IHTMLBaseFontElement.get_size = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_size', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBaseFontElement
 def _define_DispHTMLBaseFontElement_head():
     class DispHTMLBaseFontElement(win32more.System.Com.IDispatch_head):
@@ -14530,6 +14837,7 @@ def _define_DispHTMLBaseFontElement_head():
     return DispHTMLBaseFontElement
 def _define_DispHTMLBaseFontElement():
     DispHTMLBaseFontElement = win32more.Web.MsHtml.DispHTMLBaseFontElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLBaseFontElement
 def _define_IHTMLUnknownElement_head():
     class IHTMLUnknownElement(win32more.System.Com.IDispatch_head):
@@ -14537,6 +14845,7 @@ def _define_IHTMLUnknownElement_head():
     return IHTMLUnknownElement
 def _define_IHTMLUnknownElement():
     IHTMLUnknownElement = win32more.Web.MsHtml.IHTMLUnknownElement_head
+    win32more.System.Com.IDispatch
     return IHTMLUnknownElement
 def _define_DispHTMLUnknownElement_head():
     class DispHTMLUnknownElement(win32more.System.Com.IDispatch_head):
@@ -14544,6 +14853,7 @@ def _define_DispHTMLUnknownElement_head():
     return DispHTMLUnknownElement
 def _define_DispHTMLUnknownElement():
     DispHTMLUnknownElement = win32more.Web.MsHtml.DispHTMLUnknownElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLUnknownElement
 def _define_IWebGeolocation_head():
     class IWebGeolocation(win32more.System.Com.IDispatch_head):
@@ -14554,6 +14864,7 @@ def _define_IWebGeolocation():
     IWebGeolocation.getCurrentPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head, use_last_error=False)(7, 'getCurrentPosition', ((1, 'successCallback'),(1, 'errorCallback'),(1, 'options'),)))
     IWebGeolocation.watchPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head,POINTER(Int32), use_last_error=False)(8, 'watchPosition', ((1, 'successCallback'),(1, 'errorCallback'),(1, 'options'),(1, 'watchId'),)))
     IWebGeolocation.clearWatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'clearWatch', ((1, 'watchId'),)))
+    win32more.System.Com.IDispatch
     return IWebGeolocation
 def _define_IHTMLMimeTypesCollection_head():
     class IHTMLMimeTypesCollection(win32more.System.Com.IDispatch_head):
@@ -14562,6 +14873,7 @@ def _define_IHTMLMimeTypesCollection_head():
 def _define_IHTMLMimeTypesCollection():
     IHTMLMimeTypesCollection = win32more.Web.MsHtml.IHTMLMimeTypesCollection_head
     IHTMLMimeTypesCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMimeTypesCollection
 def _define_IHTMLPluginsCollection_head():
     class IHTMLPluginsCollection(win32more.System.Com.IDispatch_head):
@@ -14571,6 +14883,7 @@ def _define_IHTMLPluginsCollection():
     IHTMLPluginsCollection = win32more.Web.MsHtml.IHTMLPluginsCollection_head
     IHTMLPluginsCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLPluginsCollection.refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(8, 'refresh', ((1, 'reload'),)))
+    win32more.System.Com.IDispatch
     return IHTMLPluginsCollection
 def _define_IOmHistory_head():
     class IOmHistory(win32more.System.Com.IDispatch_head):
@@ -14582,6 +14895,7 @@ def _define_IOmHistory():
     IOmHistory.back = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'back', ((1, 'pvargdistance'),)))
     IOmHistory.forward = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'forward', ((1, 'pvargdistance'),)))
     IOmHistory.go = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'go', ((1, 'pvargdistance'),)))
+    win32more.System.Com.IDispatch
     return IOmHistory
 def _define_IHTMLOpsProfile_head():
     class IHTMLOpsProfile(win32more.System.Com.IDispatch_head):
@@ -14598,6 +14912,7 @@ def _define_IHTMLOpsProfile():
     IHTMLOpsProfile.addReadRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(Int16), use_last_error=False)(13, 'addReadRequest', ((1, 'name'),(1, 'reserved'),(1, 'success'),)))
     IHTMLOpsProfile.doReadRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(14, 'doReadRequest', ((1, 'usage'),(1, 'fname'),(1, 'domain'),(1, 'path'),(1, 'expire'),(1, 'reserved'),)))
     IHTMLOpsProfile.doWriteRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(15, 'doWriteRequest', ((1, 'success'),)))
+    win32more.System.Com.IDispatch
     return IHTMLOpsProfile
 def _define_IOmNavigator_head():
     class IOmNavigator(win32more.System.Com.IDispatch_head):
@@ -14625,6 +14940,7 @@ def _define_IOmNavigator():
     IOmNavigator.get_connectionSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(24, 'get_connectionSpeed', ((1, 'p'),)))
     IOmNavigator.get_onLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(25, 'get_onLine', ((1, 'p'),)))
     IOmNavigator.get_userProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLOpsProfile_head), use_last_error=False)(26, 'get_userProfile', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IOmNavigator
 def _define_INavigatorGeolocation_head():
     class INavigatorGeolocation(win32more.System.Com.IDispatch_head):
@@ -14633,6 +14949,7 @@ def _define_INavigatorGeolocation_head():
 def _define_INavigatorGeolocation():
     INavigatorGeolocation = win32more.Web.MsHtml.INavigatorGeolocation_head
     INavigatorGeolocation.get_geolocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IWebGeolocation_head), use_last_error=False)(7, 'get_geolocation', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return INavigatorGeolocation
 def _define_INavigatorDoNotTrack_head():
     class INavigatorDoNotTrack(win32more.System.Com.IDispatch_head):
@@ -14641,6 +14958,7 @@ def _define_INavigatorDoNotTrack_head():
 def _define_INavigatorDoNotTrack():
     INavigatorDoNotTrack = win32more.Web.MsHtml.INavigatorDoNotTrack_head
     INavigatorDoNotTrack.get_msDoNotTrack = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_msDoNotTrack', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return INavigatorDoNotTrack
 def _define_IHTMLLocation_head():
     class IHTMLLocation(win32more.System.Com.IDispatch_head):
@@ -14668,6 +14986,7 @@ def _define_IHTMLLocation():
     IHTMLLocation.replace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(24, 'replace', ((1, 'bstr'),)))
     IHTMLLocation.assign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(25, 'assign', ((1, 'bstr'),)))
     IHTMLLocation.toString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'toString', ((1, 'string'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLocation
 def _define_DispHTMLHistory_head():
     class DispHTMLHistory(win32more.System.Com.IDispatch_head):
@@ -14675,6 +14994,7 @@ def _define_DispHTMLHistory_head():
     return DispHTMLHistory
 def _define_DispHTMLHistory():
     DispHTMLHistory = win32more.Web.MsHtml.DispHTMLHistory_head
+    win32more.System.Com.IDispatch
     return DispHTMLHistory
 def _define_DispHTMLNavigator_head():
     class DispHTMLNavigator(win32more.System.Com.IDispatch_head):
@@ -14682,6 +15002,7 @@ def _define_DispHTMLNavigator_head():
     return DispHTMLNavigator
 def _define_DispHTMLNavigator():
     DispHTMLNavigator = win32more.Web.MsHtml.DispHTMLNavigator_head
+    win32more.System.Com.IDispatch
     return DispHTMLNavigator
 def _define_DispHTMLLocation_head():
     class DispHTMLLocation(win32more.System.Com.IDispatch_head):
@@ -14689,6 +15010,7 @@ def _define_DispHTMLLocation_head():
     return DispHTMLLocation
 def _define_DispHTMLLocation():
     DispHTMLLocation = win32more.Web.MsHtml.DispHTMLLocation_head
+    win32more.System.Com.IDispatch
     return DispHTMLLocation
 def _define_DispCPlugins_head():
     class DispCPlugins(win32more.System.Com.IDispatch_head):
@@ -14696,6 +15018,7 @@ def _define_DispCPlugins_head():
     return DispCPlugins
 def _define_DispCPlugins():
     DispCPlugins = win32more.Web.MsHtml.DispCPlugins_head
+    win32more.System.Com.IDispatch
     return DispCPlugins
 def _define_IHTMLBookmarkCollection_head():
     class IHTMLBookmarkCollection(win32more.System.Com.IDispatch_head):
@@ -14706,6 +15029,7 @@ def _define_IHTMLBookmarkCollection():
     IHTMLBookmarkCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLBookmarkCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLBookmarkCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'item', ((1, 'index'),(1, 'pVarBookmark'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBookmarkCollection
 def _define_IHTMLDataTransfer_head():
     class IHTMLDataTransfer(win32more.System.Com.IDispatch_head):
@@ -14720,6 +15044,7 @@ def _define_IHTMLDataTransfer():
     IHTMLDataTransfer.get_dropEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_dropEffect', ((1, 'p'),)))
     IHTMLDataTransfer.put_effectAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'put_effectAllowed', ((1, 'v'),)))
     IHTMLDataTransfer.get_effectAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_effectAllowed', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDataTransfer
 def _define_IHTMLEventObj2_head():
     class IHTMLEventObj2(win32more.System.Com.IDispatch_head):
@@ -14783,6 +15108,7 @@ def _define_IHTMLEventObj2():
     IHTMLEventObj2.putref_srcFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(60, 'putref_srcFilter', ((1, 'v'),)))
     IHTMLEventObj2.get_srcFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(61, 'get_srcFilter', ((1, 'p'),)))
     IHTMLEventObj2.get_dataTransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDataTransfer_head), use_last_error=False)(62, 'get_dataTransfer', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLEventObj2
 def _define_IHTMLEventObj3_head():
     class IHTMLEventObj3(win32more.System.Com.IDispatch_head):
@@ -14806,6 +15132,7 @@ def _define_IHTMLEventObj3():
     IHTMLEventObj3.get_behaviorCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(20, 'get_behaviorCookie', ((1, 'p'),)))
     IHTMLEventObj3.get_behaviorPart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(21, 'get_behaviorPart', ((1, 'p'),)))
     IHTMLEventObj3.get_nextPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_nextPage', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLEventObj3
 def _define_IHTMLEventObj4_head():
     class IHTMLEventObj4(win32more.System.Com.IDispatch_head):
@@ -14814,6 +15141,7 @@ def _define_IHTMLEventObj4_head():
 def _define_IHTMLEventObj4():
     IHTMLEventObj4 = win32more.Web.MsHtml.IHTMLEventObj4_head
     IHTMLEventObj4.get_wheelDelta = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_wheelDelta', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLEventObj4
 def _define_IHTMLEventObj5_head():
     class IHTMLEventObj5(win32more.System.Com.IDispatch_head):
@@ -14830,6 +15158,7 @@ def _define_IHTMLEventObj5():
     IHTMLEventObj5.get_origin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_origin', ((1, 'p'),)))
     IHTMLEventObj5.put_issession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(14, 'put_issession', ((1, 'v'),)))
     IHTMLEventObj5.get_issession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(15, 'get_issession', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLEventObj5
 def _define_IHTMLEventObj6_head():
     class IHTMLEventObj6(win32more.System.Com.IDispatch_head):
@@ -14839,6 +15168,7 @@ def _define_IHTMLEventObj6():
     IHTMLEventObj6 = win32more.Web.MsHtml.IHTMLEventObj6_head
     IHTMLEventObj6.get_actionURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_actionURL', ((1, 'p'),)))
     IHTMLEventObj6.get_buttonID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_buttonID', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLEventObj6
 def _define_DispCEventObj_head():
     class DispCEventObj(win32more.System.Com.IDispatch_head):
@@ -14846,6 +15176,7 @@ def _define_DispCEventObj_head():
     return DispCEventObj
 def _define_DispCEventObj():
     DispCEventObj = win32more.Web.MsHtml.DispCEventObj_head
+    win32more.System.Com.IDispatch
     return DispCEventObj
 def _define_IHTMLStyleMedia_head():
     class IHTMLStyleMedia(win32more.System.Com.IDispatch_head):
@@ -14855,6 +15186,7 @@ def _define_IHTMLStyleMedia():
     IHTMLStyleMedia = win32more.Web.MsHtml.IHTMLStyleMedia_head
     IHTMLStyleMedia.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_type', ((1, 'p'),)))
     IHTMLStyleMedia.matchMedium = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(8, 'matchMedium', ((1, 'mediaQuery'),(1, 'matches'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleMedia
 def _define_DispHTMLStyleMedia_head():
     class DispHTMLStyleMedia(win32more.System.Com.IDispatch_head):
@@ -14862,6 +15194,7 @@ def _define_DispHTMLStyleMedia_head():
     return DispHTMLStyleMedia
 def _define_DispHTMLStyleMedia():
     DispHTMLStyleMedia = win32more.Web.MsHtml.DispHTMLStyleMedia_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleMedia
 def _define_IHTMLFramesCollection2_head():
     class IHTMLFramesCollection2(win32more.System.Com.IDispatch_head):
@@ -14871,6 +15204,7 @@ def _define_IHTMLFramesCollection2():
     IHTMLFramesCollection2 = win32more.Web.MsHtml.IHTMLFramesCollection2_head
     IHTMLFramesCollection2.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'item', ((1, 'pvarIndex'),(1, 'pvarResult'),)))
     IHTMLFramesCollection2.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_length', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFramesCollection2
 def _define_HTMLWindowEvents3_head():
     class HTMLWindowEvents3(win32more.System.Com.IDispatch_head):
@@ -14878,6 +15212,7 @@ def _define_HTMLWindowEvents3_head():
     return HTMLWindowEvents3
 def _define_HTMLWindowEvents3():
     HTMLWindowEvents3 = win32more.Web.MsHtml.HTMLWindowEvents3_head
+    win32more.System.Com.IDispatch
     return HTMLWindowEvents3
 def _define_HTMLWindowEvents2_head():
     class HTMLWindowEvents2(win32more.System.Com.IDispatch_head):
@@ -14885,6 +15220,7 @@ def _define_HTMLWindowEvents2_head():
     return HTMLWindowEvents2
 def _define_HTMLWindowEvents2():
     HTMLWindowEvents2 = win32more.Web.MsHtml.HTMLWindowEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLWindowEvents2
 def _define_HTMLWindowEvents_head():
     class HTMLWindowEvents(win32more.System.Com.IDispatch_head):
@@ -14892,6 +15228,7 @@ def _define_HTMLWindowEvents_head():
     return HTMLWindowEvents
 def _define_HTMLWindowEvents():
     HTMLWindowEvents = win32more.Web.MsHtml.HTMLWindowEvents_head
+    win32more.System.Com.IDispatch
     return HTMLWindowEvents
 def _define_IHTMLDocument2_head():
     class IHTMLDocument2(win32more.Web.MsHtml.IHTMLDocument_head):
@@ -15007,6 +15344,7 @@ def _define_IHTMLDocument2():
     IHTMLDocument2.get_onerrorupdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(113, 'get_onerrorupdate', ((1, 'p'),)))
     IHTMLDocument2.toString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(114, 'toString', ((1, 'String'),)))
     IHTMLDocument2.createStyleSheet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Web.MsHtml.IHTMLStyleSheet_head), use_last_error=False)(115, 'createStyleSheet', ((1, 'bstrHref'),(1, 'lIndex'),(1, 'ppnewStyleSheet'),)))
+    win32more.Web.MsHtml.IHTMLDocument
     return IHTMLDocument2
 def _define_IHTMLWindow2_head():
     class IHTMLWindow2(win32more.Web.MsHtml.IHTMLFramesCollection2_head):
@@ -15082,6 +15420,7 @@ def _define_IHTMLWindow2():
     IHTMLWindow2.resizeTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(74, 'resizeTo', ((1, 'x'),(1, 'y'),)))
     IHTMLWindow2.resizeBy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(75, 'resizeBy', ((1, 'x'),(1, 'y'),)))
     IHTMLWindow2.get_external = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(76, 'get_external', ((1, 'p'),)))
+    win32more.Web.MsHtml.IHTMLFramesCollection2
     return IHTMLWindow2
 def _define_IHTMLWindow3_head():
     class IHTMLWindow3(win32more.System.Com.IDispatch_head):
@@ -15102,6 +15441,7 @@ def _define_IHTMLWindow3():
     IHTMLWindow3.get_onafterprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'get_onafterprint', ((1, 'p'),)))
     IHTMLWindow3.get_clipboardData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDataTransfer_head), use_last_error=False)(18, 'get_clipboardData', ((1, 'p'),)))
     IHTMLWindow3.showModelessDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Web.MsHtml.IHTMLWindow2_head), use_last_error=False)(19, 'showModelessDialog', ((1, 'url'),(1, 'varArgIn'),(1, 'options'),(1, 'pDialog'),)))
+    win32more.System.Com.IDispatch
     return IHTMLWindow3
 def _define_IHTMLFrameBase_head():
     class IHTMLFrameBase(win32more.System.Com.IDispatch_head):
@@ -15127,6 +15467,7 @@ def _define_IHTMLFrameBase():
     IHTMLFrameBase.get_noResize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(22, 'get_noResize', ((1, 'p'),)))
     IHTMLFrameBase.put_scrolling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(23, 'put_scrolling', ((1, 'v'),)))
     IHTMLFrameBase.get_scrolling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(24, 'get_scrolling', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFrameBase
 def _define_IHTMLStorage_head():
     class IHTMLStorage(win32more.System.Com.IDispatch_head):
@@ -15141,6 +15482,7 @@ def _define_IHTMLStorage():
     IHTMLStorage.setItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(11, 'setItem', ((1, 'bstrKey'),(1, 'bstrValue'),)))
     IHTMLStorage.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'removeItem', ((1, 'bstrKey'),)))
     IHTMLStorage.clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'clear', ()))
+    win32more.System.Com.IDispatch
     return IHTMLStorage
 def _define_IHTMLPerformance_head():
     class IHTMLPerformance(win32more.System.Com.IDispatch_head):
@@ -15152,6 +15494,7 @@ def _define_IHTMLPerformance():
     IHTMLPerformance.get_timing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLPerformanceTiming_head), use_last_error=False)(8, 'get_timing', ((1, 'p'),)))
     IHTMLPerformance.toString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'toString', ((1, 'string'),)))
     IHTMLPerformance.toJSON = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'toJSON', ((1, 'pVar'),)))
+    win32more.System.Com.IDispatch
     return IHTMLPerformance
 def _define_IHTMLApplicationCache_head():
     class IHTMLApplicationCache(win32more.System.Com.IDispatch_head):
@@ -15179,6 +15522,7 @@ def _define_IHTMLApplicationCache():
     IHTMLApplicationCache.update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'update', ()))
     IHTMLApplicationCache.swapCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'swapCache', ()))
     IHTMLApplicationCache.abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(26, 'abort', ()))
+    win32more.System.Com.IDispatch
     return IHTMLApplicationCache
 def _define_IHTMLScreen_head():
     class IHTMLScreen(win32more.System.Com.IDispatch_head):
@@ -15196,6 +15540,7 @@ def _define_IHTMLScreen():
     IHTMLScreen.get_availHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_availHeight', ((1, 'p'),)))
     IHTMLScreen.get_availWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_availWidth', ((1, 'p'),)))
     IHTMLScreen.get_fontSmoothingEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(16, 'get_fontSmoothingEnabled', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLScreen
 def _define_IHTMLScreen2_head():
     class IHTMLScreen2(win32more.System.Com.IDispatch_head):
@@ -15207,6 +15552,7 @@ def _define_IHTMLScreen2():
     IHTMLScreen2.get_logicalYDPI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_logicalYDPI', ((1, 'p'),)))
     IHTMLScreen2.get_deviceXDPI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_deviceXDPI', ((1, 'p'),)))
     IHTMLScreen2.get_deviceYDPI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_deviceYDPI', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLScreen2
 def _define_IHTMLScreen3_head():
     class IHTMLScreen3(win32more.System.Com.IDispatch_head):
@@ -15216,6 +15562,7 @@ def _define_IHTMLScreen3():
     IHTMLScreen3 = win32more.Web.MsHtml.IHTMLScreen3_head
     IHTMLScreen3.get_systemXDPI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_systemXDPI', ((1, 'p'),)))
     IHTMLScreen3.get_systemYDPI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_systemYDPI', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLScreen3
 def _define_IHTMLScreen4_head():
     class IHTMLScreen4(win32more.System.Com.IDispatch_head):
@@ -15224,6 +15571,7 @@ def _define_IHTMLScreen4_head():
 def _define_IHTMLScreen4():
     IHTMLScreen4 = win32more.Web.MsHtml.IHTMLScreen4_head
     IHTMLScreen4.get_pixelDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_pixelDepth', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLScreen4
 def _define_IHTMLWindow4_head():
     class IHTMLWindow4(win32more.System.Com.IDispatch_head):
@@ -15233,6 +15581,7 @@ def _define_IHTMLWindow4():
     IHTMLWindow4 = win32more.Web.MsHtml.IHTMLWindow4_head
     IHTMLWindow4.createPopup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'createPopup', ((1, 'varArgIn'),(1, 'ppPopup'),)))
     IHTMLWindow4.get_frameElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFrameBase_head), use_last_error=False)(8, 'get_frameElement', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLWindow4
 def _define_IHTMLWindow5_head():
     class IHTMLWindow5(win32more.System.Com.IDispatch_head):
@@ -15242,6 +15591,7 @@ def _define_IHTMLWindow5():
     IHTMLWindow5 = win32more.Web.MsHtml.IHTMLWindow5_head
     IHTMLWindow5.put_XMLHttpRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(7, 'put_XMLHttpRequest', ((1, 'v'),)))
     IHTMLWindow5.get_XMLHttpRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_XMLHttpRequest', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLWindow5
 def _define_IHTMLWindow6_head():
     class IHTMLWindow6(win32more.System.Com.IDispatch_head):
@@ -15261,6 +15611,7 @@ def _define_IHTMLWindow6():
     IHTMLWindow6.put_onmessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(16, 'put_onmessage', ((1, 'v'),)))
     IHTMLWindow6.get_onmessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'get_onmessage', ((1, 'p'),)))
     IHTMLWindow6.msWriteProfilerMark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(18, 'msWriteProfilerMark', ((1, 'bstrProfilerMarkName'),)))
+    win32more.System.Com.IDispatch
     return IHTMLWindow6
 def _define_IHTMLWindow7_head():
     class IHTMLWindow7(win32more.System.Com.IDispatch_head):
@@ -15387,6 +15738,7 @@ def _define_IHTMLWindow7():
     IHTMLWindow7.get_onvolumechange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(123, 'get_onvolumechange', ((1, 'p'),)))
     IHTMLWindow7.put_onwaiting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(124, 'put_onwaiting', ((1, 'v'),)))
     IHTMLWindow7.get_onwaiting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(125, 'get_onwaiting', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLWindow7
 def _define_IHTMLWindow8_head():
     class IHTMLWindow8(win32more.System.Com.IDispatch_head):
@@ -15425,6 +15777,7 @@ def _define_IHTMLWindow8():
     IHTMLWindow8.get_applicationCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLApplicationCache_head), use_last_error=False)(35, 'get_applicationCache', ((1, 'p'),)))
     IHTMLWindow8.put_onpopstate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(36, 'put_onpopstate', ((1, 'v'),)))
     IHTMLWindow8.get_onpopstate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(37, 'get_onpopstate', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLWindow8
 def _define_DispHTMLScreen_head():
     class DispHTMLScreen(win32more.System.Com.IDispatch_head):
@@ -15432,6 +15785,7 @@ def _define_DispHTMLScreen_head():
     return DispHTMLScreen
 def _define_DispHTMLScreen():
     DispHTMLScreen = win32more.Web.MsHtml.DispHTMLScreen_head
+    win32more.System.Com.IDispatch
     return DispHTMLScreen
 def _define_DispHTMLWindow2_head():
     class DispHTMLWindow2(win32more.System.Com.IDispatch_head):
@@ -15439,6 +15793,7 @@ def _define_DispHTMLWindow2_head():
     return DispHTMLWindow2
 def _define_DispHTMLWindow2():
     DispHTMLWindow2 = win32more.Web.MsHtml.DispHTMLWindow2_head
+    win32more.System.Com.IDispatch
     return DispHTMLWindow2
 def _define_DispHTMLWindowProxy_head():
     class DispHTMLWindowProxy(win32more.System.Com.IDispatch_head):
@@ -15446,6 +15801,7 @@ def _define_DispHTMLWindowProxy_head():
     return DispHTMLWindowProxy
 def _define_DispHTMLWindowProxy():
     DispHTMLWindowProxy = win32more.Web.MsHtml.DispHTMLWindowProxy_head
+    win32more.System.Com.IDispatch
     return DispHTMLWindowProxy
 def _define_IHTMLDocumentCompatibleInfo_head():
     class IHTMLDocumentCompatibleInfo(win32more.System.Com.IDispatch_head):
@@ -15455,6 +15811,7 @@ def _define_IHTMLDocumentCompatibleInfo():
     IHTMLDocumentCompatibleInfo = win32more.Web.MsHtml.IHTMLDocumentCompatibleInfo_head
     IHTMLDocumentCompatibleInfo.get_userAgent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_userAgent', ((1, 'p'),)))
     IHTMLDocumentCompatibleInfo.get_version = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_version', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDocumentCompatibleInfo
 def _define_IHTMLDocumentCompatibleInfoCollection_head():
     class IHTMLDocumentCompatibleInfoCollection(win32more.System.Com.IDispatch_head):
@@ -15464,6 +15821,7 @@ def _define_IHTMLDocumentCompatibleInfoCollection():
     IHTMLDocumentCompatibleInfoCollection = win32more.Web.MsHtml.IHTMLDocumentCompatibleInfoCollection_head
     IHTMLDocumentCompatibleInfoCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLDocumentCompatibleInfoCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.IHTMLDocumentCompatibleInfo_head), use_last_error=False)(8, 'item', ((1, 'index'),(1, 'compatibleInfo'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDocumentCompatibleInfoCollection
 def _define_DispHTMLDocumentCompatibleInfo_head():
     class DispHTMLDocumentCompatibleInfo(win32more.System.Com.IDispatch_head):
@@ -15471,6 +15829,7 @@ def _define_DispHTMLDocumentCompatibleInfo_head():
     return DispHTMLDocumentCompatibleInfo
 def _define_DispHTMLDocumentCompatibleInfo():
     DispHTMLDocumentCompatibleInfo = win32more.Web.MsHtml.DispHTMLDocumentCompatibleInfo_head
+    win32more.System.Com.IDispatch
     return DispHTMLDocumentCompatibleInfo
 def _define_DispHTMLDocumentCompatibleInfoCollection_head():
     class DispHTMLDocumentCompatibleInfoCollection(win32more.System.Com.IDispatch_head):
@@ -15478,6 +15837,7 @@ def _define_DispHTMLDocumentCompatibleInfoCollection_head():
     return DispHTMLDocumentCompatibleInfoCollection
 def _define_DispHTMLDocumentCompatibleInfoCollection():
     DispHTMLDocumentCompatibleInfoCollection = win32more.Web.MsHtml.DispHTMLDocumentCompatibleInfoCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLDocumentCompatibleInfoCollection
 def _define_HTMLDocumentEvents4_head():
     class HTMLDocumentEvents4(win32more.System.Com.IDispatch_head):
@@ -15485,6 +15845,7 @@ def _define_HTMLDocumentEvents4_head():
     return HTMLDocumentEvents4
 def _define_HTMLDocumentEvents4():
     HTMLDocumentEvents4 = win32more.Web.MsHtml.HTMLDocumentEvents4_head
+    win32more.System.Com.IDispatch
     return HTMLDocumentEvents4
 def _define_HTMLDocumentEvents3_head():
     class HTMLDocumentEvents3(win32more.System.Com.IDispatch_head):
@@ -15492,6 +15853,7 @@ def _define_HTMLDocumentEvents3_head():
     return HTMLDocumentEvents3
 def _define_HTMLDocumentEvents3():
     HTMLDocumentEvents3 = win32more.Web.MsHtml.HTMLDocumentEvents3_head
+    win32more.System.Com.IDispatch
     return HTMLDocumentEvents3
 def _define_HTMLDocumentEvents2_head():
     class HTMLDocumentEvents2(win32more.System.Com.IDispatch_head):
@@ -15499,6 +15861,7 @@ def _define_HTMLDocumentEvents2_head():
     return HTMLDocumentEvents2
 def _define_HTMLDocumentEvents2():
     HTMLDocumentEvents2 = win32more.Web.MsHtml.HTMLDocumentEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLDocumentEvents2
 def _define_HTMLDocumentEvents_head():
     class HTMLDocumentEvents(win32more.System.Com.IDispatch_head):
@@ -15506,6 +15869,7 @@ def _define_HTMLDocumentEvents_head():
     return HTMLDocumentEvents
 def _define_HTMLDocumentEvents():
     HTMLDocumentEvents = win32more.Web.MsHtml.HTMLDocumentEvents_head
+    win32more.System.Com.IDispatch
     return HTMLDocumentEvents
 def _define_ISVGSVGElement_head():
     class ISVGSVGElement(win32more.System.Com.IDispatch_head):
@@ -15566,6 +15930,7 @@ def _define_ISVGSVGElement():
     ISVGSVGElement.createSVGTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGTransform_head), use_last_error=False)(57, 'createSVGTransform', ((1, 'pResult'),)))
     ISVGSVGElement.createSVGTransformFromMatrix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGMatrix_head,POINTER(win32more.Web.MsHtml.ISVGTransform_head), use_last_error=False)(58, 'createSVGTransformFromMatrix', ((1, 'matrix'),(1, 'pResult'),)))
     ISVGSVGElement.getElementById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(59, 'getElementById', ((1, 'elementId'),(1, 'pResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGSVGElement
 def _define_IDOMNodeIterator_head():
     class IDOMNodeIterator(win32more.System.Com.IDispatch_head):
@@ -15580,6 +15945,7 @@ def _define_IDOMNodeIterator():
     IDOMNodeIterator.nextNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'nextNode', ((1, 'ppRetNode'),)))
     IDOMNodeIterator.previousNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(12, 'previousNode', ((1, 'ppRetNode'),)))
     IDOMNodeIterator.detach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'detach', ()))
+    win32more.System.Com.IDispatch
     return IDOMNodeIterator
 def _define_IDOMTreeWalker_head():
     class IDOMTreeWalker(win32more.System.Com.IDispatch_head):
@@ -15600,6 +15966,7 @@ def _define_IDOMTreeWalker():
     IDOMTreeWalker.nextSibling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(17, 'nextSibling', ((1, 'ppRetNode'),)))
     IDOMTreeWalker.previousNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(18, 'previousNode', ((1, 'ppRetNode'),)))
     IDOMTreeWalker.nextNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(19, 'nextNode', ((1, 'ppRetNode'),)))
+    win32more.System.Com.IDispatch
     return IDOMTreeWalker
 def _define_IDOMProcessingInstruction_head():
     class IDOMProcessingInstruction(win32more.System.Com.IDispatch_head):
@@ -15610,6 +15977,7 @@ def _define_IDOMProcessingInstruction():
     IDOMProcessingInstruction.get_target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_target', ((1, 'p'),)))
     IDOMProcessingInstruction.put_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_data', ((1, 'v'),)))
     IDOMProcessingInstruction.get_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_data', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMProcessingInstruction
 def _define_IHTMLDocument3_head():
     class IHTMLDocument3(win32more.System.Com.IDispatch_head):
@@ -15658,6 +16026,7 @@ def _define_IHTMLDocument3():
     IHTMLDocument3.getElementsByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElementCollection_head), use_last_error=False)(45, 'getElementsByName', ((1, 'v'),(1, 'pelColl'),)))
     IHTMLDocument3.getElementById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(46, 'getElementById', ((1, 'v'),(1, 'pel'),)))
     IHTMLDocument3.getElementsByTagName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElementCollection_head), use_last_error=False)(47, 'getElementsByTagName', ((1, 'v'),(1, 'pelColl'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDocument3
 def _define_IHTMLDocument4_head():
     class IHTMLDocument4(win32more.System.Com.IDispatch_head):
@@ -15679,6 +16048,7 @@ def _define_IHTMLDocument4():
     IHTMLDocument4.put_oncontrolselect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(18, 'put_oncontrolselect', ((1, 'v'),)))
     IHTMLDocument4.get_oncontrolselect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'get_oncontrolselect', ((1, 'p'),)))
     IHTMLDocument4.get_URLUnencoded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'get_URLUnencoded', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDocument4
 def _define_IHTMLDocument5_head():
     class IHTMLDocument5(win32more.System.Com.IDispatch_head):
@@ -15705,6 +16075,7 @@ def _define_IHTMLDocument5():
     IHTMLDocument5.put_onbeforedeactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(23, 'put_onbeforedeactivate', ((1, 'v'),)))
     IHTMLDocument5.get_onbeforedeactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(24, 'get_onbeforedeactivate', ((1, 'p'),)))
     IHTMLDocument5.get_compatMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(25, 'get_compatMode', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDocument5
 def _define_IHTMLDocument6_head():
     class IHTMLDocument6(win32more.System.Com.IDispatch_head):
@@ -15720,6 +16091,7 @@ def _define_IHTMLDocument6():
     IHTMLDocument6.get_onstoragecommit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_onstoragecommit', ((1, 'p'),)))
     IHTMLDocument6.getElementById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElement2_head), use_last_error=False)(13, 'getElementById', ((1, 'bstrId'),(1, 'ppRetElement'),)))
     IHTMLDocument6.updateSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'updateSettings', ()))
+    win32more.System.Com.IDispatch
     return IHTMLDocument6
 def _define_IHTMLDocument8_head():
     class IHTMLDocument8(win32more.System.Com.IDispatch_head):
@@ -15763,6 +16135,7 @@ def _define_IHTMLDocument8():
     IHTMLDocument8.get_onmsmanipulationstatechanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(40, 'get_onmsmanipulationstatechanged', ((1, 'p'),)))
     IHTMLDocument8.put_msCapsLockWarningOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(41, 'put_msCapsLockWarningOff', ((1, 'v'),)))
     IHTMLDocument8.get_msCapsLockWarningOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(42, 'get_msCapsLockWarningOff', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDocument8
 def _define_IDocumentEvent_head():
     class IDocumentEvent(win32more.System.Com.IDispatch_head):
@@ -15771,6 +16144,7 @@ def _define_IDocumentEvent_head():
 def _define_IDocumentEvent():
     IDocumentEvent = win32more.Web.MsHtml.IDocumentEvent_head
     IDocumentEvent.createEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IDOMEvent_head), use_last_error=False)(7, 'createEvent', ((1, 'eventType'),(1, 'ppEvent'),)))
+    win32more.System.Com.IDispatch
     return IDocumentEvent
 def _define_IDocumentRange_head():
     class IDocumentRange(win32more.System.Com.IDispatch_head):
@@ -15779,6 +16153,7 @@ def _define_IDocumentRange_head():
 def _define_IDocumentRange():
     IDocumentRange = win32more.Web.MsHtml.IDocumentRange_head
     IDocumentRange.createRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDOMRange_head), use_last_error=False)(7, 'createRange', ((1, 'ppIHTMLDOMRange'),)))
+    win32more.System.Com.IDispatch
     return IDocumentRange
 def _define_IDocumentSelector_head():
     class IDocumentSelector(win32more.System.Com.IDispatch_head):
@@ -15788,6 +16163,7 @@ def _define_IDocumentSelector():
     IDocumentSelector = win32more.Web.MsHtml.IDocumentSelector_head
     IDocumentSelector.querySelector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(7, 'querySelector', ((1, 'v'),(1, 'pel'),)))
     IDocumentSelector.querySelectorAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLDOMChildrenCollection_head), use_last_error=False)(8, 'querySelectorAll', ((1, 'v'),(1, 'pel'),)))
+    win32more.System.Com.IDispatch
     return IDocumentSelector
 def _define_IDocumentTraversal_head():
     class IDocumentTraversal(win32more.System.Com.IDispatch_head):
@@ -15797,6 +16173,7 @@ def _define_IDocumentTraversal():
     IDocumentTraversal = win32more.Web.MsHtml.IDocumentTraversal_head
     IDocumentTraversal.createNodeIterator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,Int32,POINTER(win32more.System.Com.VARIANT_head),Int16,POINTER(win32more.Web.MsHtml.IDOMNodeIterator_head), use_last_error=False)(7, 'createNodeIterator', ((1, 'pRootNode'),(1, 'ulWhatToShow'),(1, 'pFilter'),(1, 'fEntityReferenceExpansion'),(1, 'ppNodeIterator'),)))
     IDocumentTraversal.createTreeWalker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,Int32,POINTER(win32more.System.Com.VARIANT_head),Int16,POINTER(win32more.Web.MsHtml.IDOMTreeWalker_head), use_last_error=False)(8, 'createTreeWalker', ((1, 'pRootNode'),(1, 'ulWhatToShow'),(1, 'pFilter'),(1, 'fEntityReferenceExpansion'),(1, 'ppTreeWalker'),)))
+    win32more.System.Com.IDispatch
     return IDocumentTraversal
 def _define_DispHTMLDocument_head():
     class DispHTMLDocument(win32more.System.Com.IDispatch_head):
@@ -15804,6 +16181,7 @@ def _define_DispHTMLDocument_head():
     return DispHTMLDocument
 def _define_DispHTMLDocument():
     DispHTMLDocument = win32more.Web.MsHtml.DispHTMLDocument_head
+    win32more.System.Com.IDispatch
     return DispHTMLDocument
 def _define_DWebBridgeEvents_head():
     class DWebBridgeEvents(win32more.System.Com.IDispatch_head):
@@ -15811,6 +16189,7 @@ def _define_DWebBridgeEvents_head():
     return DWebBridgeEvents
 def _define_DWebBridgeEvents():
     DWebBridgeEvents = win32more.Web.MsHtml.DWebBridgeEvents_head
+    win32more.System.Com.IDispatch
     return DWebBridgeEvents
 def _define_IWebBridge_head():
     class IWebBridge(win32more.System.Com.IDispatch_head):
@@ -15827,6 +16206,7 @@ def _define_IWebBridge():
     IWebBridge.get_event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(13, 'get_event', ((1, 'p'),)))
     IWebBridge.get_readyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_readyState', ((1, 'p'),)))
     IWebBridge.AboutBox = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'AboutBox', ()))
+    win32more.System.Com.IDispatch
     return IWebBridge
 def _define_IWBScriptControl_head():
     class IWBScriptControl(win32more.System.Com.IDispatch_head):
@@ -15846,6 +16226,7 @@ def _define_IWBScriptControl():
     IWBScriptControl.get_visibility = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(16, 'get_visibility', ((1, 'p'),)))
     IWBScriptControl.put_onvisibilitychange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(17, 'put_onvisibilitychange', ((1, 'v'),)))
     IWBScriptControl.get_onvisibilitychange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'get_onvisibilitychange', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IWBScriptControl
 def _define_IHTMLEmbedElement_head():
     class IHTMLEmbedElement(win32more.System.Com.IDispatch_head):
@@ -15867,6 +16248,7 @@ def _define_IHTMLEmbedElement():
     IHTMLEmbedElement.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'get_width', ((1, 'p'),)))
     IHTMLEmbedElement.put_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(19, 'put_height', ((1, 'v'),)))
     IHTMLEmbedElement.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(20, 'get_height', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLEmbedElement
 def _define_IHTMLEmbedElement2_head():
     class IHTMLEmbedElement2(win32more.System.Com.IDispatch_head):
@@ -15877,6 +16259,7 @@ def _define_IHTMLEmbedElement2():
     IHTMLEmbedElement2.put_src = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_src', ((1, 'v'),)))
     IHTMLEmbedElement2.get_src = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_src', ((1, 'p'),)))
     IHTMLEmbedElement2.get_pluginspage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_pluginspage', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLEmbedElement2
 def _define_DispHTMLEmbed_head():
     class DispHTMLEmbed(win32more.System.Com.IDispatch_head):
@@ -15884,6 +16267,7 @@ def _define_DispHTMLEmbed_head():
     return DispHTMLEmbed
 def _define_DispHTMLEmbed():
     DispHTMLEmbed = win32more.Web.MsHtml.DispHTMLEmbed_head
+    win32more.System.Com.IDispatch
     return DispHTMLEmbed
 def _define_HTMLMapEvents2_head():
     class HTMLMapEvents2(win32more.System.Com.IDispatch_head):
@@ -15891,6 +16275,7 @@ def _define_HTMLMapEvents2_head():
     return HTMLMapEvents2
 def _define_HTMLMapEvents2():
     HTMLMapEvents2 = win32more.Web.MsHtml.HTMLMapEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLMapEvents2
 def _define_HTMLMapEvents_head():
     class HTMLMapEvents(win32more.System.Com.IDispatch_head):
@@ -15898,6 +16283,7 @@ def _define_HTMLMapEvents_head():
     return HTMLMapEvents
 def _define_HTMLMapEvents():
     HTMLMapEvents = win32more.Web.MsHtml.HTMLMapEvents_head
+    win32more.System.Com.IDispatch
     return HTMLMapEvents
 def _define_IHTMLAreasCollection_head():
     class IHTMLAreasCollection(win32more.System.Com.IDispatch_head):
@@ -15912,6 +16298,7 @@ def _define_IHTMLAreasCollection():
     IHTMLAreasCollection.tags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'tags', ((1, 'tagName'),(1, 'pdisp'),)))
     IHTMLAreasCollection.add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLElement_head,win32more.System.Com.VARIANT, use_last_error=False)(12, 'add', ((1, 'element'),(1, 'before'),)))
     IHTMLAreasCollection.remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(13, 'remove', ((1, 'index'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAreasCollection
 def _define_IHTMLAreasCollection2_head():
     class IHTMLAreasCollection2(win32more.System.Com.IDispatch_head):
@@ -15920,6 +16307,7 @@ def _define_IHTMLAreasCollection2_head():
 def _define_IHTMLAreasCollection2():
     IHTMLAreasCollection2 = win32more.Web.MsHtml.IHTMLAreasCollection2_head
     IHTMLAreasCollection2.urns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'urns', ((1, 'urn'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAreasCollection2
 def _define_IHTMLAreasCollection3_head():
     class IHTMLAreasCollection3(win32more.System.Com.IDispatch_head):
@@ -15928,6 +16316,7 @@ def _define_IHTMLAreasCollection3_head():
 def _define_IHTMLAreasCollection3():
     IHTMLAreasCollection3 = win32more.Web.MsHtml.IHTMLAreasCollection3_head
     IHTMLAreasCollection3.namedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'namedItem', ((1, 'name'),(1, 'pdisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAreasCollection3
 def _define_IHTMLAreasCollection4_head():
     class IHTMLAreasCollection4(win32more.System.Com.IDispatch_head):
@@ -15938,6 +16327,7 @@ def _define_IHTMLAreasCollection4():
     IHTMLAreasCollection4.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLAreasCollection4.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.IHTMLElement2_head), use_last_error=False)(8, 'item', ((1, 'index'),(1, 'pNode'),)))
     IHTMLAreasCollection4.namedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLElement2_head), use_last_error=False)(9, 'namedItem', ((1, 'name'),(1, 'pNode'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAreasCollection4
 def _define_IHTMLMapElement_head():
     class IHTMLMapElement(win32more.System.Com.IDispatch_head):
@@ -15948,6 +16338,7 @@ def _define_IHTMLMapElement():
     IHTMLMapElement.get_areas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLAreasCollection_head), use_last_error=False)(7, 'get_areas', ((1, 'p'),)))
     IHTMLMapElement.put_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_name', ((1, 'v'),)))
     IHTMLMapElement.get_name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_name', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMapElement
 def _define_DispHTMLAreasCollection_head():
     class DispHTMLAreasCollection(win32more.System.Com.IDispatch_head):
@@ -15955,6 +16346,7 @@ def _define_DispHTMLAreasCollection_head():
     return DispHTMLAreasCollection
 def _define_DispHTMLAreasCollection():
     DispHTMLAreasCollection = win32more.Web.MsHtml.DispHTMLAreasCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLAreasCollection
 def _define_DispHTMLMapElement_head():
     class DispHTMLMapElement(win32more.System.Com.IDispatch_head):
@@ -15962,6 +16354,7 @@ def _define_DispHTMLMapElement_head():
     return DispHTMLMapElement
 def _define_DispHTMLMapElement():
     DispHTMLMapElement = win32more.Web.MsHtml.DispHTMLMapElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLMapElement
 def _define_HTMLAreaEvents2_head():
     class HTMLAreaEvents2(win32more.System.Com.IDispatch_head):
@@ -15969,6 +16362,7 @@ def _define_HTMLAreaEvents2_head():
     return HTMLAreaEvents2
 def _define_HTMLAreaEvents2():
     HTMLAreaEvents2 = win32more.Web.MsHtml.HTMLAreaEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLAreaEvents2
 def _define_HTMLAreaEvents_head():
     class HTMLAreaEvents(win32more.System.Com.IDispatch_head):
@@ -15976,6 +16370,7 @@ def _define_HTMLAreaEvents_head():
     return HTMLAreaEvents
 def _define_HTMLAreaEvents():
     HTMLAreaEvents = win32more.Web.MsHtml.HTMLAreaEvents_head
+    win32more.System.Com.IDispatch
     return HTMLAreaEvents
 def _define_IHTMLAreaElement_head():
     class IHTMLAreaElement(win32more.System.Com.IDispatch_head):
@@ -16017,6 +16412,7 @@ def _define_IHTMLAreaElement():
     IHTMLAreaElement.get_tabIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(38, 'get_tabIndex', ((1, 'p'),)))
     IHTMLAreaElement.focus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(39, 'focus', ()))
     IHTMLAreaElement.blur = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(40, 'blur', ()))
+    win32more.System.Com.IDispatch
     return IHTMLAreaElement
 def _define_IHTMLAreaElement2_head():
     class IHTMLAreaElement2(win32more.System.Com.IDispatch_head):
@@ -16030,6 +16426,7 @@ def _define_IHTMLAreaElement2():
     IHTMLAreaElement2.get_coords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_coords', ((1, 'p'),)))
     IHTMLAreaElement2.put_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_href', ((1, 'v'),)))
     IHTMLAreaElement2.get_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_href', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAreaElement2
 def _define_DispHTMLAreaElement_head():
     class DispHTMLAreaElement(win32more.System.Com.IDispatch_head):
@@ -16037,6 +16434,7 @@ def _define_DispHTMLAreaElement_head():
     return DispHTMLAreaElement
 def _define_DispHTMLAreaElement():
     DispHTMLAreaElement = win32more.Web.MsHtml.DispHTMLAreaElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLAreaElement
 def _define_IHTMLTableCaption_head():
     class IHTMLTableCaption(win32more.System.Com.IDispatch_head):
@@ -16048,6 +16446,7 @@ def _define_IHTMLTableCaption():
     IHTMLTableCaption.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_align', ((1, 'p'),)))
     IHTMLTableCaption.put_vAlign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_vAlign', ((1, 'v'),)))
     IHTMLTableCaption.get_vAlign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_vAlign', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableCaption
 def _define_DispHTMLTableCaption_head():
     class DispHTMLTableCaption(win32more.System.Com.IDispatch_head):
@@ -16055,6 +16454,7 @@ def _define_DispHTMLTableCaption_head():
     return DispHTMLTableCaption
 def _define_DispHTMLTableCaption():
     DispHTMLTableCaption = win32more.Web.MsHtml.DispHTMLTableCaption_head
+    win32more.System.Com.IDispatch
     return DispHTMLTableCaption
 def _define_IHTMLCommentElement_head():
     class IHTMLCommentElement(win32more.System.Com.IDispatch_head):
@@ -16066,6 +16466,7 @@ def _define_IHTMLCommentElement():
     IHTMLCommentElement.get_text = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_text', ((1, 'p'),)))
     IHTMLCommentElement.put_atomic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'put_atomic', ((1, 'v'),)))
     IHTMLCommentElement.get_atomic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_atomic', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCommentElement
 def _define_IHTMLCommentElement2_head():
     class IHTMLCommentElement2(win32more.System.Com.IDispatch_head):
@@ -16081,6 +16482,7 @@ def _define_IHTMLCommentElement2():
     IHTMLCommentElement2.insertData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(12, 'insertData', ((1, 'offset'),(1, 'bstrstring'),)))
     IHTMLCommentElement2.deleteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(13, 'deleteData', ((1, 'offset'),(1, 'Count'),)))
     IHTMLCommentElement2.replaceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(14, 'replaceData', ((1, 'offset'),(1, 'Count'),(1, 'bstrstring'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCommentElement2
 def _define_IHTMLCommentElement3_head():
     class IHTMLCommentElement3(win32more.System.Com.IDispatch_head):
@@ -16092,6 +16494,7 @@ def _define_IHTMLCommentElement3():
     IHTMLCommentElement3.insertData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(8, 'insertData', ((1, 'offset'),(1, 'bstrstring'),)))
     IHTMLCommentElement3.deleteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(9, 'deleteData', ((1, 'offset'),(1, 'Count'),)))
     IHTMLCommentElement3.replaceData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(10, 'replaceData', ((1, 'offset'),(1, 'Count'),(1, 'bstrstring'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCommentElement3
 def _define_DispHTMLCommentElement_head():
     class DispHTMLCommentElement(win32more.System.Com.IDispatch_head):
@@ -16099,6 +16502,7 @@ def _define_DispHTMLCommentElement_head():
     return DispHTMLCommentElement
 def _define_DispHTMLCommentElement():
     DispHTMLCommentElement = win32more.Web.MsHtml.DispHTMLCommentElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLCommentElement
 def _define_IHTMLPhraseElement_head():
     class IHTMLPhraseElement(win32more.System.Com.IDispatch_head):
@@ -16106,6 +16510,7 @@ def _define_IHTMLPhraseElement_head():
     return IHTMLPhraseElement
 def _define_IHTMLPhraseElement():
     IHTMLPhraseElement = win32more.Web.MsHtml.IHTMLPhraseElement_head
+    win32more.System.Com.IDispatch
     return IHTMLPhraseElement
 def _define_IHTMLPhraseElement2_head():
     class IHTMLPhraseElement2(win32more.System.Com.IDispatch_head):
@@ -16117,6 +16522,7 @@ def _define_IHTMLPhraseElement2():
     IHTMLPhraseElement2.get_cite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_cite', ((1, 'p'),)))
     IHTMLPhraseElement2.put_dateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_dateTime', ((1, 'v'),)))
     IHTMLPhraseElement2.get_dateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_dateTime', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLPhraseElement2
 def _define_IHTMLPhraseElement3_head():
     class IHTMLPhraseElement3(win32more.System.Com.IDispatch_head):
@@ -16126,6 +16532,7 @@ def _define_IHTMLPhraseElement3():
     IHTMLPhraseElement3 = win32more.Web.MsHtml.IHTMLPhraseElement3_head
     IHTMLPhraseElement3.put_cite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_cite', ((1, 'v'),)))
     IHTMLPhraseElement3.get_cite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_cite', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLPhraseElement3
 def _define_IHTMLSpanElement_head():
     class IHTMLSpanElement(win32more.System.Com.IDispatch_head):
@@ -16133,6 +16540,7 @@ def _define_IHTMLSpanElement_head():
     return IHTMLSpanElement
 def _define_IHTMLSpanElement():
     IHTMLSpanElement = win32more.Web.MsHtml.IHTMLSpanElement_head
+    win32more.System.Com.IDispatch
     return IHTMLSpanElement
 def _define_DispHTMLPhraseElement_head():
     class DispHTMLPhraseElement(win32more.System.Com.IDispatch_head):
@@ -16140,6 +16548,7 @@ def _define_DispHTMLPhraseElement_head():
     return DispHTMLPhraseElement
 def _define_DispHTMLPhraseElement():
     DispHTMLPhraseElement = win32more.Web.MsHtml.DispHTMLPhraseElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLPhraseElement
 def _define_DispHTMLSpanElement_head():
     class DispHTMLSpanElement(win32more.System.Com.IDispatch_head):
@@ -16147,6 +16556,7 @@ def _define_DispHTMLSpanElement_head():
     return DispHTMLSpanElement
 def _define_DispHTMLSpanElement():
     DispHTMLSpanElement = win32more.Web.MsHtml.DispHTMLSpanElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLSpanElement
 def _define_HTMLTableEvents2_head():
     class HTMLTableEvents2(win32more.System.Com.IDispatch_head):
@@ -16154,6 +16564,7 @@ def _define_HTMLTableEvents2_head():
     return HTMLTableEvents2
 def _define_HTMLTableEvents2():
     HTMLTableEvents2 = win32more.Web.MsHtml.HTMLTableEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLTableEvents2
 def _define_HTMLTableEvents_head():
     class HTMLTableEvents(win32more.System.Com.IDispatch_head):
@@ -16161,6 +16572,7 @@ def _define_HTMLTableEvents_head():
     return HTMLTableEvents
 def _define_HTMLTableEvents():
     HTMLTableEvents = win32more.Web.MsHtml.HTMLTableEvents_head
+    win32more.System.Com.IDispatch
     return HTMLTableEvents
 def _define_IHTMLTableSection_head():
     class IHTMLTableSection(win32more.System.Com.IDispatch_head):
@@ -16177,6 +16589,7 @@ def _define_IHTMLTableSection():
     IHTMLTableSection.get_rows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElementCollection_head), use_last_error=False)(13, 'get_rows', ((1, 'p'),)))
     IHTMLTableSection.insertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(14, 'insertRow', ((1, 'index'),(1, 'row'),)))
     IHTMLTableSection.deleteRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(15, 'deleteRow', ((1, 'index'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableSection
 def _define_IHTMLTable_head():
     class IHTMLTable(win32more.System.Com.IDispatch_head):
@@ -16233,6 +16646,7 @@ def _define_IHTMLTable():
     IHTMLTable.get_readyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(53, 'get_readyState', ((1, 'p'),)))
     IHTMLTable.put_onreadystatechange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(54, 'put_onreadystatechange', ((1, 'v'),)))
     IHTMLTable.get_onreadystatechange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(55, 'get_onreadystatechange', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTable
 def _define_IHTMLTable2_head():
     class IHTMLTable2(win32more.System.Com.IDispatch_head):
@@ -16244,6 +16658,7 @@ def _define_IHTMLTable2():
     IHTMLTable2.lastPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'lastPage', ()))
     IHTMLTable2.get_cells = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElementCollection_head), use_last_error=False)(9, 'get_cells', ((1, 'p'),)))
     IHTMLTable2.moveRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'moveRow', ((1, 'indexFrom'),(1, 'indexTo'),(1, 'row'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTable2
 def _define_IHTMLTable3_head():
     class IHTMLTable3(win32more.System.Com.IDispatch_head):
@@ -16253,6 +16668,7 @@ def _define_IHTMLTable3():
     IHTMLTable3 = win32more.Web.MsHtml.IHTMLTable3_head
     IHTMLTable3.put_summary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_summary', ((1, 'v'),)))
     IHTMLTable3.get_summary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_summary', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTable3
 def _define_IHTMLTable4_head():
     class IHTMLTable4(win32more.System.Com.IDispatch_head):
@@ -16269,6 +16685,7 @@ def _define_IHTMLTable4():
     IHTMLTable4.insertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(13, 'insertRow', ((1, 'index'),(1, 'row'),)))
     IHTMLTable4.deleteRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(14, 'deleteRow', ((1, 'index'),)))
     IHTMLTable4.createTBody = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLTableSection_head), use_last_error=False)(15, 'createTBody', ((1, 'tbody'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTable4
 def _define_IHTMLTableCol_head():
     class IHTMLTableCol(win32more.System.Com.IDispatch_head):
@@ -16284,6 +16701,7 @@ def _define_IHTMLTableCol():
     IHTMLTableCol.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_align', ((1, 'p'),)))
     IHTMLTableCol.put_vAlign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_vAlign', ((1, 'v'),)))
     IHTMLTableCol.get_vAlign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_vAlign', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableCol
 def _define_IHTMLTableCol2_head():
     class IHTMLTableCol2(win32more.System.Com.IDispatch_head):
@@ -16295,6 +16713,7 @@ def _define_IHTMLTableCol2():
     IHTMLTableCol2.get_ch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_ch', ((1, 'p'),)))
     IHTMLTableCol2.put_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_chOff', ((1, 'v'),)))
     IHTMLTableCol2.get_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_chOff', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableCol2
 def _define_IHTMLTableCol3_head():
     class IHTMLTableCol3(win32more.System.Com.IDispatch_head):
@@ -16306,6 +16725,7 @@ def _define_IHTMLTableCol3():
     IHTMLTableCol3.get_ch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_ch', ((1, 'p'),)))
     IHTMLTableCol3.put_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_chOff', ((1, 'v'),)))
     IHTMLTableCol3.get_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_chOff', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableCol3
 def _define_IHTMLTableSection2_head():
     class IHTMLTableSection2(win32more.System.Com.IDispatch_head):
@@ -16314,6 +16734,7 @@ def _define_IHTMLTableSection2_head():
 def _define_IHTMLTableSection2():
     IHTMLTableSection2 = win32more.Web.MsHtml.IHTMLTableSection2_head
     IHTMLTableSection2.moveRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'moveRow', ((1, 'indexFrom'),(1, 'indexTo'),(1, 'row'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableSection2
 def _define_IHTMLTableSection3_head():
     class IHTMLTableSection3(win32more.System.Com.IDispatch_head):
@@ -16325,6 +16746,7 @@ def _define_IHTMLTableSection3():
     IHTMLTableSection3.get_ch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_ch', ((1, 'p'),)))
     IHTMLTableSection3.put_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_chOff', ((1, 'v'),)))
     IHTMLTableSection3.get_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_chOff', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableSection3
 def _define_IHTMLTableSection4_head():
     class IHTMLTableSection4(win32more.System.Com.IDispatch_head):
@@ -16338,6 +16760,7 @@ def _define_IHTMLTableSection4():
     IHTMLTableSection4.get_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_chOff', ((1, 'p'),)))
     IHTMLTableSection4.insertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'insertRow', ((1, 'index'),(1, 'row'),)))
     IHTMLTableSection4.deleteRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'deleteRow', ((1, 'index'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableSection4
 def _define_IHTMLTableRow_head():
     class IHTMLTableRow(win32more.System.Com.IDispatch_head):
@@ -16362,6 +16785,7 @@ def _define_IHTMLTableRow():
     IHTMLTableRow.get_cells = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElementCollection_head), use_last_error=False)(21, 'get_cells', ((1, 'p'),)))
     IHTMLTableRow.insertCell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(22, 'insertCell', ((1, 'index'),(1, 'row'),)))
     IHTMLTableRow.deleteCell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(23, 'deleteCell', ((1, 'index'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableRow
 def _define_IHTMLTableRow2_head():
     class IHTMLTableRow2(win32more.System.Com.IDispatch_head):
@@ -16371,6 +16795,7 @@ def _define_IHTMLTableRow2():
     IHTMLTableRow2 = win32more.Web.MsHtml.IHTMLTableRow2_head
     IHTMLTableRow2.put_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(7, 'put_height', ((1, 'v'),)))
     IHTMLTableRow2.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_height', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableRow2
 def _define_IHTMLTableRow3_head():
     class IHTMLTableRow3(win32more.System.Com.IDispatch_head):
@@ -16382,6 +16807,7 @@ def _define_IHTMLTableRow3():
     IHTMLTableRow3.get_ch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_ch', ((1, 'p'),)))
     IHTMLTableRow3.put_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_chOff', ((1, 'v'),)))
     IHTMLTableRow3.get_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_chOff', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableRow3
 def _define_IHTMLTableRow4_head():
     class IHTMLTableRow4(win32more.System.Com.IDispatch_head):
@@ -16395,6 +16821,7 @@ def _define_IHTMLTableRow4():
     IHTMLTableRow4.get_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_chOff', ((1, 'p'),)))
     IHTMLTableRow4.insertCell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'insertCell', ((1, 'index'),(1, 'row'),)))
     IHTMLTableRow4.deleteCell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'deleteCell', ((1, 'index'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableRow4
 def _define_IHTMLTableRowMetrics_head():
     class IHTMLTableRowMetrics(win32more.System.Com.IDispatch_head):
@@ -16406,6 +16833,7 @@ def _define_IHTMLTableRowMetrics():
     IHTMLTableRowMetrics.get_clientWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_clientWidth', ((1, 'p'),)))
     IHTMLTableRowMetrics.get_clientTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_clientTop', ((1, 'p'),)))
     IHTMLTableRowMetrics.get_clientLeft = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_clientLeft', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableRowMetrics
 def _define_IHTMLTableCell_head():
     class IHTMLTableCell(win32more.System.Com.IDispatch_head):
@@ -16438,6 +16866,7 @@ def _define_IHTMLTableCell():
     IHTMLTableCell.put_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(29, 'put_height', ((1, 'v'),)))
     IHTMLTableCell.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(30, 'get_height', ((1, 'p'),)))
     IHTMLTableCell.get_cellIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(31, 'get_cellIndex', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableCell
 def _define_IHTMLTableCell2_head():
     class IHTMLTableCell2(win32more.System.Com.IDispatch_head):
@@ -16457,6 +16886,7 @@ def _define_IHTMLTableCell2():
     IHTMLTableCell2.get_headers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_headers', ((1, 'p'),)))
     IHTMLTableCell2.put_scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'put_scope', ((1, 'v'),)))
     IHTMLTableCell2.get_scope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_scope', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableCell2
 def _define_IHTMLTableCell3_head():
     class IHTMLTableCell3(win32more.System.Com.IDispatch_head):
@@ -16468,6 +16898,7 @@ def _define_IHTMLTableCell3():
     IHTMLTableCell3.get_ch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_ch', ((1, 'p'),)))
     IHTMLTableCell3.put_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_chOff', ((1, 'v'),)))
     IHTMLTableCell3.get_chOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_chOff', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTableCell3
 def _define_DispHTMLTable_head():
     class DispHTMLTable(win32more.System.Com.IDispatch_head):
@@ -16475,6 +16906,7 @@ def _define_DispHTMLTable_head():
     return DispHTMLTable
 def _define_DispHTMLTable():
     DispHTMLTable = win32more.Web.MsHtml.DispHTMLTable_head
+    win32more.System.Com.IDispatch
     return DispHTMLTable
 def _define_DispHTMLTableCol_head():
     class DispHTMLTableCol(win32more.System.Com.IDispatch_head):
@@ -16482,6 +16914,7 @@ def _define_DispHTMLTableCol_head():
     return DispHTMLTableCol
 def _define_DispHTMLTableCol():
     DispHTMLTableCol = win32more.Web.MsHtml.DispHTMLTableCol_head
+    win32more.System.Com.IDispatch
     return DispHTMLTableCol
 def _define_DispHTMLTableSection_head():
     class DispHTMLTableSection(win32more.System.Com.IDispatch_head):
@@ -16489,6 +16922,7 @@ def _define_DispHTMLTableSection_head():
     return DispHTMLTableSection
 def _define_DispHTMLTableSection():
     DispHTMLTableSection = win32more.Web.MsHtml.DispHTMLTableSection_head
+    win32more.System.Com.IDispatch
     return DispHTMLTableSection
 def _define_DispHTMLTableRow_head():
     class DispHTMLTableRow(win32more.System.Com.IDispatch_head):
@@ -16496,6 +16930,7 @@ def _define_DispHTMLTableRow_head():
     return DispHTMLTableRow
 def _define_DispHTMLTableRow():
     DispHTMLTableRow = win32more.Web.MsHtml.DispHTMLTableRow_head
+    win32more.System.Com.IDispatch
     return DispHTMLTableRow
 def _define_DispHTMLTableCell_head():
     class DispHTMLTableCell(win32more.System.Com.IDispatch_head):
@@ -16503,6 +16938,7 @@ def _define_DispHTMLTableCell_head():
     return DispHTMLTableCell
 def _define_DispHTMLTableCell():
     DispHTMLTableCell = win32more.Web.MsHtml.DispHTMLTableCell_head
+    win32more.System.Com.IDispatch
     return DispHTMLTableCell
 def _define_HTMLScriptEvents2_head():
     class HTMLScriptEvents2(win32more.System.Com.IDispatch_head):
@@ -16510,6 +16946,7 @@ def _define_HTMLScriptEvents2_head():
     return HTMLScriptEvents2
 def _define_HTMLScriptEvents2():
     HTMLScriptEvents2 = win32more.Web.MsHtml.HTMLScriptEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLScriptEvents2
 def _define_HTMLScriptEvents_head():
     class HTMLScriptEvents(win32more.System.Com.IDispatch_head):
@@ -16517,6 +16954,7 @@ def _define_HTMLScriptEvents_head():
     return HTMLScriptEvents
 def _define_HTMLScriptEvents():
     HTMLScriptEvents = win32more.Web.MsHtml.HTMLScriptEvents_head
+    win32more.System.Com.IDispatch
     return HTMLScriptEvents
 def _define_IHTMLScriptElement_head():
     class IHTMLScriptElement(win32more.System.Com.IDispatch_head):
@@ -16539,6 +16977,7 @@ def _define_IHTMLScriptElement():
     IHTMLScriptElement.get_onerror = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'get_onerror', ((1, 'p'),)))
     IHTMLScriptElement.put_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(20, 'put_type', ((1, 'v'),)))
     IHTMLScriptElement.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'get_type', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLScriptElement
 def _define_IHTMLScriptElement2_head():
     class IHTMLScriptElement2(win32more.System.Com.IDispatch_head):
@@ -16548,6 +16987,7 @@ def _define_IHTMLScriptElement2():
     IHTMLScriptElement2 = win32more.Web.MsHtml.IHTMLScriptElement2_head
     IHTMLScriptElement2.put_charset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_charset', ((1, 'v'),)))
     IHTMLScriptElement2.get_charset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_charset', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLScriptElement2
 def _define_IHTMLScriptElement3_head():
     class IHTMLScriptElement3(win32more.System.Com.IDispatch_head):
@@ -16557,6 +16997,7 @@ def _define_IHTMLScriptElement3():
     IHTMLScriptElement3 = win32more.Web.MsHtml.IHTMLScriptElement3_head
     IHTMLScriptElement3.put_src = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_src', ((1, 'v'),)))
     IHTMLScriptElement3.get_src = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_src', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLScriptElement3
 def _define_IHTMLScriptElement4_head():
     class IHTMLScriptElement4(win32more.System.Com.IDispatch_head):
@@ -16565,6 +17006,7 @@ def _define_IHTMLScriptElement4_head():
 def _define_IHTMLScriptElement4():
     IHTMLScriptElement4 = win32more.Web.MsHtml.IHTMLScriptElement4_head
     IHTMLScriptElement4.get_usedCharset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_usedCharset', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLScriptElement4
 def _define_DispHTMLScriptElement_head():
     class DispHTMLScriptElement(win32more.System.Com.IDispatch_head):
@@ -16572,6 +17014,7 @@ def _define_DispHTMLScriptElement_head():
     return DispHTMLScriptElement
 def _define_DispHTMLScriptElement():
     DispHTMLScriptElement = win32more.Web.MsHtml.DispHTMLScriptElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLScriptElement
 def _define_IHTMLNoShowElement_head():
     class IHTMLNoShowElement(win32more.System.Com.IDispatch_head):
@@ -16579,6 +17022,7 @@ def _define_IHTMLNoShowElement_head():
     return IHTMLNoShowElement
 def _define_IHTMLNoShowElement():
     IHTMLNoShowElement = win32more.Web.MsHtml.IHTMLNoShowElement_head
+    win32more.System.Com.IDispatch
     return IHTMLNoShowElement
 def _define_DispHTMLNoShowElement_head():
     class DispHTMLNoShowElement(win32more.System.Com.IDispatch_head):
@@ -16586,6 +17030,7 @@ def _define_DispHTMLNoShowElement_head():
     return DispHTMLNoShowElement
 def _define_DispHTMLNoShowElement():
     DispHTMLNoShowElement = win32more.Web.MsHtml.DispHTMLNoShowElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLNoShowElement
 def _define_HTMLObjectElementEvents2_head():
     class HTMLObjectElementEvents2(win32more.System.Com.IDispatch_head):
@@ -16593,6 +17038,7 @@ def _define_HTMLObjectElementEvents2_head():
     return HTMLObjectElementEvents2
 def _define_HTMLObjectElementEvents2():
     HTMLObjectElementEvents2 = win32more.Web.MsHtml.HTMLObjectElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLObjectElementEvents2
 def _define_HTMLObjectElementEvents_head():
     class HTMLObjectElementEvents(win32more.System.Com.IDispatch_head):
@@ -16600,6 +17046,7 @@ def _define_HTMLObjectElementEvents_head():
     return HTMLObjectElementEvents
 def _define_HTMLObjectElementEvents():
     HTMLObjectElementEvents = win32more.Web.MsHtml.HTMLObjectElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLObjectElementEvents
 def _define_IHTMLObjectElement_head():
     class IHTMLObjectElement(win32more.System.Com.IDispatch_head):
@@ -16641,6 +17088,7 @@ def _define_IHTMLObjectElement():
     IHTMLObjectElement.get_vspace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(38, 'get_vspace', ((1, 'p'),)))
     IHTMLObjectElement.put_hspace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(39, 'put_hspace', ((1, 'v'),)))
     IHTMLObjectElement.get_hspace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(40, 'get_hspace', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLObjectElement
 def _define_IHTMLObjectElement2_head():
     class IHTMLObjectElement2(win32more.System.Com.IDispatch_head):
@@ -16653,6 +17101,7 @@ def _define_IHTMLObjectElement2():
     IHTMLObjectElement2.get_classid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_classid', ((1, 'p'),)))
     IHTMLObjectElement2.put_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_data', ((1, 'v'),)))
     IHTMLObjectElement2.get_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_data', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLObjectElement2
 def _define_IHTMLObjectElement3_head():
     class IHTMLObjectElement3(win32more.System.Com.IDispatch_head):
@@ -16672,6 +17121,7 @@ def _define_IHTMLObjectElement3():
     IHTMLObjectElement3.get_border = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'get_border', ((1, 'p'),)))
     IHTMLObjectElement3.put_useMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'put_useMap', ((1, 'v'),)))
     IHTMLObjectElement3.get_useMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_useMap', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLObjectElement3
 def _define_IHTMLObjectElement4_head():
     class IHTMLObjectElement4(win32more.System.Com.IDispatch_head):
@@ -16684,6 +17134,7 @@ def _define_IHTMLObjectElement4():
     IHTMLObjectElement4.get_codeBase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_codeBase', ((1, 'p'),)))
     IHTMLObjectElement4.put_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_data', ((1, 'v'),)))
     IHTMLObjectElement4.get_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_data', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLObjectElement4
 def _define_IHTMLObjectElement5_head():
     class IHTMLObjectElement5(win32more.System.Com.IDispatch_head):
@@ -16693,6 +17144,7 @@ def _define_IHTMLObjectElement5():
     IHTMLObjectElement5 = win32more.Web.MsHtml.IHTMLObjectElement5_head
     IHTMLObjectElement5.put_object = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_object', ((1, 'v'),)))
     IHTMLObjectElement5.get_object = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_object', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLObjectElement5
 def _define_IHTMLParamElement_head():
     class IHTMLParamElement(win32more.System.Com.IDispatch_head):
@@ -16708,6 +17160,7 @@ def _define_IHTMLParamElement():
     IHTMLParamElement.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_type', ((1, 'p'),)))
     IHTMLParamElement.put_valueType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_valueType', ((1, 'v'),)))
     IHTMLParamElement.get_valueType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_valueType', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLParamElement
 def _define_IHTMLParamElement2_head():
     class IHTMLParamElement2(win32more.System.Com.IDispatch_head):
@@ -16723,6 +17176,7 @@ def _define_IHTMLParamElement2():
     IHTMLParamElement2.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_value', ((1, 'p'),)))
     IHTMLParamElement2.put_valueType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_valueType', ((1, 'v'),)))
     IHTMLParamElement2.get_valueType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_valueType', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLParamElement2
 def _define_DispHTMLObjectElement_head():
     class DispHTMLObjectElement(win32more.System.Com.IDispatch_head):
@@ -16730,6 +17184,7 @@ def _define_DispHTMLObjectElement_head():
     return DispHTMLObjectElement
 def _define_DispHTMLObjectElement():
     DispHTMLObjectElement = win32more.Web.MsHtml.DispHTMLObjectElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLObjectElement
 def _define_DispHTMLParamElement_head():
     class DispHTMLParamElement(win32more.System.Com.IDispatch_head):
@@ -16737,6 +17192,7 @@ def _define_DispHTMLParamElement_head():
     return DispHTMLParamElement
 def _define_DispHTMLParamElement():
     DispHTMLParamElement = win32more.Web.MsHtml.DispHTMLParamElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLParamElement
 def _define_HTMLFrameSiteEvents2_head():
     class HTMLFrameSiteEvents2(win32more.System.Com.IDispatch_head):
@@ -16744,6 +17200,7 @@ def _define_HTMLFrameSiteEvents2_head():
     return HTMLFrameSiteEvents2
 def _define_HTMLFrameSiteEvents2():
     HTMLFrameSiteEvents2 = win32more.Web.MsHtml.HTMLFrameSiteEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLFrameSiteEvents2
 def _define_HTMLFrameSiteEvents_head():
     class HTMLFrameSiteEvents(win32more.System.Com.IDispatch_head):
@@ -16751,6 +17208,7 @@ def _define_HTMLFrameSiteEvents_head():
     return HTMLFrameSiteEvents
 def _define_HTMLFrameSiteEvents():
     HTMLFrameSiteEvents = win32more.Web.MsHtml.HTMLFrameSiteEvents_head
+    win32more.System.Com.IDispatch
     return HTMLFrameSiteEvents
 def _define_IHTMLFrameBase2_head():
     class IHTMLFrameBase2(win32more.System.Com.IDispatch_head):
@@ -16766,6 +17224,7 @@ def _define_IHTMLFrameBase2():
     IHTMLFrameBase2.get_readyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_readyState', ((1, 'p'),)))
     IHTMLFrameBase2.put_allowTransparency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(13, 'put_allowTransparency', ((1, 'v'),)))
     IHTMLFrameBase2.get_allowTransparency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(14, 'get_allowTransparency', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFrameBase2
 def _define_IHTMLFrameBase3_head():
     class IHTMLFrameBase3(win32more.System.Com.IDispatch_head):
@@ -16775,6 +17234,7 @@ def _define_IHTMLFrameBase3():
     IHTMLFrameBase3 = win32more.Web.MsHtml.IHTMLFrameBase3_head
     IHTMLFrameBase3.put_longDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_longDesc', ((1, 'v'),)))
     IHTMLFrameBase3.get_longDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_longDesc', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFrameBase3
 def _define_DispHTMLFrameBase_head():
     class DispHTMLFrameBase(win32more.System.Com.IDispatch_head):
@@ -16782,6 +17242,7 @@ def _define_DispHTMLFrameBase_head():
     return DispHTMLFrameBase
 def _define_DispHTMLFrameBase():
     DispHTMLFrameBase = win32more.Web.MsHtml.DispHTMLFrameBase_head
+    win32more.System.Com.IDispatch
     return DispHTMLFrameBase
 def _define_IHTMLFrameElement_head():
     class IHTMLFrameElement(win32more.System.Com.IDispatch_head):
@@ -16791,6 +17252,7 @@ def _define_IHTMLFrameElement():
     IHTMLFrameElement = win32more.Web.MsHtml.IHTMLFrameElement_head
     IHTMLFrameElement.put_borderColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(7, 'put_borderColor', ((1, 'v'),)))
     IHTMLFrameElement.get_borderColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_borderColor', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFrameElement
 def _define_IHTMLFrameElement2_head():
     class IHTMLFrameElement2(win32more.System.Com.IDispatch_head):
@@ -16802,6 +17264,7 @@ def _define_IHTMLFrameElement2():
     IHTMLFrameElement2.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_height', ((1, 'p'),)))
     IHTMLFrameElement2.put_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_width', ((1, 'v'),)))
     IHTMLFrameElement2.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_width', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFrameElement2
 def _define_IHTMLFrameElement3_head():
     class IHTMLFrameElement3(win32more.System.Com.IDispatch_head):
@@ -16816,6 +17279,7 @@ def _define_IHTMLFrameElement3():
     IHTMLFrameElement3.get_longDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_longDesc', ((1, 'p'),)))
     IHTMLFrameElement3.put_frameBorder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'put_frameBorder', ((1, 'v'),)))
     IHTMLFrameElement3.get_frameBorder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_frameBorder', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFrameElement3
 def _define_DispHTMLFrameElement_head():
     class DispHTMLFrameElement(win32more.System.Com.IDispatch_head):
@@ -16823,6 +17287,7 @@ def _define_DispHTMLFrameElement_head():
     return DispHTMLFrameElement
 def _define_DispHTMLFrameElement():
     DispHTMLFrameElement = win32more.Web.MsHtml.DispHTMLFrameElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLFrameElement
 def _define_IHTMLIFrameElement_head():
     class IHTMLIFrameElement(win32more.System.Com.IDispatch_head):
@@ -16836,6 +17301,7 @@ def _define_IHTMLIFrameElement():
     IHTMLIFrameElement.get_hspace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_hspace', ((1, 'p'),)))
     IHTMLIFrameElement.put_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_align', ((1, 'v'),)))
     IHTMLIFrameElement.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_align', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLIFrameElement
 def _define_IHTMLIFrameElement2_head():
     class IHTMLIFrameElement2(win32more.System.Com.IDispatch_head):
@@ -16847,6 +17313,7 @@ def _define_IHTMLIFrameElement2():
     IHTMLIFrameElement2.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_height', ((1, 'p'),)))
     IHTMLIFrameElement2.put_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_width', ((1, 'v'),)))
     IHTMLIFrameElement2.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_width', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLIFrameElement2
 def _define_IHTMLIFrameElement3_head():
     class IHTMLIFrameElement3(win32more.System.Com.IDispatch_head):
@@ -16861,6 +17328,7 @@ def _define_IHTMLIFrameElement3():
     IHTMLIFrameElement3.get_longDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_longDesc', ((1, 'p'),)))
     IHTMLIFrameElement3.put_frameBorder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'put_frameBorder', ((1, 'v'),)))
     IHTMLIFrameElement3.get_frameBorder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_frameBorder', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLIFrameElement3
 def _define_DispHTMLIFrame_head():
     class DispHTMLIFrame(win32more.System.Com.IDispatch_head):
@@ -16868,6 +17336,7 @@ def _define_DispHTMLIFrame_head():
     return DispHTMLIFrame
 def _define_DispHTMLIFrame():
     DispHTMLIFrame = win32more.Web.MsHtml.DispHTMLIFrame_head
+    win32more.System.Com.IDispatch
     return DispHTMLIFrame
 def _define_IHTMLDivPosition_head():
     class IHTMLDivPosition(win32more.System.Com.IDispatch_head):
@@ -16877,6 +17346,7 @@ def _define_IHTMLDivPosition():
     IHTMLDivPosition = win32more.Web.MsHtml.IHTMLDivPosition_head
     IHTMLDivPosition.put_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_align', ((1, 'v'),)))
     IHTMLDivPosition.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_align', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDivPosition
 def _define_IHTMLFieldSetElement_head():
     class IHTMLFieldSetElement(win32more.System.Com.IDispatch_head):
@@ -16886,6 +17356,7 @@ def _define_IHTMLFieldSetElement():
     IHTMLFieldSetElement = win32more.Web.MsHtml.IHTMLFieldSetElement_head
     IHTMLFieldSetElement.put_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_align', ((1, 'v'),)))
     IHTMLFieldSetElement.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_align', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFieldSetElement
 def _define_IHTMLFieldSetElement2_head():
     class IHTMLFieldSetElement2(win32more.System.Com.IDispatch_head):
@@ -16894,6 +17365,7 @@ def _define_IHTMLFieldSetElement2_head():
 def _define_IHTMLFieldSetElement2():
     IHTMLFieldSetElement2 = win32more.Web.MsHtml.IHTMLFieldSetElement2_head
     IHTMLFieldSetElement2.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(7, 'get_form', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFieldSetElement2
 def _define_IHTMLLegendElement_head():
     class IHTMLLegendElement(win32more.System.Com.IDispatch_head):
@@ -16903,6 +17375,7 @@ def _define_IHTMLLegendElement():
     IHTMLLegendElement = win32more.Web.MsHtml.IHTMLLegendElement_head
     IHTMLLegendElement.put_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_align', ((1, 'v'),)))
     IHTMLLegendElement.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_align', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLegendElement
 def _define_IHTMLLegendElement2_head():
     class IHTMLLegendElement2(win32more.System.Com.IDispatch_head):
@@ -16911,6 +17384,7 @@ def _define_IHTMLLegendElement2_head():
 def _define_IHTMLLegendElement2():
     IHTMLLegendElement2 = win32more.Web.MsHtml.IHTMLLegendElement2_head
     IHTMLLegendElement2.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(7, 'get_form', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLLegendElement2
 def _define_DispHTMLDivPosition_head():
     class DispHTMLDivPosition(win32more.System.Com.IDispatch_head):
@@ -16918,6 +17392,7 @@ def _define_DispHTMLDivPosition_head():
     return DispHTMLDivPosition
 def _define_DispHTMLDivPosition():
     DispHTMLDivPosition = win32more.Web.MsHtml.DispHTMLDivPosition_head
+    win32more.System.Com.IDispatch
     return DispHTMLDivPosition
 def _define_DispHTMLFieldSetElement_head():
     class DispHTMLFieldSetElement(win32more.System.Com.IDispatch_head):
@@ -16925,6 +17400,7 @@ def _define_DispHTMLFieldSetElement_head():
     return DispHTMLFieldSetElement
 def _define_DispHTMLFieldSetElement():
     DispHTMLFieldSetElement = win32more.Web.MsHtml.DispHTMLFieldSetElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLFieldSetElement
 def _define_DispHTMLLegendElement_head():
     class DispHTMLLegendElement(win32more.System.Com.IDispatch_head):
@@ -16932,6 +17408,7 @@ def _define_DispHTMLLegendElement_head():
     return DispHTMLLegendElement
 def _define_DispHTMLLegendElement():
     DispHTMLLegendElement = win32more.Web.MsHtml.DispHTMLLegendElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLLegendElement
 def _define_IHTMLSpanFlow_head():
     class IHTMLSpanFlow(win32more.System.Com.IDispatch_head):
@@ -16941,6 +17418,7 @@ def _define_IHTMLSpanFlow():
     IHTMLSpanFlow = win32more.Web.MsHtml.IHTMLSpanFlow_head
     IHTMLSpanFlow.put_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_align', ((1, 'v'),)))
     IHTMLSpanFlow.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_align', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSpanFlow
 def _define_DispHTMLSpanFlow_head():
     class DispHTMLSpanFlow(win32more.System.Com.IDispatch_head):
@@ -16948,6 +17426,7 @@ def _define_DispHTMLSpanFlow_head():
     return DispHTMLSpanFlow
 def _define_DispHTMLSpanFlow():
     DispHTMLSpanFlow = win32more.Web.MsHtml.DispHTMLSpanFlow_head
+    win32more.System.Com.IDispatch
     return DispHTMLSpanFlow
 def _define_IHTMLFrameSetElement_head():
     class IHTMLFrameSetElement(win32more.System.Com.IDispatch_head):
@@ -16975,6 +17454,7 @@ def _define_IHTMLFrameSetElement():
     IHTMLFrameSetElement.get_onunload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(24, 'get_onunload', ((1, 'p'),)))
     IHTMLFrameSetElement.put_onbeforeunload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(25, 'put_onbeforeunload', ((1, 'v'),)))
     IHTMLFrameSetElement.get_onbeforeunload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(26, 'get_onbeforeunload', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFrameSetElement
 def _define_IHTMLFrameSetElement2_head():
     class IHTMLFrameSetElement2(win32more.System.Com.IDispatch_head):
@@ -16986,6 +17466,7 @@ def _define_IHTMLFrameSetElement2():
     IHTMLFrameSetElement2.get_onbeforeprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_onbeforeprint', ((1, 'p'),)))
     IHTMLFrameSetElement2.put_onafterprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_onafterprint', ((1, 'v'),)))
     IHTMLFrameSetElement2.get_onafterprint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_onafterprint', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFrameSetElement2
 def _define_IHTMLFrameSetElement3_head():
     class IHTMLFrameSetElement3(win32more.System.Com.IDispatch_head):
@@ -17003,6 +17484,7 @@ def _define_IHTMLFrameSetElement3():
     IHTMLFrameSetElement3.get_ononline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'get_ononline', ((1, 'p'),)))
     IHTMLFrameSetElement3.put_onstorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(15, 'put_onstorage', ((1, 'v'),)))
     IHTMLFrameSetElement3.get_onstorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'get_onstorage', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFrameSetElement3
 def _define_DispHTMLFrameSetSite_head():
     class DispHTMLFrameSetSite(win32more.System.Com.IDispatch_head):
@@ -17010,6 +17492,7 @@ def _define_DispHTMLFrameSetSite_head():
     return DispHTMLFrameSetSite
 def _define_DispHTMLFrameSetSite():
     DispHTMLFrameSetSite = win32more.Web.MsHtml.DispHTMLFrameSetSite_head
+    win32more.System.Com.IDispatch
     return DispHTMLFrameSetSite
 def _define_IHTMLBGsound_head():
     class IHTMLBGsound(win32more.System.Com.IDispatch_head):
@@ -17025,6 +17508,7 @@ def _define_IHTMLBGsound():
     IHTMLBGsound.get_volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_volume', ((1, 'p'),)))
     IHTMLBGsound.put_balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(13, 'put_balance', ((1, 'v'),)))
     IHTMLBGsound.get_balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'get_balance', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLBGsound
 def _define_DispHTMLBGsound_head():
     class DispHTMLBGsound(win32more.System.Com.IDispatch_head):
@@ -17032,6 +17516,7 @@ def _define_DispHTMLBGsound_head():
     return DispHTMLBGsound
 def _define_DispHTMLBGsound():
     DispHTMLBGsound = win32more.Web.MsHtml.DispHTMLBGsound_head
+    win32more.System.Com.IDispatch
     return DispHTMLBGsound
 def _define_IHTMLFontNamesCollection_head():
     class IHTMLFontNamesCollection(win32more.System.Com.IDispatch_head):
@@ -17042,6 +17527,7 @@ def _define_IHTMLFontNamesCollection():
     IHTMLFontNamesCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLFontNamesCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLFontNamesCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'item', ((1, 'index'),(1, 'pBstr'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFontNamesCollection
 def _define_IHTMLFontSizesCollection_head():
     class IHTMLFontSizesCollection(win32more.System.Com.IDispatch_head):
@@ -17053,6 +17539,7 @@ def _define_IHTMLFontSizesCollection():
     IHTMLFontSizesCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLFontSizesCollection.get_forFont = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_forFont', ((1, 'p'),)))
     IHTMLFontSizesCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(10, 'item', ((1, 'index'),(1, 'plSize'),)))
+    win32more.System.Com.IDispatch
     return IHTMLFontSizesCollection
 def _define_IHTMLOptionsHolder_head():
     class IHTMLOptionsHolder(win32more.System.Com.IDispatch_head):
@@ -17087,6 +17574,7 @@ def _define_IHTMLOptionsHolder():
     IHTMLOptionsHolder.isApartmentModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLObjectElement_head,POINTER(Int16), use_last_error=False)(31, 'isApartmentModel', ((1, 'object'),(1, 'fApartment'),)))
     IHTMLOptionsHolder.getCharset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(32, 'getCharset', ((1, 'fontName'),(1, 'charset'),)))
     IHTMLOptionsHolder.get_secureConnectionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(33, 'get_secureConnectionInfo', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLOptionsHolder
 def _define_HTMLStyleElementEvents2_head():
     class HTMLStyleElementEvents2(win32more.System.Com.IDispatch_head):
@@ -17094,6 +17582,7 @@ def _define_HTMLStyleElementEvents2_head():
     return HTMLStyleElementEvents2
 def _define_HTMLStyleElementEvents2():
     HTMLStyleElementEvents2 = win32more.Web.MsHtml.HTMLStyleElementEvents2_head
+    win32more.System.Com.IDispatch
     return HTMLStyleElementEvents2
 def _define_HTMLStyleElementEvents_head():
     class HTMLStyleElementEvents(win32more.System.Com.IDispatch_head):
@@ -17101,6 +17590,7 @@ def _define_HTMLStyleElementEvents_head():
     return HTMLStyleElementEvents
 def _define_HTMLStyleElementEvents():
     HTMLStyleElementEvents = win32more.Web.MsHtml.HTMLStyleElementEvents_head
+    win32more.System.Com.IDispatch
     return HTMLStyleElementEvents
 def _define_IHTMLStyleElement_head():
     class IHTMLStyleElement(win32more.System.Com.IDispatch_head):
@@ -17122,6 +17612,7 @@ def _define_IHTMLStyleElement():
     IHTMLStyleElement.get_disabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(18, 'get_disabled', ((1, 'p'),)))
     IHTMLStyleElement.put_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(19, 'put_media', ((1, 'v'),)))
     IHTMLStyleElement.get_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'get_media', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleElement
 def _define_IHTMLStyleElement2_head():
     class IHTMLStyleElement2(win32more.System.Com.IDispatch_head):
@@ -17130,6 +17621,7 @@ def _define_IHTMLStyleElement2_head():
 def _define_IHTMLStyleElement2():
     IHTMLStyleElement2 = win32more.Web.MsHtml.IHTMLStyleElement2_head
     IHTMLStyleElement2.get_sheet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLStyleSheet_head), use_last_error=False)(7, 'get_sheet', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleElement2
 def _define_DispHTMLStyleElement_head():
     class DispHTMLStyleElement(win32more.System.Com.IDispatch_head):
@@ -17137,6 +17629,7 @@ def _define_DispHTMLStyleElement_head():
     return DispHTMLStyleElement
 def _define_DispHTMLStyleElement():
     DispHTMLStyleElement = win32more.Web.MsHtml.DispHTMLStyleElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleElement
 def _define_IHTMLStyleFontFace_head():
     class IHTMLStyleFontFace(win32more.System.Com.IDispatch_head):
@@ -17146,6 +17639,7 @@ def _define_IHTMLStyleFontFace():
     IHTMLStyleFontFace = win32more.Web.MsHtml.IHTMLStyleFontFace_head
     IHTMLStyleFontFace.put_fontsrc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_fontsrc', ((1, 'v'),)))
     IHTMLStyleFontFace.get_fontsrc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_fontsrc', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleFontFace
 def _define_IHTMLStyleFontFace2_head():
     class IHTMLStyleFontFace2(win32more.System.Com.IDispatch_head):
@@ -17154,6 +17648,7 @@ def _define_IHTMLStyleFontFace2_head():
 def _define_IHTMLStyleFontFace2():
     IHTMLStyleFontFace2 = win32more.Web.MsHtml.IHTMLStyleFontFace2_head
     IHTMLStyleFontFace2.get_style = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLRuleStyle_head), use_last_error=False)(7, 'get_style', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleFontFace2
 def _define_DispHTMLStyleFontFace_head():
     class DispHTMLStyleFontFace(win32more.System.Com.IDispatch_head):
@@ -17161,6 +17656,7 @@ def _define_DispHTMLStyleFontFace_head():
     return DispHTMLStyleFontFace
 def _define_DispHTMLStyleFontFace():
     DispHTMLStyleFontFace = win32more.Web.MsHtml.DispHTMLStyleFontFace_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleFontFace
 def _define_IHTMLXDomainRequest_head():
     class IHTMLXDomainRequest(win32more.System.Com.IDispatch_head):
@@ -17183,6 +17679,7 @@ def _define_IHTMLXDomainRequest():
     IHTMLXDomainRequest.abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'abort', ()))
     IHTMLXDomainRequest.open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(20, 'open', ((1, 'bstrMethod'),(1, 'bstrUrl'),)))
     IHTMLXDomainRequest.send = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(21, 'send', ((1, 'varBody'),)))
+    win32more.System.Com.IDispatch
     return IHTMLXDomainRequest
 def _define_IHTMLXDomainRequestFactory_head():
     class IHTMLXDomainRequestFactory(win32more.System.Com.IDispatch_head):
@@ -17191,6 +17688,7 @@ def _define_IHTMLXDomainRequestFactory_head():
 def _define_IHTMLXDomainRequestFactory():
     IHTMLXDomainRequestFactory = win32more.Web.MsHtml.IHTMLXDomainRequestFactory_head
     IHTMLXDomainRequestFactory.create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLXDomainRequest_head), use_last_error=False)(7, 'create', ((1, '__MIDL__IHTMLXDomainRequestFactory0000'),)))
+    win32more.System.Com.IDispatch
     return IHTMLXDomainRequestFactory
 def _define_DispXDomainRequest_head():
     class DispXDomainRequest(win32more.System.Com.IDispatch_head):
@@ -17198,6 +17696,7 @@ def _define_DispXDomainRequest_head():
     return DispXDomainRequest
 def _define_DispXDomainRequest():
     DispXDomainRequest = win32more.Web.MsHtml.DispXDomainRequest_head
+    win32more.System.Com.IDispatch
     return DispXDomainRequest
 def _define_IHTMLStorage2_head():
     class IHTMLStorage2(win32more.System.Com.IDispatch_head):
@@ -17206,6 +17705,7 @@ def _define_IHTMLStorage2_head():
 def _define_IHTMLStorage2():
     IHTMLStorage2 = win32more.Web.MsHtml.IHTMLStorage2_head
     IHTMLStorage2.setItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(7, 'setItem', ((1, 'bstrKey'),(1, 'bstrValue'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStorage2
 def _define_DispHTMLStorage_head():
     class DispHTMLStorage(win32more.System.Com.IDispatch_head):
@@ -17213,6 +17713,7 @@ def _define_DispHTMLStorage_head():
     return DispHTMLStorage
 def _define_DispHTMLStorage():
     DispHTMLStorage = win32more.Web.MsHtml.DispHTMLStorage_head
+    win32more.System.Com.IDispatch
     return DispHTMLStorage
 def _define_IEventTarget_head():
     class IEventTarget(win32more.System.Com.IDispatch_head):
@@ -17223,6 +17724,7 @@ def _define_IEventTarget():
     IEventTarget.addEventListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,Int16, use_last_error=False)(7, 'addEventListener', ((1, 'type'),(1, 'listener'),(1, 'useCapture'),)))
     IEventTarget.removeEventListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,Int16, use_last_error=False)(8, 'removeEventListener', ((1, 'type'),(1, 'listener'),(1, 'useCapture'),)))
     IEventTarget.dispatchEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IDOMEvent_head,POINTER(Int16), use_last_error=False)(9, 'dispatchEvent', ((1, 'evt'),(1, 'pfResult'),)))
+    win32more.System.Com.IDispatch
     return IEventTarget
 def _define_DispDOMEvent_head():
     class DispDOMEvent(win32more.System.Com.IDispatch_head):
@@ -17230,6 +17732,7 @@ def _define_DispDOMEvent_head():
     return DispDOMEvent
 def _define_DispDOMEvent():
     DispDOMEvent = win32more.Web.MsHtml.DispDOMEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMEvent
 def _define_IDOMUIEvent_head():
     class IDOMUIEvent(win32more.System.Com.IDispatch_head):
@@ -17240,6 +17743,7 @@ def _define_IDOMUIEvent():
     IDOMUIEvent.get_view = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLWindow2_head), use_last_error=False)(7, 'get_view', ((1, 'p'),)))
     IDOMUIEvent.get_detail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_detail', ((1, 'p'),)))
     IDOMUIEvent.initUIEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Web.MsHtml.IHTMLWindow2_head,Int32, use_last_error=False)(9, 'initUIEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'view'),(1, 'detail'),)))
+    win32more.System.Com.IDispatch
     return IDOMUIEvent
 def _define_DispDOMUIEvent_head():
     class DispDOMUIEvent(win32more.System.Com.IDispatch_head):
@@ -17247,6 +17751,7 @@ def _define_DispDOMUIEvent_head():
     return DispDOMUIEvent
 def _define_DispDOMUIEvent():
     DispDOMUIEvent = win32more.Web.MsHtml.DispDOMUIEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMUIEvent
 def _define_IDOMMouseEvent_head():
     class IDOMMouseEvent(win32more.System.Com.IDispatch_head):
@@ -17278,6 +17783,7 @@ def _define_IDOMMouseEvent():
     IDOMMouseEvent.get_layerX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(28, 'get_layerX', ((1, 'p'),)))
     IDOMMouseEvent.get_layerY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(29, 'get_layerY', ((1, 'p'),)))
     IDOMMouseEvent.get_which = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(30, 'get_which', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMMouseEvent
 def _define_DispDOMMouseEvent_head():
     class DispDOMMouseEvent(win32more.System.Com.IDispatch_head):
@@ -17285,6 +17791,7 @@ def _define_DispDOMMouseEvent_head():
     return DispDOMMouseEvent
 def _define_DispDOMMouseEvent():
     DispDOMMouseEvent = win32more.Web.MsHtml.DispDOMMouseEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMMouseEvent
 def _define_IDOMDragEvent_head():
     class IDOMDragEvent(win32more.System.Com.IDispatch_head):
@@ -17294,6 +17801,7 @@ def _define_IDOMDragEvent():
     IDOMDragEvent = win32more.Web.MsHtml.IDOMDragEvent_head
     IDOMDragEvent.get_dataTransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDataTransfer_head), use_last_error=False)(7, 'get_dataTransfer', ((1, 'p'),)))
     IDOMDragEvent.initDragEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Web.MsHtml.IHTMLWindow2_head,Int32,Int32,Int32,Int32,Int32,Int16,Int16,Int16,Int16,UInt16,win32more.Web.MsHtml.IEventTarget_head,win32more.Web.MsHtml.IHTMLDataTransfer_head, use_last_error=False)(8, 'initDragEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'viewArg'),(1, 'detailArg'),(1, 'screenXArg'),(1, 'screenYArg'),(1, 'clientXArg'),(1, 'clientYArg'),(1, 'ctrlKeyArg'),(1, 'altKeyArg'),(1, 'shiftKeyArg'),(1, 'metaKeyArg'),(1, 'buttonArg'),(1, 'relatedTargetArg'),(1, 'dataTransferArg'),)))
+    win32more.System.Com.IDispatch
     return IDOMDragEvent
 def _define_DispDOMDragEvent_head():
     class DispDOMDragEvent(win32more.System.Com.IDispatch_head):
@@ -17301,6 +17809,7 @@ def _define_DispDOMDragEvent_head():
     return DispDOMDragEvent
 def _define_DispDOMDragEvent():
     DispDOMDragEvent = win32more.Web.MsHtml.DispDOMDragEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMDragEvent
 def _define_IDOMMouseWheelEvent_head():
     class IDOMMouseWheelEvent(win32more.System.Com.IDispatch_head):
@@ -17310,6 +17819,7 @@ def _define_IDOMMouseWheelEvent():
     IDOMMouseWheelEvent = win32more.Web.MsHtml.IDOMMouseWheelEvent_head
     IDOMMouseWheelEvent.get_wheelDelta = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_wheelDelta', ((1, 'p'),)))
     IDOMMouseWheelEvent.initMouseWheelEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Web.MsHtml.IHTMLWindow2_head,Int32,Int32,Int32,Int32,Int32,UInt16,win32more.Web.MsHtml.IEventTarget_head,win32more.Foundation.BSTR,Int32, use_last_error=False)(8, 'initMouseWheelEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'viewArg'),(1, 'detailArg'),(1, 'screenXArg'),(1, 'screenYArg'),(1, 'clientXArg'),(1, 'clientYArg'),(1, 'buttonArg'),(1, 'relatedTargetArg'),(1, 'modifiersListArg'),(1, 'wheelDeltaArg'),)))
+    win32more.System.Com.IDispatch
     return IDOMMouseWheelEvent
 def _define_DispDOMMouseWheelEvent_head():
     class DispDOMMouseWheelEvent(win32more.System.Com.IDispatch_head):
@@ -17317,6 +17827,7 @@ def _define_DispDOMMouseWheelEvent_head():
     return DispDOMMouseWheelEvent
 def _define_DispDOMMouseWheelEvent():
     DispDOMMouseWheelEvent = win32more.Web.MsHtml.DispDOMMouseWheelEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMMouseWheelEvent
 def _define_IDOMWheelEvent_head():
     class IDOMWheelEvent(win32more.System.Com.IDispatch_head):
@@ -17329,6 +17840,7 @@ def _define_IDOMWheelEvent():
     IDOMWheelEvent.get_deltaZ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_deltaZ', ((1, 'p'),)))
     IDOMWheelEvent.get_deltaMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'get_deltaMode', ((1, 'p'),)))
     IDOMWheelEvent.initWheelEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Web.MsHtml.IHTMLWindow2_head,Int32,Int32,Int32,Int32,Int32,UInt16,win32more.Web.MsHtml.IEventTarget_head,win32more.Foundation.BSTR,Int32,Int32,Int32,UInt32, use_last_error=False)(11, 'initWheelEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'viewArg'),(1, 'detailArg'),(1, 'screenXArg'),(1, 'screenYArg'),(1, 'clientXArg'),(1, 'clientYArg'),(1, 'buttonArg'),(1, 'relatedTargetArg'),(1, 'modifiersListArg'),(1, 'deltaX'),(1, 'deltaY'),(1, 'deltaZ'),(1, 'deltaMode'),)))
+    win32more.System.Com.IDispatch
     return IDOMWheelEvent
 def _define_DispDOMWheelEvent_head():
     class DispDOMWheelEvent(win32more.System.Com.IDispatch_head):
@@ -17336,6 +17848,7 @@ def _define_DispDOMWheelEvent_head():
     return DispDOMWheelEvent
 def _define_DispDOMWheelEvent():
     DispDOMWheelEvent = win32more.Web.MsHtml.DispDOMWheelEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMWheelEvent
 def _define_IDOMTextEvent_head():
     class IDOMTextEvent(win32more.System.Com.IDispatch_head):
@@ -17347,6 +17860,7 @@ def _define_IDOMTextEvent():
     IDOMTextEvent.get_inputMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'get_inputMethod', ((1, 'p'),)))
     IDOMTextEvent.initTextEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Web.MsHtml.IHTMLWindow2_head,win32more.Foundation.BSTR,UInt32,win32more.Foundation.BSTR, use_last_error=False)(9, 'initTextEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'viewArg'),(1, 'dataArg'),(1, 'inputMethod'),(1, 'locale'),)))
     IDOMTextEvent.get_locale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_locale', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMTextEvent
 def _define_DispDOMTextEvent_head():
     class DispDOMTextEvent(win32more.System.Com.IDispatch_head):
@@ -17354,6 +17868,7 @@ def _define_DispDOMTextEvent_head():
     return DispDOMTextEvent
 def _define_DispDOMTextEvent():
     DispDOMTextEvent = win32more.Web.MsHtml.DispDOMTextEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMTextEvent
 def _define_IDOMKeyboardEvent_head():
     class IDOMKeyboardEvent(win32more.System.Com.IDispatch_head):
@@ -17375,6 +17890,7 @@ def _define_IDOMKeyboardEvent():
     IDOMKeyboardEvent.get_which = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_which', ((1, 'p'),)))
     IDOMKeyboardEvent.get_ie9_char = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'get_ie9_char', ((1, 'p'),)))
     IDOMKeyboardEvent.get_locale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'get_locale', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMKeyboardEvent
 def _define_DispDOMKeyboardEvent_head():
     class DispDOMKeyboardEvent(win32more.System.Com.IDispatch_head):
@@ -17382,6 +17898,7 @@ def _define_DispDOMKeyboardEvent_head():
     return DispDOMKeyboardEvent
 def _define_DispDOMKeyboardEvent():
     DispDOMKeyboardEvent = win32more.Web.MsHtml.DispDOMKeyboardEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMKeyboardEvent
 def _define_IDOMCompositionEvent_head():
     class IDOMCompositionEvent(win32more.System.Com.IDispatch_head):
@@ -17392,6 +17909,7 @@ def _define_IDOMCompositionEvent():
     IDOMCompositionEvent.get_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_data', ((1, 'p'),)))
     IDOMCompositionEvent.initCompositionEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Web.MsHtml.IHTMLWindow2_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(8, 'initCompositionEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'viewArg'),(1, 'data'),(1, 'locale'),)))
     IDOMCompositionEvent.get_locale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_locale', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMCompositionEvent
 def _define_DispDOMCompositionEvent_head():
     class DispDOMCompositionEvent(win32more.System.Com.IDispatch_head):
@@ -17399,6 +17917,7 @@ def _define_DispDOMCompositionEvent_head():
     return DispDOMCompositionEvent
 def _define_DispDOMCompositionEvent():
     DispDOMCompositionEvent = win32more.Web.MsHtml.DispDOMCompositionEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMCompositionEvent
 def _define_IDOMMutationEvent_head():
     class IDOMMutationEvent(win32more.System.Com.IDispatch_head):
@@ -17412,6 +17931,7 @@ def _define_IDOMMutationEvent():
     IDOMMutationEvent.get_attrName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_attrName', ((1, 'p'),)))
     IDOMMutationEvent.get_attrChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(11, 'get_attrChange', ((1, 'p'),)))
     IDOMMutationEvent.initMutationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.System.Com.IDispatch_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt16, use_last_error=False)(12, 'initMutationEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'relatedNodeArg'),(1, 'prevValueArg'),(1, 'newValueArg'),(1, 'attrNameArg'),(1, 'attrChangeArg'),)))
+    win32more.System.Com.IDispatch
     return IDOMMutationEvent
 def _define_DispDOMMutationEvent_head():
     class DispDOMMutationEvent(win32more.System.Com.IDispatch_head):
@@ -17419,6 +17939,7 @@ def _define_DispDOMMutationEvent_head():
     return DispDOMMutationEvent
 def _define_DispDOMMutationEvent():
     DispDOMMutationEvent = win32more.Web.MsHtml.DispDOMMutationEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMMutationEvent
 def _define_IDOMBeforeUnloadEvent_head():
     class IDOMBeforeUnloadEvent(win32more.System.Com.IDispatch_head):
@@ -17428,6 +17949,7 @@ def _define_IDOMBeforeUnloadEvent():
     IDOMBeforeUnloadEvent = win32more.Web.MsHtml.IDOMBeforeUnloadEvent_head
     IDOMBeforeUnloadEvent.put_returnValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(7, 'put_returnValue', ((1, 'v'),)))
     IDOMBeforeUnloadEvent.get_returnValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_returnValue', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMBeforeUnloadEvent
 def _define_DispDOMBeforeUnloadEvent_head():
     class DispDOMBeforeUnloadEvent(win32more.System.Com.IDispatch_head):
@@ -17435,6 +17957,7 @@ def _define_DispDOMBeforeUnloadEvent_head():
     return DispDOMBeforeUnloadEvent
 def _define_DispDOMBeforeUnloadEvent():
     DispDOMBeforeUnloadEvent = win32more.Web.MsHtml.DispDOMBeforeUnloadEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMBeforeUnloadEvent
 def _define_IDOMFocusEvent_head():
     class IDOMFocusEvent(win32more.System.Com.IDispatch_head):
@@ -17444,6 +17967,7 @@ def _define_IDOMFocusEvent():
     IDOMFocusEvent = win32more.Web.MsHtml.IDOMFocusEvent_head
     IDOMFocusEvent.get_relatedTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IEventTarget_head), use_last_error=False)(7, 'get_relatedTarget', ((1, 'p'),)))
     IDOMFocusEvent.initFocusEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Web.MsHtml.IHTMLWindow2_head,Int32,win32more.Web.MsHtml.IEventTarget_head, use_last_error=False)(8, 'initFocusEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'view'),(1, 'detail'),(1, 'relatedTargetArg'),)))
+    win32more.System.Com.IDispatch
     return IDOMFocusEvent
 def _define_DispDOMFocusEvent_head():
     class DispDOMFocusEvent(win32more.System.Com.IDispatch_head):
@@ -17451,6 +17975,7 @@ def _define_DispDOMFocusEvent_head():
     return DispDOMFocusEvent
 def _define_DispDOMFocusEvent():
     DispDOMFocusEvent = win32more.Web.MsHtml.DispDOMFocusEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMFocusEvent
 def _define_IDOMCustomEvent_head():
     class IDOMCustomEvent(win32more.System.Com.IDispatch_head):
@@ -17460,6 +17985,7 @@ def _define_IDOMCustomEvent():
     IDOMCustomEvent = win32more.Web.MsHtml.IDOMCustomEvent_head
     IDOMCustomEvent.get_detail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_detail', ((1, 'p'),)))
     IDOMCustomEvent.initCustomEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'initCustomEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'detail'),)))
+    win32more.System.Com.IDispatch
     return IDOMCustomEvent
 def _define_DispDOMCustomEvent_head():
     class DispDOMCustomEvent(win32more.System.Com.IDispatch_head):
@@ -17467,6 +17993,7 @@ def _define_DispDOMCustomEvent_head():
     return DispDOMCustomEvent
 def _define_DispDOMCustomEvent():
     DispDOMCustomEvent = win32more.Web.MsHtml.DispDOMCustomEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMCustomEvent
 def _define_ICanvasGradient_head():
     class ICanvasGradient(win32more.System.Com.IDispatch_head):
@@ -17475,6 +18002,7 @@ def _define_ICanvasGradient_head():
 def _define_ICanvasGradient():
     ICanvasGradient = win32more.Web.MsHtml.ICanvasGradient_head
     ICanvasGradient.addColorStop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,win32more.Foundation.BSTR, use_last_error=False)(7, 'addColorStop', ((1, 'offset'),(1, 'color'),)))
+    win32more.System.Com.IDispatch
     return ICanvasGradient
 def _define_ICanvasPattern_head():
     class ICanvasPattern(win32more.System.Com.IDispatch_head):
@@ -17482,6 +18010,7 @@ def _define_ICanvasPattern_head():
     return ICanvasPattern
 def _define_ICanvasPattern():
     ICanvasPattern = win32more.Web.MsHtml.ICanvasPattern_head
+    win32more.System.Com.IDispatch
     return ICanvasPattern
 def _define_ICanvasTextMetrics_head():
     class ICanvasTextMetrics(win32more.System.Com.IDispatch_head):
@@ -17490,6 +18019,7 @@ def _define_ICanvasTextMetrics_head():
 def _define_ICanvasTextMetrics():
     ICanvasTextMetrics = win32more.Web.MsHtml.ICanvasTextMetrics_head
     ICanvasTextMetrics.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(7, 'get_width', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ICanvasTextMetrics
 def _define_ICanvasImageData_head():
     class ICanvasImageData(win32more.System.Com.IDispatch_head):
@@ -17500,6 +18030,7 @@ def _define_ICanvasImageData():
     ICanvasImageData.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'get_width', ((1, 'p'),)))
     ICanvasImageData.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'get_height', ((1, 'p'),)))
     ICanvasImageData.get_data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_data', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ICanvasImageData
 def _define_ICanvasPixelArray_head():
     class ICanvasPixelArray(win32more.System.Com.IDispatch_head):
@@ -17508,6 +18039,7 @@ def _define_ICanvasPixelArray_head():
 def _define_ICanvasPixelArray():
     ICanvasPixelArray = win32more.Web.MsHtml.ICanvasPixelArray_head
     ICanvasPixelArray.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ICanvasPixelArray
 def _define_IHTMLCanvasElement_head():
     class IHTMLCanvasElement(win32more.System.Com.IDispatch_head):
@@ -17521,6 +18053,7 @@ def _define_IHTMLCanvasElement():
     IHTMLCanvasElement.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_height', ((1, 'p'),)))
     IHTMLCanvasElement.getContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.ICanvasRenderingContext2D_head), use_last_error=False)(11, 'getContext', ((1, 'contextId'),(1, 'ppContext'),)))
     IHTMLCanvasElement.toDataURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'toDataURL', ((1, 'type'),(1, 'jpegquality'),(1, 'pUrl'),)))
+    win32more.System.Com.IDispatch
     return IHTMLCanvasElement
 def _define_ICanvasRenderingContext2D_head():
     class ICanvasRenderingContext2D(win32more.System.Com.IDispatch_head):
@@ -17592,6 +18125,7 @@ def _define_ICanvasRenderingContext2D():
     ICanvasRenderingContext2D.createImageData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.Web.MsHtml.ICanvasImageData_head), use_last_error=False)(68, 'createImageData', ((1, 'a1'),(1, 'a2'),(1, 'ppCanvasImageData'),)))
     ICanvasRenderingContext2D.getImageData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single,POINTER(win32more.Web.MsHtml.ICanvasImageData_head), use_last_error=False)(69, 'getImageData', ((1, 'sx'),(1, 'sy'),(1, 'sw'),(1, 'sh'),(1, 'ppCanvasImageData'),)))
     ICanvasRenderingContext2D.putImageData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ICanvasImageData_head,Single,Single,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(70, 'putImageData', ((1, 'imagedata'),(1, 'dx'),(1, 'dy'),(1, 'dirtyX'),(1, 'dirtyY'),(1, 'dirtyWidth'),(1, 'dirtyHeight'),)))
+    win32more.System.Com.IDispatch
     return ICanvasRenderingContext2D
 def _define_DispCanvasGradient_head():
     class DispCanvasGradient(win32more.System.Com.IDispatch_head):
@@ -17599,6 +18133,7 @@ def _define_DispCanvasGradient_head():
     return DispCanvasGradient
 def _define_DispCanvasGradient():
     DispCanvasGradient = win32more.Web.MsHtml.DispCanvasGradient_head
+    win32more.System.Com.IDispatch
     return DispCanvasGradient
 def _define_DispCanvasPattern_head():
     class DispCanvasPattern(win32more.System.Com.IDispatch_head):
@@ -17606,6 +18141,7 @@ def _define_DispCanvasPattern_head():
     return DispCanvasPattern
 def _define_DispCanvasPattern():
     DispCanvasPattern = win32more.Web.MsHtml.DispCanvasPattern_head
+    win32more.System.Com.IDispatch
     return DispCanvasPattern
 def _define_DispCanvasTextMetrics_head():
     class DispCanvasTextMetrics(win32more.System.Com.IDispatch_head):
@@ -17613,6 +18149,7 @@ def _define_DispCanvasTextMetrics_head():
     return DispCanvasTextMetrics
 def _define_DispCanvasTextMetrics():
     DispCanvasTextMetrics = win32more.Web.MsHtml.DispCanvasTextMetrics_head
+    win32more.System.Com.IDispatch
     return DispCanvasTextMetrics
 def _define_DispCanvasImageData_head():
     class DispCanvasImageData(win32more.System.Com.IDispatch_head):
@@ -17620,6 +18157,7 @@ def _define_DispCanvasImageData_head():
     return DispCanvasImageData
 def _define_DispCanvasImageData():
     DispCanvasImageData = win32more.Web.MsHtml.DispCanvasImageData_head
+    win32more.System.Com.IDispatch
     return DispCanvasImageData
 def _define_DispCanvasRenderingContext2D_head():
     class DispCanvasRenderingContext2D(win32more.System.Com.IDispatch_head):
@@ -17627,6 +18165,7 @@ def _define_DispCanvasRenderingContext2D_head():
     return DispCanvasRenderingContext2D
 def _define_DispCanvasRenderingContext2D():
     DispCanvasRenderingContext2D = win32more.Web.MsHtml.DispCanvasRenderingContext2D_head
+    win32more.System.Com.IDispatch
     return DispCanvasRenderingContext2D
 def _define_DispHTMLCanvasElement_head():
     class DispHTMLCanvasElement(win32more.System.Com.IDispatch_head):
@@ -17634,6 +18173,7 @@ def _define_DispHTMLCanvasElement_head():
     return DispHTMLCanvasElement
 def _define_DispHTMLCanvasElement():
     DispHTMLCanvasElement = win32more.Web.MsHtml.DispHTMLCanvasElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLCanvasElement
 def _define_IDOMProgressEvent_head():
     class IDOMProgressEvent(win32more.System.Com.IDispatch_head):
@@ -17645,6 +18185,7 @@ def _define_IDOMProgressEvent():
     IDOMProgressEvent.get_loaded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(8, 'get_loaded', ((1, 'p'),)))
     IDOMProgressEvent.get_total = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(9, 'get_total', ((1, 'p'),)))
     IDOMProgressEvent.initProgressEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,Int16,UInt64,UInt64, use_last_error=False)(10, 'initProgressEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'lengthComputableArg'),(1, 'loadedArg'),(1, 'totalArg'),)))
+    win32more.System.Com.IDispatch
     return IDOMProgressEvent
 def _define_DispDOMProgressEvent_head():
     class DispDOMProgressEvent(win32more.System.Com.IDispatch_head):
@@ -17652,6 +18193,7 @@ def _define_DispDOMProgressEvent_head():
     return DispDOMProgressEvent
 def _define_DispDOMProgressEvent():
     DispDOMProgressEvent = win32more.Web.MsHtml.DispDOMProgressEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMProgressEvent
 def _define_IDOMMessageEvent_head():
     class IDOMMessageEvent(win32more.System.Com.IDispatch_head):
@@ -17663,6 +18205,7 @@ def _define_IDOMMessageEvent():
     IDOMMessageEvent.get_origin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_origin', ((1, 'p'),)))
     IDOMMessageEvent.get_source = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLWindow2_head), use_last_error=False)(9, 'get_source', ((1, 'p'),)))
     IDOMMessageEvent.initMessageEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Web.MsHtml.IHTMLWindow2_head, use_last_error=False)(10, 'initMessageEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'data'),(1, 'origin'),(1, 'lastEventId'),(1, 'source'),)))
+    win32more.System.Com.IDispatch
     return IDOMMessageEvent
 def _define_DispDOMMessageEvent_head():
     class DispDOMMessageEvent(win32more.System.Com.IDispatch_head):
@@ -17670,6 +18213,7 @@ def _define_DispDOMMessageEvent_head():
     return DispDOMMessageEvent
 def _define_DispDOMMessageEvent():
     DispDOMMessageEvent = win32more.Web.MsHtml.DispDOMMessageEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMMessageEvent
 def _define_IDOMSiteModeEvent_head():
     class IDOMSiteModeEvent(win32more.System.Com.IDispatch_head):
@@ -17679,6 +18223,7 @@ def _define_IDOMSiteModeEvent():
     IDOMSiteModeEvent = win32more.Web.MsHtml.IDOMSiteModeEvent_head
     IDOMSiteModeEvent.get_buttonID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_buttonID', ((1, 'p'),)))
     IDOMSiteModeEvent.get_actionURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_actionURL', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMSiteModeEvent
 def _define_DispDOMSiteModeEvent_head():
     class DispDOMSiteModeEvent(win32more.System.Com.IDispatch_head):
@@ -17686,6 +18231,7 @@ def _define_DispDOMSiteModeEvent_head():
     return DispDOMSiteModeEvent
 def _define_DispDOMSiteModeEvent():
     DispDOMSiteModeEvent = win32more.Web.MsHtml.DispDOMSiteModeEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMSiteModeEvent
 def _define_IDOMStorageEvent_head():
     class IDOMStorageEvent(win32more.System.Com.IDispatch_head):
@@ -17699,6 +18245,7 @@ def _define_IDOMStorageEvent():
     IDOMStorageEvent.get_url = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_url', ((1, 'p'),)))
     IDOMStorageEvent.get_storageArea = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLStorage_head), use_last_error=False)(11, 'get_storageArea', ((1, 'p'),)))
     IDOMStorageEvent.initStorageEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Web.MsHtml.IHTMLStorage_head, use_last_error=False)(12, 'initStorageEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'keyArg'),(1, 'oldValueArg'),(1, 'newValueArg'),(1, 'urlArg'),(1, 'storageAreaArg'),)))
+    win32more.System.Com.IDispatch
     return IDOMStorageEvent
 def _define_DispDOMStorageEvent_head():
     class DispDOMStorageEvent(win32more.System.Com.IDispatch_head):
@@ -17706,6 +18253,7 @@ def _define_DispDOMStorageEvent_head():
     return DispDOMStorageEvent
 def _define_DispDOMStorageEvent():
     DispDOMStorageEvent = win32more.Web.MsHtml.DispDOMStorageEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMStorageEvent
 def _define_IXMLHttpRequestEventTarget_head():
     class IXMLHttpRequestEventTarget(win32more.System.Com.IDispatch_head):
@@ -17713,6 +18261,7 @@ def _define_IXMLHttpRequestEventTarget_head():
     return IXMLHttpRequestEventTarget
 def _define_IXMLHttpRequestEventTarget():
     IXMLHttpRequestEventTarget = win32more.Web.MsHtml.IXMLHttpRequestEventTarget_head
+    win32more.System.Com.IDispatch
     return IXMLHttpRequestEventTarget
 def _define_DispXMLHttpRequestEventTarget_head():
     class DispXMLHttpRequestEventTarget(win32more.System.Com.IDispatch_head):
@@ -17720,6 +18269,7 @@ def _define_DispXMLHttpRequestEventTarget_head():
     return DispXMLHttpRequestEventTarget
 def _define_DispXMLHttpRequestEventTarget():
     DispXMLHttpRequestEventTarget = win32more.Web.MsHtml.DispXMLHttpRequestEventTarget_head
+    win32more.System.Com.IDispatch
     return DispXMLHttpRequestEventTarget
 def _define_HTMLXMLHttpRequestEvents_head():
     class HTMLXMLHttpRequestEvents(win32more.System.Com.IDispatch_head):
@@ -17727,6 +18277,7 @@ def _define_HTMLXMLHttpRequestEvents_head():
     return HTMLXMLHttpRequestEvents
 def _define_HTMLXMLHttpRequestEvents():
     HTMLXMLHttpRequestEvents = win32more.Web.MsHtml.HTMLXMLHttpRequestEvents_head
+    win32more.System.Com.IDispatch
     return HTMLXMLHttpRequestEvents
 def _define_IHTMLXMLHttpRequest_head():
     class IHTMLXMLHttpRequest(win32more.System.Com.IDispatch_head):
@@ -17748,6 +18299,7 @@ def _define_IHTMLXMLHttpRequest():
     IHTMLXMLHttpRequest.getAllResponseHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'getAllResponseHeaders', ((1, '__MIDL__IHTMLXMLHttpRequest0000'),)))
     IHTMLXMLHttpRequest.getResponseHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'getResponseHeader', ((1, 'bstrHeader'),(1, '__MIDL__IHTMLXMLHttpRequest0001'),)))
     IHTMLXMLHttpRequest.setRequestHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(20, 'setRequestHeader', ((1, 'bstrHeader'),(1, 'bstrValue'),)))
+    win32more.System.Com.IDispatch
     return IHTMLXMLHttpRequest
 def _define_IHTMLXMLHttpRequest2_head():
     class IHTMLXMLHttpRequest2(win32more.System.Com.IDispatch_head):
@@ -17759,6 +18311,7 @@ def _define_IHTMLXMLHttpRequest2():
     IHTMLXMLHttpRequest2.get_timeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_timeout', ((1, 'p'),)))
     IHTMLXMLHttpRequest2.put_ontimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(9, 'put_ontimeout', ((1, 'v'),)))
     IHTMLXMLHttpRequest2.get_ontimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_ontimeout', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLXMLHttpRequest2
 def _define_IHTMLXMLHttpRequestFactory_head():
     class IHTMLXMLHttpRequestFactory(win32more.System.Com.IDispatch_head):
@@ -17767,6 +18320,7 @@ def _define_IHTMLXMLHttpRequestFactory_head():
 def _define_IHTMLXMLHttpRequestFactory():
     IHTMLXMLHttpRequestFactory = win32more.Web.MsHtml.IHTMLXMLHttpRequestFactory_head
     IHTMLXMLHttpRequestFactory.create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLXMLHttpRequest_head), use_last_error=False)(7, 'create', ((1, '__MIDL__IHTMLXMLHttpRequestFactory0000'),)))
+    win32more.System.Com.IDispatch
     return IHTMLXMLHttpRequestFactory
 def _define_DispHTMLXMLHttpRequest_head():
     class DispHTMLXMLHttpRequest(win32more.System.Com.IDispatch_head):
@@ -17774,6 +18328,7 @@ def _define_DispHTMLXMLHttpRequest_head():
     return DispHTMLXMLHttpRequest
 def _define_DispHTMLXMLHttpRequest():
     DispHTMLXMLHttpRequest = win32more.Web.MsHtml.DispHTMLXMLHttpRequest_head
+    win32more.System.Com.IDispatch
     return DispHTMLXMLHttpRequest
 def _define_ISVGAngle_head():
     class ISVGAngle(win32more.System.Com.IDispatch_head):
@@ -17791,6 +18346,7 @@ def _define_ISVGAngle():
     ISVGAngle.get_valueAsString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_valueAsString', ((1, 'p'),)))
     ISVGAngle.newValueSpecifiedUnits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,Single, use_last_error=False)(15, 'newValueSpecifiedUnits', ((1, 'unitType'),(1, 'valueInSpecifiedUnits'),)))
     ISVGAngle.convertToSpecifiedUnits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(16, 'convertToSpecifiedUnits', ((1, 'unitType'),)))
+    win32more.System.Com.IDispatch
     return ISVGAngle
 def _define_ISVGElement_head():
     class ISVGElement(win32more.System.Com.IDispatch_head):
@@ -17806,6 +18362,7 @@ def _define_ISVGElement():
     ISVGElement.get_viewportElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGElement_head), use_last_error=False)(12, 'get_viewportElement', ((1, 'p'),)))
     ISVGElement.putref_focusable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedEnumeration_head, use_last_error=False)(13, 'putref_focusable', ((1, 'v'),)))
     ISVGElement.get_focusable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedEnumeration_head), use_last_error=False)(14, 'get_focusable', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGElement
 def _define_ISVGRect_head():
     class ISVGRect(win32more.System.Com.IDispatch_head):
@@ -17821,6 +18378,7 @@ def _define_ISVGRect():
     ISVGRect.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(12, 'get_width', ((1, 'p'),)))
     ISVGRect.put_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(13, 'put_height', ((1, 'v'),)))
     ISVGRect.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(14, 'get_height', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGRect
 def _define_ISVGMatrix_head():
     class ISVGMatrix(win32more.System.Com.IDispatch_head):
@@ -17851,6 +18409,7 @@ def _define_ISVGMatrix():
     ISVGMatrix.flipY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGMatrix_head), use_last_error=False)(27, 'flipY', ((1, 'ppResult'),)))
     ISVGMatrix.skewX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,POINTER(win32more.Web.MsHtml.ISVGMatrix_head), use_last_error=False)(28, 'skewX', ((1, 'angle'),(1, 'ppResult'),)))
     ISVGMatrix.skewY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,POINTER(win32more.Web.MsHtml.ISVGMatrix_head), use_last_error=False)(29, 'skewY', ((1, 'angle'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGMatrix
 def _define_ISVGStringList_head():
     class ISVGStringList(win32more.System.Com.IDispatch_head):
@@ -17867,6 +18426,7 @@ def _define_ISVGStringList():
     ISVGStringList.replaceItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'replaceItem', ((1, 'newItem'),(1, 'index'),(1, 'ppResult'),)))
     ISVGStringList.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'removeItem', ((1, 'index'),(1, 'ppResult'),)))
     ISVGStringList.appendItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'appendItem', ((1, 'newItem'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGStringList
 def _define_ISVGAnimatedRect_head():
     class ISVGAnimatedRect(win32more.System.Com.IDispatch_head):
@@ -17878,6 +18438,7 @@ def _define_ISVGAnimatedRect():
     ISVGAnimatedRect.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGRect_head), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedRect.putref_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGRect_head, use_last_error=False)(9, 'putref_animVal', ((1, 'v'),)))
     ISVGAnimatedRect.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGRect_head), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedRect
 def _define_ISVGAnimatedString_head():
     class ISVGAnimatedString(win32more.System.Com.IDispatch_head):
@@ -17888,6 +18449,7 @@ def _define_ISVGAnimatedString():
     ISVGAnimatedString.put_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_baseVal', ((1, 'v'),)))
     ISVGAnimatedString.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedString.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedString
 def _define_ISVGAnimatedBoolean_head():
     class ISVGAnimatedBoolean(win32more.System.Com.IDispatch_head):
@@ -17899,6 +18461,7 @@ def _define_ISVGAnimatedBoolean():
     ISVGAnimatedBoolean.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedBoolean.put_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(9, 'put_animVal', ((1, 'v'),)))
     ISVGAnimatedBoolean.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedBoolean
 def _define_ISVGAnimatedTransformList_head():
     class ISVGAnimatedTransformList(win32more.System.Com.IDispatch_head):
@@ -17910,6 +18473,7 @@ def _define_ISVGAnimatedTransformList():
     ISVGAnimatedTransformList.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGTransformList_head), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedTransformList.putref_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGTransformList_head, use_last_error=False)(9, 'putref_animVal', ((1, 'v'),)))
     ISVGAnimatedTransformList.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGTransformList_head), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedTransformList
 def _define_ISVGAnimatedPreserveAspectRatio_head():
     class ISVGAnimatedPreserveAspectRatio(win32more.System.Com.IDispatch_head):
@@ -17921,6 +18485,7 @@ def _define_ISVGAnimatedPreserveAspectRatio():
     ISVGAnimatedPreserveAspectRatio.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGPreserveAspectRatio_head), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedPreserveAspectRatio.putref_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGPreserveAspectRatio_head, use_last_error=False)(9, 'putref_animVal', ((1, 'v'),)))
     ISVGAnimatedPreserveAspectRatio.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGPreserveAspectRatio_head), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedPreserveAspectRatio
 def _define_ISVGStylable_head():
     class ISVGStylable(win32more.System.Com.IDispatch_head):
@@ -17929,6 +18494,7 @@ def _define_ISVGStylable_head():
 def _define_ISVGStylable():
     ISVGStylable = win32more.Web.MsHtml.ISVGStylable_head
     ISVGStylable.get_className = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedString_head), use_last_error=False)(7, 'get_className', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGStylable
 def _define_ISVGLocatable_head():
     class ISVGLocatable(win32more.System.Com.IDispatch_head):
@@ -17942,6 +18508,7 @@ def _define_ISVGLocatable():
     ISVGLocatable.getCTM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGMatrix_head), use_last_error=False)(10, 'getCTM', ((1, 'ppResult'),)))
     ISVGLocatable.getScreenCTM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGMatrix_head), use_last_error=False)(11, 'getScreenCTM', ((1, 'ppResult'),)))
     ISVGLocatable.getTransformToElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGElement_head,POINTER(win32more.Web.MsHtml.ISVGMatrix_head), use_last_error=False)(12, 'getTransformToElement', ((1, 'pElement'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGLocatable
 def _define_ISVGTransformable_head():
     class ISVGTransformable(win32more.System.Com.IDispatch_head):
@@ -17950,6 +18517,7 @@ def _define_ISVGTransformable_head():
 def _define_ISVGTransformable():
     ISVGTransformable = win32more.Web.MsHtml.ISVGTransformable_head
     ISVGTransformable.get_transform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedTransformList_head), use_last_error=False)(7, 'get_transform', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGTransformable
 def _define_ISVGTests_head():
     class ISVGTests(win32more.System.Com.IDispatch_head):
@@ -17961,6 +18529,7 @@ def _define_ISVGTests():
     ISVGTests.get_requiredExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGStringList_head), use_last_error=False)(8, 'get_requiredExtensions', ((1, 'p'),)))
     ISVGTests.get_systemLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGStringList_head), use_last_error=False)(9, 'get_systemLanguage', ((1, 'p'),)))
     ISVGTests.hasExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(10, 'hasExtension', ((1, 'extension'),(1, 'pResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGTests
 def _define_ISVGLangSpace_head():
     class ISVGLangSpace(win32more.System.Com.IDispatch_head):
@@ -17972,6 +18541,7 @@ def _define_ISVGLangSpace():
     ISVGLangSpace.get_xmllang = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_xmllang', ((1, 'p'),)))
     ISVGLangSpace.put_xmlspace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_xmlspace', ((1, 'v'),)))
     ISVGLangSpace.get_xmlspace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_xmlspace', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGLangSpace
 def _define_ISVGExternalResourcesRequired_head():
     class ISVGExternalResourcesRequired(win32more.System.Com.IDispatch_head):
@@ -17980,6 +18550,7 @@ def _define_ISVGExternalResourcesRequired_head():
 def _define_ISVGExternalResourcesRequired():
     ISVGExternalResourcesRequired = win32more.Web.MsHtml.ISVGExternalResourcesRequired_head
     ISVGExternalResourcesRequired.get_externalResourcesRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedBoolean_head), use_last_error=False)(7, 'get_externalResourcesRequired', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGExternalResourcesRequired
 def _define_ISVGFitToViewBox_head():
     class ISVGFitToViewBox(win32more.System.Com.IDispatch_head):
@@ -17990,6 +18561,7 @@ def _define_ISVGFitToViewBox():
     ISVGFitToViewBox.get_viewBox = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedRect_head), use_last_error=False)(7, 'get_viewBox', ((1, 'p'),)))
     ISVGFitToViewBox.putref_preserveAspectRatio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedPreserveAspectRatio_head, use_last_error=False)(8, 'putref_preserveAspectRatio', ((1, 'v'),)))
     ISVGFitToViewBox.get_preserveAspectRatio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedPreserveAspectRatio_head), use_last_error=False)(9, 'get_preserveAspectRatio', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGFitToViewBox
 def _define_ISVGZoomAndPan_head():
     class ISVGZoomAndPan(win32more.System.Com.IDispatch_head):
@@ -17998,6 +18570,7 @@ def _define_ISVGZoomAndPan_head():
 def _define_ISVGZoomAndPan():
     ISVGZoomAndPan = win32more.Web.MsHtml.ISVGZoomAndPan_head
     ISVGZoomAndPan.get_zoomAndPan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(7, 'get_zoomAndPan', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGZoomAndPan
 def _define_ISVGURIReference_head():
     class ISVGURIReference(win32more.System.Com.IDispatch_head):
@@ -18006,6 +18579,7 @@ def _define_ISVGURIReference_head():
 def _define_ISVGURIReference():
     ISVGURIReference = win32more.Web.MsHtml.ISVGURIReference_head
     ISVGURIReference.get_href = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedString_head), use_last_error=False)(7, 'get_href', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGURIReference
 def _define_ISVGAnimatedAngle_head():
     class ISVGAnimatedAngle(win32more.System.Com.IDispatch_head):
@@ -18017,6 +18591,7 @@ def _define_ISVGAnimatedAngle():
     ISVGAnimatedAngle.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAngle_head), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedAngle.putref_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAngle_head, use_last_error=False)(9, 'putref_animVal', ((1, 'v'),)))
     ISVGAnimatedAngle.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAngle_head), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedAngle
 def _define_ISVGTransformList_head():
     class ISVGTransformList(win32more.System.Com.IDispatch_head):
@@ -18035,6 +18610,7 @@ def _define_ISVGTransformList():
     ISVGTransformList.appendItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGTransform_head,POINTER(win32more.Web.MsHtml.ISVGTransform_head), use_last_error=False)(15, 'appendItem', ((1, 'newItem'),(1, 'ppResult'),)))
     ISVGTransformList.createSVGTransformFromMatrix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGMatrix_head,POINTER(win32more.Web.MsHtml.ISVGTransform_head), use_last_error=False)(16, 'createSVGTransformFromMatrix', ((1, 'newItem'),(1, 'ppResult'),)))
     ISVGTransformList.consolidate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGTransform_head), use_last_error=False)(17, 'consolidate', ((1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGTransformList
 def _define_ISVGAnimatedEnumeration_head():
     class ISVGAnimatedEnumeration(win32more.System.Com.IDispatch_head):
@@ -18046,6 +18622,7 @@ def _define_ISVGAnimatedEnumeration():
     ISVGAnimatedEnumeration.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedEnumeration.put_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16, use_last_error=False)(9, 'put_animVal', ((1, 'v'),)))
     ISVGAnimatedEnumeration.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedEnumeration
 def _define_ISVGAnimatedInteger_head():
     class ISVGAnimatedInteger(win32more.System.Com.IDispatch_head):
@@ -18057,6 +18634,7 @@ def _define_ISVGAnimatedInteger():
     ISVGAnimatedInteger.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedInteger.put_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'put_animVal', ((1, 'v'),)))
     ISVGAnimatedInteger.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedInteger
 def _define_ISVGLength_head():
     class ISVGLength(win32more.System.Com.IDispatch_head):
@@ -18074,6 +18652,7 @@ def _define_ISVGLength():
     ISVGLength.get_valueAsString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_valueAsString', ((1, 'p'),)))
     ISVGLength.newValueSpecifiedUnits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,Single, use_last_error=False)(15, 'newValueSpecifiedUnits', ((1, 'unitType'),(1, 'valueInSpecifiedUnits'),)))
     ISVGLength.convertToSpecifiedUnits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(16, 'convertToSpecifiedUnits', ((1, 'unitType'),)))
+    win32more.System.Com.IDispatch
     return ISVGLength
 def _define_ISVGAnimatedLength_head():
     class ISVGAnimatedLength(win32more.System.Com.IDispatch_head):
@@ -18085,6 +18664,7 @@ def _define_ISVGAnimatedLength():
     ISVGAnimatedLength.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGLength_head), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedLength.putref_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGLength_head, use_last_error=False)(9, 'putref_animVal', ((1, 'v'),)))
     ISVGAnimatedLength.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGLength_head), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedLength
 def _define_ISVGLengthList_head():
     class ISVGLengthList(win32more.System.Com.IDispatch_head):
@@ -18101,6 +18681,7 @@ def _define_ISVGLengthList():
     ISVGLengthList.replaceItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGLength_head,Int32,POINTER(win32more.Web.MsHtml.ISVGLength_head), use_last_error=False)(13, 'replaceItem', ((1, 'newItem'),(1, 'index'),(1, 'ppResult'),)))
     ISVGLengthList.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.ISVGLength_head), use_last_error=False)(14, 'removeItem', ((1, 'index'),(1, 'ppResult'),)))
     ISVGLengthList.appendItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGLength_head,POINTER(win32more.Web.MsHtml.ISVGLength_head), use_last_error=False)(15, 'appendItem', ((1, 'newItem'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGLengthList
 def _define_ISVGAnimatedLengthList_head():
     class ISVGAnimatedLengthList(win32more.System.Com.IDispatch_head):
@@ -18112,6 +18693,7 @@ def _define_ISVGAnimatedLengthList():
     ISVGAnimatedLengthList.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGLengthList_head), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedLengthList.putref_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGLengthList_head, use_last_error=False)(9, 'putref_animVal', ((1, 'v'),)))
     ISVGAnimatedLengthList.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGLengthList_head), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedLengthList
 def _define_ISVGNumber_head():
     class ISVGNumber(win32more.System.Com.IDispatch_head):
@@ -18121,6 +18703,7 @@ def _define_ISVGNumber():
     ISVGNumber = win32more.Web.MsHtml.ISVGNumber_head
     ISVGNumber.put_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(7, 'put_value', ((1, 'v'),)))
     ISVGNumber.get_value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_value', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGNumber
 def _define_ISVGAnimatedNumber_head():
     class ISVGAnimatedNumber(win32more.System.Com.IDispatch_head):
@@ -18132,6 +18715,7 @@ def _define_ISVGAnimatedNumber():
     ISVGAnimatedNumber.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedNumber.put_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(9, 'put_animVal', ((1, 'v'),)))
     ISVGAnimatedNumber.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedNumber
 def _define_ISVGNumberList_head():
     class ISVGNumberList(win32more.System.Com.IDispatch_head):
@@ -18148,6 +18732,7 @@ def _define_ISVGNumberList():
     ISVGNumberList.replaceItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGNumber_head,Int32,POINTER(win32more.Web.MsHtml.ISVGNumber_head), use_last_error=False)(13, 'replaceItem', ((1, 'newItem'),(1, 'index'),(1, 'ppResult'),)))
     ISVGNumberList.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.ISVGNumber_head), use_last_error=False)(14, 'removeItem', ((1, 'index'),(1, 'ppResult'),)))
     ISVGNumberList.appendItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGNumber_head,POINTER(win32more.Web.MsHtml.ISVGNumber_head), use_last_error=False)(15, 'appendItem', ((1, 'newItem'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGNumberList
 def _define_ISVGAnimatedNumberList_head():
     class ISVGAnimatedNumberList(win32more.System.Com.IDispatch_head):
@@ -18159,6 +18744,7 @@ def _define_ISVGAnimatedNumberList():
     ISVGAnimatedNumberList.get_baseVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGNumberList_head), use_last_error=False)(8, 'get_baseVal', ((1, 'p'),)))
     ISVGAnimatedNumberList.putref_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGNumberList_head, use_last_error=False)(9, 'putref_animVal', ((1, 'v'),)))
     ISVGAnimatedNumberList.get_animVal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGNumberList_head), use_last_error=False)(10, 'get_animVal', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedNumberList
 def _define_ISVGClipPathElement_head():
     class ISVGClipPathElement(win32more.System.Com.IDispatch_head):
@@ -18168,6 +18754,7 @@ def _define_ISVGClipPathElement():
     ISVGClipPathElement = win32more.Web.MsHtml.ISVGClipPathElement_head
     ISVGClipPathElement.putref_clipPathUnits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedEnumeration_head, use_last_error=False)(7, 'putref_clipPathUnits', ((1, 'v'),)))
     ISVGClipPathElement.get_clipPathUnits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedEnumeration_head), use_last_error=False)(8, 'get_clipPathUnits', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGClipPathElement
 def _define_DispSVGClipPathElement_head():
     class DispSVGClipPathElement(win32more.System.Com.IDispatch_head):
@@ -18175,6 +18762,7 @@ def _define_DispSVGClipPathElement_head():
     return DispSVGClipPathElement
 def _define_DispSVGClipPathElement():
     DispSVGClipPathElement = win32more.Web.MsHtml.DispSVGClipPathElement_head
+    win32more.System.Com.IDispatch
     return DispSVGClipPathElement
 def _define_ISVGDocument_head():
     class ISVGDocument(win32more.System.Com.IDispatch_head):
@@ -18183,6 +18771,7 @@ def _define_ISVGDocument_head():
 def _define_ISVGDocument():
     ISVGDocument = win32more.Web.MsHtml.ISVGDocument_head
     ISVGDocument.get_rootElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGSVGElement_head), use_last_error=False)(7, 'get_rootElement', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGDocument
 def _define_IGetSVGDocument_head():
     class IGetSVGDocument(win32more.System.Com.IDispatch_head):
@@ -18191,6 +18780,7 @@ def _define_IGetSVGDocument_head():
 def _define_IGetSVGDocument():
     IGetSVGDocument = win32more.Web.MsHtml.IGetSVGDocument_head
     IGetSVGDocument.getSVGDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'getSVGDocument', ((1, 'ppSVGDocument'),)))
+    win32more.System.Com.IDispatch
     return IGetSVGDocument
 def _define_DispSVGElement_head():
     class DispSVGElement(win32more.System.Com.IDispatch_head):
@@ -18198,6 +18788,7 @@ def _define_DispSVGElement_head():
     return DispSVGElement
 def _define_DispSVGElement():
     DispSVGElement = win32more.Web.MsHtml.DispSVGElement_head
+    win32more.System.Com.IDispatch
     return DispSVGElement
 def _define_IICCSVGColor_head():
     class IICCSVGColor(win32more.System.Com.IDispatch_head):
@@ -18205,6 +18796,7 @@ def _define_IICCSVGColor_head():
     return IICCSVGColor
 def _define_IICCSVGColor():
     IICCSVGColor = win32more.Web.MsHtml.IICCSVGColor_head
+    win32more.System.Com.IDispatch
     return IICCSVGColor
 def _define_ISVGPaint_head():
     class ISVGPaint(win32more.System.Com.IDispatch_head):
@@ -18212,6 +18804,7 @@ def _define_ISVGPaint_head():
     return ISVGPaint
 def _define_ISVGPaint():
     ISVGPaint = win32more.Web.MsHtml.ISVGPaint_head
+    win32more.System.Com.IDispatch
     return ISVGPaint
 def _define_ISVGPatternElement_head():
     class ISVGPatternElement(win32more.System.Com.IDispatch_head):
@@ -18233,6 +18826,7 @@ def _define_ISVGPatternElement():
     ISVGPatternElement.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(18, 'get_width', ((1, 'p'),)))
     ISVGPatternElement.putref_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedLength_head, use_last_error=False)(19, 'putref_height', ((1, 'v'),)))
     ISVGPatternElement.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(20, 'get_height', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPatternElement
 def _define_DispSVGPatternElement_head():
     class DispSVGPatternElement(win32more.System.Com.IDispatch_head):
@@ -18240,6 +18834,7 @@ def _define_DispSVGPatternElement_head():
     return DispSVGPatternElement
 def _define_DispSVGPatternElement():
     DispSVGPatternElement = win32more.Web.MsHtml.DispSVGPatternElement_head
+    win32more.System.Com.IDispatch
     return DispSVGPatternElement
 def _define_ISVGPathSeg_head():
     class ISVGPathSeg(win32more.System.Com.IDispatch_head):
@@ -18250,6 +18845,7 @@ def _define_ISVGPathSeg():
     ISVGPathSeg.put_pathSegType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(7, 'put_pathSegType', ((1, 'v'),)))
     ISVGPathSeg.get_pathSegType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_pathSegType', ((1, 'p'),)))
     ISVGPathSeg.get_pathSegTypeAsLetter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_pathSegTypeAsLetter', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSeg
 def _define_ISVGPathSegArcAbs_head():
     class ISVGPathSegArcAbs(win32more.System.Com.IDispatch_head):
@@ -18271,6 +18867,7 @@ def _define_ISVGPathSegArcAbs():
     ISVGPathSegArcAbs.get_largeArcFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(18, 'get_largeArcFlag', ((1, 'p'),)))
     ISVGPathSegArcAbs.put_sweepFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(19, 'put_sweepFlag', ((1, 'v'),)))
     ISVGPathSegArcAbs.get_sweepFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(20, 'get_sweepFlag', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegArcAbs
 def _define_ISVGPathSegArcRel_head():
     class ISVGPathSegArcRel(win32more.System.Com.IDispatch_head):
@@ -18292,6 +18889,7 @@ def _define_ISVGPathSegArcRel():
     ISVGPathSegArcRel.get_largeArcFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(18, 'get_largeArcFlag', ((1, 'p'),)))
     ISVGPathSegArcRel.put_sweepFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(19, 'put_sweepFlag', ((1, 'v'),)))
     ISVGPathSegArcRel.get_sweepFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(20, 'get_sweepFlag', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegArcRel
 def _define_ISVGPathSegClosePath_head():
     class ISVGPathSegClosePath(win32more.System.Com.IDispatch_head):
@@ -18299,6 +18897,7 @@ def _define_ISVGPathSegClosePath_head():
     return ISVGPathSegClosePath
 def _define_ISVGPathSegClosePath():
     ISVGPathSegClosePath = win32more.Web.MsHtml.ISVGPathSegClosePath_head
+    win32more.System.Com.IDispatch
     return ISVGPathSegClosePath
 def _define_ISVGPathSegMovetoAbs_head():
     class ISVGPathSegMovetoAbs(win32more.System.Com.IDispatch_head):
@@ -18310,6 +18909,7 @@ def _define_ISVGPathSegMovetoAbs():
     ISVGPathSegMovetoAbs.get_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_x', ((1, 'p'),)))
     ISVGPathSegMovetoAbs.put_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(9, 'put_y', ((1, 'v'),)))
     ISVGPathSegMovetoAbs.get_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_y', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegMovetoAbs
 def _define_ISVGPathSegMovetoRel_head():
     class ISVGPathSegMovetoRel(win32more.System.Com.IDispatch_head):
@@ -18321,6 +18921,7 @@ def _define_ISVGPathSegMovetoRel():
     ISVGPathSegMovetoRel.get_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_x', ((1, 'p'),)))
     ISVGPathSegMovetoRel.put_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(9, 'put_y', ((1, 'v'),)))
     ISVGPathSegMovetoRel.get_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_y', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegMovetoRel
 def _define_ISVGPathSegLinetoAbs_head():
     class ISVGPathSegLinetoAbs(win32more.System.Com.IDispatch_head):
@@ -18332,6 +18933,7 @@ def _define_ISVGPathSegLinetoAbs():
     ISVGPathSegLinetoAbs.get_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_x', ((1, 'p'),)))
     ISVGPathSegLinetoAbs.put_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(9, 'put_y', ((1, 'v'),)))
     ISVGPathSegLinetoAbs.get_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_y', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegLinetoAbs
 def _define_ISVGPathSegLinetoRel_head():
     class ISVGPathSegLinetoRel(win32more.System.Com.IDispatch_head):
@@ -18343,6 +18945,7 @@ def _define_ISVGPathSegLinetoRel():
     ISVGPathSegLinetoRel.get_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_x', ((1, 'p'),)))
     ISVGPathSegLinetoRel.put_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(9, 'put_y', ((1, 'v'),)))
     ISVGPathSegLinetoRel.get_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_y', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegLinetoRel
 def _define_ISVGPathSegCurvetoCubicAbs_head():
     class ISVGPathSegCurvetoCubicAbs(win32more.System.Com.IDispatch_head):
@@ -18362,6 +18965,7 @@ def _define_ISVGPathSegCurvetoCubicAbs():
     ISVGPathSegCurvetoCubicAbs.get_x2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(16, 'get_x2', ((1, 'p'),)))
     ISVGPathSegCurvetoCubicAbs.put_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(17, 'put_y2', ((1, 'v'),)))
     ISVGPathSegCurvetoCubicAbs.get_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(18, 'get_y2', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegCurvetoCubicAbs
 def _define_ISVGPathSegCurvetoCubicRel_head():
     class ISVGPathSegCurvetoCubicRel(win32more.System.Com.IDispatch_head):
@@ -18381,6 +18985,7 @@ def _define_ISVGPathSegCurvetoCubicRel():
     ISVGPathSegCurvetoCubicRel.get_x2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(16, 'get_x2', ((1, 'p'),)))
     ISVGPathSegCurvetoCubicRel.put_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(17, 'put_y2', ((1, 'v'),)))
     ISVGPathSegCurvetoCubicRel.get_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(18, 'get_y2', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegCurvetoCubicRel
 def _define_ISVGPathSegCurvetoCubicSmoothAbs_head():
     class ISVGPathSegCurvetoCubicSmoothAbs(win32more.System.Com.IDispatch_head):
@@ -18396,6 +19001,7 @@ def _define_ISVGPathSegCurvetoCubicSmoothAbs():
     ISVGPathSegCurvetoCubicSmoothAbs.get_x2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(12, 'get_x2', ((1, 'p'),)))
     ISVGPathSegCurvetoCubicSmoothAbs.put_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(13, 'put_y2', ((1, 'v'),)))
     ISVGPathSegCurvetoCubicSmoothAbs.get_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(14, 'get_y2', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegCurvetoCubicSmoothAbs
 def _define_ISVGPathSegCurvetoCubicSmoothRel_head():
     class ISVGPathSegCurvetoCubicSmoothRel(win32more.System.Com.IDispatch_head):
@@ -18411,6 +19017,7 @@ def _define_ISVGPathSegCurvetoCubicSmoothRel():
     ISVGPathSegCurvetoCubicSmoothRel.get_x2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(12, 'get_x2', ((1, 'p'),)))
     ISVGPathSegCurvetoCubicSmoothRel.put_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(13, 'put_y2', ((1, 'v'),)))
     ISVGPathSegCurvetoCubicSmoothRel.get_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(14, 'get_y2', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegCurvetoCubicSmoothRel
 def _define_ISVGPathSegCurvetoQuadraticAbs_head():
     class ISVGPathSegCurvetoQuadraticAbs(win32more.System.Com.IDispatch_head):
@@ -18426,6 +19033,7 @@ def _define_ISVGPathSegCurvetoQuadraticAbs():
     ISVGPathSegCurvetoQuadraticAbs.get_x1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(12, 'get_x1', ((1, 'p'),)))
     ISVGPathSegCurvetoQuadraticAbs.put_y1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(13, 'put_y1', ((1, 'v'),)))
     ISVGPathSegCurvetoQuadraticAbs.get_y1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(14, 'get_y1', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegCurvetoQuadraticAbs
 def _define_ISVGPathSegCurvetoQuadraticRel_head():
     class ISVGPathSegCurvetoQuadraticRel(win32more.System.Com.IDispatch_head):
@@ -18441,6 +19049,7 @@ def _define_ISVGPathSegCurvetoQuadraticRel():
     ISVGPathSegCurvetoQuadraticRel.get_x1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(12, 'get_x1', ((1, 'p'),)))
     ISVGPathSegCurvetoQuadraticRel.put_y1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(13, 'put_y1', ((1, 'v'),)))
     ISVGPathSegCurvetoQuadraticRel.get_y1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(14, 'get_y1', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegCurvetoQuadraticRel
 def _define_ISVGPathSegCurvetoQuadraticSmoothAbs_head():
     class ISVGPathSegCurvetoQuadraticSmoothAbs(win32more.System.Com.IDispatch_head):
@@ -18452,6 +19061,7 @@ def _define_ISVGPathSegCurvetoQuadraticSmoothAbs():
     ISVGPathSegCurvetoQuadraticSmoothAbs.get_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_x', ((1, 'p'),)))
     ISVGPathSegCurvetoQuadraticSmoothAbs.put_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(9, 'put_y', ((1, 'v'),)))
     ISVGPathSegCurvetoQuadraticSmoothAbs.get_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_y', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegCurvetoQuadraticSmoothAbs
 def _define_ISVGPathSegCurvetoQuadraticSmoothRel_head():
     class ISVGPathSegCurvetoQuadraticSmoothRel(win32more.System.Com.IDispatch_head):
@@ -18463,6 +19073,7 @@ def _define_ISVGPathSegCurvetoQuadraticSmoothRel():
     ISVGPathSegCurvetoQuadraticSmoothRel.get_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_x', ((1, 'p'),)))
     ISVGPathSegCurvetoQuadraticSmoothRel.put_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(9, 'put_y', ((1, 'v'),)))
     ISVGPathSegCurvetoQuadraticSmoothRel.get_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_y', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegCurvetoQuadraticSmoothRel
 def _define_ISVGPathSegLinetoHorizontalAbs_head():
     class ISVGPathSegLinetoHorizontalAbs(win32more.System.Com.IDispatch_head):
@@ -18472,6 +19083,7 @@ def _define_ISVGPathSegLinetoHorizontalAbs():
     ISVGPathSegLinetoHorizontalAbs = win32more.Web.MsHtml.ISVGPathSegLinetoHorizontalAbs_head
     ISVGPathSegLinetoHorizontalAbs.put_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(7, 'put_x', ((1, 'v'),)))
     ISVGPathSegLinetoHorizontalAbs.get_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_x', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegLinetoHorizontalAbs
 def _define_ISVGPathSegLinetoHorizontalRel_head():
     class ISVGPathSegLinetoHorizontalRel(win32more.System.Com.IDispatch_head):
@@ -18481,6 +19093,7 @@ def _define_ISVGPathSegLinetoHorizontalRel():
     ISVGPathSegLinetoHorizontalRel = win32more.Web.MsHtml.ISVGPathSegLinetoHorizontalRel_head
     ISVGPathSegLinetoHorizontalRel.put_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(7, 'put_x', ((1, 'v'),)))
     ISVGPathSegLinetoHorizontalRel.get_x = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_x', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegLinetoHorizontalRel
 def _define_ISVGPathSegLinetoVerticalAbs_head():
     class ISVGPathSegLinetoVerticalAbs(win32more.System.Com.IDispatch_head):
@@ -18490,6 +19103,7 @@ def _define_ISVGPathSegLinetoVerticalAbs():
     ISVGPathSegLinetoVerticalAbs = win32more.Web.MsHtml.ISVGPathSegLinetoVerticalAbs_head
     ISVGPathSegLinetoVerticalAbs.put_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(7, 'put_y', ((1, 'v'),)))
     ISVGPathSegLinetoVerticalAbs.get_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_y', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegLinetoVerticalAbs
 def _define_ISVGPathSegLinetoVerticalRel_head():
     class ISVGPathSegLinetoVerticalRel(win32more.System.Com.IDispatch_head):
@@ -18499,6 +19113,7 @@ def _define_ISVGPathSegLinetoVerticalRel():
     ISVGPathSegLinetoVerticalRel = win32more.Web.MsHtml.ISVGPathSegLinetoVerticalRel_head
     ISVGPathSegLinetoVerticalRel.put_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(7, 'put_y', ((1, 'v'),)))
     ISVGPathSegLinetoVerticalRel.get_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_y', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegLinetoVerticalRel
 def _define_DispSVGPathSegArcAbs_head():
     class DispSVGPathSegArcAbs(win32more.System.Com.IDispatch_head):
@@ -18506,6 +19121,7 @@ def _define_DispSVGPathSegArcAbs_head():
     return DispSVGPathSegArcAbs
 def _define_DispSVGPathSegArcAbs():
     DispSVGPathSegArcAbs = win32more.Web.MsHtml.DispSVGPathSegArcAbs_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegArcAbs
 def _define_DispSVGPathSegArcRel_head():
     class DispSVGPathSegArcRel(win32more.System.Com.IDispatch_head):
@@ -18513,6 +19129,7 @@ def _define_DispSVGPathSegArcRel_head():
     return DispSVGPathSegArcRel
 def _define_DispSVGPathSegArcRel():
     DispSVGPathSegArcRel = win32more.Web.MsHtml.DispSVGPathSegArcRel_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegArcRel
 def _define_DispSVGPathSegClosePath_head():
     class DispSVGPathSegClosePath(win32more.System.Com.IDispatch_head):
@@ -18520,6 +19137,7 @@ def _define_DispSVGPathSegClosePath_head():
     return DispSVGPathSegClosePath
 def _define_DispSVGPathSegClosePath():
     DispSVGPathSegClosePath = win32more.Web.MsHtml.DispSVGPathSegClosePath_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegClosePath
 def _define_DispSVGPathSegMovetoAbs_head():
     class DispSVGPathSegMovetoAbs(win32more.System.Com.IDispatch_head):
@@ -18527,6 +19145,7 @@ def _define_DispSVGPathSegMovetoAbs_head():
     return DispSVGPathSegMovetoAbs
 def _define_DispSVGPathSegMovetoAbs():
     DispSVGPathSegMovetoAbs = win32more.Web.MsHtml.DispSVGPathSegMovetoAbs_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegMovetoAbs
 def _define_DispSVGPathSegMovetoRel_head():
     class DispSVGPathSegMovetoRel(win32more.System.Com.IDispatch_head):
@@ -18534,6 +19153,7 @@ def _define_DispSVGPathSegMovetoRel_head():
     return DispSVGPathSegMovetoRel
 def _define_DispSVGPathSegMovetoRel():
     DispSVGPathSegMovetoRel = win32more.Web.MsHtml.DispSVGPathSegMovetoRel_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegMovetoRel
 def _define_DispSVGPathSegLinetoAbs_head():
     class DispSVGPathSegLinetoAbs(win32more.System.Com.IDispatch_head):
@@ -18541,6 +19161,7 @@ def _define_DispSVGPathSegLinetoAbs_head():
     return DispSVGPathSegLinetoAbs
 def _define_DispSVGPathSegLinetoAbs():
     DispSVGPathSegLinetoAbs = win32more.Web.MsHtml.DispSVGPathSegLinetoAbs_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegLinetoAbs
 def _define_DispSVGPathSegLinetoRel_head():
     class DispSVGPathSegLinetoRel(win32more.System.Com.IDispatch_head):
@@ -18548,6 +19169,7 @@ def _define_DispSVGPathSegLinetoRel_head():
     return DispSVGPathSegLinetoRel
 def _define_DispSVGPathSegLinetoRel():
     DispSVGPathSegLinetoRel = win32more.Web.MsHtml.DispSVGPathSegLinetoRel_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegLinetoRel
 def _define_DispSVGPathSegCurvetoCubicAbs_head():
     class DispSVGPathSegCurvetoCubicAbs(win32more.System.Com.IDispatch_head):
@@ -18555,6 +19177,7 @@ def _define_DispSVGPathSegCurvetoCubicAbs_head():
     return DispSVGPathSegCurvetoCubicAbs
 def _define_DispSVGPathSegCurvetoCubicAbs():
     DispSVGPathSegCurvetoCubicAbs = win32more.Web.MsHtml.DispSVGPathSegCurvetoCubicAbs_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegCurvetoCubicAbs
 def _define_DispSVGPathSegCurvetoCubicRel_head():
     class DispSVGPathSegCurvetoCubicRel(win32more.System.Com.IDispatch_head):
@@ -18562,6 +19185,7 @@ def _define_DispSVGPathSegCurvetoCubicRel_head():
     return DispSVGPathSegCurvetoCubicRel
 def _define_DispSVGPathSegCurvetoCubicRel():
     DispSVGPathSegCurvetoCubicRel = win32more.Web.MsHtml.DispSVGPathSegCurvetoCubicRel_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegCurvetoCubicRel
 def _define_DispSVGPathSegCurvetoCubicSmoothAbs_head():
     class DispSVGPathSegCurvetoCubicSmoothAbs(win32more.System.Com.IDispatch_head):
@@ -18569,6 +19193,7 @@ def _define_DispSVGPathSegCurvetoCubicSmoothAbs_head():
     return DispSVGPathSegCurvetoCubicSmoothAbs
 def _define_DispSVGPathSegCurvetoCubicSmoothAbs():
     DispSVGPathSegCurvetoCubicSmoothAbs = win32more.Web.MsHtml.DispSVGPathSegCurvetoCubicSmoothAbs_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegCurvetoCubicSmoothAbs
 def _define_DispSVGPathSegCurvetoCubicSmoothRel_head():
     class DispSVGPathSegCurvetoCubicSmoothRel(win32more.System.Com.IDispatch_head):
@@ -18576,6 +19201,7 @@ def _define_DispSVGPathSegCurvetoCubicSmoothRel_head():
     return DispSVGPathSegCurvetoCubicSmoothRel
 def _define_DispSVGPathSegCurvetoCubicSmoothRel():
     DispSVGPathSegCurvetoCubicSmoothRel = win32more.Web.MsHtml.DispSVGPathSegCurvetoCubicSmoothRel_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegCurvetoCubicSmoothRel
 def _define_DispSVGPathSegCurvetoQuadraticAbs_head():
     class DispSVGPathSegCurvetoQuadraticAbs(win32more.System.Com.IDispatch_head):
@@ -18583,6 +19209,7 @@ def _define_DispSVGPathSegCurvetoQuadraticAbs_head():
     return DispSVGPathSegCurvetoQuadraticAbs
 def _define_DispSVGPathSegCurvetoQuadraticAbs():
     DispSVGPathSegCurvetoQuadraticAbs = win32more.Web.MsHtml.DispSVGPathSegCurvetoQuadraticAbs_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegCurvetoQuadraticAbs
 def _define_DispSVGPathSegCurvetoQuadraticRel_head():
     class DispSVGPathSegCurvetoQuadraticRel(win32more.System.Com.IDispatch_head):
@@ -18590,6 +19217,7 @@ def _define_DispSVGPathSegCurvetoQuadraticRel_head():
     return DispSVGPathSegCurvetoQuadraticRel
 def _define_DispSVGPathSegCurvetoQuadraticRel():
     DispSVGPathSegCurvetoQuadraticRel = win32more.Web.MsHtml.DispSVGPathSegCurvetoQuadraticRel_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegCurvetoQuadraticRel
 def _define_DispSVGPathSegCurvetoQuadraticSmoothAbs_head():
     class DispSVGPathSegCurvetoQuadraticSmoothAbs(win32more.System.Com.IDispatch_head):
@@ -18597,6 +19225,7 @@ def _define_DispSVGPathSegCurvetoQuadraticSmoothAbs_head():
     return DispSVGPathSegCurvetoQuadraticSmoothAbs
 def _define_DispSVGPathSegCurvetoQuadraticSmoothAbs():
     DispSVGPathSegCurvetoQuadraticSmoothAbs = win32more.Web.MsHtml.DispSVGPathSegCurvetoQuadraticSmoothAbs_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegCurvetoQuadraticSmoothAbs
 def _define_DispSVGPathSegCurvetoQuadraticSmoothRel_head():
     class DispSVGPathSegCurvetoQuadraticSmoothRel(win32more.System.Com.IDispatch_head):
@@ -18604,6 +19233,7 @@ def _define_DispSVGPathSegCurvetoQuadraticSmoothRel_head():
     return DispSVGPathSegCurvetoQuadraticSmoothRel
 def _define_DispSVGPathSegCurvetoQuadraticSmoothRel():
     DispSVGPathSegCurvetoQuadraticSmoothRel = win32more.Web.MsHtml.DispSVGPathSegCurvetoQuadraticSmoothRel_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegCurvetoQuadraticSmoothRel
 def _define_DispSVGPathSegLinetoHorizontalAbs_head():
     class DispSVGPathSegLinetoHorizontalAbs(win32more.System.Com.IDispatch_head):
@@ -18611,6 +19241,7 @@ def _define_DispSVGPathSegLinetoHorizontalAbs_head():
     return DispSVGPathSegLinetoHorizontalAbs
 def _define_DispSVGPathSegLinetoHorizontalAbs():
     DispSVGPathSegLinetoHorizontalAbs = win32more.Web.MsHtml.DispSVGPathSegLinetoHorizontalAbs_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegLinetoHorizontalAbs
 def _define_DispSVGPathSegLinetoHorizontalRel_head():
     class DispSVGPathSegLinetoHorizontalRel(win32more.System.Com.IDispatch_head):
@@ -18618,6 +19249,7 @@ def _define_DispSVGPathSegLinetoHorizontalRel_head():
     return DispSVGPathSegLinetoHorizontalRel
 def _define_DispSVGPathSegLinetoHorizontalRel():
     DispSVGPathSegLinetoHorizontalRel = win32more.Web.MsHtml.DispSVGPathSegLinetoHorizontalRel_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegLinetoHorizontalRel
 def _define_DispSVGPathSegLinetoVerticalAbs_head():
     class DispSVGPathSegLinetoVerticalAbs(win32more.System.Com.IDispatch_head):
@@ -18625,6 +19257,7 @@ def _define_DispSVGPathSegLinetoVerticalAbs_head():
     return DispSVGPathSegLinetoVerticalAbs
 def _define_DispSVGPathSegLinetoVerticalAbs():
     DispSVGPathSegLinetoVerticalAbs = win32more.Web.MsHtml.DispSVGPathSegLinetoVerticalAbs_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegLinetoVerticalAbs
 def _define_DispSVGPathSegLinetoVerticalRel_head():
     class DispSVGPathSegLinetoVerticalRel(win32more.System.Com.IDispatch_head):
@@ -18632,6 +19265,7 @@ def _define_DispSVGPathSegLinetoVerticalRel_head():
     return DispSVGPathSegLinetoVerticalRel
 def _define_DispSVGPathSegLinetoVerticalRel():
     DispSVGPathSegLinetoVerticalRel = win32more.Web.MsHtml.DispSVGPathSegLinetoVerticalRel_head
+    win32more.System.Com.IDispatch
     return DispSVGPathSegLinetoVerticalRel
 def _define_ISVGPathSegList_head():
     class ISVGPathSegList(win32more.System.Com.IDispatch_head):
@@ -18648,6 +19282,7 @@ def _define_ISVGPathSegList():
     ISVGPathSegList.replaceItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGPathSeg_head,Int32,POINTER(win32more.Web.MsHtml.ISVGPathSeg_head), use_last_error=False)(13, 'replaceItem', ((1, 'newItem'),(1, 'index'),(1, 'ppResult'),)))
     ISVGPathSegList.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.ISVGPathSeg_head), use_last_error=False)(14, 'removeItem', ((1, 'index'),(1, 'ppResult'),)))
     ISVGPathSegList.appendItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGPathSeg_head,POINTER(win32more.Web.MsHtml.ISVGPathSeg_head), use_last_error=False)(15, 'appendItem', ((1, 'newItem'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathSegList
 def _define_ISVGPoint_head():
     class ISVGPoint(win32more.System.Com.IDispatch_head):
@@ -18660,6 +19295,7 @@ def _define_ISVGPoint():
     ISVGPoint.put_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(9, 'put_y', ((1, 'v'),)))
     ISVGPoint.get_y = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_y', ((1, 'p'),)))
     ISVGPoint.matrixTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGMatrix_head,POINTER(win32more.Web.MsHtml.ISVGPoint_head), use_last_error=False)(11, 'matrixTransform', ((1, 'pMatrix'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGPoint
 def _define_ISVGPointList_head():
     class ISVGPointList(win32more.System.Com.IDispatch_head):
@@ -18676,6 +19312,7 @@ def _define_ISVGPointList():
     ISVGPointList.replaceItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGPoint_head,Int32,POINTER(win32more.Web.MsHtml.ISVGPoint_head), use_last_error=False)(13, 'replaceItem', ((1, 'pNewItem'),(1, 'index'),(1, 'ppResult'),)))
     ISVGPointList.removeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.ISVGPoint_head), use_last_error=False)(14, 'removeItem', ((1, 'index'),(1, 'ppResult'),)))
     ISVGPointList.appendItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGPoint_head,POINTER(win32more.Web.MsHtml.ISVGPoint_head), use_last_error=False)(15, 'appendItem', ((1, 'pNewItem'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGPointList
 def _define_ISVGViewSpec_head():
     class ISVGViewSpec(win32more.System.Com.IDispatch_head):
@@ -18683,6 +19320,7 @@ def _define_ISVGViewSpec_head():
     return ISVGViewSpec
 def _define_ISVGViewSpec():
     ISVGViewSpec = win32more.Web.MsHtml.ISVGViewSpec_head
+    win32more.System.Com.IDispatch
     return ISVGViewSpec
 def _define_ISVGTransform_head():
     class ISVGTransform(win32more.System.Com.IDispatch_head):
@@ -18702,6 +19340,7 @@ def _define_ISVGTransform():
     ISVGTransform.setRotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single, use_last_error=False)(16, 'setRotate', ((1, 'angle'),(1, 'cx'),(1, 'cy'),)))
     ISVGTransform.setSkewX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(17, 'setSkewX', ((1, 'angle'),)))
     ISVGTransform.setSkewY = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(18, 'setSkewY', ((1, 'angle'),)))
+    win32more.System.Com.IDispatch
     return ISVGTransform
 def _define_DispSVGSVGElement_head():
     class DispSVGSVGElement(win32more.System.Com.IDispatch_head):
@@ -18709,6 +19348,7 @@ def _define_DispSVGSVGElement_head():
     return DispSVGSVGElement
 def _define_DispSVGSVGElement():
     DispSVGSVGElement = win32more.Web.MsHtml.DispSVGSVGElement_head
+    win32more.System.Com.IDispatch
     return DispSVGSVGElement
 def _define_ISVGElementInstance_head():
     class ISVGElementInstance(win32more.System.Com.IDispatch_head):
@@ -18724,6 +19364,7 @@ def _define_ISVGElementInstance():
     ISVGElementInstance.get_lastChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGElementInstance_head), use_last_error=False)(12, 'get_lastChild', ((1, 'p'),)))
     ISVGElementInstance.get_previousSibling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGElementInstance_head), use_last_error=False)(13, 'get_previousSibling', ((1, 'p'),)))
     ISVGElementInstance.get_nextSibling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGElementInstance_head), use_last_error=False)(14, 'get_nextSibling', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGElementInstance
 def _define_ISVGUseElement_head():
     class ISVGUseElement(win32more.System.Com.IDispatch_head):
@@ -18743,6 +19384,7 @@ def _define_ISVGUseElement():
     ISVGUseElement.get_instanceRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGElementInstance_head), use_last_error=False)(16, 'get_instanceRoot', ((1, 'p'),)))
     ISVGUseElement.putref_animatedInstanceRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGElementInstance_head, use_last_error=False)(17, 'putref_animatedInstanceRoot', ((1, 'v'),)))
     ISVGUseElement.get_animatedInstanceRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGElementInstance_head), use_last_error=False)(18, 'get_animatedInstanceRoot', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGUseElement
 def _define_DispSVGUseElement_head():
     class DispSVGUseElement(win32more.System.Com.IDispatch_head):
@@ -18750,6 +19392,7 @@ def _define_DispSVGUseElement_head():
     return DispSVGUseElement
 def _define_DispSVGUseElement():
     DispSVGUseElement = win32more.Web.MsHtml.DispSVGUseElement_head
+    win32more.System.Com.IDispatch
     return DispSVGUseElement
 def _define_IHTMLStyleSheetRulesAppliedCollection_head():
     class IHTMLStyleSheetRulesAppliedCollection(win32more.System.Com.IDispatch_head):
@@ -18762,6 +19405,7 @@ def _define_IHTMLStyleSheetRulesAppliedCollection():
     IHTMLStyleSheetRulesAppliedCollection.propertyAppliedBy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLStyleSheetRule_head), use_last_error=False)(9, 'propertyAppliedBy', ((1, 'name'),(1, 'ppRule'),)))
     IHTMLStyleSheetRulesAppliedCollection.propertyAppliedTrace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.Web.MsHtml.IHTMLStyleSheetRule_head), use_last_error=False)(10, 'propertyAppliedTrace', ((1, 'name'),(1, 'index'),(1, 'ppRule'),)))
     IHTMLStyleSheetRulesAppliedCollection.propertyAppliedTraceLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(11, 'propertyAppliedTraceLength', ((1, 'name'),(1, 'pLength'),)))
+    win32more.System.Com.IDispatch
     return IHTMLStyleSheetRulesAppliedCollection
 def _define_IRulesApplied_head():
     class IRulesApplied(win32more.System.Com.IDispatch_head):
@@ -18775,6 +19419,7 @@ def _define_IRulesApplied():
     IRulesApplied.propertyIsInline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(10, 'propertyIsInline', ((1, 'name'),(1, 'p'),)))
     IRulesApplied.propertyIsInheritable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(11, 'propertyIsInheritable', ((1, 'name'),(1, 'p'),)))
     IRulesApplied.hasInheritableProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(12, 'hasInheritableProperty', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IRulesApplied
 def _define_DispHTMLStyleSheetRulesAppliedCollection_head():
     class DispHTMLStyleSheetRulesAppliedCollection(win32more.System.Com.IDispatch_head):
@@ -18782,6 +19427,7 @@ def _define_DispHTMLStyleSheetRulesAppliedCollection_head():
     return DispHTMLStyleSheetRulesAppliedCollection
 def _define_DispHTMLStyleSheetRulesAppliedCollection():
     DispHTMLStyleSheetRulesAppliedCollection = win32more.Web.MsHtml.DispHTMLStyleSheetRulesAppliedCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLStyleSheetRulesAppliedCollection
 def _define_DispRulesApplied_head():
     class DispRulesApplied(win32more.System.Com.IDispatch_head):
@@ -18789,6 +19435,7 @@ def _define_DispRulesApplied_head():
     return DispRulesApplied
 def _define_DispRulesApplied():
     DispRulesApplied = win32more.Web.MsHtml.DispRulesApplied_head
+    win32more.System.Com.IDispatch
     return DispRulesApplied
 def _define_DispRulesAppliedCollection_head():
     class DispRulesAppliedCollection(win32more.System.Com.IDispatch_head):
@@ -18796,6 +19443,7 @@ def _define_DispRulesAppliedCollection_head():
     return DispRulesAppliedCollection
 def _define_DispRulesAppliedCollection():
     DispRulesAppliedCollection = win32more.Web.MsHtml.DispRulesAppliedCollection_head
+    win32more.System.Com.IDispatch
     return DispRulesAppliedCollection
 def _define_DispHTMLW3CComputedStyle_head():
     class DispHTMLW3CComputedStyle(win32more.System.Com.IDispatch_head):
@@ -18803,6 +19451,7 @@ def _define_DispHTMLW3CComputedStyle_head():
     return DispHTMLW3CComputedStyle
 def _define_DispHTMLW3CComputedStyle():
     DispHTMLW3CComputedStyle = win32more.Web.MsHtml.DispHTMLW3CComputedStyle_head
+    win32more.System.Com.IDispatch
     return DispHTMLW3CComputedStyle
 def _define_ISVGAnimatedPoints_head():
     class ISVGAnimatedPoints(win32more.System.Com.IDispatch_head):
@@ -18814,6 +19463,7 @@ def _define_ISVGAnimatedPoints():
     ISVGAnimatedPoints.get_points = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGPointList_head), use_last_error=False)(8, 'get_points', ((1, 'p'),)))
     ISVGAnimatedPoints.putref_animatedPoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGPointList_head, use_last_error=False)(9, 'putref_animatedPoints', ((1, 'v'),)))
     ISVGAnimatedPoints.get_animatedPoints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGPointList_head), use_last_error=False)(10, 'get_animatedPoints', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedPoints
 def _define_ISVGCircleElement_head():
     class ISVGCircleElement(win32more.System.Com.IDispatch_head):
@@ -18827,6 +19477,7 @@ def _define_ISVGCircleElement():
     ISVGCircleElement.get_cy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(10, 'get_cy', ((1, 'p'),)))
     ISVGCircleElement.putref_r = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedLength_head, use_last_error=False)(11, 'putref_r', ((1, 'v'),)))
     ISVGCircleElement.get_r = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(12, 'get_r', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGCircleElement
 def _define_ISVGEllipseElement_head():
     class ISVGEllipseElement(win32more.System.Com.IDispatch_head):
@@ -18842,6 +19493,7 @@ def _define_ISVGEllipseElement():
     ISVGEllipseElement.get_rx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(12, 'get_rx', ((1, 'p'),)))
     ISVGEllipseElement.putref_ry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedLength_head, use_last_error=False)(13, 'putref_ry', ((1, 'v'),)))
     ISVGEllipseElement.get_ry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(14, 'get_ry', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGEllipseElement
 def _define_ISVGLineElement_head():
     class ISVGLineElement(win32more.System.Com.IDispatch_head):
@@ -18857,6 +19509,7 @@ def _define_ISVGLineElement():
     ISVGLineElement.get_x2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(12, 'get_x2', ((1, 'p'),)))
     ISVGLineElement.putref_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedLength_head, use_last_error=False)(13, 'putref_y2', ((1, 'v'),)))
     ISVGLineElement.get_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(14, 'get_y2', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGLineElement
 def _define_ISVGRectElement_head():
     class ISVGRectElement(win32more.System.Com.IDispatch_head):
@@ -18876,6 +19529,7 @@ def _define_ISVGRectElement():
     ISVGRectElement.get_rx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(16, 'get_rx', ((1, 'p'),)))
     ISVGRectElement.putref_ry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedLength_head, use_last_error=False)(17, 'putref_ry', ((1, 'v'),)))
     ISVGRectElement.get_ry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(18, 'get_ry', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGRectElement
 def _define_ISVGPolygonElement_head():
     class ISVGPolygonElement(win32more.System.Com.IDispatch_head):
@@ -18883,6 +19537,7 @@ def _define_ISVGPolygonElement_head():
     return ISVGPolygonElement
 def _define_ISVGPolygonElement():
     ISVGPolygonElement = win32more.Web.MsHtml.ISVGPolygonElement_head
+    win32more.System.Com.IDispatch
     return ISVGPolygonElement
 def _define_ISVGPolylineElement_head():
     class ISVGPolylineElement(win32more.System.Com.IDispatch_head):
@@ -18890,6 +19545,7 @@ def _define_ISVGPolylineElement_head():
     return ISVGPolylineElement
 def _define_ISVGPolylineElement():
     ISVGPolylineElement = win32more.Web.MsHtml.ISVGPolylineElement_head
+    win32more.System.Com.IDispatch
     return ISVGPolylineElement
 def _define_DispSVGCircleElement_head():
     class DispSVGCircleElement(win32more.System.Com.IDispatch_head):
@@ -18897,6 +19553,7 @@ def _define_DispSVGCircleElement_head():
     return DispSVGCircleElement
 def _define_DispSVGCircleElement():
     DispSVGCircleElement = win32more.Web.MsHtml.DispSVGCircleElement_head
+    win32more.System.Com.IDispatch
     return DispSVGCircleElement
 def _define_DispSVGEllipseElement_head():
     class DispSVGEllipseElement(win32more.System.Com.IDispatch_head):
@@ -18904,6 +19561,7 @@ def _define_DispSVGEllipseElement_head():
     return DispSVGEllipseElement
 def _define_DispSVGEllipseElement():
     DispSVGEllipseElement = win32more.Web.MsHtml.DispSVGEllipseElement_head
+    win32more.System.Com.IDispatch
     return DispSVGEllipseElement
 def _define_DispSVGLineElement_head():
     class DispSVGLineElement(win32more.System.Com.IDispatch_head):
@@ -18911,6 +19569,7 @@ def _define_DispSVGLineElement_head():
     return DispSVGLineElement
 def _define_DispSVGLineElement():
     DispSVGLineElement = win32more.Web.MsHtml.DispSVGLineElement_head
+    win32more.System.Com.IDispatch
     return DispSVGLineElement
 def _define_DispSVGRectElement_head():
     class DispSVGRectElement(win32more.System.Com.IDispatch_head):
@@ -18918,6 +19577,7 @@ def _define_DispSVGRectElement_head():
     return DispSVGRectElement
 def _define_DispSVGRectElement():
     DispSVGRectElement = win32more.Web.MsHtml.DispSVGRectElement_head
+    win32more.System.Com.IDispatch
     return DispSVGRectElement
 def _define_DispSVGPolygonElement_head():
     class DispSVGPolygonElement(win32more.System.Com.IDispatch_head):
@@ -18925,6 +19585,7 @@ def _define_DispSVGPolygonElement_head():
     return DispSVGPolygonElement
 def _define_DispSVGPolygonElement():
     DispSVGPolygonElement = win32more.Web.MsHtml.DispSVGPolygonElement_head
+    win32more.System.Com.IDispatch
     return DispSVGPolygonElement
 def _define_DispSVGPolylineElement_head():
     class DispSVGPolylineElement(win32more.System.Com.IDispatch_head):
@@ -18932,6 +19593,7 @@ def _define_DispSVGPolylineElement_head():
     return DispSVGPolylineElement
 def _define_DispSVGPolylineElement():
     DispSVGPolylineElement = win32more.Web.MsHtml.DispSVGPolylineElement_head
+    win32more.System.Com.IDispatch
     return DispSVGPolylineElement
 def _define_ISVGGElement_head():
     class ISVGGElement(win32more.System.Com.IDispatch_head):
@@ -18939,6 +19601,7 @@ def _define_ISVGGElement_head():
     return ISVGGElement
 def _define_ISVGGElement():
     ISVGGElement = win32more.Web.MsHtml.ISVGGElement_head
+    win32more.System.Com.IDispatch
     return ISVGGElement
 def _define_DispSVGGElement_head():
     class DispSVGGElement(win32more.System.Com.IDispatch_head):
@@ -18946,6 +19609,7 @@ def _define_DispSVGGElement_head():
     return DispSVGGElement
 def _define_DispSVGGElement():
     DispSVGGElement = win32more.Web.MsHtml.DispSVGGElement_head
+    win32more.System.Com.IDispatch
     return DispSVGGElement
 def _define_ISVGSymbolElement_head():
     class ISVGSymbolElement(win32more.System.Com.IDispatch_head):
@@ -18953,6 +19617,7 @@ def _define_ISVGSymbolElement_head():
     return ISVGSymbolElement
 def _define_ISVGSymbolElement():
     ISVGSymbolElement = win32more.Web.MsHtml.ISVGSymbolElement_head
+    win32more.System.Com.IDispatch
     return ISVGSymbolElement
 def _define_DispSVGSymbolElement_head():
     class DispSVGSymbolElement(win32more.System.Com.IDispatch_head):
@@ -18960,6 +19625,7 @@ def _define_DispSVGSymbolElement_head():
     return DispSVGSymbolElement
 def _define_DispSVGSymbolElement():
     DispSVGSymbolElement = win32more.Web.MsHtml.DispSVGSymbolElement_head
+    win32more.System.Com.IDispatch
     return DispSVGSymbolElement
 def _define_ISVGDefsElement_head():
     class ISVGDefsElement(win32more.System.Com.IDispatch_head):
@@ -18967,6 +19633,7 @@ def _define_ISVGDefsElement_head():
     return ISVGDefsElement
 def _define_ISVGDefsElement():
     ISVGDefsElement = win32more.Web.MsHtml.ISVGDefsElement_head
+    win32more.System.Com.IDispatch
     return ISVGDefsElement
 def _define_DispSVGDefsElement_head():
     class DispSVGDefsElement(win32more.System.Com.IDispatch_head):
@@ -18974,6 +19641,7 @@ def _define_DispSVGDefsElement_head():
     return DispSVGDefsElement
 def _define_DispSVGDefsElement():
     DispSVGDefsElement = win32more.Web.MsHtml.DispSVGDefsElement_head
+    win32more.System.Com.IDispatch
     return DispSVGDefsElement
 def _define_ISVGAnimatedPathData_head():
     class ISVGAnimatedPathData(win32more.System.Com.IDispatch_head):
@@ -18989,6 +19657,7 @@ def _define_ISVGAnimatedPathData():
     ISVGAnimatedPathData.get_animatedPathSegList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGPathSegList_head), use_last_error=False)(12, 'get_animatedPathSegList', ((1, 'p'),)))
     ISVGAnimatedPathData.putref_animatedNormalizedPathSegList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGPathSegList_head, use_last_error=False)(13, 'putref_animatedNormalizedPathSegList', ((1, 'v'),)))
     ISVGAnimatedPathData.get_animatedNormalizedPathSegList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGPathSegList_head), use_last_error=False)(14, 'get_animatedNormalizedPathSegList', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAnimatedPathData
 def _define_ISVGPathElement_head():
     class ISVGPathElement(win32more.System.Com.IDispatch_head):
@@ -19020,6 +19689,7 @@ def _define_ISVGPathElement():
     ISVGPathElement.createSVGPathSegCurvetoCubicSmoothRel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single,POINTER(win32more.Web.MsHtml.ISVGPathSegCurvetoCubicSmoothRel_head), use_last_error=False)(28, 'createSVGPathSegCurvetoCubicSmoothRel', ((1, 'x'),(1, 'y'),(1, 'x2'),(1, 'y2'),(1, 'ppResult'),)))
     ISVGPathElement.createSVGPathSegCurvetoQuadraticSmoothAbs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,POINTER(win32more.Web.MsHtml.ISVGPathSegCurvetoQuadraticSmoothAbs_head), use_last_error=False)(29, 'createSVGPathSegCurvetoQuadraticSmoothAbs', ((1, 'x'),(1, 'y'),(1, 'ppResult'),)))
     ISVGPathElement.createSVGPathSegCurvetoQuadraticSmoothRel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,POINTER(win32more.Web.MsHtml.ISVGPathSegCurvetoQuadraticSmoothRel_head), use_last_error=False)(30, 'createSVGPathSegCurvetoQuadraticSmoothRel', ((1, 'x'),(1, 'y'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGPathElement
 def _define_DispSVGPathElement_head():
     class DispSVGPathElement(win32more.System.Com.IDispatch_head):
@@ -19027,6 +19697,7 @@ def _define_DispSVGPathElement_head():
     return DispSVGPathElement
 def _define_DispSVGPathElement():
     DispSVGPathElement = win32more.Web.MsHtml.DispSVGPathElement_head
+    win32more.System.Com.IDispatch
     return DispSVGPathElement
 def _define_ISVGPreserveAspectRatio_head():
     class ISVGPreserveAspectRatio(win32more.System.Com.IDispatch_head):
@@ -19038,6 +19709,7 @@ def _define_ISVGPreserveAspectRatio():
     ISVGPreserveAspectRatio.get_align = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_align', ((1, 'p'),)))
     ISVGPreserveAspectRatio.put_meetOrSlice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(9, 'put_meetOrSlice', ((1, 'v'),)))
     ISVGPreserveAspectRatio.get_meetOrSlice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_meetOrSlice', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGPreserveAspectRatio
 def _define_ISVGTextElement_head():
     class ISVGTextElement(win32more.System.Com.IDispatch_head):
@@ -19045,6 +19717,7 @@ def _define_ISVGTextElement_head():
     return ISVGTextElement
 def _define_ISVGTextElement():
     ISVGTextElement = win32more.Web.MsHtml.ISVGTextElement_head
+    win32more.System.Com.IDispatch
     return ISVGTextElement
 def _define_DispSVGTextElement_head():
     class DispSVGTextElement(win32more.System.Com.IDispatch_head):
@@ -19052,6 +19725,7 @@ def _define_DispSVGTextElement_head():
     return DispSVGTextElement
 def _define_DispSVGTextElement():
     DispSVGTextElement = win32more.Web.MsHtml.DispSVGTextElement_head
+    win32more.System.Com.IDispatch
     return DispSVGTextElement
 def _define_ISVGImageElement_head():
     class ISVGImageElement(win32more.System.Com.IDispatch_head):
@@ -19067,6 +19741,7 @@ def _define_ISVGImageElement():
     ISVGImageElement.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(12, 'get_width', ((1, 'p'),)))
     ISVGImageElement.putref_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedLength_head, use_last_error=False)(13, 'putref_height', ((1, 'v'),)))
     ISVGImageElement.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(14, 'get_height', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGImageElement
 def _define_DispSVGImageElement_head():
     class DispSVGImageElement(win32more.System.Com.IDispatch_head):
@@ -19074,6 +19749,7 @@ def _define_DispSVGImageElement_head():
     return DispSVGImageElement
 def _define_DispSVGImageElement():
     DispSVGImageElement = win32more.Web.MsHtml.DispSVGImageElement_head
+    win32more.System.Com.IDispatch
     return DispSVGImageElement
 def _define_ISVGStopElement_head():
     class ISVGStopElement(win32more.System.Com.IDispatch_head):
@@ -19083,6 +19759,7 @@ def _define_ISVGStopElement():
     ISVGStopElement = win32more.Web.MsHtml.ISVGStopElement_head
     ISVGStopElement.putref_offset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedNumber_head, use_last_error=False)(7, 'putref_offset', ((1, 'v'),)))
     ISVGStopElement.get_offset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedNumber_head), use_last_error=False)(8, 'get_offset', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGStopElement
 def _define_DispSVGStopElement_head():
     class DispSVGStopElement(win32more.System.Com.IDispatch_head):
@@ -19090,6 +19767,7 @@ def _define_DispSVGStopElement_head():
     return DispSVGStopElement
 def _define_DispSVGStopElement():
     DispSVGStopElement = win32more.Web.MsHtml.DispSVGStopElement_head
+    win32more.System.Com.IDispatch
     return DispSVGStopElement
 def _define_ISVGGradientElement_head():
     class ISVGGradientElement(win32more.System.Com.IDispatch_head):
@@ -19103,6 +19781,7 @@ def _define_ISVGGradientElement():
     ISVGGradientElement.get_gradientTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedTransformList_head), use_last_error=False)(10, 'get_gradientTransform', ((1, 'p'),)))
     ISVGGradientElement.putref_spreadMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedEnumeration_head, use_last_error=False)(11, 'putref_spreadMethod', ((1, 'v'),)))
     ISVGGradientElement.get_spreadMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedEnumeration_head), use_last_error=False)(12, 'get_spreadMethod', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGGradientElement
 def _define_DispSVGGradientElement_head():
     class DispSVGGradientElement(win32more.System.Com.IDispatch_head):
@@ -19110,6 +19789,7 @@ def _define_DispSVGGradientElement_head():
     return DispSVGGradientElement
 def _define_DispSVGGradientElement():
     DispSVGGradientElement = win32more.Web.MsHtml.DispSVGGradientElement_head
+    win32more.System.Com.IDispatch
     return DispSVGGradientElement
 def _define_ISVGLinearGradientElement_head():
     class ISVGLinearGradientElement(win32more.System.Com.IDispatch_head):
@@ -19125,6 +19805,7 @@ def _define_ISVGLinearGradientElement():
     ISVGLinearGradientElement.get_x2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(12, 'get_x2', ((1, 'p'),)))
     ISVGLinearGradientElement.putref_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedLength_head, use_last_error=False)(13, 'putref_y2', ((1, 'v'),)))
     ISVGLinearGradientElement.get_y2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(14, 'get_y2', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGLinearGradientElement
 def _define_DispSVGLinearGradientElement_head():
     class DispSVGLinearGradientElement(win32more.System.Com.IDispatch_head):
@@ -19132,6 +19813,7 @@ def _define_DispSVGLinearGradientElement_head():
     return DispSVGLinearGradientElement
 def _define_DispSVGLinearGradientElement():
     DispSVGLinearGradientElement = win32more.Web.MsHtml.DispSVGLinearGradientElement_head
+    win32more.System.Com.IDispatch
     return DispSVGLinearGradientElement
 def _define_ISVGRadialGradientElement_head():
     class ISVGRadialGradientElement(win32more.System.Com.IDispatch_head):
@@ -19149,6 +19831,7 @@ def _define_ISVGRadialGradientElement():
     ISVGRadialGradientElement.get_fx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(14, 'get_fx', ((1, 'p'),)))
     ISVGRadialGradientElement.putref_fy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedLength_head, use_last_error=False)(15, 'putref_fy', ((1, 'v'),)))
     ISVGRadialGradientElement.get_fy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(16, 'get_fy', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGRadialGradientElement
 def _define_DispSVGRadialGradientElement_head():
     class DispSVGRadialGradientElement(win32more.System.Com.IDispatch_head):
@@ -19156,6 +19839,7 @@ def _define_DispSVGRadialGradientElement_head():
     return DispSVGRadialGradientElement
 def _define_DispSVGRadialGradientElement():
     DispSVGRadialGradientElement = win32more.Web.MsHtml.DispSVGRadialGradientElement_head
+    win32more.System.Com.IDispatch
     return DispSVGRadialGradientElement
 def _define_ISVGMaskElement_head():
     class ISVGMaskElement(win32more.System.Com.IDispatch_head):
@@ -19175,6 +19859,7 @@ def _define_ISVGMaskElement():
     ISVGMaskElement.get_width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(16, 'get_width', ((1, 'p'),)))
     ISVGMaskElement.putref_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedLength_head, use_last_error=False)(17, 'putref_height', ((1, 'v'),)))
     ISVGMaskElement.get_height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLength_head), use_last_error=False)(18, 'get_height', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGMaskElement
 def _define_DispSVGMaskElement_head():
     class DispSVGMaskElement(win32more.System.Com.IDispatch_head):
@@ -19182,6 +19867,7 @@ def _define_DispSVGMaskElement_head():
     return DispSVGMaskElement
 def _define_DispSVGMaskElement():
     DispSVGMaskElement = win32more.Web.MsHtml.DispSVGMaskElement_head
+    win32more.System.Com.IDispatch
     return DispSVGMaskElement
 def _define_ISVGMarkerElement_head():
     class ISVGMarkerElement(win32more.System.Com.IDispatch_head):
@@ -19205,6 +19891,7 @@ def _define_ISVGMarkerElement():
     ISVGMarkerElement.get_orientAngle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedAngle_head), use_last_error=False)(20, 'get_orientAngle', ((1, 'p'),)))
     ISVGMarkerElement.setOrientToAuto = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'setOrientToAuto', ()))
     ISVGMarkerElement.setOrientToAngle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAngle_head, use_last_error=False)(22, 'setOrientToAngle', ((1, 'pSVGAngle'),)))
+    win32more.System.Com.IDispatch
     return ISVGMarkerElement
 def _define_DispSVGMarkerElement_head():
     class DispSVGMarkerElement(win32more.System.Com.IDispatch_head):
@@ -19212,6 +19899,7 @@ def _define_DispSVGMarkerElement_head():
     return DispSVGMarkerElement
 def _define_DispSVGMarkerElement():
     DispSVGMarkerElement = win32more.Web.MsHtml.DispSVGMarkerElement_head
+    win32more.System.Com.IDispatch
     return DispSVGMarkerElement
 def _define_ISVGZoomEvent_head():
     class ISVGZoomEvent(win32more.System.Com.IDispatch_head):
@@ -19224,6 +19912,7 @@ def _define_ISVGZoomEvent():
     ISVGZoomEvent.get_previousTranslate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGPoint_head), use_last_error=False)(9, 'get_previousTranslate', ((1, 'p'),)))
     ISVGZoomEvent.get_newScale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_newScale', ((1, 'p'),)))
     ISVGZoomEvent.get_newTranslate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGPoint_head), use_last_error=False)(11, 'get_newTranslate', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGZoomEvent
 def _define_DispSVGZoomEvent_head():
     class DispSVGZoomEvent(win32more.System.Com.IDispatch_head):
@@ -19231,6 +19920,7 @@ def _define_DispSVGZoomEvent_head():
     return DispSVGZoomEvent
 def _define_DispSVGZoomEvent():
     DispSVGZoomEvent = win32more.Web.MsHtml.DispSVGZoomEvent_head
+    win32more.System.Com.IDispatch
     return DispSVGZoomEvent
 def _define_ISVGAElement_head():
     class ISVGAElement(win32more.System.Com.IDispatch_head):
@@ -19240,6 +19930,7 @@ def _define_ISVGAElement():
     ISVGAElement = win32more.Web.MsHtml.ISVGAElement_head
     ISVGAElement.putref_target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedString_head, use_last_error=False)(7, 'putref_target', ((1, 'v'),)))
     ISVGAElement.get_target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedString_head), use_last_error=False)(8, 'get_target', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGAElement
 def _define_DispSVGAElement_head():
     class DispSVGAElement(win32more.System.Com.IDispatch_head):
@@ -19247,6 +19938,7 @@ def _define_DispSVGAElement_head():
     return DispSVGAElement
 def _define_DispSVGAElement():
     DispSVGAElement = win32more.Web.MsHtml.DispSVGAElement_head
+    win32more.System.Com.IDispatch
     return DispSVGAElement
 def _define_ISVGViewElement_head():
     class ISVGViewElement(win32more.System.Com.IDispatch_head):
@@ -19256,6 +19948,7 @@ def _define_ISVGViewElement():
     ISVGViewElement = win32more.Web.MsHtml.ISVGViewElement_head
     ISVGViewElement.putref_viewTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGStringList_head, use_last_error=False)(7, 'putref_viewTarget', ((1, 'v'),)))
     ISVGViewElement.get_viewTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGStringList_head), use_last_error=False)(8, 'get_viewTarget', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGViewElement
 def _define_DispSVGViewElement_head():
     class DispSVGViewElement(win32more.System.Com.IDispatch_head):
@@ -19263,6 +19956,7 @@ def _define_DispSVGViewElement_head():
     return DispSVGViewElement
 def _define_DispSVGViewElement():
     DispSVGViewElement = win32more.Web.MsHtml.DispSVGViewElement_head
+    win32more.System.Com.IDispatch
     return DispSVGViewElement
 def _define_IHTMLMediaError_head():
     class IHTMLMediaError(win32more.System.Com.IDispatch_head):
@@ -19271,6 +19965,7 @@ def _define_IHTMLMediaError_head():
 def _define_IHTMLMediaError():
     IHTMLMediaError = win32more.Web.MsHtml.IHTMLMediaError_head
     IHTMLMediaError.get_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(7, 'get_code', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMediaError
 def _define_IHTMLTimeRanges_head():
     class IHTMLTimeRanges(win32more.System.Com.IDispatch_head):
@@ -19281,6 +19976,7 @@ def _define_IHTMLTimeRanges():
     IHTMLTimeRanges.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLTimeRanges.start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Single), use_last_error=False)(8, 'start', ((1, 'index'),(1, 'startTime'),)))
     IHTMLTimeRanges.end = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Single), use_last_error=False)(9, 'end', ((1, 'index'),(1, 'endTime'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTimeRanges
 def _define_IHTMLTimeRanges2_head():
     class IHTMLTimeRanges2(win32more.System.Com.IDispatch_head):
@@ -19290,6 +19986,7 @@ def _define_IHTMLTimeRanges2():
     IHTMLTimeRanges2 = win32more.Web.MsHtml.IHTMLTimeRanges2_head
     IHTMLTimeRanges2.startDouble = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Double), use_last_error=False)(7, 'startDouble', ((1, 'index'),(1, 'startTime'),)))
     IHTMLTimeRanges2.endDouble = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Double), use_last_error=False)(8, 'endDouble', ((1, 'index'),(1, 'endTime'),)))
+    win32more.System.Com.IDispatch
     return IHTMLTimeRanges2
 def _define_IHTMLMediaElement_head():
     class IHTMLMediaElement(win32more.System.Com.IDispatch_head):
@@ -19334,6 +20031,7 @@ def _define_IHTMLMediaElement():
     IHTMLMediaElement.get_muted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(41, 'get_muted', ((1, 'p'),)))
     IHTMLMediaElement.put_autobuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(42, 'put_autobuffer', ((1, 'v'),)))
     IHTMLMediaElement.get_autobuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(43, 'get_autobuffer', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMediaElement
 def _define_IHTMLMediaElement2_head():
     class IHTMLMediaElement2(win32more.System.Com.IDispatch_head):
@@ -19351,6 +20049,7 @@ def _define_IHTMLMediaElement2():
     IHTMLMediaElement2.get_playbackRateDouble = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(14, 'get_playbackRateDouble', ((1, 'p'),)))
     IHTMLMediaElement2.put_volumeDouble = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(15, 'put_volumeDouble', ((1, 'v'),)))
     IHTMLMediaElement2.get_volumeDouble = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(16, 'get_volumeDouble', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMediaElement2
 def _define_IHTMLMSMediaElement_head():
     class IHTMLMSMediaElement(win32more.System.Com.IDispatch_head):
@@ -19362,6 +20061,7 @@ def _define_IHTMLMSMediaElement():
     IHTMLMSMediaElement.get_msPlayToDisabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_msPlayToDisabled', ((1, 'p'),)))
     IHTMLMSMediaElement.put_msPlayToPrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(9, 'put_msPlayToPrimary', ((1, 'v'),)))
     IHTMLMSMediaElement.get_msPlayToPrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_msPlayToPrimary', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLMSMediaElement
 def _define_IHTMLSourceElement_head():
     class IHTMLSourceElement(win32more.System.Com.IDispatch_head):
@@ -19375,6 +20075,7 @@ def _define_IHTMLSourceElement():
     IHTMLSourceElement.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_type', ((1, 'p'),)))
     IHTMLSourceElement.put_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'put_media', ((1, 'v'),)))
     IHTMLSourceElement.get_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_media', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLSourceElement
 def _define_IHTMLAudioElement_head():
     class IHTMLAudioElement(win32more.System.Com.IDispatch_head):
@@ -19382,6 +20083,7 @@ def _define_IHTMLAudioElement_head():
     return IHTMLAudioElement
 def _define_IHTMLAudioElement():
     IHTMLAudioElement = win32more.Web.MsHtml.IHTMLAudioElement_head
+    win32more.System.Com.IDispatch
     return IHTMLAudioElement
 def _define_IHTMLVideoElement_head():
     class IHTMLVideoElement(win32more.System.Com.IDispatch_head):
@@ -19397,6 +20099,7 @@ def _define_IHTMLVideoElement():
     IHTMLVideoElement.get_videoHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_videoHeight', ((1, 'p'),)))
     IHTMLVideoElement.put_poster = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_poster', ((1, 'v'),)))
     IHTMLVideoElement.get_poster = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_poster', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLVideoElement
 def _define_IHTMLAudioElementFactory_head():
     class IHTMLAudioElementFactory(win32more.System.Com.IDispatch_head):
@@ -19405,6 +20108,7 @@ def _define_IHTMLAudioElementFactory_head():
 def _define_IHTMLAudioElementFactory():
     IHTMLAudioElementFactory = win32more.Web.MsHtml.IHTMLAudioElementFactory_head
     IHTMLAudioElementFactory.create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Web.MsHtml.IHTMLAudioElement_head), use_last_error=False)(7, 'create', ((1, 'src'),(1, '__MIDL__IHTMLAudioElementFactory0000'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAudioElementFactory
 def _define_DispHTMLMediaError_head():
     class DispHTMLMediaError(win32more.System.Com.IDispatch_head):
@@ -19412,6 +20116,7 @@ def _define_DispHTMLMediaError_head():
     return DispHTMLMediaError
 def _define_DispHTMLMediaError():
     DispHTMLMediaError = win32more.Web.MsHtml.DispHTMLMediaError_head
+    win32more.System.Com.IDispatch
     return DispHTMLMediaError
 def _define_DispHTMLTimeRanges_head():
     class DispHTMLTimeRanges(win32more.System.Com.IDispatch_head):
@@ -19419,6 +20124,7 @@ def _define_DispHTMLTimeRanges_head():
     return DispHTMLTimeRanges
 def _define_DispHTMLTimeRanges():
     DispHTMLTimeRanges = win32more.Web.MsHtml.DispHTMLTimeRanges_head
+    win32more.System.Com.IDispatch
     return DispHTMLTimeRanges
 def _define_DispHTMLMediaElement_head():
     class DispHTMLMediaElement(win32more.System.Com.IDispatch_head):
@@ -19426,6 +20132,7 @@ def _define_DispHTMLMediaElement_head():
     return DispHTMLMediaElement
 def _define_DispHTMLMediaElement():
     DispHTMLMediaElement = win32more.Web.MsHtml.DispHTMLMediaElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLMediaElement
 def _define_DispHTMLSourceElement_head():
     class DispHTMLSourceElement(win32more.System.Com.IDispatch_head):
@@ -19433,6 +20140,7 @@ def _define_DispHTMLSourceElement_head():
     return DispHTMLSourceElement
 def _define_DispHTMLSourceElement():
     DispHTMLSourceElement = win32more.Web.MsHtml.DispHTMLSourceElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLSourceElement
 def _define_DispHTMLAudioElement_head():
     class DispHTMLAudioElement(win32more.System.Com.IDispatch_head):
@@ -19440,6 +20148,7 @@ def _define_DispHTMLAudioElement_head():
     return DispHTMLAudioElement
 def _define_DispHTMLAudioElement():
     DispHTMLAudioElement = win32more.Web.MsHtml.DispHTMLAudioElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLAudioElement
 def _define_DispHTMLVideoElement_head():
     class DispHTMLVideoElement(win32more.System.Com.IDispatch_head):
@@ -19447,6 +20156,7 @@ def _define_DispHTMLVideoElement_head():
     return DispHTMLVideoElement
 def _define_DispHTMLVideoElement():
     DispHTMLVideoElement = win32more.Web.MsHtml.DispHTMLVideoElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLVideoElement
 def _define_ISVGSwitchElement_head():
     class ISVGSwitchElement(win32more.System.Com.IDispatch_head):
@@ -19454,6 +20164,7 @@ def _define_ISVGSwitchElement_head():
     return ISVGSwitchElement
 def _define_ISVGSwitchElement():
     ISVGSwitchElement = win32more.Web.MsHtml.ISVGSwitchElement_head
+    win32more.System.Com.IDispatch
     return ISVGSwitchElement
 def _define_DispSVGSwitchElement_head():
     class DispSVGSwitchElement(win32more.System.Com.IDispatch_head):
@@ -19461,6 +20172,7 @@ def _define_DispSVGSwitchElement_head():
     return DispSVGSwitchElement
 def _define_DispSVGSwitchElement():
     DispSVGSwitchElement = win32more.Web.MsHtml.DispSVGSwitchElement_head
+    win32more.System.Com.IDispatch
     return DispSVGSwitchElement
 def _define_ISVGDescElement_head():
     class ISVGDescElement(win32more.System.Com.IDispatch_head):
@@ -19468,6 +20180,7 @@ def _define_ISVGDescElement_head():
     return ISVGDescElement
 def _define_ISVGDescElement():
     ISVGDescElement = win32more.Web.MsHtml.ISVGDescElement_head
+    win32more.System.Com.IDispatch
     return ISVGDescElement
 def _define_DispSVGDescElement_head():
     class DispSVGDescElement(win32more.System.Com.IDispatch_head):
@@ -19475,6 +20188,7 @@ def _define_DispSVGDescElement_head():
     return DispSVGDescElement
 def _define_DispSVGDescElement():
     DispSVGDescElement = win32more.Web.MsHtml.DispSVGDescElement_head
+    win32more.System.Com.IDispatch
     return DispSVGDescElement
 def _define_ISVGTitleElement_head():
     class ISVGTitleElement(win32more.System.Com.IDispatch_head):
@@ -19482,6 +20196,7 @@ def _define_ISVGTitleElement_head():
     return ISVGTitleElement
 def _define_ISVGTitleElement():
     ISVGTitleElement = win32more.Web.MsHtml.ISVGTitleElement_head
+    win32more.System.Com.IDispatch
     return ISVGTitleElement
 def _define_DispSVGTitleElement_head():
     class DispSVGTitleElement(win32more.System.Com.IDispatch_head):
@@ -19489,6 +20204,7 @@ def _define_DispSVGTitleElement_head():
     return DispSVGTitleElement
 def _define_DispSVGTitleElement():
     DispSVGTitleElement = win32more.Web.MsHtml.DispSVGTitleElement_head
+    win32more.System.Com.IDispatch
     return DispSVGTitleElement
 def _define_ISVGMetadataElement_head():
     class ISVGMetadataElement(win32more.System.Com.IDispatch_head):
@@ -19496,6 +20212,7 @@ def _define_ISVGMetadataElement_head():
     return ISVGMetadataElement
 def _define_ISVGMetadataElement():
     ISVGMetadataElement = win32more.Web.MsHtml.ISVGMetadataElement_head
+    win32more.System.Com.IDispatch
     return ISVGMetadataElement
 def _define_DispSVGMetadataElement_head():
     class DispSVGMetadataElement(win32more.System.Com.IDispatch_head):
@@ -19503,6 +20220,7 @@ def _define_DispSVGMetadataElement_head():
     return DispSVGMetadataElement
 def _define_DispSVGMetadataElement():
     DispSVGMetadataElement = win32more.Web.MsHtml.DispSVGMetadataElement_head
+    win32more.System.Com.IDispatch
     return DispSVGMetadataElement
 def _define_ISVGElementInstanceList_head():
     class ISVGElementInstanceList(win32more.System.Com.IDispatch_head):
@@ -19512,6 +20230,7 @@ def _define_ISVGElementInstanceList():
     ISVGElementInstanceList = win32more.Web.MsHtml.ISVGElementInstanceList_head
     ISVGElementInstanceList.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     ISVGElementInstanceList.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Web.MsHtml.ISVGElementInstance_head), use_last_error=False)(8, 'item', ((1, 'index'),(1, 'ppResult'),)))
+    win32more.System.Com.IDispatch
     return ISVGElementInstanceList
 def _define_DispSVGElementInstance_head():
     class DispSVGElementInstance(win32more.System.Com.IDispatch_head):
@@ -19519,6 +20238,7 @@ def _define_DispSVGElementInstance_head():
     return DispSVGElementInstance
 def _define_DispSVGElementInstance():
     DispSVGElementInstance = win32more.Web.MsHtml.DispSVGElementInstance_head
+    win32more.System.Com.IDispatch
     return DispSVGElementInstance
 def _define_DispSVGElementInstanceList_head():
     class DispSVGElementInstanceList(win32more.System.Com.IDispatch_head):
@@ -19526,6 +20246,7 @@ def _define_DispSVGElementInstanceList_head():
     return DispSVGElementInstanceList
 def _define_DispSVGElementInstanceList():
     DispSVGElementInstanceList = win32more.Web.MsHtml.DispSVGElementInstanceList_head
+    win32more.System.Com.IDispatch
     return DispSVGElementInstanceList
 def _define_IDOMException_head():
     class IDOMException(win32more.System.Com.IDispatch_head):
@@ -19536,6 +20257,7 @@ def _define_IDOMException():
     IDOMException.put_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'put_code', ((1, 'v'),)))
     IDOMException.get_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_code', ((1, 'p'),)))
     IDOMException.get_message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_message', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IDOMException
 def _define_DispDOMException_head():
     class DispDOMException(win32more.System.Com.IDispatch_head):
@@ -19543,6 +20265,7 @@ def _define_DispDOMException_head():
     return DispDOMException
 def _define_DispDOMException():
     DispDOMException = win32more.Web.MsHtml.DispDOMException_head
+    win32more.System.Com.IDispatch
     return DispDOMException
 def _define_IRangeException_head():
     class IRangeException(win32more.System.Com.IDispatch_head):
@@ -19553,6 +20276,7 @@ def _define_IRangeException():
     IRangeException.put_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'put_code', ((1, 'v'),)))
     IRangeException.get_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_code', ((1, 'p'),)))
     IRangeException.get_message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_message', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IRangeException
 def _define_DispRangeException_head():
     class DispRangeException(win32more.System.Com.IDispatch_head):
@@ -19560,6 +20284,7 @@ def _define_DispRangeException_head():
     return DispRangeException
 def _define_DispRangeException():
     DispRangeException = win32more.Web.MsHtml.DispRangeException_head
+    win32more.System.Com.IDispatch
     return DispRangeException
 def _define_ISVGException_head():
     class ISVGException(win32more.System.Com.IDispatch_head):
@@ -19570,6 +20295,7 @@ def _define_ISVGException():
     ISVGException.put_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'put_code', ((1, 'v'),)))
     ISVGException.get_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_code', ((1, 'p'),)))
     ISVGException.get_message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_message', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGException
 def _define_DispSVGException_head():
     class DispSVGException(win32more.System.Com.IDispatch_head):
@@ -19577,6 +20303,7 @@ def _define_DispSVGException_head():
     return DispSVGException
 def _define_DispSVGException():
     DispSVGException = win32more.Web.MsHtml.DispSVGException_head
+    win32more.System.Com.IDispatch
     return DispSVGException
 def _define_IEventException_head():
     class IEventException(win32more.System.Com.IDispatch_head):
@@ -19587,6 +20314,7 @@ def _define_IEventException():
     IEventException.put_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'put_code', ((1, 'v'),)))
     IEventException.get_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_code', ((1, 'p'),)))
     IEventException.get_message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_message', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IEventException
 def _define_DispEventException_head():
     class DispEventException(win32more.System.Com.IDispatch_head):
@@ -19594,6 +20322,7 @@ def _define_DispEventException_head():
     return DispEventException
 def _define_DispEventException():
     DispEventException = win32more.Web.MsHtml.DispEventException_head
+    win32more.System.Com.IDispatch
     return DispEventException
 def _define_ISVGScriptElement_head():
     class ISVGScriptElement(win32more.System.Com.IDispatch_head):
@@ -19603,6 +20332,7 @@ def _define_ISVGScriptElement():
     ISVGScriptElement = win32more.Web.MsHtml.ISVGScriptElement_head
     ISVGScriptElement.put_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_type', ((1, 'v'),)))
     ISVGScriptElement.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_type', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGScriptElement
 def _define_DispSVGScriptElement_head():
     class DispSVGScriptElement(win32more.System.Com.IDispatch_head):
@@ -19610,6 +20340,7 @@ def _define_DispSVGScriptElement_head():
     return DispSVGScriptElement
 def _define_DispSVGScriptElement():
     DispSVGScriptElement = win32more.Web.MsHtml.DispSVGScriptElement_head
+    win32more.System.Com.IDispatch
     return DispSVGScriptElement
 def _define_ISVGStyleElement_head():
     class ISVGStyleElement(win32more.System.Com.IDispatch_head):
@@ -19621,6 +20352,7 @@ def _define_ISVGStyleElement():
     ISVGStyleElement.get_type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_type', ((1, 'p'),)))
     ISVGStyleElement.put_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_media', ((1, 'v'),)))
     ISVGStyleElement.get_media = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_media', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGStyleElement
 def _define_DispSVGStyleElement_head():
     class DispSVGStyleElement(win32more.System.Com.IDispatch_head):
@@ -19628,6 +20360,7 @@ def _define_DispSVGStyleElement_head():
     return DispSVGStyleElement
 def _define_DispSVGStyleElement():
     DispSVGStyleElement = win32more.Web.MsHtml.DispSVGStyleElement_head
+    win32more.System.Com.IDispatch
     return DispSVGStyleElement
 def _define_ISVGTextContentElement_head():
     class ISVGTextContentElement(win32more.System.Com.IDispatch_head):
@@ -19648,6 +20381,7 @@ def _define_ISVGTextContentElement():
     ISVGTextContentElement.getRotationOfChar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Single), use_last_error=False)(17, 'getRotationOfChar', ((1, 'charnum'),(1, 'pResult'),)))
     ISVGTextContentElement.getCharNumAtPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGPoint_head,POINTER(Int32), use_last_error=False)(18, 'getCharNumAtPosition', ((1, 'point'),(1, 'pResult'),)))
     ISVGTextContentElement.selectSubString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(19, 'selectSubString', ((1, 'charnum'),(1, 'nchars'),)))
+    win32more.System.Com.IDispatch
     return ISVGTextContentElement
 def _define_DispSVGTextContentElement_head():
     class DispSVGTextContentElement(win32more.System.Com.IDispatch_head):
@@ -19655,6 +20389,7 @@ def _define_DispSVGTextContentElement_head():
     return DispSVGTextContentElement
 def _define_DispSVGTextContentElement():
     DispSVGTextContentElement = win32more.Web.MsHtml.DispSVGTextContentElement_head
+    win32more.System.Com.IDispatch
     return DispSVGTextContentElement
 def _define_ISVGTextPositioningElement_head():
     class ISVGTextPositioningElement(win32more.System.Com.IDispatch_head):
@@ -19672,6 +20407,7 @@ def _define_ISVGTextPositioningElement():
     ISVGTextPositioningElement.get_dy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedLengthList_head), use_last_error=False)(14, 'get_dy', ((1, 'p'),)))
     ISVGTextPositioningElement.putref_rotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedNumberList_head, use_last_error=False)(15, 'putref_rotate', ((1, 'v'),)))
     ISVGTextPositioningElement.get_rotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedNumberList_head), use_last_error=False)(16, 'get_rotate', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGTextPositioningElement
 def _define_DispSVGTextPositioningElement_head():
     class DispSVGTextPositioningElement(win32more.System.Com.IDispatch_head):
@@ -19679,6 +20415,7 @@ def _define_DispSVGTextPositioningElement_head():
     return DispSVGTextPositioningElement
 def _define_DispSVGTextPositioningElement():
     DispSVGTextPositioningElement = win32more.Web.MsHtml.DispSVGTextPositioningElement_head
+    win32more.System.Com.IDispatch
     return DispSVGTextPositioningElement
 def _define_DispDOMDocumentType_head():
     class DispDOMDocumentType(win32more.System.Com.IDispatch_head):
@@ -19686,6 +20423,7 @@ def _define_DispDOMDocumentType_head():
     return DispDOMDocumentType
 def _define_DispDOMDocumentType():
     DispDOMDocumentType = win32more.Web.MsHtml.DispDOMDocumentType_head
+    win32more.System.Com.IDispatch
     return DispDOMDocumentType
 def _define_DispNodeIterator_head():
     class DispNodeIterator(win32more.System.Com.IDispatch_head):
@@ -19693,6 +20431,7 @@ def _define_DispNodeIterator_head():
     return DispNodeIterator
 def _define_DispNodeIterator():
     DispNodeIterator = win32more.Web.MsHtml.DispNodeIterator_head
+    win32more.System.Com.IDispatch
     return DispNodeIterator
 def _define_DispTreeWalker_head():
     class DispTreeWalker(win32more.System.Com.IDispatch_head):
@@ -19700,6 +20439,7 @@ def _define_DispTreeWalker_head():
     return DispTreeWalker
 def _define_DispTreeWalker():
     DispTreeWalker = win32more.Web.MsHtml.DispTreeWalker_head
+    win32more.System.Com.IDispatch
     return DispTreeWalker
 def _define_DispDOMProcessingInstruction_head():
     class DispDOMProcessingInstruction(win32more.System.Com.IDispatch_head):
@@ -19707,6 +20447,7 @@ def _define_DispDOMProcessingInstruction_head():
     return DispDOMProcessingInstruction
 def _define_DispDOMProcessingInstruction():
     DispDOMProcessingInstruction = win32more.Web.MsHtml.DispDOMProcessingInstruction_head
+    win32more.System.Com.IDispatch
     return DispDOMProcessingInstruction
 def _define_IHTMLPerformanceNavigation_head():
     class IHTMLPerformanceNavigation(win32more.System.Com.IDispatch_head):
@@ -19718,6 +20459,7 @@ def _define_IHTMLPerformanceNavigation():
     IHTMLPerformanceNavigation.get_redirectCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'get_redirectCount', ((1, 'p'),)))
     IHTMLPerformanceNavigation.toString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'toString', ((1, 'string'),)))
     IHTMLPerformanceNavigation.toJSON = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'toJSON', ((1, 'pVar'),)))
+    win32more.System.Com.IDispatch
     return IHTMLPerformanceNavigation
 def _define_IHTMLPerformanceTiming_head():
     class IHTMLPerformanceTiming(win32more.System.Com.IDispatch_head):
@@ -19748,6 +20490,7 @@ def _define_IHTMLPerformanceTiming():
     IHTMLPerformanceTiming.get_msFirstPaint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(27, 'get_msFirstPaint', ((1, 'p'),)))
     IHTMLPerformanceTiming.toString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(28, 'toString', ((1, 'string'),)))
     IHTMLPerformanceTiming.toJSON = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(29, 'toJSON', ((1, 'pVar'),)))
+    win32more.System.Com.IDispatch
     return IHTMLPerformanceTiming
 def _define_DispHTMLPerformance_head():
     class DispHTMLPerformance(win32more.System.Com.IDispatch_head):
@@ -19755,6 +20498,7 @@ def _define_DispHTMLPerformance_head():
     return DispHTMLPerformance
 def _define_DispHTMLPerformance():
     DispHTMLPerformance = win32more.Web.MsHtml.DispHTMLPerformance_head
+    win32more.System.Com.IDispatch
     return DispHTMLPerformance
 def _define_DispHTMLPerformanceNavigation_head():
     class DispHTMLPerformanceNavigation(win32more.System.Com.IDispatch_head):
@@ -19762,6 +20506,7 @@ def _define_DispHTMLPerformanceNavigation_head():
     return DispHTMLPerformanceNavigation
 def _define_DispHTMLPerformanceNavigation():
     DispHTMLPerformanceNavigation = win32more.Web.MsHtml.DispHTMLPerformanceNavigation_head
+    win32more.System.Com.IDispatch
     return DispHTMLPerformanceNavigation
 def _define_DispHTMLPerformanceTiming_head():
     class DispHTMLPerformanceTiming(win32more.System.Com.IDispatch_head):
@@ -19769,6 +20514,7 @@ def _define_DispHTMLPerformanceTiming_head():
     return DispHTMLPerformanceTiming
 def _define_DispHTMLPerformanceTiming():
     DispHTMLPerformanceTiming = win32more.Web.MsHtml.DispHTMLPerformanceTiming_head
+    win32more.System.Com.IDispatch
     return DispHTMLPerformanceTiming
 def _define_ISVGTSpanElement_head():
     class ISVGTSpanElement(win32more.System.Com.IDispatch_head):
@@ -19776,6 +20522,7 @@ def _define_ISVGTSpanElement_head():
     return ISVGTSpanElement
 def _define_ISVGTSpanElement():
     ISVGTSpanElement = win32more.Web.MsHtml.ISVGTSpanElement_head
+    win32more.System.Com.IDispatch
     return ISVGTSpanElement
 def _define_DispSVGTSpanElement_head():
     class DispSVGTSpanElement(win32more.System.Com.IDispatch_head):
@@ -19783,6 +20530,7 @@ def _define_DispSVGTSpanElement_head():
     return DispSVGTSpanElement
 def _define_DispSVGTSpanElement():
     DispSVGTSpanElement = win32more.Web.MsHtml.DispSVGTSpanElement_head
+    win32more.System.Com.IDispatch
     return DispSVGTSpanElement
 def _define_ITemplatePrinter_head():
     class ITemplatePrinter(win32more.System.Com.IDispatch_head):
@@ -19845,6 +20593,7 @@ def _define_ITemplatePrinter():
     ITemplatePrinter.get_unprintableRight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(59, 'get_unprintableRight', ((1, 'p'),)))
     ITemplatePrinter.get_unprintableBottom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(60, 'get_unprintableBottom', ((1, 'p'),)))
     ITemplatePrinter.updatePageStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(61, 'updatePageStatus', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ITemplatePrinter
 def _define_ITemplatePrinter2_head():
     class ITemplatePrinter2(win32more.Web.MsHtml.ITemplatePrinter_head):
@@ -19861,6 +20610,7 @@ def _define_ITemplatePrinter2():
     ITemplatePrinter2.put_usePrinterCopyCollate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(68, 'put_usePrinterCopyCollate', ((1, 'v'),)))
     ITemplatePrinter2.get_usePrinterCopyCollate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(69, 'get_usePrinterCopyCollate', ((1, 'p'),)))
     ITemplatePrinter2.deviceSupports = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(70, 'deviceSupports', ((1, 'bstrProperty'),(1, 'pvar'),)))
+    win32more.Web.MsHtml.ITemplatePrinter
     return ITemplatePrinter2
 def _define_ITemplatePrinter3_head():
     class ITemplatePrinter3(win32more.Web.MsHtml.ITemplatePrinter2_head):
@@ -19878,6 +20628,7 @@ def _define_ITemplatePrinter3():
     ITemplatePrinter3.getPageMarginRightImportant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,POINTER(Int16), use_last_error=False)(78, 'getPageMarginRightImportant', ((1, 'pageRule'),(1, 'pbImportant'),)))
     ITemplatePrinter3.getPageMarginBottomImportant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,POINTER(Int16), use_last_error=False)(79, 'getPageMarginBottomImportant', ((1, 'pageRule'),(1, 'pbImportant'),)))
     ITemplatePrinter3.getPageMarginLeftImportant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,POINTER(Int16), use_last_error=False)(80, 'getPageMarginLeftImportant', ((1, 'pageRule'),(1, 'pbImportant'),)))
+    win32more.Web.MsHtml.ITemplatePrinter2
     return ITemplatePrinter3
 def _define_IPrintManagerTemplatePrinter_head():
     class IPrintManagerTemplatePrinter(win32more.System.Com.IDispatch_head):
@@ -19891,6 +20642,7 @@ def _define_IPrintManagerTemplatePrinter():
     IPrintManagerTemplatePrinter.invalidatePreview = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'invalidatePreview', ()))
     IPrintManagerTemplatePrinter.getPrintTaskOptionValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'getPrintTaskOptionValue', ((1, 'bstrKey'),(1, 'pvarin'),)))
     IPrintManagerTemplatePrinter.endPrint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'endPrint', ()))
+    win32more.System.Com.IDispatch
     return IPrintManagerTemplatePrinter
 def _define_IPrintManagerTemplatePrinter2_head():
     class IPrintManagerTemplatePrinter2(win32more.Web.MsHtml.IPrintManagerTemplatePrinter_head):
@@ -19901,6 +20653,7 @@ def _define_IPrintManagerTemplatePrinter2():
     IPrintManagerTemplatePrinter2.get_showHeaderFooter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(13, 'get_showHeaderFooter', ((1, 'p'),)))
     IPrintManagerTemplatePrinter2.get_shrinkToFit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(14, 'get_shrinkToFit', ((1, 'p'),)))
     IPrintManagerTemplatePrinter2.get_percentScale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(15, 'get_percentScale', ((1, 'p'),)))
+    win32more.Web.MsHtml.IPrintManagerTemplatePrinter
     return IPrintManagerTemplatePrinter2
 def _define_DispCPrintManagerTemplatePrinter_head():
     class DispCPrintManagerTemplatePrinter(win32more.System.Com.IDispatch_head):
@@ -19908,6 +20661,7 @@ def _define_DispCPrintManagerTemplatePrinter_head():
     return DispCPrintManagerTemplatePrinter
 def _define_DispCPrintManagerTemplatePrinter():
     DispCPrintManagerTemplatePrinter = win32more.Web.MsHtml.DispCPrintManagerTemplatePrinter_head
+    win32more.System.Com.IDispatch
     return DispCPrintManagerTemplatePrinter
 def _define_ISVGTextPathElement_head():
     class ISVGTextPathElement(win32more.System.Com.IDispatch_head):
@@ -19921,6 +20675,7 @@ def _define_ISVGTextPathElement():
     ISVGTextPathElement.get_method = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedEnumeration_head), use_last_error=False)(10, 'get_method', ((1, 'p'),)))
     ISVGTextPathElement.putref_spacing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISVGAnimatedEnumeration_head, use_last_error=False)(11, 'putref_spacing', ((1, 'v'),)))
     ISVGTextPathElement.get_spacing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISVGAnimatedEnumeration_head), use_last_error=False)(12, 'get_spacing', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return ISVGTextPathElement
 def _define_DispSVGTextPathElement_head():
     class DispSVGTextPathElement(win32more.System.Com.IDispatch_head):
@@ -19928,6 +20683,7 @@ def _define_DispSVGTextPathElement_head():
     return DispSVGTextPathElement
 def _define_DispSVGTextPathElement():
     DispSVGTextPathElement = win32more.Web.MsHtml.DispSVGTextPathElement_head
+    win32more.System.Com.IDispatch
     return DispSVGTextPathElement
 def _define_IDOMXmlSerializer_head():
     class IDOMXmlSerializer(win32more.System.Com.IDispatch_head):
@@ -19936,6 +20692,7 @@ def _define_IDOMXmlSerializer_head():
 def _define_IDOMXmlSerializer():
     IDOMXmlSerializer = win32more.Web.MsHtml.IDOMXmlSerializer_head
     IDOMXmlSerializer.serializeToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLDOMNode_head,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'serializeToString', ((1, 'pNode'),(1, 'pString'),)))
+    win32more.System.Com.IDispatch
     return IDOMXmlSerializer
 def _define_IDOMParser_head():
     class IDOMParser(win32more.System.Com.IDispatch_head):
@@ -19944,6 +20701,7 @@ def _define_IDOMParser_head():
 def _define_IDOMParser():
     IDOMParser = win32more.Web.MsHtml.IDOMParser_head
     IDOMParser.parseFromString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Web.MsHtml.IHTMLDocument2_head), use_last_error=False)(7, 'parseFromString', ((1, 'xmlSource'),(1, 'mimeType'),(1, 'ppNode'),)))
+    win32more.System.Com.IDispatch
     return IDOMParser
 def _define_DispXMLSerializer_head():
     class DispXMLSerializer(win32more.System.Com.IDispatch_head):
@@ -19951,6 +20709,7 @@ def _define_DispXMLSerializer_head():
     return DispXMLSerializer
 def _define_DispXMLSerializer():
     DispXMLSerializer = win32more.Web.MsHtml.DispXMLSerializer_head
+    win32more.System.Com.IDispatch
     return DispXMLSerializer
 def _define_DispDOMParser_head():
     class DispDOMParser(win32more.System.Com.IDispatch_head):
@@ -19958,6 +20717,7 @@ def _define_DispDOMParser_head():
     return DispDOMParser
 def _define_DispDOMParser():
     DispDOMParser = win32more.Web.MsHtml.DispDOMParser_head
+    win32more.System.Com.IDispatch
     return DispDOMParser
 def _define_IDOMXmlSerializerFactory_head():
     class IDOMXmlSerializerFactory(win32more.System.Com.IDispatch_head):
@@ -19966,6 +20726,7 @@ def _define_IDOMXmlSerializerFactory_head():
 def _define_IDOMXmlSerializerFactory():
     IDOMXmlSerializerFactory = win32more.Web.MsHtml.IDOMXmlSerializerFactory_head
     IDOMXmlSerializerFactory.create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IDOMXmlSerializer_head), use_last_error=False)(7, 'create', ((1, '__MIDL__IDOMXmlSerializerFactory0000'),)))
+    win32more.System.Com.IDispatch
     return IDOMXmlSerializerFactory
 def _define_IDOMParserFactory_head():
     class IDOMParserFactory(win32more.System.Com.IDispatch_head):
@@ -19974,6 +20735,7 @@ def _define_IDOMParserFactory_head():
 def _define_IDOMParserFactory():
     IDOMParserFactory = win32more.Web.MsHtml.IDOMParserFactory_head
     IDOMParserFactory.create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IDOMParser_head), use_last_error=False)(7, 'create', ((1, '__MIDL__IDOMParserFactory0000'),)))
+    win32more.System.Com.IDispatch
     return IDOMParserFactory
 def _define_DispHTMLSemanticElement_head():
     class DispHTMLSemanticElement(win32more.System.Com.IDispatch_head):
@@ -19981,6 +20743,7 @@ def _define_DispHTMLSemanticElement_head():
     return DispHTMLSemanticElement
 def _define_DispHTMLSemanticElement():
     DispHTMLSemanticElement = win32more.Web.MsHtml.DispHTMLSemanticElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLSemanticElement
 def _define_IHTMLProgressElement_head():
     class IHTMLProgressElement(win32more.System.Com.IDispatch_head):
@@ -19994,6 +20757,7 @@ def _define_IHTMLProgressElement():
     IHTMLProgressElement.get_max = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_max', ((1, 'p'),)))
     IHTMLProgressElement.get_position = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(11, 'get_position', ((1, 'p'),)))
     IHTMLProgressElement.get_form = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLFormElement_head), use_last_error=False)(12, 'get_form', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLProgressElement
 def _define_DispHTMLProgressElement_head():
     class DispHTMLProgressElement(win32more.System.Com.IDispatch_head):
@@ -20001,6 +20765,7 @@ def _define_DispHTMLProgressElement_head():
     return DispHTMLProgressElement
 def _define_DispHTMLProgressElement():
     DispHTMLProgressElement = win32more.Web.MsHtml.DispHTMLProgressElement_head
+    win32more.System.Com.IDispatch
     return DispHTMLProgressElement
 def _define_IDOMMSTransitionEvent_head():
     class IDOMMSTransitionEvent(win32more.System.Com.IDispatch_head):
@@ -20011,6 +20776,7 @@ def _define_IDOMMSTransitionEvent():
     IDOMMSTransitionEvent.get_propertyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_propertyName', ((1, 'p'),)))
     IDOMMSTransitionEvent.get_elapsedTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_elapsedTime', ((1, 'p'),)))
     IDOMMSTransitionEvent.initMSTransitionEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Foundation.BSTR,Single, use_last_error=False)(9, 'initMSTransitionEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'propertyName'),(1, 'elapsedTime'),)))
+    win32more.System.Com.IDispatch
     return IDOMMSTransitionEvent
 def _define_DispDOMMSTransitionEvent_head():
     class DispDOMMSTransitionEvent(win32more.System.Com.IDispatch_head):
@@ -20018,6 +20784,7 @@ def _define_DispDOMMSTransitionEvent_head():
     return DispDOMMSTransitionEvent
 def _define_DispDOMMSTransitionEvent():
     DispDOMMSTransitionEvent = win32more.Web.MsHtml.DispDOMMSTransitionEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMMSTransitionEvent
 def _define_IDOMMSAnimationEvent_head():
     class IDOMMSAnimationEvent(win32more.System.Com.IDispatch_head):
@@ -20028,6 +20795,7 @@ def _define_IDOMMSAnimationEvent():
     IDOMMSAnimationEvent.get_animationName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_animationName', ((1, 'p'),)))
     IDOMMSAnimationEvent.get_elapsedTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(8, 'get_elapsedTime', ((1, 'p'),)))
     IDOMMSAnimationEvent.initMSAnimationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Foundation.BSTR,Single, use_last_error=False)(9, 'initMSAnimationEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'animationName'),(1, 'elapsedTime'),)))
+    win32more.System.Com.IDispatch
     return IDOMMSAnimationEvent
 def _define_DispDOMMSAnimationEvent_head():
     class DispDOMMSAnimationEvent(win32more.System.Com.IDispatch_head):
@@ -20035,6 +20803,7 @@ def _define_DispDOMMSAnimationEvent_head():
     return DispDOMMSAnimationEvent
 def _define_DispDOMMSAnimationEvent():
     DispDOMMSAnimationEvent = win32more.Web.MsHtml.DispDOMMSAnimationEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMMSAnimationEvent
 def _define_IWebGeocoordinates_head():
     class IWebGeocoordinates(win32more.System.Com.IDispatch_head):
@@ -20049,6 +20818,7 @@ def _define_IWebGeocoordinates():
     IWebGeocoordinates.get_altitudeAccuracy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'get_altitudeAccuracy', ((1, 'p'),)))
     IWebGeocoordinates.get_heading = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_heading', ((1, 'p'),)))
     IWebGeocoordinates.get_speed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_speed', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IWebGeocoordinates
 def _define_IWebGeopositionError_head():
     class IWebGeopositionError(win32more.System.Com.IDispatch_head):
@@ -20058,6 +20828,7 @@ def _define_IWebGeopositionError():
     IWebGeopositionError = win32more.Web.MsHtml.IWebGeopositionError_head
     IWebGeopositionError.get_code = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_code', ((1, 'p'),)))
     IWebGeopositionError.get_message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_message', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IWebGeopositionError
 def _define_IWebGeoposition_head():
     class IWebGeoposition(win32more.System.Com.IDispatch_head):
@@ -20067,6 +20838,7 @@ def _define_IWebGeoposition():
     IWebGeoposition = win32more.Web.MsHtml.IWebGeoposition_head
     IWebGeoposition.get_coords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IWebGeocoordinates_head), use_last_error=False)(7, 'get_coords', ((1, 'p'),)))
     IWebGeoposition.get_timestamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(8, 'get_timestamp', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IWebGeoposition
 def _define_DispWebGeolocation_head():
     class DispWebGeolocation(win32more.System.Com.IDispatch_head):
@@ -20074,6 +20846,7 @@ def _define_DispWebGeolocation_head():
     return DispWebGeolocation
 def _define_DispWebGeolocation():
     DispWebGeolocation = win32more.Web.MsHtml.DispWebGeolocation_head
+    win32more.System.Com.IDispatch
     return DispWebGeolocation
 def _define_DispWebGeocoordinates_head():
     class DispWebGeocoordinates(win32more.System.Com.IDispatch_head):
@@ -20081,6 +20854,7 @@ def _define_DispWebGeocoordinates_head():
     return DispWebGeocoordinates
 def _define_DispWebGeocoordinates():
     DispWebGeocoordinates = win32more.Web.MsHtml.DispWebGeocoordinates_head
+    win32more.System.Com.IDispatch
     return DispWebGeocoordinates
 def _define_DispWebGeopositionError_head():
     class DispWebGeopositionError(win32more.System.Com.IDispatch_head):
@@ -20088,6 +20862,7 @@ def _define_DispWebGeopositionError_head():
     return DispWebGeopositionError
 def _define_DispWebGeopositionError():
     DispWebGeopositionError = win32more.Web.MsHtml.DispWebGeopositionError_head
+    win32more.System.Com.IDispatch
     return DispWebGeopositionError
 def _define_DispWebGeoposition_head():
     class DispWebGeoposition(win32more.System.Com.IDispatch_head):
@@ -20095,6 +20870,7 @@ def _define_DispWebGeoposition_head():
     return DispWebGeoposition
 def _define_DispWebGeoposition():
     DispWebGeoposition = win32more.Web.MsHtml.DispWebGeoposition_head
+    win32more.System.Com.IDispatch
     return DispWebGeoposition
 def _define_IClientCaps_head():
     class IClientCaps(win32more.System.Com.IDispatch_head):
@@ -20123,6 +20899,7 @@ def _define_IClientCaps():
     IClientCaps.addComponentRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(25, 'addComponentRequest', ((1, 'bstrName'),(1, 'bstrUrl'),(1, 'bStrVer'),)))
     IClientCaps.doComponentRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(26, 'doComponentRequest', ((1, 'p'),)))
     IClientCaps.clearComponentRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(27, 'clearComponentRequest', ()))
+    win32more.System.Com.IDispatch
     return IClientCaps
 def _define_IDOMMSManipulationEvent_head():
     class IDOMMSManipulationEvent(win32more.System.Com.IDispatch_head):
@@ -20133,6 +20910,7 @@ def _define_IDOMMSManipulationEvent():
     IDOMMSManipulationEvent.get_lastState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_lastState', ((1, 'p'),)))
     IDOMMSManipulationEvent.get_currentState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_currentState', ((1, 'p'),)))
     IDOMMSManipulationEvent.initMSManipulationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,win32more.Web.MsHtml.IHTMLWindow2_head,Int32,Int32,Int32, use_last_error=False)(9, 'initMSManipulationEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'viewArg'),(1, 'detailArg'),(1, 'lastState'),(1, 'currentState'),)))
+    win32more.System.Com.IDispatch
     return IDOMMSManipulationEvent
 def _define_DispDOMMSManipulationEvent_head():
     class DispDOMMSManipulationEvent(win32more.System.Com.IDispatch_head):
@@ -20140,6 +20918,7 @@ def _define_DispDOMMSManipulationEvent_head():
     return DispDOMMSManipulationEvent
 def _define_DispDOMMSManipulationEvent():
     DispDOMMSManipulationEvent = win32more.Web.MsHtml.DispDOMMSManipulationEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMMSManipulationEvent
 def _define_IDOMCloseEvent_head():
     class IDOMCloseEvent(win32more.System.Com.IDispatch_head):
@@ -20149,6 +20928,7 @@ def _define_IDOMCloseEvent():
     IDOMCloseEvent = win32more.Web.MsHtml.IDOMCloseEvent_head
     IDOMCloseEvent.get_wasClean = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(7, 'get_wasClean', ((1, 'p'),)))
     IDOMCloseEvent.initCloseEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,Int16,Int16,Int32,win32more.Foundation.BSTR, use_last_error=False)(8, 'initCloseEvent', ((1, 'eventType'),(1, 'canBubble'),(1, 'cancelable'),(1, 'wasClean'),(1, 'code'),(1, 'reason'),)))
+    win32more.System.Com.IDispatch
     return IDOMCloseEvent
 def _define_DispDOMCloseEvent_head():
     class DispDOMCloseEvent(win32more.System.Com.IDispatch_head):
@@ -20156,6 +20936,7 @@ def _define_DispDOMCloseEvent_head():
     return DispDOMCloseEvent
 def _define_DispDOMCloseEvent():
     DispDOMCloseEvent = win32more.Web.MsHtml.DispDOMCloseEvent_head
+    win32more.System.Com.IDispatch
     return DispDOMCloseEvent
 def _define_DispApplicationCache_head():
     class DispApplicationCache(win32more.System.Com.IDispatch_head):
@@ -20163,6 +20944,7 @@ def _define_DispApplicationCache_head():
     return DispApplicationCache
 def _define_DispApplicationCache():
     DispApplicationCache = win32more.Web.MsHtml.DispApplicationCache_head
+    win32more.System.Com.IDispatch
     return DispApplicationCache
 def _define_ICSSFilterSite_head():
     class ICSSFilterSite(win32more.System.Com.IUnknown_head):
@@ -20172,6 +20954,7 @@ def _define_ICSSFilterSite():
     ICSSFilterSite = win32more.Web.MsHtml.ICSSFilterSite_head
     ICSSFilterSite.GetElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(3, 'GetElement', ((1, 'Element'),)))
     ICSSFilterSite.FireOnFilterChangeEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'FireOnFilterChangeEvent', ()))
+    win32more.System.Com.IUnknown
     return ICSSFilterSite
 def _define_IMarkupPointer_head():
     class IMarkupPointer(win32more.System.Com.IUnknown_head):
@@ -20200,6 +20983,7 @@ def _define_IMarkupPointer():
     IMarkupPointer.IsEqualTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(21, 'IsEqualTo', ((1, 'pPointerThat'),(1, 'pfAreEqual'),)))
     IMarkupPointer.MoveUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.MOVEUNIT_ACTION, use_last_error=False)(22, 'MoveUnit', ((1, 'muAction'),)))
     IMarkupPointer.FindText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head, use_last_error=False)(23, 'FindText', ((1, 'pchFindText'),(1, 'dwFlags'),(1, 'pIEndMatch'),(1, 'pIEndSearch'),)))
+    win32more.System.Com.IUnknown
     return IMarkupPointer
 def _define_IMarkupContainer_head():
     class IMarkupContainer(win32more.System.Com.IUnknown_head):
@@ -20208,6 +20992,7 @@ def _define_IMarkupContainer_head():
 def _define_IMarkupContainer():
     IMarkupContainer = win32more.Web.MsHtml.IMarkupContainer_head
     IMarkupContainer.OwningDoc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDocument2_head), use_last_error=False)(3, 'OwningDoc', ((1, 'ppDoc'),)))
+    win32more.System.Com.IUnknown
     return IMarkupContainer
 def _define_IMarkupContainer2_head():
     class IMarkupContainer2(win32more.Web.MsHtml.IMarkupContainer_head):
@@ -20221,6 +21006,7 @@ def _define_IMarkupContainer2():
     IMarkupContainer2.GetAndClearDirtyRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head, use_last_error=False)(7, 'GetAndClearDirtyRange', ((1, 'dwCookie'),(1, 'pIPointerBegin'),(1, 'pIPointerEnd'),)))
     IMarkupContainer2.GetVersionNumber = COMMETHOD(WINFUNCTYPE(Int32, use_last_error=False)(8, 'GetVersionNumber', ()))
     IMarkupContainer2.GetMasterElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(9, 'GetMasterElement', ((1, 'ppElementMaster'),)))
+    win32more.Web.MsHtml.IMarkupContainer
     return IMarkupContainer2
 def _define_IHTMLChangeLog_head():
     class IHTMLChangeLog(win32more.System.Com.IUnknown_head):
@@ -20229,6 +21015,7 @@ def _define_IHTMLChangeLog_head():
 def _define_IHTMLChangeLog():
     IHTMLChangeLog = win32more.Web.MsHtml.IHTMLChangeLog_head
     IHTMLChangeLog.GetNextChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,Int32,POINTER(Int32), use_last_error=False)(3, 'GetNextChange', ((1, 'pbBuffer'),(1, 'nBufferSize'),(1, 'pnRecordLength'),)))
+    win32more.System.Com.IUnknown
     return IHTMLChangeLog
 def _define_IHTMLChangeSink_head():
     class IHTMLChangeSink(win32more.System.Com.IUnknown_head):
@@ -20237,6 +21024,7 @@ def _define_IHTMLChangeSink_head():
 def _define_IHTMLChangeSink():
     IHTMLChangeSink = win32more.Web.MsHtml.IHTMLChangeSink_head
     IHTMLChangeSink.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Notify', ()))
+    win32more.System.Com.IUnknown
     return IHTMLChangeSink
 def _define_ISegmentList_head():
     class ISegmentList(win32more.System.Com.IUnknown_head):
@@ -20247,6 +21035,7 @@ def _define_ISegmentList():
     ISegmentList.CreateIterator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISegmentListIterator_head), use_last_error=False)(3, 'CreateIterator', ((1, 'ppIIter'),)))
     ISegmentList.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.SELECTION_TYPE), use_last_error=False)(4, 'GetType', ((1, 'peType'),)))
     ISegmentList.IsEmpty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsEmpty', ((1, 'pfEmpty'),)))
+    win32more.System.Com.IUnknown
     return ISegmentList
 def _define_ISegmentListIterator_head():
     class ISegmentListIterator(win32more.System.Com.IUnknown_head):
@@ -20258,6 +21047,7 @@ def _define_ISegmentListIterator():
     ISegmentListIterator.First = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'First', ()))
     ISegmentListIterator.IsDone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'IsDone', ()))
     ISegmentListIterator.Advance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Advance', ()))
+    win32more.System.Com.IUnknown
     return ISegmentListIterator
 def _define_IHTMLCaret_head():
     class IHTMLCaret(win32more.System.Com.IUnknown_head):
@@ -20277,6 +21067,7 @@ def _define_IHTMLCaret():
     IHTMLCaret.GetLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head),win32more.Foundation.BOOL, use_last_error=False)(12, 'GetLocation', ((1, 'pPoint'),(1, 'fTranslate'),)))
     IHTMLCaret.GetCaretDirection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.CARET_DIRECTION), use_last_error=False)(13, 'GetCaretDirection', ((1, 'peDir'),)))
     IHTMLCaret.SetCaretDirection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.CARET_DIRECTION, use_last_error=False)(14, 'SetCaretDirection', ((1, 'eDir'),)))
+    win32more.System.Com.IUnknown
     return IHTMLCaret
 def _define_ISegment_head():
     class ISegment(win32more.System.Com.IUnknown_head):
@@ -20285,6 +21076,7 @@ def _define_ISegment_head():
 def _define_ISegment():
     ISegment = win32more.Web.MsHtml.ISegment_head
     ISegment.GetPointers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head, use_last_error=False)(3, 'GetPointers', ((1, 'pIStart'),(1, 'pIEnd'),)))
+    win32more.System.Com.IUnknown
     return ISegment
 def _define_IElementSegment_head():
     class IElementSegment(win32more.Web.MsHtml.ISegment_head):
@@ -20295,6 +21087,7 @@ def _define_IElementSegment():
     IElementSegment.GetElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(4, 'GetElement', ((1, 'ppIElement'),)))
     IElementSegment.SetPrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetPrimary', ((1, 'fPrimary'),)))
     IElementSegment.IsPrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'IsPrimary', ((1, 'pfPrimary'),)))
+    win32more.Web.MsHtml.ISegment
     return IElementSegment
 def _define_IHighlightSegment_head():
     class IHighlightSegment(win32more.Web.MsHtml.ISegment_head):
@@ -20302,6 +21095,7 @@ def _define_IHighlightSegment_head():
     return IHighlightSegment
 def _define_IHighlightSegment():
     IHighlightSegment = win32more.Web.MsHtml.IHighlightSegment_head
+    win32more.Web.MsHtml.ISegment
     return IHighlightSegment
 def _define_IHighlightRenderingServices_head():
     class IHighlightRenderingServices(win32more.System.Com.IUnknown_head):
@@ -20312,6 +21106,7 @@ def _define_IHighlightRenderingServices():
     IHighlightRenderingServices.AddSegment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IDisplayPointer_head,win32more.Web.MsHtml.IDisplayPointer_head,win32more.Web.MsHtml.IHTMLRenderStyle_head,POINTER(win32more.Web.MsHtml.IHighlightSegment_head), use_last_error=False)(3, 'AddSegment', ((1, 'pDispPointerStart'),(1, 'pDispPointerEnd'),(1, 'pIRenderStyle'),(1, 'ppISegment'),)))
     IHighlightRenderingServices.MoveSegmentToPointers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHighlightSegment_head,win32more.Web.MsHtml.IDisplayPointer_head,win32more.Web.MsHtml.IDisplayPointer_head, use_last_error=False)(4, 'MoveSegmentToPointers', ((1, 'pISegment'),(1, 'pDispPointerStart'),(1, 'pDispPointerEnd'),)))
     IHighlightRenderingServices.RemoveSegment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHighlightSegment_head, use_last_error=False)(5, 'RemoveSegment', ((1, 'pISegment'),)))
+    win32more.System.Com.IUnknown
     return IHighlightRenderingServices
 def _define_ILineInfo_head():
     class ILineInfo(win32more.System.Com.IUnknown_head):
@@ -20324,6 +21119,7 @@ def _define_ILineInfo():
     ILineInfo.get_textDescent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'get_textDescent', ((1, 'p'),)))
     ILineInfo.get_textHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(6, 'get_textHeight', ((1, 'p'),)))
     ILineInfo.get_lineDirection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_lineDirection', ((1, 'p'),)))
+    win32more.System.Com.IUnknown
     return ILineInfo
 def _define_IDisplayPointer_head():
     class IDisplayPointer(win32more.System.Com.IUnknown_head):
@@ -20350,6 +21146,7 @@ def _define_IDisplayPointer():
     IDisplayPointer.GetLineInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ILineInfo_head), use_last_error=False)(19, 'GetLineInfo', ((1, 'ppLineInfo'),)))
     IDisplayPointer.GetFlowElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(20, 'GetFlowElement', ((1, 'ppLayoutElement'),)))
     IDisplayPointer.QueryBreaks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(21, 'QueryBreaks', ((1, 'pdwBreaks'),)))
+    win32more.System.Com.IUnknown
     return IDisplayPointer
 def _define_IDisplayServices_head():
     class IDisplayServices(win32more.System.Com.IUnknown_head):
@@ -20364,6 +21161,7 @@ def _define_IDisplayServices():
     IDisplayServices.GetComputedStyle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head,POINTER(win32more.Web.MsHtml.IHTMLComputedStyle_head), use_last_error=False)(7, 'GetComputedStyle', ((1, 'pPointer'),(1, 'ppComputedStyle'),)))
     IDisplayServices.ScrollRectIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLElement_head,win32more.Foundation.RECT, use_last_error=False)(8, 'ScrollRectIntoView', ((1, 'pIElement'),(1, 'rect'),)))
     IDisplayServices.HasFlowLayout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLElement_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'HasFlowLayout', ((1, 'pIElement'),(1, 'pfHasFlowLayout'),)))
+    win32more.System.Com.IUnknown
     return IDisplayServices
 def _define_IHtmlDlgSafeHelper_head():
     class IHtmlDlgSafeHelper(win32more.System.Com.IDispatch_head):
@@ -20375,6 +21173,7 @@ def _define_IHtmlDlgSafeHelper():
     IHtmlDlgSafeHelper.getCharset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'getCharset', ((1, 'fontName'),(1, 'charset'),)))
     IHtmlDlgSafeHelper.get_Fonts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'get_Fonts', ((1, 'p'),)))
     IHtmlDlgSafeHelper.get_BlockFormats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'get_BlockFormats', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHtmlDlgSafeHelper
 def _define_IBlockFormats_head():
     class IBlockFormats(win32more.System.Com.IDispatch_head):
@@ -20385,6 +21184,7 @@ def _define_IBlockFormats():
     IBlockFormats.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'p'),)))
     IBlockFormats.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'p'),)))
     IBlockFormats.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'Item', ((1, 'pvarIndex'),(1, 'pbstrBlockFormat'),)))
+    win32more.System.Com.IDispatch
     return IBlockFormats
 def _define_IFontNames_head():
     class IFontNames(win32more.System.Com.IDispatch_head):
@@ -20395,6 +21195,7 @@ def _define_IFontNames():
     IFontNames.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'p'),)))
     IFontNames.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'p'),)))
     IFontNames.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'Item', ((1, 'pvarIndex'),(1, 'pbstrFontName'),)))
+    win32more.System.Com.IDispatch
     return IFontNames
 def _define_ICSSFilter_head():
     class ICSSFilter(win32more.System.Com.IUnknown_head):
@@ -20404,6 +21205,7 @@ def _define_ICSSFilter():
     ICSSFilter = win32more.Web.MsHtml.ICSSFilter_head
     ICSSFilter.SetSite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ICSSFilterSite_head, use_last_error=False)(3, 'SetSite', ((1, 'pSink'),)))
     ICSSFilter.OnAmbientPropertyChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(4, 'OnAmbientPropertyChange', ((1, 'dispid'),)))
+    win32more.System.Com.IUnknown
     return ICSSFilter
 def _define_ISecureUrlHost_head():
     class ISecureUrlHost(win32more.System.Com.IUnknown_head):
@@ -20412,6 +21214,7 @@ def _define_ISecureUrlHost_head():
 def _define_ISecureUrlHost():
     ISecureUrlHost = win32more.Web.MsHtml.ISecureUrlHost_head
     ISecureUrlHost.ValidateSecureUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'ValidateSecureUrl', ((1, 'pfAllow'),(1, 'pchUrlInQuestion'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return ISecureUrlHost
 def _define_IMarkupServices_head():
     class IMarkupServices(win32more.System.Com.IUnknown_head):
@@ -20439,6 +21242,7 @@ def _define_IMarkupServices():
     IMarkupServices.MoveRangeToPointers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IHTMLTxtRange_head, use_last_error=False)(20, 'MoveRangeToPointers', ((1, 'pPointerStart'),(1, 'pPointerFinish'),(1, 'pIRange'),)))
     IMarkupServices.BeginUndoUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(21, 'BeginUndoUnit', ((1, 'pchTitle'),)))
     IMarkupServices.EndUndoUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(22, 'EndUndoUnit', ()))
+    win32more.System.Com.IUnknown
     return IMarkupServices
 def _define_IMarkupServices2_head():
     class IMarkupServices2(win32more.Web.MsHtml.IMarkupServices_head):
@@ -20449,6 +21253,7 @@ def _define_IMarkupServices2():
     IMarkupServices2.ParseGlobalEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,UInt32,win32more.Web.MsHtml.IMarkupContainer_head,POINTER(win32more.Web.MsHtml.IMarkupContainer_head),win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head, use_last_error=False)(23, 'ParseGlobalEx', ((1, 'hglobalHTML'),(1, 'dwFlags'),(1, 'pContext'),(1, 'ppContainerResult'),(1, 'pPointerStart'),(1, 'pPointerFinish'),)))
     IMarkupServices2.ValidateElements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head,POINTER(win32more.Web.MsHtml.IHTMLElement_head),POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(24, 'ValidateElements', ((1, 'pPointerStart'),(1, 'pPointerFinish'),(1, 'pPointerTarget'),(1, 'pPointerStatus'),(1, 'ppElemFailBottom'),(1, 'ppElemFailTop'),)))
     IMarkupServices2.SaveSegmentsToClipboard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISegmentList_head,UInt32, use_last_error=False)(25, 'SaveSegmentsToClipboard', ((1, 'pSegmentList'),(1, 'dwFlags'),)))
+    win32more.Web.MsHtml.IMarkupServices
     return IMarkupServices2
 def _define_IHTMLChangePlayback_head():
     class IHTMLChangePlayback(win32more.System.Com.IUnknown_head):
@@ -20457,6 +21262,7 @@ def _define_IHTMLChangePlayback_head():
 def _define_IHTMLChangePlayback():
     IHTMLChangePlayback = win32more.Web.MsHtml.IHTMLChangePlayback_head
     IHTMLChangePlayback.ExecChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,win32more.Foundation.BOOL, use_last_error=False)(3, 'ExecChange', ((1, 'pbRecord'),(1, 'fForward'),)))
+    win32more.System.Com.IUnknown
     return IHTMLChangePlayback
 def _define_IMarkupPointer2_head():
     class IMarkupPointer2(win32more.Web.MsHtml.IMarkupPointer_head):
@@ -20470,6 +21276,7 @@ def _define_IMarkupPointer2():
     IMarkupPointer2.MoveUnitBounded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.MOVEUNIT_ACTION,win32more.Web.MsHtml.IMarkupPointer_head, use_last_error=False)(27, 'MoveUnitBounded', ((1, 'muAction'),(1, 'pIBoundary'),)))
     IMarkupPointer2.IsInsideURL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(28, 'IsInsideURL', ((1, 'pRight'),(1, 'pfResult'),)))
     IMarkupPointer2.MoveToContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLElement_head,win32more.Foundation.BOOL, use_last_error=False)(29, 'MoveToContent', ((1, 'pIElement'),(1, 'fAtStart'),)))
+    win32more.Web.MsHtml.IMarkupPointer
     return IMarkupPointer2
 def _define_IMarkupTextFrags_head():
     class IMarkupTextFrags(win32more.System.Com.IUnknown_head):
@@ -20482,6 +21289,7 @@ def _define_IMarkupTextFrags():
     IMarkupTextFrags.RemoveTextFrag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(5, 'RemoveTextFrag', ((1, 'iFrag'),)))
     IMarkupTextFrags.InsertTextFrag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Web.MsHtml.IMarkupPointer_head, use_last_error=False)(6, 'InsertTextFrag', ((1, 'iFrag'),(1, 'bstrInsert'),(1, 'pPointerInsert'),)))
     IMarkupTextFrags.FindTextFragFromMarkupPointer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head,POINTER(Int32),POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'FindTextFragFromMarkupPointer', ((1, 'pPointerFind'),(1, 'piFrag'),(1, 'pfFragFound'),)))
+    win32more.System.Com.IUnknown
     return IMarkupTextFrags
 def _define_IXMLGenericParse_head():
     class IXMLGenericParse(win32more.System.Com.IUnknown_head):
@@ -20490,6 +21298,7 @@ def _define_IXMLGenericParse_head():
 def _define_IXMLGenericParse():
     IXMLGenericParse = win32more.Web.MsHtml.IXMLGenericParse_head
     IXMLGenericParse.SetGenericParse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(3, 'SetGenericParse', ((1, 'fDoGeneric'),)))
+    win32more.System.Com.IUnknown
     return IXMLGenericParse
 def _define_IHTMLEditHost_head():
     class IHTMLEditHost(win32more.System.Com.IUnknown_head):
@@ -20498,6 +21307,7 @@ def _define_IHTMLEditHost_head():
 def _define_IHTMLEditHost():
     IHTMLEditHost = win32more.Web.MsHtml.IHTMLEditHost_head
     IHTMLEditHost.SnapRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLElement_head,POINTER(win32more.Foundation.RECT_head),win32more.Web.MsHtml.ELEMENT_CORNER, use_last_error=False)(3, 'SnapRect', ((1, 'pIElement'),(1, 'prcNew'),(1, 'eHandle'),)))
+    win32more.System.Com.IUnknown
     return IHTMLEditHost
 def _define_IHTMLEditHost2_head():
     class IHTMLEditHost2(win32more.Web.MsHtml.IHTMLEditHost_head):
@@ -20506,6 +21316,7 @@ def _define_IHTMLEditHost2_head():
 def _define_IHTMLEditHost2():
     IHTMLEditHost2 = win32more.Web.MsHtml.IHTMLEditHost2_head
     IHTMLEditHost2.PreDrag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'PreDrag', ()))
+    win32more.Web.MsHtml.IHTMLEditHost
     return IHTMLEditHost2
 def _define_ISequenceNumber_head():
     class ISequenceNumber(win32more.System.Com.IUnknown_head):
@@ -20514,6 +21325,7 @@ def _define_ISequenceNumber_head():
 def _define_ISequenceNumber():
     ISequenceNumber = win32more.Web.MsHtml.ISequenceNumber_head
     ISequenceNumber.GetSequenceNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(3, 'GetSequenceNumber', ((1, 'nCurrent'),(1, 'pnNew'),)))
+    win32more.System.Com.IUnknown
     return ISequenceNumber
 def _define_IIMEServices_head():
     class IIMEServices(win32more.System.Com.IUnknown_head):
@@ -20522,6 +21334,7 @@ def _define_IIMEServices_head():
 def _define_IIMEServices():
     IIMEServices = win32more.Web.MsHtml.IIMEServices_head
     IIMEServices.GetActiveIMM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Input.Ime.IActiveIMMApp_head), use_last_error=False)(3, 'GetActiveIMM', ((1, 'ppActiveIMM'),)))
+    win32more.System.Com.IUnknown
     return IIMEServices
 def _define_ISelectionServicesListener_head():
     class ISelectionServicesListener(win32more.System.Com.IUnknown_head):
@@ -20534,6 +21347,7 @@ def _define_ISelectionServicesListener():
     ISelectionServicesListener.OnSelectedElementExit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head, use_last_error=False)(5, 'OnSelectedElementExit', ((1, 'pIElementStart'),(1, 'pIElementEnd'),(1, 'pIElementContentStart'),(1, 'pIElementContentEnd'),)))
     ISelectionServicesListener.OnChangeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.SELECTION_TYPE,win32more.Web.MsHtml.ISelectionServicesListener_head, use_last_error=False)(6, 'OnChangeType', ((1, 'eType'),(1, 'pIListener'),)))
     ISelectionServicesListener.GetTypeDetail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetTypeDetail', ((1, 'pTypeDetail'),)))
+    win32more.System.Com.IUnknown
     return ISelectionServicesListener
 def _define_ISelectionServices_head():
     class ISelectionServices(win32more.System.Com.IUnknown_head):
@@ -20547,6 +21361,7 @@ def _define_ISelectionServices():
     ISelectionServices.AddElementSegment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLElement_head,POINTER(win32more.Web.MsHtml.IElementSegment_head), use_last_error=False)(6, 'AddElementSegment', ((1, 'pIElement'),(1, 'ppISegmentAdded'),)))
     ISelectionServices.RemoveSegment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISegment_head, use_last_error=False)(7, 'RemoveSegment', ((1, 'pISegment'),)))
     ISelectionServices.GetSelectionServicesListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ISelectionServicesListener_head), use_last_error=False)(8, 'GetSelectionServicesListener', ((1, 'ppISelectionServicesListener'),)))
+    win32more.System.Com.IUnknown
     return ISelectionServices
 def _define_IHTMLEditDesigner_head():
     class IHTMLEditDesigner(win32more.System.Com.IUnknown_head):
@@ -20558,6 +21373,7 @@ def _define_IHTMLEditDesigner():
     IHTMLEditDesigner.PostHandleEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Web.MsHtml.IHTMLEventObj_head, use_last_error=False)(4, 'PostHandleEvent', ((1, 'inEvtDispId'),(1, 'pIEventObj'),)))
     IHTMLEditDesigner.TranslateAccelerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Web.MsHtml.IHTMLEventObj_head, use_last_error=False)(5, 'TranslateAccelerator', ((1, 'inEvtDispId'),(1, 'pIEventObj'),)))
     IHTMLEditDesigner.PostEditorEventNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Web.MsHtml.IHTMLEventObj_head, use_last_error=False)(6, 'PostEditorEventNotify', ((1, 'inEvtDispId'),(1, 'pIEventObj'),)))
+    win32more.System.Com.IUnknown
     return IHTMLEditDesigner
 def _define_IHTMLEditServices_head():
     class IHTMLEditServices(win32more.System.Com.IUnknown_head):
@@ -20571,6 +21387,7 @@ def _define_IHTMLEditServices():
     IHTMLEditServices.MoveToSelectionAnchor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head, use_last_error=False)(6, 'MoveToSelectionAnchor', ((1, 'pIStartAnchor'),)))
     IHTMLEditServices.MoveToSelectionEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head, use_last_error=False)(7, 'MoveToSelectionEnd', ((1, 'pIEndAnchor'),)))
     IHTMLEditServices.SelectRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.IMarkupPointer_head,win32more.Web.MsHtml.SELECTION_TYPE, use_last_error=False)(8, 'SelectRange', ((1, 'pStart'),(1, 'pEnd'),(1, 'eType'),)))
+    win32more.System.Com.IUnknown
     return IHTMLEditServices
 def _define_IHTMLEditServices2_head():
     class IHTMLEditServices2(win32more.Web.MsHtml.IHTMLEditServices_head):
@@ -20582,6 +21399,7 @@ def _define_IHTMLEditServices2():
     IHTMLEditServices2.MoveToSelectionEndEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IDisplayPointer_head, use_last_error=False)(10, 'MoveToSelectionEndEx', ((1, 'pIEndAnchor'),)))
     IHTMLEditServices2.FreezeVirtualCaretPos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(11, 'FreezeVirtualCaretPos', ((1, 'fReCompute'),)))
     IHTMLEditServices2.UnFreezeVirtualCaretPos = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(12, 'UnFreezeVirtualCaretPos', ((1, 'fReset'),)))
+    win32more.Web.MsHtml.IHTMLEditServices
     return IHTMLEditServices2
 def _define_IHTMLComputedStyle_head():
     class IHTMLComputedStyle(win32more.System.Com.IUnknown_head):
@@ -20608,6 +21426,7 @@ def _define_IHTMLComputedStyle():
     IHTMLComputedStyle.get_blockDirection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(19, 'get_blockDirection', ((1, 'p'),)))
     IHTMLComputedStyle.get_OL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(20, 'get_OL', ((1, 'p'),)))
     IHTMLComputedStyle.IsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLComputedStyle_head,POINTER(Int16), use_last_error=False)(21, 'IsEqual', ((1, 'pComputedStyle'),(1, 'pfEqual'),)))
+    win32more.System.Com.IUnknown
     return IHTMLComputedStyle
 def _define_IDeveloperConsoleMessageReceiver_head():
     class IDeveloperConsoleMessageReceiver(win32more.System.Com.IUnknown_head):
@@ -20619,6 +21438,7 @@ def _define_IDeveloperConsoleMessageReceiver():
     IDeveloperConsoleMessageReceiver.WriteWithUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Web.MsHtml.DEV_CONSOLE_MESSAGE_LEVEL,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'WriteWithUrl', ((1, 'source'),(1, 'level'),(1, 'messageId'),(1, 'messageText'),(1, 'fileUrl'),)))
     IDeveloperConsoleMessageReceiver.WriteWithUrlAndLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Web.MsHtml.DEV_CONSOLE_MESSAGE_LEVEL,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(5, 'WriteWithUrlAndLine', ((1, 'source'),(1, 'level'),(1, 'messageId'),(1, 'messageText'),(1, 'fileUrl'),(1, 'line'),)))
     IDeveloperConsoleMessageReceiver.WriteWithUrlLineAndColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Web.MsHtml.DEV_CONSOLE_MESSAGE_LEVEL,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(6, 'WriteWithUrlLineAndColumn', ((1, 'source'),(1, 'level'),(1, 'messageId'),(1, 'messageText'),(1, 'fileUrl'),(1, 'line'),(1, 'column'),)))
+    win32more.System.Com.IUnknown
     return IDeveloperConsoleMessageReceiver
 def _define_IScriptEventHandler_head():
     class IScriptEventHandler(win32more.System.Com.IUnknown_head):
@@ -20631,6 +21451,7 @@ def _define_IScriptEventHandler():
     IScriptEventHandler.EventHandlerDispatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(5, 'EventHandlerDispatch', ((1, 'ppDispHandler'),)))
     IScriptEventHandler.UsesCapture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'UsesCapture', ((1, 'pfUsesCapture'),)))
     IScriptEventHandler.Cookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(7, 'Cookie', ((1, 'pullCookie'),)))
+    win32more.System.Com.IUnknown
     return IScriptEventHandler
 def _define_IDebugCallbackNotificationHandler_head():
     class IDebugCallbackNotificationHandler(win32more.System.Com.IUnknown_head):
@@ -20645,6 +21466,7 @@ def _define_IDebugCallbackNotificationHandler():
     IDebugCallbackNotificationHandler.InvokeDomCallbackComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Web.MsHtml.IScriptEventHandler_head,win32more.Web.MsHtml.DOM_EVENT_PHASE,UInt32, use_last_error=False)(7, 'InvokeDomCallbackComplete', ((1, 'pEvent'),(1, 'pCallback'),(1, 'eStage'),(1, 'propagationStatus'),)))
     IDebugCallbackNotificationHandler.BeforeInvokeCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.SCRIPT_TIMER_TYPE,UInt32,win32more.System.Com.IDispatch_head,UInt64,win32more.Foundation.BSTR,UInt32,UInt32,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(8, 'BeforeInvokeCallback', ((1, 'eCallbackType'),(1, 'callbackCookie'),(1, 'pDispHandler'),(1, 'ullHandlerCookie'),(1, 'functionName'),(1, 'line'),(1, 'column'),(1, 'cchLength'),(1, 'pDebugDocumentContext'),)))
     IDebugCallbackNotificationHandler.InvokeCallbackComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.SCRIPT_TIMER_TYPE,UInt32,win32more.System.Com.IDispatch_head,UInt64,win32more.Foundation.BSTR,UInt32,UInt32,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'InvokeCallbackComplete', ((1, 'eCallbackType'),(1, 'callbackCookie'),(1, 'pDispHandler'),(1, 'ullHandlerCookie'),(1, 'functionName'),(1, 'line'),(1, 'column'),(1, 'cchLength'),(1, 'pDebugDocumentContext'),)))
+    win32more.System.Com.IUnknown
     return IDebugCallbackNotificationHandler
 def _define_IScriptEventHandlerSourceInfo_head():
     class IScriptEventHandlerSourceInfo(win32more.System.Com.IUnknown_head):
@@ -20653,6 +21475,7 @@ def _define_IScriptEventHandlerSourceInfo_head():
 def _define_IScriptEventHandlerSourceInfo():
     IScriptEventHandlerSourceInfo = win32more.Web.MsHtml.IScriptEventHandlerSourceInfo_head
     IScriptEventHandlerSourceInfo.GetSourceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetSourceInfo', ((1, 'pbstrFunctionName'),(1, 'line'),(1, 'column'),(1, 'cchLength'),)))
+    win32more.System.Com.IUnknown
     return IScriptEventHandlerSourceInfo
 def _define_IDOMEventRegistrationCallback_head():
     class IDOMEventRegistrationCallback(win32more.System.Com.IUnknown_head):
@@ -20662,6 +21485,7 @@ def _define_IDOMEventRegistrationCallback():
     IDOMEventRegistrationCallback = win32more.Web.MsHtml.IDOMEventRegistrationCallback_head
     IDOMEventRegistrationCallback.OnDOMEventListenerAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Web.MsHtml.IScriptEventHandler_head, use_last_error=False)(3, 'OnDOMEventListenerAdded', ((1, 'pszEventType'),(1, 'pHandler'),)))
     IDOMEventRegistrationCallback.OnDOMEventListenerRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(4, 'OnDOMEventListenerRemoved', ((1, 'ullCookie'),)))
+    win32more.System.Com.IUnknown
     return IDOMEventRegistrationCallback
 def _define_IEventTarget2_head():
     class IEventTarget2(win32more.System.Com.IUnknown_head):
@@ -20673,6 +21497,7 @@ def _define_IEventTarget2():
     IEventTarget2.GetListenersForType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(4, 'GetListenersForType', ((1, 'pszEventType'),(1, 'ppEventHandlerArray'),)))
     IEventTarget2.RegisterForDOMEventListeners = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IDOMEventRegistrationCallback_head, use_last_error=False)(5, 'RegisterForDOMEventListeners', ((1, 'pCallback'),)))
     IEventTarget2.UnregisterForDOMEventListeners = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IDOMEventRegistrationCallback_head, use_last_error=False)(6, 'UnregisterForDOMEventListeners', ((1, 'pCallback'),)))
+    win32more.System.Com.IUnknown
     return IEventTarget2
 def _define_HTMLNamespaceEvents_head():
     class HTMLNamespaceEvents(win32more.System.Com.IDispatch_head):
@@ -20680,6 +21505,7 @@ def _define_HTMLNamespaceEvents_head():
     return HTMLNamespaceEvents
 def _define_HTMLNamespaceEvents():
     HTMLNamespaceEvents = win32more.Web.MsHtml.HTMLNamespaceEvents_head
+    win32more.System.Com.IDispatch
     return HTMLNamespaceEvents
 def _define_IHTMLNamespace_head():
     class IHTMLNamespace(win32more.System.Com.IDispatch_head):
@@ -20696,6 +21522,7 @@ def _define_IHTMLNamespace():
     IHTMLNamespace.doImport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'doImport', ((1, 'bstrImplementationUrl'),)))
     IHTMLNamespace.attachEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(Int16), use_last_error=False)(14, 'attachEvent', ((1, 'event'),(1, 'pDisp'),(1, 'pfResult'),)))
     IHTMLNamespace.detachEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head, use_last_error=False)(15, 'detachEvent', ((1, 'event'),(1, 'pDisp'),)))
+    win32more.System.Com.IDispatch
     return IHTMLNamespace
 def _define_IHTMLNamespaceCollection_head():
     class IHTMLNamespaceCollection(win32more.System.Com.IDispatch_head):
@@ -20706,6 +21533,7 @@ def _define_IHTMLNamespaceCollection():
     IHTMLNamespaceCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLNamespaceCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'item', ((1, 'index'),(1, 'ppNamespace'),)))
     IHTMLNamespaceCollection.add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'add', ((1, 'bstrNamespace'),(1, 'bstrUrn'),(1, 'implementationUrl'),(1, 'ppNamespace'),)))
+    win32more.System.Com.IDispatch
     return IHTMLNamespaceCollection
 def _define_DispHTMLNamespace_head():
     class DispHTMLNamespace(win32more.System.Com.IDispatch_head):
@@ -20713,6 +21541,7 @@ def _define_DispHTMLNamespace_head():
     return DispHTMLNamespace
 def _define_DispHTMLNamespace():
     DispHTMLNamespace = win32more.Web.MsHtml.DispHTMLNamespace_head
+    win32more.System.Com.IDispatch
     return DispHTMLNamespace
 def _define_DispHTMLNamespaceCollection_head():
     class DispHTMLNamespaceCollection(win32more.System.Com.IDispatch_head):
@@ -20720,6 +21549,7 @@ def _define_DispHTMLNamespaceCollection_head():
     return DispHTMLNamespaceCollection
 def _define_DispHTMLNamespaceCollection():
     DispHTMLNamespaceCollection = win32more.Web.MsHtml.DispHTMLNamespaceCollection_head
+    win32more.System.Com.IDispatch
     return DispHTMLNamespaceCollection
 def _define_IHTMLPainter_head():
     class IHTMLPainter(win32more.System.Com.IUnknown_head):
@@ -20731,6 +21561,7 @@ def _define_IHTMLPainter():
     IHTMLPainter.OnResize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.SIZE, use_last_error=False)(4, 'OnResize', ((1, 'size'),)))
     IHTMLPainter.GetPainterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.HTML_PAINTER_INFO_head), use_last_error=False)(5, 'GetPainterInfo', ((1, 'pInfo'),)))
     IHTMLPainter.HitTestPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(win32more.Foundation.BOOL),POINTER(Int32), use_last_error=False)(6, 'HitTestPoint', ((1, 'pt'),(1, 'pbHit'),(1, 'plPartID'),)))
+    win32more.System.Com.IUnknown
     return IHTMLPainter
 def _define_IHTMLPaintSite_head():
     class IHTMLPaintSite(win32more.System.Com.IUnknown_head):
@@ -20745,6 +21576,7 @@ def _define_IHTMLPaintSite():
     IHTMLPaintSite.TransformGlobalToLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(win32more.Foundation.POINT_head), use_last_error=False)(7, 'TransformGlobalToLocal', ((1, 'ptGlobal'),(1, 'pptLocal'),)))
     IHTMLPaintSite.TransformLocalToGlobal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(win32more.Foundation.POINT_head), use_last_error=False)(8, 'TransformLocalToGlobal', ((1, 'ptLocal'),(1, 'pptGlobal'),)))
     IHTMLPaintSite.GetHitTestCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'GetHitTestCookie', ((1, 'plCookie'),)))
+    win32more.System.Com.IUnknown
     return IHTMLPaintSite
 def _define_IHTMLPainterEventInfo_head():
     class IHTMLPainterEventInfo(win32more.System.Com.IUnknown_head):
@@ -20756,6 +21588,7 @@ def _define_IHTMLPainterEventInfo():
     IHTMLPainterEventInfo.GetEventTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElement_head), use_last_error=False)(4, 'GetEventTarget', ((1, 'ppElement'),)))
     IHTMLPainterEventInfo.SetCursor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(5, 'SetCursor', ((1, 'lPartID'),)))
     IHTMLPainterEventInfo.StringFromPartID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'StringFromPartID', ((1, 'lPartID'),(1, 'pbstrPart'),)))
+    win32more.System.Com.IUnknown
     return IHTMLPainterEventInfo
 def _define_IHTMLPainterOverlay_head():
     class IHTMLPainterOverlay(win32more.System.Com.IUnknown_head):
@@ -20764,6 +21597,7 @@ def _define_IHTMLPainterOverlay_head():
 def _define_IHTMLPainterOverlay():
     IHTMLPainterOverlay = win32more.Web.MsHtml.IHTMLPainterOverlay_head
     IHTMLPainterOverlay.OnMove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.RECT, use_last_error=False)(3, 'OnMove', ((1, 'rcDevice'),)))
+    win32more.System.Com.IUnknown
     return IHTMLPainterOverlay
 def _define_IHTMLIPrintCollection_head():
     class IHTMLIPrintCollection(win32more.System.Com.IDispatch_head):
@@ -20774,6 +21608,7 @@ def _define_IHTMLIPrintCollection():
     IHTMLIPrintCollection.get_length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_length', ((1, 'p'),)))
     IHTMLIPrintCollection.get__newEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__newEnum', ((1, 'p'),)))
     IHTMLIPrintCollection.item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'item', ((1, 'index'),(1, 'ppIPrint'),)))
+    win32more.System.Com.IDispatch
     return IHTMLIPrintCollection
 def _define_IEnumPrivacyRecords_head():
     class IEnumPrivacyRecords(win32more.System.Com.IUnknown_head):
@@ -20785,6 +21620,7 @@ def _define_IEnumPrivacyRecords():
     IEnumPrivacyRecords.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetSize', ((1, 'pSize'),)))
     IEnumPrivacyRecords.GetPrivacyImpacted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'GetPrivacyImpacted', ((1, 'pState'),)))
     IEnumPrivacyRecords.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(Int32),POINTER(UInt32), use_last_error=False)(6, 'Next', ((1, 'pbstrUrl'),(1, 'pbstrPolicyRef'),(1, 'pdwReserved'),(1, 'pdwPrivacyFlags'),)))
+    win32more.System.Com.IUnknown
     return IEnumPrivacyRecords
 def _define_IWPCBlockedUrls_head():
     class IWPCBlockedUrls(win32more.System.Com.IUnknown_head):
@@ -20794,6 +21630,7 @@ def _define_IWPCBlockedUrls():
     IWPCBlockedUrls = win32more.Web.MsHtml.IWPCBlockedUrls_head
     IWPCBlockedUrls.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pdwCount'),)))
     IWPCBlockedUrls.GetUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetUrl', ((1, 'dwIdx'),(1, 'pbstrUrl'),)))
+    win32more.System.Com.IUnknown
     return IWPCBlockedUrls
 def _define_IHTMLDOMConstructorCollection_head():
     class IHTMLDOMConstructorCollection(win32more.System.Com.IDispatch_head):
@@ -20907,6 +21744,7 @@ def _define_IHTMLDOMConstructorCollection():
     IHTMLDOMConstructorCollection.get_Window = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(110, 'get_Window', ((1, 'p'),)))
     IHTMLDOMConstructorCollection.get_XDomainRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(111, 'get_XDomainRequest', ((1, 'p'),)))
     IHTMLDOMConstructorCollection.get_XMLHttpRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(112, 'get_XMLHttpRequest', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDOMConstructorCollection
 def _define_IHTMLDialog_head():
     class IHTMLDialog(win32more.System.Com.IDispatch_head):
@@ -20928,6 +21766,7 @@ def _define_IHTMLDialog():
     IHTMLDialog.get_returnValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'get_returnValue', ((1, 'p'),)))
     IHTMLDialog.close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'close', ()))
     IHTMLDialog.toString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'toString', ((1, 'String'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDialog
 def _define_IHTMLDialog2_head():
     class IHTMLDialog2(win32more.System.Com.IDispatch_head):
@@ -20939,6 +21778,7 @@ def _define_IHTMLDialog2():
     IHTMLDialog2.get_status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_status', ((1, 'p'),)))
     IHTMLDialog2.put_resizable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_resizable', ((1, 'v'),)))
     IHTMLDialog2.get_resizable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_resizable', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDialog2
 def _define_IHTMLDialog3_head():
     class IHTMLDialog3(win32more.System.Com.IDispatch_head):
@@ -20950,6 +21790,7 @@ def _define_IHTMLDialog3():
     IHTMLDialog3.get_unadorned = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_unadorned', ((1, 'p'),)))
     IHTMLDialog3.put_dialogHide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'put_dialogHide', ((1, 'v'),)))
     IHTMLDialog3.get_dialogHide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_dialogHide', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLDialog3
 def _define_IHTMLModelessInit_head():
     class IHTMLModelessInit(win32more.System.Com.IDispatch_head):
@@ -20961,6 +21802,7 @@ def _define_IHTMLModelessInit():
     IHTMLModelessInit.get_optionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_optionString', ((1, 'p'),)))
     IHTMLModelessInit.get_moniker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get_moniker', ((1, 'p'),)))
     IHTMLModelessInit.get_document = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(10, 'get_document', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLModelessInit
 def _define_IHTMLPopup_head():
     class IHTMLPopup(win32more.System.Com.IDispatch_head):
@@ -20972,6 +21814,7 @@ def _define_IHTMLPopup():
     IHTMLPopup.hide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'hide', ()))
     IHTMLPopup.get_document = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLDocument_head), use_last_error=False)(9, 'get_document', ((1, 'p'),)))
     IHTMLPopup.get_isOpen = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_isOpen', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLPopup
 def _define_DispHTMLPopup_head():
     class DispHTMLPopup(win32more.System.Com.IDispatch_head):
@@ -20979,6 +21822,7 @@ def _define_DispHTMLPopup_head():
     return DispHTMLPopup
 def _define_DispHTMLPopup():
     DispHTMLPopup = win32more.Web.MsHtml.DispHTMLPopup_head
+    win32more.System.Com.IDispatch
     return DispHTMLPopup
 def _define_IHTMLAppBehavior_head():
     class IHTMLAppBehavior(win32more.System.Com.IDispatch_head):
@@ -21011,6 +21855,7 @@ def _define_IHTMLAppBehavior():
     IHTMLAppBehavior.put_showInTaskBar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(29, 'put_showInTaskBar', ((1, 'v'),)))
     IHTMLAppBehavior.get_showInTaskBar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(30, 'get_showInTaskBar', ((1, 'p'),)))
     IHTMLAppBehavior.get_commandLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(31, 'get_commandLine', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAppBehavior
 def _define_IHTMLAppBehavior2_head():
     class IHTMLAppBehavior2(win32more.System.Com.IDispatch_head):
@@ -21028,6 +21873,7 @@ def _define_IHTMLAppBehavior2():
     IHTMLAppBehavior2.get_scrollFlat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_scrollFlat', ((1, 'p'),)))
     IHTMLAppBehavior2.put_selection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'put_selection', ((1, 'v'),)))
     IHTMLAppBehavior2.get_selection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_selection', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAppBehavior2
 def _define_IHTMLAppBehavior3_head():
     class IHTMLAppBehavior3(win32more.System.Com.IDispatch_head):
@@ -21037,6 +21883,7 @@ def _define_IHTMLAppBehavior3():
     IHTMLAppBehavior3 = win32more.Web.MsHtml.IHTMLAppBehavior3_head
     IHTMLAppBehavior3.put_navigable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_navigable', ((1, 'v'),)))
     IHTMLAppBehavior3.get_navigable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_navigable', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHTMLAppBehavior3
 def _define_DispHTMLAppBehavior_head():
     class DispHTMLAppBehavior(win32more.System.Com.IDispatch_head):
@@ -21044,6 +21891,7 @@ def _define_DispHTMLAppBehavior_head():
     return DispHTMLAppBehavior
 def _define_DispHTMLAppBehavior():
     DispHTMLAppBehavior = win32more.Web.MsHtml.DispHTMLAppBehavior_head
+    win32more.System.Com.IDispatch
     return DispHTMLAppBehavior
 def _define_DispIHTMLInputButtonElement_head():
     class DispIHTMLInputButtonElement(win32more.System.Com.IDispatch_head):
@@ -21051,6 +21899,7 @@ def _define_DispIHTMLInputButtonElement_head():
     return DispIHTMLInputButtonElement
 def _define_DispIHTMLInputButtonElement():
     DispIHTMLInputButtonElement = win32more.Web.MsHtml.DispIHTMLInputButtonElement_head
+    win32more.System.Com.IDispatch
     return DispIHTMLInputButtonElement
 def _define_DispIHTMLInputTextElement_head():
     class DispIHTMLInputTextElement(win32more.System.Com.IDispatch_head):
@@ -21058,6 +21907,7 @@ def _define_DispIHTMLInputTextElement_head():
     return DispIHTMLInputTextElement
 def _define_DispIHTMLInputTextElement():
     DispIHTMLInputTextElement = win32more.Web.MsHtml.DispIHTMLInputTextElement_head
+    win32more.System.Com.IDispatch
     return DispIHTMLInputTextElement
 def _define_DispIHTMLInputFileElement_head():
     class DispIHTMLInputFileElement(win32more.System.Com.IDispatch_head):
@@ -21065,6 +21915,7 @@ def _define_DispIHTMLInputFileElement_head():
     return DispIHTMLInputFileElement
 def _define_DispIHTMLInputFileElement():
     DispIHTMLInputFileElement = win32more.Web.MsHtml.DispIHTMLInputFileElement_head
+    win32more.System.Com.IDispatch
     return DispIHTMLInputFileElement
 def _define_DispIHTMLOptionButtonElement_head():
     class DispIHTMLOptionButtonElement(win32more.System.Com.IDispatch_head):
@@ -21072,6 +21923,7 @@ def _define_DispIHTMLOptionButtonElement_head():
     return DispIHTMLOptionButtonElement
 def _define_DispIHTMLOptionButtonElement():
     DispIHTMLOptionButtonElement = win32more.Web.MsHtml.DispIHTMLOptionButtonElement_head
+    win32more.System.Com.IDispatch
     return DispIHTMLOptionButtonElement
 def _define_DispIHTMLInputImage_head():
     class DispIHTMLInputImage(win32more.System.Com.IDispatch_head):
@@ -21079,6 +21931,7 @@ def _define_DispIHTMLInputImage_head():
     return DispIHTMLInputImage
 def _define_DispIHTMLInputImage():
     DispIHTMLInputImage = win32more.Web.MsHtml.DispIHTMLInputImage_head
+    win32more.System.Com.IDispatch
     return DispIHTMLInputImage
 def _define_IElementNamespace_head():
     class IElementNamespace(win32more.System.Com.IUnknown_head):
@@ -21087,6 +21940,7 @@ def _define_IElementNamespace_head():
 def _define_IElementNamespace():
     IElementNamespace = win32more.Web.MsHtml.IElementNamespace_head
     IElementNamespace.AddTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(3, 'AddTag', ((1, 'bstrTagName'),(1, 'lFlags'),)))
+    win32more.System.Com.IUnknown
     return IElementNamespace
 def _define_IElementNamespaceTable_head():
     class IElementNamespaceTable(win32more.System.Com.IUnknown_head):
@@ -21095,6 +21949,7 @@ def _define_IElementNamespaceTable_head():
 def _define_IElementNamespaceTable():
     IElementNamespaceTable = win32more.Web.MsHtml.IElementNamespaceTable_head
     IElementNamespaceTable.AddNamespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(3, 'AddNamespace', ((1, 'bstrNamespace'),(1, 'bstrUrn'),(1, 'lFlags'),(1, 'pvarFactory'),)))
+    win32more.System.Com.IUnknown
     return IElementNamespaceTable
 def _define_IElementNamespaceFactory_head():
     class IElementNamespaceFactory(win32more.System.Com.IUnknown_head):
@@ -21103,6 +21958,7 @@ def _define_IElementNamespaceFactory_head():
 def _define_IElementNamespaceFactory():
     IElementNamespaceFactory = win32more.Web.MsHtml.IElementNamespaceFactory_head
     IElementNamespaceFactory.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IElementNamespace_head, use_last_error=False)(3, 'Create', ((1, 'pNamespace'),)))
+    win32more.System.Com.IUnknown
     return IElementNamespaceFactory
 def _define_IElementNamespaceFactory2_head():
     class IElementNamespaceFactory2(win32more.Web.MsHtml.IElementNamespaceFactory_head):
@@ -21111,6 +21967,7 @@ def _define_IElementNamespaceFactory2_head():
 def _define_IElementNamespaceFactory2():
     IElementNamespaceFactory2 = win32more.Web.MsHtml.IElementNamespaceFactory2_head
     IElementNamespaceFactory2.CreateWithImplementation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IElementNamespace_head,win32more.Foundation.BSTR, use_last_error=False)(4, 'CreateWithImplementation', ((1, 'pNamespace'),(1, 'bstrImplementation'),)))
+    win32more.Web.MsHtml.IElementNamespaceFactory
     return IElementNamespaceFactory2
 def _define_IElementNamespaceFactoryCallback_head():
     class IElementNamespaceFactoryCallback(win32more.System.Com.IUnknown_head):
@@ -21119,6 +21976,7 @@ def _define_IElementNamespaceFactoryCallback_head():
 def _define_IElementNamespaceFactoryCallback():
     IElementNamespaceFactoryCallback = win32more.Web.MsHtml.IElementNamespaceFactoryCallback_head
     IElementNamespaceFactoryCallback.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Web.MsHtml.IElementNamespace_head, use_last_error=False)(3, 'Resolve', ((1, 'bstrNamespace'),(1, 'bstrTagName'),(1, 'bstrAttrs'),(1, 'pNamespace'),)))
+    win32more.System.Com.IUnknown
     return IElementNamespaceFactoryCallback
 def _define_IElementBehaviorSiteOM2_head():
     class IElementBehaviorSiteOM2(win32more.Web.MsHtml.IElementBehaviorSiteOM_head):
@@ -21127,6 +21985,7 @@ def _define_IElementBehaviorSiteOM2_head():
 def _define_IElementBehaviorSiteOM2():
     IElementBehaviorSiteOM2 = win32more.Web.MsHtml.IElementBehaviorSiteOM2_head
     IElementBehaviorSiteOM2.GetDefaults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IHTMLElementDefaults_head), use_last_error=False)(9, 'GetDefaults', ((1, 'ppDefaults'),)))
+    win32more.Web.MsHtml.IElementBehaviorSiteOM
     return IElementBehaviorSiteOM2
 def _define_IElementBehaviorCategory_head():
     class IElementBehaviorCategory(win32more.System.Com.IUnknown_head):
@@ -21135,6 +21994,7 @@ def _define_IElementBehaviorCategory_head():
 def _define_IElementBehaviorCategory():
     IElementBehaviorCategory = win32more.Web.MsHtml.IElementBehaviorCategory_head
     IElementBehaviorCategory.GetCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetCategory', ((1, 'ppchCategory'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorCategory
 def _define_IElementBehaviorSiteCategory_head():
     class IElementBehaviorSiteCategory(win32more.System.Com.IUnknown_head):
@@ -21143,6 +22003,7 @@ def _define_IElementBehaviorSiteCategory_head():
 def _define_IElementBehaviorSiteCategory():
     IElementBehaviorSiteCategory = win32more.Web.MsHtml.IElementBehaviorSiteCategory_head
     IElementBehaviorSiteCategory.GetRelatedBehaviors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.IEnumUnknown_head), use_last_error=False)(3, 'GetRelatedBehaviors', ((1, 'lDirection'),(1, 'pchCategory'),(1, 'ppEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorSiteCategory
 def _define_IElementBehaviorSubmit_head():
     class IElementBehaviorSubmit(win32more.System.Com.IUnknown_head):
@@ -21152,6 +22013,7 @@ def _define_IElementBehaviorSubmit():
     IElementBehaviorSubmit = win32more.Web.MsHtml.IElementBehaviorSubmit_head
     IElementBehaviorSubmit.GetSubmitInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLSubmitData_head, use_last_error=False)(3, 'GetSubmitInfo', ((1, 'pSubmitData'),)))
     IElementBehaviorSubmit.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IElementBehaviorSubmit
 def _define_IElementBehaviorFocus_head():
     class IElementBehaviorFocus(win32more.System.Com.IUnknown_head):
@@ -21160,6 +22022,7 @@ def _define_IElementBehaviorFocus_head():
 def _define_IElementBehaviorFocus():
     IElementBehaviorFocus = win32more.Web.MsHtml.IElementBehaviorFocus_head
     IElementBehaviorFocus.GetFocusRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(3, 'GetFocusRect', ((1, 'pRect'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorFocus
 def _define_IElementBehaviorLayout_head():
     class IElementBehaviorLayout(win32more.System.Com.IUnknown_head):
@@ -21171,6 +22034,7 @@ def _define_IElementBehaviorLayout():
     IElementBehaviorLayout.GetLayoutInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'GetLayoutInfo', ((1, 'plLayoutInfo'),)))
     IElementBehaviorLayout.GetPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.POINT_head), use_last_error=False)(5, 'GetPosition', ((1, 'lFlags'),(1, 'pptTopLeft'),)))
     IElementBehaviorLayout.MapSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head),POINTER(win32more.Foundation.RECT_head), use_last_error=False)(6, 'MapSize', ((1, 'psizeIn'),(1, 'prcOut'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorLayout
 def _define_IElementBehaviorLayout2_head():
     class IElementBehaviorLayout2(win32more.System.Com.IUnknown_head):
@@ -21179,6 +22043,7 @@ def _define_IElementBehaviorLayout2_head():
 def _define_IElementBehaviorLayout2():
     IElementBehaviorLayout2 = win32more.Web.MsHtml.IElementBehaviorLayout2_head
     IElementBehaviorLayout2.GetTextDescent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'GetTextDescent', ((1, 'plDescent'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorLayout2
 def _define_IElementBehaviorSiteLayout_head():
     class IElementBehaviorSiteLayout(win32more.System.Com.IUnknown_head):
@@ -21189,6 +22054,7 @@ def _define_IElementBehaviorSiteLayout():
     IElementBehaviorSiteLayout.InvalidateLayoutInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'InvalidateLayoutInfo', ()))
     IElementBehaviorSiteLayout.InvalidateSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'InvalidateSize', ()))
     IElementBehaviorSiteLayout.GetMediaResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(5, 'GetMediaResolution', ((1, 'psizeResolution'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorSiteLayout
 def _define_IElementBehaviorSiteLayout2_head():
     class IElementBehaviorSiteLayout2(win32more.System.Com.IUnknown_head):
@@ -21197,6 +22063,7 @@ def _define_IElementBehaviorSiteLayout2_head():
 def _define_IElementBehaviorSiteLayout2():
     IElementBehaviorSiteLayout2 = win32more.Web.MsHtml.IElementBehaviorSiteLayout2_head
     IElementBehaviorSiteLayout2.GetFontInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.LOGFONTW_head), use_last_error=False)(3, 'GetFontInfo', ((1, 'plf'),)))
+    win32more.System.Com.IUnknown
     return IElementBehaviorSiteLayout2
 def _define_IHostBehaviorInit_head():
     class IHostBehaviorInit(win32more.System.Com.IUnknown_head):
@@ -21205,6 +22072,7 @@ def _define_IHostBehaviorInit_head():
 def _define_IHostBehaviorInit():
     IHostBehaviorInit = win32more.Web.MsHtml.IHostBehaviorInit_head
     IHostBehaviorInit.PopulateNamespaceTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'PopulateNamespaceTable', ()))
+    win32more.System.Com.IUnknown
     return IHostBehaviorInit
 def _define_ISurfacePresenter_head():
     class ISurfacePresenter(win32more.System.Com.IUnknown_head):
@@ -21215,6 +22083,7 @@ def _define_ISurfacePresenter():
     ISurfacePresenter.Present = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(3, 'Present', ((1, 'uBuffer'),(1, 'pDirty'),)))
     ISurfacePresenter.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetBuffer', ((1, 'backBufferIndex'),(1, 'riid'),(1, 'ppBuffer'),)))
     ISurfacePresenter.IsCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsCurrent', ((1, 'pIsCurrent'),)))
+    win32more.System.Com.IUnknown
     return ISurfacePresenter
 def _define_IViewObjectPresentSite_head():
     class IViewObjectPresentSite(win32more.System.Com.IUnknown_head):
@@ -21225,6 +22094,7 @@ def _define_IViewObjectPresentSite():
     IViewObjectPresentSite.CreateSurfacePresenter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,UInt32,UInt32,win32more.Graphics.Dxgi.Common.DXGI_FORMAT,win32more.Web.MsHtml.VIEW_OBJECT_ALPHA_MODE,POINTER(win32more.Web.MsHtml.ISurfacePresenter_head), use_last_error=False)(3, 'CreateSurfacePresenter', ((1, 'pDevice'),(1, 'width'),(1, 'height'),(1, 'backBufferCount'),(1, 'format'),(1, 'mode'),(1, 'ppQueue'),)))
     IViewObjectPresentSite.IsHardwareComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsHardwareComposition', ((1, 'pIsHardwareComposition'),)))
     IViewObjectPresentSite.SetCompositionMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.VIEW_OBJECT_COMPOSITION_MODE, use_last_error=False)(5, 'SetCompositionMode', ((1, 'mode'),)))
+    win32more.System.Com.IUnknown
     return IViewObjectPresentSite
 def _define_ICanvasPixelArrayData_head():
     class ICanvasPixelArrayData(win32more.System.Com.IUnknown_head):
@@ -21233,6 +22103,7 @@ def _define_ICanvasPixelArrayData_head():
 def _define_ICanvasPixelArrayData():
     ICanvasPixelArrayData = win32more.Web.MsHtml.ICanvasPixelArrayData_head
     ICanvasPixelArrayData.GetBufferPointer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(3, 'GetBufferPointer', ((1, 'ppBuffer'),(1, 'pBufferLength'),)))
+    win32more.System.Com.IUnknown
     return ICanvasPixelArrayData
 def _define_IViewObjectPrint_head():
     class IViewObjectPrint(win32more.System.Com.IUnknown_head):
@@ -21241,6 +22112,7 @@ def _define_IViewObjectPrint_head():
 def _define_IViewObjectPrint():
     IViewObjectPrint = win32more.Web.MsHtml.IViewObjectPrint_head
     IViewObjectPrint.GetPrintBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetPrintBitmap', ((1, 'ppPrintBitmap'),)))
+    win32more.System.Com.IUnknown
     return IViewObjectPrint
 def _define_IViewObjectPresentNotifySite_head():
     class IViewObjectPresentNotifySite(win32more.Web.MsHtml.IViewObjectPresentSite_head):
@@ -21249,6 +22121,7 @@ def _define_IViewObjectPresentNotifySite_head():
 def _define_IViewObjectPresentNotifySite():
     IViewObjectPresentNotifySite = win32more.Web.MsHtml.IViewObjectPresentNotifySite_head
     IViewObjectPresentNotifySite.RequestFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'RequestFrame', ()))
+    win32more.Web.MsHtml.IViewObjectPresentSite
     return IViewObjectPresentNotifySite
 def _define_IViewObjectPresentNotify_head():
     class IViewObjectPresentNotify(win32more.System.Com.IUnknown_head):
@@ -21257,6 +22130,7 @@ def _define_IViewObjectPresentNotify_head():
 def _define_IViewObjectPresentNotify():
     IViewObjectPresentNotify = win32more.Web.MsHtml.IViewObjectPresentNotify_head
     IViewObjectPresentNotify.OnPreRender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnPreRender', ()))
+    win32more.System.Com.IUnknown
     return IViewObjectPresentNotify
 def _define_ITrackingProtection_head():
     class ITrackingProtection(win32more.System.Com.IUnknown_head):
@@ -21266,6 +22140,7 @@ def _define_ITrackingProtection():
     ITrackingProtection = win32more.Web.MsHtml.ITrackingProtection_head
     ITrackingProtection.EvaluateUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'EvaluateUrl', ((1, 'bstrUrl'),(1, 'pfAllowed'),)))
     ITrackingProtection.GetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetEnabled', ((1, 'pfEnabled'),)))
+    win32more.System.Com.IUnknown
     return ITrackingProtection
 def _define_IBFCacheable_head():
     class IBFCacheable(win32more.System.Com.IUnknown_head):
@@ -21275,6 +22150,7 @@ def _define_IBFCacheable():
     IBFCacheable = win32more.Web.MsHtml.IBFCacheable_head
     IBFCacheable.EnterBFCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'EnterBFCache', ()))
     IBFCacheable.ExitBFCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ExitBFCache', ()))
+    win32more.System.Com.IUnknown
     return IBFCacheable
 def _define_IDocObjectService_head():
     class IDocObjectService(win32more.System.Com.IUnknown_head):
@@ -21292,6 +22168,7 @@ def _define_IDocObjectService():
     IDocObjectService.ActiveElementChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLElement_head, use_last_error=False)(10, 'ActiveElementChanged', ((1, 'pHTMLElement'),)))
     IDocObjectService.GetUrlSearchComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'GetUrlSearchComponent', ((1, 'pbstrSearch'),)))
     IDocObjectService.IsErrorUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'IsErrorUrl', ((1, 'lpszUrl'),(1, 'pfIsError'),)))
+    win32more.System.Com.IUnknown
     return IDocObjectService
 def _define_IDownloadManager_head():
     class IDownloadManager(win32more.System.Com.IUnknown_head):
@@ -21300,6 +22177,7 @@ def _define_IDownloadManager_head():
 def _define_IDownloadManager():
     IDownloadManager = win32more.Web.MsHtml.IDownloadManager_head
     IDownloadManager.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,win32more.System.Com.IBindCtx_head,UInt32,Int32,POINTER(win32more.System.Com.BINDINFO_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'Download', ((1, 'pmk'),(1, 'pbc'),(1, 'dwBindVerb'),(1, 'grfBINDF'),(1, 'pBindInfo'),(1, 'pszHeaders'),(1, 'pszRedir'),(1, 'uiCP'),)))
+    win32more.System.Com.IUnknown
     return IDownloadManager
 ExtensionValidationContexts = Int32
 ExtensionValidationContexts_ExtensionValidationContextNone = 0
@@ -21317,6 +22195,7 @@ def _define_IExtensionValidation():
     IExtensionValidation = win32more.Web.MsHtml.IExtensionValidation_head
     IExtensionValidation.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Web.MsHtml.IHTMLDocument2_head,win32more.Web.MsHtml.IHTMLDocument2_head,win32more.Web.MsHtml.IHTMLElement_head,win32more.Web.MsHtml.ExtensionValidationContexts,POINTER(win32more.Web.MsHtml.ExtensionValidationResults), use_last_error=False)(3, 'Validate', ((1, 'extensionGuid'),(1, 'extensionModulePath'),(1, 'extensionFileVersionMS'),(1, 'extensionFileVersionLS'),(1, 'htmlDocumentTop'),(1, 'htmlDocumentSubframe'),(1, 'htmlElement'),(1, 'contexts'),(1, 'results'),)))
     IExtensionValidation.DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'DisplayName', ((1, 'displayName'),)))
+    win32more.System.Com.IUnknown
     return IExtensionValidation
 HomePageSetting = Guid('374cede0-873a-4c4f-bc86-bcc8cf5116a3')
 def _define_IHomePageSetting_head():
@@ -21328,6 +22207,7 @@ def _define_IHomePageSetting():
     IHomePageSetting.SetHomePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetHomePage', ((1, 'hwnd'),(1, 'homePageUri'),(1, 'brandingMessage'),)))
     IHomePageSetting.IsHomePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsHomePage', ((1, 'uri'),(1, 'isDefault'),)))
     IHomePageSetting.SetHomePageToBrowserDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'SetHomePageToBrowserDefault', ()))
+    win32more.System.Com.IUnknown
     return IHomePageSetting
 def _define_ITargetNotify_head():
     class ITargetNotify(win32more.System.Com.IUnknown_head):
@@ -21337,6 +22217,7 @@ def _define_ITargetNotify():
     ITargetNotify = win32more.Web.MsHtml.ITargetNotify_head
     ITargetNotify.OnCreate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32, use_last_error=False)(3, 'OnCreate', ((1, 'pUnkDestination'),(1, 'cbCookie'),)))
     ITargetNotify.OnReuse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'OnReuse', ((1, 'pUnkDestination'),)))
+    win32more.System.Com.IUnknown
     return ITargetNotify
 def _define_ITargetNotify2_head():
     class ITargetNotify2(win32more.Web.MsHtml.ITargetNotify_head):
@@ -21345,6 +22226,7 @@ def _define_ITargetNotify2_head():
 def _define_ITargetNotify2():
     ITargetNotify2 = win32more.Web.MsHtml.ITargetNotify2_head
     ITargetNotify2.GetOptionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetOptionString', ((1, 'pbstrOptions'),)))
+    win32more.Web.MsHtml.ITargetNotify
     return ITargetNotify2
 __MIDL_ITargetFrame2_0001 = Int32
 FINDFRAME_NONE = 0
@@ -21376,6 +22258,7 @@ def _define_ITargetFrame2():
     ITargetFrame2.GetFrameMargins = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(12, 'GetFrameMargins', ((1, 'pdwWidth'),(1, 'pdwHeight'),)))
     ITargetFrame2.FindFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(13, 'FindFrame', ((1, 'pszTargetName'),(1, 'dwFlags'),(1, 'ppunkTargetFrame'),)))
     ITargetFrame2.GetTargetAlias = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(14, 'GetTargetAlias', ((1, 'pszTargetName'),(1, 'ppszTargetAlias'),)))
+    win32more.System.Com.IUnknown
     return ITargetFrame2
 def _define_ITargetContainer_head():
     class ITargetContainer(win32more.System.Com.IUnknown_head):
@@ -21385,6 +22268,7 @@ def _define_ITargetContainer():
     ITargetContainer = win32more.Web.MsHtml.ITargetContainer_head
     ITargetContainer.GetFrameUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetFrameUrl', ((1, 'ppszFrameSrc'),)))
     ITargetContainer.GetFramesContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IOleContainer_head), use_last_error=False)(4, 'GetFramesContainer', ((1, 'ppContainer'),)))
+    win32more.System.Com.IUnknown
     return ITargetContainer
 __MIDL_ITargetFrame_0001 = Int32
 NAVIGATEFRAME_FL_RECORD = 1
@@ -21428,6 +22312,7 @@ def _define_ITargetFrame():
     ITargetFrame.RemoteNavigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(14, 'RemoteNavigate', ((1, 'cLength'),(1, 'pulData'),)))
     ITargetFrame.OnChildFrameActivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(15, 'OnChildFrameActivate', ((1, 'pUnkChildFrame'),)))
     ITargetFrame.OnChildFrameDeactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(16, 'OnChildFrameDeactivate', ((1, 'pUnkChildFrame'),)))
+    win32more.System.Com.IUnknown
     return ITargetFrame
 def _define_ITargetEmbedding_head():
     class ITargetEmbedding(win32more.System.Com.IUnknown_head):
@@ -21436,6 +22321,7 @@ def _define_ITargetEmbedding_head():
 def _define_ITargetEmbedding():
     ITargetEmbedding = win32more.Web.MsHtml.ITargetEmbedding_head
     ITargetEmbedding.GetTargetFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.ITargetFrame_head), use_last_error=False)(3, 'GetTargetFrame', ((1, 'ppTargetFrame'),)))
+    win32more.System.Com.IUnknown
     return ITargetEmbedding
 def _define_ITargetFramePriv_head():
     class ITargetFramePriv(win32more.System.Com.IUnknown_head):
@@ -21449,6 +22335,7 @@ def _define_ITargetFramePriv():
     ITargetFramePriv.OnChildFrameDeactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'OnChildFrameDeactivate', ((1, 'pUnkChildFrame'),)))
     ITargetFramePriv.NavigateHack = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IBindCtx_head,win32more.System.Com.IBindStatusCallback_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(7, 'NavigateHack', ((1, 'grfHLNF'),(1, 'pbc'),(1, 'pibsc'),(1, 'pszTargetName'),(1, 'pszUrl'),(1, 'pszLocation'),)))
     ITargetFramePriv.FindBrowserByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'FindBrowserByIndex', ((1, 'dwID'),(1, 'ppunkBrowser'),)))
+    win32more.System.Com.IUnknown
     return ITargetFramePriv
 def _define_ITargetFramePriv2_head():
     class ITargetFramePriv2(win32more.Web.MsHtml.ITargetFramePriv_head):
@@ -21457,6 +22344,7 @@ def _define_ITargetFramePriv2_head():
 def _define_ITargetFramePriv2():
     ITargetFramePriv2 = win32more.Web.MsHtml.ITargetFramePriv2_head
     ITargetFramePriv2.AggregatedNavigation2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IBindCtx_head,win32more.System.Com.IBindStatusCallback_head,win32more.Foundation.PWSTR,win32more.System.Com.IUri_head,win32more.Foundation.PWSTR, use_last_error=False)(9, 'AggregatedNavigation2', ((1, 'grfHLNF'),(1, 'pbc'),(1, 'pibsc'),(1, 'pszTargetName'),(1, 'pUri'),(1, 'pszLocation'),)))
+    win32more.Web.MsHtml.ITargetFramePriv
     return ITargetFramePriv2
 def _define_ISurfacePresenterFlipBuffer_head():
     class ISurfacePresenterFlipBuffer(win32more.System.Com.IUnknown_head):
@@ -21466,6 +22354,7 @@ def _define_ISurfacePresenterFlipBuffer():
     ISurfacePresenterFlipBuffer = win32more.Web.MsHtml.ISurfacePresenterFlipBuffer_head
     ISurfacePresenterFlipBuffer.BeginDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'BeginDraw', ((1, 'riid'),(1, 'ppBuffer'),)))
     ISurfacePresenterFlipBuffer.EndDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'EndDraw', ()))
+    win32more.System.Com.IUnknown
     return ISurfacePresenterFlipBuffer
 def _define_ISurfacePresenterFlip_head():
     class ISurfacePresenterFlip(win32more.System.Com.IUnknown_head):
@@ -21475,6 +22364,7 @@ def _define_ISurfacePresenterFlip():
     ISurfacePresenterFlip = win32more.Web.MsHtml.ISurfacePresenterFlip_head
     ISurfacePresenterFlip.Present = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Present', ()))
     ISurfacePresenterFlip.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetBuffer', ((1, 'backBufferIndex'),(1, 'riid'),(1, 'ppBuffer'),)))
+    win32more.System.Com.IUnknown
     return ISurfacePresenterFlip
 def _define_ISurfacePresenterFlip2_head():
     class ISurfacePresenterFlip2(win32more.System.Com.IUnknown_head):
@@ -21483,6 +22373,7 @@ def _define_ISurfacePresenterFlip2_head():
 def _define_ISurfacePresenterFlip2():
     ISurfacePresenterFlip2 = win32more.Web.MsHtml.ISurfacePresenterFlip2_head
     ISurfacePresenterFlip2.SetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION, use_last_error=False)(3, 'SetRotation', ((1, 'dxgiRotation'),)))
+    win32more.System.Com.IUnknown
     return ISurfacePresenterFlip2
 def _define_IViewObjectPresentFlipSite_head():
     class IViewObjectPresentFlipSite(win32more.System.Com.IUnknown_head):
@@ -21498,6 +22389,7 @@ def _define_IViewObjectPresentFlipSite():
     IViewObjectPresentFlipSite.GetBoundingRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(8, 'GetBoundingRect', ((1, 'pRect'),)))
     IViewObjectPresentFlipSite.GetMetrics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head),POINTER(win32more.Foundation.SIZE_head),POINTER(Single),POINTER(Single), use_last_error=False)(9, 'GetMetrics', ((1, 'pPos'),(1, 'pSize'),(1, 'pScaleX'),(1, 'pScaleY'),)))
     IViewObjectPresentFlipSite.GetFullScreenSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(10, 'GetFullScreenSize', ((1, 'pSize'),)))
+    win32more.System.Com.IUnknown
     return IViewObjectPresentFlipSite
 def _define_IViewObjectPresentFlipSite2_head():
     class IViewObjectPresentFlipSite2(win32more.System.Com.IUnknown_head):
@@ -21506,6 +22398,7 @@ def _define_IViewObjectPresentFlipSite2_head():
 def _define_IViewObjectPresentFlipSite2():
     IViewObjectPresentFlipSite2 = win32more.Web.MsHtml.IViewObjectPresentFlipSite2_head
     IViewObjectPresentFlipSite2.GetRotationForCurrentOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Dxgi.Common.DXGI_MODE_ROTATION), use_last_error=False)(3, 'GetRotationForCurrentOutput', ((1, 'pDxgiRotation'),)))
+    win32more.System.Com.IUnknown
     return IViewObjectPresentFlipSite2
 def _define_IViewObjectPresentFlip_head():
     class IViewObjectPresentFlip(win32more.System.Com.IUnknown_head):
@@ -21516,6 +22409,7 @@ def _define_IViewObjectPresentFlip():
     IViewObjectPresentFlip.NotifyRender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'NotifyRender', ((1, 'fRecreatePresenter'),)))
     IViewObjectPresentFlip.RenderObjectToBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'RenderObjectToBitmap', ((1, 'pBitmap'),)))
     IViewObjectPresentFlip.RenderObjectToSharedBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ISurfacePresenterFlipBuffer_head, use_last_error=False)(5, 'RenderObjectToSharedBuffer', ((1, 'pBuffer'),)))
+    win32more.System.Com.IUnknown
     return IViewObjectPresentFlip
 def _define_IViewObjectPresentFlip2_head():
     class IViewObjectPresentFlip2(win32more.System.Com.IUnknown_head):
@@ -21524,6 +22418,7 @@ def _define_IViewObjectPresentFlip2_head():
 def _define_IViewObjectPresentFlip2():
     IViewObjectPresentFlip2 = win32more.Web.MsHtml.IViewObjectPresentFlip2_head
     IViewObjectPresentFlip2.NotifyLeavingView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'NotifyLeavingView', ()))
+    win32more.System.Com.IUnknown
     return IViewObjectPresentFlip2
 def _define_IActiveXUIHandlerSite2_head():
     class IActiveXUIHandlerSite2(win32more.System.Com.IUnknown_head):
@@ -21533,6 +22428,7 @@ def _define_IActiveXUIHandlerSite2():
     IActiveXUIHandlerSite2 = win32more.Web.MsHtml.IActiveXUIHandlerSite2_head
     IActiveXUIHandlerSite2.AddSuspensionExemption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(3, 'AddSuspensionExemption', ((1, 'pullCookie'),)))
     IActiveXUIHandlerSite2.RemoveSuspensionExemption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(4, 'RemoveSuspensionExemption', ((1, 'ullCookie'),)))
+    win32more.System.Com.IUnknown
     return IActiveXUIHandlerSite2
 def _define_ICaretPositionProvider_head():
     class ICaretPositionProvider(win32more.System.Com.IUnknown_head):
@@ -21541,6 +22437,7 @@ def _define_ICaretPositionProvider_head():
 def _define_ICaretPositionProvider():
     ICaretPositionProvider = win32more.Web.MsHtml.ICaretPositionProvider_head
     ICaretPositionProvider.GetCaretPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head),POINTER(Single), use_last_error=False)(3, 'GetCaretPosition', ((1, 'pptCaret'),(1, 'pflHeight'),)))
+    win32more.System.Com.IUnknown
     return ICaretPositionProvider
 def _define_ITridentTouchInput_head():
     class ITridentTouchInput(win32more.System.Com.IUnknown_head):
@@ -21549,6 +22446,7 @@ def _define_ITridentTouchInput_head():
 def _define_ITridentTouchInput():
     ITridentTouchInput = win32more.Web.MsHtml.ITridentTouchInput_head
     ITridentTouchInput.OnPointerMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnPointerMessage', ((1, 'msg'),(1, 'wParam'),(1, 'lParam'),(1, 'pfAllowManipulations'),)))
+    win32more.System.Com.IUnknown
     return ITridentTouchInput
 def _define_ITridentTouchInputSite_head():
     class ITridentTouchInputSite(win32more.System.Com.IUnknown_head):
@@ -21558,6 +22456,7 @@ def _define_ITridentTouchInputSite():
     ITridentTouchInputSite = win32more.Web.MsHtml.ITridentTouchInputSite_head
     ITridentTouchInputSite.SetManipulationMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.styleMsTouchAction, use_last_error=False)(3, 'SetManipulationMode', ((1, 'msTouchAction'),)))
     ITridentTouchInputSite.ZoomToPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(4, 'ZoomToPoint', ((1, 'x'),(1, 'y'),)))
+    win32more.System.Com.IUnknown
     return ITridentTouchInputSite
 MediaActivityNotifyType = Int32
 MediaActivityNotifyType_MediaPlayback = 0
@@ -21571,6 +22470,7 @@ def _define_IMediaActivityNotifySite():
     IMediaActivityNotifySite = win32more.Web.MsHtml.IMediaActivityNotifySite_head
     IMediaActivityNotifySite.OnMediaActivityStarted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.MediaActivityNotifyType, use_last_error=False)(3, 'OnMediaActivityStarted', ((1, 'mediaActivityType'),)))
     IMediaActivityNotifySite.OnMediaActivityStopped = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.MediaActivityNotifyType, use_last_error=False)(4, 'OnMediaActivityStopped', ((1, 'mediaActivityType'),)))
+    win32more.System.Com.IUnknown
     return IMediaActivityNotifySite
 def _define_IAudioSessionSite_head():
     class IAudioSessionSite(win32more.System.Com.IUnknown_head):
@@ -21581,6 +22481,7 @@ def _define_IAudioSessionSite():
     IAudioSessionSite.GetAudioSessionGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetAudioSessionGuid', ((1, 'audioSessionGuid'),)))
     IAudioSessionSite.OnAudioStreamCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OnAudioStreamCreated', ((1, 'endpointID'),)))
     IAudioSessionSite.OnAudioStreamDestroyed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'OnAudioStreamDestroyed', ((1, 'endpointID'),)))
+    win32more.System.Com.IUnknown
     return IAudioSessionSite
 def _define_IPrintTaskRequestHandler_head():
     class IPrintTaskRequestHandler(win32more.System.Com.IUnknown_head):
@@ -21589,6 +22490,7 @@ def _define_IPrintTaskRequestHandler_head():
 def _define_IPrintTaskRequestHandler():
     IPrintTaskRequestHandler = win32more.Web.MsHtml.IPrintTaskRequestHandler_head
     IPrintTaskRequestHandler.HandlePrintTaskRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.IInspectable_head, use_last_error=False)(3, 'HandlePrintTaskRequest', ((1, 'pPrintTaskRequest'),)))
+    win32more.System.Com.IUnknown
     return IPrintTaskRequestHandler
 def _define_IPrintTaskRequestFactory_head():
     class IPrintTaskRequestFactory(win32more.System.Com.IUnknown_head):
@@ -21597,6 +22499,7 @@ def _define_IPrintTaskRequestFactory_head():
 def _define_IPrintTaskRequestFactory():
     IPrintTaskRequestFactory = win32more.Web.MsHtml.IPrintTaskRequestFactory_head
     IPrintTaskRequestFactory.CreatePrintTaskRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IPrintTaskRequestHandler_head, use_last_error=False)(3, 'CreatePrintTaskRequest', ((1, 'pPrintTaskRequestHandler'),)))
+    win32more.System.Com.IUnknown
     return IPrintTaskRequestFactory
 def _define_IScrollableContextMenu_head():
     class IScrollableContextMenu(win32more.System.Com.IUnknown_head):
@@ -21606,6 +22509,7 @@ def _define_IScrollableContextMenu():
     IScrollableContextMenu = win32more.Web.MsHtml.IScrollableContextMenu_head
     IScrollableContextMenu.AddItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'AddItem', ((1, 'itemText'),(1, 'cmdID'),)))
     IScrollableContextMenu.ShowModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(UInt32), use_last_error=False)(4, 'ShowModal', ((1, 'x'),(1, 'y'),(1, 'cmdID'),)))
+    win32more.System.Com.IUnknown
     return IScrollableContextMenu
 SCROLLABLECONTEXTMENU_PLACEMENT = Int32
 SCMP_TOP = 0
@@ -21621,6 +22525,7 @@ def _define_IScrollableContextMenu2():
     IScrollableContextMenu2 = win32more.Web.MsHtml.IScrollableContextMenu2_head
     IScrollableContextMenu2.AddSeparator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'AddSeparator', ()))
     IScrollableContextMenu2.SetPlacement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.SCROLLABLECONTEXTMENU_PLACEMENT, use_last_error=False)(6, 'SetPlacement', ((1, 'scmp'),)))
+    win32more.Web.MsHtml.IScrollableContextMenu
     return IScrollableContextMenu2
 def _define_IActiveXUIHandlerSite_head():
     class IActiveXUIHandlerSite(win32more.System.Com.IUnknown_head):
@@ -21630,6 +22535,7 @@ def _define_IActiveXUIHandlerSite():
     IActiveXUIHandlerSite = win32more.Web.MsHtml.IActiveXUIHandlerSite_head
     IActiveXUIHandlerSite.CreateScrollableContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IScrollableContextMenu_head), use_last_error=False)(3, 'CreateScrollableContextMenu', ((1, 'scrollableContextMenu'),)))
     IActiveXUIHandlerSite.PickFileAndGetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'PickFileAndGetResult', ((1, 'filePicker'),(1, 'allowMultipleSelections'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return IActiveXUIHandlerSite
 def _define_IActiveXUIHandlerSite3_head():
     class IActiveXUIHandlerSite3(win32more.System.Com.IUnknown_head):
@@ -21638,6 +22544,7 @@ def _define_IActiveXUIHandlerSite3_head():
 def _define_IActiveXUIHandlerSite3():
     IActiveXUIHandlerSite3 = win32more.Web.MsHtml.IActiveXUIHandlerSite3_head
     IActiveXUIHandlerSite3.MessageBoxW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(Int32), use_last_error=False)(3, 'MessageBoxW', ((1, 'hwnd'),(1, 'text'),(1, 'caption'),(1, 'type'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return IActiveXUIHandlerSite3
 InternetExplorerManager = Guid('df4fcc34-067a-4e0a-8352-4a1a5095346e')
 INTERNETEXPLORERCONFIGURATION = Int32
@@ -21655,6 +22562,7 @@ def _define_IEnumManagerFrames():
     IEnumManagerFrames.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumManagerFrames.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Reset', ()))
     IEnumManagerFrames.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IEnumManagerFrames_head), use_last_error=False)(7, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumManagerFrames
 def _define_IInternetExplorerManager_head():
     class IInternetExplorerManager(win32more.System.Com.IUnknown_head):
@@ -21663,6 +22571,7 @@ def _define_IInternetExplorerManager_head():
 def _define_IInternetExplorerManager():
     IInternetExplorerManager = win32more.Web.MsHtml.IInternetExplorerManager_head
     IInternetExplorerManager.CreateObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateObject', ((1, 'dwConfig'),(1, 'pszURL'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IInternetExplorerManager
 def _define_IInternetExplorerManager2_head():
     class IInternetExplorerManager2(win32more.System.Com.IUnknown_head):
@@ -21671,6 +22580,7 @@ def _define_IInternetExplorerManager2_head():
 def _define_IInternetExplorerManager2():
     IInternetExplorerManager2 = win32more.Web.MsHtml.IInternetExplorerManager2_head
     IInternetExplorerManager2.EnumFrameWindows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IEnumManagerFrames_head), use_last_error=False)(3, 'EnumFrameWindows', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IInternetExplorerManager2
 IELAUNCHOPTION_FLAGS = Int32
 IELAUNCHOPTION_SCRIPTDEBUG = 1
@@ -21699,6 +22609,7 @@ def _define_IIEWebDriverSite():
     IIEWebDriverSite.WindowOperation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(7, 'WindowOperation', ((1, 'operationCode'),(1, 'hWnd'),)))
     IIEWebDriverSite.DetachWebdriver = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(8, 'DetachWebdriver', ((1, 'pUnkWD'),)))
     IIEWebDriverSite.GetCapabilityValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'GetCapabilityValue', ((1, 'pUnkWD'),(1, 'capName'),(1, 'capValue'),)))
+    win32more.System.Com.IDispatch
     return IIEWebDriverSite
 def _define_IIEWebDriverManager_head():
     class IIEWebDriverManager(win32more.System.Com.IDispatch_head):
@@ -21707,6 +22618,7 @@ def _define_IIEWebDriverManager_head():
 def _define_IIEWebDriverManager():
     IIEWebDriverManager = win32more.Web.MsHtml.IIEWebDriverManager_head
     IIEWebDriverManager.ExecuteCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'ExecuteCommand', ((1, 'command'),(1, 'response'),)))
+    win32more.System.Com.IDispatch
     return IIEWebDriverManager
 def _define_HTMLPersistEvents_head():
     class HTMLPersistEvents(Structure):
@@ -21742,6 +22654,7 @@ def _define_IPeerFactory_head():
     return IPeerFactory
 def _define_IPeerFactory():
     IPeerFactory = win32more.Web.MsHtml.IPeerFactory_head
+    win32more.System.Com.IUnknown
     return IPeerFactory
 def _define_IHomePage_head():
     class IHomePage(win32more.System.Com.IDispatch_head):
@@ -21752,6 +22665,7 @@ def _define_IHomePage():
     IHomePage.navigateHomePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'navigateHomePage', ()))
     IHomePage.setHomePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'setHomePage', ((1, 'bstrURL'),)))
     IHomePage.isHomePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(9, 'isHomePage', ((1, 'bstrURL'),(1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHomePage
 def _define_IIntelliForms_head():
     class IIntelliForms(win32more.System.Com.IDispatch_head):
@@ -21761,6 +22675,7 @@ def _define_IIntelliForms():
     IIntelliForms = win32more.Web.MsHtml.IIntelliForms_head
     IIntelliForms.get_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(7, 'get_enabled', ((1, 'pVal'),)))
     IIntelliForms.put_enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(8, 'put_enabled', ((1, 'bVal'),)))
+    win32more.System.Com.IDispatch
     return IIntelliForms
 def _define_Iwfolders_head():
     class Iwfolders(win32more.System.Com.IDispatch_head):
@@ -21771,6 +22686,7 @@ def _define_Iwfolders():
     Iwfolders.navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'navigate', ((1, 'bstrUrl'),(1, 'pbstrRetVal'),)))
     Iwfolders.navigateFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'navigateFrame', ((1, 'bstrUrl'),(1, 'bstrTargetFrame'),(1, 'pbstrRetVal'),)))
     Iwfolders.navigateNoSite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'navigateNoSite', ((1, 'bstrUrl'),(1, 'bstrTargetFrame'),(1, 'dwhwnd'),(1, 'pwb'),)))
+    win32more.System.Com.IDispatch
     return Iwfolders
 def _define_IAnchorClick_head():
     class IAnchorClick(win32more.System.Com.IDispatch_head):
@@ -21779,6 +22695,7 @@ def _define_IAnchorClick_head():
 def _define_IAnchorClick():
     IAnchorClick = win32more.Web.MsHtml.IAnchorClick_head
     IAnchorClick.ProcOnClick = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'ProcOnClick', ()))
+    win32more.System.Com.IDispatch
     return IAnchorClick
 def _define_IHTMLUserDataOM_head():
     class IHTMLUserDataOM(win32more.System.Com.IDispatch_head):
@@ -21794,6 +22711,7 @@ def _define_IHTMLUserDataOM():
     IHTMLUserDataOM.removeAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'removeAttribute', ((1, 'name'),)))
     IHTMLUserDataOM.put_expires = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'put_expires', ((1, 'bstr'),)))
     IHTMLUserDataOM.get_expires = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_expires', ((1, 'pbstr'),)))
+    win32more.System.Com.IDispatch
     return IHTMLUserDataOM
 def _define_IHTMLPersistDataOM_head():
     class IHTMLPersistDataOM(win32more.System.Com.IDispatch_head):
@@ -21805,6 +22723,7 @@ def _define_IHTMLPersistDataOM():
     IHTMLPersistDataOM.getAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'getAttribute', ((1, 'name'),(1, 'pValue'),)))
     IHTMLPersistDataOM.setAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(9, 'setAttribute', ((1, 'name'),(1, 'value'),)))
     IHTMLPersistDataOM.removeAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'removeAttribute', ((1, 'name'),)))
+    win32more.System.Com.IDispatch
     return IHTMLPersistDataOM
 def _define_IHTMLPersistData_head():
     class IHTMLPersistData(win32more.System.Com.IUnknown_head):
@@ -21815,6 +22734,7 @@ def _define_IHTMLPersistData():
     IHTMLPersistData.save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Int32,POINTER(Int16), use_last_error=False)(3, 'save', ((1, 'pUnk'),(1, 'lType'),(1, 'fContinueBroacast'),)))
     IHTMLPersistData.load = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Int32,POINTER(Int16), use_last_error=False)(4, 'load', ((1, 'pUnk'),(1, 'lType'),(1, 'fDoDefault'),)))
     IHTMLPersistData.queryType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int16), use_last_error=False)(5, 'queryType', ((1, 'lType'),(1, 'pfSupportsType'),)))
+    win32more.System.Com.IUnknown
     return IHTMLPersistData
 def _define_IDownloadBehavior_head():
     class IDownloadBehavior(win32more.System.Com.IDispatch_head):
@@ -21823,6 +22743,7 @@ def _define_IDownloadBehavior_head():
 def _define_IDownloadBehavior():
     IDownloadBehavior = win32more.Web.MsHtml.IDownloadBehavior_head
     IDownloadBehavior.startDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head, use_last_error=False)(7, 'startDownload', ((1, 'bstrUrl'),(1, 'pdispCallback'),)))
+    win32more.System.Com.IDispatch
     return IDownloadBehavior
 def _define_ILayoutRect_head():
     class ILayoutRect(win32more.System.Com.IDispatch_head):
@@ -21841,6 +22762,7 @@ def _define_ILayoutRect():
     ILayoutRect.put_nextRectElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(15, 'put_nextRectElement', ((1, 'pElem'),)))
     ILayoutRect.get_nextRectElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(16, 'get_nextRectElement', ((1, 'ppElem'),)))
     ILayoutRect.get_contentDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(17, 'get_contentDocument', ((1, 'pDoc'),)))
+    win32more.System.Com.IDispatch
     return ILayoutRect
 def _define_IDeviceRect_head():
     class IDeviceRect(win32more.System.Com.IDispatch_head):
@@ -21848,6 +22770,7 @@ def _define_IDeviceRect_head():
     return IDeviceRect
 def _define_IDeviceRect():
     IDeviceRect = win32more.Web.MsHtml.IDeviceRect_head
+    win32more.System.Com.IDispatch
     return IDeviceRect
 def _define_IHeaderFooter_head():
     class IHeaderFooter(win32more.System.Com.IDispatch_head):
@@ -21877,6 +22800,7 @@ def _define_IHeaderFooter():
     IHeaderFooter.get_timeShort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'get_timeShort', ((1, 'p'),)))
     IHeaderFooter.put_timeLong = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(27, 'put_timeLong', ((1, 'v'),)))
     IHeaderFooter.get_timeLong = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(28, 'get_timeLong', ((1, 'p'),)))
+    win32more.System.Com.IDispatch
     return IHeaderFooter
 def _define_IHeaderFooter2_head():
     class IHeaderFooter2(win32more.Web.MsHtml.IHeaderFooter_head):
@@ -21886,6 +22810,7 @@ def _define_IHeaderFooter2():
     IHeaderFooter2 = win32more.Web.MsHtml.IHeaderFooter2_head
     IHeaderFooter2.put_font = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(29, 'put_font', ((1, 'v'),)))
     IHeaderFooter2.get_font = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(30, 'get_font', ((1, 'p'),)))
+    win32more.Web.MsHtml.IHeaderFooter
     return IHeaderFooter2
 def _define_HostDialogHelper_head():
     class HostDialogHelper(Structure):
@@ -21911,6 +22836,7 @@ def _define_IHostDialogHelper_head():
 def _define_IHostDialogHelper():
     IHostDialogHelper = win32more.Web.MsHtml.IHostDialogHelper_head
     IHostDialogHelper.ShowHTMLDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.System.Com.IMoniker_head,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'ShowHTMLDialog', ((1, 'hwndParent'),(1, 'pMk'),(1, 'pvarArgIn'),(1, 'pchOptions'),(1, 'pvarArgOut'),(1, 'punkHost'),)))
+    win32more.System.Com.IUnknown
     return IHostDialogHelper
 DOCHOSTUITYPE = Int32
 DOCHOSTUITYPE_BROWSE = 0
@@ -21985,6 +22911,7 @@ def _define_IDocHostUIHandler():
     IDocHostUIHandler.GetExternal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(15, 'GetExternal', ((1, 'ppDispatch'),)))
     IDocHostUIHandler.TranslateUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(16, 'TranslateUrl', ((1, 'dwTranslate'),(1, 'pchURLIn'),(1, 'ppchURLOut'),)))
     IDocHostUIHandler.FilterDataObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,POINTER(win32more.System.Com.IDataObject_head), use_last_error=False)(17, 'FilterDataObject', ((1, 'pDO'),(1, 'ppDORet'),)))
+    win32more.System.Com.IUnknown
     return IDocHostUIHandler
 def _define_IDocHostUIHandler2_head():
     class IDocHostUIHandler2(win32more.Web.MsHtml.IDocHostUIHandler_head):
@@ -21993,6 +22920,7 @@ def _define_IDocHostUIHandler2_head():
 def _define_IDocHostUIHandler2():
     IDocHostUIHandler2 = win32more.Web.MsHtml.IDocHostUIHandler2_head
     IDocHostUIHandler2.GetOverrideKeyPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),UInt32, use_last_error=False)(18, 'GetOverrideKeyPath', ((1, 'pchKey'),(1, 'dw'),)))
+    win32more.Web.MsHtml.IDocHostUIHandler
     return IDocHostUIHandler2
 def _define_ICustomDoc_head():
     class ICustomDoc(win32more.System.Com.IUnknown_head):
@@ -22001,6 +22929,7 @@ def _define_ICustomDoc_head():
 def _define_ICustomDoc():
     ICustomDoc = win32more.Web.MsHtml.ICustomDoc_head
     ICustomDoc.SetUIHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IDocHostUIHandler_head, use_last_error=False)(3, 'SetUIHandler', ((1, 'pUIHandler'),)))
+    win32more.System.Com.IUnknown
     return ICustomDoc
 def _define_IDocHostShowUI_head():
     class IDocHostShowUI(win32more.System.Com.IUnknown_head):
@@ -22010,6 +22939,7 @@ def _define_IDocHostShowUI():
     IDocHostShowUI = win32more.Web.MsHtml.IDocHostShowUI_head
     IDocHostShowUI.ShowMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.LRESULT), use_last_error=False)(3, 'ShowMessage', ((1, 'hwnd'),(1, 'lpstrText'),(1, 'lpstrCaption'),(1, 'dwType'),(1, 'lpstrHelpFile'),(1, 'dwHelpContext'),(1, 'plResult'),)))
     IDocHostShowUI.ShowHelp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.POINT,win32more.System.Com.IDispatch_head, use_last_error=False)(4, 'ShowHelp', ((1, 'hwnd'),(1, 'pszHelpFile'),(1, 'uCommand'),(1, 'dwData'),(1, 'ptMouse'),(1, 'pDispatchObjectHit'),)))
+    win32more.System.Com.IUnknown
     return IDocHostShowUI
 def _define_IClassFactoryEx_head():
     class IClassFactoryEx(win32more.System.Com.IClassFactory_head):
@@ -22018,6 +22948,7 @@ def _define_IClassFactoryEx_head():
 def _define_IClassFactoryEx():
     IClassFactoryEx = win32more.Web.MsHtml.IClassFactoryEx_head
     IClassFactoryEx.CreateInstanceWithContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(5, 'CreateInstanceWithContext', ((1, 'punkContext'),(1, 'punkOuter'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IClassFactory
     return IClassFactoryEx
 def _define_IHTMLOMWindowServices_head():
     class IHTMLOMWindowServices(win32more.System.Com.IUnknown_head):
@@ -22029,6 +22960,7 @@ def _define_IHTMLOMWindowServices():
     IHTMLOMWindowServices.moveBy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(4, 'moveBy', ((1, 'x'),(1, 'y'),)))
     IHTMLOMWindowServices.resizeTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(5, 'resizeTo', ((1, 'x'),(1, 'y'),)))
     IHTMLOMWindowServices.resizeBy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(6, 'resizeBy', ((1, 'x'),(1, 'y'),)))
+    win32more.System.Com.IUnknown
     return IHTMLOMWindowServices
 def _define_IDiagnosticsScriptEngineSite_head():
     class IDiagnosticsScriptEngineSite(win32more.System.Com.IUnknown_head):
@@ -22038,6 +22970,7 @@ def _define_IDiagnosticsScriptEngineSite():
     IDiagnosticsScriptEngineSite = win32more.Web.MsHtml.IDiagnosticsScriptEngineSite_head
     IDiagnosticsScriptEngineSite.OnMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),UInt32, use_last_error=False)(3, 'OnMessage', ((1, 'pszData'),(1, 'ulDataCount'),)))
     IDiagnosticsScriptEngineSite.OnScriptError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IActiveScriptError_head, use_last_error=False)(4, 'OnScriptError', ((1, 'pScriptError'),)))
+    win32more.System.Com.IUnknown
     return IDiagnosticsScriptEngineSite
 def _define_IDiagnosticsScriptEngine_head():
     class IDiagnosticsScriptEngine(win32more.System.Com.IUnknown_head):
@@ -22048,6 +22981,7 @@ def _define_IDiagnosticsScriptEngine():
     IDiagnosticsScriptEngine.EvaluateScript = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'EvaluateScript', ((1, 'pszScript'),(1, 'pszScriptName'),)))
     IDiagnosticsScriptEngine.FireScriptMessageEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),UInt32, use_last_error=False)(4, 'FireScriptMessageEvent', ((1, 'pszNames'),(1, 'pszValues'),(1, 'ulPropertyCount'),)))
     IDiagnosticsScriptEngine.Detach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Detach', ()))
+    win32more.System.Com.IUnknown
     return IDiagnosticsScriptEngine
 def _define_IDiagnosticsScriptEngineProvider_head():
     class IDiagnosticsScriptEngineProvider(win32more.System.Com.IUnknown_head):
@@ -22056,6 +22990,7 @@ def _define_IDiagnosticsScriptEngineProvider_head():
 def _define_IDiagnosticsScriptEngineProvider():
     IDiagnosticsScriptEngineProvider = win32more.Web.MsHtml.IDiagnosticsScriptEngineProvider_head
     IDiagnosticsScriptEngineProvider.CreateDiagnosticsScriptEngine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IDiagnosticsScriptEngineSite_head,win32more.Foundation.BOOL,UInt32,POINTER(win32more.Web.MsHtml.IDiagnosticsScriptEngine_head), use_last_error=False)(3, 'CreateDiagnosticsScriptEngine', ((1, 'pScriptSite'),(1, 'fDebuggingEnabled'),(1, 'ulProcessId'),(1, 'ppEngine'),)))
+    win32more.System.Com.IUnknown
     return IDiagnosticsScriptEngineProvider
 OpenServiceManager = Guid('098870b6-39ea-480b-b8b5-dd0167c4db59')
 OpenServiceActivityManager = Guid('c5efd803-50f8-43cd-9ab8-aafc1394c9e0')
@@ -22079,6 +23014,7 @@ def _define_IOpenServiceActivityInput():
     IOpenServiceActivityInput.GetVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetVariable', ((1, 'pwzVariableName'),(1, 'pwzVariableType'),(1, 'pbstrVariableContent'),)))
     IOpenServiceActivityInput.HasVariable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'HasVariable', ((1, 'pwzVariableName'),(1, 'pwzVariableType'),(1, 'pfHasVariable'),)))
     IOpenServiceActivityInput.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.OpenServiceActivityContentType), use_last_error=False)(5, 'GetType', ((1, 'pType'),)))
+    win32more.System.Com.IUnknown
     return IOpenServiceActivityInput
 def _define_IOpenServiceActivityOutputContext_head():
     class IOpenServiceActivityOutputContext(win32more.System.Com.IUnknown_head):
@@ -22088,6 +23024,7 @@ def _define_IOpenServiceActivityOutputContext():
     IOpenServiceActivityOutputContext = win32more.Web.MsHtml.IOpenServiceActivityOutputContext_head
     IOpenServiceActivityOutputContext.Navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head, use_last_error=False)(3, 'Navigate', ((1, 'pwzUri'),(1, 'pwzMethod'),(1, 'pwzHeaders'),(1, 'pPostData'),)))
     IOpenServiceActivityOutputContext.CanNavigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'CanNavigate', ((1, 'pwzUri'),(1, 'pwzMethod'),(1, 'pwzHeaders'),(1, 'pPostData'),(1, 'pfCanNavigate'),)))
+    win32more.System.Com.IUnknown
     return IOpenServiceActivityOutputContext
 def _define_IOpenService_head():
     class IOpenService(win32more.System.Com.IUnknown_head):
@@ -22098,6 +23035,7 @@ def _define_IOpenService():
     IOpenService.IsDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsDefault', ((1, 'pfIsDefault'),)))
     IOpenService.SetDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.HWND, use_last_error=False)(4, 'SetDefault', ((1, 'fDefault'),(1, 'hwnd'),)))
     IOpenService.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetID', ((1, 'pbstrID'),)))
+    win32more.System.Com.IUnknown
     return IOpenService
 def _define_IOpenServiceManager_head():
     class IOpenServiceManager(win32more.System.Com.IUnknown_head):
@@ -22108,6 +23046,7 @@ def _define_IOpenServiceManager():
     IOpenServiceManager.InstallService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Web.MsHtml.IOpenService_head), use_last_error=False)(3, 'InstallService', ((1, 'pwzServiceUrl'),(1, 'ppService'),)))
     IOpenServiceManager.UninstallService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IOpenService_head, use_last_error=False)(4, 'UninstallService', ((1, 'pService'),)))
     IOpenServiceManager.GetServiceByID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Web.MsHtml.IOpenService_head), use_last_error=False)(5, 'GetServiceByID', ((1, 'pwzID'),(1, 'ppService'),)))
+    win32more.System.Com.IUnknown
     return IOpenServiceManager
 def _define_IOpenServiceActivity_head():
     class IOpenServiceActivity(win32more.Web.MsHtml.IOpenService_head):
@@ -22133,6 +23072,7 @@ def _define_IOpenServiceActivity():
     IOpenServiceActivity.GetInstallUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'GetInstallUrl', ((1, 'pbstrInstallUri'),)))
     IOpenServiceActivity.IsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(22, 'IsEnabled', ((1, 'pfIsEnabled'),)))
     IOpenServiceActivity.SetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(23, 'SetEnabled', ((1, 'fEnable'),)))
+    win32more.Web.MsHtml.IOpenService
     return IOpenServiceActivity
 def _define_IEnumOpenServiceActivity_head():
     class IEnumOpenServiceActivity(win32more.System.Com.IUnknown_head):
@@ -22144,6 +23084,7 @@ def _define_IEnumOpenServiceActivity():
     IEnumOpenServiceActivity.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumOpenServiceActivity.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumOpenServiceActivity.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IEnumOpenServiceActivity_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumOpenServiceActivity
 def _define_IOpenServiceActivityCategory_head():
     class IOpenServiceActivityCategory(win32more.System.Com.IUnknown_head):
@@ -22156,6 +23097,7 @@ def _define_IOpenServiceActivityCategory():
     IOpenServiceActivityCategory.SetDefaultActivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IOpenServiceActivity_head,win32more.Foundation.HWND, use_last_error=False)(5, 'SetDefaultActivity', ((1, 'pActivity'),(1, 'hwnd'),)))
     IOpenServiceActivityCategory.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetName', ((1, 'pbstrName'),)))
     IOpenServiceActivityCategory.GetActivityEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IOpenServiceActivityInput_head,win32more.Web.MsHtml.IOpenServiceActivityOutputContext_head,POINTER(win32more.Web.MsHtml.IEnumOpenServiceActivity_head), use_last_error=False)(7, 'GetActivityEnumerator', ((1, 'pInput'),(1, 'pOutput'),(1, 'ppEnumActivity'),)))
+    win32more.System.Com.IUnknown
     return IOpenServiceActivityCategory
 def _define_IEnumOpenServiceActivityCategory_head():
     class IEnumOpenServiceActivityCategory(win32more.System.Com.IUnknown_head):
@@ -22167,6 +23109,7 @@ def _define_IEnumOpenServiceActivityCategory():
     IEnumOpenServiceActivityCategory.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumOpenServiceActivityCategory.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumOpenServiceActivityCategory.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IEnumOpenServiceActivityCategory_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumOpenServiceActivityCategory
 def _define_IOpenServiceActivityManager_head():
     class IOpenServiceActivityManager(win32more.System.Com.IUnknown_head):
@@ -22178,6 +23121,7 @@ def _define_IOpenServiceActivityManager():
     IOpenServiceActivityManager.GetActivityByID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Web.MsHtml.IOpenServiceActivity_head), use_last_error=False)(4, 'GetActivityByID', ((1, 'pwzActivityID'),(1, 'ppActivity'),)))
     IOpenServiceActivityManager.GetActivityByHomepageAndCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Web.MsHtml.IOpenServiceActivity_head), use_last_error=False)(5, 'GetActivityByHomepageAndCategory', ((1, 'pwzHomepage'),(1, 'pwzCategory'),(1, 'ppActivity'),)))
     IOpenServiceActivityManager.GetVersionCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetVersionCookie', ((1, 'pdwVersionCookie'),)))
+    win32more.System.Com.IUnknown
     return IOpenServiceActivityManager
 def _define_IPersistHistory_head():
     class IPersistHistory(win32more.System.Com.IPersist_head):
@@ -22189,6 +23133,7 @@ def _define_IPersistHistory():
     IPersistHistory.SaveHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(5, 'SaveHistory', ((1, 'pStream'),)))
     IPersistHistory.SetPositionCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'SetPositionCookie', ((1, 'dwPositioncookie'),)))
     IPersistHistory.GetPositionCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetPositionCookie', ((1, 'pdwPositioncookie'),)))
+    win32more.System.Com.IPersist
     return IPersistHistory
 ADDURL_FLAG = Int32
 ADDURL_FIRST = 0
@@ -22222,6 +23167,7 @@ def _define_IEnumSTATURL():
     IEnumSTATURL.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSTATURL.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IEnumSTATURL_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
     IEnumSTATURL.SetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(7, 'SetFilter', ((1, 'poszFilter'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IEnumSTATURL
 def _define_IUrlHistoryStg_head():
     class IUrlHistoryStg(win32more.System.Com.IUnknown_head):
@@ -22234,6 +23180,7 @@ def _define_IUrlHistoryStg():
     IUrlHistoryStg.QueryUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Web.MsHtml.STATURL_head), use_last_error=False)(5, 'QueryUrl', ((1, 'pocsUrl'),(1, 'dwFlags'),(1, 'lpSTATURL'),)))
     IUrlHistoryStg.BindToObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'BindToObject', ((1, 'pocsUrl'),(1, 'riid'),(1, 'ppvOut'),)))
     IUrlHistoryStg.EnumUrls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Web.MsHtml.IEnumSTATURL_head), use_last_error=False)(7, 'EnumUrls', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IUrlHistoryStg
 def _define_IUrlHistoryStg2_head():
     class IUrlHistoryStg2(win32more.Web.MsHtml.IUrlHistoryStg_head):
@@ -22243,6 +23190,7 @@ def _define_IUrlHistoryStg2():
     IUrlHistoryStg2 = win32more.Web.MsHtml.IUrlHistoryStg2_head
     IUrlHistoryStg2.AddUrlAndNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.BOOL,win32more.System.Ole.IOleCommandTarget_head,win32more.System.Com.IUnknown_head, use_last_error=False)(8, 'AddUrlAndNotify', ((1, 'pocsUrl'),(1, 'pocsTitle'),(1, 'dwFlags'),(1, 'fWriteHistory'),(1, 'poctNotify'),(1, 'punkISFolder'),)))
     IUrlHistoryStg2.ClearHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'ClearHistory', ()))
+    win32more.Web.MsHtml.IUrlHistoryStg
     return IUrlHistoryStg2
 def _define_IUrlHistoryNotify_head():
     class IUrlHistoryNotify(win32more.System.Ole.IOleCommandTarget_head):
@@ -22250,6 +23198,7 @@ def _define_IUrlHistoryNotify_head():
     return IUrlHistoryNotify
 def _define_IUrlHistoryNotify():
     IUrlHistoryNotify = win32more.Web.MsHtml.IUrlHistoryNotify_head
+    win32more.System.Ole.IOleCommandTarget
     return IUrlHistoryNotify
 def _define_IWebBrowserEventsService_head():
     class IWebBrowserEventsService(win32more.System.Com.IUnknown_head):
@@ -22262,6 +23211,7 @@ def _define_IWebBrowserEventsService():
     IWebBrowserEventsService.FireDownloadBeginEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'FireDownloadBeginEvent', ()))
     IWebBrowserEventsService.FireDownloadCompleteEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'FireDownloadCompleteEvent', ()))
     IWebBrowserEventsService.FireDocumentCompleteEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'FireDocumentCompleteEvent', ()))
+    win32more.System.Com.IUnknown
     return IWebBrowserEventsService
 def _define_IWebBrowserEventsUrlService_head():
     class IWebBrowserEventsUrlService(win32more.System.Com.IUnknown_head):
@@ -22270,6 +23220,7 @@ def _define_IWebBrowserEventsUrlService_head():
 def _define_IWebBrowserEventsUrlService():
     IWebBrowserEventsUrlService = win32more.Web.MsHtml.IWebBrowserEventsUrlService_head
     IWebBrowserEventsUrlService.GetUrlForEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetUrlForEvents', ((1, 'pUrl'),)))
+    win32more.System.Com.IUnknown
     return IWebBrowserEventsUrlService
 def _define_ITimerService_head():
     class ITimerService(win32more.System.Com.IUnknown_head):
@@ -22280,6 +23231,7 @@ def _define_ITimerService():
     ITimerService.CreateTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.ITimer_head,POINTER(win32more.Web.MsHtml.ITimer_head), use_last_error=False)(3, 'CreateTimer', ((1, 'pReferenceTimer'),(1, 'ppNewTimer'),)))
     ITimerService.GetNamedTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Web.MsHtml.ITimer_head), use_last_error=False)(4, 'GetNamedTimer', ((1, 'rguidName'),(1, 'ppTimer'),)))
     ITimerService.SetNamedTimerReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Web.MsHtml.ITimer_head, use_last_error=False)(5, 'SetNamedTimerReference', ((1, 'rguidName'),(1, 'pReferenceTimer'),)))
+    win32more.System.Com.IUnknown
     return ITimerService
 def _define_ITimer_head():
     class ITimer(win32more.System.Com.IUnknown_head):
@@ -22291,6 +23243,7 @@ def _define_ITimer():
     ITimer.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Unadvise', ((1, 'dwCookie'),)))
     ITimer.Freeze = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'Freeze', ((1, 'fFreeze'),)))
     ITimer.GetTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(6, 'GetTime', ((1, 'pvtime'),)))
+    win32more.System.Com.IUnknown
     return ITimer
 def _define_ITimerEx_head():
     class ITimerEx(win32more.Web.MsHtml.ITimer_head):
@@ -22299,6 +23252,7 @@ def _define_ITimerEx_head():
 def _define_ITimerEx():
     ITimerEx = win32more.Web.MsHtml.ITimerEx_head
     ITimerEx.SetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'SetMode', ((1, 'dwMode'),)))
+    win32more.Web.MsHtml.ITimer
     return ITimerEx
 def _define_ITimerSink_head():
     class ITimerSink(win32more.System.Com.IUnknown_head):
@@ -22307,6 +23261,7 @@ def _define_ITimerSink_head():
 def _define_ITimerSink():
     ITimerSink = win32more.Web.MsHtml.ITimerSink_head
     ITimerSink.OnTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(3, 'OnTimer', ((1, 'vtimeAdvise'),)))
+    win32more.System.Com.IUnknown
     return ITimerSink
 def _define_IMapMIMEToCLSID_head():
     class IMapMIMEToCLSID(win32more.System.Com.IUnknown_head):
@@ -22317,6 +23272,7 @@ def _define_IMapMIMEToCLSID():
     IMapMIMEToCLSID.EnableDefaultMappings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'EnableDefaultMappings', ((1, 'bEnable'),)))
     IMapMIMEToCLSID.MapMIMEToCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(4, 'MapMIMEToCLSID', ((1, 'pszMIMEType'),(1, 'pCLSID'),)))
     IMapMIMEToCLSID.SetMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(Guid), use_last_error=False)(5, 'SetMapping', ((1, 'pszMIMEType'),(1, 'dwMapMode'),(1, 'clsid'),)))
+    win32more.System.Com.IUnknown
     return IMapMIMEToCLSID
 def _define_IImageDecodeFilter_head():
     class IImageDecodeFilter(win32more.System.Com.IUnknown_head):
@@ -22327,6 +23283,7 @@ def _define_IImageDecodeFilter():
     IImageDecodeFilter.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IImageDecodeEventSink_head, use_last_error=False)(3, 'Initialize', ((1, 'pEventSink'),)))
     IImageDecodeFilter.Process = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(4, 'Process', ((1, 'pStream'),)))
     IImageDecodeFilter.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(5, 'Terminate', ((1, 'hrStatus'),)))
+    win32more.System.Com.IUnknown
     return IImageDecodeFilter
 def _define_IImageDecodeEventSink_head():
     class IImageDecodeEventSink(win32more.System.Com.IUnknown_head):
@@ -22340,6 +23297,7 @@ def _define_IImageDecodeEventSink():
     IImageDecodeEventSink.OnDecodeComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(6, 'OnDecodeComplete', ((1, 'hrStatus'),)))
     IImageDecodeEventSink.OnPalette = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'OnPalette', ()))
     IImageDecodeEventSink.OnProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),win32more.Foundation.BOOL, use_last_error=False)(8, 'OnProgress', ((1, 'pBounds'),(1, 'bComplete'),)))
+    win32more.System.Com.IUnknown
     return IImageDecodeEventSink
 def _define_IImageDecodeEventSink2_head():
     class IImageDecodeEventSink2(win32more.Web.MsHtml.IImageDecodeEventSink_head):
@@ -22348,6 +23306,7 @@ def _define_IImageDecodeEventSink2_head():
 def _define_IImageDecodeEventSink2():
     IImageDecodeEventSink2 = win32more.Web.MsHtml.IImageDecodeEventSink2_head
     IImageDecodeEventSink2.IsAlphaPremultRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'IsAlphaPremultRequired', ((1, 'pfPremultAlpha'),)))
+    win32more.Web.MsHtml.IImageDecodeEventSink
     return IImageDecodeEventSink2
 CoDitherToRGB8 = Guid('a860ce50-3910-11d0-86fc-00a0c913f750')
 CoSniffStream = Guid('6a01fda0-30df-11d0-b724-00aa006c1a01')
@@ -22360,6 +23319,7 @@ def _define_ISniffStream():
     ISniffStream = win32more.Web.MsHtml.ISniffStream_head
     ISniffStream.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(3, 'Init', ((1, 'pStream'),)))
     ISniffStream.Peek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(4, 'Peek', ((1, 'pBuffer'),(1, 'nBytes'),(1, 'pnBytesRead'),)))
+    win32more.System.Com.IUnknown
     return ISniffStream
 def _define_IDithererImpl_head():
     class IDithererImpl(win32more.System.Com.IUnknown_head):
@@ -22369,6 +23329,7 @@ def _define_IDithererImpl():
     IDithererImpl = win32more.Web.MsHtml.IDithererImpl_head
     IDithererImpl.SetDestColorTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Gdi.RGBQUAD_head), use_last_error=False)(3, 'SetDestColorTable', ((1, 'nColors'),(1, 'prgbColors'),)))
     IDithererImpl.SetEventSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IImageDecodeEventSink_head, use_last_error=False)(4, 'SetEventSink', ((1, 'pEventSink'),)))
+    win32more.System.Com.IUnknown
     return IDithererImpl
 def _define_RatingEnable():
     try:

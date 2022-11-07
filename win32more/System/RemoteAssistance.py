@@ -46,6 +46,7 @@ def _define_IRendezvousSession():
     IRendezvousSession.get_Flags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'get_Flags', ((1, 'pFlags'),)))
     IRendezvousSession.SendContextData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(6, 'SendContextData', ((1, 'bstrData'),)))
     IRendezvousSession.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'Terminate', ((1, 'hr'),(1, 'bstrAppData'),)))
+    win32more.System.Com.IUnknown
     return IRendezvousSession
 def _define_DRendezvousSessionEvents_head():
     class DRendezvousSessionEvents(win32more.System.Com.IDispatch_head):
@@ -53,6 +54,7 @@ def _define_DRendezvousSessionEvents_head():
     return DRendezvousSessionEvents
 def _define_DRendezvousSessionEvents():
     DRendezvousSessionEvents = win32more.System.RemoteAssistance.DRendezvousSessionEvents_head
+    win32more.System.Com.IDispatch
     return DRendezvousSessionEvents
 def _define_IRendezvousApplication_head():
     class IRendezvousApplication(win32more.System.Com.IUnknown_head):
@@ -61,6 +63,7 @@ def _define_IRendezvousApplication_head():
 def _define_IRendezvousApplication():
     IRendezvousApplication = win32more.System.RemoteAssistance.IRendezvousApplication_head
     IRendezvousApplication.SetRendezvousSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetRendezvousSession', ((1, 'pRendezvousSession'),)))
+    win32more.System.Com.IUnknown
     return IRendezvousApplication
 __all__ = [
     "DISPID_EVENT_ON_STATE_CHANGED",

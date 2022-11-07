@@ -86,6 +86,7 @@ def _define_IMediaBuffer():
     IMediaBuffer.SetLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'SetLength', ((1, 'cbLength'),)))
     IMediaBuffer.GetMaxLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetMaxLength', ((1, 'pcbMaxLength'),)))
     IMediaBuffer.GetBufferAndLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(5, 'GetBufferAndLength', ((1, 'ppBuffer'),(1, 'pcbLength'),)))
+    win32more.System.Com.IUnknown
     return IMediaBuffer
 def _define_DMO_OUTPUT_DATA_BUFFER_head():
     class DMO_OUTPUT_DATA_BUFFER(Structure):
@@ -127,6 +128,7 @@ def _define_IMediaObject():
     IMediaObject.ProcessInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.DxMediaObjects.IMediaBuffer_head,UInt32,Int64,Int64, use_last_error=False)(21, 'ProcessInput', ((1, 'dwInputStreamIndex'),(1, 'pBuffer'),(1, 'dwFlags'),(1, 'rtTimestamp'),(1, 'rtTimelength'),)))
     IMediaObject.ProcessOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.DxMediaObjects.DMO_OUTPUT_DATA_BUFFER),POINTER(UInt32), use_last_error=False)(22, 'ProcessOutput', ((1, 'dwFlags'),(1, 'cOutputBufferCount'),(1, 'pOutputBuffers'),(1, 'pdwStatus'),)))
     IMediaObject.Lock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(23, 'Lock', ((1, 'bLock'),)))
+    win32more.System.Com.IUnknown
     return IMediaObject
 def _define_IEnumDMO_head():
     class IEnumDMO(win32more.System.Com.IUnknown_head):
@@ -138,6 +140,7 @@ def _define_IEnumDMO():
     IEnumDMO.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cItemsToSkip'),)))
     IEnumDMO.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDMO.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DxMediaObjects.IEnumDMO_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDMO
 _DMO_INPLACE_PROCESS_FLAGS = Int32
 DMO_INPLACE_NORMAL = 0
@@ -151,6 +154,7 @@ def _define_IMediaObjectInPlace():
     IMediaObjectInPlace.Process = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,Int64,UInt32, use_last_error=False)(3, 'Process', ((1, 'ulSize'),(1, 'pData'),(1, 'refTimeStart'),(1, 'dwFlags'),)))
     IMediaObjectInPlace.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DxMediaObjects.IMediaObjectInPlace_head), use_last_error=False)(4, 'Clone', ((1, 'ppMediaObject'),)))
     IMediaObjectInPlace.GetLatency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int64), use_last_error=False)(5, 'GetLatency', ((1, 'pLatencyTime'),)))
+    win32more.System.Com.IUnknown
     return IMediaObjectInPlace
 _DMO_QUALITY_STATUS_FLAGS = Int32
 DMO_QUALITY_STATUS_ENABLED = 1
@@ -163,6 +167,7 @@ def _define_IDMOQualityControl():
     IDMOQualityControl.SetNow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(3, 'SetNow', ((1, 'rtNow'),)))
     IDMOQualityControl.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetStatus', ((1, 'dwFlags'),)))
     IDMOQualityControl.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetStatus', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IUnknown
     return IDMOQualityControl
 _DMO_VIDEO_OUTPUT_STREAM_FLAGS = Int32
 DMO_VOSF_NEEDS_PREVIOUS_SAMPLE = 1
@@ -176,6 +181,7 @@ def _define_IDMOVideoOutputOptimizations():
     IDMOVideoOutputOptimizations.SetOperationMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(4, 'SetOperationMode', ((1, 'ulOutputStreamIndex'),(1, 'dwEnabledFeatures'),)))
     IDMOVideoOutputOptimizations.GetCurrentOperationMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(5, 'GetCurrentOperationMode', ((1, 'ulOutputStreamIndex'),(1, 'pdwEnabledFeatures'),)))
     IDMOVideoOutputOptimizations.GetCurrentSampleRequirements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(6, 'GetCurrentSampleRequirements', ((1, 'ulOutputStreamIndex'),(1, 'pdwRequestedFeatures'),)))
+    win32more.System.Com.IUnknown
     return IDMOVideoOutputOptimizations
 def _define_DMO_PARTIAL_MEDIATYPE_head():
     class DMO_PARTIAL_MEDIATYPE(Structure):

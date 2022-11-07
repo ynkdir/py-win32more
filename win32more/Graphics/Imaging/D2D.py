@@ -25,6 +25,7 @@ def _define_IWICImageEncoder():
     IWICImageEncoder.WriteFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Image_head,win32more.Graphics.Imaging.IWICBitmapFrameEncode_head,POINTER(win32more.Graphics.Imaging.WICImageParameters_head), use_last_error=False)(3, 'WriteFrame', ((1, 'pImage'),(1, 'pFrameEncode'),(1, 'pImageParameters'),)))
     IWICImageEncoder.WriteFrameThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Image_head,win32more.Graphics.Imaging.IWICBitmapFrameEncode_head,POINTER(win32more.Graphics.Imaging.WICImageParameters_head), use_last_error=False)(4, 'WriteFrameThumbnail', ((1, 'pImage'),(1, 'pFrameEncode'),(1, 'pImageParameters'),)))
     IWICImageEncoder.WriteThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Image_head,win32more.Graphics.Imaging.IWICBitmapEncoder_head,POINTER(win32more.Graphics.Imaging.WICImageParameters_head), use_last_error=False)(5, 'WriteThumbnail', ((1, 'pImage'),(1, 'pEncoder'),(1, 'pImageParameters'),)))
+    win32more.System.Com.IUnknown
     return IWICImageEncoder
 def _define_IWICImagingFactory2_head():
     class IWICImagingFactory2(win32more.Graphics.Imaging.IWICImagingFactory_head):
@@ -33,6 +34,7 @@ def _define_IWICImagingFactory2_head():
 def _define_IWICImagingFactory2():
     IWICImagingFactory2 = win32more.Graphics.Imaging.D2D.IWICImagingFactory2_head
     IWICImagingFactory2.CreateImageEncoder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Device_head,POINTER(win32more.Graphics.Imaging.D2D.IWICImageEncoder_head), use_last_error=False)(28, 'CreateImageEncoder', ((1, 'pD2DDevice'),(1, 'ppWICImageEncoder'),)))
+    win32more.Graphics.Imaging.IWICImagingFactory
     return IWICImagingFactory2
 __all__ = [
     "IWICImageEncoder",

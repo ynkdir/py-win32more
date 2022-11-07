@@ -2409,6 +2409,7 @@ def _define_IDiskQuotaUser():
     IDiskQuotaUser.SetQuotaLimit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,win32more.Foundation.BOOL, use_last_error=False)(15, 'SetQuotaLimit', ((1, 'llLimit'),(1, 'fWriteThrough'),)))
     IDiskQuotaUser.Invalidate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Invalidate', ()))
     IDiskQuotaUser.GetAccountStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(17, 'GetAccountStatus', ((1, 'pdwStatus'),)))
+    win32more.System.Com.IUnknown
     return IDiskQuotaUser
 def _define_IEnumDiskQuotaUsers_head():
     class IEnumDiskQuotaUsers(win32more.System.Com.IUnknown_head):
@@ -2420,6 +2421,7 @@ def _define_IEnumDiskQuotaUsers():
     IEnumDiskQuotaUsers.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cUsers'),)))
     IEnumDiskQuotaUsers.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDiskQuotaUsers.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.FileSystem.IEnumDiskQuotaUsers_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDiskQuotaUsers
 def _define_IDiskQuotaUserBatch_head():
     class IDiskQuotaUserBatch(win32more.System.Com.IUnknown_head):
@@ -2431,6 +2433,7 @@ def _define_IDiskQuotaUserBatch():
     IDiskQuotaUserBatch.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileSystem.IDiskQuotaUser_head, use_last_error=False)(4, 'Remove', ((1, 'pUser'),)))
     IDiskQuotaUserBatch.RemoveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'RemoveAll', ()))
     IDiskQuotaUserBatch.FlushToDisk = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'FlushToDisk', ()))
+    win32more.System.Com.IUnknown
     return IDiskQuotaUserBatch
 def _define_IDiskQuotaControl_head():
     class IDiskQuotaControl(win32more.System.Com.IConnectionPointContainer_head):
@@ -2459,6 +2462,7 @@ def _define_IDiskQuotaControl():
     IDiskQuotaControl.InvalidateSidNameCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(23, 'InvalidateSidNameCache', ()))
     IDiskQuotaControl.GiveUserNameResolutionPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileSystem.IDiskQuotaUser_head, use_last_error=False)(24, 'GiveUserNameResolutionPriority', ((1, 'pUser'),)))
     IDiskQuotaControl.ShutdownNameResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'ShutdownNameResolution', ()))
+    win32more.System.Com.IConnectionPointContainer
     return IDiskQuotaControl
 def _define_IDiskQuotaEvents_head():
     class IDiskQuotaEvents(win32more.System.Com.IUnknown_head):
@@ -2467,6 +2471,7 @@ def _define_IDiskQuotaEvents_head():
 def _define_IDiskQuotaEvents():
     IDiskQuotaEvents = win32more.Storage.FileSystem.IDiskQuotaEvents_head
     IDiskQuotaEvents.OnUserNameChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.FileSystem.IDiskQuotaUser_head, use_last_error=False)(3, 'OnUserNameChanged', ((1, 'pUser'),)))
+    win32more.System.Com.IUnknown
     return IDiskQuotaEvents
 def _define_EFS_CERTIFICATE_BLOB_head():
     class EFS_CERTIFICATE_BLOB(Structure):

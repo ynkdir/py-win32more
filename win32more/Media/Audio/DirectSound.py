@@ -567,6 +567,7 @@ def _define_IDirectSound():
     IDirectSound.GetSpeakerConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetSpeakerConfig', ((1, 'pdwSpeakerConfig'),)))
     IDirectSound.SetSpeakerConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'SetSpeakerConfig', ((1, 'dwSpeakerConfig'),)))
     IDirectSound.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(10, 'Initialize', ((1, 'pcGuidDevice'),)))
+    win32more.System.Com.IUnknown
     return IDirectSound
 def _define_IDirectSound8_head():
     class IDirectSound8(win32more.Media.Audio.DirectSound.IDirectSound_head):
@@ -575,6 +576,7 @@ def _define_IDirectSound8_head():
 def _define_IDirectSound8():
     IDirectSound8 = win32more.Media.Audio.DirectSound.IDirectSound8_head
     IDirectSound8.VerifyCertification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(11, 'VerifyCertification', ((1, 'pdwCertified'),)))
+    win32more.Media.Audio.DirectSound.IDirectSound
     return IDirectSound8
 def _define_IDirectSoundBuffer_head():
     class IDirectSoundBuffer(win32more.System.Com.IUnknown_head):
@@ -600,6 +602,7 @@ def _define_IDirectSoundBuffer():
     IDirectSoundBuffer.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'Stop', ()))
     IDirectSoundBuffer.Unlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,c_void_p,UInt32, use_last_error=False)(19, 'Unlock', ((1, 'pvAudioPtr1'),(1, 'dwAudioBytes1'),(1, 'pvAudioPtr2'),(1, 'dwAudioBytes2'),)))
     IDirectSoundBuffer.Restore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'Restore', ()))
+    win32more.System.Com.IUnknown
     return IDirectSoundBuffer
 def _define_IDirectSoundBuffer8_head():
     class IDirectSoundBuffer8(win32more.Media.Audio.DirectSound.IDirectSoundBuffer_head):
@@ -610,6 +613,7 @@ def _define_IDirectSoundBuffer8():
     IDirectSoundBuffer8.SetFX = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.DirectSound.DSEFFECTDESC),POINTER(UInt32), use_last_error=False)(21, 'SetFX', ((1, 'dwEffectsCount'),(1, 'pDSFXDesc'),(1, 'pdwResultCodes'),)))
     IDirectSoundBuffer8.AcquireResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(22, 'AcquireResources', ((1, 'dwFlags'),(1, 'dwEffectsCount'),(1, 'pdwResultCodes'),)))
     IDirectSoundBuffer8.GetObjectInPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(23, 'GetObjectInPath', ((1, 'rguidObject'),(1, 'dwIndex'),(1, 'rguidInterface'),(1, 'ppObject'),)))
+    win32more.Media.Audio.DirectSound.IDirectSoundBuffer
     return IDirectSoundBuffer8
 def _define_IDirectSound3DListener_head():
     class IDirectSound3DListener(win32more.System.Com.IUnknown_head):
@@ -632,6 +636,7 @@ def _define_IDirectSound3DListener():
     IDirectSound3DListener.SetRolloffFactor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,UInt32, use_last_error=False)(15, 'SetRolloffFactor', ((1, 'flRolloffFactor'),(1, 'dwApply'),)))
     IDirectSound3DListener.SetVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,UInt32, use_last_error=False)(16, 'SetVelocity', ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'dwApply'),)))
     IDirectSound3DListener.CommitDeferredSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'CommitDeferredSettings', ()))
+    win32more.System.Com.IUnknown
     return IDirectSound3DListener
 def _define_IDirectSound3DBuffer_head():
     class IDirectSound3DBuffer(win32more.System.Com.IUnknown_head):
@@ -657,6 +662,7 @@ def _define_IDirectSound3DBuffer():
     IDirectSound3DBuffer.SetMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(18, 'SetMode', ((1, 'dwMode'),(1, 'dwApply'),)))
     IDirectSound3DBuffer.SetPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,UInt32, use_last_error=False)(19, 'SetPosition', ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'dwApply'),)))
     IDirectSound3DBuffer.SetVelocity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,UInt32, use_last_error=False)(20, 'SetVelocity', ((1, 'x'),(1, 'y'),(1, 'z'),(1, 'dwApply'),)))
+    win32more.System.Com.IUnknown
     return IDirectSound3DBuffer
 def _define_IDirectSoundCapture_head():
     class IDirectSoundCapture(win32more.System.Com.IUnknown_head):
@@ -667,6 +673,7 @@ def _define_IDirectSoundCapture():
     IDirectSoundCapture.CreateCaptureBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSCBUFFERDESC_head),POINTER(win32more.Media.Audio.DirectSound.IDirectSoundCaptureBuffer_head),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'CreateCaptureBuffer', ((1, 'pcDSCBufferDesc'),(1, 'ppDSCBuffer'),(1, 'pUnkOuter'),)))
     IDirectSoundCapture.GetCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSCCAPS_head), use_last_error=False)(4, 'GetCaps', ((1, 'pDSCCaps'),)))
     IDirectSoundCapture.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'Initialize', ((1, 'pcGuidDevice'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundCapture
 def _define_IDirectSoundCaptureBuffer_head():
     class IDirectSoundCaptureBuffer(win32more.System.Com.IUnknown_head):
@@ -683,6 +690,7 @@ def _define_IDirectSoundCaptureBuffer():
     IDirectSoundCaptureBuffer.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'Start', ((1, 'dwFlags'),)))
     IDirectSoundCaptureBuffer.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Stop', ()))
     IDirectSoundCaptureBuffer.Unlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,c_void_p,UInt32, use_last_error=False)(11, 'Unlock', ((1, 'pvAudioPtr1'),(1, 'dwAudioBytes1'),(1, 'pvAudioPtr2'),(1, 'dwAudioBytes2'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundCaptureBuffer
 def _define_IDirectSoundCaptureBuffer8_head():
     class IDirectSoundCaptureBuffer8(win32more.Media.Audio.DirectSound.IDirectSoundCaptureBuffer_head):
@@ -692,6 +700,7 @@ def _define_IDirectSoundCaptureBuffer8():
     IDirectSoundCaptureBuffer8 = win32more.Media.Audio.DirectSound.IDirectSoundCaptureBuffer8_head
     IDirectSoundCaptureBuffer8.GetObjectInPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(12, 'GetObjectInPath', ((1, 'rguidObject'),(1, 'dwIndex'),(1, 'rguidInterface'),(1, 'ppObject'),)))
     IDirectSoundCaptureBuffer8.GetFXStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(13, 'GetFXStatus', ((1, 'dwEffectsCount'),(1, 'pdwFXStatus'),)))
+    win32more.Media.Audio.DirectSound.IDirectSoundCaptureBuffer
     return IDirectSoundCaptureBuffer8
 def _define_IDirectSoundNotify_head():
     class IDirectSoundNotify(win32more.System.Com.IUnknown_head):
@@ -700,6 +709,7 @@ def _define_IDirectSoundNotify_head():
 def _define_IDirectSoundNotify():
     IDirectSoundNotify = win32more.Media.Audio.DirectSound.IDirectSoundNotify_head
     IDirectSoundNotify.SetNotificationPositions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.DirectSound.DSBPOSITIONNOTIFY), use_last_error=False)(3, 'SetNotificationPositions', ((1, 'dwPositionNotifies'),(1, 'pcPositionNotifies'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundNotify
 def _define_DSFXGargle_head():
     class DSFXGargle(Structure):
@@ -720,6 +730,7 @@ def _define_IDirectSoundFXGargle():
     IDirectSoundFXGargle = win32more.Media.Audio.DirectSound.IDirectSoundFXGargle_head
     IDirectSoundFXGargle.SetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXGargle_head), use_last_error=False)(3, 'SetAllParameters', ((1, 'pcDsFxGargle'),)))
     IDirectSoundFXGargle.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXGargle_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDsFxGargle'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFXGargle
 def _define_DSFXChorus_head():
     class DSFXChorus(Structure):
@@ -745,6 +756,7 @@ def _define_IDirectSoundFXChorus():
     IDirectSoundFXChorus = win32more.Media.Audio.DirectSound.IDirectSoundFXChorus_head
     IDirectSoundFXChorus.SetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXChorus_head), use_last_error=False)(3, 'SetAllParameters', ((1, 'pcDsFxChorus'),)))
     IDirectSoundFXChorus.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXChorus_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDsFxChorus'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFXChorus
 def _define_DSFXFlanger_head():
     class DSFXFlanger(Structure):
@@ -770,6 +782,7 @@ def _define_IDirectSoundFXFlanger():
     IDirectSoundFXFlanger = win32more.Media.Audio.DirectSound.IDirectSoundFXFlanger_head
     IDirectSoundFXFlanger.SetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXFlanger_head), use_last_error=False)(3, 'SetAllParameters', ((1, 'pcDsFxFlanger'),)))
     IDirectSoundFXFlanger.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXFlanger_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDsFxFlanger'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFXFlanger
 def _define_DSFXEcho_head():
     class DSFXEcho(Structure):
@@ -793,6 +806,7 @@ def _define_IDirectSoundFXEcho():
     IDirectSoundFXEcho = win32more.Media.Audio.DirectSound.IDirectSoundFXEcho_head
     IDirectSoundFXEcho.SetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXEcho_head), use_last_error=False)(3, 'SetAllParameters', ((1, 'pcDsFxEcho'),)))
     IDirectSoundFXEcho.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXEcho_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDsFxEcho'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFXEcho
 def _define_DSFXDistortion_head():
     class DSFXDistortion(Structure):
@@ -816,6 +830,7 @@ def _define_IDirectSoundFXDistortion():
     IDirectSoundFXDistortion = win32more.Media.Audio.DirectSound.IDirectSoundFXDistortion_head
     IDirectSoundFXDistortion.SetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXDistortion_head), use_last_error=False)(3, 'SetAllParameters', ((1, 'pcDsFxDistortion'),)))
     IDirectSoundFXDistortion.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXDistortion_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDsFxDistortion'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFXDistortion
 def _define_DSFXCompressor_head():
     class DSFXCompressor(Structure):
@@ -840,6 +855,7 @@ def _define_IDirectSoundFXCompressor():
     IDirectSoundFXCompressor = win32more.Media.Audio.DirectSound.IDirectSoundFXCompressor_head
     IDirectSoundFXCompressor.SetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXCompressor_head), use_last_error=False)(3, 'SetAllParameters', ((1, 'pcDsFxCompressor'),)))
     IDirectSoundFXCompressor.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXCompressor_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDsFxCompressor'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFXCompressor
 def _define_DSFXParamEq_head():
     class DSFXParamEq(Structure):
@@ -861,6 +877,7 @@ def _define_IDirectSoundFXParamEq():
     IDirectSoundFXParamEq = win32more.Media.Audio.DirectSound.IDirectSoundFXParamEq_head
     IDirectSoundFXParamEq.SetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXParamEq_head), use_last_error=False)(3, 'SetAllParameters', ((1, 'pcDsFxParamEq'),)))
     IDirectSoundFXParamEq.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXParamEq_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDsFxParamEq'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFXParamEq
 def _define_DSFXI3DL2Reverb_head():
     class DSFXI3DL2Reverb(Structure):
@@ -895,6 +912,7 @@ def _define_IDirectSoundFXI3DL2Reverb():
     IDirectSoundFXI3DL2Reverb.GetPreset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetPreset', ((1, 'pdwPreset'),)))
     IDirectSoundFXI3DL2Reverb.SetQuality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'SetQuality', ((1, 'lQuality'),)))
     IDirectSoundFXI3DL2Reverb.GetQuality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'GetQuality', ((1, 'plQuality'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFXI3DL2Reverb
 def _define_DSFXWavesReverb_head():
     class DSFXWavesReverb(Structure):
@@ -917,6 +935,7 @@ def _define_IDirectSoundFXWavesReverb():
     IDirectSoundFXWavesReverb = win32more.Media.Audio.DirectSound.IDirectSoundFXWavesReverb_head
     IDirectSoundFXWavesReverb.SetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXWavesReverb_head), use_last_error=False)(3, 'SetAllParameters', ((1, 'pcDsFxWavesReverb'),)))
     IDirectSoundFXWavesReverb.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSFXWavesReverb_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDsFxWavesReverb'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFXWavesReverb
 def _define_DSCFXAec_head():
     class DSCFXAec(Structure):
@@ -940,6 +959,7 @@ def _define_IDirectSoundCaptureFXAec():
     IDirectSoundCaptureFXAec.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSCFXAec_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDscFxAec'),)))
     IDirectSoundCaptureFXAec.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetStatus', ((1, 'pdwStatus'),)))
     IDirectSoundCaptureFXAec.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IDirectSoundCaptureFXAec
 def _define_DSCFXNoiseSuppress_head():
     class DSCFXNoiseSuppress(Structure):
@@ -960,6 +980,7 @@ def _define_IDirectSoundCaptureFXNoiseSuppress():
     IDirectSoundCaptureFXNoiseSuppress.SetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSCFXNoiseSuppress_head), use_last_error=False)(3, 'SetAllParameters', ((1, 'pcDscFxNoiseSuppress'),)))
     IDirectSoundCaptureFXNoiseSuppress.GetAllParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.DirectSound.DSCFXNoiseSuppress_head), use_last_error=False)(4, 'GetAllParameters', ((1, 'pDscFxNoiseSuppress'),)))
     IDirectSoundCaptureFXNoiseSuppress.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IDirectSoundCaptureFXNoiseSuppress
 def _define_IDirectSoundFullDuplex_head():
     class IDirectSoundFullDuplex(win32more.System.Com.IUnknown_head):
@@ -968,6 +989,7 @@ def _define_IDirectSoundFullDuplex_head():
 def _define_IDirectSoundFullDuplex():
     IDirectSoundFullDuplex = win32more.Media.Audio.DirectSound.IDirectSoundFullDuplex_head
     IDirectSoundFullDuplex.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.Media.Audio.DirectSound.DSCBUFFERDESC_head),POINTER(win32more.Media.Audio.DirectSound.DSBUFFERDESC_head),win32more.Foundation.HWND,UInt32,POINTER(win32more.Media.Audio.DirectSound.IDirectSoundCaptureBuffer8_head),POINTER(win32more.Media.Audio.DirectSound.IDirectSoundBuffer8_head), use_last_error=False)(3, 'Initialize', ((1, 'pCaptureGuid'),(1, 'pRenderGuid'),(1, 'lpDscBufferDesc'),(1, 'lpDsBufferDesc'),(1, 'hWnd'),(1, 'dwLevel'),(1, 'lplpDirectSoundCaptureBuffer8'),(1, 'lplpDirectSoundBuffer8'),)))
+    win32more.System.Com.IUnknown
     return IDirectSoundFullDuplex
 def _define_DirectSoundCreate():
     try:

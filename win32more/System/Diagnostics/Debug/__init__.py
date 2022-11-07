@@ -2422,6 +2422,7 @@ def _define_IDebugAdvanced():
     IDebugAdvanced = win32more.System.Diagnostics.Debug.IDebugAdvanced_head
     IDebugAdvanced.GetThreadContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32, use_last_error=False)(3, 'GetThreadContext', ((1, 'Context'),(1, 'ContextSize'),)))
     IDebugAdvanced.SetThreadContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32, use_last_error=False)(4, 'SetThreadContext', ((1, 'Context'),(1, 'ContextSize'),)))
+    win32more.System.Com.IUnknown
     return IDebugAdvanced
 def _define_DEBUG_READ_USER_MINIDUMP_STREAM_head():
     class DEBUG_READ_USER_MINIDUMP_STREAM(Structure):
@@ -2523,6 +2524,7 @@ def _define_IDebugAdvanced2():
     IDebugAdvanced2.FindSourceFileAndToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,win32more.Foundation.PSTR,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(7, 'FindSourceFileAndToken', ((1, 'StartElement'),(1, 'ModAddr'),(1, 'File'),(1, 'Flags'),(1, 'FileToken'),(1, 'FileTokenSize'),(1, 'FoundElement'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'FoundSize'),)))
     IDebugAdvanced2.GetSymbolInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(8, 'GetSymbolInformation', ((1, 'Which'),(1, 'Arg64'),(1, 'Arg32'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'InfoSize'),(1, 'StringBuffer'),(1, 'StringBufferSize'),(1, 'StringSize'),)))
     IDebugAdvanced2.GetSystemObjectInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(9, 'GetSystemObjectInformation', ((1, 'Which'),(1, 'Arg64'),(1, 'Arg32'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'InfoSize'),)))
+    win32more.System.Com.IUnknown
     return IDebugAdvanced2
 def _define_IDebugAdvanced3_head():
     class IDebugAdvanced3(win32more.System.Com.IUnknown_head):
@@ -2540,6 +2542,7 @@ def _define_IDebugAdvanced3():
     IDebugAdvanced3.GetSourceFileInformationWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(10, 'GetSourceFileInformationWide', ((1, 'Which'),(1, 'SourceFile'),(1, 'Arg64'),(1, 'Arg32'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'InfoSize'),)))
     IDebugAdvanced3.FindSourceFileAndTokenWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,win32more.Foundation.PWSTR,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(11, 'FindSourceFileAndTokenWide', ((1, 'StartElement'),(1, 'ModAddr'),(1, 'File'),(1, 'Flags'),(1, 'FileToken'),(1, 'FileTokenSize'),(1, 'FoundElement'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'FoundSize'),)))
     IDebugAdvanced3.GetSymbolInformationWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(12, 'GetSymbolInformationWide', ((1, 'Which'),(1, 'Arg64'),(1, 'Arg32'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'InfoSize'),(1, 'StringBuffer'),(1, 'StringBufferSize'),(1, 'StringSize'),)))
+    win32more.System.Com.IUnknown
     return IDebugAdvanced3
 def _define_SYMBOL_INFO_EX_head():
     class SYMBOL_INFO_EX(Structure):
@@ -2573,6 +2576,7 @@ def _define_IDebugAdvanced4():
     IDebugAdvanced4.FindSourceFileAndTokenWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,win32more.Foundation.PWSTR,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(11, 'FindSourceFileAndTokenWide', ((1, 'StartElement'),(1, 'ModAddr'),(1, 'File'),(1, 'Flags'),(1, 'FileToken'),(1, 'FileTokenSize'),(1, 'FoundElement'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'FoundSize'),)))
     IDebugAdvanced4.GetSymbolInformationWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(12, 'GetSymbolInformationWide', ((1, 'Which'),(1, 'Arg64'),(1, 'Arg32'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'InfoSize'),(1, 'StringBuffer'),(1, 'StringBufferSize'),(1, 'StringSize'),)))
     IDebugAdvanced4.GetSymbolInformationWideEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32),POINTER(Char),UInt32,POINTER(UInt32),POINTER(win32more.System.Diagnostics.Debug.SYMBOL_INFO_EX_head), use_last_error=False)(13, 'GetSymbolInformationWideEx', ((1, 'Which'),(1, 'Arg64'),(1, 'Arg32'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'InfoSize'),(1, 'StringBuffer'),(1, 'StringBufferSize'),(1, 'StringSize'),(1, 'pInfoEx'),)))
+    win32more.System.Com.IUnknown
     return IDebugAdvanced4
 def _define_DEBUG_BREAKPOINT_PARAMETERS_head():
     class DEBUG_BREAKPOINT_PARAMETERS(Structure):
@@ -2622,6 +2626,7 @@ def _define_IDebugBreakpoint():
     IDebugBreakpoint.GetOffsetExpression = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(21, 'GetOffsetExpression', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'ExpressionSize'),)))
     IDebugBreakpoint.SetOffsetExpression = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR, use_last_error=False)(22, 'SetOffsetExpression', ((1, 'Expression'),)))
     IDebugBreakpoint.GetParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.DEBUG_BREAKPOINT_PARAMETERS_head), use_last_error=False)(23, 'GetParameters', ((1, 'Params'),)))
+    win32more.System.Com.IUnknown
     return IDebugBreakpoint
 def _define_IDebugBreakpoint2_head():
     class IDebugBreakpoint2(win32more.System.Com.IUnknown_head):
@@ -2654,6 +2659,7 @@ def _define_IDebugBreakpoint2():
     IDebugBreakpoint2.SetCommandWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(25, 'SetCommandWide', ((1, 'Command'),)))
     IDebugBreakpoint2.GetOffsetExpressionWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(26, 'GetOffsetExpressionWide', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'ExpressionSize'),)))
     IDebugBreakpoint2.SetOffsetExpressionWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(27, 'SetOffsetExpressionWide', ((1, 'Expression'),)))
+    win32more.System.Com.IUnknown
     return IDebugBreakpoint2
 def _define_IDebugBreakpoint3_head():
     class IDebugBreakpoint3(win32more.System.Com.IUnknown_head):
@@ -2687,6 +2693,7 @@ def _define_IDebugBreakpoint3():
     IDebugBreakpoint3.GetOffsetExpressionWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(26, 'GetOffsetExpressionWide', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'ExpressionSize'),)))
     IDebugBreakpoint3.SetOffsetExpressionWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(27, 'SetOffsetExpressionWide', ((1, 'Expression'),)))
     IDebugBreakpoint3.GetGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(28, 'GetGuid', ((1, 'Guid'),)))
+    win32more.System.Com.IUnknown
     return IDebugBreakpoint3
 def _define_DEBUG_CREATE_PROCESS_OPTIONS_head():
     class DEBUG_CREATE_PROCESS_OPTIONS(Structure):
@@ -2763,6 +2770,7 @@ def _define_IDebugClient():
     IDebugClient.GetEventCallbacks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugEventCallbacks_head), use_last_error=False)(45, 'GetEventCallbacks', ((1, 'Callbacks'),)))
     IDebugClient.SetEventCallbacks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugEventCallbacks_head, use_last_error=False)(46, 'SetEventCallbacks', ((1, 'Callbacks'),)))
     IDebugClient.FlushCallbacks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(47, 'FlushCallbacks', ()))
+    win32more.System.Com.IUnknown
     return IDebugClient
 def _define_IDebugClient2_head():
     class IDebugClient2(win32more.System.Com.IUnknown_head):
@@ -2823,6 +2831,7 @@ def _define_IDebugClient2():
     IDebugClient2.TerminateCurrentProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(53, 'TerminateCurrentProcess', ()))
     IDebugClient2.DetachCurrentProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(54, 'DetachCurrentProcess', ()))
     IDebugClient2.AbandonCurrentProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(55, 'AbandonCurrentProcess', ()))
+    win32more.System.Com.IUnknown
     return IDebugClient2
 def _define_IDebugClient3_head():
     class IDebugClient3(win32more.System.Com.IUnknown_head):
@@ -2887,6 +2896,7 @@ def _define_IDebugClient3():
     IDebugClient3.GetRunningProcessDescriptionWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,UInt32,POINTER(Char),UInt32,POINTER(UInt32),POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(57, 'GetRunningProcessDescriptionWide', ((1, 'Server'),(1, 'SystemId'),(1, 'Flags'),(1, 'ExeName'),(1, 'ExeNameSize'),(1, 'ActualExeNameSize'),(1, 'Description'),(1, 'DescriptionSize'),(1, 'ActualDescriptionSize'),)))
     IDebugClient3.CreateProcessWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(58, 'CreateProcessWide', ((1, 'Server'),(1, 'CommandLine'),(1, 'CreateFlags'),)))
     IDebugClient3.CreateProcessAndAttachWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32, use_last_error=False)(59, 'CreateProcessAndAttachWide', ((1, 'Server'),(1, 'CommandLine'),(1, 'CreateFlags'),(1, 'ProcessId'),(1, 'AttachFlags'),)))
+    win32more.System.Com.IUnknown
     return IDebugClient3
 def _define_IDebugClient4_head():
     class IDebugClient4(win32more.System.Com.IUnknown_head):
@@ -2957,6 +2967,7 @@ def _define_IDebugClient4():
     IDebugClient4.GetNumberDumpFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(63, 'GetNumberDumpFiles', ((1, 'Number'),)))
     IDebugClient4.GetDumpFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,POINTER(UInt32),POINTER(UInt64),POINTER(UInt32), use_last_error=False)(64, 'GetDumpFile', ((1, 'Index'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'NameSize'),(1, 'Handle'),(1, 'Type'),)))
     IDebugClient4.GetDumpFileWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32,POINTER(UInt32),POINTER(UInt64),POINTER(UInt32), use_last_error=False)(65, 'GetDumpFileWide', ((1, 'Index'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'NameSize'),(1, 'Handle'),(1, 'Type'),)))
+    win32more.System.Com.IUnknown
     return IDebugClient4
 def _define_IDebugClient5_head():
     class IDebugClient5(win32more.System.Com.IUnknown_head):
@@ -3056,6 +3067,7 @@ def _define_IDebugClient5():
     IDebugClient5.SetQuitLockString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR, use_last_error=False)(92, 'SetQuitLockString', ((1, 'String'),)))
     IDebugClient5.GetQuitLockStringWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(93, 'GetQuitLockStringWide', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'StringSize'),)))
     IDebugClient5.SetQuitLockStringWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(94, 'SetQuitLockStringWide', ((1, 'String'),)))
+    win32more.System.Com.IUnknown
     return IDebugClient5
 def _define_IDebugClient6_head():
     class IDebugClient6(win32more.System.Com.IUnknown_head):
@@ -3156,6 +3168,7 @@ def _define_IDebugClient6():
     IDebugClient6.GetQuitLockStringWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(93, 'GetQuitLockStringWide', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'StringSize'),)))
     IDebugClient6.SetQuitLockStringWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(94, 'SetQuitLockStringWide', ((1, 'String'),)))
     IDebugClient6.SetEventContextCallbacks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugEventContextCallbacks_head, use_last_error=False)(95, 'SetEventContextCallbacks', ((1, 'Callbacks'),)))
+    win32more.System.Com.IUnknown
     return IDebugClient6
 def _define_IDebugClient7_head():
     class IDebugClient7(win32more.System.Com.IUnknown_head):
@@ -3257,6 +3270,7 @@ def _define_IDebugClient7():
     IDebugClient7.SetQuitLockStringWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(94, 'SetQuitLockStringWide', ((1, 'String'),)))
     IDebugClient7.SetEventContextCallbacks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugEventContextCallbacks_head, use_last_error=False)(95, 'SetEventContextCallbacks', ((1, 'Callbacks'),)))
     IDebugClient7.SetClientContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32, use_last_error=False)(96, 'SetClientContext', ((1, 'Context'),(1, 'ContextSize'),)))
+    win32more.System.Com.IUnknown
     return IDebugClient7
 def _define_IDebugClient8_head():
     class IDebugClient8(win32more.System.Com.IUnknown_head):
@@ -3359,6 +3373,7 @@ def _define_IDebugClient8():
     IDebugClient8.SetEventContextCallbacks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugEventContextCallbacks_head, use_last_error=False)(95, 'SetEventContextCallbacks', ((1, 'Callbacks'),)))
     IDebugClient8.SetClientContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32, use_last_error=False)(96, 'SetClientContext', ((1, 'Context'),(1, 'ContextSize'),)))
     IDebugClient8.OpenDumpFileWide2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt64,UInt32, use_last_error=False)(97, 'OpenDumpFileWide2', ((1, 'FileName'),(1, 'FileHandle'),(1, 'AlternateArch'),)))
+    win32more.System.Com.IUnknown
     return IDebugClient8
 def _define_IDebugPlmClient_head():
     class IDebugPlmClient(win32more.System.Com.IUnknown_head):
@@ -3367,6 +3382,7 @@ def _define_IDebugPlmClient_head():
 def _define_IDebugPlmClient():
     IDebugPlmClient = win32more.System.Diagnostics.Debug.IDebugPlmClient_head
     IDebugPlmClient.LaunchPlmPackageForDebugWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'LaunchPlmPackageForDebugWide', ((1, 'Server'),(1, 'Timeout'),(1, 'PackageFullName'),(1, 'AppName'),(1, 'Arguments'),(1, 'ProcessId'),(1, 'ThreadId'),)))
+    win32more.System.Com.IUnknown
     return IDebugPlmClient
 def _define_IDebugPlmClient2_head():
     class IDebugPlmClient2(win32more.System.Com.IUnknown_head):
@@ -3376,6 +3392,7 @@ def _define_IDebugPlmClient2():
     IDebugPlmClient2 = win32more.System.Diagnostics.Debug.IDebugPlmClient2_head
     IDebugPlmClient2.LaunchPlmPackageForDebugWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'LaunchPlmPackageForDebugWide', ((1, 'Server'),(1, 'Timeout'),(1, 'PackageFullName'),(1, 'AppName'),(1, 'Arguments'),(1, 'ProcessId'),(1, 'ThreadId'),)))
     IDebugPlmClient2.LaunchPlmBgTaskForDebugWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'LaunchPlmBgTaskForDebugWide', ((1, 'Server'),(1, 'Timeout'),(1, 'PackageFullName'),(1, 'BackgroundTaskId'),(1, 'ProcessId'),(1, 'ThreadId'),)))
+    win32more.System.Com.IUnknown
     return IDebugPlmClient2
 def _define_IDebugPlmClient3_head():
     class IDebugPlmClient3(win32more.System.Com.IUnknown_head):
@@ -3394,6 +3411,7 @@ def _define_IDebugPlmClient3():
     IDebugPlmClient3.TerminatePlmPackageWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.PWSTR, use_last_error=False)(11, 'TerminatePlmPackageWide', ((1, 'Server'),(1, 'PackageFullName'),)))
     IDebugPlmClient3.LaunchAndDebugPlmAppWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(12, 'LaunchAndDebugPlmAppWide', ((1, 'Server'),(1, 'PackageFullName'),(1, 'AppName'),(1, 'Arguments'),)))
     IDebugPlmClient3.ActivateAndDebugPlmBgTaskWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(13, 'ActivateAndDebugPlmBgTaskWide', ((1, 'Server'),(1, 'PackageFullName'),(1, 'BackgroundTaskId'),)))
+    win32more.System.Com.IUnknown
     return IDebugPlmClient3
 def _define_IDebugOutputStream_head():
     class IDebugOutputStream(win32more.System.Com.IUnknown_head):
@@ -3402,6 +3420,7 @@ def _define_IDebugOutputStream_head():
 def _define_IDebugOutputStream():
     IDebugOutputStream = win32more.System.Diagnostics.Debug.IDebugOutputStream_head
     IDebugOutputStream.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Write', ((1, 'psz'),)))
+    win32more.System.Com.IUnknown
     return IDebugOutputStream
 def _define_DEBUG_STACK_FRAME_head():
     class DEBUG_STACK_FRAME(Structure):
@@ -3757,6 +3776,7 @@ def _define_IDebugControl():
     IDebugControl.SetExceptionFilterSecondCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR, use_last_error=False)(92, 'SetExceptionFilterSecondCommand', ((1, 'Index'),(1, 'Command'),)))
     IDebugControl.WaitForEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(93, 'WaitForEvent', ((1, 'Flags'),(1, 'Timeout'),)))
     IDebugControl.GetLastEventInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),c_void_p,UInt32,POINTER(UInt32),POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(94, 'GetLastEventInformation', ((1, 'Type'),(1, 'ProcessId'),(1, 'ThreadId'),(1, 'ExtraInformation'),(1, 'ExtraInformationSize'),(1, 'ExtraInformationUsed'),(1, 'Description'),(1, 'DescriptionSize'),(1, 'DescriptionUsed'),)))
+    win32more.System.Com.IUnknown
     return IDebugControl
 def _define_IDebugControl2_head():
     class IDebugControl2(win32more.System.Com.IUnknown_head):
@@ -3864,6 +3884,7 @@ def _define_IDebugControl2():
     IDebugControl2.SetTextReplacement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.Foundation.PSTR, use_last_error=False)(100, 'SetTextReplacement', ((1, 'SrcText'),(1, 'DstText'),)))
     IDebugControl2.RemoveTextReplacements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(101, 'RemoveTextReplacements', ()))
     IDebugControl2.OutputTextReplacements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(102, 'OutputTextReplacements', ((1, 'OutputControl'),(1, 'Flags'),)))
+    win32more.System.Com.IUnknown
     return IDebugControl2
 def _define_IDebugControl3_head():
     class IDebugControl3(win32more.System.Com.IUnknown_head):
@@ -3984,6 +4005,7 @@ def _define_IDebugControl3():
     IDebugControl3.GetEventIndexDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.PSTR,UInt32,POINTER(UInt32), use_last_error=False)(113, 'GetEventIndexDescription', ((1, 'Index'),(1, 'Which'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'DescSize'),)))
     IDebugControl3.GetCurrentEventIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(114, 'GetCurrentEventIndex', ((1, 'Index'),)))
     IDebugControl3.SetNextEventIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(115, 'SetNextEventIndex', ((1, 'Relation'),(1, 'Value'),(1, 'NextIndex'),)))
+    win32more.System.Com.IUnknown
     return IDebugControl3
 def _define_IDebugControl4_head():
     class IDebugControl4(win32more.System.Com.IUnknown_head):
@@ -4157,6 +4179,7 @@ def _define_IDebugControl4():
     IDebugControl4.GetManagedStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(166, 'GetManagedStatus', ((1, 'Flags'),(1, 'WhichString'),(1, 'String'),(1, 'StringSize'),(1, 'StringNeeded'),)))
     IDebugControl4.GetManagedStatusWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(167, 'GetManagedStatusWide', ((1, 'Flags'),(1, 'WhichString'),(1, 'String'),(1, 'StringSize'),(1, 'StringNeeded'),)))
     IDebugControl4.ResetManagedStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(168, 'ResetManagedStatus', ((1, 'Flags'),)))
+    win32more.System.Com.IUnknown
     return IDebugControl4
 def _define_IDebugControl5_head():
     class IDebugControl5(win32more.System.Com.IUnknown_head):
@@ -4335,6 +4358,7 @@ def _define_IDebugControl5():
     IDebugControl5.GetContextStackTraceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(win32more.System.Diagnostics.Debug.DEBUG_STACK_FRAME_EX),UInt32,c_void_p,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(171, 'GetContextStackTraceEx', ((1, 'StartContext'),(1, 'StartContextSize'),(1, 'Frames'),(1, 'FramesSize'),(1, 'FrameContexts'),(1, 'FrameContextsSize'),(1, 'FrameContextsEntrySize'),(1, 'FramesFilled'),)))
     IDebugControl5.OutputContextStackTraceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Diagnostics.Debug.DEBUG_STACK_FRAME_EX),UInt32,c_void_p,UInt32,UInt32,UInt32, use_last_error=False)(172, 'OutputContextStackTraceEx', ((1, 'OutputControl'),(1, 'Frames'),(1, 'FramesSize'),(1, 'FrameContexts'),(1, 'FrameContextsSize'),(1, 'FrameContextsEntrySize'),(1, 'Flags'),)))
     IDebugControl5.GetBreakpointByGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Diagnostics.Debug.IDebugBreakpoint3_head), use_last_error=False)(173, 'GetBreakpointByGuid', ((1, 'Guid'),(1, 'Bp'),)))
+    win32more.System.Com.IUnknown
     return IDebugControl5
 def _define_IDebugControl6_head():
     class IDebugControl6(win32more.System.Com.IUnknown_head):
@@ -4515,6 +4539,7 @@ def _define_IDebugControl6():
     IDebugControl6.GetBreakpointByGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Diagnostics.Debug.IDebugBreakpoint3_head), use_last_error=False)(173, 'GetBreakpointByGuid', ((1, 'Guid'),(1, 'Bp'),)))
     IDebugControl6.GetExecutionStatusEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(174, 'GetExecutionStatusEx', ((1, 'Status'),)))
     IDebugControl6.GetSynchronizationStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(175, 'GetSynchronizationStatus', ((1, 'SendsAttempted'),(1, 'SecondsSinceLastResponse'),)))
+    win32more.System.Com.IUnknown
     return IDebugControl6
 def _define_IDebugControl7_head():
     class IDebugControl7(win32more.System.Com.IUnknown_head):
@@ -4696,6 +4721,7 @@ def _define_IDebugControl7():
     IDebugControl7.GetExecutionStatusEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(174, 'GetExecutionStatusEx', ((1, 'Status'),)))
     IDebugControl7.GetSynchronizationStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(175, 'GetSynchronizationStatus', ((1, 'SendsAttempted'),(1, 'SecondsSinceLastResponse'),)))
     IDebugControl7.GetDebuggeeType2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(176, 'GetDebuggeeType2', ((1, 'Flags'),(1, 'Class'),(1, 'Qualifier'),)))
+    win32more.System.Com.IUnknown
     return IDebugControl7
 def _define_DEBUG_PROCESSOR_IDENTIFICATION_ALPHA_head():
     class DEBUG_PROCESSOR_IDENTIFICATION_ALPHA(Structure):
@@ -4813,6 +4839,7 @@ def _define_IDebugDataSpaces():
     IDebugDataSpaces.CheckLowMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'CheckLowMemory', ()))
     IDebugDataSpaces.ReadDebuggerData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(21, 'ReadDebuggerData', ((1, 'Index'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'DataSize'),)))
     IDebugDataSpaces.ReadProcessorSystemData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(22, 'ReadProcessorSystemData', ((1, 'Processor'),(1, 'Index'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'DataSize'),)))
+    win32more.System.Com.IUnknown
     return IDebugDataSpaces
 def _define_DEBUG_HANDLE_DATA_BASIC_head():
     class DEBUG_HANDLE_DATA_BASIC(Structure):
@@ -4861,6 +4888,7 @@ def _define_IDebugDataSpaces2():
     IDebugDataSpaces2.FillVirtual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(26, 'FillVirtual', ((1, 'Start'),(1, 'Size'),(1, 'Pattern'),(1, 'PatternSize'),(1, 'Filled'),)))
     IDebugDataSpaces2.FillPhysical = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(27, 'FillPhysical', ((1, 'Start'),(1, 'Size'),(1, 'Pattern'),(1, 'PatternSize'),(1, 'Filled'),)))
     IDebugDataSpaces2.QueryVirtual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.System.Memory.MEMORY_BASIC_INFORMATION64_head), use_last_error=False)(28, 'QueryVirtual', ((1, 'Offset'),(1, 'Info'),)))
+    win32more.System.Com.IUnknown
     return IDebugDataSpaces2
 def _define_IDebugDataSpaces3_head():
     class IDebugDataSpaces3(win32more.System.Com.IUnknown_head):
@@ -4899,6 +4927,7 @@ def _define_IDebugDataSpaces3():
     IDebugDataSpaces3.StartEnumTagged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(31, 'StartEnumTagged', ((1, 'Handle'),)))
     IDebugDataSpaces3.GetNextTagged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(Guid),POINTER(UInt32), use_last_error=False)(32, 'GetNextTagged', ((1, 'Handle'),(1, 'Tag'),(1, 'Size'),)))
     IDebugDataSpaces3.EndEnumTagged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(33, 'EndEnumTagged', ((1, 'Handle'),)))
+    win32more.System.Com.IUnknown
     return IDebugDataSpaces3
 def _define_IDebugDataSpaces4_head():
     class IDebugDataSpaces4(win32more.System.Com.IUnknown_head):
@@ -4947,6 +4976,7 @@ def _define_IDebugDataSpaces4():
     IDebugDataSpaces4.ReadUnicodeStringVirtualWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(41, 'ReadUnicodeStringVirtualWide', ((1, 'Offset'),(1, 'MaxBytes'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'StringBytes'),)))
     IDebugDataSpaces4.ReadPhysical2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(42, 'ReadPhysical2', ((1, 'Offset'),(1, 'Flags'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'BytesRead'),)))
     IDebugDataSpaces4.WritePhysical2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(43, 'WritePhysical2', ((1, 'Offset'),(1, 'Flags'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'BytesWritten'),)))
+    win32more.System.Com.IUnknown
     return IDebugDataSpaces4
 def _define_IDebugEventCallbacks_head():
     class IDebugEventCallbacks(win32more.System.Com.IUnknown_head):
@@ -4968,6 +4998,7 @@ def _define_IDebugEventCallbacks():
     IDebugEventCallbacks.ChangeDebuggeeState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64, use_last_error=False)(14, 'ChangeDebuggeeState', ((1, 'Flags'),(1, 'Argument'),)))
     IDebugEventCallbacks.ChangeEngineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64, use_last_error=False)(15, 'ChangeEngineState', ((1, 'Flags'),(1, 'Argument'),)))
     IDebugEventCallbacks.ChangeSymbolState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64, use_last_error=False)(16, 'ChangeSymbolState', ((1, 'Flags'),(1, 'Argument'),)))
+    win32more.System.Com.IUnknown
     return IDebugEventCallbacks
 def _define_IDebugEventCallbacksWide_head():
     class IDebugEventCallbacksWide(win32more.System.Com.IUnknown_head):
@@ -4989,6 +5020,7 @@ def _define_IDebugEventCallbacksWide():
     IDebugEventCallbacksWide.ChangeDebuggeeState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64, use_last_error=False)(14, 'ChangeDebuggeeState', ((1, 'Flags'),(1, 'Argument'),)))
     IDebugEventCallbacksWide.ChangeEngineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64, use_last_error=False)(15, 'ChangeEngineState', ((1, 'Flags'),(1, 'Argument'),)))
     IDebugEventCallbacksWide.ChangeSymbolState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64, use_last_error=False)(16, 'ChangeSymbolState', ((1, 'Flags'),(1, 'Argument'),)))
+    win32more.System.Com.IUnknown
     return IDebugEventCallbacksWide
 def _define_DEBUG_EVENT_CONTEXT_head():
     class DEBUG_EVENT_CONTEXT(Structure):
@@ -5023,6 +5055,7 @@ def _define_IDebugEventContextCallbacks():
     IDebugEventContextCallbacks.ChangeDebuggeeState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,c_void_p,UInt32, use_last_error=False)(14, 'ChangeDebuggeeState', ((1, 'Flags'),(1, 'Argument'),(1, 'Context'),(1, 'ContextSize'),)))
     IDebugEventContextCallbacks.ChangeEngineState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,c_void_p,UInt32, use_last_error=False)(15, 'ChangeEngineState', ((1, 'Flags'),(1, 'Argument'),(1, 'Context'),(1, 'ContextSize'),)))
     IDebugEventContextCallbacks.ChangeSymbolState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64, use_last_error=False)(16, 'ChangeSymbolState', ((1, 'Flags'),(1, 'Argument'),)))
+    win32more.System.Com.IUnknown
     return IDebugEventContextCallbacks
 def _define_IDebugInputCallbacks_head():
     class IDebugInputCallbacks(win32more.System.Com.IUnknown_head):
@@ -5032,6 +5065,7 @@ def _define_IDebugInputCallbacks():
     IDebugInputCallbacks = win32more.System.Diagnostics.Debug.IDebugInputCallbacks_head
     IDebugInputCallbacks.StartInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'StartInput', ((1, 'BufferSize'),)))
     IDebugInputCallbacks.EndInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'EndInput', ()))
+    win32more.System.Com.IUnknown
     return IDebugInputCallbacks
 def _define_IDebugOutputCallbacks_head():
     class IDebugOutputCallbacks(win32more.System.Com.IUnknown_head):
@@ -5040,6 +5074,7 @@ def _define_IDebugOutputCallbacks_head():
 def _define_IDebugOutputCallbacks():
     IDebugOutputCallbacks = win32more.System.Diagnostics.Debug.IDebugOutputCallbacks_head
     IDebugOutputCallbacks.Output = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR, use_last_error=False)(3, 'Output', ((1, 'Mask'),(1, 'Text'),)))
+    win32more.System.Com.IUnknown
     return IDebugOutputCallbacks
 def _define_IDebugOutputCallbacksWide_head():
     class IDebugOutputCallbacksWide(win32more.System.Com.IUnknown_head):
@@ -5048,6 +5083,7 @@ def _define_IDebugOutputCallbacksWide_head():
 def _define_IDebugOutputCallbacksWide():
     IDebugOutputCallbacksWide = win32more.System.Diagnostics.Debug.IDebugOutputCallbacksWide_head
     IDebugOutputCallbacksWide.Output = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Output', ((1, 'Mask'),(1, 'Text'),)))
+    win32more.System.Com.IUnknown
     return IDebugOutputCallbacksWide
 def _define_IDebugOutputCallbacks2_head():
     class IDebugOutputCallbacks2(win32more.System.Com.IUnknown_head):
@@ -5058,6 +5094,7 @@ def _define_IDebugOutputCallbacks2():
     IDebugOutputCallbacks2.Output = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR, use_last_error=False)(3, 'Output', ((1, 'Mask'),(1, 'Text'),)))
     IDebugOutputCallbacks2.GetInterestMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetInterestMask', ((1, 'Mask'),)))
     IDebugOutputCallbacks2.Output2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt64,win32more.Foundation.PWSTR, use_last_error=False)(5, 'Output2', ((1, 'Which'),(1, 'Flags'),(1, 'Arg'),(1, 'Text'),)))
+    win32more.System.Com.IUnknown
     return IDebugOutputCallbacks2
 def _define_DEBUG_REGISTER_DESCRIPTION_head():
     class DEBUG_REGISTER_DESCRIPTION(Structure):
@@ -5092,6 +5129,7 @@ def _define_IDebugRegisters():
     IDebugRegisters.GetInstructionOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(11, 'GetInstructionOffset', ((1, 'Offset'),)))
     IDebugRegisters.GetStackOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(12, 'GetStackOffset', ((1, 'Offset'),)))
     IDebugRegisters.GetFrameOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(13, 'GetFrameOffset', ((1, 'Offset'),)))
+    win32more.System.Com.IUnknown
     return IDebugRegisters
 def _define_IDebugRegisters2_head():
     class IDebugRegisters2(win32more.System.Com.IUnknown_head):
@@ -5125,6 +5163,7 @@ def _define_IDebugRegisters2():
     IDebugRegisters2.GetInstructionOffset2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt64), use_last_error=False)(26, 'GetInstructionOffset2', ((1, 'Source'),(1, 'Offset'),)))
     IDebugRegisters2.GetStackOffset2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt64), use_last_error=False)(27, 'GetStackOffset2', ((1, 'Source'),(1, 'Offset'),)))
     IDebugRegisters2.GetFrameOffset2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt64), use_last_error=False)(28, 'GetFrameOffset2', ((1, 'Source'),(1, 'Offset'),)))
+    win32more.System.Com.IUnknown
     return IDebugRegisters2
 def _define_DEBUG_SYMBOL_PARAMETERS_head():
     class DEBUG_SYMBOL_PARAMETERS(Structure):
@@ -5157,6 +5196,7 @@ def _define_IDebugSymbolGroup():
     IDebugSymbolGroup.OutputSymbols = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(10, 'OutputSymbols', ((1, 'OutputControl'),(1, 'Flags'),(1, 'Start'),(1, 'Count'),)))
     IDebugSymbolGroup.WriteSymbol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR, use_last_error=False)(11, 'WriteSymbol', ((1, 'Index'),(1, 'Value'),)))
     IDebugSymbolGroup.OutputAsType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR, use_last_error=False)(12, 'OutputAsType', ((1, 'Index'),(1, 'Type'),)))
+    win32more.System.Com.IUnknown
     return IDebugSymbolGroup
 def _define_DEBUG_SYMBOL_ENTRY_head():
     class DEBUG_SYMBOL_ENTRY(Structure):
@@ -5208,6 +5248,7 @@ def _define_IDebugSymbolGroup2():
     IDebugSymbolGroup2.GetSymbolValueText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(23, 'GetSymbolValueText', ((1, 'Index'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'NameSize'),)))
     IDebugSymbolGroup2.GetSymbolValueTextWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(24, 'GetSymbolValueTextWide', ((1, 'Index'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'NameSize'),)))
     IDebugSymbolGroup2.GetSymbolEntryInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Diagnostics.Debug.DEBUG_SYMBOL_ENTRY_head), use_last_error=False)(25, 'GetSymbolEntryInformation', ((1, 'Index'),(1, 'Entry'),)))
+    win32more.System.Com.IUnknown
     return IDebugSymbolGroup2
 def _define_DEBUG_MODULE_PARAMETERS_head():
     class DEBUG_MODULE_PARAMETERS(Structure):
@@ -5285,6 +5326,7 @@ def _define_IDebugSymbols():
     IDebugSymbols.AppendSourcePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR, use_last_error=False)(49, 'AppendSourcePath', ((1, 'Addition'),)))
     IDebugSymbols.FindSourceFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PSTR,UInt32,POINTER(UInt32),POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(50, 'FindSourceFile', ((1, 'StartElement'),(1, 'File'),(1, 'Flags'),(1, 'FoundElement'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'FoundSize'),)))
     IDebugSymbols.GetSourceFileLineOffsets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,POINTER(UInt64),UInt32,POINTER(UInt32), use_last_error=False)(51, 'GetSourceFileLineOffsets', ((1, 'File'),(1, 'Buffer'),(1, 'BufferLines'),(1, 'FileLines'),)))
+    win32more.System.Com.IUnknown
     return IDebugSymbols
 def _define_IDebugSymbols2_head():
     class IDebugSymbols2(win32more.System.Com.IUnknown_head):
@@ -5349,6 +5391,7 @@ def _define_IDebugSymbols2():
     IDebugSymbols2.AddTypeOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(57, 'AddTypeOptions', ((1, 'Options'),)))
     IDebugSymbols2.RemoveTypeOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(58, 'RemoveTypeOptions', ((1, 'Options'),)))
     IDebugSymbols2.SetTypeOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(59, 'SetTypeOptions', ((1, 'Options'),)))
+    win32more.System.Com.IUnknown
     return IDebugSymbols2
 def _define_DEBUG_MODULE_AND_ID_head():
     class DEBUG_MODULE_AND_ID(Structure):
@@ -5511,6 +5554,7 @@ def _define_IDebugSymbols3():
     IDebugSymbols3.GetSourceEntryStringWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.DEBUG_SYMBOL_SOURCE_ENTRY_head),UInt32,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(123, 'GetSourceEntryStringWide', ((1, 'Entry'),(1, 'Which'),(1, 'Buffer'),(1, 'BufferSize'),(1, 'StringSize'),)))
     IDebugSymbols3.GetSourceEntryOffsetRegions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.DEBUG_SYMBOL_SOURCE_ENTRY_head),UInt32,POINTER(win32more.System.Diagnostics.Debug.DEBUG_OFFSET_REGION),UInt32,POINTER(UInt32), use_last_error=False)(124, 'GetSourceEntryOffsetRegions', ((1, 'Entry'),(1, 'Flags'),(1, 'Regions'),(1, 'RegionsCount'),(1, 'RegionsAvail'),)))
     IDebugSymbols3.GetSourceEntryBySourceEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.DEBUG_SYMBOL_SOURCE_ENTRY_head),UInt32,POINTER(win32more.System.Diagnostics.Debug.DEBUG_SYMBOL_SOURCE_ENTRY_head), use_last_error=False)(125, 'GetSourceEntryBySourceEntry', ((1, 'FromEntry'),(1, 'Flags'),(1, 'ToEntry'),)))
+    win32more.System.Com.IUnknown
     return IDebugSymbols3
 def _define_IDebugSymbols4_head():
     class IDebugSymbols4(win32more.System.Com.IUnknown_head):
@@ -5648,6 +5692,7 @@ def _define_IDebugSymbols4():
     IDebugSymbols4.GetLineByInlineContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,POINTER(UInt32),POINTER(Byte),UInt32,POINTER(UInt32),POINTER(UInt64), use_last_error=False)(130, 'GetLineByInlineContext', ((1, 'Offset'),(1, 'InlineContext'),(1, 'Line'),(1, 'FileBuffer'),(1, 'FileBufferSize'),(1, 'FileSize'),(1, 'Displacement'),)))
     IDebugSymbols4.GetLineByInlineContextWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,POINTER(UInt32),POINTER(Char),UInt32,POINTER(UInt32),POINTER(UInt64), use_last_error=False)(131, 'GetLineByInlineContextWide', ((1, 'Offset'),(1, 'InlineContext'),(1, 'Line'),(1, 'FileBuffer'),(1, 'FileBufferSize'),(1, 'FileSize'),(1, 'Displacement'),)))
     IDebugSymbols4.OutputSymbolByInlineContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt64,UInt32, use_last_error=False)(132, 'OutputSymbolByInlineContext', ((1, 'OutputControl'),(1, 'Flags'),(1, 'Offset'),(1, 'InlineContext'),)))
+    win32more.System.Com.IUnknown
     return IDebugSymbols4
 def _define_IDebugSymbols5_head():
     class IDebugSymbols5(win32more.System.Com.IUnknown_head):
@@ -5787,6 +5832,7 @@ def _define_IDebugSymbols5():
     IDebugSymbols5.OutputSymbolByInlineContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt64,UInt32, use_last_error=False)(132, 'OutputSymbolByInlineContext', ((1, 'OutputControl'),(1, 'Flags'),(1, 'Offset'),(1, 'InlineContext'),)))
     IDebugSymbols5.GetCurrentScopeFrameIndexEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(133, 'GetCurrentScopeFrameIndexEx', ((1, 'Flags'),(1, 'Index'),)))
     IDebugSymbols5.SetScopeFrameByIndexEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(134, 'SetScopeFrameByIndexEx', ((1, 'Flags'),(1, 'Index'),)))
+    win32more.System.Com.IUnknown
     return IDebugSymbols5
 def _define_IDebugSystemObjects_head():
     class IDebugSystemObjects(win32more.System.Com.IUnknown_head):
@@ -5823,6 +5869,7 @@ def _define_IDebugSystemObjects():
     IDebugSystemObjects.GetCurrentProcessHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(29, 'GetCurrentProcessHandle', ((1, 'Handle'),)))
     IDebugSystemObjects.GetProcessIdByHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(UInt32), use_last_error=False)(30, 'GetProcessIdByHandle', ((1, 'Handle'),(1, 'Id'),)))
     IDebugSystemObjects.GetCurrentProcessExecutableName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(31, 'GetCurrentProcessExecutableName', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'ExeSize'),)))
+    win32more.System.Com.IUnknown
     return IDebugSystemObjects
 def _define_IDebugSystemObjects2_head():
     class IDebugSystemObjects2(win32more.System.Com.IUnknown_head):
@@ -5864,6 +5911,7 @@ def _define_IDebugSystemObjects2():
     IDebugSystemObjects2.SetImplicitThreadDataOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(34, 'SetImplicitThreadDataOffset', ((1, 'Offset'),)))
     IDebugSystemObjects2.GetImplicitProcessDataOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(35, 'GetImplicitProcessDataOffset', ((1, 'Offset'),)))
     IDebugSystemObjects2.SetImplicitProcessDataOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(36, 'SetImplicitProcessDataOffset', ((1, 'Offset'),)))
+    win32more.System.Com.IUnknown
     return IDebugSystemObjects2
 def _define_IDebugSystemObjects3_head():
     class IDebugSystemObjects3(win32more.System.Com.IUnknown_head):
@@ -5914,6 +5962,7 @@ def _define_IDebugSystemObjects3():
     IDebugSystemObjects3.GetCurrentSystemServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(43, 'GetCurrentSystemServer', ((1, 'Server'),)))
     IDebugSystemObjects3.GetSystemByServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(UInt32), use_last_error=False)(44, 'GetSystemByServer', ((1, 'Server'),(1, 'Id'),)))
     IDebugSystemObjects3.GetCurrentSystemServerName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(45, 'GetCurrentSystemServerName', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'NameSize'),)))
+    win32more.System.Com.IUnknown
     return IDebugSystemObjects3
 def _define_IDebugSystemObjects4_head():
     class IDebugSystemObjects4(win32more.System.Com.IUnknown_head):
@@ -5966,6 +6015,7 @@ def _define_IDebugSystemObjects4():
     IDebugSystemObjects4.GetCurrentSystemServerName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(45, 'GetCurrentSystemServerName', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'NameSize'),)))
     IDebugSystemObjects4.GetCurrentProcessExecutableNameWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(46, 'GetCurrentProcessExecutableNameWide', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'ExeSize'),)))
     IDebugSystemObjects4.GetCurrentSystemServerNameWide = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(47, 'GetCurrentSystemServerNameWide', ((1, 'Buffer'),(1, 'BufferSize'),(1, 'NameSize'),)))
+    win32more.System.Com.IUnknown
     return IDebugSystemObjects4
 def _define_PDEBUG_EXTENSION_INITIALIZE():
     return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)
@@ -6001,6 +6051,7 @@ def _define_DebugBaseEventCallbacks_head():
     return DebugBaseEventCallbacks
 def _define_DebugBaseEventCallbacks():
     DebugBaseEventCallbacks = win32more.System.Diagnostics.Debug.DebugBaseEventCallbacks_head
+    win32more.System.Diagnostics.Debug.IDebugEventCallbacks
     return DebugBaseEventCallbacks
 def _define_DebugBaseEventCallbacksWide_head():
     class DebugBaseEventCallbacksWide(win32more.System.Diagnostics.Debug.IDebugEventCallbacksWide_head):
@@ -6008,6 +6059,7 @@ def _define_DebugBaseEventCallbacksWide_head():
     return DebugBaseEventCallbacksWide
 def _define_DebugBaseEventCallbacksWide():
     DebugBaseEventCallbacksWide = win32more.System.Diagnostics.Debug.DebugBaseEventCallbacksWide_head
+    win32more.System.Diagnostics.Debug.IDebugEventCallbacksWide
     return DebugBaseEventCallbacksWide
 def _define_Location_head():
     class Location(Structure):
@@ -6106,6 +6158,7 @@ def _define_IHostDataModelAccess_head():
 def _define_IHostDataModelAccess():
     IHostDataModelAccess = win32more.System.Diagnostics.Debug.IHostDataModelAccess_head
     IHostDataModelAccess.GetDataModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelManager_head),POINTER(win32more.System.Diagnostics.Debug.IDebugHost_head), use_last_error=False)(3, 'GetDataModel', ((1, 'manager'),(1, 'host'),)))
+    win32more.System.Com.IUnknown
     return IHostDataModelAccess
 def _define_IKeyStore_head():
     class IKeyStore(win32more.System.Com.IUnknown_head):
@@ -6118,6 +6171,7 @@ def _define_IKeyStore():
     IKeyStore.GetKeyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(5, 'GetKeyValue', ((1, 'key'),(1, 'object'),(1, 'metadata'),)))
     IKeyStore.SetKeyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IModelObject_head, use_last_error=False)(6, 'SetKeyValue', ((1, 'key'),(1, 'object'),)))
     IKeyStore.ClearKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'ClearKeys', ()))
+    win32more.System.Com.IUnknown
     return IKeyStore
 RawSearchFlags = Int32
 RawSearchFlags_RawSearchNone = 0
@@ -6161,6 +6215,7 @@ def _define_IModelObject():
     IModelObject.GetContextForDataModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(33, 'GetContextForDataModel', ((1, 'dataModelObject'),(1, 'context'),)))
     IModelObject.Compare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head), use_last_error=False)(34, 'Compare', ((1, 'other'),(1, 'ppResult'),)))
     IModelObject.IsEqualTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(Boolean), use_last_error=False)(35, 'IsEqualTo', ((1, 'other'),(1, 'equal'),)))
+    win32more.System.Com.IUnknown
     return IModelObject
 def _define_IDataModelManager_head():
     class IDataModelManager(win32more.System.Com.IUnknown_head):
@@ -6188,6 +6243,7 @@ def _define_IDataModelManager():
     IDataModelManager.RegisterNamedModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IModelObject_head, use_last_error=False)(20, 'RegisterNamedModel', ((1, 'modelName'),(1, 'modeObject'),)))
     IDataModelManager.UnregisterNamedModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(21, 'UnregisterNamedModel', ((1, 'modelName'),)))
     IDataModelManager.AcquireNamedModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head), use_last_error=False)(22, 'AcquireNamedModel', ((1, 'modelName'),(1, 'modelObject'),)))
+    win32more.System.Com.IUnknown
     return IDataModelManager
 def _define_IModelKeyReference_head():
     class IModelKeyReference(win32more.System.Com.IUnknown_head):
@@ -6202,6 +6258,7 @@ def _define_IModelKeyReference():
     IModelKeyReference.GetKeyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(7, 'GetKeyValue', ((1, 'object'),(1, 'metadata'),)))
     IModelKeyReference.SetKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.System.Diagnostics.Debug.IKeyStore_head, use_last_error=False)(8, 'SetKey', ((1, 'object'),(1, 'metadata'),)))
     IModelKeyReference.SetKeyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head, use_last_error=False)(9, 'SetKeyValue', ((1, 'object'),)))
+    win32more.System.Com.IUnknown
     return IModelKeyReference
 def _define_IModelPropertyAccessor_head():
     class IModelPropertyAccessor(win32more.System.Com.IUnknown_head):
@@ -6211,6 +6268,7 @@ def _define_IModelPropertyAccessor():
     IModelPropertyAccessor = win32more.System.Diagnostics.Debug.IModelPropertyAccessor_head
     IModelPropertyAccessor.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head), use_last_error=False)(3, 'GetValue', ((1, 'key'),(1, 'contextObject'),(1, 'value'),)))
     IModelPropertyAccessor.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.System.Diagnostics.Debug.IModelObject_head, use_last_error=False)(4, 'SetValue', ((1, 'key'),(1, 'contextObject'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IModelPropertyAccessor
 def _define_IModelMethod_head():
     class IModelMethod(win32more.System.Com.IUnknown_head):
@@ -6219,6 +6277,7 @@ def _define_IModelMethod_head():
 def _define_IModelMethod():
     IModelMethod = win32more.System.Diagnostics.Debug.IModelMethod_head
     IModelMethod.Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,UInt64,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(3, 'Call', ((1, 'pContextObject'),(1, 'argCount'),(1, 'ppArguments'),(1, 'ppResult'),(1, 'ppMetadata'),)))
+    win32more.System.Com.IUnknown
     return IModelMethod
 def _define_IKeyEnumerator_head():
     class IKeyEnumerator(win32more.System.Com.IUnknown_head):
@@ -6228,6 +6287,7 @@ def _define_IKeyEnumerator():
     IKeyEnumerator = win32more.System.Diagnostics.Debug.IKeyEnumerator_head
     IKeyEnumerator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Reset', ()))
     IKeyEnumerator.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(4, 'GetNext', ((1, 'key'),(1, 'value'),(1, 'metadata'),)))
+    win32more.System.Com.IUnknown
     return IKeyEnumerator
 def _define_IRawEnumerator_head():
     class IRawEnumerator(win32more.System.Com.IUnknown_head):
@@ -6237,6 +6297,7 @@ def _define_IRawEnumerator():
     IRawEnumerator = win32more.System.Diagnostics.Debug.IRawEnumerator_head
     IRawEnumerator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Reset', ()))
     IRawEnumerator.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Diagnostics.Debug.SymbolKind),POINTER(win32more.System.Diagnostics.Debug.IModelObject_head), use_last_error=False)(4, 'GetNext', ((1, 'name'),(1, 'kind'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IRawEnumerator
 def _define_IDataModelConcept_head():
     class IDataModelConcept(win32more.System.Com.IUnknown_head):
@@ -6246,6 +6307,7 @@ def _define_IDataModelConcept():
     IDataModelConcept = win32more.System.Diagnostics.Debug.IDataModelConcept_head
     IDataModelConcept.InitializeObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.System.Diagnostics.Debug.IDebugHostTypeSignature_head,win32more.System.Diagnostics.Debug.IDebugHostSymbolEnumerator_head, use_last_error=False)(3, 'InitializeObject', ((1, 'modelObject'),(1, 'matchingTypeSignature'),(1, 'wildcardMatches'),)))
     IDataModelConcept.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetName', ((1, 'modelName'),)))
+    win32more.System.Com.IUnknown
     return IDataModelConcept
 def _define_IStringDisplayableConcept_head():
     class IStringDisplayableConcept(win32more.System.Com.IUnknown_head):
@@ -6254,6 +6316,7 @@ def _define_IStringDisplayableConcept_head():
 def _define_IStringDisplayableConcept():
     IStringDisplayableConcept = win32more.System.Diagnostics.Debug.IStringDisplayableConcept_head
     IStringDisplayableConcept.ToDisplayString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.System.Diagnostics.Debug.IKeyStore_head,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'ToDisplayString', ((1, 'contextObject'),(1, 'metadata'),(1, 'displayString'),)))
+    win32more.System.Com.IUnknown
     return IStringDisplayableConcept
 def _define_ICodeAddressConcept_head():
     class ICodeAddressConcept(win32more.System.Com.IUnknown_head):
@@ -6262,6 +6325,7 @@ def _define_ICodeAddressConcept_head():
 def _define_ICodeAddressConcept():
     ICodeAddressConcept = win32more.System.Diagnostics.Debug.ICodeAddressConcept_head
     ICodeAddressConcept.GetContainingSymbol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head), use_last_error=False)(3, 'GetContainingSymbol', ((1, 'pContextObject'),(1, 'ppSymbol'),)))
+    win32more.System.Com.IUnknown
     return ICodeAddressConcept
 def _define_IModelIterator_head():
     class IModelIterator(win32more.System.Com.IUnknown_head):
@@ -6271,6 +6335,7 @@ def _define_IModelIterator():
     IModelIterator = win32more.System.Diagnostics.Debug.IModelIterator_head
     IModelIterator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Reset', ()))
     IModelIterator.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),UInt64,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(4, 'GetNext', ((1, 'object'),(1, 'dimensions'),(1, 'indexers'),(1, 'metadata'),)))
+    win32more.System.Com.IUnknown
     return IModelIterator
 def _define_IIterableConcept_head():
     class IIterableConcept(win32more.System.Com.IUnknown_head):
@@ -6280,6 +6345,7 @@ def _define_IIterableConcept():
     IIterableConcept = win32more.System.Diagnostics.Debug.IIterableConcept_head
     IIterableConcept.GetDefaultIndexDimensionality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(UInt64), use_last_error=False)(3, 'GetDefaultIndexDimensionality', ((1, 'contextObject'),(1, 'dimensionality'),)))
     IIterableConcept.GetIterator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IModelIterator_head), use_last_error=False)(4, 'GetIterator', ((1, 'contextObject'),(1, 'iterator'),)))
+    win32more.System.Com.IUnknown
     return IIterableConcept
 def _define_IIndexableConcept_head():
     class IIndexableConcept(win32more.System.Com.IUnknown_head):
@@ -6290,6 +6356,7 @@ def _define_IIndexableConcept():
     IIndexableConcept.GetDimensionality = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(UInt64), use_last_error=False)(3, 'GetDimensionality', ((1, 'contextObject'),(1, 'dimensionality'),)))
     IIndexableConcept.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,UInt64,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(4, 'GetAt', ((1, 'contextObject'),(1, 'indexerCount'),(1, 'indexers'),(1, 'object'),(1, 'metadata'),)))
     IIndexableConcept.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,UInt64,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),win32more.System.Diagnostics.Debug.IModelObject_head, use_last_error=False)(5, 'SetAt', ((1, 'contextObject'),(1, 'indexerCount'),(1, 'indexers'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IIndexableConcept
 def _define_IPreferredRuntimeTypeConcept_head():
     class IPreferredRuntimeTypeConcept(win32more.System.Com.IUnknown_head):
@@ -6298,6 +6365,7 @@ def _define_IPreferredRuntimeTypeConcept_head():
 def _define_IPreferredRuntimeTypeConcept():
     IPreferredRuntimeTypeConcept = win32more.System.Diagnostics.Debug.IPreferredRuntimeTypeConcept_head
     IPreferredRuntimeTypeConcept.CastToPreferredRuntimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head), use_last_error=False)(3, 'CastToPreferredRuntimeType', ((1, 'contextObject'),(1, 'object'),)))
+    win32more.System.Com.IUnknown
     return IPreferredRuntimeTypeConcept
 def _define_IDebugHost_head():
     class IDebugHost(win32more.System.Com.IUnknown_head):
@@ -6308,6 +6376,7 @@ def _define_IDebugHost():
     IDebugHost.GetHostDefinedInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetHostDefinedInterface', ((1, 'hostUnk'),)))
     IDebugHost.GetCurrentContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugHostContext_head), use_last_error=False)(4, 'GetCurrentContext', ((1, 'context'),)))
     IDebugHost.GetDefaultMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(5, 'GetDefaultMetadata', ((1, 'defaultMetadataStore'),)))
+    win32more.System.Com.IUnknown
     return IDebugHost
 def _define_IDebugHostContext_head():
     class IDebugHostContext(win32more.System.Com.IUnknown_head):
@@ -6316,6 +6385,7 @@ def _define_IDebugHostContext_head():
 def _define_IDebugHostContext():
     IDebugHostContext = win32more.System.Diagnostics.Debug.IDebugHostContext_head
     IDebugHostContext.IsEqualTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,POINTER(Boolean), use_last_error=False)(3, 'IsEqualTo', ((1, 'pContext'),(1, 'pIsEqual'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostContext
 ErrorClass = Int32
 ErrorClass_ErrorClassWarning = 0
@@ -6327,6 +6397,7 @@ def _define_IDebugHostErrorSink_head():
 def _define_IDebugHostErrorSink():
     IDebugHostErrorSink = win32more.System.Diagnostics.Debug.IDebugHostErrorSink_head
     IDebugHostErrorSink.ReportError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.ErrorClass,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'ReportError', ((1, 'errClass'),(1, 'hrError'),(1, 'message'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostErrorSink
 def _define_IDebugHostSymbol_head():
     class IDebugHostSymbol(win32more.System.Com.IUnknown_head):
@@ -6341,6 +6412,7 @@ def _define_IDebugHostSymbol():
     IDebugHostSymbol.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugHostType_head), use_last_error=False)(7, 'GetType', ((1, 'type'),)))
     IDebugHostSymbol.GetContainingModule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugHostModule_head), use_last_error=False)(8, 'GetContainingModule', ((1, 'containingModule'),)))
     IDebugHostSymbol.CompareAgainst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostSymbol_head,UInt32,POINTER(Boolean), use_last_error=False)(9, 'CompareAgainst', ((1, 'pComparisonSymbol'),(1, 'comparisonFlags'),(1, 'pMatches'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostSymbol
 def _define_IDebugHostSymbolEnumerator_head():
     class IDebugHostSymbolEnumerator(win32more.System.Com.IUnknown_head):
@@ -6350,6 +6422,7 @@ def _define_IDebugHostSymbolEnumerator():
     IDebugHostSymbolEnumerator = win32more.System.Diagnostics.Debug.IDebugHostSymbolEnumerator_head
     IDebugHostSymbolEnumerator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Reset', ()))
     IDebugHostSymbolEnumerator.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head), use_last_error=False)(4, 'GetNext', ((1, 'symbol'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostSymbolEnumerator
 def _define_IDebugHostModule_head():
     class IDebugHostModule(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head):
@@ -6363,6 +6436,7 @@ def _define_IDebugHostModule():
     IDebugHostModule.FindTypeByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IDebugHostType_head), use_last_error=False)(13, 'FindTypeByName', ((1, 'typeName'),(1, 'type'),)))
     IDebugHostModule.FindSymbolByRVA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head), use_last_error=False)(14, 'FindSymbolByRVA', ((1, 'rva'),(1, 'symbol'),)))
     IDebugHostModule.FindSymbolByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head), use_last_error=False)(15, 'FindSymbolByName', ((1, 'symbolName'),(1, 'symbol'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostSymbol
     return IDebugHostModule
 def _define_ArrayDimension_head():
     class ArrayDimension(Structure):
@@ -6401,6 +6475,7 @@ def _define_IDebugHostType():
     IDebugHostType.IsGeneric = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Boolean), use_last_error=False)(26, 'IsGeneric', ((1, 'isGeneric'),)))
     IDebugHostType.GetGenericArgumentCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(27, 'GetGenericArgumentCount', ((1, 'argCount'),)))
     IDebugHostType.GetGenericArgumentAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head), use_last_error=False)(28, 'GetGenericArgumentAt', ((1, 'i'),(1, 'argument'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostSymbol
     return IDebugHostType
 def _define_IDebugHostConstant_head():
     class IDebugHostConstant(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head):
@@ -6409,6 +6484,7 @@ def _define_IDebugHostConstant_head():
 def _define_IDebugHostConstant():
     IDebugHostConstant = win32more.System.Diagnostics.Debug.IDebugHostConstant_head
     IDebugHostConstant.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'GetValue', ((1, 'value'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostSymbol
     return IDebugHostConstant
 def _define_IDebugHostField_head():
     class IDebugHostField(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head):
@@ -6420,6 +6496,7 @@ def _define_IDebugHostField():
     IDebugHostField.GetOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(11, 'GetOffset', ((1, 'offset'),)))
     IDebugHostField.GetLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.Location_head), use_last_error=False)(12, 'GetLocation', ((1, 'location'),)))
     IDebugHostField.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'GetValue', ((1, 'value'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostSymbol
     return IDebugHostField
 def _define_IDebugHostData_head():
     class IDebugHostData(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head):
@@ -6430,6 +6507,7 @@ def _define_IDebugHostData():
     IDebugHostData.GetLocationKind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.LocationKind), use_last_error=False)(10, 'GetLocationKind', ((1, 'locationKind'),)))
     IDebugHostData.GetLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.Location_head), use_last_error=False)(11, 'GetLocation', ((1, 'location'),)))
     IDebugHostData.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'GetValue', ((1, 'value'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostSymbol
     return IDebugHostData
 def _define_IDebugHostPublic_head():
     class IDebugHostPublic(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head):
@@ -6439,6 +6517,7 @@ def _define_IDebugHostPublic():
     IDebugHostPublic = win32more.System.Diagnostics.Debug.IDebugHostPublic_head
     IDebugHostPublic.GetLocationKind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.LocationKind), use_last_error=False)(10, 'GetLocationKind', ((1, 'locationKind'),)))
     IDebugHostPublic.GetLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.Location_head), use_last_error=False)(11, 'GetLocation', ((1, 'location'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostSymbol
     return IDebugHostPublic
 def _define_IDebugHostBaseClass_head():
     class IDebugHostBaseClass(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head):
@@ -6447,6 +6526,7 @@ def _define_IDebugHostBaseClass_head():
 def _define_IDebugHostBaseClass():
     IDebugHostBaseClass = win32more.System.Diagnostics.Debug.IDebugHostBaseClass_head
     IDebugHostBaseClass.GetOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(10, 'GetOffset', ((1, 'offset'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostSymbol
     return IDebugHostBaseClass
 def _define_IDebugHostSymbols_head():
     class IDebugHostSymbols(win32more.System.Com.IUnknown_head):
@@ -6461,6 +6541,7 @@ def _define_IDebugHostSymbols():
     IDebugHostSymbols.FindModuleByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IDebugHostModule_head), use_last_error=False)(7, 'FindModuleByName', ((1, 'context'),(1, 'moduleName'),(1, 'module'),)))
     IDebugHostSymbols.FindModuleByLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,win32more.System.Diagnostics.Debug.Location,POINTER(win32more.System.Diagnostics.Debug.IDebugHostModule_head), use_last_error=False)(8, 'FindModuleByLocation', ((1, 'context'),(1, 'moduleLocation'),(1, 'module'),)))
     IDebugHostSymbols.GetMostDerivedObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,win32more.System.Diagnostics.Debug.Location,win32more.System.Diagnostics.Debug.IDebugHostType_head,POINTER(win32more.System.Diagnostics.Debug.Location_head),POINTER(win32more.System.Diagnostics.Debug.IDebugHostType_head), use_last_error=False)(9, 'GetMostDerivedObject', ((1, 'pContext'),(1, 'location'),(1, 'objectType'),(1, 'derivedLocation'),(1, 'derivedType'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostSymbols
 def _define_IDebugHostMemory_head():
     class IDebugHostMemory(win32more.System.Com.IUnknown_head):
@@ -6473,6 +6554,7 @@ def _define_IDebugHostMemory():
     IDebugHostMemory.ReadPointers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,win32more.System.Diagnostics.Debug.Location,UInt64,POINTER(UInt64), use_last_error=False)(5, 'ReadPointers', ((1, 'context'),(1, 'location'),(1, 'count'),(1, 'pointers'),)))
     IDebugHostMemory.WritePointers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,win32more.System.Diagnostics.Debug.Location,UInt64,POINTER(UInt64), use_last_error=False)(6, 'WritePointers', ((1, 'context'),(1, 'location'),(1, 'count'),(1, 'pointers'),)))
     IDebugHostMemory.GetDisplayStringForLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,win32more.System.Diagnostics.Debug.Location,Byte,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetDisplayStringForLocation', ((1, 'context'),(1, 'location'),(1, 'verbose'),(1, 'locationName'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostMemory
 def _define_IDebugHostEvaluator_head():
     class IDebugHostEvaluator(win32more.System.Com.IUnknown_head):
@@ -6482,6 +6564,7 @@ def _define_IDebugHostEvaluator():
     IDebugHostEvaluator = win32more.System.Diagnostics.Debug.IDebugHostEvaluator_head
     IDebugHostEvaluator.EvaluateExpression = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(3, 'EvaluateExpression', ((1, 'context'),(1, 'expression'),(1, 'bindingContext'),(1, 'result'),(1, 'metadata'),)))
     IDebugHostEvaluator.EvaluateExtendedExpression = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(4, 'EvaluateExtendedExpression', ((1, 'context'),(1, 'expression'),(1, 'bindingContext'),(1, 'result'),(1, 'metadata'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostEvaluator
 SignatureComparison = Int32
 SignatureComparison_Unrelated = 0
@@ -6496,6 +6579,7 @@ def _define_IDebugHostModuleSignature_head():
 def _define_IDebugHostModuleSignature():
     IDebugHostModuleSignature = win32more.System.Diagnostics.Debug.IDebugHostModuleSignature_head
     IDebugHostModuleSignature.IsMatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostModule_head,POINTER(Boolean), use_last_error=False)(3, 'IsMatch', ((1, 'pModule'),(1, 'isMatch'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostModuleSignature
 def _define_IDebugHostTypeSignature_head():
     class IDebugHostTypeSignature(win32more.System.Com.IUnknown_head):
@@ -6506,6 +6590,7 @@ def _define_IDebugHostTypeSignature():
     IDebugHostTypeSignature.GetHashCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetHashCode', ((1, 'hashCode'),)))
     IDebugHostTypeSignature.IsMatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostType_head,POINTER(Boolean),POINTER(win32more.System.Diagnostics.Debug.IDebugHostSymbolEnumerator_head), use_last_error=False)(4, 'IsMatch', ((1, 'type'),(1, 'isMatch'),(1, 'wildcardMatches'),)))
     IDebugHostTypeSignature.CompareAgainst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostTypeSignature_head,POINTER(win32more.System.Diagnostics.Debug.SignatureComparison), use_last_error=False)(5, 'CompareAgainst', ((1, 'typeSignature'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostTypeSignature
 SymbolSearchOptions = Int32
 SymbolSearchOptions_SymbolSearchNone = 0
@@ -6523,6 +6608,7 @@ def _define_IDebugHostSymbol2_head():
 def _define_IDebugHostSymbol2():
     IDebugHostSymbol2 = win32more.System.Diagnostics.Debug.IDebugHostSymbol2_head
     IDebugHostSymbol2.GetLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.LanguageKind), use_last_error=False)(10, 'GetLanguage', ((1, 'pKind'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostSymbol
     return IDebugHostSymbol2
 VarArgsKind = Int32
 VarArgsKind_VarArgsNone = 0
@@ -6538,6 +6624,7 @@ def _define_IDebugHostType2():
     IDebugHostType2.GetTypedefFinalBaseType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugHostType2_head), use_last_error=False)(31, 'GetTypedefFinalBaseType', ((1, 'finalBaseType'),)))
     IDebugHostType2.GetFunctionVarArgsKind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.VarArgsKind), use_last_error=False)(32, 'GetFunctionVarArgsKind', ((1, 'varArgsKind'),)))
     IDebugHostType2.GetFunctionInstancePointerType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugHostType2_head), use_last_error=False)(33, 'GetFunctionInstancePointerType', ((1, 'instancePointerType'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostType
     return IDebugHostType2
 def _define_IDebugHostStatus_head():
     class IDebugHostStatus(win32more.System.Com.IUnknown_head):
@@ -6546,6 +6633,7 @@ def _define_IDebugHostStatus_head():
 def _define_IDebugHostStatus():
     IDebugHostStatus = win32more.System.Diagnostics.Debug.IDebugHostStatus_head
     IDebugHostStatus.PollUserInterrupt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Boolean), use_last_error=False)(3, 'PollUserInterrupt', ((1, 'interruptRequested'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostStatus
 def _define_IDataModelScriptClient_head():
     class IDataModelScriptClient(win32more.System.Com.IUnknown_head):
@@ -6554,6 +6642,7 @@ def _define_IDataModelScriptClient_head():
 def _define_IDataModelScriptClient():
     IDataModelScriptClient = win32more.System.Diagnostics.Debug.IDataModelScriptClient_head
     IDataModelScriptClient.ReportError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.ErrorClass,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32, use_last_error=False)(3, 'ReportError', ((1, 'errClass'),(1, 'hrFail'),(1, 'message'),(1, 'line'),(1, 'position'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptClient
 def _define_IDataModelScriptTemplate_head():
     class IDataModelScriptTemplate(win32more.System.Com.IUnknown_head):
@@ -6564,6 +6653,7 @@ def _define_IDataModelScriptTemplate():
     IDataModelScriptTemplate.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetName', ((1, 'templateName'),)))
     IDataModelScriptTemplate.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetDescription', ((1, 'templateDescription'),)))
     IDataModelScriptTemplate.GetContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(5, 'GetContent', ((1, 'contentStream'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptTemplate
 def _define_IDataModelScript_head():
     class IDataModelScript(win32more.System.Com.IUnknown_head):
@@ -6578,6 +6668,7 @@ def _define_IDataModelScript():
     IDataModelScript.Unlink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Unlink', ()))
     IDataModelScript.IsInvocable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Boolean), use_last_error=False)(8, 'IsInvocable', ((1, 'isInvocable'),)))
     IDataModelScript.InvokeMain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDataModelScriptClient_head, use_last_error=False)(9, 'InvokeMain', ((1, 'client'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScript
 def _define_IDataModelScriptTemplateEnumerator_head():
     class IDataModelScriptTemplateEnumerator(win32more.System.Com.IUnknown_head):
@@ -6587,6 +6678,7 @@ def _define_IDataModelScriptTemplateEnumerator():
     IDataModelScriptTemplateEnumerator = win32more.System.Diagnostics.Debug.IDataModelScriptTemplateEnumerator_head
     IDataModelScriptTemplateEnumerator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Reset', ()))
     IDataModelScriptTemplateEnumerator.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptTemplate_head), use_last_error=False)(4, 'GetNext', ((1, 'templateContent'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptTemplateEnumerator
 def _define_IDataModelScriptProvider_head():
     class IDataModelScriptProvider(win32more.System.Com.IUnknown_head):
@@ -6599,6 +6691,7 @@ def _define_IDataModelScriptProvider():
     IDataModelScriptProvider.CreateScript = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelScript_head), use_last_error=False)(5, 'CreateScript', ((1, 'script'),)))
     IDataModelScriptProvider.GetDefaultTemplateContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptTemplate_head), use_last_error=False)(6, 'GetDefaultTemplateContent', ((1, 'templateContent'),)))
     IDataModelScriptProvider.EnumerateTemplates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptTemplateEnumerator_head), use_last_error=False)(7, 'EnumerateTemplates', ((1, 'enumerator'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptProvider
 def _define_IDataModelScriptProviderEnumerator_head():
     class IDataModelScriptProviderEnumerator(win32more.System.Com.IUnknown_head):
@@ -6608,6 +6701,7 @@ def _define_IDataModelScriptProviderEnumerator():
     IDataModelScriptProviderEnumerator = win32more.System.Diagnostics.Debug.IDataModelScriptProviderEnumerator_head
     IDataModelScriptProviderEnumerator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Reset', ()))
     IDataModelScriptProviderEnumerator.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptProvider_head), use_last_error=False)(4, 'GetNext', ((1, 'provider'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptProviderEnumerator
 def _define_IDataModelScriptManager_head():
     class IDataModelScriptManager(win32more.System.Com.IUnknown_head):
@@ -6621,6 +6715,7 @@ def _define_IDataModelScriptManager():
     IDataModelScriptManager.FindProviderForScriptType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptProvider_head), use_last_error=False)(6, 'FindProviderForScriptType', ((1, 'scriptType'),(1, 'provider'),)))
     IDataModelScriptManager.FindProviderForScriptExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptProvider_head), use_last_error=False)(7, 'FindProviderForScriptExtension', ((1, 'scriptExtension'),(1, 'provider'),)))
     IDataModelScriptManager.EnumerateScriptProviders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptProviderEnumerator_head), use_last_error=False)(8, 'EnumerateScriptProviders', ((1, 'enumerator'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptManager
 def _define_IDynamicKeyProviderConcept_head():
     class IDynamicKeyProviderConcept(win32more.System.Com.IUnknown_head):
@@ -6631,6 +6726,7 @@ def _define_IDynamicKeyProviderConcept():
     IDynamicKeyProviderConcept.GetKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head),POINTER(Boolean), use_last_error=False)(3, 'GetKey', ((1, 'contextObject'),(1, 'key'),(1, 'keyValue'),(1, 'metadata'),(1, 'hasKey'),)))
     IDynamicKeyProviderConcept.SetKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.System.Diagnostics.Debug.IKeyStore_head, use_last_error=False)(4, 'SetKey', ((1, 'contextObject'),(1, 'key'),(1, 'keyValue'),(1, 'metadata'),)))
     IDynamicKeyProviderConcept.EnumerateKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IKeyEnumerator_head), use_last_error=False)(5, 'EnumerateKeys', ((1, 'contextObject'),(1, 'ppEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IDynamicKeyProviderConcept
 def _define_IDynamicConceptProviderConcept_head():
     class IDynamicConceptProviderConcept(win32more.System.Com.IUnknown_head):
@@ -6643,6 +6739,7 @@ def _define_IDynamicConceptProviderConcept():
     IDynamicConceptProviderConcept.NotifyParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head, use_last_error=False)(5, 'NotifyParent', ((1, 'parentModel'),)))
     IDynamicConceptProviderConcept.NotifyParentChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head, use_last_error=False)(6, 'NotifyParentChange', ((1, 'parentModel'),)))
     IDynamicConceptProviderConcept.NotifyDestruct = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'NotifyDestruct', ()))
+    win32more.System.Com.IUnknown
     return IDynamicConceptProviderConcept
 ScriptChangeKind = Int32
 ScriptChangeKind_ScriptRename = 0
@@ -6654,6 +6751,7 @@ def _define_IDataModelScriptHostContext():
     IDataModelScriptHostContext = win32more.System.Diagnostics.Debug.IDataModelScriptHostContext_head
     IDataModelScriptHostContext.NotifyScriptChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDataModelScript_head,win32more.System.Diagnostics.Debug.ScriptChangeKind, use_last_error=False)(3, 'NotifyScriptChange', ((1, 'script'),(1, 'changeKind'),)))
     IDataModelScriptHostContext.GetNamespaceObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head), use_last_error=False)(4, 'GetNamespaceObject', ((1, 'namespaceObject'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptHostContext
 def _define_IDebugHostScriptHost_head():
     class IDebugHostScriptHost(win32more.System.Com.IUnknown_head):
@@ -6662,6 +6760,7 @@ def _define_IDebugHostScriptHost_head():
 def _define_IDebugHostScriptHost():
     IDebugHostScriptHost = win32more.System.Diagnostics.Debug.IDebugHostScriptHost_head
     IDebugHostScriptHost.CreateContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDataModelScript_head,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptHostContext_head), use_last_error=False)(3, 'CreateContext', ((1, 'script'),(1, 'scriptContext'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostScriptHost
 def _define_IDataModelNameBinder_head():
     class IDataModelNameBinder(win32more.System.Com.IUnknown_head):
@@ -6673,6 +6772,7 @@ def _define_IDataModelNameBinder():
     IDataModelNameBinder.BindReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(4, 'BindReference', ((1, 'contextObject'),(1, 'name'),(1, 'reference'),(1, 'metadata'),)))
     IDataModelNameBinder.EnumerateValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IKeyEnumerator_head), use_last_error=False)(5, 'EnumerateValues', ((1, 'contextObject'),(1, 'enumerator'),)))
     IDataModelNameBinder.EnumerateReferences = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IKeyEnumerator_head), use_last_error=False)(6, 'EnumerateReferences', ((1, 'contextObject'),(1, 'enumerator'),)))
+    win32more.System.Com.IUnknown
     return IDataModelNameBinder
 def _define_IModelKeyReference2_head():
     class IModelKeyReference2(win32more.System.Diagnostics.Debug.IModelKeyReference_head):
@@ -6681,6 +6781,7 @@ def _define_IModelKeyReference2_head():
 def _define_IModelKeyReference2():
     IModelKeyReference2 = win32more.System.Diagnostics.Debug.IModelKeyReference2_head
     IModelKeyReference2.OverrideContextObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head, use_last_error=False)(10, 'OverrideContextObject', ((1, 'newContextObject'),)))
+    win32more.System.Diagnostics.Debug.IModelKeyReference
     return IModelKeyReference2
 def _define_IDebugHostEvaluator2_head():
     class IDebugHostEvaluator2(win32more.System.Diagnostics.Debug.IDebugHostEvaluator_head):
@@ -6689,6 +6790,7 @@ def _define_IDebugHostEvaluator2_head():
 def _define_IDebugHostEvaluator2():
     IDebugHostEvaluator2 = win32more.System.Diagnostics.Debug.IDebugHostEvaluator2_head
     IDebugHostEvaluator2.AssignTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(5, 'AssignTo', ((1, 'assignmentReference'),(1, 'assignmentValue'),(1, 'assignmentResult'),(1, 'assignmentMetadata'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostEvaluator
     return IDebugHostEvaluator2
 def _define_IDataModelManager2_head():
     class IDataModelManager2(win32more.System.Diagnostics.Debug.IDataModelManager_head):
@@ -6698,6 +6800,7 @@ def _define_IDataModelManager2():
     IDataModelManager2 = win32more.System.Diagnostics.Debug.IDataModelManager2_head
     IDataModelManager2.AcquireSubNamespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IKeyStore_head,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head), use_last_error=False)(23, 'AcquireSubNamespace', ((1, 'modelName'),(1, 'subNamespaceModelName'),(1, 'accessName'),(1, 'metadata'),(1, 'namespaceModelObject'),)))
     IDataModelManager2.CreateTypedIntrinsicObjectEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,POINTER(win32more.System.Com.VARIANT_head),win32more.System.Diagnostics.Debug.IDebugHostType_head,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head), use_last_error=False)(24, 'CreateTypedIntrinsicObjectEx', ((1, 'context'),(1, 'intrinsicData'),(1, 'type'),(1, 'object'),)))
+    win32more.System.Diagnostics.Debug.IDataModelManager
     return IDataModelManager2
 def _define_IDebugHostMemory2_head():
     class IDebugHostMemory2(win32more.System.Diagnostics.Debug.IDebugHostMemory_head):
@@ -6706,6 +6809,7 @@ def _define_IDebugHostMemory2_head():
 def _define_IDebugHostMemory2():
     IDebugHostMemory2 = win32more.System.Diagnostics.Debug.IDebugHostMemory2_head
     IDebugHostMemory2.LinearizeLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugHostContext_head,win32more.System.Diagnostics.Debug.Location,POINTER(win32more.System.Diagnostics.Debug.Location_head), use_last_error=False)(8, 'LinearizeLocation', ((1, 'context'),(1, 'location'),(1, 'pLinearizedLocation'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostMemory
     return IDebugHostMemory2
 def _define_IDebugHostExtensibility_head():
     class IDebugHostExtensibility(win32more.System.Com.IUnknown_head):
@@ -6715,6 +6819,7 @@ def _define_IDebugHostExtensibility():
     IDebugHostExtensibility = win32more.System.Diagnostics.Debug.IDebugHostExtensibility_head
     IDebugHostExtensibility.CreateFunctionAlias = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IModelObject_head, use_last_error=False)(3, 'CreateFunctionAlias', ((1, 'aliasName'),(1, 'functionObject'),)))
     IDebugHostExtensibility.DestroyFunctionAlias = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'DestroyFunctionAlias', ((1, 'aliasName'),)))
+    win32more.System.Com.IUnknown
     return IDebugHostExtensibility
 ScriptDebugState = Int32
 ScriptDebugState_ScriptDebugNoDebugger = 0
@@ -6783,6 +6888,7 @@ def _define_IDataModelScriptDebugClient_head():
 def _define_IDataModelScriptDebugClient():
     IDataModelScriptDebugClient = win32more.System.Diagnostics.Debug.IDataModelScriptDebugClient_head
     IDataModelScriptDebugClient.NotifyDebugEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.ScriptDebugEventInformation_head),win32more.System.Diagnostics.Debug.IDataModelScript_head,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(win32more.System.Diagnostics.Debug.ScriptExecutionKind), use_last_error=False)(3, 'NotifyDebugEvent', ((1, 'pEventInfo'),(1, 'pScript'),(1, 'pEventDataObject'),(1, 'resumeEventKind'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptDebugClient
 def _define_IDataModelScriptDebugVariableSetEnumerator_head():
     class IDataModelScriptDebugVariableSetEnumerator(win32more.System.Com.IUnknown_head):
@@ -6792,6 +6898,7 @@ def _define_IDataModelScriptDebugVariableSetEnumerator():
     IDataModelScriptDebugVariableSetEnumerator = win32more.System.Diagnostics.Debug.IDataModelScriptDebugVariableSetEnumerator_head
     IDataModelScriptDebugVariableSetEnumerator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Reset', ()))
     IDataModelScriptDebugVariableSetEnumerator.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Diagnostics.Debug.IModelObject_head),POINTER(win32more.System.Diagnostics.Debug.IKeyStore_head), use_last_error=False)(4, 'GetNext', ((1, 'variableName'),(1, 'variableValue'),(1, 'variableMetadata'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptDebugVariableSetEnumerator
 def _define_IDataModelScriptDebugStackFrame_head():
     class IDataModelScriptDebugStackFrame(win32more.System.Com.IUnknown_head):
@@ -6806,6 +6913,7 @@ def _define_IDataModelScriptDebugStackFrame():
     IDataModelScriptDebugStackFrame.Evaluate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IModelObject_head), use_last_error=False)(7, 'Evaluate', ((1, 'pwszExpression'),(1, 'ppResult'),)))
     IDataModelScriptDebugStackFrame.EnumerateLocals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptDebugVariableSetEnumerator_head), use_last_error=False)(8, 'EnumerateLocals', ((1, 'variablesEnum'),)))
     IDataModelScriptDebugStackFrame.EnumerateArguments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptDebugVariableSetEnumerator_head), use_last_error=False)(9, 'EnumerateArguments', ((1, 'variablesEnum'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptDebugStackFrame
 def _define_IDataModelScriptDebugStack_head():
     class IDataModelScriptDebugStack(win32more.System.Com.IUnknown_head):
@@ -6815,6 +6923,7 @@ def _define_IDataModelScriptDebugStack():
     IDataModelScriptDebugStack = win32more.System.Diagnostics.Debug.IDataModelScriptDebugStack_head
     IDataModelScriptDebugStack.GetFrameCount = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(3, 'GetFrameCount', ()))
     IDataModelScriptDebugStack.GetStackFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptDebugStackFrame_head), use_last_error=False)(4, 'GetStackFrame', ((1, 'frameNumber'),(1, 'stackFrame'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptDebugStack
 def _define_IDataModelScriptDebugBreakpoint_head():
     class IDataModelScriptDebugBreakpoint(win32more.System.Com.IUnknown_head):
@@ -6828,6 +6937,7 @@ def _define_IDataModelScriptDebugBreakpoint():
     IDataModelScriptDebugBreakpoint.Disable = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(6, 'Disable', ()))
     IDataModelScriptDebugBreakpoint.Remove = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(7, 'Remove', ()))
     IDataModelScriptDebugBreakpoint.GetPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.ScriptDebugPosition_head),POINTER(win32more.System.Diagnostics.Debug.ScriptDebugPosition_head),POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'GetPosition', ((1, 'position'),(1, 'positionSpanEnd'),(1, 'lineText'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptDebugBreakpoint
 def _define_IDataModelScriptDebugBreakpointEnumerator_head():
     class IDataModelScriptDebugBreakpointEnumerator(win32more.System.Com.IUnknown_head):
@@ -6837,6 +6947,7 @@ def _define_IDataModelScriptDebugBreakpointEnumerator():
     IDataModelScriptDebugBreakpointEnumerator = win32more.System.Diagnostics.Debug.IDataModelScriptDebugBreakpointEnumerator_head
     IDataModelScriptDebugBreakpointEnumerator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Reset', ()))
     IDataModelScriptDebugBreakpointEnumerator.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptDebugBreakpoint_head), use_last_error=False)(4, 'GetNext', ((1, 'breakpoint'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptDebugBreakpointEnumerator
 def _define_IDataModelScriptDebug_head():
     class IDataModelScriptDebug(win32more.System.Com.IUnknown_head):
@@ -6854,6 +6965,7 @@ def _define_IDataModelScriptDebug():
     IDataModelScriptDebug.SetEventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.ScriptDebugEventFilter,Byte, use_last_error=False)(10, 'SetEventFilter', ((1, 'eventFilter'),(1, 'isBreakEnabled'),)))
     IDataModelScriptDebug.StartDebugging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDataModelScriptDebugClient_head, use_last_error=False)(11, 'StartDebugging', ((1, 'debugClient'),)))
     IDataModelScriptDebug.StopDebugging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDataModelScriptDebugClient_head, use_last_error=False)(12, 'StopDebugging', ((1, 'debugClient'),)))
+    win32more.System.Com.IUnknown
     return IDataModelScriptDebug
 def _define_IDataModelScriptDebug2_head():
     class IDataModelScriptDebug2(win32more.System.Diagnostics.Debug.IDataModelScriptDebug_head):
@@ -6862,6 +6974,7 @@ def _define_IDataModelScriptDebug2_head():
 def _define_IDataModelScriptDebug2():
     IDataModelScriptDebug2 = win32more.System.Diagnostics.Debug.IDataModelScriptDebug2_head
     IDataModelScriptDebug2.SetBreakpointAtFunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IDataModelScriptDebugBreakpoint_head), use_last_error=False)(13, 'SetBreakpointAtFunction', ((1, 'functionName'),(1, 'breakpoint'),)))
+    win32more.System.Diagnostics.Debug.IDataModelScriptDebug
     return IDataModelScriptDebug2
 def _define_IDebugHostModule2_head():
     class IDebugHostModule2(win32more.System.Diagnostics.Debug.IDebugHostModule_head):
@@ -6870,6 +6983,7 @@ def _define_IDebugHostModule2_head():
 def _define_IDebugHostModule2():
     IDebugHostModule2 = win32more.System.Diagnostics.Debug.IDebugHostModule2_head
     IDebugHostModule2.FindContainingSymbolByRVA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.System.Diagnostics.Debug.IDebugHostSymbol_head),POINTER(UInt64), use_last_error=False)(16, 'FindContainingSymbolByRVA', ((1, 'rva'),(1, 'symbol'),(1, 'offset'),)))
+    win32more.System.Diagnostics.Debug.IDebugHostModule
     return IDebugHostModule2
 def _define_IComparableConcept_head():
     class IComparableConcept(win32more.System.Com.IUnknown_head):
@@ -6878,6 +6992,7 @@ def _define_IComparableConcept_head():
 def _define_IComparableConcept():
     IComparableConcept = win32more.System.Diagnostics.Debug.IComparableConcept_head
     IComparableConcept.CompareObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(Int32), use_last_error=False)(3, 'CompareObjects', ((1, 'contextObject'),(1, 'otherObject'),(1, 'comparisonResult'),)))
+    win32more.System.Com.IUnknown
     return IComparableConcept
 def _define_IEquatableConcept_head():
     class IEquatableConcept(win32more.System.Com.IUnknown_head):
@@ -6886,6 +7001,7 @@ def _define_IEquatableConcept_head():
 def _define_IEquatableConcept():
     IEquatableConcept = win32more.System.Diagnostics.Debug.IEquatableConcept_head
     IEquatableConcept.AreObjectsEqual = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IModelObject_head,win32more.System.Diagnostics.Debug.IModelObject_head,POINTER(Boolean), use_last_error=False)(3, 'AreObjectsEqual', ((1, 'contextObject'),(1, 'otherObject'),(1, 'isEqual'),)))
+    win32more.System.Com.IUnknown
     return IEquatableConcept
 def _define_PWINDBG_OUTPUT_ROUTINE():
     return CFUNCTYPE(Void,win32more.Foundation.PSTR, use_last_error=False)
@@ -10581,6 +10697,7 @@ def _define_IActiveScriptSite():
     IActiveScriptSite.OnScriptError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IActiveScriptError_head, use_last_error=False)(8, 'OnScriptError', ((1, 'pscripterror'),)))
     IActiveScriptSite.OnEnterScript = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'OnEnterScript', ()))
     IActiveScriptSite.OnLeaveScript = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'OnLeaveScript', ()))
+    win32more.System.Com.IUnknown
     return IActiveScriptSite
 def _define_IActiveScriptError_head():
     class IActiveScriptError(win32more.System.Com.IUnknown_head):
@@ -10591,6 +10708,7 @@ def _define_IActiveScriptError():
     IActiveScriptError.GetExceptionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.EXCEPINFO_head), use_last_error=False)(3, 'GetExceptionInfo', ((1, 'pexcepinfo'),)))
     IActiveScriptError.GetSourcePosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(Int32), use_last_error=False)(4, 'GetSourcePosition', ((1, 'pdwSourceContext'),(1, 'pulLineNumber'),(1, 'plCharacterPosition'),)))
     IActiveScriptError.GetSourceLineText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetSourceLineText', ((1, 'pbstrSourceLine'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptError
 def _define_IActiveScriptError64_head():
     class IActiveScriptError64(win32more.System.Diagnostics.Debug.IActiveScriptError_head):
@@ -10599,6 +10717,7 @@ def _define_IActiveScriptError64_head():
 def _define_IActiveScriptError64():
     IActiveScriptError64 = win32more.System.Diagnostics.Debug.IActiveScriptError64_head
     IActiveScriptError64.GetSourcePosition64 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt32),POINTER(Int32), use_last_error=False)(6, 'GetSourcePosition64', ((1, 'pdwSourceContext'),(1, 'pulLineNumber'),(1, 'plCharacterPosition'),)))
+    win32more.System.Diagnostics.Debug.IActiveScriptError
     return IActiveScriptError64
 def _define_IActiveScriptSiteWindow_head():
     class IActiveScriptSiteWindow(win32more.System.Com.IUnknown_head):
@@ -10608,6 +10727,7 @@ def _define_IActiveScriptSiteWindow():
     IActiveScriptSiteWindow = win32more.System.Diagnostics.Debug.IActiveScriptSiteWindow_head
     IActiveScriptSiteWindow.GetWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(3, 'GetWindow', ((1, 'phwnd'),)))
     IActiveScriptSiteWindow.EnableModeless = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'EnableModeless', ((1, 'fEnable'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptSiteWindow
 def _define_IActiveScriptSiteUIControl_head():
     class IActiveScriptSiteUIControl(win32more.System.Com.IUnknown_head):
@@ -10616,6 +10736,7 @@ def _define_IActiveScriptSiteUIControl_head():
 def _define_IActiveScriptSiteUIControl():
     IActiveScriptSiteUIControl = win32more.System.Diagnostics.Debug.IActiveScriptSiteUIControl_head
     IActiveScriptSiteUIControl.GetUIBehavior = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.SCRIPTUICITEM,POINTER(win32more.System.Diagnostics.Debug.SCRIPTUICHANDLING), use_last_error=False)(3, 'GetUIBehavior', ((1, 'UicItem'),(1, 'pUicHandling'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptSiteUIControl
 def _define_IActiveScriptSiteInterruptPoll_head():
     class IActiveScriptSiteInterruptPoll(win32more.System.Com.IUnknown_head):
@@ -10624,6 +10745,7 @@ def _define_IActiveScriptSiteInterruptPoll_head():
 def _define_IActiveScriptSiteInterruptPoll():
     IActiveScriptSiteInterruptPoll = win32more.System.Diagnostics.Debug.IActiveScriptSiteInterruptPoll_head
     IActiveScriptSiteInterruptPoll.QueryContinue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'QueryContinue', ()))
+    win32more.System.Com.IUnknown
     return IActiveScriptSiteInterruptPoll
 def _define_IActiveScript_head():
     class IActiveScript(win32more.System.Com.IUnknown_head):
@@ -10644,6 +10766,7 @@ def _define_IActiveScript():
     IActiveScript.GetScriptThreadState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Diagnostics.Debug.SCRIPTTHREADSTATE), use_last_error=False)(13, 'GetScriptThreadState', ((1, 'stidThread'),(1, 'pstsState'),)))
     IActiveScript.InterruptScriptThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.EXCEPINFO_head),UInt32, use_last_error=False)(14, 'InterruptScriptThread', ((1, 'stidThread'),(1, 'pexcepinfo'),(1, 'dwFlags'),)))
     IActiveScript.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IActiveScript_head), use_last_error=False)(15, 'Clone', ((1, 'ppscript'),)))
+    win32more.System.Com.IUnknown
     return IActiveScript
 def _define_IActiveScriptParse32_head():
     class IActiveScriptParse32(win32more.System.Com.IUnknown_head):
@@ -10654,6 +10777,7 @@ def _define_IActiveScriptParse32():
     IActiveScriptParse32.InitNew = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'InitNew', ()))
     IActiveScriptParse32.AddScriptlet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Com.EXCEPINFO_head), use_last_error=False)(4, 'AddScriptlet', ((1, 'pstrDefaultName'),(1, 'pstrCode'),(1, 'pstrItemName'),(1, 'pstrSubItemName'),(1, 'pstrEventName'),(1, 'pstrDelimiter'),(1, 'dwSourceContextCookie'),(1, 'ulStartingLineNumber'),(1, 'dwFlags'),(1, 'pbstrName'),(1, 'pexcepinfo'),)))
     IActiveScriptParse32.ParseScriptText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.EXCEPINFO_head), use_last_error=False)(5, 'ParseScriptText', ((1, 'pstrCode'),(1, 'pstrItemName'),(1, 'punkContext'),(1, 'pstrDelimiter'),(1, 'dwSourceContextCookie'),(1, 'ulStartingLineNumber'),(1, 'dwFlags'),(1, 'pvarResult'),(1, 'pexcepinfo'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptParse32
 def _define_IActiveScriptParse64_head():
     class IActiveScriptParse64(win32more.System.Com.IUnknown_head):
@@ -10664,6 +10788,7 @@ def _define_IActiveScriptParse64():
     IActiveScriptParse64.InitNew = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'InitNew', ()))
     IActiveScriptParse64.AddScriptlet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt64,UInt32,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Com.EXCEPINFO_head), use_last_error=False)(4, 'AddScriptlet', ((1, 'pstrDefaultName'),(1, 'pstrCode'),(1, 'pstrItemName'),(1, 'pstrSubItemName'),(1, 'pstrEventName'),(1, 'pstrDelimiter'),(1, 'dwSourceContextCookie'),(1, 'ulStartingLineNumber'),(1, 'dwFlags'),(1, 'pbstrName'),(1, 'pexcepinfo'),)))
     IActiveScriptParse64.ParseScriptText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt64,UInt32,UInt32,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.EXCEPINFO_head), use_last_error=False)(5, 'ParseScriptText', ((1, 'pstrCode'),(1, 'pstrItemName'),(1, 'punkContext'),(1, 'pstrDelimiter'),(1, 'dwSourceContextCookie'),(1, 'ulStartingLineNumber'),(1, 'dwFlags'),(1, 'pvarResult'),(1, 'pexcepinfo'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptParse64
 def _define_IActiveScriptParseProcedureOld32_head():
     class IActiveScriptParseProcedureOld32(win32more.System.Com.IUnknown_head):
@@ -10672,6 +10797,7 @@ def _define_IActiveScriptParseProcedureOld32_head():
 def _define_IActiveScriptParseProcedureOld32():
     IActiveScriptParseProcedureOld32 = win32more.System.Diagnostics.Debug.IActiveScriptParseProcedureOld32_head
     IActiveScriptParseProcedureOld32.ParseProcedureText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(3, 'ParseProcedureText', ((1, 'pstrCode'),(1, 'pstrFormalParams'),(1, 'pstrItemName'),(1, 'punkContext'),(1, 'pstrDelimiter'),(1, 'dwSourceContextCookie'),(1, 'ulStartingLineNumber'),(1, 'dwFlags'),(1, 'ppdisp'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptParseProcedureOld32
 def _define_IActiveScriptParseProcedureOld64_head():
     class IActiveScriptParseProcedureOld64(win32more.System.Com.IUnknown_head):
@@ -10680,6 +10806,7 @@ def _define_IActiveScriptParseProcedureOld64_head():
 def _define_IActiveScriptParseProcedureOld64():
     IActiveScriptParseProcedureOld64 = win32more.System.Diagnostics.Debug.IActiveScriptParseProcedureOld64_head
     IActiveScriptParseProcedureOld64.ParseProcedureText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt64,UInt32,UInt32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(3, 'ParseProcedureText', ((1, 'pstrCode'),(1, 'pstrFormalParams'),(1, 'pstrItemName'),(1, 'punkContext'),(1, 'pstrDelimiter'),(1, 'dwSourceContextCookie'),(1, 'ulStartingLineNumber'),(1, 'dwFlags'),(1, 'ppdisp'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptParseProcedureOld64
 def _define_IActiveScriptParseProcedure32_head():
     class IActiveScriptParseProcedure32(win32more.System.Com.IUnknown_head):
@@ -10688,6 +10815,7 @@ def _define_IActiveScriptParseProcedure32_head():
 def _define_IActiveScriptParseProcedure32():
     IActiveScriptParseProcedure32 = win32more.System.Diagnostics.Debug.IActiveScriptParseProcedure32_head
     IActiveScriptParseProcedure32.ParseProcedureText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(3, 'ParseProcedureText', ((1, 'pstrCode'),(1, 'pstrFormalParams'),(1, 'pstrProcedureName'),(1, 'pstrItemName'),(1, 'punkContext'),(1, 'pstrDelimiter'),(1, 'dwSourceContextCookie'),(1, 'ulStartingLineNumber'),(1, 'dwFlags'),(1, 'ppdisp'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptParseProcedure32
 def _define_IActiveScriptParseProcedure64_head():
     class IActiveScriptParseProcedure64(win32more.System.Com.IUnknown_head):
@@ -10696,6 +10824,7 @@ def _define_IActiveScriptParseProcedure64_head():
 def _define_IActiveScriptParseProcedure64():
     IActiveScriptParseProcedure64 = win32more.System.Diagnostics.Debug.IActiveScriptParseProcedure64_head
     IActiveScriptParseProcedure64.ParseProcedureText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt64,UInt32,UInt32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(3, 'ParseProcedureText', ((1, 'pstrCode'),(1, 'pstrFormalParams'),(1, 'pstrProcedureName'),(1, 'pstrItemName'),(1, 'punkContext'),(1, 'pstrDelimiter'),(1, 'dwSourceContextCookie'),(1, 'ulStartingLineNumber'),(1, 'dwFlags'),(1, 'ppdisp'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptParseProcedure64
 def _define_IActiveScriptParseProcedure2_32_head():
     class IActiveScriptParseProcedure2_32(win32more.System.Diagnostics.Debug.IActiveScriptParseProcedure32_head):
@@ -10703,6 +10832,7 @@ def _define_IActiveScriptParseProcedure2_32_head():
     return IActiveScriptParseProcedure2_32
 def _define_IActiveScriptParseProcedure2_32():
     IActiveScriptParseProcedure2_32 = win32more.System.Diagnostics.Debug.IActiveScriptParseProcedure2_32_head
+    win32more.System.Diagnostics.Debug.IActiveScriptParseProcedure32
     return IActiveScriptParseProcedure2_32
 def _define_IActiveScriptParseProcedure2_64_head():
     class IActiveScriptParseProcedure2_64(win32more.System.Diagnostics.Debug.IActiveScriptParseProcedure64_head):
@@ -10710,6 +10840,7 @@ def _define_IActiveScriptParseProcedure2_64_head():
     return IActiveScriptParseProcedure2_64
 def _define_IActiveScriptParseProcedure2_64():
     IActiveScriptParseProcedure2_64 = win32more.System.Diagnostics.Debug.IActiveScriptParseProcedure2_64_head
+    win32more.System.Diagnostics.Debug.IActiveScriptParseProcedure64
     return IActiveScriptParseProcedure2_64
 def _define_IActiveScriptEncode_head():
     class IActiveScriptEncode(win32more.System.Com.IUnknown_head):
@@ -10720,6 +10851,7 @@ def _define_IActiveScriptEncode():
     IActiveScriptEncode.EncodeSection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32), use_last_error=False)(3, 'EncodeSection', ((1, 'pchIn'),(1, 'cchIn'),(1, 'pchOut'),(1, 'cchOut'),(1, 'pcchRet'),)))
     IActiveScriptEncode.DecodeScript = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32), use_last_error=False)(4, 'DecodeScript', ((1, 'pchIn'),(1, 'cchIn'),(1, 'pchOut'),(1, 'cchOut'),(1, 'pcchRet'),)))
     IActiveScriptEncode.GetEncodeProgId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetEncodeProgId', ((1, 'pbstrOut'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptEncode
 def _define_IActiveScriptHostEncode_head():
     class IActiveScriptHostEncode(win32more.System.Com.IUnknown_head):
@@ -10728,6 +10860,7 @@ def _define_IActiveScriptHostEncode_head():
 def _define_IActiveScriptHostEncode():
     IActiveScriptHostEncode = win32more.System.Diagnostics.Debug.IActiveScriptHostEncode_head
     IActiveScriptHostEncode.EncodeScriptHostFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR),UInt32,win32more.Foundation.BSTR, use_last_error=False)(3, 'EncodeScriptHostFile', ((1, 'bstrInFile'),(1, 'pbstrOutFile'),(1, 'cFlags'),(1, 'bstrDefaultLang'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptHostEncode
 def _define_IBindEventHandler_head():
     class IBindEventHandler(win32more.System.Com.IUnknown_head):
@@ -10736,6 +10869,7 @@ def _define_IBindEventHandler_head():
 def _define_IBindEventHandler():
     IBindEventHandler = win32more.System.Diagnostics.Debug.IBindEventHandler_head
     IBindEventHandler.BindHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IDispatch_head, use_last_error=False)(3, 'BindHandler', ((1, 'pstrEvent'),(1, 'pdisp'),)))
+    win32more.System.Com.IUnknown
     return IBindEventHandler
 def _define_IActiveScriptStats_head():
     class IActiveScriptStats(win32more.System.Com.IUnknown_head):
@@ -10746,6 +10880,7 @@ def _define_IActiveScriptStats():
     IActiveScriptStats.GetStat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetStat', ((1, 'stid'),(1, 'pluHi'),(1, 'pluLo'),)))
     IActiveScriptStats.GetStatEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'GetStatEx', ((1, 'guid'),(1, 'pluHi'),(1, 'pluLo'),)))
     IActiveScriptStats.ResetStats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ResetStats', ()))
+    win32more.System.Com.IUnknown
     return IActiveScriptStats
 def _define_IActiveScriptProperty_head():
     class IActiveScriptProperty(win32more.System.Com.IUnknown_head):
@@ -10755,6 +10890,7 @@ def _define_IActiveScriptProperty():
     IActiveScriptProperty = win32more.System.Diagnostics.Debug.IActiveScriptProperty_head
     IActiveScriptProperty.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(3, 'GetProperty', ((1, 'dwProperty'),(1, 'pvarIndex'),(1, 'pvarValue'),)))
     IActiveScriptProperty.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(4, 'SetProperty', ((1, 'dwProperty'),(1, 'pvarIndex'),(1, 'pvarValue'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptProperty
 def _define_ITridentEventSink_head():
     class ITridentEventSink(win32more.System.Com.IUnknown_head):
@@ -10763,6 +10899,7 @@ def _define_ITridentEventSink_head():
 def _define_ITridentEventSink():
     ITridentEventSink = win32more.System.Diagnostics.Debug.ITridentEventSink_head
     ITridentEventSink.FireEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.DISPPARAMS_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.EXCEPINFO_head), use_last_error=False)(3, 'FireEvent', ((1, 'pstrEvent'),(1, 'pdp'),(1, 'pvarRes'),(1, 'pei'),)))
+    win32more.System.Com.IUnknown
     return ITridentEventSink
 def _define_IActiveScriptGarbageCollector_head():
     class IActiveScriptGarbageCollector(win32more.System.Com.IUnknown_head):
@@ -10771,6 +10908,7 @@ def _define_IActiveScriptGarbageCollector_head():
 def _define_IActiveScriptGarbageCollector():
     IActiveScriptGarbageCollector = win32more.System.Diagnostics.Debug.IActiveScriptGarbageCollector_head
     IActiveScriptGarbageCollector.CollectGarbage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.SCRIPTGCTYPE, use_last_error=False)(3, 'CollectGarbage', ((1, 'scriptgctype'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptGarbageCollector
 def _define_IActiveScriptSIPInfo_head():
     class IActiveScriptSIPInfo(win32more.System.Com.IUnknown_head):
@@ -10779,6 +10917,7 @@ def _define_IActiveScriptSIPInfo_head():
 def _define_IActiveScriptSIPInfo():
     IActiveScriptSIPInfo = win32more.System.Diagnostics.Debug.IActiveScriptSIPInfo_head
     IActiveScriptSIPInfo.GetSIPOID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetSIPOID', ((1, 'poid_sip'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptSIPInfo
 def _define_IActiveScriptSiteTraceInfo_head():
     class IActiveScriptSiteTraceInfo(win32more.System.Com.IUnknown_head):
@@ -10787,6 +10926,7 @@ def _define_IActiveScriptSiteTraceInfo_head():
 def _define_IActiveScriptSiteTraceInfo():
     IActiveScriptSiteTraceInfo = win32more.System.Diagnostics.Debug.IActiveScriptSiteTraceInfo_head
     IActiveScriptSiteTraceInfo.SendScriptTraceInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.SCRIPTTRACEINFO,Guid,UInt32,Int32,Int32,UInt64, use_last_error=False)(3, 'SendScriptTraceInfo', ((1, 'stiEventType'),(1, 'guidContextID'),(1, 'dwScriptContextCookie'),(1, 'lScriptStatementStart'),(1, 'lScriptStatementEnd'),(1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptSiteTraceInfo
 def _define_IActiveScriptTraceInfo_head():
     class IActiveScriptTraceInfo(win32more.System.Com.IUnknown_head):
@@ -10796,6 +10936,7 @@ def _define_IActiveScriptTraceInfo():
     IActiveScriptTraceInfo = win32more.System.Diagnostics.Debug.IActiveScriptTraceInfo_head
     IActiveScriptTraceInfo.StartScriptTracing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IActiveScriptSiteTraceInfo_head,Guid, use_last_error=False)(3, 'StartScriptTracing', ((1, 'pSiteTraceInfo'),(1, 'guidContextID'),)))
     IActiveScriptTraceInfo.StopScriptTracing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'StopScriptTracing', ()))
+    win32more.System.Com.IUnknown
     return IActiveScriptTraceInfo
 def _define_IActiveScriptStringCompare_head():
     class IActiveScriptStringCompare(win32more.System.Com.IUnknown_head):
@@ -10804,6 +10945,7 @@ def _define_IActiveScriptStringCompare_head():
 def _define_IActiveScriptStringCompare():
     IActiveScriptStringCompare = win32more.System.Diagnostics.Debug.IActiveScriptStringCompare_head
     IActiveScriptStringCompare.StrComp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(3, 'StrComp', ((1, 'bszStr1'),(1, 'bszStr2'),(1, 'iRet'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptStringCompare
 DBGPROP_ATTRIB_FLAGS = UInt32
 DBGPROP_ATTRIB_NO_ATTRIB = 0
@@ -10939,6 +11081,7 @@ def _define_IDebugProperty():
     IDebugProperty.SetValueAsString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(5, 'SetValueAsString', ((1, 'pszValue'),(1, 'nRadix'),)))
     IDebugProperty.EnumMembers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Guid),POINTER(win32more.System.Diagnostics.Debug.IEnumDebugPropertyInfo_head), use_last_error=False)(6, 'EnumMembers', ((1, 'dwFieldSpec'),(1, 'nRadix'),(1, 'refiid'),(1, 'ppepi'),)))
     IDebugProperty.GetParent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugProperty_head), use_last_error=False)(7, 'GetParent', ((1, 'ppDebugProp'),)))
+    win32more.System.Com.IUnknown
     return IDebugProperty
 def _define_IEnumDebugPropertyInfo_head():
     class IEnumDebugPropertyInfo(win32more.System.Com.IUnknown_head):
@@ -10951,6 +11094,7 @@ def _define_IEnumDebugPropertyInfo():
     IEnumDebugPropertyInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDebugPropertyInfo.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugPropertyInfo_head), use_last_error=False)(6, 'Clone', ((1, 'ppepi'),)))
     IEnumDebugPropertyInfo.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'pcelt'),)))
+    win32more.System.Com.IUnknown
     return IEnumDebugPropertyInfo
 def _define_IDebugExtendedProperty_head():
     class IDebugExtendedProperty(win32more.System.Diagnostics.Debug.IDebugProperty_head):
@@ -10960,6 +11104,7 @@ def _define_IDebugExtendedProperty():
     IDebugExtendedProperty = win32more.System.Diagnostics.Debug.IDebugExtendedProperty_head
     IDebugExtendedProperty.GetExtendedPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Diagnostics.Debug.ExtendedDebugPropertyInfo_head), use_last_error=False)(8, 'GetExtendedPropertyInfo', ((1, 'dwFieldSpec'),(1, 'nRadix'),(1, 'pExtendedPropertyInfo'),)))
     IDebugExtendedProperty.EnumExtendedMembers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugExtendedPropertyInfo_head), use_last_error=False)(9, 'EnumExtendedMembers', ((1, 'dwFieldSpec'),(1, 'nRadix'),(1, 'ppeepi'),)))
+    win32more.System.Diagnostics.Debug.IDebugProperty
     return IDebugExtendedProperty
 def _define_IEnumDebugExtendedPropertyInfo_head():
     class IEnumDebugExtendedPropertyInfo(win32more.System.Com.IUnknown_head):
@@ -10972,6 +11117,7 @@ def _define_IEnumDebugExtendedPropertyInfo():
     IEnumDebugExtendedPropertyInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDebugExtendedPropertyInfo.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugExtendedPropertyInfo_head), use_last_error=False)(6, 'Clone', ((1, 'pedpe'),)))
     IEnumDebugExtendedPropertyInfo.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'pcelt'),)))
+    win32more.System.Com.IUnknown
     return IEnumDebugExtendedPropertyInfo
 def _define_IPerPropertyBrowsing2_head():
     class IPerPropertyBrowsing2(win32more.System.Com.IUnknown_head):
@@ -10983,6 +11129,7 @@ def _define_IPerPropertyBrowsing2():
     IPerPropertyBrowsing2.MapPropertyToPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Guid), use_last_error=False)(4, 'MapPropertyToPage', ((1, 'dispid'),(1, 'pClsidPropPage'),)))
     IPerPropertyBrowsing2.GetPredefinedStrings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Ole.CALPOLESTR_head),POINTER(win32more.System.Ole.CADWORD_head), use_last_error=False)(5, 'GetPredefinedStrings', ((1, 'dispid'),(1, 'pCaStrings'),(1, 'pCaCookies'),)))
     IPerPropertyBrowsing2.SetPredefinedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32, use_last_error=False)(6, 'SetPredefinedValue', ((1, 'dispid'),(1, 'dwCookie'),)))
+    win32more.System.Com.IUnknown
     return IPerPropertyBrowsing2
 def _define_IDebugPropertyEnumType_All_head():
     class IDebugPropertyEnumType_All(win32more.System.Com.IUnknown_head):
@@ -10991,6 +11138,7 @@ def _define_IDebugPropertyEnumType_All_head():
 def _define_IDebugPropertyEnumType_All():
     IDebugPropertyEnumType_All = win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_All_head
     IDebugPropertyEnumType_All.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetName', ((1, '__MIDL__IDebugPropertyEnumType_All0000'),)))
+    win32more.System.Com.IUnknown
     return IDebugPropertyEnumType_All
 def _define_IDebugPropertyEnumType_Locals_head():
     class IDebugPropertyEnumType_Locals(win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_All_head):
@@ -10998,6 +11146,7 @@ def _define_IDebugPropertyEnumType_Locals_head():
     return IDebugPropertyEnumType_Locals
 def _define_IDebugPropertyEnumType_Locals():
     IDebugPropertyEnumType_Locals = win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_Locals_head
+    win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_All
     return IDebugPropertyEnumType_Locals
 def _define_IDebugPropertyEnumType_Arguments_head():
     class IDebugPropertyEnumType_Arguments(win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_All_head):
@@ -11005,6 +11154,7 @@ def _define_IDebugPropertyEnumType_Arguments_head():
     return IDebugPropertyEnumType_Arguments
 def _define_IDebugPropertyEnumType_Arguments():
     IDebugPropertyEnumType_Arguments = win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_Arguments_head
+    win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_All
     return IDebugPropertyEnumType_Arguments
 def _define_IDebugPropertyEnumType_LocalsPlusArgs_head():
     class IDebugPropertyEnumType_LocalsPlusArgs(win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_All_head):
@@ -11012,6 +11162,7 @@ def _define_IDebugPropertyEnumType_LocalsPlusArgs_head():
     return IDebugPropertyEnumType_LocalsPlusArgs
 def _define_IDebugPropertyEnumType_LocalsPlusArgs():
     IDebugPropertyEnumType_LocalsPlusArgs = win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_LocalsPlusArgs_head
+    win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_All
     return IDebugPropertyEnumType_LocalsPlusArgs
 def _define_IDebugPropertyEnumType_Registers_head():
     class IDebugPropertyEnumType_Registers(win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_All_head):
@@ -11019,6 +11170,7 @@ def _define_IDebugPropertyEnumType_Registers_head():
     return IDebugPropertyEnumType_Registers
 def _define_IDebugPropertyEnumType_Registers():
     IDebugPropertyEnumType_Registers = win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_Registers_head
+    win32more.System.Diagnostics.Debug.IDebugPropertyEnumType_All
     return IDebugPropertyEnumType_Registers
 BREAKPOINT_STATE = Int32
 BREAKPOINT_DELETED = 0
@@ -11062,6 +11214,7 @@ def _define_IActiveScriptDebug32():
     IActiveScriptDebug32.GetScriptTextAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt16), use_last_error=False)(3, 'GetScriptTextAttributes', ((1, 'pstrCode'),(1, 'uNumCodeChars'),(1, 'pstrDelimiter'),(1, 'dwFlags'),(1, 'pattr'),)))
     IActiveScriptDebug32.GetScriptletTextAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt16), use_last_error=False)(4, 'GetScriptletTextAttributes', ((1, 'pstrCode'),(1, 'uNumCodeChars'),(1, 'pstrDelimiter'),(1, 'dwFlags'),(1, 'pattr'),)))
     IActiveScriptDebug32.EnumCodeContextsOfPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugCodeContexts_head), use_last_error=False)(5, 'EnumCodeContextsOfPosition', ((1, 'dwSourceContext'),(1, 'uCharacterOffset'),(1, 'uNumChars'),(1, 'ppescc'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptDebug32
 def _define_IActiveScriptDebug64_head():
     class IActiveScriptDebug64(win32more.System.Com.IUnknown_head):
@@ -11072,6 +11225,7 @@ def _define_IActiveScriptDebug64():
     IActiveScriptDebug64.GetScriptTextAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt16), use_last_error=False)(3, 'GetScriptTextAttributes', ((1, 'pstrCode'),(1, 'uNumCodeChars'),(1, 'pstrDelimiter'),(1, 'dwFlags'),(1, 'pattr'),)))
     IActiveScriptDebug64.GetScriptletTextAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt16), use_last_error=False)(4, 'GetScriptletTextAttributes', ((1, 'pstrCode'),(1, 'uNumCodeChars'),(1, 'pstrDelimiter'),(1, 'dwFlags'),(1, 'pattr'),)))
     IActiveScriptDebug64.EnumCodeContextsOfPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,UInt32,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugCodeContexts_head), use_last_error=False)(5, 'EnumCodeContextsOfPosition', ((1, 'dwSourceContext'),(1, 'uCharacterOffset'),(1, 'uNumChars'),(1, 'ppescc'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptDebug64
 def _define_IActiveScriptSiteDebug32_head():
     class IActiveScriptSiteDebug32(win32more.System.Com.IUnknown_head):
@@ -11083,6 +11237,7 @@ def _define_IActiveScriptSiteDebug32():
     IActiveScriptSiteDebug32.GetApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugApplication32_head), use_last_error=False)(4, 'GetApplication', ((1, 'ppda'),)))
     IActiveScriptSiteDebug32.GetRootApplicationNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugApplicationNode_head), use_last_error=False)(5, 'GetRootApplicationNode', ((1, 'ppdanRoot'),)))
     IActiveScriptSiteDebug32.OnScriptErrorDebug = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IActiveScriptErrorDebug_head,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'OnScriptErrorDebug', ((1, 'pErrorDebug'),(1, 'pfEnterDebugger'),(1, 'pfCallOnScriptErrorWhenContinuing'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptSiteDebug32
 def _define_IActiveScriptSiteDebug64_head():
     class IActiveScriptSiteDebug64(win32more.System.Com.IUnknown_head):
@@ -11094,6 +11249,7 @@ def _define_IActiveScriptSiteDebug64():
     IActiveScriptSiteDebug64.GetApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugApplication64_head), use_last_error=False)(4, 'GetApplication', ((1, 'ppda'),)))
     IActiveScriptSiteDebug64.GetRootApplicationNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugApplicationNode_head), use_last_error=False)(5, 'GetRootApplicationNode', ((1, 'ppdanRoot'),)))
     IActiveScriptSiteDebug64.OnScriptErrorDebug = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IActiveScriptErrorDebug_head,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'OnScriptErrorDebug', ((1, 'pErrorDebug'),(1, 'pfEnterDebugger'),(1, 'pfCallOnScriptErrorWhenContinuing'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptSiteDebug64
 def _define_IActiveScriptSiteDebugEx_head():
     class IActiveScriptSiteDebugEx(win32more.System.Com.IUnknown_head):
@@ -11102,6 +11258,7 @@ def _define_IActiveScriptSiteDebugEx_head():
 def _define_IActiveScriptSiteDebugEx():
     IActiveScriptSiteDebugEx = win32more.System.Diagnostics.Debug.IActiveScriptSiteDebugEx_head
     IActiveScriptSiteDebugEx.OnCanNotJITScriptErrorDebug = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IActiveScriptErrorDebug_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnCanNotJITScriptErrorDebug', ((1, 'pErrorDebug'),(1, 'pfCallOnScriptErrorWhenContinuing'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptSiteDebugEx
 def _define_IActiveScriptErrorDebug_head():
     class IActiveScriptErrorDebug(win32more.System.Diagnostics.Debug.IActiveScriptError_head):
@@ -11111,6 +11268,7 @@ def _define_IActiveScriptErrorDebug():
     IActiveScriptErrorDebug = win32more.System.Diagnostics.Debug.IActiveScriptErrorDebug_head
     IActiveScriptErrorDebug.GetDocumentContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentContext_head), use_last_error=False)(6, 'GetDocumentContext', ((1, 'ppssc'),)))
     IActiveScriptErrorDebug.GetStackFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugStackFrame_head), use_last_error=False)(7, 'GetStackFrame', ((1, 'ppdsf'),)))
+    win32more.System.Diagnostics.Debug.IActiveScriptError
     return IActiveScriptErrorDebug
 def _define_IDebugCodeContext_head():
     class IDebugCodeContext(win32more.System.Com.IUnknown_head):
@@ -11120,6 +11278,7 @@ def _define_IDebugCodeContext():
     IDebugCodeContext = win32more.System.Diagnostics.Debug.IDebugCodeContext_head
     IDebugCodeContext.GetDocumentContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentContext_head), use_last_error=False)(3, 'GetDocumentContext', ((1, 'ppsc'),)))
     IDebugCodeContext.SetBreakPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.BREAKPOINT_STATE, use_last_error=False)(4, 'SetBreakPoint', ((1, 'bps'),)))
+    win32more.System.Com.IUnknown
     return IDebugCodeContext
 def _define_IDebugExpression_head():
     class IDebugExpression(win32more.System.Com.IUnknown_head):
@@ -11132,6 +11291,7 @@ def _define_IDebugExpression():
     IDebugExpression.QueryIsComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'QueryIsComplete', ()))
     IDebugExpression.GetResultAsString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetResultAsString', ((1, 'phrResult'),(1, 'pbstrResult'),)))
     IDebugExpression.GetResultAsDebugProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.System.Diagnostics.Debug.IDebugProperty_head), use_last_error=False)(7, 'GetResultAsDebugProperty', ((1, 'phrResult'),(1, 'ppdp'),)))
+    win32more.System.Com.IUnknown
     return IDebugExpression
 def _define_IDebugExpressionContext_head():
     class IDebugExpressionContext(win32more.System.Com.IUnknown_head):
@@ -11141,6 +11301,7 @@ def _define_IDebugExpressionContext():
     IDebugExpressionContext = win32more.System.Diagnostics.Debug.IDebugExpressionContext_head
     IDebugExpressionContext.ParseLanguageText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Diagnostics.Debug.IDebugExpression_head), use_last_error=False)(3, 'ParseLanguageText', ((1, 'pstrCode'),(1, 'nRadix'),(1, 'pstrDelimiter'),(1, 'dwFlags'),(1, 'ppe'),)))
     IDebugExpressionContext.GetLanguageInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(Guid), use_last_error=False)(4, 'GetLanguageInfo', ((1, 'pbstrLanguageName'),(1, 'pLanguageID'),)))
+    win32more.System.Com.IUnknown
     return IDebugExpressionContext
 def _define_IDebugExpressionCallBack_head():
     class IDebugExpressionCallBack(win32more.System.Com.IUnknown_head):
@@ -11149,6 +11310,7 @@ def _define_IDebugExpressionCallBack_head():
 def _define_IDebugExpressionCallBack():
     IDebugExpressionCallBack = win32more.System.Diagnostics.Debug.IDebugExpressionCallBack_head
     IDebugExpressionCallBack.onComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'onComplete', ()))
+    win32more.System.Com.IUnknown
     return IDebugExpressionCallBack
 def _define_IDebugStackFrame_head():
     class IDebugStackFrame(win32more.System.Com.IUnknown_head):
@@ -11161,6 +11323,7 @@ def _define_IDebugStackFrame():
     IDebugStackFrame.GetLanguageString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetLanguageString', ((1, 'fLong'),(1, 'pbstrLanguage'),)))
     IDebugStackFrame.GetThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugApplicationThread_head), use_last_error=False)(6, 'GetThread', ((1, 'ppat'),)))
     IDebugStackFrame.GetDebugProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugProperty_head), use_last_error=False)(7, 'GetDebugProperty', ((1, 'ppDebugProp'),)))
+    win32more.System.Com.IUnknown
     return IDebugStackFrame
 def _define_IDebugStackFrameSniffer_head():
     class IDebugStackFrameSniffer(win32more.System.Com.IUnknown_head):
@@ -11169,6 +11332,7 @@ def _define_IDebugStackFrameSniffer_head():
 def _define_IDebugStackFrameSniffer():
     IDebugStackFrameSniffer = win32more.System.Diagnostics.Debug.IDebugStackFrameSniffer_head
     IDebugStackFrameSniffer.EnumStackFrames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugStackFrames_head), use_last_error=False)(3, 'EnumStackFrames', ((1, 'ppedsf'),)))
+    win32more.System.Com.IUnknown
     return IDebugStackFrameSniffer
 def _define_IDebugStackFrameSnifferEx32_head():
     class IDebugStackFrameSnifferEx32(win32more.System.Diagnostics.Debug.IDebugStackFrameSniffer_head):
@@ -11177,6 +11341,7 @@ def _define_IDebugStackFrameSnifferEx32_head():
 def _define_IDebugStackFrameSnifferEx32():
     IDebugStackFrameSnifferEx32 = win32more.System.Diagnostics.Debug.IDebugStackFrameSnifferEx32_head
     IDebugStackFrameSnifferEx32.EnumStackFramesEx32 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugStackFrames_head), use_last_error=False)(4, 'EnumStackFramesEx32', ((1, 'dwSpMin'),(1, 'ppedsf'),)))
+    win32more.System.Diagnostics.Debug.IDebugStackFrameSniffer
     return IDebugStackFrameSnifferEx32
 def _define_IDebugStackFrameSnifferEx64_head():
     class IDebugStackFrameSnifferEx64(win32more.System.Diagnostics.Debug.IDebugStackFrameSniffer_head):
@@ -11185,6 +11350,7 @@ def _define_IDebugStackFrameSnifferEx64_head():
 def _define_IDebugStackFrameSnifferEx64():
     IDebugStackFrameSnifferEx64 = win32more.System.Diagnostics.Debug.IDebugStackFrameSnifferEx64_head
     IDebugStackFrameSnifferEx64.EnumStackFramesEx64 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugStackFrames64_head), use_last_error=False)(4, 'EnumStackFramesEx64', ((1, 'dwSpMin'),(1, 'ppedsf'),)))
+    win32more.System.Diagnostics.Debug.IDebugStackFrameSniffer
     return IDebugStackFrameSnifferEx64
 def _define_IDebugSyncOperation_head():
     class IDebugSyncOperation(win32more.System.Com.IUnknown_head):
@@ -11195,6 +11361,7 @@ def _define_IDebugSyncOperation():
     IDebugSyncOperation.GetTargetThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugApplicationThread_head), use_last_error=False)(3, 'GetTargetThread', ((1, 'ppatTarget'),)))
     IDebugSyncOperation.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'Execute', ((1, 'ppunkResult'),)))
     IDebugSyncOperation.InProgressAbort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'InProgressAbort', ()))
+    win32more.System.Com.IUnknown
     return IDebugSyncOperation
 def _define_IDebugAsyncOperation_head():
     class IDebugAsyncOperation(win32more.System.Com.IUnknown_head):
@@ -11207,6 +11374,7 @@ def _define_IDebugAsyncOperation():
     IDebugAsyncOperation.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Abort', ()))
     IDebugAsyncOperation.QueryIsComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'QueryIsComplete', ()))
     IDebugAsyncOperation.GetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'GetResult', ((1, 'phrResult'),(1, 'ppunkResult'),)))
+    win32more.System.Com.IUnknown
     return IDebugAsyncOperation
 def _define_IDebugAsyncOperationCallBack_head():
     class IDebugAsyncOperationCallBack(win32more.System.Com.IUnknown_head):
@@ -11215,6 +11383,7 @@ def _define_IDebugAsyncOperationCallBack_head():
 def _define_IDebugAsyncOperationCallBack():
     IDebugAsyncOperationCallBack = win32more.System.Diagnostics.Debug.IDebugAsyncOperationCallBack_head
     IDebugAsyncOperationCallBack.onComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'onComplete', ()))
+    win32more.System.Com.IUnknown
     return IDebugAsyncOperationCallBack
 def _define_IEnumDebugCodeContexts_head():
     class IEnumDebugCodeContexts(win32more.System.Com.IUnknown_head):
@@ -11226,6 +11395,7 @@ def _define_IEnumDebugCodeContexts():
     IEnumDebugCodeContexts.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumDebugCodeContexts.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDebugCodeContexts.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugCodeContexts_head), use_last_error=False)(6, 'Clone', ((1, 'ppescc'),)))
+    win32more.System.Com.IUnknown
     return IEnumDebugCodeContexts
 def _define_DebugStackFrameDescriptor_head():
     class DebugStackFrameDescriptor(Structure):
@@ -11265,6 +11435,7 @@ def _define_IEnumDebugStackFrames():
     IEnumDebugStackFrames.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumDebugStackFrames.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDebugStackFrames.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugStackFrames_head), use_last_error=False)(6, 'Clone', ((1, 'ppedsf'),)))
+    win32more.System.Com.IUnknown
     return IEnumDebugStackFrames
 def _define_IEnumDebugStackFrames64_head():
     class IEnumDebugStackFrames64(win32more.System.Diagnostics.Debug.IEnumDebugStackFrames_head):
@@ -11273,6 +11444,7 @@ def _define_IEnumDebugStackFrames64_head():
 def _define_IEnumDebugStackFrames64():
     IEnumDebugStackFrames64 = win32more.System.Diagnostics.Debug.IEnumDebugStackFrames64_head
     IEnumDebugStackFrames64.Next64 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Diagnostics.Debug.DebugStackFrameDescriptor64_head),POINTER(UInt32), use_last_error=False)(7, 'Next64', ((1, 'celt'),(1, 'prgdsfd'),(1, 'pceltFetched'),)))
+    win32more.System.Diagnostics.Debug.IEnumDebugStackFrames
     return IEnumDebugStackFrames64
 def _define_IDebugDocumentInfo_head():
     class IDebugDocumentInfo(win32more.System.Com.IUnknown_head):
@@ -11282,6 +11454,7 @@ def _define_IDebugDocumentInfo():
     IDebugDocumentInfo = win32more.System.Diagnostics.Debug.IDebugDocumentInfo_head
     IDebugDocumentInfo.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.DOCUMENTNAMETYPE,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetName', ((1, 'dnt'),(1, 'pbstrName'),)))
     IDebugDocumentInfo.GetDocumentClassId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetDocumentClassId', ((1, 'pclsidDocument'),)))
+    win32more.System.Com.IUnknown
     return IDebugDocumentInfo
 def _define_IDebugDocumentProvider_head():
     class IDebugDocumentProvider(win32more.System.Diagnostics.Debug.IDebugDocumentInfo_head):
@@ -11290,6 +11463,7 @@ def _define_IDebugDocumentProvider_head():
 def _define_IDebugDocumentProvider():
     IDebugDocumentProvider = win32more.System.Diagnostics.Debug.IDebugDocumentProvider_head
     IDebugDocumentProvider.GetDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugDocument_head), use_last_error=False)(5, 'GetDocument', ((1, 'ppssd'),)))
+    win32more.System.Diagnostics.Debug.IDebugDocumentInfo
     return IDebugDocumentProvider
 def _define_IDebugDocument_head():
     class IDebugDocument(win32more.System.Diagnostics.Debug.IDebugDocumentInfo_head):
@@ -11297,6 +11471,7 @@ def _define_IDebugDocument_head():
     return IDebugDocument
 def _define_IDebugDocument():
     IDebugDocument = win32more.System.Diagnostics.Debug.IDebugDocument_head
+    win32more.System.Diagnostics.Debug.IDebugDocumentInfo
     return IDebugDocument
 def _define_IDebugDocumentText_head():
     class IDebugDocumentText(win32more.System.Diagnostics.Debug.IDebugDocument_head):
@@ -11311,6 +11486,7 @@ def _define_IDebugDocumentText():
     IDebugDocumentText.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),POINTER(UInt16),POINTER(UInt32),UInt32, use_last_error=False)(9, 'GetText', ((1, 'cCharacterPosition'),(1, 'pcharText'),(1, 'pstaTextAttr'),(1, 'pcNumChars'),(1, 'cMaxChars'),)))
     IDebugDocumentText.GetPositionOfContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugDocumentContext_head,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(10, 'GetPositionOfContext', ((1, 'psc'),(1, 'pcCharacterPosition'),(1, 'cNumChars'),)))
     IDebugDocumentText.GetContextOfPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentContext_head), use_last_error=False)(11, 'GetContextOfPosition', ((1, 'cCharacterPosition'),(1, 'cNumChars'),(1, 'ppsc'),)))
+    win32more.System.Diagnostics.Debug.IDebugDocument
     return IDebugDocumentText
 def _define_IDebugDocumentTextEvents_head():
     class IDebugDocumentTextEvents(win32more.System.Com.IUnknown_head):
@@ -11324,6 +11500,7 @@ def _define_IDebugDocumentTextEvents():
     IDebugDocumentTextEvents.onReplaceText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(6, 'onReplaceText', ((1, 'cCharacterPosition'),(1, 'cNumToReplace'),)))
     IDebugDocumentTextEvents.onUpdateTextAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(7, 'onUpdateTextAttributes', ((1, 'cCharacterPosition'),(1, 'cNumToUpdate'),)))
     IDebugDocumentTextEvents.onUpdateDocumentAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'onUpdateDocumentAttributes', ((1, 'textdocattr'),)))
+    win32more.System.Com.IUnknown
     return IDebugDocumentTextEvents
 def _define_IDebugDocumentTextAuthor_head():
     class IDebugDocumentTextAuthor(win32more.System.Diagnostics.Debug.IDebugDocumentText_head):
@@ -11334,6 +11511,7 @@ def _define_IDebugDocumentTextAuthor():
     IDebugDocumentTextAuthor.InsertText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Char), use_last_error=False)(12, 'InsertText', ((1, 'cCharacterPosition'),(1, 'cNumToInsert'),(1, 'pcharText'),)))
     IDebugDocumentTextAuthor.RemoveText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(13, 'RemoveText', ((1, 'cCharacterPosition'),(1, 'cNumToRemove'),)))
     IDebugDocumentTextAuthor.ReplaceText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Char), use_last_error=False)(14, 'ReplaceText', ((1, 'cCharacterPosition'),(1, 'cNumToReplace'),(1, 'pcharText'),)))
+    win32more.System.Diagnostics.Debug.IDebugDocumentText
     return IDebugDocumentTextAuthor
 def _define_IDebugDocumentTextExternalAuthor_head():
     class IDebugDocumentTextExternalAuthor(win32more.System.Com.IUnknown_head):
@@ -11344,6 +11522,7 @@ def _define_IDebugDocumentTextExternalAuthor():
     IDebugDocumentTextExternalAuthor.GetPathName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetPathName', ((1, 'pbstrLongName'),(1, 'pfIsOriginalFile'),)))
     IDebugDocumentTextExternalAuthor.GetFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetFileName', ((1, 'pbstrShortName'),)))
     IDebugDocumentTextExternalAuthor.NotifyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'NotifyChanged', ()))
+    win32more.System.Com.IUnknown
     return IDebugDocumentTextExternalAuthor
 def _define_IDebugDocumentHelper32_head():
     class IDebugDocumentHelper32(win32more.System.Com.IUnknown_head):
@@ -11369,6 +11548,7 @@ def _define_IDebugDocumentHelper32():
     IDebugDocumentHelper32.CreateDebugDocumentContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentContext_head), use_last_error=False)(18, 'CreateDebugDocumentContext', ((1, 'iCharPos'),(1, 'cChars'),(1, 'ppddc'),)))
     IDebugDocumentHelper32.BringDocumentToTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'BringDocumentToTop', ()))
     IDebugDocumentHelper32.BringDocumentContextToTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugDocumentContext_head, use_last_error=False)(20, 'BringDocumentContextToTop', ((1, 'pddc'),)))
+    win32more.System.Com.IUnknown
     return IDebugDocumentHelper32
 def _define_IDebugDocumentHelper64_head():
     class IDebugDocumentHelper64(win32more.System.Com.IUnknown_head):
@@ -11394,6 +11574,7 @@ def _define_IDebugDocumentHelper64():
     IDebugDocumentHelper64.CreateDebugDocumentContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentContext_head), use_last_error=False)(18, 'CreateDebugDocumentContext', ((1, 'iCharPos'),(1, 'cChars'),(1, 'ppddc'),)))
     IDebugDocumentHelper64.BringDocumentToTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'BringDocumentToTop', ()))
     IDebugDocumentHelper64.BringDocumentContextToTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugDocumentContext_head, use_last_error=False)(20, 'BringDocumentContextToTop', ((1, 'pddc'),)))
+    win32more.System.Com.IUnknown
     return IDebugDocumentHelper64
 def _define_IDebugDocumentHost_head():
     class IDebugDocumentHost(win32more.System.Com.IUnknown_head):
@@ -11407,6 +11588,7 @@ def _define_IDebugDocumentHost():
     IDebugDocumentHost.GetPathName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetPathName', ((1, 'pbstrLongName'),(1, 'pfIsOriginalFile'),)))
     IDebugDocumentHost.GetFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetFileName', ((1, 'pbstrShortName'),)))
     IDebugDocumentHost.NotifyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'NotifyChanged', ()))
+    win32more.System.Com.IUnknown
     return IDebugDocumentHost
 def _define_IDebugDocumentContext_head():
     class IDebugDocumentContext(win32more.System.Com.IUnknown_head):
@@ -11416,6 +11598,7 @@ def _define_IDebugDocumentContext():
     IDebugDocumentContext = win32more.System.Diagnostics.Debug.IDebugDocumentContext_head
     IDebugDocumentContext.GetDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugDocument_head), use_last_error=False)(3, 'GetDocument', ((1, 'ppsd'),)))
     IDebugDocumentContext.EnumCodeContexts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugCodeContexts_head), use_last_error=False)(4, 'EnumCodeContexts', ((1, 'ppescc'),)))
+    win32more.System.Com.IUnknown
     return IDebugDocumentContext
 def _define_IDebugSessionProvider_head():
     class IDebugSessionProvider(win32more.System.Com.IUnknown_head):
@@ -11424,6 +11607,7 @@ def _define_IDebugSessionProvider_head():
 def _define_IDebugSessionProvider():
     IDebugSessionProvider = win32more.System.Diagnostics.Debug.IDebugSessionProvider_head
     IDebugSessionProvider.StartDebugSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head, use_last_error=False)(3, 'StartDebugSession', ((1, 'pda'),)))
+    win32more.System.Com.IUnknown
     return IDebugSessionProvider
 def _define_IApplicationDebugger_head():
     class IApplicationDebugger(win32more.System.Com.IUnknown_head):
@@ -11437,6 +11621,7 @@ def _define_IApplicationDebugger():
     IApplicationDebugger.onHandleBreakPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IRemoteDebugApplicationThread_head,win32more.System.Diagnostics.Debug.BREAKREASON,win32more.System.Diagnostics.Debug.IActiveScriptErrorDebug_head, use_last_error=False)(6, 'onHandleBreakPoint', ((1, 'prpt'),(1, 'br'),(1, 'pError'),)))
     IApplicationDebugger.onClose = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'onClose', ()))
     IApplicationDebugger.onDebuggerEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(8, 'onDebuggerEvent', ((1, 'riid'),(1, 'punk'),)))
+    win32more.System.Com.IUnknown
     return IApplicationDebugger
 def _define_IApplicationDebuggerUI_head():
     class IApplicationDebuggerUI(win32more.System.Com.IUnknown_head):
@@ -11446,6 +11631,7 @@ def _define_IApplicationDebuggerUI():
     IApplicationDebuggerUI = win32more.System.Diagnostics.Debug.IApplicationDebuggerUI_head
     IApplicationDebuggerUI.BringDocumentToTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugDocumentText_head, use_last_error=False)(3, 'BringDocumentToTop', ((1, 'pddt'),)))
     IApplicationDebuggerUI.BringDocumentContextToTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugDocumentContext_head, use_last_error=False)(4, 'BringDocumentContextToTop', ((1, 'pddc'),)))
+    win32more.System.Com.IUnknown
     return IApplicationDebuggerUI
 def _define_IMachineDebugManager_head():
     class IMachineDebugManager(win32more.System.Com.IUnknown_head):
@@ -11456,6 +11642,7 @@ def _define_IMachineDebugManager():
     IMachineDebugManager.AddApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head,POINTER(UInt32), use_last_error=False)(3, 'AddApplication', ((1, 'pda'),(1, 'pdwAppCookie'),)))
     IMachineDebugManager.RemoveApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'RemoveApplication', ((1, 'dwAppCookie'),)))
     IMachineDebugManager.EnumApplications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplications_head), use_last_error=False)(5, 'EnumApplications', ((1, 'ppeda'),)))
+    win32more.System.Com.IUnknown
     return IMachineDebugManager
 def _define_IMachineDebugManagerCookie_head():
     class IMachineDebugManagerCookie(win32more.System.Com.IUnknown_head):
@@ -11466,6 +11653,7 @@ def _define_IMachineDebugManagerCookie():
     IMachineDebugManagerCookie.AddApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head,UInt32,POINTER(UInt32), use_last_error=False)(3, 'AddApplication', ((1, 'pda'),(1, 'dwDebugAppCookie'),(1, 'pdwAppCookie'),)))
     IMachineDebugManagerCookie.RemoveApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(4, 'RemoveApplication', ((1, 'dwDebugAppCookie'),(1, 'dwAppCookie'),)))
     IMachineDebugManagerCookie.EnumApplications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplications_head), use_last_error=False)(5, 'EnumApplications', ((1, 'ppeda'),)))
+    win32more.System.Com.IUnknown
     return IMachineDebugManagerCookie
 def _define_IMachineDebugManagerEvents_head():
     class IMachineDebugManagerEvents(win32more.System.Com.IUnknown_head):
@@ -11475,6 +11663,7 @@ def _define_IMachineDebugManagerEvents():
     IMachineDebugManagerEvents = win32more.System.Diagnostics.Debug.IMachineDebugManagerEvents_head
     IMachineDebugManagerEvents.onAddApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head,UInt32, use_last_error=False)(3, 'onAddApplication', ((1, 'pda'),(1, 'dwAppCookie'),)))
     IMachineDebugManagerEvents.onRemoveApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head,UInt32, use_last_error=False)(4, 'onRemoveApplication', ((1, 'pda'),(1, 'dwAppCookie'),)))
+    win32more.System.Com.IUnknown
     return IMachineDebugManagerEvents
 def _define_IProcessDebugManager32_head():
     class IProcessDebugManager32(win32more.System.Com.IUnknown_head):
@@ -11487,6 +11676,7 @@ def _define_IProcessDebugManager32():
     IProcessDebugManager32.AddApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugApplication32_head,POINTER(UInt32), use_last_error=False)(5, 'AddApplication', ((1, 'pda'),(1, 'pdwAppCookie'),)))
     IProcessDebugManager32.RemoveApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveApplication', ((1, 'dwAppCookie'),)))
     IProcessDebugManager32.CreateDebugDocumentHelper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentHelper32_head), use_last_error=False)(7, 'CreateDebugDocumentHelper', ((1, 'punkOuter'),(1, 'pddh'),)))
+    win32more.System.Com.IUnknown
     return IProcessDebugManager32
 def _define_IProcessDebugManager64_head():
     class IProcessDebugManager64(win32more.System.Com.IUnknown_head):
@@ -11499,6 +11689,7 @@ def _define_IProcessDebugManager64():
     IProcessDebugManager64.AddApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugApplication64_head,POINTER(UInt32), use_last_error=False)(5, 'AddApplication', ((1, 'pda'),(1, 'pdwAppCookie'),)))
     IProcessDebugManager64.RemoveApplication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveApplication', ((1, 'dwAppCookie'),)))
     IProcessDebugManager64.CreateDebugDocumentHelper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentHelper64_head), use_last_error=False)(7, 'CreateDebugDocumentHelper', ((1, 'punkOuter'),(1, 'pddh'),)))
+    win32more.System.Com.IUnknown
     return IProcessDebugManager64
 def _define_IRemoteDebugApplication_head():
     class IRemoteDebugApplication(win32more.System.Com.IUnknown_head):
@@ -11517,6 +11708,7 @@ def _define_IRemoteDebugApplication():
     IRemoteDebugApplication.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'GetName', ((1, 'pbstrName'),)))
     IRemoteDebugApplication.GetRootNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IDebugApplicationNode_head), use_last_error=False)(12, 'GetRootNode', ((1, 'ppdanRoot'),)))
     IRemoteDebugApplication.EnumGlobalExpressionContexts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugExpressionContexts_head), use_last_error=False)(13, 'EnumGlobalExpressionContexts', ((1, 'ppedec'),)))
+    win32more.System.Com.IUnknown
     return IRemoteDebugApplication
 def _define_IDebugApplication32_head():
     class IDebugApplication32(win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head):
@@ -11544,6 +11736,7 @@ def _define_IDebugApplication32():
     IDebugApplication32.FIsAutoJitDebugEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(31, 'FIsAutoJitDebugEnabled', ()))
     IDebugApplication32.AddGlobalExpressionContextProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IProvideExpressionContexts_head,POINTER(UInt32), use_last_error=False)(32, 'AddGlobalExpressionContextProvider', ((1, 'pdsfs'),(1, 'pdwCookie'),)))
     IDebugApplication32.RemoveGlobalExpressionContextProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(33, 'RemoveGlobalExpressionContextProvider', ((1, 'dwCookie'),)))
+    win32more.System.Diagnostics.Debug.IRemoteDebugApplication
     return IDebugApplication32
 def _define_IDebugApplication64_head():
     class IDebugApplication64(win32more.System.Diagnostics.Debug.IRemoteDebugApplication_head):
@@ -11571,6 +11764,7 @@ def _define_IDebugApplication64():
     IDebugApplication64.FIsAutoJitDebugEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(31, 'FIsAutoJitDebugEnabled', ()))
     IDebugApplication64.AddGlobalExpressionContextProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IProvideExpressionContexts_head,POINTER(UInt64), use_last_error=False)(32, 'AddGlobalExpressionContextProvider', ((1, 'pdsfs'),(1, 'pdwCookie'),)))
     IDebugApplication64.RemoveGlobalExpressionContextProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(33, 'RemoveGlobalExpressionContextProvider', ((1, 'dwCookie'),)))
+    win32more.System.Diagnostics.Debug.IRemoteDebugApplication
     return IDebugApplication64
 def _define_IRemoteDebugApplicationEvents_head():
     class IRemoteDebugApplicationEvents(win32more.System.Com.IUnknown_head):
@@ -11588,6 +11782,7 @@ def _define_IRemoteDebugApplicationEvents():
     IRemoteDebugApplicationEvents.OnCreateThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IRemoteDebugApplicationThread_head, use_last_error=False)(10, 'OnCreateThread', ((1, 'prdat'),)))
     IRemoteDebugApplicationEvents.OnDestroyThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IRemoteDebugApplicationThread_head, use_last_error=False)(11, 'OnDestroyThread', ((1, 'prdat'),)))
     IRemoteDebugApplicationEvents.OnBreakFlagChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Diagnostics.Debug.IRemoteDebugApplicationThread_head, use_last_error=False)(12, 'OnBreakFlagChange', ((1, 'abf'),(1, 'prdatSteppingThread'),)))
+    win32more.System.Com.IUnknown
     return IRemoteDebugApplicationEvents
 def _define_IDebugApplicationNode_head():
     class IDebugApplicationNode(win32more.System.Diagnostics.Debug.IDebugDocumentProvider_head):
@@ -11601,6 +11796,7 @@ def _define_IDebugApplicationNode():
     IDebugApplicationNode.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Close', ()))
     IDebugApplicationNode.Attach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugApplicationNode_head, use_last_error=False)(10, 'Attach', ((1, 'pdanParent'),)))
     IDebugApplicationNode.Detach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Detach', ()))
+    win32more.System.Diagnostics.Debug.IDebugDocumentProvider
     return IDebugApplicationNode
 def _define_IDebugApplicationNodeEvents_head():
     class IDebugApplicationNodeEvents(win32more.System.Com.IUnknown_head):
@@ -11612,6 +11808,7 @@ def _define_IDebugApplicationNodeEvents():
     IDebugApplicationNodeEvents.onRemoveChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugApplicationNode_head, use_last_error=False)(4, 'onRemoveChild', ((1, 'prddpChild'),)))
     IDebugApplicationNodeEvents.onDetach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'onDetach', ()))
     IDebugApplicationNodeEvents.onAttach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugApplicationNode_head, use_last_error=False)(6, 'onAttach', ((1, 'prddpParent'),)))
+    win32more.System.Com.IUnknown
     return IDebugApplicationNodeEvents
 def _define_AsyncIDebugApplicationNodeEvents_head():
     class AsyncIDebugApplicationNodeEvents(win32more.System.Com.IUnknown_head):
@@ -11627,6 +11824,7 @@ def _define_AsyncIDebugApplicationNodeEvents():
     AsyncIDebugApplicationNodeEvents.Finish_onDetach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Finish_onDetach', ()))
     AsyncIDebugApplicationNodeEvents.Begin_onAttach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugApplicationNode_head, use_last_error=False)(9, 'Begin_onAttach', ((1, 'prddpParent'),)))
     AsyncIDebugApplicationNodeEvents.Finish_onAttach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Finish_onAttach', ()))
+    win32more.System.Com.IUnknown
     return AsyncIDebugApplicationNodeEvents
 def _define_IDebugThreadCall32_head():
     class IDebugThreadCall32(win32more.System.Com.IUnknown_head):
@@ -11635,6 +11833,7 @@ def _define_IDebugThreadCall32_head():
 def _define_IDebugThreadCall32():
     IDebugThreadCall32 = win32more.System.Diagnostics.Debug.IDebugThreadCall32_head
     IDebugThreadCall32.ThreadCallHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32, use_last_error=False)(3, 'ThreadCallHandler', ((1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),)))
+    win32more.System.Com.IUnknown
     return IDebugThreadCall32
 def _define_IDebugThreadCall64_head():
     class IDebugThreadCall64(win32more.System.Com.IUnknown_head):
@@ -11643,6 +11842,7 @@ def _define_IDebugThreadCall64_head():
 def _define_IDebugThreadCall64():
     IDebugThreadCall64 = win32more.System.Diagnostics.Debug.IDebugThreadCall64_head
     IDebugThreadCall64.ThreadCallHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64,UInt64, use_last_error=False)(3, 'ThreadCallHandler', ((1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),)))
+    win32more.System.Com.IUnknown
     return IDebugThreadCall64
 def _define_IRemoteDebugApplicationThread_head():
     class IRemoteDebugApplicationThread(win32more.System.Com.IUnknown_head):
@@ -11659,6 +11859,7 @@ def _define_IRemoteDebugApplicationThread():
     IRemoteDebugApplicationThread.Suspend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'Suspend', ((1, 'pdwCount'),)))
     IRemoteDebugApplicationThread.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'Resume', ((1, 'pdwCount'),)))
     IRemoteDebugApplicationThread.GetSuspendCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(11, 'GetSuspendCount', ((1, 'pdwCount'),)))
+    win32more.System.Com.IUnknown
     return IRemoteDebugApplicationThread
 def _define_IDebugApplicationThread_head():
     class IDebugApplicationThread(win32more.System.Diagnostics.Debug.IRemoteDebugApplicationThread_head):
@@ -11671,6 +11872,7 @@ def _define_IDebugApplicationThread():
     IDebugApplicationThread.QueryIsDebuggerThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'QueryIsDebuggerThread', ()))
     IDebugApplicationThread.SetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(15, 'SetDescription', ((1, 'pstrDescription'),)))
     IDebugApplicationThread.SetStateString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(16, 'SetStateString', ((1, 'pstrState'),)))
+    win32more.System.Diagnostics.Debug.IRemoteDebugApplicationThread
     return IDebugApplicationThread
 def _define_IDebugApplicationThread64_head():
     class IDebugApplicationThread64(win32more.System.Diagnostics.Debug.IDebugApplicationThread_head):
@@ -11679,6 +11881,7 @@ def _define_IDebugApplicationThread64_head():
 def _define_IDebugApplicationThread64():
     IDebugApplicationThread64 = win32more.System.Diagnostics.Debug.IDebugApplicationThread64_head
     IDebugApplicationThread64.SynchronousCallIntoThread64 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugThreadCall64_head,UInt64,UInt64,UInt64, use_last_error=False)(17, 'SynchronousCallIntoThread64', ((1, 'pstcb'),(1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),)))
+    win32more.System.Diagnostics.Debug.IDebugApplicationThread
     return IDebugApplicationThread64
 def _define_IDebugCookie_head():
     class IDebugCookie(win32more.System.Com.IUnknown_head):
@@ -11687,6 +11890,7 @@ def _define_IDebugCookie_head():
 def _define_IDebugCookie():
     IDebugCookie = win32more.System.Diagnostics.Debug.IDebugCookie_head
     IDebugCookie.SetDebugCookie = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'SetDebugCookie', ((1, 'dwDebugAppCookie'),)))
+    win32more.System.Com.IUnknown
     return IDebugCookie
 def _define_IEnumDebugApplicationNodes_head():
     class IEnumDebugApplicationNodes(win32more.System.Com.IUnknown_head):
@@ -11698,6 +11902,7 @@ def _define_IEnumDebugApplicationNodes():
     IEnumDebugApplicationNodes.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumDebugApplicationNodes.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDebugApplicationNodes.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugApplicationNodes_head), use_last_error=False)(6, 'Clone', ((1, 'pperddp'),)))
+    win32more.System.Com.IUnknown
     return IEnumDebugApplicationNodes
 def _define_IEnumRemoteDebugApplications_head():
     class IEnumRemoteDebugApplications(win32more.System.Com.IUnknown_head):
@@ -11709,6 +11914,7 @@ def _define_IEnumRemoteDebugApplications():
     IEnumRemoteDebugApplications.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumRemoteDebugApplications.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumRemoteDebugApplications.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplications_head), use_last_error=False)(6, 'Clone', ((1, 'ppessd'),)))
+    win32more.System.Com.IUnknown
     return IEnumRemoteDebugApplications
 def _define_IEnumRemoteDebugApplicationThreads_head():
     class IEnumRemoteDebugApplicationThreads(win32more.System.Com.IUnknown_head):
@@ -11720,6 +11926,7 @@ def _define_IEnumRemoteDebugApplicationThreads():
     IEnumRemoteDebugApplicationThreads.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumRemoteDebugApplicationThreads.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumRemoteDebugApplicationThreads.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumRemoteDebugApplicationThreads_head), use_last_error=False)(6, 'Clone', ((1, 'pperdat'),)))
+    win32more.System.Com.IUnknown
     return IEnumRemoteDebugApplicationThreads
 def _define_IDebugFormatter_head():
     class IDebugFormatter(win32more.System.Com.IUnknown_head):
@@ -11730,6 +11937,7 @@ def _define_IDebugFormatter():
     IDebugFormatter.GetStringForVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetStringForVariant', ((1, 'pvar'),(1, 'nRadix'),(1, 'pbstrValue'),)))
     IDebugFormatter.GetVariantForString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(4, 'GetVariantForString', ((1, 'pwstrValue'),(1, 'pvar'),)))
     IDebugFormatter.GetStringForVarType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(win32more.System.Com.TYPEDESC_head),POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetStringForVarType', ((1, 'vt'),(1, 'ptdescArrayType'),(1, 'pbstr'),)))
+    win32more.System.Com.IUnknown
     return IDebugFormatter
 def _define_ISimpleConnectionPoint_head():
     class ISimpleConnectionPoint(win32more.System.Com.IUnknown_head):
@@ -11741,6 +11949,7 @@ def _define_ISimpleConnectionPoint():
     ISimpleConnectionPoint.DescribeEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Int32),POINTER(win32more.Foundation.BSTR),POINTER(UInt32), use_last_error=False)(4, 'DescribeEvents', ((1, 'iEvent'),(1, 'cEvents'),(1, 'prgid'),(1, 'prgbstr'),(1, 'pcEventsFetched'),)))
     ISimpleConnectionPoint.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,POINTER(UInt32), use_last_error=False)(5, 'Advise', ((1, 'pdisp'),(1, 'pdwCookie'),)))
     ISimpleConnectionPoint.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Unadvise', ((1, 'dwCookie'),)))
+    win32more.System.Com.IUnknown
     return ISimpleConnectionPoint
 def _define_IDebugHelper_head():
     class IDebugHelper(win32more.System.Com.IUnknown_head):
@@ -11751,6 +11960,7 @@ def _define_IDebugHelper():
     IDebugHelper.CreatePropertyBrowser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IDebugApplicationThread_head,POINTER(win32more.System.Diagnostics.Debug.IDebugProperty_head), use_last_error=False)(3, 'CreatePropertyBrowser', ((1, 'pvar'),(1, 'bstrName'),(1, 'pdat'),(1, 'ppdob'),)))
     IDebugHelper.CreatePropertyBrowserEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.IDebugApplicationThread_head,win32more.System.Diagnostics.Debug.IDebugFormatter_head,POINTER(win32more.System.Diagnostics.Debug.IDebugProperty_head), use_last_error=False)(4, 'CreatePropertyBrowserEx', ((1, 'pvar'),(1, 'bstrName'),(1, 'pdat'),(1, 'pdf'),(1, 'ppdob'),)))
     IDebugHelper.CreateSimpleConnectionPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Diagnostics.Debug.ISimpleConnectionPoint_head), use_last_error=False)(5, 'CreateSimpleConnectionPoint', ((1, 'pdisp'),(1, 'ppscp'),)))
+    win32more.System.Com.IUnknown
     return IDebugHelper
 def _define_IEnumDebugExpressionContexts_head():
     class IEnumDebugExpressionContexts(win32more.System.Com.IUnknown_head):
@@ -11762,6 +11972,7 @@ def _define_IEnumDebugExpressionContexts():
     IEnumDebugExpressionContexts.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumDebugExpressionContexts.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDebugExpressionContexts.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugExpressionContexts_head), use_last_error=False)(6, 'Clone', ((1, 'ppedec'),)))
+    win32more.System.Com.IUnknown
     return IEnumDebugExpressionContexts
 def _define_IProvideExpressionContexts_head():
     class IProvideExpressionContexts(win32more.System.Com.IUnknown_head):
@@ -11770,6 +11981,7 @@ def _define_IProvideExpressionContexts_head():
 def _define_IProvideExpressionContexts():
     IProvideExpressionContexts = win32more.System.Diagnostics.Debug.IProvideExpressionContexts_head
     IProvideExpressionContexts.EnumExpressionContexts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IEnumDebugExpressionContexts_head), use_last_error=False)(3, 'EnumExpressionContexts', ((1, 'ppedec'),)))
+    win32more.System.Com.IUnknown
     return IProvideExpressionContexts
 PROFILER_SCRIPT_TYPE = Int32
 PROFILER_SCRIPT_TYPE_USER = 0
@@ -11791,6 +12003,7 @@ def _define_IActiveScriptProfilerControl():
     IActiveScriptProfilerControl.StartProfiling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,UInt32, use_last_error=False)(3, 'StartProfiling', ((1, 'clsidProfilerObject'),(1, 'dwEventMask'),(1, 'dwContext'),)))
     IActiveScriptProfilerControl.SetProfilerEventMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetProfilerEventMask', ((1, 'dwEventMask'),)))
     IActiveScriptProfilerControl.StopProfiling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(5, 'StopProfiling', ((1, 'hrShutdownReason'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptProfilerControl
 def _define_IActiveScriptProfilerControl2_head():
     class IActiveScriptProfilerControl2(win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl_head):
@@ -11800,6 +12013,7 @@ def _define_IActiveScriptProfilerControl2():
     IActiveScriptProfilerControl2 = win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl2_head
     IActiveScriptProfilerControl2.CompleteProfilerStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'CompleteProfilerStart', ()))
     IActiveScriptProfilerControl2.PrepareProfilerStop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'PrepareProfilerStop', ()))
+    win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl
     return IActiveScriptProfilerControl2
 PROFILER_HEAP_OBJECT_FLAGS = UInt32
 PROFILER_HEAP_OBJECT_FLAGS_NEW_OBJECT = 1
@@ -11971,6 +12185,7 @@ def _define_IActiveScriptProfilerHeapEnum():
     IActiveScriptProfilerHeapEnum.GetOptionalInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.PROFILER_HEAP_OBJECT_head),UInt32,POINTER(win32more.System.Diagnostics.Debug.PROFILER_HEAP_OBJECT_OPTIONAL_INFO), use_last_error=False)(4, 'GetOptionalInfo', ((1, 'heapObject'),(1, 'celt'),(1, 'optionalInfo'),)))
     IActiveScriptProfilerHeapEnum.FreeObjectAndOptionalInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.System.Diagnostics.Debug.PROFILER_HEAP_OBJECT_head)), use_last_error=False)(5, 'FreeObjectAndOptionalInfo', ((1, 'celt'),(1, 'heapObjects'),)))
     IActiveScriptProfilerHeapEnum.GetNameIdMap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(POINTER(win32more.Foundation.PWSTR))),POINTER(UInt32), use_last_error=False)(6, 'GetNameIdMap', ((1, 'pNameList'),(1, 'pcelt'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptProfilerHeapEnum
 def _define_IActiveScriptProfilerControl3_head():
     class IActiveScriptProfilerControl3(win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl2_head):
@@ -11979,6 +12194,7 @@ def _define_IActiveScriptProfilerControl3_head():
 def _define_IActiveScriptProfilerControl3():
     IActiveScriptProfilerControl3 = win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl3_head
     IActiveScriptProfilerControl3.EnumHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IActiveScriptProfilerHeapEnum_head), use_last_error=False)(8, 'EnumHeap', ((1, 'ppEnum'),)))
+    win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl2
     return IActiveScriptProfilerControl3
 PROFILER_HEAP_SUMMARY_VERSION = Int32
 PROFILER_HEAP_SUMMARY_VERSION_1 = 1
@@ -12000,6 +12216,7 @@ def _define_IActiveScriptProfilerControl4_head():
 def _define_IActiveScriptProfilerControl4():
     IActiveScriptProfilerControl4 = win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl4_head
     IActiveScriptProfilerControl4.SummarizeHeap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.PROFILER_HEAP_SUMMARY_head), use_last_error=False)(9, 'SummarizeHeap', ((1, 'heapSummary'),)))
+    win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl3
     return IActiveScriptProfilerControl4
 def _define_IActiveScriptProfilerControl5_head():
     class IActiveScriptProfilerControl5(win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl4_head):
@@ -12008,6 +12225,7 @@ def _define_IActiveScriptProfilerControl5_head():
 def _define_IActiveScriptProfilerControl5():
     IActiveScriptProfilerControl5 = win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl5_head
     IActiveScriptProfilerControl5.EnumHeap2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.PROFILER_HEAP_ENUM_FLAGS,POINTER(win32more.System.Diagnostics.Debug.IActiveScriptProfilerHeapEnum_head), use_last_error=False)(10, 'EnumHeap2', ((1, 'enumFlags'),(1, 'ppEnum'),)))
+    win32more.System.Diagnostics.Debug.IActiveScriptProfilerControl4
     return IActiveScriptProfilerControl5
 def _define_IActiveScriptProfilerCallback_head():
     class IActiveScriptProfilerCallback(win32more.System.Com.IUnknown_head):
@@ -12021,6 +12239,7 @@ def _define_IActiveScriptProfilerCallback():
     IActiveScriptProfilerCallback.FunctionCompiled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'FunctionCompiled', ((1, 'functionId'),(1, 'scriptId'),(1, 'pwszFunctionName'),(1, 'pwszFunctionNameHint'),(1, 'pIDebugDocumentContext'),)))
     IActiveScriptProfilerCallback.OnFunctionEnter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(7, 'OnFunctionEnter', ((1, 'scriptId'),(1, 'functionId'),)))
     IActiveScriptProfilerCallback.OnFunctionExit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(8, 'OnFunctionExit', ((1, 'scriptId'),(1, 'functionId'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptProfilerCallback
 def _define_IActiveScriptProfilerCallback2_head():
     class IActiveScriptProfilerCallback2(win32more.System.Diagnostics.Debug.IActiveScriptProfilerCallback_head):
@@ -12030,6 +12249,7 @@ def _define_IActiveScriptProfilerCallback2():
     IActiveScriptProfilerCallback2 = win32more.System.Diagnostics.Debug.IActiveScriptProfilerCallback2_head
     IActiveScriptProfilerCallback2.OnFunctionEnterByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.PROFILER_SCRIPT_TYPE, use_last_error=False)(9, 'OnFunctionEnterByName', ((1, 'pwszFunctionName'),(1, 'type'),)))
     IActiveScriptProfilerCallback2.OnFunctionExitByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Diagnostics.Debug.PROFILER_SCRIPT_TYPE, use_last_error=False)(10, 'OnFunctionExitByName', ((1, 'pwszFunctionName'),(1, 'type'),)))
+    win32more.System.Diagnostics.Debug.IActiveScriptProfilerCallback
     return IActiveScriptProfilerCallback2
 def _define_IActiveScriptProfilerCallback3_head():
     class IActiveScriptProfilerCallback3(win32more.System.Diagnostics.Debug.IActiveScriptProfilerCallback2_head):
@@ -12038,6 +12258,7 @@ def _define_IActiveScriptProfilerCallback3_head():
 def _define_IActiveScriptProfilerCallback3():
     IActiveScriptProfilerCallback3 = win32more.System.Diagnostics.Debug.IActiveScriptProfilerCallback3_head
     IActiveScriptProfilerCallback3.SetWebWorkerId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'SetWebWorkerId', ((1, 'webWorkerId'),)))
+    win32more.System.Diagnostics.Debug.IActiveScriptProfilerCallback2
     return IActiveScriptProfilerCallback3
 def _define_LOADED_IMAGE_head():
     class LOADED_IMAGE(Structure):
@@ -12990,6 +13211,7 @@ def _define_IScriptNode():
     IScriptNode.GetLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'GetLanguage', ((1, 'pbstr'),)))
     IScriptNode.CreateChildEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IScriptEntry_head), use_last_error=False)(11, 'CreateChildEntry', ((1, 'isn'),(1, 'dwCookie'),(1, 'pszDelimiter'),(1, 'ppse'),)))
     IScriptNode.CreateChildHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.ITypeInfo_head,UInt32,UInt32,UInt32,POINTER(win32more.System.Diagnostics.Debug.IScriptEntry_head), use_last_error=False)(12, 'CreateChildHandler', ((1, 'pszDefaultName'),(1, 'prgpszNames'),(1, 'cpszNames'),(1, 'pszEvent'),(1, 'pszDelimiter'),(1, 'ptiSignature'),(1, 'iMethodSignature'),(1, 'isn'),(1, 'dwCookie'),(1, 'ppse'),)))
+    win32more.System.Com.IUnknown
     return IScriptNode
 def _define_IScriptEntry_head():
     class IScriptEntry(win32more.System.Diagnostics.Debug.IScriptNode_head):
@@ -13008,6 +13230,7 @@ def _define_IScriptEntry():
     IScriptEntry.GetSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.ITypeInfo_head),POINTER(UInt32), use_last_error=False)(21, 'GetSignature', ((1, 'ppti'),(1, 'piMethod'),)))
     IScriptEntry.SetSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.ITypeInfo_head,UInt32, use_last_error=False)(22, 'SetSignature', ((1, 'pti'),(1, 'iMethod'),)))
     IScriptEntry.GetRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(23, 'GetRange', ((1, 'pichMin'),(1, 'pcch'),)))
+    win32more.System.Diagnostics.Debug.IScriptNode
     return IScriptEntry
 def _define_IScriptScriptlet_head():
     class IScriptScriptlet(win32more.System.Diagnostics.Debug.IScriptEntry_head):
@@ -13021,6 +13244,7 @@ def _define_IScriptScriptlet():
     IScriptScriptlet.SetEventName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(27, 'SetEventName', ((1, 'psz'),)))
     IScriptScriptlet.GetSimpleEventName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(28, 'GetSimpleEventName', ((1, 'pbstr'),)))
     IScriptScriptlet.SetSimpleEventName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(29, 'SetSimpleEventName', ((1, 'psz'),)))
+    win32more.System.Diagnostics.Debug.IScriptEntry
     return IScriptScriptlet
 def _define_IActiveScriptAuthor_head():
     class IActiveScriptAuthor(win32more.System.Com.IUnknown_head):
@@ -13042,6 +13266,7 @@ def _define_IActiveScriptAuthor():
     IActiveScriptAuthor.GetChars = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'GetChars', ((1, 'fRequestedList'),(1, 'pbstrChars'),)))
     IActiveScriptAuthor.GetInfoFromContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(Int32),POINTER(Int32),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(15, 'GetInfoFromContext', ((1, 'pszCode'),(1, 'cchCode'),(1, 'ichCurrentPosition'),(1, 'dwListTypesRequested'),(1, 'pdwListTypesProvided'),(1, 'pichListAnchorPosition'),(1, 'pichFuncAnchorPosition'),(1, 'pmemid'),(1, 'piCurrentParameter'),(1, 'ppunk'),)))
     IActiveScriptAuthor.IsCommitChar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Char,POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'IsCommitChar', ((1, 'ch'),(1, 'pfcommit'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptAuthor
 def _define_IActiveScriptAuthorProcedure_head():
     class IActiveScriptAuthorProcedure(win32more.System.Com.IUnknown_head):
@@ -13050,6 +13275,7 @@ def _define_IActiveScriptAuthorProcedure_head():
 def _define_IActiveScriptAuthorProcedure():
     IActiveScriptAuthorProcedure = win32more.System.Diagnostics.Debug.IActiveScriptAuthorProcedure_head
     IActiveScriptAuthorProcedure.ParseProcedureText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.System.Com.IDispatch_head, use_last_error=False)(3, 'ParseProcedureText', ((1, 'pszCode'),(1, 'pszFormalParams'),(1, 'pszProcedureName'),(1, 'pszItemName'),(1, 'pszDelimiter'),(1, 'dwCookie'),(1, 'dwFlags'),(1, 'pdispFor'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptAuthorProcedure
 APPLICATION_NODE_EVENT_FILTER = Int32
 FILTER_EXCLUDE_NOTHING = 0
@@ -13075,6 +13301,7 @@ def _define_IDebugApplicationNode100():
     IDebugApplicationNode100.SetFilterForEventSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Diagnostics.Debug.APPLICATION_NODE_EVENT_FILTER, use_last_error=False)(3, 'SetFilterForEventSink', ((1, 'dwCookie'),(1, 'filter'),)))
     IDebugApplicationNode100.GetExcludedDocuments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.APPLICATION_NODE_EVENT_FILTER,POINTER(win32more.System.Diagnostics.Debug.TEXT_DOCUMENT_ARRAY_head), use_last_error=False)(4, 'GetExcludedDocuments', ((1, 'filter'),(1, 'pDocuments'),)))
     IDebugApplicationNode100.QueryIsChildNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugDocument_head, use_last_error=False)(5, 'QueryIsChildNode', ((1, 'pSearchKey'),)))
+    win32more.System.Com.IUnknown
     return IDebugApplicationNode100
 def _define_IWebAppDiagnosticsSetup_head():
     class IWebAppDiagnosticsSetup(win32more.System.Com.IUnknown_head):
@@ -13084,6 +13311,7 @@ def _define_IWebAppDiagnosticsSetup():
     IWebAppDiagnosticsSetup = win32more.System.Diagnostics.Debug.IWebAppDiagnosticsSetup_head
     IWebAppDiagnosticsSetup.DiagnosticsSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(3, 'DiagnosticsSupported', ((1, 'pRetVal'),)))
     IWebAppDiagnosticsSetup.CreateObjectWithSiteAtWebApp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(Guid),UIntPtr, use_last_error=False)(4, 'CreateObjectWithSiteAtWebApp', ((1, 'rclsid'),(1, 'dwClsContext'),(1, 'riid'),(1, 'hPassToObject'),)))
+    win32more.System.Com.IUnknown
     return IWebAppDiagnosticsSetup
 SCRIPT_DEBUGGER_OPTIONS = Int32
 SDO_NONE = 0
@@ -13100,6 +13328,7 @@ def _define_IRemoteDebugApplication110():
     IRemoteDebugApplication110.SetDebuggerOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.SCRIPT_DEBUGGER_OPTIONS,win32more.System.Diagnostics.Debug.SCRIPT_DEBUGGER_OPTIONS, use_last_error=False)(3, 'SetDebuggerOptions', ((1, 'mask'),(1, 'value'),)))
     IRemoteDebugApplication110.GetCurrentDebuggerOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.SCRIPT_DEBUGGER_OPTIONS), use_last_error=False)(4, 'GetCurrentDebuggerOptions', ((1, 'pCurrentOptions'),)))
     IRemoteDebugApplication110.GetMainThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IRemoteDebugApplicationThread_head), use_last_error=False)(5, 'GetMainThread', ((1, 'ppThread'),)))
+    win32more.System.Com.IUnknown
     return IRemoteDebugApplication110
 def _define_IDebugApplication11032_head():
     class IDebugApplication11032(win32more.System.Diagnostics.Debug.IRemoteDebugApplication110_head):
@@ -13110,6 +13339,7 @@ def _define_IDebugApplication11032():
     IDebugApplication11032.SynchronousCallInMainThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugThreadCall32_head,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(6, 'SynchronousCallInMainThread', ((1, 'pptc'),(1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),)))
     IDebugApplication11032.AsynchronousCallInMainThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugThreadCall32_head,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(7, 'AsynchronousCallInMainThread', ((1, 'pptc'),(1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),)))
     IDebugApplication11032.CallableWaitForHandles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(UInt32), use_last_error=False)(8, 'CallableWaitForHandles', ((1, 'handleCount'),(1, 'pHandles'),(1, 'pIndex'),)))
+    win32more.System.Diagnostics.Debug.IRemoteDebugApplication110
     return IDebugApplication11032
 def _define_IDebugApplication11064_head():
     class IDebugApplication11064(win32more.System.Diagnostics.Debug.IRemoteDebugApplication110_head):
@@ -13120,6 +13350,7 @@ def _define_IDebugApplication11064():
     IDebugApplication11064.SynchronousCallInMainThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugThreadCall64_head,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(6, 'SynchronousCallInMainThread', ((1, 'pptc'),(1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),)))
     IDebugApplication11064.AsynchronousCallInMainThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugThreadCall64_head,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(7, 'AsynchronousCallInMainThread', ((1, 'pptc'),(1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),)))
     IDebugApplication11064.CallableWaitForHandles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(UInt32), use_last_error=False)(8, 'CallableWaitForHandles', ((1, 'handleCount'),(1, 'pHandles'),(1, 'pIndex'),)))
+    win32more.System.Diagnostics.Debug.IRemoteDebugApplication110
     return IDebugApplication11064
 def _define_IWebAppDiagnosticsObjectInitialization_head():
     class IWebAppDiagnosticsObjectInitialization(win32more.System.Com.IUnknown_head):
@@ -13128,6 +13359,7 @@ def _define_IWebAppDiagnosticsObjectInitialization_head():
 def _define_IWebAppDiagnosticsObjectInitialization():
     IWebAppDiagnosticsObjectInitialization = win32more.System.Diagnostics.Debug.IWebAppDiagnosticsObjectInitialization_head
     IWebAppDiagnosticsObjectInitialization.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE_PTR,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Initialize', ((1, 'hPassedHandle'),(1, 'pDebugApplication'),)))
+    win32more.System.Com.IUnknown
     return IWebAppDiagnosticsObjectInitialization
 def _define_IActiveScriptWinRTErrorDebug_head():
     class IActiveScriptWinRTErrorDebug(win32more.System.Diagnostics.Debug.IActiveScriptError_head):
@@ -13138,6 +13370,7 @@ def _define_IActiveScriptWinRTErrorDebug():
     IActiveScriptWinRTErrorDebug.GetRestrictedErrorString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetRestrictedErrorString', ((1, 'errorString'),)))
     IActiveScriptWinRTErrorDebug.GetRestrictedErrorReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetRestrictedErrorReference', ((1, 'referenceString'),)))
     IActiveScriptWinRTErrorDebug.GetCapabilitySid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'GetCapabilitySid', ((1, 'capabilitySid'),)))
+    win32more.System.Diagnostics.Debug.IActiveScriptError
     return IActiveScriptWinRTErrorDebug
 SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND = Int32
 ETK_FIRST_CHANCE = 0
@@ -13150,6 +13383,7 @@ def _define_IActiveScriptErrorDebug110_head():
 def _define_IActiveScriptErrorDebug110():
     IActiveScriptErrorDebug110 = win32more.System.Diagnostics.Debug.IActiveScriptErrorDebug110_head
     IActiveScriptErrorDebug110.GetExceptionThrownKind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND), use_last_error=False)(3, 'GetExceptionThrownKind', ((1, 'pExceptionKind'),)))
+    win32more.System.Com.IUnknown
     return IActiveScriptErrorDebug110
 def _define_IDebugApplicationThreadEvents110_head():
     class IDebugApplicationThreadEvents110(win32more.System.Com.IUnknown_head):
@@ -13161,6 +13395,7 @@ def _define_IDebugApplicationThreadEvents110():
     IDebugApplicationThreadEvents110.OnResumeFromBreakPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnResumeFromBreakPoint', ()))
     IDebugApplicationThreadEvents110.OnThreadRequestComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'OnThreadRequestComplete', ()))
     IDebugApplicationThreadEvents110.OnBeginThreadRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'OnBeginThreadRequest', ()))
+    win32more.System.Com.IUnknown
     return IDebugApplicationThreadEvents110
 def _define_IDebugApplicationThread11032_head():
     class IDebugApplicationThread11032(win32more.System.Com.IUnknown_head):
@@ -13172,6 +13407,7 @@ def _define_IDebugApplicationThread11032():
     IDebugApplicationThread11032.IsSuspendedForBreakPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsSuspendedForBreakPoint', ((1, 'pfIsSuspended'),)))
     IDebugApplicationThread11032.IsThreadCallable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsThreadCallable', ((1, 'pfIsCallable'),)))
     IDebugApplicationThread11032.AsynchronousCallIntoThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugThreadCall32_head,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(6, 'AsynchronousCallIntoThread', ((1, 'pptc'),(1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),)))
+    win32more.System.Com.IUnknown
     return IDebugApplicationThread11032
 def _define_IDebugApplicationThread11064_head():
     class IDebugApplicationThread11064(win32more.System.Com.IUnknown_head):
@@ -13183,6 +13419,7 @@ def _define_IDebugApplicationThread11064():
     IDebugApplicationThread11064.IsSuspendedForBreakPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsSuspendedForBreakPoint', ((1, 'pfIsSuspended'),)))
     IDebugApplicationThread11064.IsThreadCallable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsThreadCallable', ((1, 'pfIsCallable'),)))
     IDebugApplicationThread11064.AsynchronousCallIntoThread = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.IDebugThreadCall64_head,UIntPtr,UIntPtr,UIntPtr, use_last_error=False)(6, 'AsynchronousCallIntoThread', ((1, 'pptc'),(1, 'dwParam1'),(1, 'dwParam2'),(1, 'dwParam3'),)))
+    win32more.System.Com.IUnknown
     return IDebugApplicationThread11064
 def _define_IRemoteDebugCriticalErrorEvent110_head():
     class IRemoteDebugCriticalErrorEvent110(win32more.System.Com.IUnknown_head):
@@ -13191,6 +13428,7 @@ def _define_IRemoteDebugCriticalErrorEvent110_head():
 def _define_IRemoteDebugCriticalErrorEvent110():
     IRemoteDebugCriticalErrorEvent110 = win32more.System.Diagnostics.Debug.IRemoteDebugCriticalErrorEvent110_head
     IRemoteDebugCriticalErrorEvent110.GetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(Int32),POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentContext_head), use_last_error=False)(3, 'GetErrorInfo', ((1, 'pbstrSource'),(1, 'pMessageId'),(1, 'pbstrMessage'),(1, 'ppLocation'),)))
+    win32more.System.Com.IUnknown
     return IRemoteDebugCriticalErrorEvent110
 SCRIPT_INVOCATION_CONTEXT_TYPE = Int32
 SICT_Event = 0
@@ -13211,6 +13449,7 @@ def _define_IScriptInvocationContext():
     IScriptInvocationContext.GetContextType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.SCRIPT_INVOCATION_CONTEXT_TYPE), use_last_error=False)(3, 'GetContextType', ((1, 'pInvocationContextType'),)))
     IScriptInvocationContext.GetContextDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetContextDescription', ((1, 'pDescription'),)))
     IScriptInvocationContext.GetContextObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetContextObject', ((1, 'ppContextObject'),)))
+    win32more.System.Com.IUnknown
     return IScriptInvocationContext
 DEBUG_STACKFRAME_TYPE = Int32
 DST_SCRIPT_FRAME = 0
@@ -13224,6 +13463,7 @@ def _define_IDebugStackFrame110():
     IDebugStackFrame110 = win32more.System.Diagnostics.Debug.IDebugStackFrame110_head
     IDebugStackFrame110.GetStackFrameType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.DEBUG_STACKFRAME_TYPE), use_last_error=False)(8, 'GetStackFrameType', ((1, 'pStackFrameKind'),)))
     IDebugStackFrame110.GetScriptInvocationContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IScriptInvocationContext_head), use_last_error=False)(9, 'GetScriptInvocationContext', ((1, 'ppInvocationContext'),)))
+    win32more.System.Diagnostics.Debug.IDebugStackFrame
     return IDebugStackFrame110
 DEBUG_EVENT_INFO_TYPE = Int32
 DEIT_GENERAL = 0
@@ -13237,6 +13477,7 @@ def _define_IRemoteDebugInfoEvent110_head():
 def _define_IRemoteDebugInfoEvent110():
     IRemoteDebugInfoEvent110 = win32more.System.Diagnostics.Debug.IRemoteDebugInfoEvent110_head
     IRemoteDebugInfoEvent110.GetEventInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.DEBUG_EVENT_INFO_TYPE),POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Diagnostics.Debug.IDebugDocumentContext_head), use_last_error=False)(3, 'GetEventInfo', ((1, 'pMessageType'),(1, 'pbstrMessage'),(1, 'pbstrUrl'),(1, 'ppLocation'),)))
+    win32more.System.Com.IUnknown
     return IRemoteDebugInfoEvent110
 def _define_IJsDebug_head():
     class IJsDebug(win32more.System.Com.IUnknown_head):
@@ -13245,6 +13486,7 @@ def _define_IJsDebug_head():
 def _define_IJsDebug():
     IJsDebug = win32more.System.Diagnostics.Debug.IJsDebug_head
     IJsDebug.OpenVirtualProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,win32more.System.Diagnostics.Debug.IJsDebugDataTarget_head,POINTER(win32more.System.Diagnostics.Debug.IJsDebugProcess_head), use_last_error=False)(3, 'OpenVirtualProcess', ((1, 'processId'),(1, 'runtimeJsBaseAddress'),(1, 'pDataTarget'),(1, 'ppProcess'),)))
+    win32more.System.Com.IUnknown
     return IJsDebug
 def _define_IJsDebugProcess_head():
     class IJsDebugProcess(win32more.System.Com.IUnknown_head):
@@ -13256,6 +13498,7 @@ def _define_IJsDebugProcess():
     IJsDebugProcess.CreateBreakPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,UInt32,win32more.Foundation.BOOL,POINTER(win32more.System.Diagnostics.Debug.IJsDebugBreakPoint_head), use_last_error=False)(4, 'CreateBreakPoint', ((1, 'documentId'),(1, 'characterOffset'),(1, 'characterCount'),(1, 'isEnabled'),(1, 'ppDebugBreakPoint'),)))
     IJsDebugProcess.PerformAsyncBreak = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'PerformAsyncBreak', ((1, 'threadId'),)))
     IJsDebugProcess.GetExternalStepAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(6, 'GetExternalStepAddress', ((1, 'pCodeAddress'),)))
+    win32more.System.Com.IUnknown
     return IJsDebugProcess
 def _define_IJsDebugStackWalker_head():
     class IJsDebugStackWalker(win32more.System.Com.IUnknown_head):
@@ -13264,6 +13507,7 @@ def _define_IJsDebugStackWalker_head():
 def _define_IJsDebugStackWalker():
     IJsDebugStackWalker = win32more.System.Diagnostics.Debug.IJsDebugStackWalker_head
     IJsDebugStackWalker.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IJsDebugFrame_head), use_last_error=False)(3, 'GetNext', ((1, 'ppFrame'),)))
+    win32more.System.Com.IUnknown
     return IJsDebugStackWalker
 def _define_IJsDebugFrame_head():
     class IJsDebugFrame(win32more.System.Com.IUnknown_head):
@@ -13278,6 +13522,7 @@ def _define_IJsDebugFrame():
     IJsDebugFrame.GetDebugProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Diagnostics.Debug.IJsDebugProperty_head), use_last_error=False)(7, 'GetDebugProperty', ((1, 'ppDebugProperty'),)))
     IJsDebugFrame.GetReturnAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(8, 'GetReturnAddress', ((1, 'pReturnAddress'),)))
     IJsDebugFrame.Evaluate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Diagnostics.Debug.IJsDebugProperty_head),POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'Evaluate', ((1, 'pExpressionText'),(1, 'ppDebugProperty'),(1, 'pError'),)))
+    win32more.System.Com.IUnknown
     return IJsDebugFrame
 JS_PROPERTY_MEMBERS = Int32
 JS_PROPERTY_MEMBERS_ALL = 0
@@ -13314,6 +13559,7 @@ def _define_IJsDebugProperty():
     IJsDebugProperty = win32more.System.Diagnostics.Debug.IJsDebugProperty_head
     IJsDebugProperty.GetPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Diagnostics.Debug.JsDebugPropertyInfo_head), use_last_error=False)(3, 'GetPropertyInfo', ((1, 'nRadix'),(1, 'pPropertyInfo'),)))
     IJsDebugProperty.GetMembers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.JS_PROPERTY_MEMBERS,POINTER(win32more.System.Diagnostics.Debug.IJsEnumDebugProperty_head), use_last_error=False)(4, 'GetMembers', ((1, 'members'),(1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IJsDebugProperty
 def _define_IJsEnumDebugProperty_head():
     class IJsEnumDebugProperty(win32more.System.Com.IUnknown_head):
@@ -13323,6 +13569,7 @@ def _define_IJsEnumDebugProperty():
     IJsEnumDebugProperty = win32more.System.Diagnostics.Debug.IJsEnumDebugProperty_head
     IJsEnumDebugProperty.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Diagnostics.Debug.IJsDebugProperty_head),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'count'),(1, 'ppDebugProperty'),(1, 'pActualCount'),)))
     IJsEnumDebugProperty.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetCount', ((1, 'pCount'),)))
+    win32more.System.Com.IUnknown
     return IJsEnumDebugProperty
 def _define_IJsDebugBreakPoint_head():
     class IJsDebugBreakPoint(win32more.System.Com.IUnknown_head):
@@ -13335,6 +13582,7 @@ def _define_IJsDebugBreakPoint():
     IJsDebugBreakPoint.Disable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Disable', ()))
     IJsDebugBreakPoint.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Delete', ()))
     IJsDebugBreakPoint.GetDocumentPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(7, 'GetDocumentPosition', ((1, 'pDocumentId'),(1, 'pCharacterOffset'),(1, 'pStatementCharCount'),)))
+    win32more.System.Com.IUnknown
     return IJsDebugBreakPoint
 def _define___MIDL___MIDL_itf_jscript9diag_0000_0007_0001_head():
     class __MIDL___MIDL_itf_jscript9diag_0000_0007_0001(Structure):
@@ -13357,6 +13605,7 @@ def _define_IEnumJsStackFrames():
     IEnumJsStackFrames = win32more.System.Diagnostics.Debug.IEnumJsStackFrames_head
     IEnumJsStackFrames.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Diagnostics.Debug.__MIDL___MIDL_itf_jscript9diag_0000_0007_0001),POINTER(UInt32), use_last_error=False)(3, 'Next', ((1, 'cFrameCount'),(1, 'pFrames'),(1, 'pcFetched'),)))
     IEnumJsStackFrames.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IEnumJsStackFrames
 JsDebugReadMemoryFlags = Int32
 JsDebugReadMemoryFlags_None = 0
@@ -13376,6 +13625,7 @@ def _define_IJsDebugDataTarget():
     IJsDebugDataTarget.ReadNullTerminatedString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt16,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'ReadNullTerminatedString', ((1, 'address'),(1, 'characterSize'),(1, 'maxCharacters'),(1, 'pString'),)))
     IJsDebugDataTarget.CreateStackFrameEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Diagnostics.Debug.IEnumJsStackFrames_head), use_last_error=False)(10, 'CreateStackFrameEnumerator', ((1, 'threadId'),(1, 'ppEnumerator'),)))
     IJsDebugDataTarget.GetThreadContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(Void), use_last_error=False)(11, 'GetThreadContext', ((1, 'threadId'),(1, 'contextFlags'),(1, 'contextSize'),(1, 'pContext'),)))
+    win32more.System.Com.IUnknown
     return IJsDebugDataTarget
 _DUMP_TYPES = Int32
 DUMP_TYPE_INVALID = -1
@@ -13570,6 +13820,7 @@ def _define_IObjectSafety():
     IObjectSafety = win32more.System.Diagnostics.Debug.IObjectSafety_head
     IObjectSafety.GetInterfaceSafetyOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetInterfaceSafetyOptions', ((1, 'riid'),(1, 'pdwSupportedOptions'),(1, 'pdwEnabledOptions'),)))
     IObjectSafety.SetInterfaceSafetyOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,UInt32, use_last_error=False)(4, 'SetInterfaceSafetyOptions', ((1, 'riid'),(1, 'dwOptionSetMask'),(1, 'dwEnabledOptions'),)))
+    win32more.System.Com.IUnknown
     return IObjectSafety
 WHEA_ERROR_SOURCE_TYPE = Int32
 WHEA_ERROR_SOURCE_TYPE_WheaErrSrcTypeMCE = 0

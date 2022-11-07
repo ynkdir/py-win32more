@@ -232,6 +232,7 @@ def _define_IGPM():
     IGPM.GetMigrationTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMMigrationTable_head), use_last_error=False)(16, 'GetMigrationTable', ((1, 'bstrMigrationTablePath'),(1, 'ppMigrationTable'),)))
     IGPM.CreateMigrationTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMMigrationTable_head), use_last_error=False)(17, 'CreateMigrationTable', ((1, 'ppMigrationTable'),)))
     IGPM.InitializeReporting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(18, 'InitializeReporting', ((1, 'bstrAdmPath'),)))
+    win32more.System.Com.IDispatch
     return IGPM
 def _define_IGPMDomain_head():
     class IGPMDomain(win32more.System.Com.IDispatch_head):
@@ -249,6 +250,7 @@ def _define_IGPMDomain():
     IGPMDomain.SearchSOMs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMSOMCollection_head), use_last_error=False)(14, 'SearchSOMs', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMSOMCollection'),)))
     IGPMDomain.GetWMIFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMWMIFilter_head), use_last_error=False)(15, 'GetWMIFilter', ((1, 'bstrPath'),(1, 'ppWMIFilter'),)))
     IGPMDomain.SearchWMIFilters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMWMIFilterCollection_head), use_last_error=False)(16, 'SearchWMIFilters', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMWMIFilterCollection'),)))
+    win32more.System.Com.IDispatch
     return IGPMDomain
 def _define_IGPMBackupDir_head():
     class IGPMBackupDir(win32more.System.Com.IDispatch_head):
@@ -259,6 +261,7 @@ def _define_IGPMBackupDir():
     IGPMBackupDir.get_BackupDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_BackupDirectory', ((1, 'pVal'),)))
     IGPMBackupDir.GetBackup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMBackup_head), use_last_error=False)(8, 'GetBackup', ((1, 'bstrID'),(1, 'ppBackup'),)))
     IGPMBackupDir.SearchBackups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMBackupCollection_head), use_last_error=False)(9, 'SearchBackups', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMBackupCollection'),)))
+    win32more.System.Com.IDispatch
     return IGPMBackupDir
 def _define_IGPMSitesContainer_head():
     class IGPMSitesContainer(win32more.System.Com.IDispatch_head):
@@ -271,6 +274,7 @@ def _define_IGPMSitesContainer():
     IGPMSitesContainer.get_Forest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Forest', ((1, 'pVal'),)))
     IGPMSitesContainer.GetSite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMSOM_head), use_last_error=False)(10, 'GetSite', ((1, 'bstrSiteName'),(1, 'ppSOM'),)))
     IGPMSitesContainer.SearchSites = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMSOMCollection_head), use_last_error=False)(11, 'SearchSites', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMSOMCollection'),)))
+    win32more.System.Com.IDispatch
     return IGPMSitesContainer
 def _define_IGPMSearchCriteria_head():
     class IGPMSearchCriteria(win32more.System.Com.IDispatch_head):
@@ -279,6 +283,7 @@ def _define_IGPMSearchCriteria_head():
 def _define_IGPMSearchCriteria():
     IGPMSearchCriteria = win32more.System.GroupPolicy.IGPMSearchCriteria_head
     IGPMSearchCriteria.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMSearchProperty,win32more.System.GroupPolicy.GPMSearchOperation,win32more.System.Com.VARIANT, use_last_error=False)(7, 'Add', ((1, 'searchProperty'),(1, 'searchOperation'),(1, 'varValue'),)))
+    win32more.System.Com.IDispatch
     return IGPMSearchCriteria
 def _define_IGPMTrustee_head():
     class IGPMTrustee(win32more.System.Com.IDispatch_head):
@@ -291,6 +296,7 @@ def _define_IGPMTrustee():
     IGPMTrustee.get_TrusteeDomain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_TrusteeDomain', ((1, 'bstrVal'),)))
     IGPMTrustee.get_TrusteeDSPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_TrusteeDSPath', ((1, 'pVal'),)))
     IGPMTrustee.get_TrusteeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_TrusteeType', ((1, 'lVal'),)))
+    win32more.System.Com.IDispatch
     return IGPMTrustee
 def _define_IGPMPermission_head():
     class IGPMPermission(win32more.System.Com.IDispatch_head):
@@ -303,6 +309,7 @@ def _define_IGPMPermission():
     IGPMPermission.get_Denied = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_Denied', ((1, 'pVal'),)))
     IGPMPermission.get_Permission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType), use_last_error=False)(10, 'get_Permission', ((1, 'pVal'),)))
     IGPMPermission.get_Trustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMTrustee_head), use_last_error=False)(11, 'get_Trustee', ((1, 'ppIGPMTrustee'),)))
+    win32more.System.Com.IDispatch
     return IGPMPermission
 def _define_IGPMSecurityInfo_head():
     class IGPMSecurityInfo(win32more.System.Com.IDispatch_head):
@@ -316,6 +323,7 @@ def _define_IGPMSecurityInfo():
     IGPMSecurityInfo.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMPermission_head, use_last_error=False)(10, 'Add', ((1, 'pPerm'),)))
     IGPMSecurityInfo.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMPermission_head, use_last_error=False)(11, 'Remove', ((1, 'pPerm'),)))
     IGPMSecurityInfo.RemoveTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'RemoveTrustee', ((1, 'bstrTrustee'),)))
+    win32more.System.Com.IDispatch
     return IGPMSecurityInfo
 def _define_IGPMBackup_head():
     class IGPMBackup(win32more.System.Com.IDispatch_head):
@@ -333,6 +341,7 @@ def _define_IGPMBackup():
     IGPMBackup.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Delete', ()))
     IGPMBackup.GenerateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(15, 'GenerateReport', ((1, 'gpmReportType'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
     IGPMBackup.GenerateReportToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(16, 'GenerateReportToFile', ((1, 'gpmReportType'),(1, 'bstrTargetFilePath'),(1, 'ppIGPMResult'),)))
+    win32more.System.Com.IDispatch
     return IGPMBackup
 def _define_IGPMBackupCollection_head():
     class IGPMBackupCollection(win32more.System.Com.IDispatch_head):
@@ -343,6 +352,7 @@ def _define_IGPMBackupCollection():
     IGPMBackupCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMBackupCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMBackupCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppIGPMBackup'),)))
+    win32more.System.Com.IDispatch
     return IGPMBackupCollection
 GPMSOMType = Int32
 GPMSOMType_somSite = 0
@@ -364,6 +374,7 @@ def _define_IGPMSOM():
     IGPMSOM.GetInheritedGPOLinks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMGPOLinksCollection_head), use_last_error=False)(14, 'GetInheritedGPOLinks', ((1, 'ppGPOLinks'),)))
     IGPMSOM.GetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head), use_last_error=False)(15, 'GetSecurityInfo', ((1, 'ppSecurityInfo'),)))
     IGPMSOM.SetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSecurityInfo_head, use_last_error=False)(16, 'SetSecurityInfo', ((1, 'pSecurityInfo'),)))
+    win32more.System.Com.IDispatch
     return IGPMSOM
 def _define_IGPMSOMCollection_head():
     class IGPMSOMCollection(win32more.System.Com.IDispatch_head):
@@ -374,6 +385,7 @@ def _define_IGPMSOMCollection():
     IGPMSOMCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMSOMCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMSOMCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppIGPMSOM'),)))
+    win32more.System.Com.IDispatch
     return IGPMSOMCollection
 def _define_IGPMWMIFilter_head():
     class IGPMWMIFilter(win32more.System.Com.IDispatch_head):
@@ -389,6 +401,7 @@ def _define_IGPMWMIFilter():
     IGPMWMIFilter.GetQueryList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'GetQueryList', ((1, 'pQryList'),)))
     IGPMWMIFilter.GetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head), use_last_error=False)(13, 'GetSecurityInfo', ((1, 'ppSecurityInfo'),)))
     IGPMWMIFilter.SetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSecurityInfo_head, use_last_error=False)(14, 'SetSecurityInfo', ((1, 'pSecurityInfo'),)))
+    win32more.System.Com.IDispatch
     return IGPMWMIFilter
 def _define_IGPMWMIFilterCollection_head():
     class IGPMWMIFilterCollection(win32more.System.Com.IDispatch_head):
@@ -399,6 +412,7 @@ def _define_IGPMWMIFilterCollection():
     IGPMWMIFilterCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMWMIFilterCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMWMIFilterCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IGPMWMIFilterCollection
 def _define_IGPMRSOP_head():
     class IGPMRSOP(win32more.System.Com.IDispatch_head):
@@ -441,6 +455,7 @@ def _define_IGPMRSOP():
     IGPMRSOP.ReleaseQueryResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(39, 'ReleaseQueryResults', ()))
     IGPMRSOP.GenerateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(40, 'GenerateReport', ((1, 'gpmReportType'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
     IGPMRSOP.GenerateReportToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(41, 'GenerateReportToFile', ((1, 'gpmReportType'),(1, 'bstrTargetFilePath'),(1, 'ppIGPMResult'),)))
+    win32more.System.Com.IDispatch
     return IGPMRSOP
 def _define_IGPMGPO_head():
     class IGPMGPO(win32more.System.Com.IDispatch_head):
@@ -477,6 +492,7 @@ def _define_IGPMGPO():
     IGPMGPO.GetSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(33, 'GetSecurityDescriptor', ((1, 'lFlags'),(1, 'ppSD'),)))
     IGPMGPO.IsACLConsistent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(34, 'IsACLConsistent', ((1, 'pvbConsistent'),)))
     IGPMGPO.MakeACLConsistent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(35, 'MakeACLConsistent', ()))
+    win32more.System.Com.IDispatch
     return IGPMGPO
 def _define_IGPMGPOCollection_head():
     class IGPMGPOCollection(win32more.System.Com.IDispatch_head):
@@ -487,6 +503,7 @@ def _define_IGPMGPOCollection():
     IGPMGPOCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMGPOCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMGPOCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppIGPMGPOs'),)))
+    win32more.System.Com.IDispatch
     return IGPMGPOCollection
 def _define_IGPMGPOLink_head():
     class IGPMGPOLink(win32more.System.Com.IDispatch_head):
@@ -503,6 +520,7 @@ def _define_IGPMGPOLink():
     IGPMGPOLink.get_SOMLinkOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_SOMLinkOrder', ((1, 'lVal'),)))
     IGPMGPOLink.get_SOM = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSOM_head), use_last_error=False)(14, 'get_SOM', ((1, 'ppIGPMSOM'),)))
     IGPMGPOLink.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Delete', ()))
+    win32more.System.Com.IDispatch
     return IGPMGPOLink
 def _define_IGPMGPOLinksCollection_head():
     class IGPMGPOLinksCollection(win32more.System.Com.IDispatch_head):
@@ -513,6 +531,7 @@ def _define_IGPMGPOLinksCollection():
     IGPMGPOLinksCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMGPOLinksCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMGPOLinksCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppIGPMLinks'),)))
+    win32more.System.Com.IDispatch
     return IGPMGPOLinksCollection
 def _define_IGPMCSECollection_head():
     class IGPMCSECollection(win32more.System.Com.IDispatch_head):
@@ -523,6 +542,7 @@ def _define_IGPMCSECollection():
     IGPMCSECollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMCSECollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMCSECollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppIGPMCSEs'),)))
+    win32more.System.Com.IDispatch
     return IGPMCSECollection
 def _define_IGPMClientSideExtension_head():
     class IGPMClientSideExtension(win32more.System.Com.IDispatch_head):
@@ -534,6 +554,7 @@ def _define_IGPMClientSideExtension():
     IGPMClientSideExtension.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_DisplayName', ((1, 'pVal'),)))
     IGPMClientSideExtension.IsUserEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'IsUserEnabled', ((1, 'pvbEnabled'),)))
     IGPMClientSideExtension.IsComputerEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'IsComputerEnabled', ((1, 'pvbEnabled'),)))
+    win32more.System.Com.IDispatch
     return IGPMClientSideExtension
 def _define_IGPMAsyncCancel_head():
     class IGPMAsyncCancel(win32more.System.Com.IDispatch_head):
@@ -542,6 +563,7 @@ def _define_IGPMAsyncCancel_head():
 def _define_IGPMAsyncCancel():
     IGPMAsyncCancel = win32more.System.GroupPolicy.IGPMAsyncCancel_head
     IGPMAsyncCancel.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Cancel', ()))
+    win32more.System.Com.IDispatch
     return IGPMAsyncCancel
 def _define_IGPMAsyncProgress_head():
     class IGPMAsyncProgress(win32more.System.Com.IDispatch_head):
@@ -550,6 +572,7 @@ def _define_IGPMAsyncProgress_head():
 def _define_IGPMAsyncProgress():
     IGPMAsyncProgress = win32more.System.GroupPolicy.IGPMAsyncProgress_head
     IGPMAsyncProgress.Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),win32more.System.GroupPolicy.IGPMStatusMsgCollection_head, use_last_error=False)(7, 'Status', ((1, 'lProgressNumerator'),(1, 'lProgressDenominator'),(1, 'hrStatus'),(1, 'pResult'),(1, 'ppIGPMStatusMsgCollection'),)))
+    win32more.System.Com.IDispatch
     return IGPMAsyncProgress
 def _define_IGPMStatusMsgCollection_head():
     class IGPMStatusMsgCollection(win32more.System.Com.IDispatch_head):
@@ -560,6 +583,7 @@ def _define_IGPMStatusMsgCollection():
     IGPMStatusMsgCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMStatusMsgCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMStatusMsgCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IGPMStatusMsgCollection
 def _define_IGPMStatusMessage_head():
     class IGPMStatusMessage(win32more.System.Com.IDispatch_head):
@@ -573,6 +597,7 @@ def _define_IGPMStatusMessage():
     IGPMStatusMessage.get_SettingsName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_SettingsName', ((1, 'pVal'),)))
     IGPMStatusMessage.OperationCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'OperationCode', ()))
     IGPMStatusMessage.get_Message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_Message', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IGPMStatusMessage
 def _define_IGPMConstants_head():
     class IGPMConstants(win32more.System.Com.IDispatch_head):
@@ -640,6 +665,7 @@ def _define_IGPMConstants():
     IGPMConstants.get_RsopPlanningLoopbackOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,POINTER(Int32), use_last_error=False)(64, 'get_RsopPlanningLoopbackOption', ((1, 'vbMerge'),(1, 'pVal'),)))
     IGPMConstants.get_RsopPlanningAssumeUserWQLFilterTrue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(65, 'get_RsopPlanningAssumeUserWQLFilterTrue', ((1, 'pVal'),)))
     IGPMConstants.get_RsopPlanningAssumeCompWQLFilterTrue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(66, 'get_RsopPlanningAssumeCompWQLFilterTrue', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IGPMConstants
 def _define_IGPMResult_head():
     class IGPMResult(win32more.System.Com.IDispatch_head):
@@ -650,6 +676,7 @@ def _define_IGPMResult():
     IGPMResult.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMStatusMsgCollection_head), use_last_error=False)(7, 'get_Status', ((1, 'ppIGPMStatusMsgCollection'),)))
     IGPMResult.get_Result = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Result', ((1, 'pvarResult'),)))
     IGPMResult.OverallStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'OverallStatus', ()))
+    win32more.System.Com.IDispatch
     return IGPMResult
 def _define_IGPMMapEntryCollection_head():
     class IGPMMapEntryCollection(win32more.System.Com.IDispatch_head):
@@ -660,6 +687,7 @@ def _define_IGPMMapEntryCollection():
     IGPMMapEntryCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMMapEntryCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMMapEntryCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IGPMMapEntryCollection
 def _define_IGPMMapEntry_head():
     class IGPMMapEntry(win32more.System.Com.IDispatch_head):
@@ -671,6 +699,7 @@ def _define_IGPMMapEntry():
     IGPMMapEntry.get_Destination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Destination', ((1, 'pbstrDestination'),)))
     IGPMMapEntry.get_DestinationOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMDestinationOption), use_last_error=False)(9, 'get_DestinationOption', ((1, 'pgpmDestOption'),)))
     IGPMMapEntry.get_EntryType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMEntryType), use_last_error=False)(10, 'get_EntryType', ((1, 'pgpmEntryType'),)))
+    win32more.System.Com.IDispatch
     return IGPMMapEntry
 def _define_IGPMMigrationTable_head():
     class IGPMMigrationTable(win32more.System.Com.IDispatch_head):
@@ -686,6 +715,7 @@ def _define_IGPMMigrationTable():
     IGPMMigrationTable.UpdateDestination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMMapEntry_head), use_last_error=False)(12, 'UpdateDestination', ((1, 'bstrSource'),(1, 'pvarDestination'),(1, 'ppEntry'),)))
     IGPMMigrationTable.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(13, 'Validate', ((1, 'ppResult'),)))
     IGPMMigrationTable.GetEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMMapEntryCollection_head), use_last_error=False)(14, 'GetEntries', ((1, 'ppEntries'),)))
+    win32more.System.Com.IDispatch
     return IGPMMigrationTable
 GPMBackupType = Int32
 GPMBackupType_typeGPO = 0
@@ -703,6 +733,7 @@ def _define_IGPMBackupDirEx():
     IGPMBackupDirEx.get_BackupType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMBackupType), use_last_error=False)(8, 'get_BackupType', ((1, 'pgpmBackupType'),)))
     IGPMBackupDirEx.GetBackup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'GetBackup', ((1, 'bstrID'),(1, 'pvarBackup'),)))
     IGPMBackupDirEx.SearchBackups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'SearchBackups', ((1, 'pIGPMSearchCriteria'),(1, 'pvarBackupCollection'),)))
+    win32more.System.Com.IDispatch
     return IGPMBackupDirEx
 def _define_IGPMStarterGPOBackupCollection_head():
     class IGPMStarterGPOBackupCollection(win32more.System.Com.IDispatch_head):
@@ -713,6 +744,7 @@ def _define_IGPMStarterGPOBackupCollection():
     IGPMStarterGPOBackupCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMStarterGPOBackupCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMStarterGPOBackupCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppIGPMTmplBackup'),)))
+    win32more.System.Com.IDispatch
     return IGPMStarterGPOBackupCollection
 def _define_IGPMStarterGPOBackup_head():
     class IGPMStarterGPOBackup(win32more.System.Com.IDispatch_head):
@@ -731,6 +763,7 @@ def _define_IGPMStarterGPOBackup():
     IGPMStarterGPOBackup.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Delete', ()))
     IGPMStarterGPOBackup.GenerateReport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(16, 'GenerateReport', ((1, 'gpmReportType'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
     IGPMStarterGPOBackup.GenerateReportToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(17, 'GenerateReportToFile', ((1, 'gpmReportType'),(1, 'bstrTargetFilePath'),(1, 'ppIGPMResult'),)))
+    win32more.System.Com.IDispatch
     return IGPMStarterGPOBackup
 def _define_IGPM2_head():
     class IGPM2(win32more.System.GroupPolicy.IGPM_head):
@@ -740,6 +773,7 @@ def _define_IGPM2():
     IGPM2 = win32more.System.GroupPolicy.IGPM2_head
     IGPM2.GetBackupDirEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.GroupPolicy.GPMBackupType,POINTER(win32more.System.GroupPolicy.IGPMBackupDirEx_head), use_last_error=False)(19, 'GetBackupDirEx', ((1, 'bstrBackupDir'),(1, 'backupDirType'),(1, 'ppIGPMBackupDirEx'),)))
     IGPM2.InitializeReportingEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(20, 'InitializeReportingEx', ((1, 'bstrAdmPath'),(1, 'reportingOptions'),)))
+    win32more.System.GroupPolicy.IGPM
     return IGPM2
 def _define_IGPMStarterGPO_head():
     class IGPMStarterGPO(win32more.System.Com.IDispatch_head):
@@ -768,6 +802,7 @@ def _define_IGPMStarterGPO():
     IGPMStarterGPO.GenerateReportToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.GPMReportType,win32more.Foundation.BSTR,POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(25, 'GenerateReportToFile', ((1, 'gpmReportType'),(1, 'bstrTargetFilePath'),(1, 'ppIGPMResult'),)))
     IGPMStarterGPO.GetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.IGPMSecurityInfo_head), use_last_error=False)(26, 'GetSecurityInfo', ((1, 'ppSecurityInfo'),)))
     IGPMStarterGPO.SetSecurityInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSecurityInfo_head, use_last_error=False)(27, 'SetSecurityInfo', ((1, 'pSecurityInfo'),)))
+    win32more.System.Com.IDispatch
     return IGPMStarterGPO
 def _define_IGPMStarterGPOCollection_head():
     class IGPMStarterGPOCollection(win32more.System.Com.IDispatch_head):
@@ -778,6 +813,7 @@ def _define_IGPMStarterGPOCollection():
     IGPMStarterGPOCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'pVal'),)))
     IGPMStarterGPOCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'lIndex'),(1, 'pVal'),)))
     IGPMStarterGPOCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Ole.IEnumVARIANT_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppIGPMTemplates'),)))
+    win32more.System.Com.IDispatch
     return IGPMStarterGPOCollection
 def _define_IGPMDomain2_head():
     class IGPMDomain2(win32more.System.GroupPolicy.IGPMDomain_head):
@@ -791,6 +827,7 @@ def _define_IGPMDomain2():
     IGPMDomain2.SearchStarterGPOs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMSearchCriteria_head,POINTER(win32more.System.GroupPolicy.IGPMStarterGPOCollection_head), use_last_error=False)(20, 'SearchStarterGPOs', ((1, 'pIGPMSearchCriteria'),(1, 'ppIGPMTemplateCollection'),)))
     IGPMDomain2.LoadStarterGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(21, 'LoadStarterGPO', ((1, 'bstrLoadFile'),(1, 'bOverwrite'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
     IGPMDomain2.RestoreStarterGPO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.GroupPolicy.IGPMStarterGPOBackup_head,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.GroupPolicy.IGPMResult_head), use_last_error=False)(22, 'RestoreStarterGPO', ((1, 'pIGPMTmplBackup'),(1, 'pvarGPMProgress'),(1, 'pvarGPMCancel'),(1, 'ppIGPMResult'),)))
+    win32more.System.GroupPolicy.IGPMDomain
     return IGPMDomain2
 def _define_IGPMConstants2_head():
     class IGPMConstants2(win32more.System.GroupPolicy.IGPMConstants_head):
@@ -813,6 +850,7 @@ def _define_IGPMConstants2():
     IGPMConstants2.get_PermStarterGPOCustom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMPermissionType), use_last_error=False)(79, 'get_PermStarterGPOCustom', ((1, 'pVal'),)))
     IGPMConstants2.get_ReportLegacy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMReportingOptions), use_last_error=False)(80, 'get_ReportLegacy', ((1, 'pVal'),)))
     IGPMConstants2.get_ReportComments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GPMReportingOptions), use_last_error=False)(81, 'get_ReportComments', ((1, 'pVal'),)))
+    win32more.System.GroupPolicy.IGPMConstants
     return IGPMConstants2
 def _define_IGPMGPO2_head():
     class IGPMGPO2(win32more.System.GroupPolicy.IGPMGPO_head):
@@ -822,6 +860,7 @@ def _define_IGPMGPO2():
     IGPMGPO2 = win32more.System.GroupPolicy.IGPMGPO2_head
     IGPMGPO2.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(36, 'get_Description', ((1, 'pVal'),)))
     IGPMGPO2.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(37, 'put_Description', ((1, 'newVal'),)))
+    win32more.System.GroupPolicy.IGPMGPO
     return IGPMGPO2
 def _define_IGPMDomain3_head():
     class IGPMDomain3(win32more.System.GroupPolicy.IGPMDomain2_head):
@@ -833,6 +872,7 @@ def _define_IGPMDomain3():
     IGPMDomain3.get_InfrastructureDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(24, 'get_InfrastructureDC', ((1, 'pVal'),)))
     IGPMDomain3.put_InfrastructureDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(25, 'put_InfrastructureDC', ((1, 'newVal'),)))
     IGPMDomain3.put_InfrastructureFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(26, 'put_InfrastructureFlags', ((1, 'dwFlags'),)))
+    win32more.System.GroupPolicy.IGPMDomain2
     return IGPMDomain3
 def _define_IGPMGPO3_head():
     class IGPMGPO3(win32more.System.GroupPolicy.IGPMGPO2_head):
@@ -843,6 +883,7 @@ def _define_IGPMGPO3():
     IGPMGPO3.get_InfrastructureDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(38, 'get_InfrastructureDC', ((1, 'pVal'),)))
     IGPMGPO3.put_InfrastructureDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(39, 'put_InfrastructureDC', ((1, 'newVal'),)))
     IGPMGPO3.put_InfrastructureFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(40, 'put_InfrastructureFlags', ((1, 'dwFlags'),)))
+    win32more.System.GroupPolicy.IGPMGPO2
     return IGPMGPO3
 GPO_LINK = Int32
 GPO_LINK_GPLinkUnknown = 0
@@ -1049,6 +1090,7 @@ def _define_IGPEInformation():
     IGPEInformation.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE), use_last_error=False)(9, 'GetType', ((1, 'gpoType'),)))
     IGPEInformation.GetHint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_HINT_TYPE), use_last_error=False)(10, 'GetHint', ((1, 'gpHint'),)))
     IGPEInformation.PolicyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Guid), use_last_error=False)(11, 'PolicyChanged', ((1, 'bMachine'),(1, 'bAdd'),(1, 'pGuidExtension'),(1, 'pGuidSnapin'),)))
+    win32more.System.Com.IUnknown
     return IGPEInformation
 def _define_IGroupPolicyObject_head():
     class IGroupPolicyObject(win32more.System.Com.IUnknown_head):
@@ -1074,6 +1116,7 @@ def _define_IGroupPolicyObject():
     IGroupPolicyObject.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.GroupPolicy.GROUP_POLICY_OBJECT_TYPE), use_last_error=False)(18, 'GetType', ((1, 'gpoType'),)))
     IGroupPolicyObject.GetMachineName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),Int32, use_last_error=False)(19, 'GetMachineName', ((1, 'pszName'),(1, 'cchMaxLength'),)))
     IGroupPolicyObject.GetPropertySheetPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Controls.HPROPSHEETPAGE)),POINTER(UInt32), use_last_error=False)(20, 'GetPropertySheetPages', ((1, 'hPages'),(1, 'uPageCount'),)))
+    win32more.System.Com.IUnknown
     return IGroupPolicyObject
 def _define_IRSOPInformation_head():
     class IRSOPInformation(win32more.System.Com.IUnknown_head):
@@ -1084,6 +1127,7 @@ def _define_IRSOPInformation():
     IRSOPInformation.GetNamespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),Int32, use_last_error=False)(3, 'GetNamespace', ((1, 'dwSection'),(1, 'pszName'),(1, 'cchMaxLength'),)))
     IRSOPInformation.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetFlags', ((1, 'pdwFlags'),)))
     IRSOPInformation.GetEventLogEntryText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetEventLogEntryText', ((1, 'pszEventSource'),(1, 'pszEventLogName'),(1, 'pszEventTime'),(1, 'dwEventID'),(1, 'ppszText'),)))
+    win32more.System.Com.IUnknown
     return IRSOPInformation
 def _define_GPOBROWSEINFO_head():
     class GPOBROWSEINFO(Structure):

@@ -3423,6 +3423,7 @@ def _define_IWordSink():
     IWordSink.StartAltPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'StartAltPhrase', ()))
     IWordSink.EndAltPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'EndAltPhrase', ()))
     IWordSink.PutBreak = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.IndexServer.WORDREP_BREAK_TYPE, use_last_error=False)(7, 'PutBreak', ((1, 'breakType'),)))
+    win32more.System.Com.IUnknown
     return IWordSink
 def _define_PFNFILLTEXTBUFFER():
     return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.TEXT_SOURCE_head), use_last_error=False)
@@ -3449,6 +3450,7 @@ def _define_IWordBreaker():
     IWordBreaker.BreakText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.TEXT_SOURCE_head),win32more.System.Search.IWordSink_head,win32more.Storage.IndexServer.IPhraseSink_head, use_last_error=False)(4, 'BreakText', ((1, 'pTextSource'),(1, 'pWordSink'),(1, 'pPhraseSink'),)))
     IWordBreaker.ComposePhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,UInt32,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(5, 'ComposePhrase', ((1, 'pwcNoun'),(1, 'cwcNoun'),(1, 'pwcModifier'),(1, 'cwcModifier'),(1, 'ulAttachmentType'),(1, 'pwcPhrase'),(1, 'pcwcPhrase'),)))
     IWordBreaker.GetLicenseToUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(6, 'GetLicenseToUse', ((1, 'ppwcsLicense'),)))
+    win32more.System.Com.IUnknown
     return IWordBreaker
 def _define_IWordFormSink_head():
     class IWordFormSink(win32more.System.Com.IUnknown_head):
@@ -3458,6 +3460,7 @@ def _define_IWordFormSink():
     IWordFormSink = win32more.System.Search.IWordFormSink_head
     IWordFormSink.PutAltWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'PutAltWord', ((1, 'pwcInBuf'),(1, 'cwc'),)))
     IWordFormSink.PutWord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(4, 'PutWord', ((1, 'pwcInBuf'),(1, 'cwc'),)))
+    win32more.System.Com.IUnknown
     return IWordFormSink
 def _define_IStemmer_head():
     class IStemmer(win32more.System.Com.IUnknown_head):
@@ -3468,6 +3471,7 @@ def _define_IStemmer():
     IStemmer.Init = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'Init', ((1, 'ulMaxTokenSize'),(1, 'pfLicense'),)))
     IStemmer.GenerateWordForms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.System.Search.IWordFormSink_head, use_last_error=False)(4, 'GenerateWordForms', ((1, 'pwcInBuf'),(1, 'cwc'),(1, 'pStemSink'),)))
     IStemmer.GetLicenseToUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(5, 'GetLicenseToUse', ((1, 'ppwcsLicense'),)))
+    win32more.System.Com.IUnknown
     return IStemmer
 def _define_ISimpleCommandCreator_head():
     class ISimpleCommandCreator(win32more.System.Com.IUnknown_head):
@@ -3478,6 +3482,7 @@ def _define_ISimpleCommandCreator():
     ISimpleCommandCreator.CreateICommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'CreateICommand', ((1, 'ppIUnknown'),(1, 'pOuterUnk'),)))
     ISimpleCommandCreator.VerifyCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'VerifyCatalog', ((1, 'pwszMachine'),(1, 'pwszCatalogName'),)))
     ISimpleCommandCreator.GetDefaultCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32), use_last_error=False)(5, 'GetDefaultCatalog', ((1, 'pwszCatalogName'),(1, 'cwcIn'),(1, 'pcwcOut'),)))
+    win32more.System.Com.IUnknown
     return ISimpleCommandCreator
 def _define_IColumnMapper_head():
     class IColumnMapper(win32more.System.Com.IUnknown_head):
@@ -3489,6 +3494,7 @@ def _define_IColumnMapper():
     IColumnMapper.GetPropInfoFromId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(POINTER(UInt16)),POINTER(UInt16),POINTER(UInt32), use_last_error=False)(4, 'GetPropInfoFromId', ((1, 'pPropId'),(1, 'pwcsName'),(1, 'pPropType'),(1, 'puiWidth'),)))
     IColumnMapper.EnumPropInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(UInt16)),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(UInt16),POINTER(UInt32), use_last_error=False)(5, 'EnumPropInfo', ((1, 'iEntry'),(1, 'pwcsName'),(1, 'ppPropId'),(1, 'pPropType'),(1, 'puiWidth'),)))
     IColumnMapper.IsMapUpToDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'IsMapUpToDate', ()))
+    win32more.System.Com.IUnknown
     return IColumnMapper
 def _define_IColumnMapperCreator_head():
     class IColumnMapperCreator(win32more.System.Com.IUnknown_head):
@@ -3497,6 +3503,7 @@ def _define_IColumnMapperCreator_head():
 def _define_IColumnMapperCreator():
     IColumnMapperCreator = win32more.System.Search.IColumnMapperCreator_head
     IColumnMapperCreator.GetColumnMapper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IColumnMapper_head), use_last_error=False)(3, 'GetColumnMapper', ((1, 'wcsMachineName'),(1, 'wcsCatalogName'),(1, 'ppColumnMapper'),)))
+    win32more.System.Com.IUnknown
     return IColumnMapperCreator
 CSearchManager = Guid('7d096c5f-ac08-4f1f-beb7-5c22c517ce39')
 CSearchRoot = Guid('30766bd2-ea1c-4f28-bf27-0b44e2f68db7')
@@ -3524,6 +3531,7 @@ def _define_ILoadFilter():
     ILoadFilter.LoadIFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.FILTERED_DATA_SOURCES_head),win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Int32),POINTER(POINTER(UInt16)),POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(3, 'LoadIFilter', ((1, 'pwcsPath'),(1, 'pFilteredSources'),(1, 'pUnkOuter'),(1, 'fUseDefault'),(1, 'pFilterClsid'),(1, 'SearchDecSize'),(1, 'pwcsSearchDesc'),(1, 'ppIFilt'),)))
     ILoadFilter.LoadIFilterFromStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Int32),POINTER(POINTER(UInt16)),POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(4, 'LoadIFilterFromStorage', ((1, 'pStg'),(1, 'pUnkOuter'),(1, 'pwcsOverride'),(1, 'fUseDefault'),(1, 'pFilterClsid'),(1, 'SearchDecSize'),(1, 'pwcsSearchDesc'),(1, 'ppIFilt'),)))
     ILoadFilter.LoadIFilterFromStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.System.Search.FILTERED_DATA_SOURCES_head),win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,POINTER(Guid),POINTER(Int32),POINTER(POINTER(UInt16)),POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(5, 'LoadIFilterFromStream', ((1, 'pStm'),(1, 'pFilteredSources'),(1, 'pUnkOuter'),(1, 'fUseDefault'),(1, 'pFilterClsid'),(1, 'SearchDecSize'),(1, 'pwcsSearchDesc'),(1, 'ppIFilt'),)))
+    win32more.System.Com.IUnknown
     return ILoadFilter
 def _define_ILoadFilterWithPrivateComActivation_head():
     class ILoadFilterWithPrivateComActivation(win32more.System.Search.ILoadFilter_head):
@@ -3532,6 +3540,7 @@ def _define_ILoadFilterWithPrivateComActivation_head():
 def _define_ILoadFilterWithPrivateComActivation():
     ILoadFilterWithPrivateComActivation = win32more.System.Search.ILoadFilterWithPrivateComActivation_head
     ILoadFilterWithPrivateComActivation.LoadIFilterWithPrivateComActivation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.FILTERED_DATA_SOURCES_head),win32more.Foundation.BOOL,POINTER(Guid),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(6, 'LoadIFilterWithPrivateComActivation', ((1, 'filteredSources'),(1, 'useDefault'),(1, 'filterClsid'),(1, 'isFilterPrivateComActivated'),(1, 'filterObj'),)))
+    win32more.System.Search.ILoadFilter
     return ILoadFilterWithPrivateComActivation
 def _define_IRichChunk_head():
     class IRichChunk(win32more.System.Com.IUnknown_head):
@@ -3540,6 +3549,7 @@ def _define_IRichChunk_head():
 def _define_IRichChunk():
     IRichChunk = win32more.System.Search.IRichChunk_head
     IRichChunk.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(3, 'GetData', ((1, 'pFirstPos'),(1, 'pLength'),(1, 'ppsz'),(1, 'pValue'),)))
+    win32more.System.Com.IUnknown
     return IRichChunk
 def _define_ICondition_head():
     class ICondition(win32more.System.Com.IPersistStream_head):
@@ -3554,6 +3564,7 @@ def _define_ICondition():
     ICondition.GetValueNormalization = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(12, 'GetValueNormalization', ((1, 'ppszNormalization'),)))
     ICondition.GetInputTerms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IRichChunk_head),POINTER(win32more.System.Search.IRichChunk_head),POINTER(win32more.System.Search.IRichChunk_head), use_last_error=False)(13, 'GetInputTerms', ((1, 'ppPropertyTerm'),(1, 'ppOperationTerm'),(1, 'ppValueTerm'),)))
     ICondition.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(14, 'Clone', ((1, 'ppc'),)))
+    win32more.System.Com.IPersistStream
     return ICondition
 def _define_ICondition2_head():
     class ICondition2(win32more.System.Search.ICondition_head):
@@ -3563,6 +3574,7 @@ def _define_ICondition2():
     ICondition2 = win32more.System.Search.ICondition2_head
     ICondition2.GetLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(15, 'GetLocale', ((1, 'ppszLocaleName'),)))
     ICondition2.GetLeafConditionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Search.Common.CONDITION_OPERATION),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(16, 'GetLeafConditionInfo', ((1, 'ppropkey'),(1, 'pcop'),(1, 'ppropvar'),)))
+    win32more.System.Search.ICondition
     return ICondition2
 def _define_DB_NUMERIC_head():
     class DB_NUMERIC(Structure):
@@ -4535,6 +4547,7 @@ def _define_IAccessor():
     IAccessor.CreateAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,POINTER(win32more.System.Search.DBBINDING),UIntPtr,POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(4, 'CreateAccessor', ((1, 'dwAccessorFlags'),(1, 'cBindings'),(1, 'rgBindings'),(1, 'cbRowSize'),(1, 'phAccessor'),(1, 'rgStatus'),)))
     IAccessor.GetBindings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32),POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBBINDING_head)), use_last_error=False)(5, 'GetBindings', ((1, 'hAccessor'),(1, 'pdwAccessorFlags'),(1, 'pcBindings'),(1, 'prgBindings'),)))
     IAccessor.ReleaseAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32), use_last_error=False)(6, 'ReleaseAccessor', ((1, 'hAccessor'),(1, 'pcRefCount'),)))
+    win32more.System.Com.IUnknown
     return IAccessor
 def _define_IRowset_head():
     class IRowset(win32more.System.Com.IUnknown_head):
@@ -4547,6 +4560,7 @@ def _define_IRowset():
     IRowset.GetNextRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,IntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(5, 'GetNextRows', ((1, 'hReserved'),(1, 'lRowsOffset'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
     IRowset.ReleaseRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(6, 'ReleaseRows', ((1, 'cRows'),(1, 'rghRows'),(1, 'rgRowOptions'),(1, 'rgRefCounts'),(1, 'rgRowStatus'),)))
     IRowset.RestartPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(7, 'RestartPosition', ((1, 'hReserved'),)))
+    win32more.System.Com.IUnknown
     return IRowset
 def _define_IRowsetInfo_head():
     class IRowsetInfo(win32more.System.Com.IUnknown_head):
@@ -4557,6 +4571,7 @@ def _define_IRowsetInfo():
     IRowsetInfo.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
     IRowsetInfo.GetReferencedRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'GetReferencedRowset', ((1, 'iOrdinal'),(1, 'riid'),(1, 'ppReferencedRowset'),)))
     IRowsetInfo.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetSpecification', ((1, 'riid'),(1, 'ppSpecification'),)))
+    win32more.System.Com.IUnknown
     return IRowsetInfo
 DBCOMPAREENUM = Int32
 DBCOMPARE_LT = 0
@@ -4574,6 +4589,7 @@ def _define_IRowsetLocate():
     IRowsetLocate.GetRowsAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,c_char_p_no,IntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(9, 'GetRowsAt', ((1, 'hReserved1'),(1, 'hReserved2'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'lRowsOffset'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
     IRowsetLocate.GetRowsByBookmark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(10, 'GetRowsByBookmark', ((1, 'hReserved'),(1, 'cRows'),(1, 'rgcbBookmarks'),(1, 'rgpBookmarks'),(1, 'rghRows'),(1, 'rgRowStatus'),)))
     IRowsetLocate.Hash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(11, 'Hash', ((1, 'hReserved'),(1, 'cBookmarks'),(1, 'rgcbBookmarks'),(1, 'rgpBookmarks'),(1, 'rgHashedValues'),(1, 'rgBookmarkStatus'),)))
+    win32more.System.Search.IRowset
     return IRowsetLocate
 def _define_IRowsetResynch_head():
     class IRowsetResynch(win32more.System.Com.IUnknown_head):
@@ -4583,6 +4599,7 @@ def _define_IRowsetResynch():
     IRowsetResynch = win32more.System.Search.IRowsetResynch_head
     IRowsetResynch.GetVisibleData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(3, 'GetVisibleData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
     IRowsetResynch.ResynchRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(4, 'ResynchRows', ((1, 'cRows'),(1, 'rghRows'),(1, 'pcRowsResynched'),(1, 'prghRowsResynched'),(1, 'prgRowStatus'),)))
+    win32more.System.Com.IUnknown
     return IRowsetResynch
 def _define_IRowsetScroll_head():
     class IRowsetScroll(win32more.System.Search.IRowsetLocate_head):
@@ -4592,6 +4609,7 @@ def _define_IRowsetScroll():
     IRowsetScroll = win32more.System.Search.IRowsetScroll_head
     IRowsetScroll.GetApproximatePosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no,POINTER(UIntPtr),POINTER(UIntPtr), use_last_error=False)(12, 'GetApproximatePosition', ((1, 'hReserved'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'pulPosition'),(1, 'pcRows'),)))
     IRowsetScroll.GetRowsAtRatio = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,UIntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(13, 'GetRowsAtRatio', ((1, 'hReserved1'),(1, 'hReserved2'),(1, 'ulNumerator'),(1, 'ulDenominator'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
+    win32more.System.Search.IRowsetLocate
     return IRowsetScroll
 def _define_IChapteredRowset_head():
     class IChapteredRowset(win32more.System.Com.IUnknown_head):
@@ -4601,6 +4619,7 @@ def _define_IChapteredRowset():
     IChapteredRowset = win32more.System.Search.IChapteredRowset_head
     IChapteredRowset.AddRefChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32), use_last_error=False)(3, 'AddRefChapter', ((1, 'hChapter'),(1, 'pcRefCount'),)))
     IChapteredRowset.ReleaseChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32), use_last_error=False)(4, 'ReleaseChapter', ((1, 'hChapter'),(1, 'pcRefCount'),)))
+    win32more.System.Com.IUnknown
     return IChapteredRowset
 def _define_IRowsetFind_head():
     class IRowsetFind(win32more.System.Com.IUnknown_head):
@@ -4609,6 +4628,7 @@ def _define_IRowsetFind_head():
 def _define_IRowsetFind():
     IRowsetFind = win32more.System.Search.IRowsetFind_head
     IRowsetFind.FindNextRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p,UInt32,UIntPtr,c_char_p_no,IntPtr,IntPtr,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(3, 'FindNextRow', ((1, 'hChapter'),(1, 'hAccessor'),(1, 'pFindValue'),(1, 'CompareOp'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'lRowsOffset'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'prghRows'),)))
+    win32more.System.Com.IUnknown
     return IRowsetFind
 DBPOSITIONFLAGSENUM = Int32
 DBPOSITION_OK = 0
@@ -4626,6 +4646,7 @@ def _define_IRowPosition():
     IRowPosition.GetRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetRowset', ((1, 'riid'),(1, 'ppRowset'),)))
     IRowPosition.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'Initialize', ((1, 'pRowset'),)))
     IRowPosition.SetRowPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UInt32, use_last_error=False)(7, 'SetRowPosition', ((1, 'hChapter'),(1, 'hRow'),(1, 'dwPositionFlags'),)))
+    win32more.System.Com.IUnknown
     return IRowPosition
 def _define_IRowPositionChange_head():
     class IRowPositionChange(win32more.System.Com.IUnknown_head):
@@ -4634,6 +4655,7 @@ def _define_IRowPositionChange_head():
 def _define_IRowPositionChange():
     IRowPositionChange = win32more.System.Search.IRowPositionChange_head
     IRowPositionChange.OnRowPositionChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(3, 'OnRowPositionChange', ((1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
+    win32more.System.Com.IUnknown
     return IRowPositionChange
 def _define_IViewRowset_head():
     class IViewRowset(win32more.System.Com.IUnknown_head):
@@ -4643,6 +4665,7 @@ def _define_IViewRowset():
     IViewRowset = win32more.System.Search.IViewRowset_head
     IViewRowset.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSpecification', ((1, 'riid'),(1, 'ppObject'),)))
     IViewRowset.OpenViewRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'OpenViewRowset', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
     return IViewRowset
 def _define_IViewChapter_head():
     class IViewChapter(win32more.System.Com.IUnknown_head):
@@ -4652,6 +4675,7 @@ def _define_IViewChapter():
     IViewChapter = win32more.System.Search.IViewChapter_head
     IViewChapter.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSpecification', ((1, 'riid'),(1, 'ppRowset'),)))
     IViewChapter.OpenViewChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr), use_last_error=False)(4, 'OpenViewChapter', ((1, 'hSource'),(1, 'phViewChapter'),)))
+    win32more.System.Com.IUnknown
     return IViewChapter
 def _define_IViewSort_head():
     class IViewSort(win32more.System.Com.IUnknown_head):
@@ -4661,6 +4685,7 @@ def _define_IViewSort():
     IViewSort = win32more.System.Search.IViewSort_head
     IViewSort.GetSortOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(3, 'GetSortOrder', ((1, 'pcValues'),(1, 'prgColumns'),(1, 'prgOrders'),)))
     IViewSort.SetSortOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(4, 'SetSortOrder', ((1, 'cValues'),(1, 'rgColumns'),(1, 'rgOrders'),)))
+    win32more.System.Com.IUnknown
     return IViewSort
 def _define_IViewFilter_head():
     class IViewFilter(win32more.System.Com.IUnknown_head):
@@ -4671,6 +4696,7 @@ def _define_IViewFilter():
     IViewFilter.GetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(POINTER(UInt32)),c_void_p, use_last_error=False)(3, 'GetFilter', ((1, 'hAccessor'),(1, 'pcRows'),(1, 'pCompareOps'),(1, 'pCriteriaData'),)))
     IViewFilter.GetFilterBindings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBBINDING_head)), use_last_error=False)(4, 'GetFilterBindings', ((1, 'pcBindings'),(1, 'prgBindings'),)))
     IViewFilter.SetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UInt32),c_void_p, use_last_error=False)(5, 'SetFilter', ((1, 'hAccessor'),(1, 'cRows'),(1, 'CompareOps'),(1, 'pCriteriaData'),)))
+    win32more.System.Com.IUnknown
     return IViewFilter
 def _define_IRowsetView_head():
     class IRowsetView(win32more.System.Com.IUnknown_head):
@@ -4680,6 +4706,7 @@ def _define_IRowsetView():
     IRowsetView = win32more.System.Search.IRowsetView_head
     IRowsetView.CreateView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateView', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppView'),)))
     IRowsetView.GetView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(Guid),POINTER(UIntPtr),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'GetView', ((1, 'hChapter'),(1, 'riid'),(1, 'phChapterSource'),(1, 'ppView'),)))
+    win32more.System.Com.IUnknown
     return IRowsetView
 def _define_IRowsetChange_head():
     class IRowsetChange(win32more.System.Com.IUnknown_head):
@@ -4690,6 +4717,7 @@ def _define_IRowsetChange():
     IRowsetChange.DeleteRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(3, 'DeleteRows', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'rgRowStatus'),)))
     IRowsetChange.SetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(4, 'SetData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
     IRowsetChange.InsertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p,POINTER(UIntPtr), use_last_error=False)(5, 'InsertRow', ((1, 'hReserved'),(1, 'hAccessor'),(1, 'pData'),(1, 'phRow'),)))
+    win32more.System.Com.IUnknown
     return IRowsetChange
 DBPENDINGSTATUSENUM = Int32
 DBPENDINGSTATUS_NEW = 1
@@ -4708,6 +4736,7 @@ def _define_IRowsetUpdate():
     IRowsetUpdate.GetRowStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UInt32), use_last_error=False)(8, 'GetRowStatus', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'rgPendingStatus'),)))
     IRowsetUpdate.Undo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(9, 'Undo', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'pcRowsUndone'),(1, 'prgRowsUndone'),(1, 'prgRowStatus'),)))
     IRowsetUpdate.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(10, 'Update', ((1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'pcRows'),(1, 'prgRows'),(1, 'prgRowStatus'),)))
+    win32more.System.Search.IRowsetChange
     return IRowsetUpdate
 def _define_IRowsetIdentity_head():
     class IRowsetIdentity(win32more.System.Com.IUnknown_head):
@@ -4716,6 +4745,7 @@ def _define_IRowsetIdentity_head():
 def _define_IRowsetIdentity():
     IRowsetIdentity = win32more.System.Search.IRowsetIdentity_head
     IRowsetIdentity.IsSameRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr, use_last_error=False)(3, 'IsSameRow', ((1, 'hThisRow'),(1, 'hThatRow'),)))
+    win32more.System.Com.IUnknown
     return IRowsetIdentity
 def _define_IRowsetNotify_head():
     class IRowsetNotify(win32more.System.Com.IUnknown_head):
@@ -4726,6 +4756,7 @@ def _define_IRowsetNotify():
     IRowsetNotify.OnFieldChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UIntPtr,UIntPtr,POINTER(UIntPtr),UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(3, 'OnFieldChange', ((1, 'pRowset'),(1, 'hRow'),(1, 'cColumns'),(1, 'rgColumns'),(1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
     IRowsetNotify.OnRowChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UIntPtr,POINTER(UIntPtr),UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(4, 'OnRowChange', ((1, 'pRowset'),(1, 'cRows'),(1, 'rghRows'),(1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
     IRowsetNotify.OnRowsetChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UInt32,UInt32,win32more.Foundation.BOOL, use_last_error=False)(5, 'OnRowsetChange', ((1, 'pRowset'),(1, 'eReason'),(1, 'ePhase'),(1, 'fCantDeny'),)))
+    win32more.System.Com.IUnknown
     return IRowsetNotify
 DBSEEKENUM = Int32
 DBSEEK_INVALID = 0
@@ -4755,6 +4786,7 @@ def _define_IRowsetIndex():
     IRowsetIndex.GetIndexInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBINDEXCOLUMNDESC_head)),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetIndexInfo', ((1, 'pcKeyColumns'),(1, 'prgIndexColumnDesc'),(1, 'pcIndexPropertySets'),(1, 'prgIndexPropertySets'),)))
     IRowsetIndex.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p,UInt32, use_last_error=False)(4, 'Seek', ((1, 'hAccessor'),(1, 'cKeyValues'),(1, 'pData'),(1, 'dwSeekOptions'),)))
     IRowsetIndex.SetRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p,UIntPtr,c_void_p,UInt32, use_last_error=False)(5, 'SetRange', ((1, 'hAccessor'),(1, 'cStartKeyColumns'),(1, 'pStartData'),(1, 'cEndKeyColumns'),(1, 'pEndData'),(1, 'dwRangeOptions'),)))
+    win32more.System.Com.IUnknown
     return IRowsetIndex
 def _define_ICommand_head():
     class ICommand(win32more.System.Com.IUnknown_head):
@@ -4765,6 +4797,7 @@ def _define_ICommand():
     ICommand.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Cancel', ()))
     ICommand.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Search.DBPARAMS_head),POINTER(IntPtr),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'Execute', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'pParams'),(1, 'pcRowsAffected'),(1, 'ppRowset'),)))
     ICommand.GetDBSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetDBSession', ((1, 'riid'),(1, 'ppSession'),)))
+    win32more.System.Com.IUnknown
     return ICommand
 DBRESULTFLAGENUM = Int32
 DBRESULTFLAG_DEFAULT = 0
@@ -4777,6 +4810,7 @@ def _define_IMultipleResults_head():
 def _define_IMultipleResults():
     IMultipleResults = win32more.System.Search.IMultipleResults_head
     IMultipleResults.GetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,IntPtr,POINTER(Guid),POINTER(IntPtr),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetResult', ((1, 'pUnkOuter'),(1, 'lResultFlag'),(1, 'riid'),(1, 'pcRowsAffected'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
     return IMultipleResults
 DBCONVERTFLAGSENUM = Int32
 DBCONVERTFLAGS_COLUMN = 0
@@ -4792,6 +4826,7 @@ def _define_IConvertType_head():
 def _define_IConvertType():
     IConvertType = win32more.System.Search.IConvertType_head
     IConvertType.CanConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,UInt32, use_last_error=False)(3, 'CanConvert', ((1, 'wFromType'),(1, 'wToType'),(1, 'dwConvertFlags'),)))
+    win32more.System.Com.IUnknown
     return IConvertType
 def _define_ICommandPrepare_head():
     class ICommandPrepare(win32more.System.Com.IUnknown_head):
@@ -4801,6 +4836,7 @@ def _define_ICommandPrepare():
     ICommandPrepare = win32more.System.Search.ICommandPrepare_head
     ICommandPrepare.Prepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'Prepare', ((1, 'cExpectedRuns'),)))
     ICommandPrepare.Unprepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Unprepare', ()))
+    win32more.System.Com.IUnknown
     return ICommandPrepare
 def _define_ICommandProperties_head():
     class ICommandProperties(win32more.System.Com.IUnknown_head):
@@ -4810,6 +4846,7 @@ def _define_ICommandProperties():
     ICommandProperties = win32more.System.Search.ICommandProperties_head
     ICommandProperties.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
     ICommandProperties.SetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET), use_last_error=False)(4, 'SetProperties', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
     return ICommandProperties
 def _define_ICommandText_head():
     class ICommandText(win32more.System.Search.ICommand_head):
@@ -4819,6 +4856,7 @@ def _define_ICommandText():
     ICommandText = win32more.System.Search.ICommandText_head
     ICommandText.GetCommandText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetCommandText', ((1, 'pguidDialect'),(1, 'ppwszCommand'),)))
     ICommandText.SetCommandText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR, use_last_error=False)(7, 'SetCommandText', ((1, 'rguidDialect'),(1, 'pwszCommand'),)))
+    win32more.System.Search.ICommand
     return ICommandText
 def _define_DBPARAMBINDINFO_head():
     class DBPARAMBINDINFO(Structure):
@@ -4844,6 +4882,7 @@ def _define_ICommandWithParameters():
     ICommandWithParameters.GetParameterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBPARAMINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(3, 'GetParameterInfo', ((1, 'pcParams'),(1, 'prgParamInfo'),(1, 'ppNamesBuffer'),)))
     ICommandWithParameters.MapParameterNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(IntPtr), use_last_error=False)(4, 'MapParameterNames', ((1, 'cParamNames'),(1, 'rgParamNames'),(1, 'rgParamOrdinals'),)))
     ICommandWithParameters.SetParameterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UIntPtr),POINTER(win32more.System.Search.DBPARAMBINDINFO), use_last_error=False)(5, 'SetParameterInfo', ((1, 'cParams'),(1, 'rgParamOrdinals'),(1, 'rgParamBindInfo'),)))
+    win32more.System.Com.IUnknown
     return ICommandWithParameters
 def _define_IColumnsRowset_head():
     class IColumnsRowset(win32more.System.Com.IUnknown_head):
@@ -4853,6 +4892,7 @@ def _define_IColumnsRowset():
     IColumnsRowset = win32more.System.Search.IColumnsRowset_head
     IColumnsRowset.GetAvailableColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(3, 'GetAvailableColumns', ((1, 'pcOptColumns'),(1, 'prgOptColumns'),)))
     IColumnsRowset.GetColumnsRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'GetColumnsRowset', ((1, 'pUnkOuter'),(1, 'cOptColumns'),(1, 'rgOptColumns'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppColRowset'),)))
+    win32more.System.Com.IUnknown
     return IColumnsRowset
 def _define_IColumnsInfo_head():
     class IColumnsInfo(win32more.System.Com.IUnknown_head):
@@ -4862,6 +4902,7 @@ def _define_IColumnsInfo():
     IColumnsInfo = win32more.System.Search.IColumnsInfo_head
     IColumnsInfo.GetColumnInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBCOLUMNINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(3, 'GetColumnInfo', ((1, 'pcColumns'),(1, 'prgInfo'),(1, 'ppStringsBuffer'),)))
     IColumnsInfo.MapColumnIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID),POINTER(UIntPtr), use_last_error=False)(4, 'MapColumnIDs', ((1, 'cColumnIDs'),(1, 'rgColumnIDs'),(1, 'rgColumns'),)))
+    win32more.System.Com.IUnknown
     return IColumnsInfo
 def _define_IDBCreateCommand_head():
     class IDBCreateCommand(win32more.System.Com.IUnknown_head):
@@ -4870,6 +4911,7 @@ def _define_IDBCreateCommand_head():
 def _define_IDBCreateCommand():
     IDBCreateCommand = win32more.System.Search.IDBCreateCommand_head
     IDBCreateCommand.CreateCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateCommand', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppCommand'),)))
+    win32more.System.Com.IUnknown
     return IDBCreateCommand
 def _define_IDBCreateSession_head():
     class IDBCreateSession(win32more.System.Com.IUnknown_head):
@@ -4878,6 +4920,7 @@ def _define_IDBCreateSession_head():
 def _define_IDBCreateSession():
     IDBCreateSession = win32more.System.Search.IDBCreateSession_head
     IDBCreateSession.CreateSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateSession', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppDBSession'),)))
+    win32more.System.Com.IUnknown
     return IDBCreateSession
 DBSOURCETYPEENUM = Int32
 DBSOURCETYPE_DATASOURCE = 1
@@ -4894,6 +4937,7 @@ def _define_ISourcesRowset_head():
 def _define_ISourcesRowset():
     ISourcesRowset = win32more.System.Search.ISourcesRowset_head
     ISourcesRowset.GetSourcesRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSourcesRowset', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgProperties'),(1, 'ppSourcesRowset'),)))
+    win32more.System.Com.IUnknown
     return ISourcesRowset
 def _define_IDBProperties_head():
     class IDBProperties(win32more.System.Com.IUnknown_head):
@@ -4904,6 +4948,7 @@ def _define_IDBProperties():
     IDBProperties.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
     IDBProperties.GetPropertyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPINFOSET_head)),POINTER(POINTER(UInt16)), use_last_error=False)(4, 'GetPropertyInfo', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertyInfoSets'),(1, 'prgPropertyInfoSets'),(1, 'ppDescBuffer'),)))
     IDBProperties.SetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET), use_last_error=False)(5, 'SetProperties', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
     return IDBProperties
 def _define_IDBInitialize_head():
     class IDBInitialize(win32more.System.Com.IUnknown_head):
@@ -4913,6 +4958,7 @@ def _define_IDBInitialize():
     IDBInitialize = win32more.System.Search.IDBInitialize_head
     IDBInitialize.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Initialize', ()))
     IDBInitialize.Uninitialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Uninitialize', ()))
+    win32more.System.Com.IUnknown
     return IDBInitialize
 DBLITERALENUM = Int32
 DBLITERAL_INVALID = 0
@@ -4971,6 +5017,7 @@ def _define_IDBInfo():
     IDBInfo = win32more.System.Search.IDBInfo_head
     IDBInfo.GetKeywords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetKeywords', ((1, 'ppwszKeywords'),)))
     IDBInfo.GetLiteralInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBLITERALINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(4, 'GetLiteralInfo', ((1, 'cLiterals'),(1, 'rgLiterals'),(1, 'pcLiteralInfo'),(1, 'prgLiteralInfo'),(1, 'ppCharBuffer'),)))
+    win32more.System.Com.IUnknown
     return IDBInfo
 def _define_IDBDataSourceAdmin_head():
     class IDBDataSourceAdmin(win32more.System.Com.IUnknown_head):
@@ -4982,6 +5029,7 @@ def _define_IDBDataSourceAdmin():
     IDBDataSourceAdmin.DestroyDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'DestroyDataSource', ()))
     IDBDataSourceAdmin.GetCreationProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPINFOSET_head)),POINTER(POINTER(UInt16)), use_last_error=False)(5, 'GetCreationProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertyInfoSets'),(1, 'prgPropertyInfoSets'),(1, 'ppDescBuffer'),)))
     IDBDataSourceAdmin.ModifyDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET), use_last_error=False)(6, 'ModifyDataSource', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
     return IDBDataSourceAdmin
 def _define_IDBAsynchNotify_head():
     class IDBAsynchNotify(win32more.System.Com.IUnknown_head):
@@ -4992,6 +5040,7 @@ def _define_IDBAsynchNotify():
     IDBAsynchNotify.OnLowResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(3, 'OnLowResource', ((1, 'dwReserved'),)))
     IDBAsynchNotify.OnProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,UIntPtr,UIntPtr,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OnProgress', ((1, 'hChapter'),(1, 'eOperation'),(1, 'ulProgress'),(1, 'ulProgressMax'),(1, 'eAsynchPhase'),(1, 'pwszStatusText'),)))
     IDBAsynchNotify.OnStop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'OnStop', ((1, 'hChapter'),(1, 'eOperation'),(1, 'hrStatus'),(1, 'pwszStatusText'),)))
+    win32more.System.Com.IUnknown
     return IDBAsynchNotify
 def _define_IDBAsynchStatus_head():
     class IDBAsynchStatus(win32more.System.Com.IUnknown_head):
@@ -5001,6 +5050,7 @@ def _define_IDBAsynchStatus():
     IDBAsynchStatus = win32more.System.Search.IDBAsynchStatus_head
     IDBAsynchStatus.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32, use_last_error=False)(3, 'Abort', ((1, 'hChapter'),(1, 'eOperation'),)))
     IDBAsynchStatus.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetStatus', ((1, 'hChapter'),(1, 'eOperation'),(1, 'pulProgress'),(1, 'pulProgressMax'),(1, 'peAsynchPhase'),(1, 'ppwszStatusText'),)))
+    win32more.System.Com.IUnknown
     return IDBAsynchStatus
 def _define_ISessionProperties_head():
     class ISessionProperties(win32more.System.Com.IUnknown_head):
@@ -5010,6 +5060,7 @@ def _define_ISessionProperties():
     ISessionProperties = win32more.System.Search.ISessionProperties_head
     ISessionProperties.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPIDSET),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(3, 'GetProperties', ((1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
     ISessionProperties.SetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DBPROPSET), use_last_error=False)(4, 'SetProperties', ((1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
     return ISessionProperties
 def _define_IIndexDefinition_head():
     class IIndexDefinition(win32more.System.Com.IUnknown_head):
@@ -5019,6 +5070,7 @@ def _define_IIndexDefinition():
     IIndexDefinition = win32more.System.Search.IIndexDefinition_head
     IIndexDefinition.CreateIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UIntPtr,POINTER(win32more.System.Search.DBINDEXCOLUMNDESC),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(3, 'CreateIndex', ((1, 'pTableID'),(1, 'pIndexID'),(1, 'cIndexColumnDescs'),(1, 'rgIndexColumnDescs'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppIndexID'),)))
     IIndexDefinition.DropIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(4, 'DropIndex', ((1, 'pTableID'),(1, 'pIndexID'),)))
+    win32more.System.Com.IUnknown
     return IIndexDefinition
 def _define_ITableDefinition_head():
     class ITableDefinition(win32more.System.Com.IUnknown_head):
@@ -5030,6 +5082,7 @@ def _define_ITableDefinition():
     ITableDefinition.DropTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(4, 'DropTable', ((1, 'pTableID'),)))
     ITableDefinition.AddColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.System.Search.DBCOLUMNDESC_head),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(5, 'AddColumn', ((1, 'pTableID'),(1, 'pColumnDesc'),(1, 'ppColumnID'),)))
     ITableDefinition.DropColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(6, 'DropColumn', ((1, 'pTableID'),(1, 'pColumnID'),)))
+    win32more.System.Com.IUnknown
     return ITableDefinition
 def _define_IOpenRowset_head():
     class IOpenRowset(win32more.System.Com.IUnknown_head):
@@ -5038,6 +5091,7 @@ def _define_IOpenRowset_head():
 def _define_IOpenRowset():
     IOpenRowset = win32more.System.Search.IOpenRowset_head
     IOpenRowset.OpenRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'OpenRowset', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'pIndexID'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
     return IOpenRowset
 def _define_IDBSchemaRowset_head():
     class IDBSchemaRowset(win32more.System.Com.IUnknown_head):
@@ -5047,6 +5101,7 @@ def _define_IDBSchemaRowset():
     IDBSchemaRowset = win32more.System.Search.IDBSchemaRowset_head
     IDBSchemaRowset.GetRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),UInt32,POINTER(win32more.System.Com.VARIANT),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetRowset', ((1, 'pUnkOuter'),(1, 'rguidSchema'),(1, 'cRestrictions'),(1, 'rgRestrictions'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
     IDBSchemaRowset.GetSchemas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)),POINTER(POINTER(UInt32)), use_last_error=False)(4, 'GetSchemas', ((1, 'pcSchemas'),(1, 'prgSchemas'),(1, 'prgRestrictionSupport'),)))
+    win32more.System.Com.IUnknown
     return IDBSchemaRowset
 def _define_IMDDataset_head():
     class IMDDataset(win32more.System.Com.IUnknown_head):
@@ -5059,6 +5114,7 @@ def _define_IMDDataset():
     IMDDataset.GetAxisRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetAxisRowset', ((1, 'pUnkOuter'),(1, 'iAxis'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
     IMDDataset.GetCellData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(6, 'GetCellData', ((1, 'hAccessor'),(1, 'ulStartCell'),(1, 'ulEndCell'),(1, 'pData'),)))
     IMDDataset.GetSpecification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'GetSpecification', ((1, 'riid'),(1, 'ppSpecification'),)))
+    win32more.System.Com.IUnknown
     return IMDDataset
 def _define_IMDFind_head():
     class IMDFind(win32more.System.Com.IUnknown_head):
@@ -5068,6 +5124,7 @@ def _define_IMDFind():
     IMDFind = win32more.System.Search.IMDFind_head
     IMDFind.FindCell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(UIntPtr), use_last_error=False)(3, 'FindCell', ((1, 'ulStartingOrdinal'),(1, 'cMembers'),(1, 'rgpwszMember'),(1, 'pulCellOrdinal'),)))
     IMDFind.FindTuple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32), use_last_error=False)(4, 'FindTuple', ((1, 'ulAxisIdentifier'),(1, 'ulStartingOrdinal'),(1, 'cMembers'),(1, 'rgpwszMember'),(1, 'pulTupleOrdinal'),)))
+    win32more.System.Com.IUnknown
     return IMDFind
 def _define_IMDRangeRowset_head():
     class IMDRangeRowset(win32more.System.Com.IUnknown_head):
@@ -5076,6 +5133,7 @@ def _define_IMDRangeRowset_head():
 def _define_IMDRangeRowset():
     IMDRangeRowset = win32more.System.Search.IMDRangeRowset_head
     IMDRangeRowset.GetRangeRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,UIntPtr,POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetRangeRowset', ((1, 'pUnkOuter'),(1, 'ulStartCell'),(1, 'ulEndCell'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
     return IMDRangeRowset
 def _define_IAlterTable_head():
     class IAlterTable(win32more.System.Com.IUnknown_head):
@@ -5085,6 +5143,7 @@ def _define_IAlterTable():
     IAlterTable = win32more.System.Search.IAlterTable_head
     IAlterTable.AlterColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.System.Search.DBCOLUMNDESC_head), use_last_error=False)(3, 'AlterColumn', ((1, 'pTableId'),(1, 'pColumnId'),(1, 'dwColumnDescFlags'),(1, 'pColumnDesc'),)))
     IAlterTable.AlterTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head), use_last_error=False)(4, 'AlterTable', ((1, 'pTableId'),(1, 'pNewTableId'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
     return IAlterTable
 def _define_IAlterIndex_head():
     class IAlterIndex(win32more.System.Com.IUnknown_head):
@@ -5093,6 +5152,7 @@ def _define_IAlterIndex_head():
 def _define_IAlterIndex():
     IAlterIndex = win32more.System.Search.IAlterIndex_head
     IAlterIndex.AlterIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head), use_last_error=False)(3, 'AlterIndex', ((1, 'pTableId'),(1, 'pIndexId'),(1, 'pNewIndexId'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
+    win32more.System.Com.IUnknown
     return IAlterIndex
 def _define_IRowsetChapterMember_head():
     class IRowsetChapterMember(win32more.System.Com.IUnknown_head):
@@ -5101,6 +5161,7 @@ def _define_IRowsetChapterMember_head():
 def _define_IRowsetChapterMember():
     IRowsetChapterMember = win32more.System.Search.IRowsetChapterMember_head
     IRowsetChapterMember.IsRowInChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr, use_last_error=False)(3, 'IsRowInChapter', ((1, 'hChapter'),(1, 'hRow'),)))
+    win32more.System.Com.IUnknown
     return IRowsetChapterMember
 def _define_ICommandPersist_head():
     class ICommandPersist(win32more.System.Com.IUnknown_head):
@@ -5112,6 +5173,7 @@ def _define_ICommandPersist():
     ICommandPersist.GetCurrentCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(4, 'GetCurrentCommand', ((1, 'ppCommandID'),)))
     ICommandPersist.LoadCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32, use_last_error=False)(5, 'LoadCommand', ((1, 'pCommandID'),(1, 'dwFlags'),)))
     ICommandPersist.SaveCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32, use_last_error=False)(6, 'SaveCommand', ((1, 'pCommandID'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return ICommandPersist
 def _define_IRowsetRefresh_head():
     class IRowsetRefresh(win32more.System.Com.IUnknown_head):
@@ -5121,6 +5183,7 @@ def _define_IRowsetRefresh():
     IRowsetRefresh = win32more.System.Search.IRowsetRefresh_head
     IRowsetRefresh.RefreshVisibleData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr),win32more.Foundation.BOOL,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)),POINTER(POINTER(UInt32)), use_last_error=False)(3, 'RefreshVisibleData', ((1, 'hChapter'),(1, 'cRows'),(1, 'rghRows'),(1, 'fOverWrite'),(1, 'pcRowsRefreshed'),(1, 'prghRowsRefreshed'),(1, 'prgRowStatus'),)))
     IRowsetRefresh.GetLastVisibleData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_void_p, use_last_error=False)(4, 'GetLastVisibleData', ((1, 'hRow'),(1, 'hAccessor'),(1, 'pData'),)))
+    win32more.System.Com.IUnknown
     return IRowsetRefresh
 def _define_IParentRowset_head():
     class IParentRowset(win32more.System.Com.IUnknown_head):
@@ -5129,6 +5192,7 @@ def _define_IParentRowset_head():
 def _define_IParentRowset():
     IParentRowset = win32more.System.Search.IParentRowset_head
     IParentRowset.GetChildRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetChildRowset', ((1, 'pUnkOuter'),(1, 'iOrdinal'),(1, 'riid'),(1, 'ppRowset'),)))
+    win32more.System.Com.IUnknown
     return IParentRowset
 def _define_ERRORINFO_head():
     class ERRORINFO(Structure):
@@ -5156,6 +5220,7 @@ def _define_IErrorRecords():
     IErrorRecords.GetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Com.IErrorInfo_head), use_last_error=False)(6, 'GetErrorInfo', ((1, 'ulRecordNum'),(1, 'lcid'),(1, 'ppErrorInfo'),)))
     IErrorRecords.GetErrorParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.DISPPARAMS_head), use_last_error=False)(7, 'GetErrorParameters', ((1, 'ulRecordNum'),(1, 'pdispparams'),)))
     IErrorRecords.GetRecordCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetRecordCount', ((1, 'pcRecords'),)))
+    win32more.System.Com.IUnknown
     return IErrorRecords
 def _define_IErrorLookup_head():
     class IErrorLookup(win32more.System.Com.IUnknown_head):
@@ -5166,6 +5231,7 @@ def _define_IErrorLookup():
     IErrorLookup.GetErrorDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.DISPPARAMS_head),UInt32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetErrorDescription', ((1, 'hrError'),(1, 'dwLookupID'),(1, 'pdispparams'),(1, 'lcid'),(1, 'pbstrSource'),(1, 'pbstrDescription'),)))
     IErrorLookup.GetHelpInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(UInt32), use_last_error=False)(4, 'GetHelpInfo', ((1, 'hrError'),(1, 'dwLookupID'),(1, 'lcid'),(1, 'pbstrHelpFile'),(1, 'pdwHelpContext'),)))
     IErrorLookup.ReleaseErrors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'ReleaseErrors', ((1, 'dwDynamicErrorID'),)))
+    win32more.System.Com.IUnknown
     return IErrorLookup
 def _define_ISQLErrorInfo_head():
     class ISQLErrorInfo(win32more.System.Com.IUnknown_head):
@@ -5174,6 +5240,7 @@ def _define_ISQLErrorInfo_head():
 def _define_ISQLErrorInfo():
     ISQLErrorInfo = win32more.System.Search.ISQLErrorInfo_head
     ISQLErrorInfo.GetSQLInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR),POINTER(Int32), use_last_error=False)(3, 'GetSQLInfo', ((1, 'pbstrSQLState'),(1, 'plNativeError'),)))
+    win32more.System.Com.IUnknown
     return ISQLErrorInfo
 def _define_IGetDataSource_head():
     class IGetDataSource(win32more.System.Com.IUnknown_head):
@@ -5182,6 +5249,7 @@ def _define_IGetDataSource_head():
 def _define_IGetDataSource():
     IGetDataSource = win32more.System.Search.IGetDataSource_head
     IGetDataSource.GetDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetDataSource', ((1, 'riid'),(1, 'ppDataSource'),)))
+    win32more.System.Com.IUnknown
     return IGetDataSource
 def _define_ITransactionLocal_head():
     class ITransactionLocal(win32more.System.DistributedTransactionCoordinator.ITransaction_head):
@@ -5191,6 +5259,7 @@ def _define_ITransactionLocal():
     ITransactionLocal = win32more.System.Search.ITransactionLocal_head
     ITransactionLocal.GetOptionsObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head), use_last_error=False)(6, 'GetOptionsObject', ((1, 'ppOptions'),)))
     ITransactionLocal.StartTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head,POINTER(UInt32), use_last_error=False)(7, 'StartTransaction', ((1, 'isoLevel'),(1, 'isoFlags'),(1, 'pOtherOptions'),(1, 'pulTransactionLevel'),)))
+    win32more.System.DistributedTransactionCoordinator.ITransaction
     return ITransactionLocal
 def _define_ITransactionJoin_head():
     class ITransactionJoin(win32more.System.Com.IUnknown_head):
@@ -5200,6 +5269,7 @@ def _define_ITransactionJoin():
     ITransactionJoin = win32more.System.Search.ITransactionJoin_head
     ITransactionJoin.GetOptionsObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head), use_last_error=False)(3, 'GetOptionsObject', ((1, 'ppOptions'),)))
     ITransactionJoin.JoinTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,Int32,UInt32,win32more.System.DistributedTransactionCoordinator.ITransactionOptions_head, use_last_error=False)(4, 'JoinTransaction', ((1, 'punkTransactionCoord'),(1, 'isoLevel'),(1, 'isoFlags'),(1, 'pOtherOptions'),)))
+    win32more.System.Com.IUnknown
     return ITransactionJoin
 def _define_ITransactionObject_head():
     class ITransactionObject(win32more.System.Com.IUnknown_head):
@@ -5208,6 +5278,7 @@ def _define_ITransactionObject_head():
 def _define_ITransactionObject():
     ITransactionObject = win32more.System.Search.ITransactionObject_head
     ITransactionObject.GetTransactionObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.DistributedTransactionCoordinator.ITransaction_head), use_last_error=False)(3, 'GetTransactionObject', ((1, 'ulTransactionLevel'),(1, 'ppTransactionObject'),)))
+    win32more.System.Com.IUnknown
     return ITransactionObject
 def _define_ITrusteeAdmin_head():
     class ITrusteeAdmin(win32more.System.Com.IUnknown_head):
@@ -5220,6 +5291,7 @@ def _define_ITrusteeAdmin():
     ITrusteeAdmin.DeleteTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head), use_last_error=False)(5, 'DeleteTrustee', ((1, 'pTrustee'),)))
     ITrusteeAdmin.SetTrusteeProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),UInt32,POINTER(win32more.System.Search.DBPROPSET_head), use_last_error=False)(6, 'SetTrusteeProperties', ((1, 'pTrustee'),(1, 'cPropertySets'),(1, 'rgPropertySets'),)))
     ITrusteeAdmin.GetTrusteeProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),UInt32,POINTER(win32more.System.Search.DBPROPIDSET_head),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)), use_last_error=False)(7, 'GetTrusteeProperties', ((1, 'pTrustee'),(1, 'cPropertyIDSets'),(1, 'rgPropertyIDSets'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),)))
+    win32more.System.Com.IUnknown
     return ITrusteeAdmin
 def _define_ITrusteeGroupAdmin_head():
     class ITrusteeGroupAdmin(win32more.System.Com.IUnknown_head):
@@ -5232,6 +5304,7 @@ def _define_ITrusteeGroupAdmin():
     ITrusteeGroupAdmin.IsMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsMember', ((1, 'pMembershipTrustee'),(1, 'pMemberTrustee'),(1, 'pfStatus'),)))
     ITrusteeGroupAdmin.GetMembers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(UInt32),POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)), use_last_error=False)(6, 'GetMembers', ((1, 'pMembershipTrustee'),(1, 'pcMembers'),(1, 'prgMembers'),)))
     ITrusteeGroupAdmin.GetMemberships = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authorization.TRUSTEE_W_head),POINTER(UInt32),POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)), use_last_error=False)(7, 'GetMemberships', ((1, 'pTrustee'),(1, 'pcMemberships'),(1, 'prgMemberships'),)))
+    win32more.System.Com.IUnknown
     return ITrusteeGroupAdmin
 def _define_IObjectAccessControl_head():
     class IObjectAccessControl(win32more.System.Com.IUnknown_head):
@@ -5244,6 +5317,7 @@ def _define_IObjectAccessControl():
     IObjectAccessControl.IsObjectAccessAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(win32more.Security.Authorization.EXPLICIT_ACCESS_W_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsObjectAccessAllowed', ((1, 'pObject'),(1, 'pAccessEntry'),(1, 'pfResult'),)))
     IObjectAccessControl.SetObjectAccessRights = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),UInt32,POINTER(win32more.Security.Authorization.EXPLICIT_ACCESS_W_head), use_last_error=False)(6, 'SetObjectAccessRights', ((1, 'pObject'),(1, 'cAccessEntries'),(1, 'prgAccessEntries'),)))
     IObjectAccessControl.SetObjectOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.SEC_OBJECT_head),POINTER(win32more.Security.Authorization.TRUSTEE_W_head), use_last_error=False)(7, 'SetObjectOwner', ((1, 'pObject'),(1, 'pOwner'),)))
+    win32more.System.Com.IUnknown
     return IObjectAccessControl
 ACCESS_MASKENUM = Int32
 PERM_EXCLUSIVE = 512
@@ -5272,6 +5346,7 @@ def _define_ISecurityInfo():
     ISecurityInfo.GetCurrentTrustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Security.Authorization.TRUSTEE_W_head)), use_last_error=False)(3, 'GetCurrentTrustee', ((1, 'ppTrustee'),)))
     ISecurityInfo.GetObjectTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(4, 'GetObjectTypes', ((1, 'cObjectTypes'),(1, 'rgObjectTypes'),)))
     ISecurityInfo.GetPermissions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(UInt32), use_last_error=False)(5, 'GetPermissions', ((1, 'ObjectType'),(1, 'pPermissions'),)))
+    win32more.System.Com.IUnknown
     return ISecurityInfo
 def _define_ITableCreation_head():
     class ITableCreation(win32more.System.Search.ITableDefinition_head):
@@ -5280,6 +5355,7 @@ def _define_ITableCreation_head():
 def _define_ITableCreation():
     ITableCreation = win32more.System.Search.ITableCreation_head
     ITableCreation.GetTableDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBCOLUMNDESC_head)),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBPROPSET_head)),POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DBCONSTRAINTDESC_head)),POINTER(POINTER(UInt16)), use_last_error=False)(7, 'GetTableDefinition', ((1, 'pTableID'),(1, 'pcColumnDescs'),(1, 'prgColumnDescs'),(1, 'pcPropertySets'),(1, 'prgPropertySets'),(1, 'pcConstraintDescs'),(1, 'prgConstraintDescs'),(1, 'ppwszStringBuffer'),)))
+    win32more.System.Search.ITableDefinition
     return ITableCreation
 def _define_ITableDefinitionWithConstraints_head():
     class ITableDefinitionWithConstraints(win32more.System.Search.ITableCreation_head):
@@ -5290,6 +5366,7 @@ def _define_ITableDefinitionWithConstraints():
     ITableDefinitionWithConstraints.AddConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.System.Search.DBCONSTRAINTDESC_head), use_last_error=False)(8, 'AddConstraint', ((1, 'pTableID'),(1, 'pConstraintDesc'),)))
     ITableDefinitionWithConstraints.CreateTableWithConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),UIntPtr,POINTER(win32more.System.Search.DBCOLUMNDESC_head),UInt32,POINTER(win32more.System.Search.DBCONSTRAINTDESC_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET_head),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'CreateTableWithConstraints', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'cColumnDescs'),(1, 'rgColumnDescs'),(1, 'cConstraintDescs'),(1, 'rgConstraintDescs'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppTableID'),(1, 'ppRowset'),)))
     ITableDefinitionWithConstraints.DropConstraint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(10, 'DropConstraint', ((1, 'pTableID'),(1, 'pConstraintID'),)))
+    win32more.System.Search.ITableCreation
     return ITableDefinitionWithConstraints
 def _define_IRow_head():
     class IRow(win32more.System.Com.IUnknown_head):
@@ -5300,6 +5377,7 @@ def _define_IRow():
     IRow.GetColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.DBCOLUMNACCESS), use_last_error=False)(3, 'GetColumns', ((1, 'cColumns'),(1, 'rgColumns'),)))
     IRow.GetSourceRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head),POINTER(UIntPtr), use_last_error=False)(4, 'GetSourceRowset', ((1, 'riid'),(1, 'ppRowset'),(1, 'phRow'),)))
     IRow.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'Open', ((1, 'pUnkOuter'),(1, 'pColumnID'),(1, 'rguidColumnType'),(1, 'dwBindFlags'),(1, 'riid'),(1, 'ppUnk'),)))
+    win32more.System.Com.IUnknown
     return IRow
 def _define_IRowChange_head():
     class IRowChange(win32more.System.Com.IUnknown_head):
@@ -5308,6 +5386,7 @@ def _define_IRowChange_head():
 def _define_IRowChange():
     IRowChange = win32more.System.Search.IRowChange_head
     IRowChange.SetColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.DBCOLUMNACCESS), use_last_error=False)(3, 'SetColumns', ((1, 'cColumns'),(1, 'rgColumns'),)))
+    win32more.System.Com.IUnknown
     return IRowChange
 def _define_IRowSchemaChange_head():
     class IRowSchemaChange(win32more.System.Search.IRowChange_head):
@@ -5317,6 +5396,7 @@ def _define_IRowSchemaChange():
     IRowSchemaChange = win32more.System.Search.IRowSchemaChange_head
     IRowSchemaChange.DeleteColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(UInt32), use_last_error=False)(4, 'DeleteColumns', ((1, 'cColumns'),(1, 'rgColumnIDs'),(1, 'rgdwStatus'),)))
     IRowSchemaChange.AddColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Search.DBCOLUMNINFO_head),POINTER(win32more.System.Search.DBCOLUMNACCESS_head), use_last_error=False)(5, 'AddColumns', ((1, 'cColumns'),(1, 'rgNewColumnInfo'),(1, 'rgColumns'),)))
+    win32more.System.Search.IRowChange
     return IRowSchemaChange
 def _define_IGetRow_head():
     class IGetRow(win32more.System.Com.IUnknown_head):
@@ -5326,6 +5406,7 @@ def _define_IGetRow():
     IGetRow = win32more.System.Search.IGetRow_head
     IGetRow.GetRowFromHROW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UIntPtr,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetRowFromHROW', ((1, 'pUnkOuter'),(1, 'hRow'),(1, 'riid'),(1, 'ppUnk'),)))
     IGetRow.GetURLFromHROW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetURLFromHROW', ((1, 'hRow'),(1, 'ppwszURL'),)))
+    win32more.System.Com.IUnknown
     return IGetRow
 def _define_IBindResource_head():
     class IBindResource(win32more.System.Com.IUnknown_head):
@@ -5334,6 +5415,7 @@ def _define_IBindResource_head():
 def _define_IBindResource():
     IBindResource = win32more.System.Search.IBindResource_head
     IBindResource.Bind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(Guid),win32more.System.Com.IAuthenticate_head,POINTER(win32more.System.Search.DBIMPLICITSESSION_head),POINTER(UInt32),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'Bind', ((1, 'pUnkOuter'),(1, 'pwszURL'),(1, 'dwBindURLFlags'),(1, 'rguid'),(1, 'riid'),(1, 'pAuthenticate'),(1, 'pImplSession'),(1, 'pdwBindStatus'),(1, 'ppUnk'),)))
+    win32more.System.Com.IUnknown
     return IBindResource
 DBCOPYFLAGSENUM = Int32
 DBCOPY_ASYNC = 256
@@ -5360,6 +5442,7 @@ def _define_IScopedOperations():
     IScopedOperations.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),UInt32,win32more.System.Com.IAuthenticate_head,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(POINTER(UInt16)), use_last_error=False)(5, 'Move', ((1, 'cRows'),(1, 'rgpwszSourceURLs'),(1, 'rgpwszDestURLs'),(1, 'dwMoveFlags'),(1, 'pAuthenticate'),(1, 'rgdwStatus'),(1, 'rgpwszNewURLs'),(1, 'ppStringsBuffer'),)))
     IScopedOperations.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(UInt32), use_last_error=False)(6, 'Delete', ((1, 'cRows'),(1, 'rgpwszURLs'),(1, 'dwDeleteFlags'),(1, 'rgdwStatus'),)))
     IScopedOperations.OpenRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(Guid),UInt32,POINTER(win32more.System.Search.DBPROPSET),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'OpenRowset', ((1, 'pUnkOuter'),(1, 'pTableID'),(1, 'pIndexID'),(1, 'riid'),(1, 'cPropertySets'),(1, 'rgPropertySets'),(1, 'ppRowset'),)))
+    win32more.System.Search.IBindResource
     return IScopedOperations
 def _define_ICreateRow_head():
     class ICreateRow(win32more.System.Com.IUnknown_head):
@@ -5368,6 +5451,7 @@ def _define_ICreateRow_head():
 def _define_ICreateRow():
     ICreateRow = win32more.System.Search.ICreateRow_head
     ICreateRow.CreateRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.PWSTR,UInt32,POINTER(Guid),POINTER(Guid),win32more.System.Com.IAuthenticate_head,POINTER(win32more.System.Search.DBIMPLICITSESSION_head),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateRow', ((1, 'pUnkOuter'),(1, 'pwszURL'),(1, 'dwBindURLFlags'),(1, 'rguid'),(1, 'riid'),(1, 'pAuthenticate'),(1, 'pImplSession'),(1, 'pdwBindStatus'),(1, 'ppwszNewURL'),(1, 'ppUnk'),)))
+    win32more.System.Com.IUnknown
     return ICreateRow
 def _define_IDBBinderProperties_head():
     class IDBBinderProperties(win32more.System.Search.IDBProperties_head):
@@ -5376,6 +5460,7 @@ def _define_IDBBinderProperties_head():
 def _define_IDBBinderProperties():
     IDBBinderProperties = win32more.System.Search.IDBBinderProperties_head
     IDBBinderProperties.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Reset', ()))
+    win32more.System.Search.IDBProperties
     return IDBBinderProperties
 def _define_IColumnsInfo2_head():
     class IColumnsInfo2(win32more.System.Search.IColumnsInfo_head):
@@ -5384,6 +5469,7 @@ def _define_IColumnsInfo2_head():
 def _define_IColumnsInfo2():
     IColumnsInfo2 = win32more.System.Search.IColumnsInfo2_head
     IColumnsInfo2.GetRestrictedColumnInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.Storage.IndexServer.DBID),UInt32,POINTER(UIntPtr),POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)),POINTER(POINTER(win32more.System.Search.DBCOLUMNINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(5, 'GetRestrictedColumnInfo', ((1, 'cColumnIDMasks'),(1, 'rgColumnIDMasks'),(1, 'dwFlags'),(1, 'pcColumns'),(1, 'prgColumnIDs'),(1, 'prgColumnInfo'),(1, 'ppStringsBuffer'),)))
+    win32more.System.Search.IColumnsInfo
     return IColumnsInfo2
 def _define_IRegisterProvider_head():
     class IRegisterProvider(win32more.System.Com.IUnknown_head):
@@ -5394,6 +5480,7 @@ def _define_IRegisterProvider():
     IRegisterProvider.GetURLMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UIntPtr,POINTER(Guid), use_last_error=False)(3, 'GetURLMapping', ((1, 'pwszURL'),(1, 'dwReserved'),(1, 'pclsidProvider'),)))
     IRegisterProvider.SetURLMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UIntPtr,POINTER(Guid), use_last_error=False)(4, 'SetURLMapping', ((1, 'pwszURL'),(1, 'dwReserved'),(1, 'rclsidProvider'),)))
     IRegisterProvider.UnregisterProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UIntPtr,POINTER(Guid), use_last_error=False)(5, 'UnregisterProvider', ((1, 'pwszURL'),(1, 'dwReserved'),(1, 'rclsidProvider'),)))
+    win32more.System.Com.IUnknown
     return IRegisterProvider
 def _define_IGetSession_head():
     class IGetSession(win32more.System.Com.IUnknown_head):
@@ -5402,6 +5489,7 @@ def _define_IGetSession_head():
 def _define_IGetSession():
     IGetSession = win32more.System.Search.IGetSession_head
     IGetSession.GetSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSession', ((1, 'riid'),(1, 'ppSession'),)))
+    win32more.System.Com.IUnknown
     return IGetSession
 def _define_IGetSourceRow_head():
     class IGetSourceRow(win32more.System.Com.IUnknown_head):
@@ -5410,6 +5498,7 @@ def _define_IGetSourceRow_head():
 def _define_IGetSourceRow():
     IGetSourceRow = win32more.System.Search.IGetSourceRow_head
     IGetSourceRow.GetSourceRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetSourceRow', ((1, 'riid'),(1, 'ppRow'),)))
+    win32more.System.Com.IUnknown
     return IGetSourceRow
 def _define_IRowsetCurrentIndex_head():
     class IRowsetCurrentIndex(win32more.System.Search.IRowsetIndex_head):
@@ -5419,6 +5508,7 @@ def _define_IRowsetCurrentIndex():
     IRowsetCurrentIndex = win32more.System.Search.IRowsetCurrentIndex_head
     IRowsetCurrentIndex.GetIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.IndexServer.DBID_head)), use_last_error=False)(6, 'GetIndex', ((1, 'ppIndexID'),)))
     IRowsetCurrentIndex.SetIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(7, 'SetIndex', ((1, 'pIndexID'),)))
+    win32more.System.Search.IRowsetIndex
     return IRowsetCurrentIndex
 def _define_ICommandStream_head():
     class ICommandStream(win32more.System.Com.IUnknown_head):
@@ -5428,6 +5518,7 @@ def _define_ICommandStream():
     ICommandStream = win32more.System.Search.ICommandStream_head
     ICommandStream.GetCommandStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetCommandStream', ((1, 'piid'),(1, 'pguidDialect'),(1, 'ppCommandStream'),)))
     ICommandStream.SetCommandStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'SetCommandStream', ((1, 'riid'),(1, 'rguidDialect'),(1, 'pCommandStream'),)))
+    win32more.System.Com.IUnknown
     return ICommandStream
 def _define_IRowsetBookmark_head():
     class IRowsetBookmark(win32more.System.Com.IUnknown_head):
@@ -5436,6 +5527,7 @@ def _define_IRowsetBookmark_head():
 def _define_IRowsetBookmark():
     IRowsetBookmark = win32more.System.Search.IRowsetBookmark_head
     IRowsetBookmark.PositionOnBookmark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no, use_last_error=False)(3, 'PositionOnBookmark', ((1, 'hChapter'),(1, 'cbBookmark'),(1, 'pBookmark'),)))
+    win32more.System.Com.IUnknown
     return IRowsetBookmark
 QueryParser = Guid('b72f8fd8-0fab-4dd9-bdbf-245a6ce1485b')
 NegationCondition = Guid('8de9c74c-605a-4acd-bee3-2b222aa2d23d')
@@ -5514,6 +5606,7 @@ def _define_IQueryParser():
     IQueryParser.RestateToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'RestateToString', ((1, 'pCondition'),(1, 'fUseEnglish'),(1, 'ppszQueryString'),)))
     IQueryParser.ParsePropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.IQuerySolution_head), use_last_error=False)(9, 'ParsePropertyValue', ((1, 'pszPropertyName'),(1, 'pszInputString'),(1, 'ppSolution'),)))
     IQueryParser.RestatePropertyValueToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'RestatePropertyValueToString', ((1, 'pCondition'),(1, 'fUseEnglish'),(1, 'ppszPropertyName'),(1, 'ppszQueryString'),)))
+    win32more.System.Com.IUnknown
     return IQueryParser
 def _define_IConditionFactory_head():
     class IConditionFactory(win32more.System.Com.IUnknown_head):
@@ -5525,6 +5618,7 @@ def _define_IConditionFactory():
     IConditionFactory.MakeAndOr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.Common.CONDITION_TYPE,win32more.System.Com.IEnumUnknown_head,win32more.Foundation.BOOL,POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(4, 'MakeAndOr', ((1, 'ct'),(1, 'peuSubs'),(1, 'fSimplify'),(1, 'ppcResult'),)))
     IConditionFactory.MakeLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.Foundation.BOOL,POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(5, 'MakeLeaf', ((1, 'pszPropertyName'),(1, 'cop'),(1, 'pszValueType'),(1, 'ppropvar'),(1, 'pPropertyNameTerm'),(1, 'pOperationTerm'),(1, 'pValueTerm'),(1, 'fExpand'),(1, 'ppcResult'),)))
     IConditionFactory.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.System.Search.STRUCTURED_QUERY_RESOLVE_OPTION,POINTER(win32more.Foundation.SYSTEMTIME_head),POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(6, 'Resolve', ((1, 'pc'),(1, 'sqro'),(1, 'pstReferenceTime'),(1, 'ppcResolved'),)))
+    win32more.System.Com.IUnknown
     return IConditionFactory
 def _define_IQuerySolution_head():
     class IQuerySolution(win32more.System.Search.IConditionFactory_head):
@@ -5535,6 +5629,7 @@ def _define_IQuerySolution():
     IQuerySolution.GetQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ICondition_head),POINTER(win32more.System.Search.IEntity_head), use_last_error=False)(7, 'GetQuery', ((1, 'ppQueryNode'),(1, 'ppMainType'),)))
     IQuerySolution.GetErrors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'GetErrors', ((1, 'riid'),(1, 'ppParseErrors'),)))
     IQuerySolution.GetLexicalData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Search.ITokenCollection_head),POINTER(UInt32),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'GetLexicalData', ((1, 'ppszInputString'),(1, 'ppTokens'),(1, 'plcid'),(1, 'ppWordBreaker'),)))
+    win32more.System.Search.IConditionFactory
     return IQuerySolution
 CONDITION_CREATION_OPTIONS = UInt32
 CONDITION_CREATION_DEFAULT = 0
@@ -5559,6 +5654,7 @@ def _define_IConditionFactory2():
     IConditionFactory2.CreateBooleanLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.BOOL,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(13, 'CreateBooleanLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'fValue'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
     IConditionFactory2.CreateLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),win32more.System.Search.Common.CONDITION_OPERATION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.CONDITION_CREATION_OPTIONS,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(14, 'CreateLeaf', ((1, 'propkey'),(1, 'cop'),(1, 'propvar'),(1, 'pszSemanticType'),(1, 'pszLocaleName'),(1, 'pPropertyNameTerm'),(1, 'pOperationTerm'),(1, 'pValueTerm'),(1, 'cco'),(1, 'riid'),(1, 'ppv'),)))
     IConditionFactory2.ResolveCondition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ICondition_head,win32more.System.Search.STRUCTURED_QUERY_RESOLVE_OPTION,POINTER(win32more.Foundation.SYSTEMTIME_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(15, 'ResolveCondition', ((1, 'pc'),(1, 'sqro'),(1, 'pstReferenceTime'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Search.IConditionFactory
     return IConditionFactory2
 def _define_IConditionGenerator_head():
     class IConditionGenerator(win32more.System.Com.IUnknown_head):
@@ -5570,6 +5666,7 @@ def _define_IConditionGenerator():
     IConditionGenerator.RecognizeNamedEntities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.System.Search.ITokenCollection_head,win32more.System.Search.INamedEntityCollector_head, use_last_error=False)(4, 'RecognizeNamedEntities', ((1, 'pszInputString'),(1, 'lcidUserLocale'),(1, 'pTokenCollection'),(1, 'pNamedEntities'),)))
     IConditionGenerator.GenerateForLeaf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IConditionFactory_head,win32more.Foundation.PWSTR,win32more.System.Search.Common.CONDITION_OPERATION,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.System.Search.IRichChunk_head,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL),POINTER(win32more.System.Search.ICondition_head), use_last_error=False)(5, 'GenerateForLeaf', ((1, 'pConditionFactory'),(1, 'pszPropertyName'),(1, 'cop'),(1, 'pszValueType'),(1, 'pszValue'),(1, 'pszValue2'),(1, 'pPropertyNameTerm'),(1, 'pOperationTerm'),(1, 'pValueTerm'),(1, 'automaticWildcard'),(1, 'pNoStringQuery'),(1, 'ppQueryExpression'),)))
     IConditionGenerator.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'DefaultPhrase', ((1, 'pszValueType'),(1, 'ppropvar'),(1, 'fUseEnglish'),(1, 'ppszPhrase'),)))
+    win32more.System.Com.IUnknown
     return IConditionGenerator
 def _define_IInterval_head():
     class IInterval(win32more.System.Com.IUnknown_head):
@@ -5578,6 +5675,7 @@ def _define_IInterval_head():
 def _define_IInterval():
     IInterval = win32more.System.Search.IInterval_head
     IInterval.GetLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.INTERVAL_LIMIT_KIND),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Search.INTERVAL_LIMIT_KIND),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(3, 'GetLimits', ((1, 'pilkLower'),(1, 'ppropvarLower'),(1, 'pilkUpper'),(1, 'ppropvarUpper'),)))
+    win32more.System.Com.IUnknown
     return IInterval
 def _define_IMetaData_head():
     class IMetaData(win32more.System.Com.IUnknown_head):
@@ -5586,6 +5684,7 @@ def _define_IMetaData_head():
 def _define_IMetaData():
     IMetaData = win32more.System.Search.IMetaData_head
     IMetaData.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetData', ((1, 'ppszKey'),(1, 'ppszValue'),)))
+    win32more.System.Com.IUnknown
     return IMetaData
 def _define_IEntity_head():
     class IEntity(win32more.System.Com.IUnknown_head):
@@ -5601,6 +5700,7 @@ def _define_IEntity():
     IEntity.NamedEntities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'NamedEntities', ((1, 'riid'),(1, 'pNamedEntities'),)))
     IEntity.GetNamedEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.INamedEntity_head), use_last_error=False)(9, 'GetNamedEntity', ((1, 'pszValue'),(1, 'ppNamedEntity'),)))
     IEntity.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'DefaultPhrase', ((1, 'ppszPhrase'),)))
+    win32more.System.Com.IUnknown
     return IEntity
 def _define_IRelationship_head():
     class IRelationship(win32more.System.Com.IUnknown_head):
@@ -5613,6 +5713,7 @@ def _define_IRelationship():
     IRelationship.Destination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEntity_head), use_last_error=False)(5, 'Destination', ((1, 'pDestinationEntity'),)))
     IRelationship.MetaData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'MetaData', ((1, 'riid'),(1, 'pMetaData'),)))
     IRelationship.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'DefaultPhrase', ((1, 'ppszPhrase'),)))
+    win32more.System.Com.IUnknown
     return IRelationship
 def _define_INamedEntity_head():
     class INamedEntity(win32more.System.Com.IUnknown_head):
@@ -5622,6 +5723,7 @@ def _define_INamedEntity():
     INamedEntity = win32more.System.Search.INamedEntity_head
     INamedEntity.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetValue', ((1, 'ppszValue'),)))
     INamedEntity.DefaultPhrase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'DefaultPhrase', ((1, 'ppszPhrase'),)))
+    win32more.System.Com.IUnknown
     return INamedEntity
 def _define_ISchemaProvider_head():
     class ISchemaProvider(win32more.System.Com.IUnknown_head):
@@ -5636,6 +5738,7 @@ def _define_ISchemaProvider():
     ISchemaProvider.Localize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Search.ISchemaLocalizerSupport_head, use_last_error=False)(7, 'Localize', ((1, 'lcid'),(1, 'pSchemaLocalizerSupport'),)))
     ISchemaProvider.SaveBinary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'SaveBinary', ((1, 'pszSchemaBinaryPath'),)))
     ISchemaProvider.LookupAuthoredNamedEntity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IEntity_head,win32more.Foundation.PWSTR,win32more.System.Search.ITokenCollection_head,UInt32,POINTER(UInt32),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'LookupAuthoredNamedEntity', ((1, 'pEntity'),(1, 'pszInputString'),(1, 'pTokenCollection'),(1, 'cTokensBegin'),(1, 'pcTokensLength'),(1, 'ppszValue'),)))
+    win32more.System.Com.IUnknown
     return ISchemaProvider
 def _define_ITokenCollection_head():
     class ITokenCollection(win32more.System.Com.IUnknown_head):
@@ -5645,6 +5748,7 @@ def _define_ITokenCollection():
     ITokenCollection = win32more.System.Search.ITokenCollection_head
     ITokenCollection.NumberOfTokens = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'NumberOfTokens', ((1, 'pCount'),)))
     ITokenCollection.GetToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetToken', ((1, 'i'),(1, 'pBegin'),(1, 'pLength'),(1, 'ppsz'),)))
+    win32more.System.Com.IUnknown
     return ITokenCollection
 NAMED_ENTITY_CERTAINTY = Int32
 NEC_LOW = 0
@@ -5657,6 +5761,7 @@ def _define_INamedEntityCollector_head():
 def _define_INamedEntityCollector():
     INamedEntityCollector = win32more.System.Search.INamedEntityCollector_head
     INamedEntityCollector.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,win32more.System.Search.IEntity_head,win32more.Foundation.PWSTR,win32more.System.Search.NAMED_ENTITY_CERTAINTY, use_last_error=False)(3, 'Add', ((1, 'beginSpan'),(1, 'endSpan'),(1, 'beginActual'),(1, 'endActual'),(1, 'pType'),(1, 'pszValue'),(1, 'certainty'),)))
+    win32more.System.Com.IUnknown
     return INamedEntityCollector
 def _define_ISchemaLocalizerSupport_head():
     class ISchemaLocalizerSupport(win32more.System.Com.IUnknown_head):
@@ -5665,6 +5770,7 @@ def _define_ISchemaLocalizerSupport_head():
 def _define_ISchemaLocalizerSupport():
     ISchemaLocalizerSupport = win32more.System.Search.ISchemaLocalizerSupport_head
     ISchemaLocalizerSupport.Localize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'Localize', ((1, 'pszGlobalString'),(1, 'ppszLocalString'),)))
+    win32more.System.Com.IUnknown
     return ISchemaLocalizerSupport
 def _define_IQueryParserManager_head():
     class IQueryParserManager(win32more.System.Com.IUnknown_head):
@@ -5675,6 +5781,7 @@ def _define_IQueryParserManager():
     IQueryParserManager.CreateLoadedParser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt16,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateLoadedParser', ((1, 'pszCatalog'),(1, 'langidForKeywords'),(1, 'riid'),(1, 'ppQueryParser'),)))
     IQueryParserManager.InitializeOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.System.Search.IQueryParser_head, use_last_error=False)(4, 'InitializeOptions', ((1, 'fUnderstandNQS'),(1, 'fAutoWildCard'),(1, 'pQueryParser'),)))
     IQueryParserManager.SetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.QUERY_PARSER_MANAGER_OPTION,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'SetOption', ((1, 'option'),(1, 'pOptionValue'),)))
+    win32more.System.Com.IUnknown
     return IQueryParserManager
 def _define_HITRANGE_head():
     class HITRANGE(Structure):
@@ -5706,6 +5813,7 @@ def _define_IUrlAccessor():
     IUrlAccessor.GetSecurityProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(13, 'GetSecurityProvider', ((1, 'pSPClsid'),)))
     IUrlAccessor.BindToStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(14, 'BindToStream', ((1, 'ppStream'),)))
     IUrlAccessor.BindToFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(15, 'BindToFilter', ((1, 'ppFilter'),)))
+    win32more.System.Com.IUnknown
     return IUrlAccessor
 def _define_IUrlAccessor2_head():
     class IUrlAccessor2(win32more.System.Search.IUrlAccessor_head):
@@ -5716,6 +5824,7 @@ def _define_IUrlAccessor2():
     IUrlAccessor2.GetDisplayUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(16, 'GetDisplayUrl', ((1, 'wszDocUrl'),(1, 'dwSize'),(1, 'pdwLength'),)))
     IUrlAccessor2.IsDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'IsDocument', ()))
     IUrlAccessor2.GetCodePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(18, 'GetCodePage', ((1, 'wszCodePage'),(1, 'dwSize'),(1, 'pdwLength'),)))
+    win32more.System.Search.IUrlAccessor
     return IUrlAccessor2
 def _define_IUrlAccessor3_head():
     class IUrlAccessor3(win32more.System.Search.IUrlAccessor2_head):
@@ -5724,6 +5833,7 @@ def _define_IUrlAccessor3_head():
 def _define_IUrlAccessor3():
     IUrlAccessor3 = win32more.System.Search.IUrlAccessor3_head
     IUrlAccessor3.GetImpersonationSidBlobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.BLOB_head)), use_last_error=False)(19, 'GetImpersonationSidBlobs', ((1, 'pcwszURL'),(1, 'pcSidCount'),(1, 'ppSidBlobs'),)))
+    win32more.System.Search.IUrlAccessor2
     return IUrlAccessor3
 def _define_IUrlAccessor4_head():
     class IUrlAccessor4(win32more.System.Search.IUrlAccessor3_head):
@@ -5733,6 +5843,7 @@ def _define_IUrlAccessor4():
     IUrlAccessor4 = win32more.System.Search.IUrlAccessor4_head
     IUrlAccessor4.ShouldIndexItemContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(20, 'ShouldIndexItemContent', ((1, 'pfIndexContent'),)))
     IUrlAccessor4.ShouldIndexProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(21, 'ShouldIndexProperty', ((1, 'key'),(1, 'pfIndexProperty'),)))
+    win32more.System.Search.IUrlAccessor3
     return IUrlAccessor4
 def _define_IOpLockStatus_head():
     class IOpLockStatus(win32more.System.Com.IUnknown_head):
@@ -5743,6 +5854,7 @@ def _define_IOpLockStatus():
     IOpLockStatus.IsOplockValid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsOplockValid', ((1, 'pfIsOplockValid'),)))
     IOpLockStatus.IsOplockBroken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsOplockBroken', ((1, 'pfIsOplockBroken'),)))
     IOpLockStatus.GetOplockEventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(5, 'GetOplockEventHandle', ((1, 'phOplockEv'),)))
+    win32more.System.Com.IUnknown
     return IOpLockStatus
 def _define_ISearchProtocolThreadContext_head():
     class ISearchProtocolThreadContext(win32more.System.Com.IUnknown_head):
@@ -5753,6 +5865,7 @@ def _define_ISearchProtocolThreadContext():
     ISearchProtocolThreadContext.ThreadInit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'ThreadInit', ()))
     ISearchProtocolThreadContext.ThreadShutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ThreadShutdown', ()))
     ISearchProtocolThreadContext.ThreadIdle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'ThreadIdle', ((1, 'dwTimeElaspedSinceLastCallInMS'),)))
+    win32more.System.Com.IUnknown
     return ISearchProtocolThreadContext
 def _define_TIMEOUT_INFO_head():
     class TIMEOUT_INFO(Structure):
@@ -5838,6 +5951,7 @@ def _define_ISearchProtocol():
     ISearchProtocol.CreateAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.AUTHENTICATION_INFO_head),POINTER(win32more.System.Search.INCREMENTAL_ACCESS_INFO_head),POINTER(win32more.System.Search.ITEM_INFO_head),POINTER(win32more.System.Search.IUrlAccessor_head), use_last_error=False)(4, 'CreateAccessor', ((1, 'pcwszURL'),(1, 'pAuthenticationInfo'),(1, 'pIncrementalAccessInfo'),(1, 'pItemInfo'),(1, 'ppAccessor'),)))
     ISearchProtocol.CloseAccessor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IUrlAccessor_head, use_last_error=False)(5, 'CloseAccessor', ((1, 'pAccessor'),)))
     ISearchProtocol.ShutDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'ShutDown', ()))
+    win32more.System.Com.IUnknown
     return ISearchProtocol
 def _define_ISearchProtocol2_head():
     class ISearchProtocol2(win32more.System.Search.ISearchProtocol_head):
@@ -5846,6 +5960,7 @@ def _define_ISearchProtocol2_head():
 def _define_ISearchProtocol2():
     ISearchProtocol2 = win32more.System.Search.ISearchProtocol2_head
     ISearchProtocol2.CreateAccessorEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.AUTHENTICATION_INFO_head),POINTER(win32more.System.Search.INCREMENTAL_ACCESS_INFO_head),POINTER(win32more.System.Search.ITEM_INFO_head),POINTER(win32more.System.Com.BLOB_head),POINTER(win32more.System.Search.IUrlAccessor_head), use_last_error=False)(7, 'CreateAccessorEx', ((1, 'pcwszURL'),(1, 'pAuthenticationInfo'),(1, 'pIncrementalAccessInfo'),(1, 'pItemInfo'),(1, 'pUserData'),(1, 'ppAccessor'),)))
+    win32more.System.Search.ISearchProtocol
     return ISearchProtocol2
 def _define_IProtocolHandlerSite_head():
     class IProtocolHandlerSite(win32more.System.Com.IUnknown_head):
@@ -5854,6 +5969,7 @@ def _define_IProtocolHandlerSite_head():
 def _define_IProtocolHandlerSite():
     IProtocolHandlerSite = win32more.System.Search.IProtocolHandlerSite_head
     IProtocolHandlerSite.GetFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Storage.IndexServer.IFilter_head), use_last_error=False)(3, 'GetFilter', ((1, 'pclsidObj'),(1, 'pcwszContentType'),(1, 'pcwszExtension'),(1, 'ppFilter'),)))
+    win32more.System.Com.IUnknown
     return IProtocolHandlerSite
 def _define_ISearchRoot_head():
     class ISearchRoot(win32more.System.Com.IUnknown_head):
@@ -5883,6 +5999,7 @@ def _define_ISearchRoot():
     ISearchRoot.get_User = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(22, 'get_User', ((1, 'ppszUser'),)))
     ISearchRoot.put_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(23, 'put_Password', ((1, 'pszPassword'),)))
     ISearchRoot.get_Password = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(24, 'get_Password', ((1, 'ppszPassword'),)))
+    win32more.System.Com.IUnknown
     return ISearchRoot
 def _define_IEnumSearchRoots_head():
     class IEnumSearchRoots(win32more.System.Com.IUnknown_head):
@@ -5894,6 +6011,7 @@ def _define_IEnumSearchRoots():
     IEnumSearchRoots.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumSearchRoots.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSearchRoots.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchRoots_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSearchRoots
 FOLLOW_FLAGS = Int32
 FF_INDEXCOMPLEXURLS = 1
@@ -5908,6 +6026,7 @@ def _define_ISearchScopeRule():
     ISearchScopeRule.get_IsIncluded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'get_IsIncluded', ((1, 'pfIsIncluded'),)))
     ISearchScopeRule.get_IsDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'get_IsDefault', ((1, 'pfIsDefault'),)))
     ISearchScopeRule.get_FollowFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'get_FollowFlags', ((1, 'pFollowFlags'),)))
+    win32more.System.Com.IUnknown
     return ISearchScopeRule
 def _define_IEnumSearchScopeRules_head():
     class IEnumSearchScopeRules(win32more.System.Com.IUnknown_head):
@@ -5919,6 +6038,7 @@ def _define_IEnumSearchScopeRules():
     IEnumSearchScopeRules.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumSearchScopeRules.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSearchScopeRules.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSearchScopeRules_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSearchScopeRules
 CLUSION_REASON = Int32
 CLUSIONREASON_UNKNOWNSCOPE = 0
@@ -5947,6 +6067,7 @@ def _define_ISearchCrawlScopeManager():
     ISearchCrawlScopeManager.SaveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'SaveAll', ()))
     ISearchCrawlScopeManager.GetParentScopeVersionId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int32), use_last_error=False)(17, 'GetParentScopeVersionId', ((1, 'pszURL'),(1, 'plScopeId'),)))
     ISearchCrawlScopeManager.RemoveDefaultScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(18, 'RemoveDefaultScopeRule', ((1, 'pszURL'),)))
+    win32more.System.Com.IUnknown
     return ISearchCrawlScopeManager
 def _define_ISearchCrawlScopeManager2_head():
     class ISearchCrawlScopeManager2(win32more.System.Search.ISearchCrawlScopeManager_head):
@@ -5955,6 +6076,7 @@ def _define_ISearchCrawlScopeManager2_head():
 def _define_ISearchCrawlScopeManager2():
     ISearchCrawlScopeManager2 = win32more.System.Search.ISearchCrawlScopeManager2_head
     ISearchCrawlScopeManager2.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(Int32)),POINTER(win32more.Foundation.HANDLE), use_last_error=False)(19, 'GetVersion', ((1, 'plVersion'),(1, 'phFileMapping'),)))
+    win32more.System.Search.ISearchCrawlScopeManager
     return ISearchCrawlScopeManager2
 SEARCH_KIND_OF_CHANGE = Int32
 SEARCH_CHANGE_ADD = 0
@@ -5990,6 +6112,7 @@ def _define_ISearchItemsChangedSink():
     ISearchItemsChangedSink.StartedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'StartedMonitoringScope', ((1, 'pszURL'),)))
     ISearchItemsChangedSink.StoppedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'StoppedMonitoringScope', ((1, 'pszURL'),)))
     ISearchItemsChangedSink.OnItemsChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.SEARCH_ITEM_CHANGE),POINTER(UInt32),POINTER(win32more.Foundation.HRESULT), use_last_error=False)(5, 'OnItemsChanged', ((1, 'dwNumberOfChanges'),(1, 'rgDataChangeEntries'),(1, 'rgdwDocIds'),(1, 'rghrCompletionCodes'),)))
+    win32more.System.Com.IUnknown
     return ISearchItemsChangedSink
 def _define_SEARCH_ITEM_PERSISTENT_CHANGE_head():
     class SEARCH_ITEM_PERSISTENT_CHANGE(Structure):
@@ -6013,6 +6136,7 @@ def _define_ISearchPersistentItemsChangedSink():
     ISearchPersistentItemsChangedSink.StartedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'StartedMonitoringScope', ((1, 'pszURL'),)))
     ISearchPersistentItemsChangedSink.StoppedMonitoringScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'StoppedMonitoringScope', ((1, 'pszURL'),)))
     ISearchPersistentItemsChangedSink.OnItemsChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.SEARCH_ITEM_PERSISTENT_CHANGE),POINTER(win32more.Foundation.HRESULT), use_last_error=False)(5, 'OnItemsChanged', ((1, 'dwNumberOfChanges'),(1, 'DataChangeEntries'),(1, 'hrCompletionCodes'),)))
+    win32more.System.Com.IUnknown
     return ISearchPersistentItemsChangedSink
 def _define_ISearchViewChangedSink_head():
     class ISearchViewChangedSink(win32more.System.Com.IUnknown_head):
@@ -6021,6 +6145,7 @@ def _define_ISearchViewChangedSink_head():
 def _define_ISearchViewChangedSink():
     ISearchViewChangedSink = win32more.System.Search.ISearchViewChangedSink_head
     ISearchViewChangedSink.OnChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(win32more.System.Search.SEARCH_ITEM_CHANGE_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnChange', ((1, 'pdwDocID'),(1, 'pChange'),(1, 'pfInView'),)))
+    win32more.System.Com.IUnknown
     return ISearchViewChangedSink
 SEARCH_INDEXING_PHASE = Int32
 SEARCH_INDEXING_PHASE_GATHERER = 0
@@ -6045,6 +6170,7 @@ def _define_ISearchNotifyInlineSite():
     ISearchNotifyInlineSite = win32more.System.Search.ISearchNotifyInlineSite_head
     ISearchNotifyInlineSite.OnItemIndexedStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SEARCH_INDEXING_PHASE,UInt32,POINTER(win32more.System.Search.SEARCH_ITEM_INDEXING_STATUS), use_last_error=False)(3, 'OnItemIndexedStatusChange', ((1, 'sipStatus'),(1, 'dwNumEntries'),(1, 'rgItemStatusEntries'),)))
     ISearchNotifyInlineSite.OnCatalogStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),UInt32, use_last_error=False)(4, 'OnCatalogStatusChange', ((1, 'guidCatalogResetSignature'),(1, 'guidCheckPointSignature'),(1, 'dwLastCheckPointNumber'),)))
+    win32more.System.Com.IUnknown
     return ISearchNotifyInlineSite
 CatalogStatus = Int32
 CATALOG_STATUS_IDLE = 0
@@ -6098,6 +6224,7 @@ def _define_ISearchCatalogManager():
     ISearchCatalogManager.put_DiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(26, 'put_DiacriticSensitivity', ((1, 'fDiacriticSensitive'),)))
     ISearchCatalogManager.get_DiacriticSensitivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(27, 'get_DiacriticSensitivity', ((1, 'pfDiacriticSensitive'),)))
     ISearchCatalogManager.GetCrawlScopeManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.ISearchCrawlScopeManager_head), use_last_error=False)(28, 'GetCrawlScopeManager', ((1, 'ppCrawlScopeManager'),)))
+    win32more.System.Com.IUnknown
     return ISearchCatalogManager
 PRIORITIZE_FLAGS = Int32
 PRIORITIZE_FLAG_RETRYFAILEDITEMS = 1
@@ -6109,6 +6236,7 @@ def _define_ISearchCatalogManager2_head():
 def _define_ISearchCatalogManager2():
     ISearchCatalogManager2 = win32more.System.Search.ISearchCatalogManager2_head
     ISearchCatalogManager2.PrioritizeMatchingURLs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Search.PRIORITIZE_FLAGS, use_last_error=False)(29, 'PrioritizeMatchingURLs', ((1, 'pszPattern'),(1, 'dwPrioritizeFlags'),)))
+    win32more.System.Search.ISearchCatalogManager
     return ISearchCatalogManager2
 SEARCH_TERM_EXPANSION = Int32
 SEARCH_TERM_NO_EXPANSION = 0
@@ -6156,6 +6284,7 @@ def _define_ISearchQueryHelper():
     ISearchQueryHelper.WriteProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY),POINTER(win32more.System.Search.SEARCH_COLUMN_PROPERTIES),POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(21, 'WriteProperties', ((1, 'itemID'),(1, 'dwNumberOfColumns'),(1, 'pColumns'),(1, 'pValues'),(1, 'pftGatherModifiedTime'),)))
     ISearchQueryHelper.put_QueryMaxResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(22, 'put_QueryMaxResults', ((1, 'cMaxResults'),)))
     ISearchQueryHelper.get_QueryMaxResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_QueryMaxResults', ((1, 'pcMaxResults'),)))
+    win32more.System.Com.IUnknown
     return ISearchQueryHelper
 PRIORITY_LEVEL = Int32
 PRIORITY_LEVEL_FOREGROUND = 0
@@ -6171,6 +6300,7 @@ def _define_IRowsetPrioritization():
     IRowsetPrioritization.SetScopePriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.PRIORITY_LEVEL,UInt32, use_last_error=False)(3, 'SetScopePriority', ((1, 'priority'),(1, 'scopeStatisticsEventFrequency'),)))
     IRowsetPrioritization.GetScopePriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.PRIORITY_LEVEL),POINTER(UInt32), use_last_error=False)(4, 'GetScopePriority', ((1, 'priority'),(1, 'scopeStatisticsEventFrequency'),)))
     IRowsetPrioritization.GetScopeStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(5, 'GetScopeStatistics', ((1, 'indexedDocumentCount'),(1, 'oustandingAddCount'),(1, 'oustandingModifyCount'),)))
+    win32more.System.Com.IUnknown
     return IRowsetPrioritization
 ROWSETEVENT_ITEMSTATE = Int32
 ROWSETEVENT_ITEMSTATE_NOTINROWSET = 0
@@ -6190,6 +6320,7 @@ def _define_IRowsetEvents():
     IRowsetEvents.OnChangedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.ROWSETEVENT_ITEMSTATE,win32more.System.Search.ROWSETEVENT_ITEMSTATE, use_last_error=False)(4, 'OnChangedItem', ((1, 'itemID'),(1, 'rowsetItemState'),(1, 'changedItemState'),)))
     IRowsetEvents.OnDeletedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.System.Search.ROWSETEVENT_ITEMSTATE, use_last_error=False)(5, 'OnDeletedItem', ((1, 'itemID'),(1, 'deletedItemState'),)))
     IRowsetEvents.OnRowsetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.ROWSETEVENT_TYPE,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'OnRowsetEvent', ((1, 'eventType'),(1, 'eventData'),)))
+    win32more.System.Com.IUnknown
     return IRowsetEvents
 def _define_ISearchManager_head():
     class ISearchManager(win32more.System.Com.IUnknown_head):
@@ -6210,6 +6341,7 @@ def _define_ISearchManager():
     ISearchManager.get_UseProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.PROXY_ACCESS), use_last_error=False)(13, 'get_UseProxy', ((1, 'pUseProxy'),)))
     ISearchManager.get_LocalBypass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(14, 'get_LocalBypass', ((1, 'pfLocalBypass'),)))
     ISearchManager.get_PortNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'get_PortNumber', ((1, 'pdwPortNumber'),)))
+    win32more.System.Com.IUnknown
     return ISearchManager
 def _define_ISearchManager2_head():
     class ISearchManager2(win32more.System.Search.ISearchManager_head):
@@ -6219,6 +6351,7 @@ def _define_ISearchManager2():
     ISearchManager2 = win32more.System.Search.ISearchManager2_head
     ISearchManager2.CreateCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Search.ISearchCatalogManager_head), use_last_error=False)(16, 'CreateCatalog', ((1, 'pszCatalog'),(1, 'ppCatalogManager'),)))
     ISearchManager2.DeleteCatalog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(17, 'DeleteCatalog', ((1, 'pszCatalog'),)))
+    win32more.System.Search.ISearchManager
     return ISearchManager2
 CSearchLanguageSupport = Guid('6a68cc80-4337-4dbc-bd27-fbfb1053820b')
 def _define_ISearchLanguageSupport_head():
@@ -6232,6 +6365,7 @@ def _define_ISearchLanguageSupport():
     ISearchLanguageSupport.LoadWordBreaker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p),POINTER(UInt32), use_last_error=False)(5, 'LoadWordBreaker', ((1, 'lcid'),(1, 'riid'),(1, 'ppWordBreaker'),(1, 'pLcidUsed'),)))
     ISearchLanguageSupport.LoadStemmer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p),POINTER(UInt32), use_last_error=False)(6, 'LoadStemmer', ((1, 'lcid'),(1, 'riid'),(1, 'ppStemmer'),(1, 'pLcidUsed'),)))
     ISearchLanguageSupport.IsPrefixNormalized = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,POINTER(Char),UInt32,POINTER(UInt32), use_last_error=False)(7, 'IsPrefixNormalized', ((1, 'pwcsQueryToken'),(1, 'cwcQueryToken'),(1, 'pwcsDocumentToken'),(1, 'cwcDocumentToken'),(1, 'pulPrefixLength'),)))
+    win32more.System.Com.IUnknown
     return ISearchLanguageSupport
 SubscriptionMgr = Guid('abbe31d0-6dae-11d0-beca-00c04fd940be')
 def _define_ITEMPROP_head():
@@ -6256,6 +6390,7 @@ def _define_IEnumItemProperties():
     IEnumItemProperties.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumItemProperties.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumItemProperties_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
     IEnumItemProperties.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'pnCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumItemProperties
 def _define_SUBSCRIPTIONITEMINFO_head():
     class SUBSCRIPTIONITEMINFO(Structure):
@@ -6284,6 +6419,7 @@ def _define_ISubscriptionItem():
     ISubscriptionItem.WriteProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.Com.VARIANT), use_last_error=False)(7, 'WriteProperties', ((1, 'nCount'),(1, 'rgwszName'),(1, 'rgValue'),)))
     ISubscriptionItem.EnumProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumItemProperties_head), use_last_error=False)(8, 'EnumProperties', ((1, 'ppEnumItemProperties'),)))
     ISubscriptionItem.NotifyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'NotifyChanged', ()))
+    win32more.System.Com.IUnknown
     return ISubscriptionItem
 def _define_IEnumSubscription_head():
     class IEnumSubscription(win32more.System.Com.IUnknown_head):
@@ -6296,6 +6432,7 @@ def _define_IEnumSubscription():
     IEnumSubscription.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSubscription.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.IEnumSubscription_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
     IEnumSubscription.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'pnCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumSubscription
 SUBSCRIPTIONTYPE = Int32
 SUBSTYPE_URL = 0
@@ -6372,6 +6509,7 @@ def _define_ISubscriptionMgr():
     ISubscriptionMgr.GetDefaultInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.SUBSCRIPTIONTYPE,POINTER(win32more.System.Search.SUBSCRIPTIONINFO_head), use_last_error=False)(8, 'GetDefaultInfo', ((1, 'subType'),(1, 'pInfo'),)))
     ISubscriptionMgr.ShowSubscriptionProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.HWND, use_last_error=False)(9, 'ShowSubscriptionProperties', ((1, 'pwszURL'),(1, 'hwnd'),)))
     ISubscriptionMgr.CreateSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.System.Search.SUBSCRIPTIONTYPE,POINTER(win32more.System.Search.SUBSCRIPTIONINFO_head), use_last_error=False)(10, 'CreateSubscription', ((1, 'hwnd'),(1, 'pwszURL'),(1, 'pwszFriendlyName'),(1, 'dwFlags'),(1, 'subsType'),(1, 'pInfo'),)))
+    win32more.System.Com.IUnknown
     return ISubscriptionMgr
 def _define_ISubscriptionMgr2_head():
     class ISubscriptionMgr2(win32more.System.Search.ISubscriptionMgr_head):
@@ -6386,6 +6524,7 @@ def _define_ISubscriptionMgr2():
     ISubscriptionMgr2.UpdateItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Guid), use_last_error=False)(15, 'UpdateItems', ((1, 'dwFlags'),(1, 'dwNumCookies'),(1, 'pCookies'),)))
     ISubscriptionMgr2.AbortItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(16, 'AbortItems', ((1, 'dwNumCookies'),(1, 'pCookies'),)))
     ISubscriptionMgr2.AbortAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'AbortAll', ()))
+    win32more.System.Search.ISubscriptionMgr
     return ISubscriptionMgr2
 DELIVERY_AGENT_FLAGS = Int32
 DELIVERY_AGENT_FLAG_NO_BROADCAST = 4
@@ -6420,6 +6559,7 @@ def _define_IDataConvert():
     IDataConvert.DataConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,UIntPtr,POINTER(UIntPtr),c_void_p,c_void_p,UIntPtr,UInt32,POINTER(UInt32),Byte,Byte,UInt32, use_last_error=False)(3, 'DataConvert', ((1, 'wSrcType'),(1, 'wDstType'),(1, 'cbSrcLength'),(1, 'pcbDstLength'),(1, 'pSrc'),(1, 'pDst'),(1, 'cbDstMaxLength'),(1, 'dbsSrcStatus'),(1, 'pdbsStatus'),(1, 'bPrecision'),(1, 'bScale'),(1, 'dwFlags'),)))
     IDataConvert.CanConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16, use_last_error=False)(4, 'CanConvert', ((1, 'wSrcType'),(1, 'wDstType'),)))
     IDataConvert.GetConversionSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UInt16,POINTER(UIntPtr),POINTER(UIntPtr),c_void_p, use_last_error=False)(5, 'GetConversionSize', ((1, 'wSrcType'),(1, 'wDstType'),(1, 'pcbSrcLength'),(1, 'pcbDstLength'),(1, 'pSrc'),)))
+    win32more.System.Com.IUnknown
     return IDataConvert
 DCINFOTYPEENUM = Int32
 DCINFOTYPE_VERSION = 1
@@ -6442,6 +6582,7 @@ def _define_IDCInfo():
     IDCInfo = win32more.System.Search.IDCInfo_head
     IDCInfo.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(POINTER(win32more.System.Search.DCINFO_head)), use_last_error=False)(3, 'GetInfo', ((1, 'cInfo'),(1, 'rgeInfoType'),(1, 'prgInfo'),)))
     IDCInfo.SetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.DCINFO), use_last_error=False)(4, 'SetInfo', ((1, 'cInfo'),(1, 'rgInfo'),)))
+    win32more.System.Com.IUnknown
     return IDCInfo
 MSDAORA = Guid('e8cc4cbe-fdff-11d0-b865-00a0c9081c1d')
 MSDAORA_ERROR = Guid('e8cc4cbf-fdff-11d0-b865-00a0c9081c1d')
@@ -6456,6 +6597,7 @@ def _define_DataSourceListener():
     DataSourceListener.dataMemberChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(3, 'dataMemberChanged', ((1, 'bstrDM'),)))
     DataSourceListener.dataMemberAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(4, 'dataMemberAdded', ((1, 'bstrDM'),)))
     DataSourceListener.dataMemberRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(5, 'dataMemberRemoved', ((1, 'bstrDM'),)))
+    win32more.System.Com.IUnknown
     return DataSourceListener
 def _define_DataSource_head():
     class DataSource(win32more.System.Com.IUnknown_head):
@@ -6468,6 +6610,7 @@ def _define_DataSource():
     DataSource.getDataMemberCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'getDataMemberCount', ((1, 'plCount'),)))
     DataSource.addDataSourceListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.DataSourceListener_head, use_last_error=False)(6, 'addDataSourceListener', ((1, 'pDSL'),)))
     DataSource.removeDataSourceListener = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.DataSourceListener_head, use_last_error=False)(7, 'removeDataSourceListener', ((1, 'pDSL'),)))
+    win32more.System.Com.IUnknown
     return DataSource
 OSPFORMAT = Int32
 OSPFORMAT_RAW = 0
@@ -6510,6 +6653,7 @@ def _define_OLEDBSimpleProviderListener():
     OLEDBSimpleProviderListener.insertedRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr, use_last_error=False)(8, 'insertedRows', ((1, 'iRow'),(1, 'cRows'),)))
     OLEDBSimpleProviderListener.rowsAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,IntPtr, use_last_error=False)(9, 'rowsAvailable', ((1, 'iRow'),(1, 'cRows'),)))
     OLEDBSimpleProviderListener.transferComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.OSPXFER, use_last_error=False)(10, 'transferComplete', ((1, 'xfer'),)))
+    win32more.System.Com.IUnknown
     return OLEDBSimpleProviderListener
 def _define_OLEDBSimpleProvider_head():
     class OLEDBSimpleProvider(win32more.System.Com.IUnknown_head):
@@ -6531,6 +6675,7 @@ def _define_OLEDBSimpleProvider():
     OLEDBSimpleProvider.isAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(14, 'isAsync', ((1, 'pbAsynch'),)))
     OLEDBSimpleProvider.getEstimatedRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr), use_last_error=False)(15, 'getEstimatedRows', ((1, 'piRows'),)))
     OLEDBSimpleProvider.stopTransfer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'stopTransfer', ()))
+    win32more.System.Com.IUnknown
     return OLEDBSimpleProvider
 def _define_DataSourceObject_head():
     class DataSourceObject(win32more.System.Com.IDispatch_head):
@@ -6538,6 +6683,7 @@ def _define_DataSourceObject_head():
     return DataSourceObject
 def _define_DataSourceObject():
     DataSourceObject = win32more.System.Search.DataSourceObject_head
+    win32more.System.Com.IDispatch
     return DataSourceObject
 DataLinks = Guid('2206cdb2-19c1-11d1-89e0-00c04fd7a829')
 MSDAINITIALIZE = Guid('2206cdb0-19c1-11d1-89e0-00c04fd7a829')
@@ -6552,6 +6698,7 @@ def _define_IService_head():
 def _define_IService():
     IService = win32more.System.Search.IService_head
     IService.InvokeService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'InvokeService', ((1, 'pUnkInner'),)))
+    win32more.System.Com.IUnknown
     return IService
 DBPROMPTOPTIONSENUM = Int32
 DBPROMPTOPTIONS_NONE = 0
@@ -6568,6 +6715,7 @@ def _define_IDBPromptInitialize():
     IDBPromptInitialize = win32more.System.Search.IDBPromptInitialize_head
     IDBPromptInitialize.PromptDataSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.HWND,UInt32,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'PromptDataSource', ((1, 'pUnkOuter'),(1, 'hWndParent'),(1, 'dwPromptOptions'),(1, 'cSourceTypeFilter'),(1, 'rgSourceTypeFilter'),(1, 'pwszszzProviderFilter'),(1, 'riid'),(1, 'ppDataSource'),)))
     IDBPromptInitialize.PromptFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'PromptFileName', ((1, 'hWndParent'),(1, 'dwPromptOptions'),(1, 'pwszInitialDirectory'),(1, 'pwszInitialFile'),(1, 'ppwszSelectedFile'),)))
+    win32more.System.Com.IUnknown
     return IDBPromptInitialize
 def _define_IDataInitialize_head():
     class IDataInitialize(win32more.System.Com.IUnknown_head):
@@ -6581,6 +6729,7 @@ def _define_IDataInitialize():
     IDataInitialize.CreateDBInstanceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.COSERVERINFO_head),UInt32,POINTER(win32more.System.Com.MULTI_QI), use_last_error=False)(6, 'CreateDBInstanceEx', ((1, 'clsidProvider'),(1, 'pUnkOuter'),(1, 'dwClsCtx'),(1, 'pwszReserved'),(1, 'pServerInfo'),(1, 'cmq'),(1, 'rgmqResults'),)))
     IDataInitialize.LoadStringFromStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'LoadStringFromStorage', ((1, 'pwszFileName'),(1, 'ppwszInitializationString'),)))
     IDataInitialize.WriteStringToStorage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(8, 'WriteStringToStorage', ((1, 'pwszFileName'),(1, 'pwszInitializationString'),(1, 'dwCreationDisposition'),)))
+    win32more.System.Com.IUnknown
     return IDataInitialize
 def _define_IDataSourceLocator_head():
     class IDataSourceLocator(win32more.System.Com.IDispatch_head):
@@ -6592,6 +6741,7 @@ def _define_IDataSourceLocator():
     IDataSourceLocator.put_hWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(8, 'put_hWnd', ((1, 'hwndParent'),)))
     IDataSourceLocator.PromptNew = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'PromptNew', ((1, 'ppADOConnection'),)))
     IDataSourceLocator.PromptEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head),POINTER(Int16), use_last_error=False)(10, 'PromptEdit', ((1, 'ppADOConnection'),(1, 'pbSuccess'),)))
+    win32more.System.Com.IDispatch
     return IDataSourceLocator
 KAGREQDIAGFLAGSENUM = Int32
 KAGREQDIAGFLAGS_HEADER = 1
@@ -6604,6 +6754,7 @@ def _define_IRowsetChangeExtInfo():
     IRowsetChangeExtInfo = win32more.System.Search.IRowsetChangeExtInfo_head
     IRowsetChangeExtInfo.GetOriginalRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,POINTER(UIntPtr), use_last_error=False)(3, 'GetOriginalRow', ((1, 'hReserved'),(1, 'hRow'),(1, 'phRowOriginal'),)))
     IRowsetChangeExtInfo.GetPendingColumns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'GetPendingColumns', ((1, 'hReserved'),(1, 'hRow'),(1, 'cColumnOrdinals'),(1, 'rgiOrdinals'),(1, 'rgColumnStatus'),)))
+    win32more.System.Com.IUnknown
     return IRowsetChangeExtInfo
 def _define_KAGREQDIAG_head():
     class KAGREQDIAG(Structure):
@@ -6636,6 +6787,7 @@ def _define_ISQLRequestDiagFields_head():
 def _define_ISQLRequestDiagFields():
     ISQLRequestDiagFields = win32more.System.Search.ISQLRequestDiagFields_head
     ISQLRequestDiagFields.RequestDiagFields = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Search.KAGREQDIAG), use_last_error=False)(3, 'RequestDiagFields', ((1, 'cDiagFields'),(1, 'rgDiagFields'),)))
+    win32more.System.Com.IUnknown
     return ISQLRequestDiagFields
 def _define_ISQLGetDiagField_head():
     class ISQLGetDiagField(win32more.System.Com.IUnknown_head):
@@ -6644,6 +6796,7 @@ def _define_ISQLGetDiagField_head():
 def _define_ISQLGetDiagField():
     ISQLGetDiagField = win32more.System.Search.ISQLGetDiagField_head
     ISQLGetDiagField.GetDiagField = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.KAGGETDIAG_head), use_last_error=False)(3, 'GetDiagField', ((1, 'pDiagInfo'),)))
+    win32more.System.Com.IUnknown
     return ISQLGetDiagField
 MSDSDBINITPROPENUM = Int32
 DBPROP_MSDS_DBINIT_DATAPROVIDER = 2
@@ -6884,6 +7037,7 @@ def _define_IRowsetNextRowset_head():
 def _define_IRowsetNextRowset():
     IRowsetNextRowset = win32more.System.Search.IRowsetNextRowset_head
     IRowsetNextRowset.GetNextRowset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetNextRowset', ((1, 'pUnkOuter'),(1, 'riid'),(1, 'ppNextRowset'),)))
+    win32more.System.Com.IUnknown
     return IRowsetNextRowset
 def _define_IRowsetNewRowAfter_head():
     class IRowsetNewRowAfter(win32more.System.Com.IUnknown_head):
@@ -6892,6 +7046,7 @@ def _define_IRowsetNewRowAfter_head():
 def _define_IRowsetNewRowAfter():
     IRowsetNewRowAfter = win32more.System.Search.IRowsetNewRowAfter_head
     IRowsetNewRowAfter.SetNewDataAfter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,c_char_p_no,UIntPtr,c_char_p_no,POINTER(UIntPtr), use_last_error=False)(3, 'SetNewDataAfter', ((1, 'hChapter'),(1, 'cbbmPrevious'),(1, 'pbmPrevious'),(1, 'hAccessor'),(1, 'pData'),(1, 'phRow'),)))
+    win32more.System.Com.IUnknown
     return IRowsetNewRowAfter
 def _define_IRowsetWithParameters_head():
     class IRowsetWithParameters(win32more.System.Com.IUnknown_head):
@@ -6901,6 +7056,7 @@ def _define_IRowsetWithParameters():
     IRowsetWithParameters = win32more.System.Search.IRowsetWithParameters_head
     IRowsetWithParameters.GetParameterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.DBPARAMINFO_head)),POINTER(POINTER(UInt16)), use_last_error=False)(3, 'GetParameterInfo', ((1, 'pcParams'),(1, 'prgParamInfo'),(1, 'ppNamesBuffer'),)))
     IRowsetWithParameters.Requery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Search.DBPARAMS_head),POINTER(UInt32),POINTER(UIntPtr), use_last_error=False)(4, 'Requery', ((1, 'pParams'),(1, 'pulErrorParam'),(1, 'phReserved'),)))
+    win32more.System.Com.IUnknown
     return IRowsetWithParameters
 def _define_IRowsetAsynch_head():
     class IRowsetAsynch(win32more.System.Com.IUnknown_head):
@@ -6910,6 +7066,7 @@ def _define_IRowsetAsynch():
     IRowsetAsynch = win32more.System.Search.IRowsetAsynch_head
     IRowsetAsynch.RatioFinished = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(UIntPtr),POINTER(UIntPtr),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'RatioFinished', ((1, 'pulDenominator'),(1, 'pulNumerator'),(1, 'pcRows'),(1, 'pfNewRows'),)))
     IRowsetAsynch.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Stop', ()))
+    win32more.System.Com.IUnknown
     return IRowsetAsynch
 def _define_IRowsetKeys_head():
     class IRowsetKeys(win32more.System.Com.IUnknown_head):
@@ -6918,6 +7075,7 @@ def _define_IRowsetKeys_head():
 def _define_IRowsetKeys():
     IRowsetKeys = win32more.System.Search.IRowsetKeys_head
     IRowsetKeys.ListKeys = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(UIntPtr)), use_last_error=False)(3, 'ListKeys', ((1, 'pcColumns'),(1, 'prgColumns'),)))
+    win32more.System.Com.IUnknown
     return IRowsetKeys
 def _define_IRowsetWatchAll_head():
     class IRowsetWatchAll(win32more.System.Com.IUnknown_head):
@@ -6928,6 +7086,7 @@ def _define_IRowsetWatchAll():
     IRowsetWatchAll.Acknowledge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Acknowledge', ()))
     IRowsetWatchAll.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Start', ()))
     IRowsetWatchAll.StopWatching = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'StopWatching', ()))
+    win32more.System.Com.IUnknown
     return IRowsetWatchAll
 DBWATCHNOTIFYENUM = Int32
 DBWATCHNOTIFY_ROWSCHANGED = 1
@@ -6940,6 +7099,7 @@ def _define_IRowsetWatchNotify_head():
 def _define_IRowsetWatchNotify():
     IRowsetWatchNotify = win32more.System.Search.IRowsetWatchNotify_head
     IRowsetWatchNotify.OnChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UInt32, use_last_error=False)(3, 'OnChange', ((1, 'pRowset'),(1, 'eChangeReason'),)))
+    win32more.System.Com.IUnknown
     return IRowsetWatchNotify
 DBWATCHMODEENUM = Int32
 DBWATCHMODE_ALL = 1
@@ -6976,6 +7136,7 @@ def _define_IRowsetWatchRegion():
     IRowsetWatchRegion.GetWatchRegionInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(UInt32),POINTER(UIntPtr),POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(IntPtr), use_last_error=False)(9, 'GetWatchRegionInfo', ((1, 'hRegion'),(1, 'pdwWatchMode'),(1, 'phChapter'),(1, 'pcbBookmark'),(1, 'ppBookmark'),(1, 'pcRows'),)))
     IRowsetWatchRegion.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr),POINTER(POINTER(win32more.System.Search.tagDBROWWATCHRANGE_head)), use_last_error=False)(10, 'Refresh', ((1, 'pcChangesObtained'),(1, 'prgChanges'),)))
     IRowsetWatchRegion.ShrinkWatchRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,UIntPtr,c_char_p_no,IntPtr, use_last_error=False)(11, 'ShrinkWatchRegion', ((1, 'hRegion'),(1, 'hChapter'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'cRows'),)))
+    win32more.System.Search.IRowsetWatchAll
     return IRowsetWatchRegion
 def _define_IRowsetCopyRows_head():
     class IRowsetCopyRows(win32more.System.Com.IUnknown_head):
@@ -6987,6 +7148,7 @@ def _define_IRowsetCopyRows():
     IRowsetCopyRows.CopyByHROWS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UIntPtr,IntPtr,POINTER(UIntPtr),UInt32, use_last_error=False)(4, 'CopyByHROWS', ((1, 'hSourceID'),(1, 'hReserved'),(1, 'cRows'),(1, 'rghRows'),(1, 'bFlags'),)))
     IRowsetCopyRows.CopyRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,UIntPtr,IntPtr,UInt32,POINTER(UIntPtr), use_last_error=False)(5, 'CopyRows', ((1, 'hSourceID'),(1, 'hReserved'),(1, 'cRows'),(1, 'bFlags'),(1, 'pcRowsCopied'),)))
     IRowsetCopyRows.DefineSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Search.IRowset_head,UIntPtr,POINTER(IntPtr),POINTER(IntPtr),POINTER(UInt16), use_last_error=False)(6, 'DefineSource', ((1, 'pRowsetSource'),(1, 'cColIds'),(1, 'rgSourceColumns'),(1, 'rgTargetColumns'),(1, 'phSourceID'),)))
+    win32more.System.Com.IUnknown
     return IRowsetCopyRows
 def _define_IReadData_head():
     class IReadData(win32more.System.Com.IUnknown_head):
@@ -6996,6 +7158,7 @@ def _define_IReadData():
     IReadData = win32more.System.Search.IReadData_head
     IReadData.ReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr,c_char_p_no,IntPtr,UIntPtr,IntPtr,POINTER(UIntPtr),POINTER(c_char_p_no),POINTER(UIntPtr),POINTER(c_char_p_no), use_last_error=False)(3, 'ReadData', ((1, 'hChapter'),(1, 'cbBookmark'),(1, 'pBookmark'),(1, 'lRowsOffset'),(1, 'hAccessor'),(1, 'cRows'),(1, 'pcRowsObtained'),(1, 'ppFixedData'),(1, 'pcbVariableTotal'),(1, 'ppVariableData'),)))
     IReadData.ReleaseChapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(4, 'ReleaseChapter', ((1, 'hChapter'),)))
+    win32more.System.Com.IUnknown
     return IReadData
 DBRESOURCEKINDENUM = Int32
 DBRESOURCE_INVALID = 0
@@ -7054,6 +7217,7 @@ def _define_ICommandCost():
     ICommandCost.GetCostLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(win32more.System.Search.DBCOST_head), use_last_error=False)(6, 'GetCostLimits', ((1, 'pwszRowsetName'),(1, 'pcCostLimits'),(1, 'prgCostLimits'),)))
     ICommandCost.SetCostGoals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Search.DBCOST_head), use_last_error=False)(7, 'SetCostGoals', ((1, 'pwszRowsetName'),(1, 'cCostGoals'),(1, 'rgCostGoals'),)))
     ICommandCost.SetCostLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.System.Search.DBCOST_head),UInt32, use_last_error=False)(8, 'SetCostLimits', ((1, 'pwszRowsetName'),(1, 'cCostLimits'),(1, 'prgCostLimits'),(1, 'dwExecutionFlags'),)))
+    win32more.System.Com.IUnknown
     return ICommandCost
 def _define_ICommandValidate_head():
     class ICommandValidate(win32more.System.Com.IUnknown_head):
@@ -7063,6 +7227,7 @@ def _define_ICommandValidate():
     ICommandValidate = win32more.System.Search.ICommandValidate_head
     ICommandValidate.ValidateCompletely = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'ValidateCompletely', ()))
     ICommandValidate.ValidateSyntax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ValidateSyntax', ()))
+    win32more.System.Com.IUnknown
     return ICommandValidate
 def _define_ITableRename_head():
     class ITableRename(win32more.System.Com.IUnknown_head):
@@ -7072,6 +7237,7 @@ def _define_ITableRename():
     ITableRename = win32more.System.Search.ITableRename_head
     ITableRename.RenameColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(3, 'RenameColumn', ((1, 'pTableId'),(1, 'pOldColumnId'),(1, 'pNewColumnId'),)))
     ITableRename.RenameTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head),POINTER(win32more.Storage.IndexServer.DBID_head), use_last_error=False)(4, 'RenameTable', ((1, 'pOldTableId'),(1, 'pOldIndexId'),(1, 'pNewTableId'),(1, 'pNewIndexId'),)))
+    win32more.System.Com.IUnknown
     return ITableRename
 def _define_IDBSchemaCommand_head():
     class IDBSchemaCommand(win32more.System.Com.IUnknown_head):
@@ -7081,6 +7247,7 @@ def _define_IDBSchemaCommand():
     IDBSchemaCommand = win32more.System.Search.IDBSchemaCommand_head
     IDBSchemaCommand.GetCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),POINTER(win32more.System.Search.ICommand_head), use_last_error=False)(3, 'GetCommand', ((1, 'pUnkOuter'),(1, 'rguidSchema'),(1, 'ppCommand'),)))
     IDBSchemaCommand.GetSchemas = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(4, 'GetSchemas', ((1, 'pcSchemas'),(1, 'prgSchemas'),)))
+    win32more.System.Com.IUnknown
     return IDBSchemaCommand
 def _define_IProvideMoniker_head():
     class IProvideMoniker(win32more.System.Com.IUnknown_head):
@@ -7089,6 +7256,7 @@ def _define_IProvideMoniker_head():
 def _define_IProvideMoniker():
     IProvideMoniker = win32more.System.Search.IProvideMoniker_head
     IProvideMoniker.GetMoniker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IMoniker_head), use_last_error=False)(3, 'GetMoniker', ((1, 'ppIMoniker'),)))
+    win32more.System.Com.IUnknown
     return IProvideMoniker
 def _define_NOTRESTRICTION_head():
     class NOTRESTRICTION(Structure):
@@ -7282,6 +7450,7 @@ def _define_ISearchQueryHits():
     ISearchQueryHits.Init = COMMETHOD(WINFUNCTYPE(Int32,win32more.Storage.IndexServer.IFilter_head,UInt32, use_last_error=False)(3, 'Init', ((1, 'pflt'),(1, 'ulFlags'),)))
     ISearchQueryHits.NextHitMoniker = COMMETHOD(WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(POINTER(win32more.System.Com.IMoniker_head)), use_last_error=False)(4, 'NextHitMoniker', ((1, 'pcMnk'),(1, 'papMnk'),)))
     ISearchQueryHits.NextHitOffset = COMMETHOD(WINFUNCTYPE(Int32,POINTER(UInt32),POINTER(POINTER(win32more.Storage.IndexServer.FILTERREGION_head)), use_last_error=False)(5, 'NextHitOffset', ((1, 'pcRegion'),(1, 'paRegion'),)))
+    win32more.System.Com.IUnknown
     return ISearchQueryHits
 def _define_IRowsetQueryStatus_head():
     class IRowsetQueryStatus(win32more.System.Com.IUnknown_head):
@@ -7291,6 +7460,7 @@ def _define_IRowsetQueryStatus():
     IRowsetQueryStatus = win32more.System.Search.IRowsetQueryStatus_head
     IRowsetQueryStatus.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetStatus', ((1, 'pdwStatus'),)))
     IRowsetQueryStatus.GetStatusEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(UIntPtr),POINTER(UIntPtr),UIntPtr,c_char_p_no,POINTER(UIntPtr),POINTER(UIntPtr), use_last_error=False)(4, 'GetStatusEx', ((1, 'pdwStatus'),(1, 'pcFilteredDocuments'),(1, 'pcDocumentsToFilter'),(1, 'pdwRatioFinishedDenominator'),(1, 'pdwRatioFinishedNumerator'),(1, 'cbBmk'),(1, 'pBmk'),(1, 'piRowBmk'),(1, 'pcRowsTotal'),)))
+    win32more.System.Com.IUnknown
     return IRowsetQueryStatus
 def _define_ODBC_VS_ARGS_head():
     class ODBC_VS_ARGS(Structure):
@@ -7430,6 +7600,7 @@ def _define_IUMSInitialize_head():
 def _define_IUMSInitialize():
     IUMSInitialize = win32more.System.Search.IUMSInitialize_head
     IUMSInitialize.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p, use_last_error=False)(3, 'Initialize', ((1, 'pUMS'),)))
+    win32more.System.Com.IUnknown
     return IUMSInitialize
 def _define_IUMS_head():
     class IUMS(c_void_p):
@@ -7466,6 +7637,7 @@ def _define_ISQLServerErrorInfo_head():
 def _define_ISQLServerErrorInfo():
     ISQLServerErrorInfo = win32more.System.Search.ISQLServerErrorInfo_head
     ISQLServerErrorInfo.GetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Search.tagSSErrorInfo_head)),POINTER(POINTER(UInt16)), use_last_error=False)(3, 'GetErrorInfo', ((1, 'ppErrorInfo'),(1, 'ppStringsBuffer'),)))
+    win32more.System.Com.IUnknown
     return ISQLServerErrorInfo
 def _define_IRowsetFastLoad_head():
     class IRowsetFastLoad(win32more.System.Com.IUnknown_head):
@@ -7475,6 +7647,7 @@ def _define_IRowsetFastLoad():
     IRowsetFastLoad = win32more.System.Search.IRowsetFastLoad_head
     IRowsetFastLoad.InsertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,c_void_p, use_last_error=False)(3, 'InsertRow', ((1, 'hAccessor'),(1, 'pData'),)))
     IRowsetFastLoad.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'Commit', ((1, 'fDone'),)))
+    win32more.System.Com.IUnknown
     return IRowsetFastLoad
 LOCKMODEENUM = Int32
 LOCKMODE_INVALID = 0
@@ -7488,6 +7661,7 @@ def _define_ISchemaLock():
     ISchemaLock = win32more.System.Search.ISchemaLock_head
     ISchemaLock.GetSchemaLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.IndexServer.DBID_head),UInt32,POINTER(win32more.Foundation.HANDLE),POINTER(UInt64), use_last_error=False)(3, 'GetSchemaLock', ((1, 'pTableID'),(1, 'lmMode'),(1, 'phLockHandle'),(1, 'pTableVersion'),)))
     ISchemaLock.ReleaseSchemaLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(4, 'ReleaseSchemaLock', ((1, 'hLockHandle'),)))
+    win32more.System.Com.IUnknown
     return ISchemaLock
 def _define_SQL_ASYNC_NOTIFICATION_CALLBACK():
     return CFUNCTYPE(Int16,c_void_p,win32more.Foundation.BOOL, use_last_error=False)

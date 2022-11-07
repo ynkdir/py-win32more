@@ -6958,6 +6958,7 @@ def _define_IAVIStream():
     IAVIStream.ReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(Int32), use_last_error=False)(11, 'ReadData', ((1, 'fcc'),(1, 'lp'),(1, 'lpcb'),)))
     IAVIStream.WriteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,Int32, use_last_error=False)(12, 'WriteData', ((1, 'fcc'),(1, 'lp'),(1, 'cb'),)))
     IAVIStream.SetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32, use_last_error=False)(13, 'SetInfo', ((1, 'lpInfo'),(1, 'cbInfo'),)))
+    win32more.System.Com.IUnknown
     return IAVIStream
 def _define_IAVIStreaming_head():
     class IAVIStreaming(win32more.System.Com.IUnknown_head):
@@ -6967,6 +6968,7 @@ def _define_IAVIStreaming():
     IAVIStreaming = win32more.Media.Multimedia.IAVIStreaming_head
     IAVIStreaming.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32, use_last_error=False)(3, 'Begin', ((1, 'lStart'),(1, 'lEnd'),(1, 'lRate'),)))
     IAVIStreaming.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'End', ()))
+    win32more.System.Com.IUnknown
     return IAVIStreaming
 def _define_IAVIEditStream_head():
     class IAVIEditStream(win32more.System.Com.IUnknown_head):
@@ -6979,6 +6981,7 @@ def _define_IAVIEditStream():
     IAVIEditStream.Paste = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),win32more.Media.Multimedia.IAVIStream_head,Int32,Int32, use_last_error=False)(5, 'Paste', ((1, 'plPos'),(1, 'plLength'),(1, 'pstream'),(1, 'lStart'),(1, 'lEnd'),)))
     IAVIEditStream.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.IAVIStream_head), use_last_error=False)(6, 'Clone', ((1, 'ppResult'),)))
     IAVIEditStream.SetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Multimedia.AVISTREAMINFOW_head),Int32, use_last_error=False)(7, 'SetInfo', ((1, 'lpInfo'),(1, 'cbInfo'),)))
+    win32more.System.Com.IUnknown
     return IAVIEditStream
 def _define_IAVIPersistFile_head():
     class IAVIPersistFile(win32more.System.Com.IPersistFile_head):
@@ -6987,6 +6990,7 @@ def _define_IAVIPersistFile_head():
 def _define_IAVIPersistFile():
     IAVIPersistFile = win32more.Media.Multimedia.IAVIPersistFile_head
     IAVIPersistFile.Reserved1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Reserved1', ()))
+    win32more.System.Com.IPersistFile
     return IAVIPersistFile
 def _define_IAVIFile_head():
     class IAVIFile(win32more.System.Com.IUnknown_head):
@@ -7001,6 +7005,7 @@ def _define_IAVIFile():
     IAVIFile.ReadData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(Int32), use_last_error=False)(7, 'ReadData', ((1, 'ckid'),(1, 'lpData'),(1, 'lpcbData'),)))
     IAVIFile.EndRecord = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'EndRecord', ()))
     IAVIFile.DeleteStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32, use_last_error=False)(9, 'DeleteStream', ((1, 'fccType'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
     return IAVIFile
 def _define_IGetFrame_head():
     class IGetFrame(win32more.System.Com.IUnknown_head):
@@ -7012,6 +7017,7 @@ def _define_IGetFrame():
     IGetFrame.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32, use_last_error=False)(4, 'Begin', ((1, 'lStart'),(1, 'lEnd'),(1, 'lRate'),)))
     IGetFrame.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'End', ()))
     IGetFrame.SetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.BITMAPINFOHEADER_head),c_void_p,Int32,Int32,Int32,Int32, use_last_error=False)(6, 'SetFormat', ((1, 'lpbi'),(1, 'lpBits'),(1, 'x'),(1, 'y'),(1, 'dx'),(1, 'dy'),)))
+    win32more.System.Com.IUnknown
     return IGetFrame
 def _define_VIDEOHDR_head():
     class VIDEOHDR(Structure):

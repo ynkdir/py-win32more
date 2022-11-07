@@ -25,6 +25,7 @@ def _define_IThumbnailExtractor():
     IThumbnailExtractor = win32more.System.Com.UI.IThumbnailExtractor_head
     IThumbnailExtractor.ExtractThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,UInt32,UInt32,POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(3, 'ExtractThumbnail', ((1, 'pStg'),(1, 'ulLength'),(1, 'ulHeight'),(1, 'pulOutputLength'),(1, 'pulOutputHeight'),(1, 'phOutputBitmap'),)))
     IThumbnailExtractor.OnFileUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head, use_last_error=False)(4, 'OnFileUpdated', ((1, 'pStg'),)))
+    win32more.System.Com.IUnknown
     return IThumbnailExtractor
 def _define_IDummyHICONIncluder_head():
     class IDummyHICONIncluder(win32more.System.Com.IUnknown_head):
@@ -33,6 +34,7 @@ def _define_IDummyHICONIncluder_head():
 def _define_IDummyHICONIncluder():
     IDummyHICONIncluder = win32more.System.Com.UI.IDummyHICONIncluder_head
     IDummyHICONIncluder.Dummy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HICON,win32more.Graphics.Gdi.HDC, use_last_error=False)(3, 'Dummy', ((1, 'h1'),(1, 'h2'),)))
+    win32more.System.Com.IUnknown
     return IDummyHICONIncluder
 __all__ = [
     "IThumbnailExtractor",

@@ -2379,6 +2379,7 @@ def _define_IWbemPathKeyList():
     IWbemPathKeyList.MakeSingleton = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte, use_last_error=False)(10, 'MakeSingleton', ((1, 'bSet'),)))
     IWbemPathKeyList.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt64), use_last_error=False)(11, 'GetInfo', ((1, 'uRequestedInfo'),(1, 'puResponse'),)))
     IWbemPathKeyList.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(UInt32),POINTER(Char), use_last_error=False)(12, 'GetText', ((1, 'lFlags'),(1, 'puBuffLength'),(1, 'pszText'),)))
+    win32more.System.Com.IUnknown
     return IWbemPathKeyList
 def _define_IWbemPath_head():
     class IWbemPath(win32more.System.Com.IUnknown_head):
@@ -2412,6 +2413,7 @@ def _define_IWbemPath():
     IWbemPath.IsRelativeOrChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32, use_last_error=False)(26, 'IsRelativeOrChild', ((1, 'wszMachine'),(1, 'wszNamespace'),(1, 'lFlags'),)))
     IWbemPath.IsLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR, use_last_error=False)(27, 'IsLocal', ((1, 'wszMachine'),)))
     IWbemPath.IsSameClassName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,win32more.Foundation.PWSTR, use_last_error=False)(28, 'IsSameClassName', ((1, 'wszClass'),)))
+    win32more.System.Com.IUnknown
     return IWbemPath
 def _define_IWbemQuery_head():
     class IWbemQuery(win32more.System.Com.IUnknown_head):
@@ -2426,6 +2428,7 @@ def _define_IWbemQuery():
     IWbemQuery.GetAnalysis = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(c_void_p), use_last_error=False)(7, 'GetAnalysis', ((1, 'uAnalysisType'),(1, 'uFlags'),(1, 'pAnalysis'),)))
     IWbemQuery.FreeMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p, use_last_error=False)(8, 'FreeMemory', ((1, 'pMem'),)))
     IWbemQuery.GetQueryInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,c_void_p, use_last_error=False)(9, 'GetQueryInfo', ((1, 'uAnalysisType'),(1, 'uInfoId'),(1, 'uBufSize'),(1, 'pDestBuf'),)))
+    win32more.System.Com.IUnknown
     return IWbemQuery
 WMIQ_ANALYSIS_TYPE = Int32
 WMIQ_ANALYSIS_RPN_SEQUENCE = 1
@@ -3051,6 +3054,7 @@ def _define_IWbemClassObject():
     IWbemClassObject.EndMethodEnumeration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'EndMethodEnumeration', ()))
     IWbemClassObject.GetMethodQualifierSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Wmi.IWbemQualifierSet_head), use_last_error=False)(25, 'GetMethodQualifierSet', ((1, 'wszMethod'),(1, 'ppQualSet'),)))
     IWbemClassObject.GetMethodOrigin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(26, 'GetMethodOrigin', ((1, 'wszMethodName'),(1, 'pstrClassName'),)))
+    win32more.System.Com.IUnknown
     return IWbemClassObject
 def _define_IWbemObjectAccess_head():
     class IWbemObjectAccess(win32more.System.Wmi.IWbemClassObject_head):
@@ -3068,6 +3072,7 @@ def _define_IWbemObjectAccess():
     IWbemObjectAccess.GetPropertyInfoByHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR),POINTER(Int32), use_last_error=False)(34, 'GetPropertyInfoByHandle', ((1, 'lHandle'),(1, 'pstrName'),(1, 'pType'),)))
     IWbemObjectAccess.Lock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(35, 'Lock', ((1, 'lFlags'),)))
     IWbemObjectAccess.Unlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(36, 'Unlock', ((1, 'lFlags'),)))
+    win32more.System.Wmi.IWbemClassObject
     return IWbemObjectAccess
 def _define_IWbemQualifierSet_head():
     class IWbemQualifierSet(win32more.System.Com.IUnknown_head):
@@ -3082,6 +3087,7 @@ def _define_IWbemQualifierSet():
     IWbemQualifierSet.BeginEnumeration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'BeginEnumeration', ((1, 'lFlags'),)))
     IWbemQualifierSet.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.System.Com.VARIANT_head),POINTER(Int32), use_last_error=False)(8, 'Next', ((1, 'lFlags'),(1, 'pstrName'),(1, 'pVal'),(1, 'plFlavor'),)))
     IWbemQualifierSet.EndEnumeration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'EndEnumeration', ()))
+    win32more.System.Com.IUnknown
     return IWbemQualifierSet
 def _define_IWbemServices_head():
     class IWbemServices(win32more.System.Com.IUnknown_head):
@@ -3112,6 +3118,7 @@ def _define_IWbemServices():
     IWbemServices.ExecNotificationQueryAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,win32more.System.Wmi.IWbemContext_head,win32more.System.Wmi.IWbemObjectSink_head, use_last_error=False)(23, 'ExecNotificationQueryAsync', ((1, 'strQueryLanguage'),(1, 'strQuery'),(1, 'lFlags'),(1, 'pCtx'),(1, 'pResponseHandler'),)))
     IWbemServices.ExecMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,win32more.System.Wmi.IWbemContext_head,win32more.System.Wmi.IWbemClassObject_head,POINTER(win32more.System.Wmi.IWbemClassObject_head),POINTER(win32more.System.Wmi.IWbemCallResult_head), use_last_error=False)(24, 'ExecMethod', ((1, 'strObjectPath'),(1, 'strMethodName'),(1, 'lFlags'),(1, 'pCtx'),(1, 'pInParams'),(1, 'ppOutParams'),(1, 'ppCallResult'),)))
     IWbemServices.ExecMethodAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,win32more.System.Wmi.IWbemContext_head,win32more.System.Wmi.IWbemClassObject_head,win32more.System.Wmi.IWbemObjectSink_head, use_last_error=False)(25, 'ExecMethodAsync', ((1, 'strObjectPath'),(1, 'strMethodName'),(1, 'lFlags'),(1, 'pCtx'),(1, 'pInParams'),(1, 'pResponseHandler'),)))
+    win32more.System.Com.IUnknown
     return IWbemServices
 def _define_IWbemLocator_head():
     class IWbemLocator(win32more.System.Com.IUnknown_head):
@@ -3120,6 +3127,7 @@ def _define_IWbemLocator_head():
 def _define_IWbemLocator():
     IWbemLocator = win32more.System.Wmi.IWbemLocator_head
     IWbemLocator.ConnectServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,win32more.System.Wmi.IWbemContext_head,POINTER(win32more.System.Wmi.IWbemServices_head), use_last_error=False)(3, 'ConnectServer', ((1, 'strNetworkResource'),(1, 'strUser'),(1, 'strPassword'),(1, 'strLocale'),(1, 'lSecurityFlags'),(1, 'strAuthority'),(1, 'pCtx'),(1, 'ppNamespace'),)))
+    win32more.System.Com.IUnknown
     return IWbemLocator
 def _define_IWbemObjectSink_head():
     class IWbemObjectSink(win32more.System.Com.IUnknown_head):
@@ -3129,6 +3137,7 @@ def _define_IWbemObjectSink():
     IWbemObjectSink = win32more.System.Wmi.IWbemObjectSink_head
     IWbemObjectSink.Indicate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Wmi.IWbemClassObject_head), use_last_error=False)(3, 'Indicate', ((1, 'lObjectCount'),(1, 'apObjArray'),)))
     IWbemObjectSink.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Wmi.IWbemClassObject_head, use_last_error=False)(4, 'SetStatus', ((1, 'lFlags'),(1, 'hResult'),(1, 'strParam'),(1, 'pObjParam'),)))
+    win32more.System.Com.IUnknown
     return IWbemObjectSink
 def _define_IEnumWbemClassObject_head():
     class IEnumWbemClassObject(win32more.System.Com.IUnknown_head):
@@ -3141,6 +3150,7 @@ def _define_IEnumWbemClassObject():
     IEnumWbemClassObject.NextAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Wmi.IWbemObjectSink_head, use_last_error=False)(5, 'NextAsync', ((1, 'uCount'),(1, 'pSink'),)))
     IEnumWbemClassObject.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.IEnumWbemClassObject_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
     IEnumWbemClassObject.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32, use_last_error=False)(7, 'Skip', ((1, 'lTimeout'),(1, 'nCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumWbemClassObject
 def _define_IWbemCallResult_head():
     class IWbemCallResult(win32more.System.Com.IUnknown_head):
@@ -3152,6 +3162,7 @@ def _define_IWbemCallResult():
     IWbemCallResult.GetResultString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetResultString', ((1, 'lTimeout'),(1, 'pstrResultString'),)))
     IWbemCallResult.GetResultServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Wmi.IWbemServices_head), use_last_error=False)(5, 'GetResultServices', ((1, 'lTimeout'),(1, 'ppServices'),)))
     IWbemCallResult.GetCallStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(6, 'GetCallStatus', ((1, 'lTimeout'),(1, 'plStatus'),)))
+    win32more.System.Com.IUnknown
     return IWbemCallResult
 def _define_IWbemContext_head():
     class IWbemContext(win32more.System.Com.IUnknown_head):
@@ -3168,6 +3179,7 @@ def _define_IWbemContext():
     IWbemContext.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'GetValue', ((1, 'wszName'),(1, 'lFlags'),(1, 'pValue'),)))
     IWbemContext.DeleteValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(10, 'DeleteValue', ((1, 'wszName'),(1, 'lFlags'),)))
     IWbemContext.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'DeleteAll', ()))
+    win32more.System.Com.IUnknown
     return IWbemContext
 def _define_IUnsecuredApartment_head():
     class IUnsecuredApartment(win32more.System.Com.IUnknown_head):
@@ -3176,6 +3188,7 @@ def _define_IUnsecuredApartment_head():
 def _define_IUnsecuredApartment():
     IUnsecuredApartment = win32more.System.Wmi.IUnsecuredApartment_head
     IUnsecuredApartment.CreateObjectStub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateObjectStub', ((1, 'pObject'),(1, 'ppStub'),)))
+    win32more.System.Com.IUnknown
     return IUnsecuredApartment
 def _define_IWbemUnsecuredApartment_head():
     class IWbemUnsecuredApartment(win32more.System.Wmi.IUnsecuredApartment_head):
@@ -3184,6 +3197,7 @@ def _define_IWbemUnsecuredApartment_head():
 def _define_IWbemUnsecuredApartment():
     IWbemUnsecuredApartment = win32more.System.Wmi.IWbemUnsecuredApartment_head
     IWbemUnsecuredApartment.CreateSinkStub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.IWbemObjectSink_head,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.System.Wmi.IWbemObjectSink_head), use_last_error=False)(4, 'CreateSinkStub', ((1, 'pSink'),(1, 'dwFlags'),(1, 'wszReserved'),(1, 'ppStub'),)))
+    win32more.System.Wmi.IUnsecuredApartment
     return IWbemUnsecuredApartment
 def _define_IWbemStatusCodeText_head():
     class IWbemStatusCodeText(win32more.System.Com.IUnknown_head):
@@ -3193,6 +3207,7 @@ def _define_IWbemStatusCodeText():
     IWbemStatusCodeText = win32more.System.Wmi.IWbemStatusCodeText_head
     IWbemStatusCodeText.GetErrorCodeText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetErrorCodeText', ((1, 'hRes'),(1, 'LocaleId'),(1, 'lFlags'),(1, 'MessageText'),)))
     IWbemStatusCodeText.GetFacilityCodeText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetFacilityCodeText', ((1, 'hRes'),(1, 'LocaleId'),(1, 'lFlags'),(1, 'MessageText'),)))
+    win32more.System.Com.IUnknown
     return IWbemStatusCodeText
 def _define_IWbemBackupRestore_head():
     class IWbemBackupRestore(win32more.System.Com.IUnknown_head):
@@ -3202,6 +3217,7 @@ def _define_IWbemBackupRestore():
     IWbemBackupRestore = win32more.System.Wmi.IWbemBackupRestore_head
     IWbemBackupRestore.Backup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(3, 'Backup', ((1, 'strBackupToFile'),(1, 'lFlags'),)))
     IWbemBackupRestore.Restore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(4, 'Restore', ((1, 'strRestoreFromFile'),(1, 'lFlags'),)))
+    win32more.System.Com.IUnknown
     return IWbemBackupRestore
 def _define_IWbemBackupRestoreEx_head():
     class IWbemBackupRestoreEx(win32more.System.Wmi.IWbemBackupRestore_head):
@@ -3211,6 +3227,7 @@ def _define_IWbemBackupRestoreEx():
     IWbemBackupRestoreEx = win32more.System.Wmi.IWbemBackupRestoreEx_head
     IWbemBackupRestoreEx.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Pause', ()))
     IWbemBackupRestoreEx.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Resume', ()))
+    win32more.System.Wmi.IWbemBackupRestore
     return IWbemBackupRestoreEx
 def _define_IWbemRefresher_head():
     class IWbemRefresher(win32more.System.Com.IUnknown_head):
@@ -3219,6 +3236,7 @@ def _define_IWbemRefresher_head():
 def _define_IWbemRefresher():
     IWbemRefresher = win32more.System.Wmi.IWbemRefresher_head
     IWbemRefresher.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'Refresh', ((1, 'lFlags'),)))
+    win32more.System.Com.IUnknown
     return IWbemRefresher
 def _define_IWbemHiPerfEnum_head():
     class IWbemHiPerfEnum(win32more.System.Com.IUnknown_head):
@@ -3230,6 +3248,7 @@ def _define_IWbemHiPerfEnum():
     IWbemHiPerfEnum.RemoveObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,POINTER(Int32), use_last_error=False)(4, 'RemoveObjects', ((1, 'lFlags'),(1, 'uNumObjects'),(1, 'apIds'),)))
     IWbemHiPerfEnum.GetObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,POINTER(win32more.System.Wmi.IWbemObjectAccess_head),POINTER(UInt32), use_last_error=False)(5, 'GetObjects', ((1, 'lFlags'),(1, 'uNumObjects'),(1, 'apObj'),(1, 'puReturned'),)))
     IWbemHiPerfEnum.RemoveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(6, 'RemoveAll', ((1, 'lFlags'),)))
+    win32more.System.Com.IUnknown
     return IWbemHiPerfEnum
 def _define_IWbemConfigureRefresher_head():
     class IWbemConfigureRefresher(win32more.System.Com.IUnknown_head):
@@ -3242,6 +3261,7 @@ def _define_IWbemConfigureRefresher():
     IWbemConfigureRefresher.AddRefresher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.IWbemRefresher_head,Int32,POINTER(Int32), use_last_error=False)(5, 'AddRefresher', ((1, 'pRefresher'),(1, 'lFlags'),(1, 'plId'),)))
     IWbemConfigureRefresher.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(6, 'Remove', ((1, 'lId'),(1, 'lFlags'),)))
     IWbemConfigureRefresher.AddEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.IWbemServices_head,win32more.Foundation.PWSTR,Int32,win32more.System.Wmi.IWbemContext_head,POINTER(win32more.System.Wmi.IWbemHiPerfEnum_head),POINTER(Int32), use_last_error=False)(7, 'AddEnum', ((1, 'pNamespace'),(1, 'wszClassName'),(1, 'lFlags'),(1, 'pContext'),(1, 'ppEnum'),(1, 'plId'),)))
+    win32more.System.Com.IUnknown
     return IWbemConfigureRefresher
 def _define_IWbemObjectSinkEx_head():
     class IWbemObjectSinkEx(win32more.System.Wmi.IWbemObjectSink_head):
@@ -3254,6 +3274,7 @@ def _define_IWbemObjectSinkEx():
     IWbemObjectSinkEx.PromptUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Byte,c_char_p_no, use_last_error=False)(7, 'PromptUser', ((1, 'strMessage'),(1, 'uPromptType'),(1, 'puReturned'),)))
     IWbemObjectSinkEx.WriteProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,UInt32, use_last_error=False)(8, 'WriteProgress', ((1, 'strActivity'),(1, 'strCurrentOperation'),(1, 'strStatusDescription'),(1, 'uPercentComplete'),(1, 'uSecondsRemaining'),)))
     IWbemObjectSinkEx.WriteStreamParameter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),UInt32,UInt32, use_last_error=False)(9, 'WriteStreamParameter', ((1, 'strName'),(1, 'vtValue'),(1, 'ulType'),(1, 'ulFlags'),)))
+    win32more.System.Wmi.IWbemObjectSink
     return IWbemObjectSinkEx
 def _define_IWbemShutdown_head():
     class IWbemShutdown(win32more.System.Com.IUnknown_head):
@@ -3262,6 +3283,7 @@ def _define_IWbemShutdown_head():
 def _define_IWbemShutdown():
     IWbemShutdown = win32more.System.Wmi.IWbemShutdown_head
     IWbemShutdown.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,win32more.System.Wmi.IWbemContext_head, use_last_error=False)(3, 'Shutdown', ((1, 'uReason'),(1, 'uMaxMilliseconds'),(1, 'pCtx'),)))
+    win32more.System.Com.IUnknown
     return IWbemShutdown
 WMI_OBJ_TEXT = Int32
 WMI_OBJ_TEXT_CIM_DTD_2_0 = 1
@@ -3285,6 +3307,7 @@ def _define_IWbemObjectTextSrc():
     IWbemObjectTextSrc = win32more.System.Wmi.IWbemObjectTextSrc_head
     IWbemObjectTextSrc.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Wmi.IWbemClassObject_head,UInt32,win32more.System.Wmi.IWbemContext_head,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetText', ((1, 'lFlags'),(1, 'pObj'),(1, 'uObjTextFormat'),(1, 'pCtx'),(1, 'strText'),)))
     IWbemObjectTextSrc.CreateFromText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,UInt32,win32more.System.Wmi.IWbemContext_head,POINTER(win32more.System.Wmi.IWbemClassObject_head), use_last_error=False)(4, 'CreateFromText', ((1, 'lFlags'),(1, 'strText'),(1, 'uObjTextFormat'),(1, 'pCtx'),(1, 'pNewObj'),)))
+    win32more.System.Com.IUnknown
     return IWbemObjectTextSrc
 def _define_WBEM_COMPILE_STATUS_INFO_head():
     class WBEM_COMPILE_STATUS_INFO(Structure):
@@ -3322,6 +3345,7 @@ def _define_IMofCompiler():
     IMofCompiler.CompileFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,Int32,Int32,POINTER(win32more.System.Wmi.WBEM_COMPILE_STATUS_INFO_head), use_last_error=False)(3, 'CompileFile', ((1, 'FileName'),(1, 'ServerAndNamespace'),(1, 'User'),(1, 'Authority'),(1, 'Password'),(1, 'lOptionFlags'),(1, 'lClassFlags'),(1, 'lInstanceFlags'),(1, 'pInfo'),)))
     IMofCompiler.CompileBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,c_char_p_no,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,Int32,Int32,POINTER(win32more.System.Wmi.WBEM_COMPILE_STATUS_INFO_head), use_last_error=False)(4, 'CompileBuffer', ((1, 'BuffSize'),(1, 'pBuffer'),(1, 'ServerAndNamespace'),(1, 'User'),(1, 'Authority'),(1, 'Password'),(1, 'lOptionFlags'),(1, 'lClassFlags'),(1, 'lInstanceFlags'),(1, 'pInfo'),)))
     IMofCompiler.CreateBMOF = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,Int32,Int32,POINTER(win32more.System.Wmi.WBEM_COMPILE_STATUS_INFO_head), use_last_error=False)(5, 'CreateBMOF', ((1, 'TextFileName'),(1, 'BMOFFileName'),(1, 'ServerAndNamespace'),(1, 'lOptionFlags'),(1, 'lClassFlags'),(1, 'lInstanceFlags'),(1, 'pInfo'),)))
+    win32more.System.Com.IUnknown
     return IMofCompiler
 WBEM_UNSECAPP_FLAG_TYPE = Int32
 WBEM_FLAG_UNSECAPP_DEFAULT_CHECK_ACCESS = 0
@@ -3347,6 +3371,7 @@ def _define_IWbemPropertyProvider():
     IWbemPropertyProvider = win32more.System.Wmi.IWbemPropertyProvider_head
     IWbemPropertyProvider.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(3, 'GetProperty', ((1, 'lFlags'),(1, 'strLocale'),(1, 'strClassMapping'),(1, 'strInstMapping'),(1, 'strPropMapping'),(1, 'pvValue'),)))
     IWbemPropertyProvider.PutProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(4, 'PutProperty', ((1, 'lFlags'),(1, 'strLocale'),(1, 'strClassMapping'),(1, 'strInstMapping'),(1, 'strPropMapping'),(1, 'pvValue'),)))
+    win32more.System.Com.IUnknown
     return IWbemPropertyProvider
 def _define_IWbemUnboundObjectSink_head():
     class IWbemUnboundObjectSink(win32more.System.Com.IUnknown_head):
@@ -3355,6 +3380,7 @@ def _define_IWbemUnboundObjectSink_head():
 def _define_IWbemUnboundObjectSink():
     IWbemUnboundObjectSink = win32more.System.Wmi.IWbemUnboundObjectSink_head
     IWbemUnboundObjectSink.IndicateToConsumer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.IWbemClassObject_head,Int32,POINTER(win32more.System.Wmi.IWbemClassObject_head), use_last_error=False)(3, 'IndicateToConsumer', ((1, 'pLogicalConsumer'),(1, 'lNumObjects'),(1, 'apObjects'),)))
+    win32more.System.Com.IUnknown
     return IWbemUnboundObjectSink
 def _define_IWbemEventProvider_head():
     class IWbemEventProvider(win32more.System.Com.IUnknown_head):
@@ -3363,6 +3389,7 @@ def _define_IWbemEventProvider_head():
 def _define_IWbemEventProvider():
     IWbemEventProvider = win32more.System.Wmi.IWbemEventProvider_head
     IWbemEventProvider.ProvideEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.IWbemObjectSink_head,Int32, use_last_error=False)(3, 'ProvideEvents', ((1, 'pSink'),(1, 'lFlags'),)))
+    win32more.System.Com.IUnknown
     return IWbemEventProvider
 def _define_IWbemEventProviderQuerySink_head():
     class IWbemEventProviderQuerySink(win32more.System.Com.IUnknown_head):
@@ -3372,6 +3399,7 @@ def _define_IWbemEventProviderQuerySink():
     IWbemEventProviderQuerySink = win32more.System.Wmi.IWbemEventProviderQuerySink_head
     IWbemEventProviderQuerySink.NewQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt16),POINTER(UInt16), use_last_error=False)(3, 'NewQuery', ((1, 'dwId'),(1, 'wszQueryLanguage'),(1, 'wszQuery'),)))
     IWbemEventProviderQuerySink.CancelQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'CancelQuery', ((1, 'dwId'),)))
+    win32more.System.Com.IUnknown
     return IWbemEventProviderQuerySink
 def _define_IWbemEventProviderSecurity_head():
     class IWbemEventProviderSecurity(win32more.System.Com.IUnknown_head):
@@ -3380,6 +3408,7 @@ def _define_IWbemEventProviderSecurity_head():
 def _define_IWbemEventProviderSecurity():
     IWbemEventProviderSecurity = win32more.System.Wmi.IWbemEventProviderSecurity_head
     IWbemEventProviderSecurity.AccessCheck = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16),POINTER(UInt16),Int32,POINTER(Byte), use_last_error=False)(3, 'AccessCheck', ((1, 'wszQueryLanguage'),(1, 'wszQuery'),(1, 'lSidLength'),(1, 'pSid'),)))
+    win32more.System.Com.IUnknown
     return IWbemEventProviderSecurity
 def _define_IWbemEventConsumerProvider_head():
     class IWbemEventConsumerProvider(win32more.System.Com.IUnknown_head):
@@ -3388,6 +3417,7 @@ def _define_IWbemEventConsumerProvider_head():
 def _define_IWbemEventConsumerProvider():
     IWbemEventConsumerProvider = win32more.System.Wmi.IWbemEventConsumerProvider_head
     IWbemEventConsumerProvider.FindConsumer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.IWbemClassObject_head,POINTER(win32more.System.Wmi.IWbemUnboundObjectSink_head), use_last_error=False)(3, 'FindConsumer', ((1, 'pLogicalConsumer'),(1, 'ppConsumer'),)))
+    win32more.System.Com.IUnknown
     return IWbemEventConsumerProvider
 def _define_IWbemProviderInitSink_head():
     class IWbemProviderInitSink(win32more.System.Com.IUnknown_head):
@@ -3396,6 +3426,7 @@ def _define_IWbemProviderInitSink_head():
 def _define_IWbemProviderInitSink():
     IWbemProviderInitSink = win32more.System.Wmi.IWbemProviderInitSink_head
     IWbemProviderInitSink.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(3, 'SetStatus', ((1, 'lStatus'),(1, 'lFlags'),)))
+    win32more.System.Com.IUnknown
     return IWbemProviderInitSink
 def _define_IWbemProviderInit_head():
     class IWbemProviderInit(win32more.System.Com.IUnknown_head):
@@ -3404,6 +3435,7 @@ def _define_IWbemProviderInit_head():
 def _define_IWbemProviderInit():
     IWbemProviderInit = win32more.System.Wmi.IWbemProviderInit_head
     IWbemProviderInit.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Wmi.IWbemServices_head,win32more.System.Wmi.IWbemContext_head,win32more.System.Wmi.IWbemProviderInitSink_head, use_last_error=False)(3, 'Initialize', ((1, 'wszUser'),(1, 'lFlags'),(1, 'wszNamespace'),(1, 'wszLocale'),(1, 'pNamespace'),(1, 'pCtx'),(1, 'pInitSink'),)))
+    win32more.System.Com.IUnknown
     return IWbemProviderInit
 def _define_IWbemHiPerfProvider_head():
     class IWbemHiPerfProvider(win32more.System.Com.IUnknown_head):
@@ -3417,6 +3449,7 @@ def _define_IWbemHiPerfProvider():
     IWbemHiPerfProvider.StopRefreshing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.IWbemRefresher_head,Int32,Int32, use_last_error=False)(6, 'StopRefreshing', ((1, 'pRefresher'),(1, 'lId'),(1, 'lFlags'),)))
     IWbemHiPerfProvider.CreateRefreshableEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.IWbemServices_head,win32more.Foundation.PWSTR,win32more.System.Wmi.IWbemRefresher_head,Int32,win32more.System.Wmi.IWbemContext_head,win32more.System.Wmi.IWbemHiPerfEnum_head,POINTER(Int32), use_last_error=False)(7, 'CreateRefreshableEnum', ((1, 'pNamespace'),(1, 'wszClass'),(1, 'pRefresher'),(1, 'lFlags'),(1, 'pContext'),(1, 'pHiPerfEnum'),(1, 'plId'),)))
     IWbemHiPerfProvider.GetObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.IWbemServices_head,Int32,POINTER(win32more.System.Wmi.IWbemObjectAccess_head),Int32,win32more.System.Wmi.IWbemContext_head, use_last_error=False)(8, 'GetObjects', ((1, 'pNamespace'),(1, 'lNumObjects'),(1, 'apObj'),(1, 'lFlags'),(1, 'pContext'),)))
+    win32more.System.Com.IUnknown
     return IWbemHiPerfProvider
 def _define_IWbemDecoupledRegistrar_head():
     class IWbemDecoupledRegistrar(win32more.System.Com.IUnknown_head):
@@ -3426,6 +3459,7 @@ def _define_IWbemDecoupledRegistrar():
     IWbemDecoupledRegistrar = win32more.System.Wmi.IWbemDecoupledRegistrar_head
     IWbemDecoupledRegistrar.Register = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Wmi.IWbemContext_head,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'Register', ((1, 'a_Flags'),(1, 'a_Context'),(1, 'a_User'),(1, 'a_Locale'),(1, 'a_Scope'),(1, 'a_Registration'),(1, 'pIUnknown'),)))
     IWbemDecoupledRegistrar.UnRegister = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnRegister', ()))
+    win32more.System.Com.IUnknown
     return IWbemDecoupledRegistrar
 def _define_IWbemProviderIdentity_head():
     class IWbemProviderIdentity(win32more.System.Com.IUnknown_head):
@@ -3434,6 +3468,7 @@ def _define_IWbemProviderIdentity_head():
 def _define_IWbemProviderIdentity():
     IWbemProviderIdentity = win32more.System.Wmi.IWbemProviderIdentity_head
     IWbemProviderIdentity.SetRegistrationObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Wmi.IWbemClassObject_head, use_last_error=False)(3, 'SetRegistrationObject', ((1, 'lFlags'),(1, 'pProvReg'),)))
+    win32more.System.Com.IUnknown
     return IWbemProviderIdentity
 WBEM_EXTRA_RETURN_CODES = Int32
 WBEM_S_INITIALIZED = 0
@@ -3452,6 +3487,7 @@ def _define_IWbemDecoupledBasicEventProvider():
     IWbemDecoupledBasicEventProvider = win32more.System.Wmi.IWbemDecoupledBasicEventProvider_head
     IWbemDecoupledBasicEventProvider.GetSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Wmi.IWbemContext_head,POINTER(win32more.System.Wmi.IWbemObjectSink_head), use_last_error=False)(5, 'GetSink', ((1, 'a_Flags'),(1, 'a_Context'),(1, 'a_Sink'),)))
     IWbemDecoupledBasicEventProvider.GetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Wmi.IWbemContext_head,POINTER(win32more.System.Wmi.IWbemServices_head), use_last_error=False)(6, 'GetService', ((1, 'a_Flags'),(1, 'a_Context'),(1, 'a_Service'),)))
+    win32more.System.Wmi.IWbemDecoupledRegistrar
     return IWbemDecoupledBasicEventProvider
 WBEM_BATCH_TYPE = Int32
 WBEM_FLAG_BATCH_IF_NEEDED = 0
@@ -3467,6 +3503,7 @@ def _define_IWbemEventSink():
     IWbemEventSink.IsActive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'IsActive', ()))
     IWbemEventSink.GetRestrictedSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.PWSTR),win32more.System.Com.IUnknown_head,POINTER(win32more.System.Wmi.IWbemEventSink_head), use_last_error=False)(7, 'GetRestrictedSink', ((1, 'lNumQueries'),(1, 'awszQueries'),(1, 'pCallback'),(1, 'ppSink'),)))
     IWbemEventSink.SetBatchingParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,UInt32, use_last_error=False)(8, 'SetBatchingParameters', ((1, 'lFlags'),(1, 'dwMaxBufferSize'),(1, 'dwMaxSendLatency'),)))
+    win32more.System.Wmi.IWbemObjectSink
     return IWbemEventSink
 SWbemLocator = Guid('76a64158-cb41-11d1-8b02-00600806d9b6')
 SWbemNamedValueSet = Guid('9aed384e-ce8b-11d1-8b05-00600806d9b6')
@@ -3750,6 +3787,7 @@ def _define_ISWbemServices():
     ISWbemServices.ExecMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,Int32,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Wmi.ISWbemObject_head), use_last_error=False)(23, 'ExecMethod', ((1, 'strObjectPath'),(1, 'strMethodName'),(1, 'objWbemInParameters'),(1, 'iFlags'),(1, 'objWbemNamedValueSet'),(1, 'objWbemOutParameters'),)))
     ISWbemServices.ExecMethodAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,Int32,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head, use_last_error=False)(24, 'ExecMethodAsync', ((1, 'objWbemSink'),(1, 'strObjectPath'),(1, 'strMethodName'),(1, 'objWbemInParameters'),(1, 'iFlags'),(1, 'objWbemNamedValueSet'),(1, 'objWbemAsyncContext'),)))
     ISWbemServices.get_Security_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemSecurity_head), use_last_error=False)(25, 'get_Security_', ((1, 'objWbemSecurity'),)))
+    win32more.System.Com.IDispatch
     return ISWbemServices
 def _define_ISWbemLocator_head():
     class ISWbemLocator(win32more.System.Com.IDispatch_head):
@@ -3759,6 +3797,7 @@ def _define_ISWbemLocator():
     ISWbemLocator = win32more.System.Wmi.ISWbemLocator_head
     ISWbemLocator.ConnectServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Wmi.ISWbemServices_head), use_last_error=False)(7, 'ConnectServer', ((1, 'strServer'),(1, 'strNamespace'),(1, 'strUser'),(1, 'strPassword'),(1, 'strLocale'),(1, 'strAuthority'),(1, 'iSecurityFlags'),(1, 'objWbemNamedValueSet'),(1, 'objWbemServices'),)))
     ISWbemLocator.get_Security_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemSecurity_head), use_last_error=False)(8, 'get_Security_', ((1, 'objWbemSecurity'),)))
+    win32more.System.Com.IDispatch
     return ISWbemLocator
 def _define_ISWbemObject_head():
     class ISWbemObject(win32more.System.Com.IDispatch_head):
@@ -3791,6 +3830,7 @@ def _define_ISWbemObject():
     ISWbemObject.get_Derivation_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(29, 'get_Derivation_', ((1, 'strClassNameArray'),)))
     ISWbemObject.get_Path_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemObjectPath_head), use_last_error=False)(30, 'get_Path_', ((1, 'objWbemObjectPath'),)))
     ISWbemObject.get_Security_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemSecurity_head), use_last_error=False)(31, 'get_Security_', ((1, 'objWbemSecurity'),)))
+    win32more.System.Com.IDispatch
     return ISWbemObject
 def _define_ISWbemObjectSet_head():
     class ISWbemObjectSet(win32more.System.Com.IDispatch_head):
@@ -3803,6 +3843,7 @@ def _define_ISWbemObjectSet():
     ISWbemObjectSet.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'iCount'),)))
     ISWbemObjectSet.get_Security_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemSecurity_head), use_last_error=False)(10, 'get_Security_', ((1, 'objWbemSecurity'),)))
     ISWbemObjectSet.ItemIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Wmi.ISWbemObject_head), use_last_error=False)(11, 'ItemIndex', ((1, 'lIndex'),(1, 'objWbemObject'),)))
+    win32more.System.Com.IDispatch
     return ISWbemObjectSet
 def _define_ISWbemNamedValue_head():
     class ISWbemNamedValue(win32more.System.Com.IDispatch_head):
@@ -3813,6 +3854,7 @@ def _define_ISWbemNamedValue():
     ISWbemNamedValue.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Value', ((1, 'varValue'),)))
     ISWbemNamedValue.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'put_Value', ((1, 'varValue'),)))
     ISWbemNamedValue.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Name', ((1, 'strName'),)))
+    win32more.System.Com.IDispatch
     return ISWbemNamedValue
 def _define_ISWbemNamedValueSet_head():
     class ISWbemNamedValueSet(win32more.System.Com.IDispatch_head):
@@ -3827,6 +3869,7 @@ def _define_ISWbemNamedValueSet():
     ISWbemNamedValueSet.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(11, 'Remove', ((1, 'strName'),(1, 'iFlags'),)))
     ISWbemNamedValueSet.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemNamedValueSet_head), use_last_error=False)(12, 'Clone', ((1, 'objWbemNamedValueSet'),)))
     ISWbemNamedValueSet.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'DeleteAll', ()))
+    win32more.System.Com.IDispatch
     return ISWbemNamedValueSet
 def _define_ISWbemQualifier_head():
     class ISWbemQualifier(win32more.System.Com.IDispatch_head):
@@ -3845,6 +3888,7 @@ def _define_ISWbemQualifier():
     ISWbemQualifier.get_IsOverridable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(15, 'get_IsOverridable', ((1, 'bIsOverridable'),)))
     ISWbemQualifier.put_IsOverridable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(16, 'put_IsOverridable', ((1, 'bIsOverridable'),)))
     ISWbemQualifier.get_IsAmended = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(17, 'get_IsAmended', ((1, 'bIsAmended'),)))
+    win32more.System.Com.IDispatch
     return ISWbemQualifier
 def _define_ISWbemQualifierSet_head():
     class ISWbemQualifierSet(win32more.System.Com.IDispatch_head):
@@ -3857,6 +3901,7 @@ def _define_ISWbemQualifierSet():
     ISWbemQualifierSet.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'iCount'),)))
     ISWbemQualifierSet.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),Int16,Int16,Int16,Int32,POINTER(win32more.System.Wmi.ISWbemQualifier_head), use_last_error=False)(10, 'Add', ((1, 'strName'),(1, 'varVal'),(1, 'bPropagatesToSubclass'),(1, 'bPropagatesToInstance'),(1, 'bIsOverridable'),(1, 'iFlags'),(1, 'objWbemQualifier'),)))
     ISWbemQualifierSet.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(11, 'Remove', ((1, 'strName'),(1, 'iFlags'),)))
+    win32more.System.Com.IDispatch
     return ISWbemQualifierSet
 def _define_ISWbemProperty_head():
     class ISWbemProperty(win32more.System.Com.IDispatch_head):
@@ -3872,6 +3917,7 @@ def _define_ISWbemProperty():
     ISWbemProperty.get_CIMType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.WbemCimtypeEnum), use_last_error=False)(12, 'get_CIMType', ((1, 'iCimType'),)))
     ISWbemProperty.get_Qualifiers_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemQualifierSet_head), use_last_error=False)(13, 'get_Qualifiers_', ((1, 'objWbemQualifierSet'),)))
     ISWbemProperty.get_IsArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(14, 'get_IsArray', ((1, 'bIsArray'),)))
+    win32more.System.Com.IDispatch
     return ISWbemProperty
 def _define_ISWbemPropertySet_head():
     class ISWbemPropertySet(win32more.System.Com.IDispatch_head):
@@ -3884,6 +3930,7 @@ def _define_ISWbemPropertySet():
     ISWbemPropertySet.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'iCount'),)))
     ISWbemPropertySet.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Wmi.WbemCimtypeEnum,Int16,Int32,POINTER(win32more.System.Wmi.ISWbemProperty_head), use_last_error=False)(10, 'Add', ((1, 'strName'),(1, 'iCIMType'),(1, 'bIsArray'),(1, 'iFlags'),(1, 'objWbemProperty'),)))
     ISWbemPropertySet.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32, use_last_error=False)(11, 'Remove', ((1, 'strName'),(1, 'iFlags'),)))
+    win32more.System.Com.IDispatch
     return ISWbemPropertySet
 def _define_ISWbemMethod_head():
     class ISWbemMethod(win32more.System.Com.IDispatch_head):
@@ -3896,6 +3943,7 @@ def _define_ISWbemMethod():
     ISWbemMethod.get_InParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemObject_head), use_last_error=False)(9, 'get_InParameters', ((1, 'objWbemInParameters'),)))
     ISWbemMethod.get_OutParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemObject_head), use_last_error=False)(10, 'get_OutParameters', ((1, 'objWbemOutParameters'),)))
     ISWbemMethod.get_Qualifiers_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemQualifierSet_head), use_last_error=False)(11, 'get_Qualifiers_', ((1, 'objWbemQualifierSet'),)))
+    win32more.System.Com.IDispatch
     return ISWbemMethod
 def _define_ISWbemMethodSet_head():
     class ISWbemMethodSet(win32more.System.Com.IDispatch_head):
@@ -3906,6 +3954,7 @@ def _define_ISWbemMethodSet():
     ISWbemMethodSet.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'pUnk'),)))
     ISWbemMethodSet.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Wmi.ISWbemMethod_head), use_last_error=False)(8, 'Item', ((1, 'strName'),(1, 'iFlags'),(1, 'objWbemMethod'),)))
     ISWbemMethodSet.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'iCount'),)))
+    win32more.System.Com.IDispatch
     return ISWbemMethodSet
 def _define_ISWbemEventSource_head():
     class ISWbemEventSource(win32more.System.Com.IDispatch_head):
@@ -3915,6 +3964,7 @@ def _define_ISWbemEventSource():
     ISWbemEventSource = win32more.System.Wmi.ISWbemEventSource_head
     ISWbemEventSource.NextEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Wmi.ISWbemObject_head), use_last_error=False)(7, 'NextEvent', ((1, 'iTimeoutMs'),(1, 'objWbemObject'),)))
     ISWbemEventSource.get_Security_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemSecurity_head), use_last_error=False)(8, 'get_Security_', ((1, 'objWbemSecurity'),)))
+    win32more.System.Com.IDispatch
     return ISWbemEventSource
 def _define_ISWbemObjectPath_head():
     class ISWbemObjectPath(win32more.System.Com.IDispatch_head):
@@ -3945,6 +3995,7 @@ def _define_ISWbemObjectPath():
     ISWbemObjectPath.put_Locale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(27, 'put_Locale', ((1, 'strLocale'),)))
     ISWbemObjectPath.get_Authority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(28, 'get_Authority', ((1, 'strAuthority'),)))
     ISWbemObjectPath.put_Authority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(29, 'put_Authority', ((1, 'strAuthority'),)))
+    win32more.System.Com.IDispatch
     return ISWbemObjectPath
 def _define_ISWbemLastError_head():
     class ISWbemLastError(win32more.System.Wmi.ISWbemObject_head):
@@ -3952,6 +4003,7 @@ def _define_ISWbemLastError_head():
     return ISWbemLastError
 def _define_ISWbemLastError():
     ISWbemLastError = win32more.System.Wmi.ISWbemLastError_head
+    win32more.System.Wmi.ISWbemObject
     return ISWbemLastError
 def _define_ISWbemSinkEvents_head():
     class ISWbemSinkEvents(win32more.System.Com.IDispatch_head):
@@ -3959,6 +4011,7 @@ def _define_ISWbemSinkEvents_head():
     return ISWbemSinkEvents
 def _define_ISWbemSinkEvents():
     ISWbemSinkEvents = win32more.System.Wmi.ISWbemSinkEvents_head
+    win32more.System.Com.IDispatch
     return ISWbemSinkEvents
 def _define_ISWbemSink_head():
     class ISWbemSink(win32more.System.Com.IDispatch_head):
@@ -3967,6 +4020,7 @@ def _define_ISWbemSink_head():
 def _define_ISWbemSink():
     ISWbemSink = win32more.System.Wmi.ISWbemSink_head
     ISWbemSink.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Cancel', ()))
+    win32more.System.Com.IDispatch
     return ISWbemSink
 def _define_ISWbemSecurity_head():
     class ISWbemSecurity(win32more.System.Com.IDispatch_head):
@@ -3979,6 +4033,7 @@ def _define_ISWbemSecurity():
     ISWbemSecurity.get_AuthenticationLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.WbemAuthenticationLevelEnum), use_last_error=False)(9, 'get_AuthenticationLevel', ((1, 'iAuthenticationLevel'),)))
     ISWbemSecurity.put_AuthenticationLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.WbemAuthenticationLevelEnum, use_last_error=False)(10, 'put_AuthenticationLevel', ((1, 'iAuthenticationLevel'),)))
     ISWbemSecurity.get_Privileges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemPrivilegeSet_head), use_last_error=False)(11, 'get_Privileges', ((1, 'objWbemPrivilegeSet'),)))
+    win32more.System.Com.IDispatch
     return ISWbemSecurity
 def _define_ISWbemPrivilege_head():
     class ISWbemPrivilege(win32more.System.Com.IDispatch_head):
@@ -3991,6 +4046,7 @@ def _define_ISWbemPrivilege():
     ISWbemPrivilege.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Name', ((1, 'strDisplayName'),)))
     ISWbemPrivilege.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_DisplayName', ((1, 'strDisplayName'),)))
     ISWbemPrivilege.get_Identifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.WbemPrivilegeEnum), use_last_error=False)(11, 'get_Identifier', ((1, 'iPrivilege'),)))
+    win32more.System.Com.IDispatch
     return ISWbemPrivilege
 def _define_ISWbemPrivilegeSet_head():
     class ISWbemPrivilegeSet(win32more.System.Com.IDispatch_head):
@@ -4005,6 +4061,7 @@ def _define_ISWbemPrivilegeSet():
     ISWbemPrivilegeSet.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.WbemPrivilegeEnum, use_last_error=False)(11, 'Remove', ((1, 'iPrivilege'),)))
     ISWbemPrivilegeSet.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'DeleteAll', ()))
     ISWbemPrivilegeSet.AddAsString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16,POINTER(win32more.System.Wmi.ISWbemPrivilege_head), use_last_error=False)(13, 'AddAsString', ((1, 'strPrivilege'),(1, 'bIsEnabled'),(1, 'objWbemPrivilege'),)))
+    win32more.System.Com.IDispatch
     return ISWbemPrivilegeSet
 def _define_ISWbemServicesEx_head():
     class ISWbemServicesEx(win32more.System.Wmi.ISWbemServices_head):
@@ -4014,6 +4071,7 @@ def _define_ISWbemServicesEx():
     ISWbemServicesEx = win32more.System.Wmi.ISWbemServicesEx_head
     ISWbemServicesEx.Put = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.ISWbemObjectEx_head,Int32,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Wmi.ISWbemObjectPath_head), use_last_error=False)(26, 'Put', ((1, 'objWbemObject'),(1, 'iFlags'),(1, 'objWbemNamedValueSet'),(1, 'objWbemObjectPath'),)))
     ISWbemServicesEx.PutAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.ISWbemSink_head,win32more.System.Wmi.ISWbemObjectEx_head,Int32,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head, use_last_error=False)(27, 'PutAsync', ((1, 'objWbemSink'),(1, 'objWbemObject'),(1, 'iFlags'),(1, 'objWbemNamedValueSet'),(1, 'objWbemAsyncContext'),)))
+    win32more.System.Wmi.ISWbemServices
     return ISWbemServicesEx
 def _define_ISWbemObjectEx_head():
     class ISWbemObjectEx(win32more.System.Wmi.ISWbemObject_head):
@@ -4025,6 +4083,7 @@ def _define_ISWbemObjectEx():
     ISWbemObjectEx.get_SystemProperties_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemPropertySet_head), use_last_error=False)(33, 'get_SystemProperties_', ((1, 'objWbemPropertySet'),)))
     ISWbemObjectEx.GetText_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Wmi.WbemObjectTextFormatEnum,Int32,win32more.System.Com.IDispatch_head,POINTER(win32more.Foundation.BSTR), use_last_error=False)(34, 'GetText_', ((1, 'iObjectTextFormat'),(1, 'iFlags'),(1, 'objWbemNamedValueSet'),(1, 'bsText'),)))
     ISWbemObjectEx.SetFromText_ = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Wmi.WbemObjectTextFormatEnum,Int32,win32more.System.Com.IDispatch_head, use_last_error=False)(35, 'SetFromText_', ((1, 'bsText'),(1, 'iObjectTextFormat'),(1, 'iFlags'),(1, 'objWbemNamedValueSet'),)))
+    win32more.System.Wmi.ISWbemObject
     return ISWbemObjectEx
 def _define_ISWbemDateTime_head():
     class ISWbemDateTime(win32more.System.Com.IDispatch_head):
@@ -4072,6 +4131,7 @@ def _define_ISWbemDateTime():
     ISWbemDateTime.SetVarDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Int16, use_last_error=False)(44, 'SetVarDate', ((1, 'dVarDate'),(1, 'bIsLocal'),)))
     ISWbemDateTime.GetFileTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,POINTER(win32more.Foundation.BSTR), use_last_error=False)(45, 'GetFileTime', ((1, 'bIsLocal'),(1, 'strFileTime'),)))
     ISWbemDateTime.SetFileTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(46, 'SetFileTime', ((1, 'strFileTime'),(1, 'bIsLocal'),)))
+    win32more.System.Com.IDispatch
     return ISWbemDateTime
 def _define_ISWbemRefresher_head():
     class ISWbemRefresher(win32more.System.Com.IDispatch_head):
@@ -4089,6 +4149,7 @@ def _define_ISWbemRefresher():
     ISWbemRefresher.get_AutoReconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(14, 'get_AutoReconnect', ((1, 'bCount'),)))
     ISWbemRefresher.put_AutoReconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(15, 'put_AutoReconnect', ((1, 'bCount'),)))
     ISWbemRefresher.DeleteAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'DeleteAll', ()))
+    win32more.System.Com.IDispatch
     return ISWbemRefresher
 def _define_ISWbemRefreshableItem_head():
     class ISWbemRefreshableItem(win32more.System.Com.IDispatch_head):
@@ -4102,6 +4163,7 @@ def _define_ISWbemRefreshableItem():
     ISWbemRefreshableItem.get_Object = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemObjectEx_head), use_last_error=False)(10, 'get_Object', ((1, 'objWbemObject'),)))
     ISWbemRefreshableItem.get_ObjectSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemObjectSet_head), use_last_error=False)(11, 'get_ObjectSet', ((1, 'objWbemObjectSet'),)))
     ISWbemRefreshableItem.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'Remove', ((1, 'iFlags'),)))
+    win32more.System.Com.IDispatch
     return ISWbemRefreshableItem
 WMIExtension = Guid('f0975afe-5c7f-11d2-8b74-00104b2afb41')
 def _define_IWMIExtension_head():
@@ -4113,6 +4175,7 @@ def _define_IWMIExtension():
     IWMIExtension.get_WMIObjectPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_WMIObjectPath', ((1, 'strWMIObjectPath'),)))
     IWMIExtension.GetWMIObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemObject_head), use_last_error=False)(8, 'GetWMIObject', ((1, 'objWMIObject'),)))
     IWMIExtension.GetWMIServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Wmi.ISWbemServices_head), use_last_error=False)(9, 'GetWMIServices', ((1, 'objWMIServices'),)))
+    win32more.System.Com.IDispatch
     return IWMIExtension
 WbemLevel1Login = Guid('8bc3f05e-d86b-11d0-a075-00c04fb68820')
 WbemLocalAddrRes = Guid('a1044801-8f7e-11d1-9e7c-00c04fc324a8')
@@ -4131,6 +4194,7 @@ def _define_IWbemTransport_head():
 def _define_IWbemTransport():
     IWbemTransport = win32more.System.Wmi.IWbemTransport_head
     IWbemTransport.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Initialize', ()))
+    win32more.System.Com.IUnknown
     return IWbemTransport
 def _define_IWbemLevel1Login_head():
     class IWbemLevel1Login(win32more.System.Com.IUnknown_head):
@@ -4142,6 +4206,7 @@ def _define_IWbemLevel1Login():
     IWbemLevel1Login.RequestChallenge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no, use_last_error=False)(4, 'RequestChallenge', ((1, 'wszNetworkResource'),(1, 'wszUser'),(1, 'Nonce'),)))
     IWbemLevel1Login.WBEMLogin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_char_p_no,Int32,win32more.System.Wmi.IWbemContext_head,POINTER(win32more.System.Wmi.IWbemServices_head), use_last_error=False)(5, 'WBEMLogin', ((1, 'wszPreferredLocale'),(1, 'AccessToken'),(1, 'lFlags'),(1, 'pCtx'),(1, 'ppNamespace'),)))
     IWbemLevel1Login.NTLMLogin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,win32more.System.Wmi.IWbemContext_head,POINTER(win32more.System.Wmi.IWbemServices_head), use_last_error=False)(6, 'NTLMLogin', ((1, 'wszNetworkResource'),(1, 'wszPreferredLocale'),(1, 'lFlags'),(1, 'pCtx'),(1, 'ppNamespace'),)))
+    win32more.System.Com.IUnknown
     return IWbemLevel1Login
 def _define_IWbemConnectorLogin_head():
     class IWbemConnectorLogin(win32more.System.Com.IUnknown_head):
@@ -4150,6 +4215,7 @@ def _define_IWbemConnectorLogin_head():
 def _define_IWbemConnectorLogin():
     IWbemConnectorLogin = win32more.System.Wmi.IWbemConnectorLogin_head
     IWbemConnectorLogin.ConnectorLogin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Int32,win32more.System.Wmi.IWbemContext_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'ConnectorLogin', ((1, 'wszNetworkResource'),(1, 'wszPreferredLocale'),(1, 'lFlags'),(1, 'pCtx'),(1, 'riid'),(1, 'pInterface'),)))
+    win32more.System.Com.IUnknown
     return IWbemConnectorLogin
 def _define_IWbemAddressResolution_head():
     class IWbemAddressResolution(win32more.System.Com.IUnknown_head):
@@ -4158,6 +4224,7 @@ def _define_IWbemAddressResolution_head():
 def _define_IWbemAddressResolution():
     IWbemAddressResolution = win32more.System.Wmi.IWbemAddressResolution_head
     IWbemAddressResolution.Resolve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(3, 'Resolve', ((1, 'wszNamespacePath'),(1, 'wszAddressType'),(1, 'pdwAddressLength'),(1, 'pabBinaryAddress'),)))
+    win32more.System.Com.IUnknown
     return IWbemAddressResolution
 def _define_IWbemClientTransport_head():
     class IWbemClientTransport(win32more.System.Com.IUnknown_head):
@@ -4166,6 +4233,7 @@ def _define_IWbemClientTransport_head():
 def _define_IWbemClientTransport():
     IWbemClientTransport = win32more.System.Wmi.IWbemClientTransport_head
     IWbemClientTransport.ConnectServer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(Byte),win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,win32more.System.Wmi.IWbemContext_head,POINTER(win32more.System.Wmi.IWbemServices_head), use_last_error=False)(3, 'ConnectServer', ((1, 'strAddressType'),(1, 'dwBinaryAddressLength'),(1, 'abBinaryAddress'),(1, 'strNetworkResource'),(1, 'strUser'),(1, 'strPassword'),(1, 'strLocale'),(1, 'lSecurityFlags'),(1, 'strAuthority'),(1, 'pCtx'),(1, 'ppNamespace'),)))
+    win32more.System.Com.IUnknown
     return IWbemClientTransport
 def _define_IWbemClientConnectionTransport_head():
     class IWbemClientConnectionTransport(win32more.System.Com.IUnknown_head):
@@ -4176,6 +4244,7 @@ def _define_IWbemClientConnectionTransport():
     IWbemClientConnectionTransport.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(Byte),win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,win32more.System.Wmi.IWbemContext_head,POINTER(Guid),POINTER(c_void_p),POINTER(win32more.System.Wmi.IWbemCallResult_head), use_last_error=False)(3, 'Open', ((1, 'strAddressType'),(1, 'dwBinaryAddressLength'),(1, 'abBinaryAddress'),(1, 'strObject'),(1, 'strUser'),(1, 'strPassword'),(1, 'strLocale'),(1, 'lFlags'),(1, 'pCtx'),(1, 'riid'),(1, 'pInterface'),(1, 'pCallRes'),)))
     IWbemClientConnectionTransport.OpenAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(Byte),win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,win32more.System.Wmi.IWbemContext_head,POINTER(Guid),win32more.System.Wmi.IWbemObjectSink_head, use_last_error=False)(4, 'OpenAsync', ((1, 'strAddressType'),(1, 'dwBinaryAddressLength'),(1, 'abBinaryAddress'),(1, 'strObject'),(1, 'strUser'),(1, 'strPassword'),(1, 'strLocale'),(1, 'lFlags'),(1, 'pCtx'),(1, 'riid'),(1, 'pResponseHandler'),)))
     IWbemClientConnectionTransport.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Wmi.IWbemObjectSink_head, use_last_error=False)(5, 'Cancel', ((1, 'lFlags'),(1, 'pHandler'),)))
+    win32more.System.Com.IUnknown
     return IWbemClientConnectionTransport
 def _define_IWbemConstructClassObject_head():
     class IWbemConstructClassObject(win32more.System.Com.IUnknown_head):
@@ -4187,6 +4256,7 @@ def _define_IWbemConstructClassObject():
     IWbemConstructClassObject.SetPropertyOrigin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(4, 'SetPropertyOrigin', ((1, 'wszPropertyName'),(1, 'lOriginIndex'),)))
     IWbemConstructClassObject.SetMethodOrigin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32, use_last_error=False)(5, 'SetMethodOrigin', ((1, 'wszMethodName'),(1, 'lOriginIndex'),)))
     IWbemConstructClassObject.SetServerNamespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(6, 'SetServerNamespace', ((1, 'wszServer'),(1, 'wszNamespace'),)))
+    win32more.System.Com.IUnknown
     return IWbemConstructClassObject
 def _define_MI_Application_InitializeV1():
     try:

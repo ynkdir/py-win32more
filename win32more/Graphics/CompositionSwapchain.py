@@ -52,6 +52,7 @@ def _define_IPresentationBuffer():
     IPresentationBuffer = win32more.Graphics.CompositionSwapchain.IPresentationBuffer_head
     IPresentationBuffer.GetAvailableEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(3, 'GetAvailableEvent', ((1, 'availableEventHandle'),)))
     IPresentationBuffer.IsAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(4, 'IsAvailable', ((1, 'isAvailable'),)))
+    win32more.System.Com.IUnknown
     return IPresentationBuffer
 def _define_IPresentationContent_head():
     class IPresentationContent(win32more.System.Com.IUnknown_head):
@@ -60,6 +61,7 @@ def _define_IPresentationContent_head():
 def _define_IPresentationContent():
     IPresentationContent = win32more.Graphics.CompositionSwapchain.IPresentationContent_head
     IPresentationContent.SetTag = COMMETHOD(WINFUNCTYPE(Void,UIntPtr, use_last_error=False)(3, 'SetTag', ((1, 'tag'),)))
+    win32more.System.Com.IUnknown
     return IPresentationContent
 def _define_IPresentationSurface_head():
     class IPresentationSurface(win32more.Graphics.CompositionSwapchain.IPresentationContent_head):
@@ -75,6 +77,7 @@ def _define_IPresentationSurface():
     IPresentationSurface.RestrictToOutput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(9, 'RestrictToOutput', ((1, 'output'),)))
     IPresentationSurface.SetDisableReadback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte, use_last_error=False)(10, 'SetDisableReadback', ((1, 'value'),)))
     IPresentationSurface.SetLetterboxingMargins = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single, use_last_error=False)(11, 'SetLetterboxingMargins', ((1, 'leftLetterboxSize'),(1, 'topLetterboxSize'),(1, 'rightLetterboxSize'),(1, 'bottomLetterboxSize'),)))
+    win32more.Graphics.CompositionSwapchain.IPresentationContent
     return IPresentationSurface
 def _define_IPresentStatistics_head():
     class IPresentStatistics(win32more.System.Com.IUnknown_head):
@@ -84,6 +87,7 @@ def _define_IPresentStatistics():
     IPresentStatistics = win32more.Graphics.CompositionSwapchain.IPresentStatistics_head
     IPresentStatistics.GetPresentId = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(3, 'GetPresentId', ()))
     IPresentStatistics.GetKind = COMMETHOD(WINFUNCTYPE(win32more.Graphics.CompositionSwapchain.PresentStatisticsKind, use_last_error=False)(4, 'GetKind', ()))
+    win32more.System.Com.IUnknown
     return IPresentStatistics
 def _define_IPresentationManager_head():
     class IPresentationManager(win32more.System.Com.IUnknown_head):
@@ -104,6 +108,7 @@ def _define_IPresentationManager():
     IPresentationManager.GetPresentStatisticsAvailableEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(13, 'GetPresentStatisticsAvailableEvent', ((1, 'presentStatisticsAvailableEventHandle'),)))
     IPresentationManager.EnablePresentStatisticsKind = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.CompositionSwapchain.PresentStatisticsKind,Byte, use_last_error=False)(14, 'EnablePresentStatisticsKind', ((1, 'presentStatisticsKind'),(1, 'enabled'),)))
     IPresentationManager.GetNextPresentStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.CompositionSwapchain.IPresentStatistics_head), use_last_error=False)(15, 'GetNextPresentStatistics', ((1, 'nextPresentStatistics'),)))
+    win32more.System.Com.IUnknown
     return IPresentationManager
 def _define_IPresentationFactory_head():
     class IPresentationFactory(win32more.System.Com.IUnknown_head):
@@ -114,6 +119,7 @@ def _define_IPresentationFactory():
     IPresentationFactory.IsPresentationSupported = COMMETHOD(WINFUNCTYPE(Byte, use_last_error=False)(3, 'IsPresentationSupported', ()))
     IPresentationFactory.IsPresentationSupportedWithIndependentFlip = COMMETHOD(WINFUNCTYPE(Byte, use_last_error=False)(4, 'IsPresentationSupportedWithIndependentFlip', ()))
     IPresentationFactory.CreatePresentationManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.CompositionSwapchain.IPresentationManager_head), use_last_error=False)(5, 'CreatePresentationManager', ((1, 'ppPresentationManager'),)))
+    win32more.System.Com.IUnknown
     return IPresentationFactory
 PresentStatus = Int32
 PresentStatus_Queued = 0
@@ -127,6 +133,7 @@ def _define_IPresentStatusPresentStatistics():
     IPresentStatusPresentStatistics = win32more.Graphics.CompositionSwapchain.IPresentStatusPresentStatistics_head
     IPresentStatusPresentStatistics.GetCompositionFrameId = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(5, 'GetCompositionFrameId', ()))
     IPresentStatusPresentStatistics.GetPresentStatus = COMMETHOD(WINFUNCTYPE(win32more.Graphics.CompositionSwapchain.PresentStatus, use_last_error=False)(6, 'GetPresentStatus', ()))
+    win32more.Graphics.CompositionSwapchain.IPresentStatistics
     return IPresentStatusPresentStatistics
 CompositionFrameInstanceKind = Int32
 CompositionFrameInstanceKind_ComposedOnScreen = 0
@@ -158,6 +165,7 @@ def _define_ICompositionFramePresentStatistics():
     ICompositionFramePresentStatistics.GetContentTag = COMMETHOD(WINFUNCTYPE(UIntPtr, use_last_error=False)(5, 'GetContentTag', ()))
     ICompositionFramePresentStatistics.GetCompositionFrameId = COMMETHOD(WINFUNCTYPE(UInt64, use_last_error=False)(6, 'GetCompositionFrameId', ()))
     ICompositionFramePresentStatistics.GetDisplayInstanceArray = COMMETHOD(WINFUNCTYPE(Void,POINTER(UInt32),POINTER(POINTER(win32more.Graphics.CompositionSwapchain.CompositionFrameDisplayInstance_head)), use_last_error=False)(7, 'GetDisplayInstanceArray', ((1, 'displayInstanceArrayCount'),(1, 'displayInstanceArray'),)))
+    win32more.Graphics.CompositionSwapchain.IPresentStatistics
     return ICompositionFramePresentStatistics
 def _define_IIndependentFlipFramePresentStatistics_head():
     class IIndependentFlipFramePresentStatistics(win32more.Graphics.CompositionSwapchain.IPresentStatistics_head):
@@ -170,6 +178,7 @@ def _define_IIndependentFlipFramePresentStatistics():
     IIndependentFlipFramePresentStatistics.GetContentTag = COMMETHOD(WINFUNCTYPE(UIntPtr, use_last_error=False)(7, 'GetContentTag', ()))
     IIndependentFlipFramePresentStatistics.GetDisplayedTime = COMMETHOD(WINFUNCTYPE(win32more.Graphics.CompositionSwapchain.SystemInterruptTime, use_last_error=False)(8, 'GetDisplayedTime', ()))
     IIndependentFlipFramePresentStatistics.GetPresentDuration = COMMETHOD(WINFUNCTYPE(win32more.Graphics.CompositionSwapchain.SystemInterruptTime, use_last_error=False)(9, 'GetPresentDuration', ()))
+    win32more.Graphics.CompositionSwapchain.IPresentStatistics
     return IIndependentFlipFramePresentStatistics
 def _define_CreatePresentationFactory():
     try:

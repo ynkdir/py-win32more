@@ -32,6 +32,7 @@ def _define_INotificationActivationCallback_head():
 def _define_INotificationActivationCallback():
     INotificationActivationCallback = win32more.UI.Notifications.INotificationActivationCallback_head
     INotificationActivationCallback.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.UI.Notifications.NOTIFICATION_USER_INPUT_DATA),UInt32, use_last_error=False)(3, 'Activate', ((1, 'appUserModelId'),(1, 'invokedArgs'),(1, 'data'),(1, 'count'),)))
+    win32more.System.Com.IUnknown
     return INotificationActivationCallback
 __all__ = [
     "NOTIFICATION_USER_INPUT_DATA",

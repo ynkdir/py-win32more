@@ -829,6 +829,7 @@ def _define_IDirectMusic():
     IDirectMusic.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(9, 'Activate', ((1, 'fEnable'),)))
     IDirectMusic.GetDefaultPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(10, 'GetDefaultPort', ((1, 'pguidPort'),)))
     IDirectMusic.SetDirectSound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectSound.IDirectSound_head,win32more.Foundation.HWND, use_last_error=False)(11, 'SetDirectSound', ((1, 'pDirectSound'),(1, 'hWnd'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusic
 def _define_IDirectMusic8_head():
     class IDirectMusic8(win32more.Media.Audio.DirectMusic.IDirectMusic_head):
@@ -837,6 +838,7 @@ def _define_IDirectMusic8_head():
 def _define_IDirectMusic8():
     IDirectMusic8 = win32more.Media.Audio.DirectMusic.IDirectMusic8_head
     IDirectMusic8.SetExternalMasterClock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.IReferenceClock_head, use_last_error=False)(12, 'SetExternalMasterClock', ((1, 'pClock'),)))
+    win32more.Media.Audio.DirectMusic.IDirectMusic
     return IDirectMusic8
 def _define_IDirectMusicBuffer_head():
     class IDirectMusicBuffer(win32more.System.Com.IUnknown_head):
@@ -857,6 +859,7 @@ def _define_IDirectMusicBuffer():
     IDirectMusicBuffer.GetBufferFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(13, 'GetBufferFormat', ((1, 'pGuidFormat'),)))
     IDirectMusicBuffer.SetStartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64, use_last_error=False)(14, 'SetStartTime', ((1, 'rt'),)))
     IDirectMusicBuffer.SetUsedBytes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(15, 'SetUsedBytes', ((1, 'cb'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusicBuffer
 def _define_IDirectMusicInstrument_head():
     class IDirectMusicInstrument(win32more.System.Com.IUnknown_head):
@@ -866,6 +869,7 @@ def _define_IDirectMusicInstrument():
     IDirectMusicInstrument = win32more.Media.Audio.DirectMusic.IDirectMusicInstrument_head
     IDirectMusicInstrument.GetPatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetPatch', ((1, 'pdwPatch'),)))
     IDirectMusicInstrument.SetPatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetPatch', ((1, 'dwPatch'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusicInstrument
 def _define_IDirectMusicDownloadedInstrument_head():
     class IDirectMusicDownloadedInstrument(win32more.System.Com.IUnknown_head):
@@ -873,6 +877,7 @@ def _define_IDirectMusicDownloadedInstrument_head():
     return IDirectMusicDownloadedInstrument
 def _define_IDirectMusicDownloadedInstrument():
     IDirectMusicDownloadedInstrument = win32more.Media.Audio.DirectMusic.IDirectMusicDownloadedInstrument_head
+    win32more.System.Com.IUnknown
     return IDirectMusicDownloadedInstrument
 def _define_IDirectMusicCollection_head():
     class IDirectMusicCollection(win32more.System.Com.IUnknown_head):
@@ -882,6 +887,7 @@ def _define_IDirectMusicCollection():
     IDirectMusicCollection = win32more.Media.Audio.DirectMusic.IDirectMusicCollection_head
     IDirectMusicCollection.GetInstrument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.DirectMusic.IDirectMusicInstrument_head), use_last_error=False)(3, 'GetInstrument', ((1, 'dwPatch'),(1, 'ppInstrument'),)))
     IDirectMusicCollection.EnumInstrument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),win32more.Foundation.PWSTR,UInt32, use_last_error=False)(4, 'EnumInstrument', ((1, 'dwIndex'),(1, 'pdwPatch'),(1, 'pwszName'),(1, 'dwNameLen'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusicCollection
 def _define_IDirectMusicDownload_head():
     class IDirectMusicDownload(win32more.System.Com.IUnknown_head):
@@ -890,6 +896,7 @@ def _define_IDirectMusicDownload_head():
 def _define_IDirectMusicDownload():
     IDirectMusicDownload = win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head
     IDirectMusicDownload.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p),POINTER(UInt32), use_last_error=False)(3, 'GetBuffer', ((1, 'ppvBuffer'),(1, 'pdwSize'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusicDownload
 def _define_IDirectMusicPortDownload_head():
     class IDirectMusicPortDownload(win32more.System.Com.IUnknown_head):
@@ -903,6 +910,7 @@ def _define_IDirectMusicPortDownload():
     IDirectMusicPortDownload.GetAppend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetAppend', ((1, 'pdwAppend'),)))
     IDirectMusicPortDownload.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head, use_last_error=False)(7, 'Download', ((1, 'pIDMDownload'),)))
     IDirectMusicPortDownload.Unload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectMusic.IDirectMusicDownload_head, use_last_error=False)(8, 'Unload', ((1, 'pIDMDownload'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusicPortDownload
 def _define_IDirectMusicPort_head():
     class IDirectMusicPort(win32more.System.Com.IUnknown_head):
@@ -927,6 +935,7 @@ def _define_IDirectMusicPort():
     IDirectMusicPort.GetChannelPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(17, 'GetChannelPriority', ((1, 'dwChannelGroup'),(1, 'dwChannel'),(1, 'pdwPriority'),)))
     IDirectMusicPort.SetDirectSound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectSound.IDirectSound_head,win32more.Media.Audio.DirectSound.IDirectSoundBuffer_head, use_last_error=False)(18, 'SetDirectSound', ((1, 'pDirectSound'),(1, 'pDirectSoundBuffer'),)))
     IDirectMusicPort.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(19, 'GetFormat', ((1, 'pWaveFormatEx'),(1, 'pdwWaveFormatExSize'),(1, 'pdwBufferSize'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusicPort
 def _define_IDirectMusicThru_head():
     class IDirectMusicThru(win32more.System.Com.IUnknown_head):
@@ -935,6 +944,7 @@ def _define_IDirectMusicThru_head():
 def _define_IDirectMusicThru():
     IDirectMusicThru = win32more.Media.Audio.DirectMusic.IDirectMusicThru_head
     IDirectMusicThru.ThruChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,win32more.Media.Audio.DirectMusic.IDirectMusicPort_head, use_last_error=False)(3, 'ThruChannel', ((1, 'dwSourceChannelGroup'),(1, 'dwSourceChannel'),(1, 'dwDestinationChannelGroup'),(1, 'dwDestinationChannel'),(1, 'pDestinationPort'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusicThru
 def _define_DMUS_VOICE_STATE_head():
     class DMUS_VOICE_STATE(Structure):
@@ -970,6 +980,7 @@ def _define_IDirectMusicSynth():
     IDirectMusicSynth.GetChannelPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(17, 'GetChannelPriority', ((1, 'dwChannelGroup'),(1, 'dwChannel'),(1, 'pdwPriority'),)))
     IDirectMusicSynth.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(UInt32), use_last_error=False)(18, 'GetFormat', ((1, 'pWaveFormatEx'),(1, 'pdwWaveFormatExSize'),)))
     IDirectMusicSynth.GetAppend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(19, 'GetAppend', ((1, 'pdwAppend'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusicSynth
 def _define_IDirectMusicSynth8_head():
     class IDirectMusicSynth8(win32more.Media.Audio.DirectMusic.IDirectMusicSynth_head):
@@ -982,6 +993,7 @@ def _define_IDirectMusicSynth8():
     IDirectMusicSynth8.GetVoiceState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32,POINTER(win32more.Media.Audio.DirectMusic.DMUS_VOICE_STATE_head), use_last_error=False)(22, 'GetVoiceState', ((1, 'dwVoice'),(1, 'cbVoice'),(1, 'dwVoiceState'),)))
     IDirectMusicSynth8.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(23, 'Refresh', ((1, 'dwDownloadID'),(1, 'dwFlags'),)))
     IDirectMusicSynth8.AssignChannelToBuses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32),UInt32, use_last_error=False)(24, 'AssignChannelToBuses', ((1, 'dwChannelGroup'),(1, 'dwChannel'),(1, 'pdwBuses'),(1, 'cBuses'),)))
+    win32more.Media.Audio.DirectMusic.IDirectMusicSynth
     return IDirectMusicSynth8
 def _define_IDirectMusicSynthSink_head():
     class IDirectMusicSynthSink(win32more.System.Com.IUnknown_head):
@@ -997,6 +1009,7 @@ def _define_IDirectMusicSynthSink():
     IDirectMusicSynthSink.RefTimeToSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int64,POINTER(Int64), use_last_error=False)(8, 'RefTimeToSample', ((1, 'rfTime'),(1, 'pllSampleTime'),)))
     IDirectMusicSynthSink.SetDirectSound = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.DirectSound.IDirectSound_head,win32more.Media.Audio.DirectSound.IDirectSoundBuffer_head, use_last_error=False)(9, 'SetDirectSound', ((1, 'pDirectSound'),(1, 'pDirectSoundBuffer'),)))
     IDirectMusicSynthSink.GetDesiredBufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'GetDesiredBufferSize', ((1, 'pdwBufferSizeInSamples'),)))
+    win32more.System.Com.IUnknown
     return IDirectMusicSynthSink
 DSPROPERTY_DIRECTSOUNDDEVICE = Int32
 DSPROPERTY_DIRECTSOUNDDEVICE_WAVEDEVICEMAPPING_A = 1

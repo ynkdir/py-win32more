@@ -538,6 +538,7 @@ def _define_IMSMQQuery_head():
 def _define_IMSMQQuery():
     IMSMQQuery = win32more.System.MessageQueuing.IMSMQQuery_head
     IMSMQQuery.LookupQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQQueueInfos_head), use_last_error=False)(7, 'LookupQueue', ((1, 'QueueGuid'),(1, 'ServiceTypeGuid'),(1, 'Label'),(1, 'CreateTime'),(1, 'ModifyTime'),(1, 'RelServiceType'),(1, 'RelLabel'),(1, 'RelCreateTime'),(1, 'RelModifyTime'),(1, 'ppqinfos'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQuery
 def _define_IMSMQQueueInfo_head():
     class IMSMQQueueInfo(win32more.System.Com.IDispatch_head):
@@ -575,6 +576,7 @@ def _define_IMSMQQueueInfo():
     IMSMQQueueInfo.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.System.MessageQueuing.IMSMQQueue_head), use_last_error=False)(34, 'Open', ((1, 'Access'),(1, 'ShareMode'),(1, 'ppq'),)))
     IMSMQQueueInfo.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(35, 'Refresh', ()))
     IMSMQQueueInfo.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(36, 'Update', ()))
+    win32more.System.Com.IDispatch
     return IMSMQQueueInfo
 def _define_IMSMQQueueInfo2_head():
     class IMSMQQueueInfo2(win32more.System.Com.IDispatch_head):
@@ -616,6 +618,7 @@ def _define_IMSMQQueueInfo2():
     IMSMQQueueInfo2.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(38, 'get_Properties', ((1, 'ppcolProperties'),)))
     IMSMQQueueInfo2.get_Security = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(39, 'get_Security', ((1, 'pvarSecurity'),)))
     IMSMQQueueInfo2.put_Security = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(40, 'put_Security', ((1, 'varSecurity'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueueInfo2
 def _define_IMSMQQueueInfo3_head():
     class IMSMQQueueInfo3(win32more.System.Com.IDispatch_head):
@@ -662,6 +665,7 @@ def _define_IMSMQQueueInfo3():
     IMSMQQueueInfo3.get_MulticastAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(43, 'get_MulticastAddress', ((1, 'pbstrMulticastAddress'),)))
     IMSMQQueueInfo3.put_MulticastAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(44, 'put_MulticastAddress', ((1, 'bstrMulticastAddress'),)))
     IMSMQQueueInfo3.get_ADsPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(45, 'get_ADsPath', ((1, 'pbstrADsPath'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueueInfo3
 def _define_IMSMQQueueInfo4_head():
     class IMSMQQueueInfo4(win32more.System.Com.IDispatch_head):
@@ -708,6 +712,7 @@ def _define_IMSMQQueueInfo4():
     IMSMQQueueInfo4.get_MulticastAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(43, 'get_MulticastAddress', ((1, 'pbstrMulticastAddress'),)))
     IMSMQQueueInfo4.put_MulticastAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(44, 'put_MulticastAddress', ((1, 'bstrMulticastAddress'),)))
     IMSMQQueueInfo4.get_ADsPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(45, 'get_ADsPath', ((1, 'pbstrADsPath'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueueInfo4
 def _define_IMSMQQueue_head():
     class IMSMQQueue(win32more.System.Com.IDispatch_head):
@@ -728,6 +733,7 @@ def _define_IMSMQQueue():
     IMSMQQueue.ReceiveCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQMessage_head), use_last_error=False)(17, 'ReceiveCurrent', ((1, 'Transaction'),(1, 'WantDestinationQueue'),(1, 'WantBody'),(1, 'ReceiveTimeout'),(1, 'ppmsg'),)))
     IMSMQQueue.PeekNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQMessage_head), use_last_error=False)(18, 'PeekNext', ((1, 'WantDestinationQueue'),(1, 'WantBody'),(1, 'ReceiveTimeout'),(1, 'ppmsg'),)))
     IMSMQQueue.PeekCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQMessage_head), use_last_error=False)(19, 'PeekCurrent', ((1, 'WantDestinationQueue'),(1, 'WantBody'),(1, 'ReceiveTimeout'),(1, 'ppmsg'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueue
 def _define_IMSMQQueue2_head():
     class IMSMQQueue2(win32more.System.Com.IDispatch_head):
@@ -754,6 +760,7 @@ def _define_IMSMQQueue2():
     IMSMQQueue2.PeekNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQMessage2_head), use_last_error=False)(23, 'PeekNext', ((1, 'WantDestinationQueue'),(1, 'WantBody'),(1, 'ReceiveTimeout'),(1, 'WantConnectorType'),(1, 'ppmsg'),)))
     IMSMQQueue2.PeekCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQMessage2_head), use_last_error=False)(24, 'PeekCurrent', ((1, 'WantDestinationQueue'),(1, 'WantBody'),(1, 'ReceiveTimeout'),(1, 'WantConnectorType'),(1, 'ppmsg'),)))
     IMSMQQueue2.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(25, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueue2
 def _define_IMSMQQueue3_head():
     class IMSMQQueue3(win32more.System.Com.IDispatch_head):
@@ -793,6 +800,7 @@ def _define_IMSMQQueue3():
     IMSMQQueue3.PeekLastByLookupId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQMessage3_head), use_last_error=False)(36, 'PeekLastByLookupId', ((1, 'WantDestinationQueue'),(1, 'WantBody'),(1, 'WantConnectorType'),(1, 'ppmsg'),)))
     IMSMQQueue3.Purge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(37, 'Purge', ()))
     IMSMQQueue3.get_IsOpen2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(38, 'get_IsOpen2', ((1, 'pisOpen'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueue3
 def _define_IMSMQQueue4_head():
     class IMSMQQueue4(win32more.System.Com.IDispatch_head):
@@ -833,6 +841,7 @@ def _define_IMSMQQueue4():
     IMSMQQueue4.Purge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(37, 'Purge', ()))
     IMSMQQueue4.get_IsOpen2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(38, 'get_IsOpen2', ((1, 'pisOpen'),)))
     IMSMQQueue4.ReceiveByLookupIdAllowPeek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQMessage4_head), use_last_error=False)(39, 'ReceiveByLookupIdAllowPeek', ((1, 'LookupId'),(1, 'Transaction'),(1, 'WantDestinationQueue'),(1, 'WantBody'),(1, 'WantConnectorType'),(1, 'ppmsg'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueue4
 def _define_IMSMQMessage_head():
     class IMSMQMessage(win32more.System.Com.IDispatch_head):
@@ -889,6 +898,7 @@ def _define_IMSMQMessage():
     IMSMQMessage.put_SenderIdType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(53, 'put_SenderIdType', ((1, 'lSenderIdType'),)))
     IMSMQMessage.Send = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.MessageQueuing.IMSMQQueue_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(54, 'Send', ((1, 'DestinationQueue'),(1, 'Transaction'),)))
     IMSMQMessage.AttachCurrentSecurityContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(55, 'AttachCurrentSecurityContext', ()))
+    win32more.System.Com.IDispatch
     return IMSMQMessage
 def _define_IMSMQQueueInfos_head():
     class IMSMQQueueInfos(win32more.System.Com.IDispatch_head):
@@ -898,6 +908,7 @@ def _define_IMSMQQueueInfos():
     IMSMQQueueInfos = win32more.System.MessageQueuing.IMSMQQueueInfos_head
     IMSMQQueueInfos.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Reset', ()))
     IMSMQQueueInfos.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQQueueInfo_head), use_last_error=False)(8, 'Next', ((1, 'ppqinfoNext'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueueInfos
 def _define_IMSMQQueueInfos2_head():
     class IMSMQQueueInfos2(win32more.System.Com.IDispatch_head):
@@ -908,6 +919,7 @@ def _define_IMSMQQueueInfos2():
     IMSMQQueueInfos2.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Reset', ()))
     IMSMQQueueInfos2.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQQueueInfo2_head), use_last_error=False)(8, 'Next', ((1, 'ppqinfoNext'),)))
     IMSMQQueueInfos2.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueueInfos2
 def _define_IMSMQQueueInfos3_head():
     class IMSMQQueueInfos3(win32more.System.Com.IDispatch_head):
@@ -918,6 +930,7 @@ def _define_IMSMQQueueInfos3():
     IMSMQQueueInfos3.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Reset', ()))
     IMSMQQueueInfos3.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQQueueInfo3_head), use_last_error=False)(8, 'Next', ((1, 'ppqinfoNext'),)))
     IMSMQQueueInfos3.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueueInfos3
 def _define_IMSMQQueueInfos4_head():
     class IMSMQQueueInfos4(win32more.System.Com.IDispatch_head):
@@ -928,6 +941,7 @@ def _define_IMSMQQueueInfos4():
     IMSMQQueueInfos4.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Reset', ()))
     IMSMQQueueInfos4.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQQueueInfo4_head), use_last_error=False)(8, 'Next', ((1, 'ppqinfoNext'),)))
     IMSMQQueueInfos4.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(9, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQueueInfos4
 def _define_IMSMQEvent_head():
     class IMSMQEvent(win32more.System.Com.IDispatch_head):
@@ -935,6 +949,7 @@ def _define_IMSMQEvent_head():
     return IMSMQEvent
 def _define_IMSMQEvent():
     IMSMQEvent = win32more.System.MessageQueuing.IMSMQEvent_head
+    win32more.System.Com.IDispatch
     return IMSMQEvent
 def _define_IMSMQEvent2_head():
     class IMSMQEvent2(win32more.System.MessageQueuing.IMSMQEvent_head):
@@ -943,6 +958,7 @@ def _define_IMSMQEvent2_head():
 def _define_IMSMQEvent2():
     IMSMQEvent2 = win32more.System.MessageQueuing.IMSMQEvent2_head
     IMSMQEvent2.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.MessageQueuing.IMSMQEvent
     return IMSMQEvent2
 def _define_IMSMQEvent3_head():
     class IMSMQEvent3(win32more.System.MessageQueuing.IMSMQEvent2_head):
@@ -950,6 +966,7 @@ def _define_IMSMQEvent3_head():
     return IMSMQEvent3
 def _define_IMSMQEvent3():
     IMSMQEvent3 = win32more.System.MessageQueuing.IMSMQEvent3_head
+    win32more.System.MessageQueuing.IMSMQEvent2
     return IMSMQEvent3
 def _define_IMSMQTransaction_head():
     class IMSMQTransaction(win32more.System.Com.IDispatch_head):
@@ -960,6 +977,7 @@ def _define_IMSMQTransaction():
     IMSMQTransaction.get_Transaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Transaction', ((1, 'plTransaction'),)))
     IMSMQTransaction.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'Commit', ((1, 'fRetaining'),(1, 'grfTC'),(1, 'grfRM'),)))
     IMSMQTransaction.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'Abort', ((1, 'fRetaining'),(1, 'fAsync'),)))
+    win32more.System.Com.IDispatch
     return IMSMQTransaction
 def _define_IMSMQCoordinatedTransactionDispenser_head():
     class IMSMQCoordinatedTransactionDispenser(win32more.System.Com.IDispatch_head):
@@ -968,6 +986,7 @@ def _define_IMSMQCoordinatedTransactionDispenser_head():
 def _define_IMSMQCoordinatedTransactionDispenser():
     IMSMQCoordinatedTransactionDispenser = win32more.System.MessageQueuing.IMSMQCoordinatedTransactionDispenser_head
     IMSMQCoordinatedTransactionDispenser.BeginTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQTransaction_head), use_last_error=False)(7, 'BeginTransaction', ((1, 'ptransaction'),)))
+    win32more.System.Com.IDispatch
     return IMSMQCoordinatedTransactionDispenser
 def _define_IMSMQTransactionDispenser_head():
     class IMSMQTransactionDispenser(win32more.System.Com.IDispatch_head):
@@ -976,6 +995,7 @@ def _define_IMSMQTransactionDispenser_head():
 def _define_IMSMQTransactionDispenser():
     IMSMQTransactionDispenser = win32more.System.MessageQueuing.IMSMQTransactionDispenser_head
     IMSMQTransactionDispenser.BeginTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQTransaction_head), use_last_error=False)(7, 'BeginTransaction', ((1, 'ptransaction'),)))
+    win32more.System.Com.IDispatch
     return IMSMQTransactionDispenser
 def _define_IMSMQQuery2_head():
     class IMSMQQuery2(win32more.System.Com.IDispatch_head):
@@ -985,6 +1005,7 @@ def _define_IMSMQQuery2():
     IMSMQQuery2 = win32more.System.MessageQueuing.IMSMQQuery2_head
     IMSMQQuery2.LookupQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQQueueInfos2_head), use_last_error=False)(7, 'LookupQueue', ((1, 'QueueGuid'),(1, 'ServiceTypeGuid'),(1, 'Label'),(1, 'CreateTime'),(1, 'ModifyTime'),(1, 'RelServiceType'),(1, 'RelLabel'),(1, 'RelCreateTime'),(1, 'RelModifyTime'),(1, 'ppqinfos'),)))
     IMSMQQuery2.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQuery2
 def _define_IMSMQQuery3_head():
     class IMSMQQuery3(win32more.System.Com.IDispatch_head):
@@ -995,6 +1016,7 @@ def _define_IMSMQQuery3():
     IMSMQQuery3.LookupQueue_v2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQQueueInfos3_head), use_last_error=False)(7, 'LookupQueue_v2', ((1, 'QueueGuid'),(1, 'ServiceTypeGuid'),(1, 'Label'),(1, 'CreateTime'),(1, 'ModifyTime'),(1, 'RelServiceType'),(1, 'RelLabel'),(1, 'RelCreateTime'),(1, 'RelModifyTime'),(1, 'ppqinfos'),)))
     IMSMQQuery3.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Properties', ((1, 'ppcolProperties'),)))
     IMSMQQuery3.LookupQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQQueueInfos3_head), use_last_error=False)(9, 'LookupQueue', ((1, 'QueueGuid'),(1, 'ServiceTypeGuid'),(1, 'Label'),(1, 'CreateTime'),(1, 'ModifyTime'),(1, 'RelServiceType'),(1, 'RelLabel'),(1, 'RelCreateTime'),(1, 'RelModifyTime'),(1, 'MulticastAddress'),(1, 'RelMulticastAddress'),(1, 'ppqinfos'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQuery3
 def _define_IMSMQQuery4_head():
     class IMSMQQuery4(win32more.System.Com.IDispatch_head):
@@ -1005,6 +1027,7 @@ def _define_IMSMQQuery4():
     IMSMQQuery4.LookupQueue_v2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQQueueInfos4_head), use_last_error=False)(7, 'LookupQueue_v2', ((1, 'QueueGuid'),(1, 'ServiceTypeGuid'),(1, 'Label'),(1, 'CreateTime'),(1, 'ModifyTime'),(1, 'RelServiceType'),(1, 'RelLabel'),(1, 'RelCreateTime'),(1, 'RelModifyTime'),(1, 'ppqinfos'),)))
     IMSMQQuery4.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Properties', ((1, 'ppcolProperties'),)))
     IMSMQQuery4.LookupQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.MessageQueuing.IMSMQQueueInfos4_head), use_last_error=False)(9, 'LookupQueue', ((1, 'QueueGuid'),(1, 'ServiceTypeGuid'),(1, 'Label'),(1, 'CreateTime'),(1, 'ModifyTime'),(1, 'RelServiceType'),(1, 'RelLabel'),(1, 'RelCreateTime'),(1, 'RelModifyTime'),(1, 'MulticastAddress'),(1, 'RelMulticastAddress'),(1, 'ppqinfos'),)))
+    win32more.System.Com.IDispatch
     return IMSMQQuery4
 def _define_IMSMQMessage2_head():
     class IMSMQMessage2(win32more.System.Com.IDispatch_head):
@@ -1087,6 +1110,7 @@ def _define_IMSMQMessage2():
     IMSMQMessage2.get_AdminQueueInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQQueueInfo2_head), use_last_error=False)(79, 'get_AdminQueueInfo', ((1, 'ppqinfoAdmin'),)))
     IMSMQMessage2.putref_AdminQueueInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.MessageQueuing.IMSMQQueueInfo2_head, use_last_error=False)(80, 'putref_AdminQueueInfo', ((1, 'pqinfoAdmin'),)))
     IMSMQMessage2.get_ReceivedAuthenticationLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(81, 'get_ReceivedAuthenticationLevel', ((1, 'psReceivedAuthenticationLevel'),)))
+    win32more.System.Com.IDispatch
     return IMSMQMessage2
 def _define_IMSMQMessage3_head():
     class IMSMQMessage3(win32more.System.Com.IDispatch_head):
@@ -1185,6 +1209,7 @@ def _define_IMSMQMessage3():
     IMSMQMessage3.get_CompoundMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(95, 'get_CompoundMessage', ((1, 'pvarCompoundMessage'),)))
     IMSMQMessage3.put_SoapHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(96, 'put_SoapHeader', ((1, 'bstrSoapHeader'),)))
     IMSMQMessage3.put_SoapBody = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(97, 'put_SoapBody', ((1, 'bstrSoapBody'),)))
+    win32more.System.Com.IDispatch
     return IMSMQMessage3
 def _define_IMSMQMessage4_head():
     class IMSMQMessage4(win32more.System.Com.IDispatch_head):
@@ -1283,6 +1308,7 @@ def _define_IMSMQMessage4():
     IMSMQMessage4.get_CompoundMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(95, 'get_CompoundMessage', ((1, 'pvarCompoundMessage'),)))
     IMSMQMessage4.put_SoapHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(96, 'put_SoapHeader', ((1, 'bstrSoapHeader'),)))
     IMSMQMessage4.put_SoapBody = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(97, 'put_SoapBody', ((1, 'bstrSoapBody'),)))
+    win32more.System.Com.IDispatch
     return IMSMQMessage4
 def _define_IMSMQPrivateEvent_head():
     class IMSMQPrivateEvent(win32more.System.Com.IDispatch_head):
@@ -1293,6 +1319,7 @@ def _define_IMSMQPrivateEvent():
     IMSMQPrivateEvent.get_Hwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Hwnd', ((1, 'phwnd'),)))
     IMSMQPrivateEvent.FireArrivedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.MessageQueuing.IMSMQQueue_head,Int32, use_last_error=False)(8, 'FireArrivedEvent', ((1, 'pq'),(1, 'msgcursor'),)))
     IMSMQPrivateEvent.FireArrivedErrorEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.MessageQueuing.IMSMQQueue_head,win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'FireArrivedErrorEvent', ((1, 'pq'),(1, 'hrStatus'),(1, 'msgcursor'),)))
+    win32more.System.Com.IDispatch
     return IMSMQPrivateEvent
 def _define__DMSMQEventEvents_head():
     class _DMSMQEventEvents(win32more.System.Com.IDispatch_head):
@@ -1300,6 +1327,7 @@ def _define__DMSMQEventEvents_head():
     return _DMSMQEventEvents
 def _define__DMSMQEventEvents():
     _DMSMQEventEvents = win32more.System.MessageQueuing._DMSMQEventEvents_head
+    win32more.System.Com.IDispatch
     return _DMSMQEventEvents
 def _define_IMSMQTransaction2_head():
     class IMSMQTransaction2(win32more.System.MessageQueuing.IMSMQTransaction_head):
@@ -1309,6 +1337,7 @@ def _define_IMSMQTransaction2():
     IMSMQTransaction2 = win32more.System.MessageQueuing.IMSMQTransaction2_head
     IMSMQTransaction2.InitNew = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(10, 'InitNew', ((1, 'varTransaction'),)))
     IMSMQTransaction2.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.MessageQueuing.IMSMQTransaction
     return IMSMQTransaction2
 def _define_IMSMQTransaction3_head():
     class IMSMQTransaction3(win32more.System.MessageQueuing.IMSMQTransaction2_head):
@@ -1317,6 +1346,7 @@ def _define_IMSMQTransaction3_head():
 def _define_IMSMQTransaction3():
     IMSMQTransaction3 = win32more.System.MessageQueuing.IMSMQTransaction3_head
     IMSMQTransaction3.get_ITransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_ITransaction', ((1, 'pvarITransaction'),)))
+    win32more.System.MessageQueuing.IMSMQTransaction2
     return IMSMQTransaction3
 def _define_IMSMQCoordinatedTransactionDispenser2_head():
     class IMSMQCoordinatedTransactionDispenser2(win32more.System.Com.IDispatch_head):
@@ -1326,6 +1356,7 @@ def _define_IMSMQCoordinatedTransactionDispenser2():
     IMSMQCoordinatedTransactionDispenser2 = win32more.System.MessageQueuing.IMSMQCoordinatedTransactionDispenser2_head
     IMSMQCoordinatedTransactionDispenser2.BeginTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQTransaction2_head), use_last_error=False)(7, 'BeginTransaction', ((1, 'ptransaction'),)))
     IMSMQCoordinatedTransactionDispenser2.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQCoordinatedTransactionDispenser2
 def _define_IMSMQCoordinatedTransactionDispenser3_head():
     class IMSMQCoordinatedTransactionDispenser3(win32more.System.Com.IDispatch_head):
@@ -1335,6 +1366,7 @@ def _define_IMSMQCoordinatedTransactionDispenser3():
     IMSMQCoordinatedTransactionDispenser3 = win32more.System.MessageQueuing.IMSMQCoordinatedTransactionDispenser3_head
     IMSMQCoordinatedTransactionDispenser3.BeginTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQTransaction3_head), use_last_error=False)(7, 'BeginTransaction', ((1, 'ptransaction'),)))
     IMSMQCoordinatedTransactionDispenser3.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQCoordinatedTransactionDispenser3
 def _define_IMSMQTransactionDispenser2_head():
     class IMSMQTransactionDispenser2(win32more.System.Com.IDispatch_head):
@@ -1344,6 +1376,7 @@ def _define_IMSMQTransactionDispenser2():
     IMSMQTransactionDispenser2 = win32more.System.MessageQueuing.IMSMQTransactionDispenser2_head
     IMSMQTransactionDispenser2.BeginTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQTransaction2_head), use_last_error=False)(7, 'BeginTransaction', ((1, 'ptransaction'),)))
     IMSMQTransactionDispenser2.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQTransactionDispenser2
 def _define_IMSMQTransactionDispenser3_head():
     class IMSMQTransactionDispenser3(win32more.System.Com.IDispatch_head):
@@ -1353,6 +1386,7 @@ def _define_IMSMQTransactionDispenser3():
     IMSMQTransactionDispenser3 = win32more.System.MessageQueuing.IMSMQTransactionDispenser3_head
     IMSMQTransactionDispenser3.BeginTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.MessageQueuing.IMSMQTransaction3_head), use_last_error=False)(7, 'BeginTransaction', ((1, 'ptransaction'),)))
     IMSMQTransactionDispenser3.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQTransactionDispenser3
 def _define_IMSMQApplication_head():
     class IMSMQApplication(win32more.System.Com.IDispatch_head):
@@ -1361,6 +1395,7 @@ def _define_IMSMQApplication_head():
 def _define_IMSMQApplication():
     IMSMQApplication = win32more.System.MessageQueuing.IMSMQApplication_head
     IMSMQApplication.MachineIdOfMachineName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'MachineIdOfMachineName', ((1, 'MachineName'),(1, 'pbstrGuid'),)))
+    win32more.System.Com.IDispatch
     return IMSMQApplication
 def _define_IMSMQApplication2_head():
     class IMSMQApplication2(win32more.System.MessageQueuing.IMSMQApplication_head):
@@ -1375,6 +1410,7 @@ def _define_IMSMQApplication2():
     IMSMQApplication2.get_MSMQVersionBuild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(12, 'get_MSMQVersionBuild', ((1, 'psMSMQVersionBuild'),)))
     IMSMQApplication2.get_IsDsEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(13, 'get_IsDsEnabled', ((1, 'pfIsDsEnabled'),)))
     IMSMQApplication2.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(14, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.MessageQueuing.IMSMQApplication
     return IMSMQApplication2
 def _define_IMSMQApplication3_head():
     class IMSMQApplication3(win32more.System.MessageQueuing.IMSMQApplication2_head):
@@ -1392,6 +1428,7 @@ def _define_IMSMQApplication3():
     IMSMQApplication3.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(22, 'Connect', ()))
     IMSMQApplication3.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(23, 'Disconnect', ()))
     IMSMQApplication3.Tidy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'Tidy', ()))
+    win32more.System.MessageQueuing.IMSMQApplication2
     return IMSMQApplication3
 def _define_IMSMQDestination_head():
     class IMSMQDestination(win32more.System.Com.IDispatch_head):
@@ -1413,6 +1450,7 @@ def _define_IMSMQDestination():
     IMSMQDestination.get_Destinations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(18, 'get_Destinations', ((1, 'ppDestinations'),)))
     IMSMQDestination.putref_Destinations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(19, 'putref_Destinations', ((1, 'pDestinations'),)))
     IMSMQDestination.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(20, 'get_Properties', ((1, 'ppcolProperties'),)))
+    win32more.System.Com.IDispatch
     return IMSMQDestination
 def _define_IMSMQPrivateDestination_head():
     class IMSMQPrivateDestination(win32more.System.Com.IDispatch_head):
@@ -1422,6 +1460,7 @@ def _define_IMSMQPrivateDestination():
     IMSMQPrivateDestination = win32more.System.MessageQueuing.IMSMQPrivateDestination_head
     IMSMQPrivateDestination.get_Handle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Handle', ((1, 'pvarHandle'),)))
     IMSMQPrivateDestination.put_Handle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_Handle', ((1, 'varHandle'),)))
+    win32more.System.Com.IDispatch
     return IMSMQPrivateDestination
 def _define_IMSMQCollection_head():
     class IMSMQCollection(win32more.System.Com.IDispatch_head):
@@ -1432,6 +1471,7 @@ def _define_IMSMQCollection():
     IMSMQCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'Item', ((1, 'Index'),(1, 'pvarRet'),)))
     IMSMQCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'pCount'),)))
     IMSMQCollection._NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, '_NewEnum', ((1, 'ppunk'),)))
+    win32more.System.Com.IDispatch
     return IMSMQCollection
 def _define_IMSMQManagement_head():
     class IMSMQManagement(win32more.System.Com.IDispatch_head):
@@ -1448,6 +1488,7 @@ def _define_IMSMQManagement():
     IMSMQManagement.get_IsLocal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(13, 'get_IsLocal', ((1, 'pfIsLocal'),)))
     IMSMQManagement.get_TransactionalStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_TransactionalStatus', ((1, 'plTransactionalStatus'),)))
     IMSMQManagement.get_BytesInQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_BytesInQueue', ((1, 'pvBytesInQueue'),)))
+    win32more.System.Com.IDispatch
     return IMSMQManagement
 def _define_IMSMQOutgoingQueueManagement_head():
     class IMSMQOutgoingQueueManagement(win32more.System.MessageQueuing.IMSMQManagement_head):
@@ -1461,6 +1502,7 @@ def _define_IMSMQOutgoingQueueManagement():
     IMSMQOutgoingQueueManagement.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'Resume', ()))
     IMSMQOutgoingQueueManagement.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'Pause', ()))
     IMSMQOutgoingQueueManagement.EodResend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'EodResend', ()))
+    win32more.System.MessageQueuing.IMSMQManagement
     return IMSMQOutgoingQueueManagement
 def _define_IMSMQQueueManagement_head():
     class IMSMQQueueManagement(win32more.System.MessageQueuing.IMSMQManagement_head):
@@ -1471,6 +1513,7 @@ def _define_IMSMQQueueManagement():
     IMSMQQueueManagement.get_JournalMessageCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_JournalMessageCount', ((1, 'plJournalMessageCount'),)))
     IMSMQQueueManagement.get_BytesInJournal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'get_BytesInJournal', ((1, 'pvBytesInJournal'),)))
     IMSMQQueueManagement.EodGetReceiveInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'EodGetReceiveInfo', ((1, 'pvCollection'),)))
+    win32more.System.MessageQueuing.IMSMQManagement
     return IMSMQQueueManagement
 __all__ = [
     "PRLT",

@@ -41,6 +41,7 @@ def _define_ID3D11On12Device():
     ID3D11On12Device.CreateWrappedResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.Graphics.Direct3D11on12.D3D11_RESOURCE_FLAGS_head),win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,win32more.Graphics.Direct3D12.D3D12_RESOURCE_STATES,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CreateWrappedResource', ((1, 'pResource12'),(1, 'pFlags11'),(1, 'InState'),(1, 'OutState'),(1, 'riid'),(1, 'ppResource11'),)))
     ID3D11On12Device.ReleaseWrappedResources = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.ID3D11Resource_head),UInt32, use_last_error=False)(4, 'ReleaseWrappedResources', ((1, 'ppResources'),(1, 'NumResources'),)))
     ID3D11On12Device.AcquireWrappedResources = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Graphics.Direct3D11.ID3D11Resource_head),UInt32, use_last_error=False)(5, 'AcquireWrappedResources', ((1, 'ppResources'),(1, 'NumResources'),)))
+    win32more.System.Com.IUnknown
     return ID3D11On12Device
 def _define_ID3D11On12Device1_head():
     class ID3D11On12Device1(win32more.Graphics.Direct3D11on12.ID3D11On12Device_head):
@@ -49,6 +50,7 @@ def _define_ID3D11On12Device1_head():
 def _define_ID3D11On12Device1():
     ID3D11On12Device1 = win32more.Graphics.Direct3D11on12.ID3D11On12Device1_head
     ID3D11On12Device1.GetD3D12Device = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetD3D12Device', ((1, 'riid'),(1, 'ppvDevice'),)))
+    win32more.Graphics.Direct3D11on12.ID3D11On12Device
     return ID3D11On12Device1
 def _define_ID3D11On12Device2_head():
     class ID3D11On12Device2(win32more.Graphics.Direct3D11on12.ID3D11On12Device1_head):
@@ -58,6 +60,7 @@ def _define_ID3D11On12Device2():
     ID3D11On12Device2 = win32more.Graphics.Direct3D11on12.ID3D11On12Device2_head
     ID3D11On12Device2.UnwrapUnderlyingResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11Resource_head,win32more.Graphics.Direct3D12.ID3D12CommandQueue_head,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'UnwrapUnderlyingResource', ((1, 'pResource11'),(1, 'pCommandQueue'),(1, 'riid'),(1, 'ppvResource12'),)))
     ID3D11On12Device2.ReturnUnderlyingResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D11.ID3D11Resource_head,UInt32,POINTER(UInt64),POINTER(win32more.Graphics.Direct3D12.ID3D12Fence_head), use_last_error=False)(8, 'ReturnUnderlyingResource', ((1, 'pResource11'),(1, 'NumSync'),(1, 'pSignalValues'),(1, 'ppFences'),)))
+    win32more.Graphics.Direct3D11on12.ID3D11On12Device1
     return ID3D11On12Device2
 def _define_D3D11On12CreateDevice():
     try:

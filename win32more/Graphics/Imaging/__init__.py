@@ -695,6 +695,7 @@ def _define_IWICPalette():
     IWICPalette.IsBlackWhite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(10, 'IsBlackWhite', ((1, 'pfIsBlackWhite'),)))
     IWICPalette.IsGrayscale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'IsGrayscale', ((1, 'pfIsGrayscale'),)))
     IWICPalette.HasAlpha = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'HasAlpha', ((1, 'pfHasAlpha'),)))
+    win32more.System.Com.IUnknown
     return IWICPalette
 def _define_IWICBitmapSource_head():
     class IWICBitmapSource(win32more.System.Com.IUnknown_head):
@@ -707,6 +708,7 @@ def _define_IWICBitmapSource():
     IWICBitmapSource.GetResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),POINTER(Double), use_last_error=False)(5, 'GetResolution', ((1, 'pDpiX'),(1, 'pDpiY'),)))
     IWICBitmapSource.CopyPalette = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICPalette_head, use_last_error=False)(6, 'CopyPalette', ((1, 'pIPalette'),)))
     IWICBitmapSource.CopyPixels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICRect_head),UInt32,UInt32,POINTER(Byte), use_last_error=False)(7, 'CopyPixels', ((1, 'prc'),(1, 'cbStride'),(1, 'cbBufferSize'),(1, 'pbBuffer'),)))
+    win32more.System.Com.IUnknown
     return IWICBitmapSource
 def _define_IWICFormatConverter_head():
     class IWICFormatConverter(win32more.Graphics.Imaging.IWICBitmapSource_head):
@@ -716,6 +718,7 @@ def _define_IWICFormatConverter():
     IWICFormatConverter = win32more.Graphics.Imaging.IWICFormatConverter_head
     IWICFormatConverter.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapSource_head,POINTER(Guid),win32more.Graphics.Imaging.WICBitmapDitherType,win32more.Graphics.Imaging.IWICPalette_head,Double,win32more.Graphics.Imaging.WICBitmapPaletteType, use_last_error=False)(8, 'Initialize', ((1, 'pISource'),(1, 'dstFormat'),(1, 'dither'),(1, 'pIPalette'),(1, 'alphaThresholdPercent'),(1, 'paletteTranslate'),)))
     IWICFormatConverter.CanConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'CanConvert', ((1, 'srcPixelFormat'),(1, 'dstPixelFormat'),(1, 'pfCanConvert'),)))
+    win32more.Graphics.Imaging.IWICBitmapSource
     return IWICFormatConverter
 def _define_IWICPlanarFormatConverter_head():
     class IWICPlanarFormatConverter(win32more.Graphics.Imaging.IWICBitmapSource_head):
@@ -725,6 +728,7 @@ def _define_IWICPlanarFormatConverter():
     IWICPlanarFormatConverter = win32more.Graphics.Imaging.IWICPlanarFormatConverter_head
     IWICPlanarFormatConverter.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head),UInt32,POINTER(Guid),win32more.Graphics.Imaging.WICBitmapDitherType,win32more.Graphics.Imaging.IWICPalette_head,Double,win32more.Graphics.Imaging.WICBitmapPaletteType, use_last_error=False)(8, 'Initialize', ((1, 'ppPlanes'),(1, 'cPlanes'),(1, 'dstFormat'),(1, 'dither'),(1, 'pIPalette'),(1, 'alphaThresholdPercent'),(1, 'paletteTranslate'),)))
     IWICPlanarFormatConverter.CanConvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(Guid),POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'CanConvert', ((1, 'pSrcPixelFormats'),(1, 'cSrcPlanes'),(1, 'dstPixelFormat'),(1, 'pfCanConvert'),)))
+    win32more.Graphics.Imaging.IWICBitmapSource
     return IWICPlanarFormatConverter
 def _define_IWICBitmapScaler_head():
     class IWICBitmapScaler(win32more.Graphics.Imaging.IWICBitmapSource_head):
@@ -733,6 +737,7 @@ def _define_IWICBitmapScaler_head():
 def _define_IWICBitmapScaler():
     IWICBitmapScaler = win32more.Graphics.Imaging.IWICBitmapScaler_head
     IWICBitmapScaler.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapSource_head,UInt32,UInt32,win32more.Graphics.Imaging.WICBitmapInterpolationMode, use_last_error=False)(8, 'Initialize', ((1, 'pISource'),(1, 'uiWidth'),(1, 'uiHeight'),(1, 'mode'),)))
+    win32more.Graphics.Imaging.IWICBitmapSource
     return IWICBitmapScaler
 def _define_IWICBitmapClipper_head():
     class IWICBitmapClipper(win32more.Graphics.Imaging.IWICBitmapSource_head):
@@ -741,6 +746,7 @@ def _define_IWICBitmapClipper_head():
 def _define_IWICBitmapClipper():
     IWICBitmapClipper = win32more.Graphics.Imaging.IWICBitmapClipper_head
     IWICBitmapClipper.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapSource_head,POINTER(win32more.Graphics.Imaging.WICRect_head), use_last_error=False)(8, 'Initialize', ((1, 'pISource'),(1, 'prc'),)))
+    win32more.Graphics.Imaging.IWICBitmapSource
     return IWICBitmapClipper
 def _define_IWICBitmapFlipRotator_head():
     class IWICBitmapFlipRotator(win32more.Graphics.Imaging.IWICBitmapSource_head):
@@ -749,6 +755,7 @@ def _define_IWICBitmapFlipRotator_head():
 def _define_IWICBitmapFlipRotator():
     IWICBitmapFlipRotator = win32more.Graphics.Imaging.IWICBitmapFlipRotator_head
     IWICBitmapFlipRotator.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapSource_head,win32more.Graphics.Imaging.WICBitmapTransformOptions, use_last_error=False)(8, 'Initialize', ((1, 'pISource'),(1, 'options'),)))
+    win32more.Graphics.Imaging.IWICBitmapSource
     return IWICBitmapFlipRotator
 def _define_IWICBitmapLock_head():
     class IWICBitmapLock(win32more.System.Com.IUnknown_head):
@@ -760,6 +767,7 @@ def _define_IWICBitmapLock():
     IWICBitmapLock.GetStride = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetStride', ((1, 'pcbStride'),)))
     IWICBitmapLock.GetDataPointer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(5, 'GetDataPointer', ((1, 'pcbBufferSize'),(1, 'ppbData'),)))
     IWICBitmapLock.GetPixelFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(6, 'GetPixelFormat', ((1, 'pPixelFormat'),)))
+    win32more.System.Com.IUnknown
     return IWICBitmapLock
 def _define_IWICBitmap_head():
     class IWICBitmap(win32more.Graphics.Imaging.IWICBitmapSource_head):
@@ -770,6 +778,7 @@ def _define_IWICBitmap():
     IWICBitmap.Lock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICRect_head),UInt32,POINTER(win32more.Graphics.Imaging.IWICBitmapLock_head), use_last_error=False)(8, 'Lock', ((1, 'prcLock'),(1, 'flags'),(1, 'ppILock'),)))
     IWICBitmap.SetPalette = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICPalette_head, use_last_error=False)(9, 'SetPalette', ((1, 'pIPalette'),)))
     IWICBitmap.SetResolution = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double, use_last_error=False)(10, 'SetResolution', ((1, 'dpiX'),(1, 'dpiY'),)))
+    win32more.Graphics.Imaging.IWICBitmapSource
     return IWICBitmap
 def _define_IWICColorContext_head():
     class IWICColorContext(win32more.System.Com.IUnknown_head):
@@ -783,6 +792,7 @@ def _define_IWICColorContext():
     IWICColorContext.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICColorContextType), use_last_error=False)(6, 'GetType', ((1, 'pType'),)))
     IWICColorContext.GetProfileBytes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(7, 'GetProfileBytes', ((1, 'cbBuffer'),(1, 'pbBuffer'),(1, 'pcbActual'),)))
     IWICColorContext.GetExifColorSpace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetExifColorSpace', ((1, 'pValue'),)))
+    win32more.System.Com.IUnknown
     return IWICColorContext
 def _define_IWICColorTransform_head():
     class IWICColorTransform(win32more.Graphics.Imaging.IWICBitmapSource_head):
@@ -791,6 +801,7 @@ def _define_IWICColorTransform_head():
 def _define_IWICColorTransform():
     IWICColorTransform = win32more.Graphics.Imaging.IWICColorTransform_head
     IWICColorTransform.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapSource_head,win32more.Graphics.Imaging.IWICColorContext_head,win32more.Graphics.Imaging.IWICColorContext_head,POINTER(Guid), use_last_error=False)(8, 'Initialize', ((1, 'pIBitmapSource'),(1, 'pIContextSource'),(1, 'pIContextDest'),(1, 'pixelFmtDest'),)))
+    win32more.Graphics.Imaging.IWICBitmapSource
     return IWICColorTransform
 def _define_IWICFastMetadataEncoder_head():
     class IWICFastMetadataEncoder(win32more.System.Com.IUnknown_head):
@@ -800,6 +811,7 @@ def _define_IWICFastMetadataEncoder():
     IWICFastMetadataEncoder = win32more.Graphics.Imaging.IWICFastMetadataEncoder_head
     IWICFastMetadataEncoder.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Commit', ()))
     IWICFastMetadataEncoder.GetMetadataQueryWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICMetadataQueryWriter_head), use_last_error=False)(4, 'GetMetadataQueryWriter', ((1, 'ppIMetadataQueryWriter'),)))
+    win32more.System.Com.IUnknown
     return IWICFastMetadataEncoder
 def _define_IWICStream_head():
     class IWICStream(win32more.System.Com.IStream_head):
@@ -811,6 +823,7 @@ def _define_IWICStream():
     IWICStream.InitializeFromFilename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(15, 'InitializeFromFilename', ((1, 'wzFileName'),(1, 'dwDesiredAccess'),)))
     IWICStream.InitializeFromMemory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(16, 'InitializeFromMemory', ((1, 'pbBuffer'),(1, 'cbBufferSize'),)))
     IWICStream.InitializeFromIStreamRegion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Foundation.ULARGE_INTEGER,win32more.Foundation.ULARGE_INTEGER, use_last_error=False)(17, 'InitializeFromIStreamRegion', ((1, 'pIStream'),(1, 'ulOffset'),(1, 'ulMaxSize'),)))
+    win32more.System.Com.IStream
     return IWICStream
 def _define_IWICEnumMetadataItem_head():
     class IWICEnumMetadataItem(win32more.System.Com.IUnknown_head):
@@ -822,6 +835,7 @@ def _define_IWICEnumMetadataItem():
     IWICEnumMetadataItem.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IWICEnumMetadataItem.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IWICEnumMetadataItem.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICEnumMetadataItem_head), use_last_error=False)(6, 'Clone', ((1, 'ppIEnumMetadataItem'),)))
+    win32more.System.Com.IUnknown
     return IWICEnumMetadataItem
 def _define_IWICMetadataQueryReader_head():
     class IWICMetadataQueryReader(win32more.System.Com.IUnknown_head):
@@ -833,6 +847,7 @@ def _define_IWICMetadataQueryReader():
     IWICMetadataQueryReader.GetLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(4, 'GetLocation', ((1, 'cchMaxLength'),(1, 'wzNamespace'),(1, 'pcchActualLength'),)))
     IWICMetadataQueryReader.GetMetadataByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'GetMetadataByName', ((1, 'wzName'),(1, 'pvarValue'),)))
     IWICMetadataQueryReader.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head), use_last_error=False)(6, 'GetEnumerator', ((1, 'ppIEnumString'),)))
+    win32more.System.Com.IUnknown
     return IWICMetadataQueryReader
 def _define_IWICMetadataQueryWriter_head():
     class IWICMetadataQueryWriter(win32more.Graphics.Imaging.IWICMetadataQueryReader_head):
@@ -842,6 +857,7 @@ def _define_IWICMetadataQueryWriter():
     IWICMetadataQueryWriter = win32more.Graphics.Imaging.IWICMetadataQueryWriter_head
     IWICMetadataQueryWriter.SetMetadataByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(7, 'SetMetadataByName', ((1, 'wzName'),(1, 'pvarValue'),)))
     IWICMetadataQueryWriter.RemoveMetadataByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'RemoveMetadataByName', ((1, 'wzName'),)))
+    win32more.Graphics.Imaging.IWICMetadataQueryReader
     return IWICMetadataQueryWriter
 def _define_IWICBitmapEncoder_head():
     class IWICBitmapEncoder(win32more.System.Com.IUnknown_head):
@@ -859,6 +875,7 @@ def _define_IWICBitmapEncoder():
     IWICBitmapEncoder.CreateNewFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICBitmapFrameEncode_head),POINTER(win32more.System.Com.StructuredStorage.IPropertyBag2_head), use_last_error=False)(10, 'CreateNewFrame', ((1, 'ppIFrameEncode'),(1, 'ppIEncoderOptions'),)))
     IWICBitmapEncoder.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Commit', ()))
     IWICBitmapEncoder.GetMetadataQueryWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICMetadataQueryWriter_head), use_last_error=False)(12, 'GetMetadataQueryWriter', ((1, 'ppIMetadataQueryWriter'),)))
+    win32more.System.Com.IUnknown
     return IWICBitmapEncoder
 def _define_IWICBitmapFrameEncode_head():
     class IWICBitmapFrameEncode(win32more.System.Com.IUnknown_head):
@@ -877,6 +894,7 @@ def _define_IWICBitmapFrameEncode():
     IWICBitmapFrameEncode.WriteSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapSource_head,POINTER(win32more.Graphics.Imaging.WICRect_head), use_last_error=False)(11, 'WriteSource', ((1, 'pIBitmapSource'),(1, 'prc'),)))
     IWICBitmapFrameEncode.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Commit', ()))
     IWICBitmapFrameEncode.GetMetadataQueryWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICMetadataQueryWriter_head), use_last_error=False)(13, 'GetMetadataQueryWriter', ((1, 'ppIMetadataQueryWriter'),)))
+    win32more.System.Com.IUnknown
     return IWICBitmapFrameEncode
 def _define_IWICPlanarBitmapFrameEncode_head():
     class IWICPlanarBitmapFrameEncode(win32more.System.Com.IUnknown_head):
@@ -886,6 +904,7 @@ def _define_IWICPlanarBitmapFrameEncode():
     IWICPlanarBitmapFrameEncode = win32more.Graphics.Imaging.IWICPlanarBitmapFrameEncode_head
     IWICPlanarBitmapFrameEncode.WritePixels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Imaging.WICBitmapPlane),UInt32, use_last_error=False)(3, 'WritePixels', ((1, 'lineCount'),(1, 'pPlanes'),(1, 'cPlanes'),)))
     IWICPlanarBitmapFrameEncode.WriteSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head),UInt32,POINTER(win32more.Graphics.Imaging.WICRect_head), use_last_error=False)(4, 'WriteSource', ((1, 'ppPlanes'),(1, 'cPlanes'),(1, 'prcSource'),)))
+    win32more.System.Com.IUnknown
     return IWICPlanarBitmapFrameEncode
 def _define_IWICBitmapDecoder_head():
     class IWICBitmapDecoder(win32more.System.Com.IUnknown_head):
@@ -904,6 +923,7 @@ def _define_IWICBitmapDecoder():
     IWICBitmapDecoder.GetThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head), use_last_error=False)(11, 'GetThumbnail', ((1, 'ppIThumbnail'),)))
     IWICBitmapDecoder.GetFrameCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'GetFrameCount', ((1, 'pCount'),)))
     IWICBitmapDecoder.GetFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Imaging.IWICBitmapFrameDecode_head), use_last_error=False)(13, 'GetFrame', ((1, 'index'),(1, 'ppIBitmapFrame'),)))
+    win32more.System.Com.IUnknown
     return IWICBitmapDecoder
 def _define_IWICBitmapSourceTransform_head():
     class IWICBitmapSourceTransform(win32more.System.Com.IUnknown_head):
@@ -915,6 +935,7 @@ def _define_IWICBitmapSourceTransform():
     IWICBitmapSourceTransform.GetClosestSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'GetClosestSize', ((1, 'puiWidth'),(1, 'puiHeight'),)))
     IWICBitmapSourceTransform.GetClosestPixelFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetClosestPixelFormat', ((1, 'pguidDstFormat'),)))
     IWICBitmapSourceTransform.DoesSupportTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.WICBitmapTransformOptions,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'DoesSupportTransform', ((1, 'dstTransform'),(1, 'pfIsSupported'),)))
+    win32more.System.Com.IUnknown
     return IWICBitmapSourceTransform
 def _define_IWICPlanarBitmapSourceTransform_head():
     class IWICPlanarBitmapSourceTransform(win32more.System.Com.IUnknown_head):
@@ -924,6 +945,7 @@ def _define_IWICPlanarBitmapSourceTransform():
     IWICPlanarBitmapSourceTransform = win32more.Graphics.Imaging.IWICPlanarBitmapSourceTransform_head
     IWICPlanarBitmapSourceTransform.DoesSupportTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),win32more.Graphics.Imaging.WICBitmapTransformOptions,win32more.Graphics.Imaging.WICPlanarOptions,POINTER(Guid),POINTER(win32more.Graphics.Imaging.WICBitmapPlaneDescription),UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'DoesSupportTransform', ((1, 'puiWidth'),(1, 'puiHeight'),(1, 'dstTransform'),(1, 'dstPlanarOptions'),(1, 'pguidDstFormats'),(1, 'pPlaneDescriptions'),(1, 'cPlanes'),(1, 'pfIsSupported'),)))
     IWICPlanarBitmapSourceTransform.CopyPixels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICRect_head),UInt32,UInt32,win32more.Graphics.Imaging.WICBitmapTransformOptions,win32more.Graphics.Imaging.WICPlanarOptions,POINTER(win32more.Graphics.Imaging.WICBitmapPlane),UInt32, use_last_error=False)(4, 'CopyPixels', ((1, 'prcSource'),(1, 'uiWidth'),(1, 'uiHeight'),(1, 'dstTransform'),(1, 'dstPlanarOptions'),(1, 'pDstPlanes'),(1, 'cPlanes'),)))
+    win32more.System.Com.IUnknown
     return IWICPlanarBitmapSourceTransform
 def _define_IWICBitmapFrameDecode_head():
     class IWICBitmapFrameDecode(win32more.Graphics.Imaging.IWICBitmapSource_head):
@@ -934,6 +956,7 @@ def _define_IWICBitmapFrameDecode():
     IWICBitmapFrameDecode.GetMetadataQueryReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICMetadataQueryReader_head), use_last_error=False)(8, 'GetMetadataQueryReader', ((1, 'ppIMetadataQueryReader'),)))
     IWICBitmapFrameDecode.GetColorContexts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Imaging.IWICColorContext_head),POINTER(UInt32), use_last_error=False)(9, 'GetColorContexts', ((1, 'cCount'),(1, 'ppIColorContexts'),(1, 'pcActualCount'),)))
     IWICBitmapFrameDecode.GetThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICBitmapSource_head), use_last_error=False)(10, 'GetThumbnail', ((1, 'ppIThumbnail'),)))
+    win32more.Graphics.Imaging.IWICBitmapSource
     return IWICBitmapFrameDecode
 def _define_IWICProgressiveLevelControl_head():
     class IWICProgressiveLevelControl(win32more.System.Com.IUnknown_head):
@@ -944,6 +967,7 @@ def _define_IWICProgressiveLevelControl():
     IWICProgressiveLevelControl.GetLevelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetLevelCount', ((1, 'pcLevels'),)))
     IWICProgressiveLevelControl.GetCurrentLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetCurrentLevel', ((1, 'pnLevel'),)))
     IWICProgressiveLevelControl.SetCurrentLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'SetCurrentLevel', ((1, 'nLevel'),)))
+    win32more.System.Com.IUnknown
     return IWICProgressiveLevelControl
 def _define_IWICProgressCallback_head():
     class IWICProgressCallback(win32more.System.Com.IUnknown_head):
@@ -952,6 +976,7 @@ def _define_IWICProgressCallback_head():
 def _define_IWICProgressCallback():
     IWICProgressCallback = win32more.Graphics.Imaging.IWICProgressCallback_head
     IWICProgressCallback.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Imaging.WICProgressOperation,Double, use_last_error=False)(3, 'Notify', ((1, 'uFrameNum'),(1, 'operation'),(1, 'dblProgress'),)))
+    win32more.System.Com.IUnknown
     return IWICProgressCallback
 def _define_PFNProgressNotification():
     return CFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,win32more.Graphics.Imaging.WICProgressOperation,Double, use_last_error=False)
@@ -962,6 +987,7 @@ def _define_IWICBitmapCodecProgressNotification_head():
 def _define_IWICBitmapCodecProgressNotification():
     IWICBitmapCodecProgressNotification = win32more.Graphics.Imaging.IWICBitmapCodecProgressNotification_head
     IWICBitmapCodecProgressNotification.RegisterProgressNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.PFNProgressNotification,c_void_p,UInt32, use_last_error=False)(3, 'RegisterProgressNotification', ((1, 'pfnProgressNotification'),(1, 'pvData'),(1, 'dwProgressFlags'),)))
+    win32more.System.Com.IUnknown
     return IWICBitmapCodecProgressNotification
 def _define_IWICComponentInfo_head():
     class IWICComponentInfo(win32more.System.Com.IUnknown_head):
@@ -977,6 +1003,7 @@ def _define_IWICComponentInfo():
     IWICComponentInfo.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(8, 'GetVersion', ((1, 'cchVersion'),(1, 'wzVersion'),(1, 'pcchActual'),)))
     IWICComponentInfo.GetSpecVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(9, 'GetSpecVersion', ((1, 'cchSpecVersion'),(1, 'wzSpecVersion'),(1, 'pcchActual'),)))
     IWICComponentInfo.GetFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(10, 'GetFriendlyName', ((1, 'cchFriendlyName'),(1, 'wzFriendlyName'),(1, 'pcchActual'),)))
+    win32more.System.Com.IUnknown
     return IWICComponentInfo
 def _define_IWICFormatConverterInfo_head():
     class IWICFormatConverterInfo(win32more.Graphics.Imaging.IWICComponentInfo_head):
@@ -986,6 +1013,7 @@ def _define_IWICFormatConverterInfo():
     IWICFormatConverterInfo = win32more.Graphics.Imaging.IWICFormatConverterInfo_head
     IWICFormatConverterInfo.GetPixelFormats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(UInt32), use_last_error=False)(11, 'GetPixelFormats', ((1, 'cFormats'),(1, 'pPixelFormatGUIDs'),(1, 'pcActual'),)))
     IWICFormatConverterInfo.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICFormatConverter_head), use_last_error=False)(12, 'CreateInstance', ((1, 'ppIConverter'),)))
+    win32more.Graphics.Imaging.IWICComponentInfo
     return IWICFormatConverterInfo
 def _define_IWICBitmapCodecInfo_head():
     class IWICBitmapCodecInfo(win32more.Graphics.Imaging.IWICComponentInfo_head):
@@ -1005,6 +1033,7 @@ def _define_IWICBitmapCodecInfo():
     IWICBitmapCodecInfo.DoesSupportLossless = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(20, 'DoesSupportLossless', ((1, 'pfSupportLossless'),)))
     IWICBitmapCodecInfo.DoesSupportMultiframe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(21, 'DoesSupportMultiframe', ((1, 'pfSupportMultiframe'),)))
     IWICBitmapCodecInfo.MatchesMimeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(22, 'MatchesMimeType', ((1, 'wzMimeType'),(1, 'pfMatches'),)))
+    win32more.Graphics.Imaging.IWICComponentInfo
     return IWICBitmapCodecInfo
 def _define_IWICBitmapEncoderInfo_head():
     class IWICBitmapEncoderInfo(win32more.Graphics.Imaging.IWICBitmapCodecInfo_head):
@@ -1013,6 +1042,7 @@ def _define_IWICBitmapEncoderInfo_head():
 def _define_IWICBitmapEncoderInfo():
     IWICBitmapEncoderInfo = win32more.Graphics.Imaging.IWICBitmapEncoderInfo_head
     IWICBitmapEncoderInfo.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICBitmapEncoder_head), use_last_error=False)(23, 'CreateInstance', ((1, 'ppIBitmapEncoder'),)))
+    win32more.Graphics.Imaging.IWICBitmapCodecInfo
     return IWICBitmapEncoderInfo
 def _define_IWICBitmapDecoderInfo_head():
     class IWICBitmapDecoderInfo(win32more.Graphics.Imaging.IWICBitmapCodecInfo_head):
@@ -1023,6 +1053,7 @@ def _define_IWICBitmapDecoderInfo():
     IWICBitmapDecoderInfo.GetPatterns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Imaging.WICBitmapPattern_head),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(23, 'GetPatterns', ((1, 'cbSizePatterns'),(1, 'pPatterns'),(1, 'pcPatterns'),(1, 'pcbPatternsActual'),)))
     IWICBitmapDecoderInfo.MatchesPattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(24, 'MatchesPattern', ((1, 'pIStream'),(1, 'pfMatches'),)))
     IWICBitmapDecoderInfo.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICBitmapDecoder_head), use_last_error=False)(25, 'CreateInstance', ((1, 'ppIBitmapDecoder'),)))
+    win32more.Graphics.Imaging.IWICBitmapCodecInfo
     return IWICBitmapDecoderInfo
 def _define_IWICPixelFormatInfo_head():
     class IWICPixelFormatInfo(win32more.Graphics.Imaging.IWICComponentInfo_head):
@@ -1035,6 +1066,7 @@ def _define_IWICPixelFormatInfo():
     IWICPixelFormatInfo.GetBitsPerPixel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(13, 'GetBitsPerPixel', ((1, 'puiBitsPerPixel'),)))
     IWICPixelFormatInfo.GetChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'GetChannelCount', ((1, 'puiChannelCount'),)))
     IWICPixelFormatInfo.GetChannelMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(15, 'GetChannelMask', ((1, 'uiChannelIndex'),(1, 'cbMaskBuffer'),(1, 'pbMaskBuffer'),(1, 'pcbActual'),)))
+    win32more.Graphics.Imaging.IWICComponentInfo
     return IWICPixelFormatInfo
 def _define_IWICPixelFormatInfo2_head():
     class IWICPixelFormatInfo2(win32more.Graphics.Imaging.IWICPixelFormatInfo_head):
@@ -1044,6 +1076,7 @@ def _define_IWICPixelFormatInfo2():
     IWICPixelFormatInfo2 = win32more.Graphics.Imaging.IWICPixelFormatInfo2_head
     IWICPixelFormatInfo2.SupportsTransparency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'SupportsTransparency', ((1, 'pfSupportsTransparency'),)))
     IWICPixelFormatInfo2.GetNumericRepresentation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICPixelFormatNumericRepresentation), use_last_error=False)(17, 'GetNumericRepresentation', ((1, 'pNumericRepresentation'),)))
+    win32more.Graphics.Imaging.IWICPixelFormatInfo
     return IWICPixelFormatInfo2
 def _define_IWICImagingFactory_head():
     class IWICImagingFactory(win32more.System.Com.IUnknown_head):
@@ -1076,6 +1109,7 @@ def _define_IWICImagingFactory():
     IWICImagingFactory.CreateFastMetadataEncoderFromFrameDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICBitmapFrameDecode_head,POINTER(win32more.Graphics.Imaging.IWICFastMetadataEncoder_head), use_last_error=False)(25, 'CreateFastMetadataEncoderFromFrameDecode', ((1, 'pIFrameDecoder'),(1, 'ppIFastEncoder'),)))
     IWICImagingFactory.CreateQueryWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.Graphics.Imaging.IWICMetadataQueryWriter_head), use_last_error=False)(26, 'CreateQueryWriter', ((1, 'guidMetadataFormat'),(1, 'pguidVendor'),(1, 'ppIQueryWriter'),)))
     IWICImagingFactory.CreateQueryWriterFromReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICMetadataQueryReader_head,POINTER(Guid),POINTER(win32more.Graphics.Imaging.IWICMetadataQueryWriter_head), use_last_error=False)(27, 'CreateQueryWriterFromReader', ((1, 'pIQueryReader'),(1, 'pguidVendor'),(1, 'ppIQueryWriter'),)))
+    win32more.System.Com.IUnknown
     return IWICImagingFactory
 WICTiffCompressionOption = Int32
 WICTiffCompressionOption_WICTiffCompressionDontCare = 0
@@ -1193,6 +1227,7 @@ def _define_IWICDevelopRawNotificationCallback_head():
 def _define_IWICDevelopRawNotificationCallback():
     IWICDevelopRawNotificationCallback = win32more.Graphics.Imaging.IWICDevelopRawNotificationCallback_head
     IWICDevelopRawNotificationCallback.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'Notify', ((1, 'NotificationMask'),)))
+    win32more.System.Com.IUnknown
     return IWICDevelopRawNotificationCallback
 def _define_IWICDevelopRaw_head():
     class IWICDevelopRaw(win32more.Graphics.Imaging.IWICBitmapFrameDecode_head):
@@ -1232,6 +1267,7 @@ def _define_IWICDevelopRaw():
     IWICDevelopRaw.SetRenderMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.WICRawRenderMode, use_last_error=False)(40, 'SetRenderMode', ((1, 'RenderMode'),)))
     IWICDevelopRaw.GetRenderMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICRawRenderMode), use_last_error=False)(41, 'GetRenderMode', ((1, 'pRenderMode'),)))
     IWICDevelopRaw.SetNotificationCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICDevelopRawNotificationCallback_head, use_last_error=False)(42, 'SetNotificationCallback', ((1, 'pCallback'),)))
+    win32more.Graphics.Imaging.IWICBitmapFrameDecode
     return IWICDevelopRaw
 WICDdsDimension = Int32
 WICDdsDimension_WICDdsTexture1D = 0
@@ -1271,6 +1307,7 @@ def _define_IWICDdsDecoder():
     IWICDdsDecoder = win32more.Graphics.Imaging.IWICDdsDecoder_head
     IWICDdsDecoder.GetParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICDdsParameters_head), use_last_error=False)(3, 'GetParameters', ((1, 'pParameters'),)))
     IWICDdsDecoder.GetFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.Graphics.Imaging.IWICBitmapFrameDecode_head), use_last_error=False)(4, 'GetFrame', ((1, 'arrayIndex'),(1, 'mipLevel'),(1, 'sliceIndex'),(1, 'ppIBitmapFrame'),)))
+    win32more.System.Com.IUnknown
     return IWICDdsDecoder
 def _define_IWICDdsEncoder_head():
     class IWICDdsEncoder(win32more.System.Com.IUnknown_head):
@@ -1281,6 +1318,7 @@ def _define_IWICDdsEncoder():
     IWICDdsEncoder.SetParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICDdsParameters_head), use_last_error=False)(3, 'SetParameters', ((1, 'pParameters'),)))
     IWICDdsEncoder.GetParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICDdsParameters_head), use_last_error=False)(4, 'GetParameters', ((1, 'pParameters'),)))
     IWICDdsEncoder.CreateNewFrame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICBitmapFrameEncode_head),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(5, 'CreateNewFrame', ((1, 'ppIFrameEncode'),(1, 'pArrayIndex'),(1, 'pMipLevel'),(1, 'pSliceIndex'),)))
+    win32more.System.Com.IUnknown
     return IWICDdsEncoder
 def _define_WICDdsFormatInfo_head():
     class WICDdsFormatInfo(Structure):
@@ -1304,6 +1342,7 @@ def _define_IWICDdsFrameDecode():
     IWICDdsFrameDecode.GetSizeInBlocks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetSizeInBlocks', ((1, 'pWidthInBlocks'),(1, 'pHeightInBlocks'),)))
     IWICDdsFrameDecode.GetFormatInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICDdsFormatInfo_head), use_last_error=False)(4, 'GetFormatInfo', ((1, 'pFormatInfo'),)))
     IWICDdsFrameDecode.CopyBlocks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.WICRect_head),UInt32,UInt32,POINTER(Byte), use_last_error=False)(5, 'CopyBlocks', ((1, 'prcBoundsInBlocks'),(1, 'cbStride'),(1, 'cbBufferSize'),(1, 'pbBuffer'),)))
+    win32more.System.Com.IUnknown
     return IWICDdsFrameDecode
 def _define_IWICJpegFrameDecode_head():
     class IWICJpegFrameDecode(win32more.System.Com.IUnknown_head):
@@ -1321,6 +1360,7 @@ def _define_IWICJpegFrameDecode():
     IWICJpegFrameDecode.GetScanHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Imaging.WICJpegScanHeader_head), use_last_error=False)(10, 'GetScanHeader', ((1, 'scanIndex'),(1, 'pScanHeader'),)))
     IWICJpegFrameDecode.CopyScan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(11, 'CopyScan', ((1, 'scanIndex'),(1, 'scanOffset'),(1, 'cbScanData'),(1, 'pbScanData'),(1, 'pcbScanDataActual'),)))
     IWICJpegFrameDecode.CopyMinimalStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Byte),POINTER(UInt32), use_last_error=False)(12, 'CopyMinimalStream', ((1, 'streamOffset'),(1, 'cbStreamData'),(1, 'pbStreamData'),(1, 'pcbStreamDataActual'),)))
+    win32more.System.Com.IUnknown
     return IWICJpegFrameDecode
 def _define_IWICJpegFrameEncode_head():
     class IWICJpegFrameEncode(win32more.System.Com.IUnknown_head):
@@ -1332,6 +1372,7 @@ def _define_IWICJpegFrameEncode():
     IWICJpegFrameEncode.GetDcHuffmanTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Dxgi.Common.DXGI_JPEG_DC_HUFFMAN_TABLE_head), use_last_error=False)(4, 'GetDcHuffmanTable', ((1, 'scanIndex'),(1, 'tableIndex'),(1, 'pDcHuffmanTable'),)))
     IWICJpegFrameEncode.GetQuantizationTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Graphics.Dxgi.Common.DXGI_JPEG_QUANTIZATION_TABLE_head), use_last_error=False)(5, 'GetQuantizationTable', ((1, 'scanIndex'),(1, 'tableIndex'),(1, 'pQuantizationTable'),)))
     IWICJpegFrameEncode.WriteScan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte), use_last_error=False)(6, 'WriteScan', ((1, 'cbScanData'),(1, 'pbScanData'),)))
+    win32more.System.Com.IUnknown
     return IWICJpegFrameEncode
 WICMetadataCreationOptions = Int32
 WICMetadataCreationOptions_WICMetadataCreationDefault = 0
@@ -1356,6 +1397,7 @@ def _define_IWICMetadataBlockReader():
     IWICMetadataBlockReader.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetCount', ((1, 'pcCount'),)))
     IWICMetadataBlockReader.GetReaderByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Imaging.IWICMetadataReader_head), use_last_error=False)(5, 'GetReaderByIndex', ((1, 'nIndex'),(1, 'ppIMetadataReader'),)))
     IWICMetadataBlockReader.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumUnknown_head), use_last_error=False)(6, 'GetEnumerator', ((1, 'ppIEnumMetadata'),)))
+    win32more.System.Com.IUnknown
     return IWICMetadataBlockReader
 def _define_IWICMetadataBlockWriter_head():
     class IWICMetadataBlockWriter(win32more.Graphics.Imaging.IWICMetadataBlockReader_head):
@@ -1368,6 +1410,7 @@ def _define_IWICMetadataBlockWriter():
     IWICMetadataBlockWriter.AddWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICMetadataWriter_head, use_last_error=False)(9, 'AddWriter', ((1, 'pIMetadataWriter'),)))
     IWICMetadataBlockWriter.SetWriterByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Imaging.IWICMetadataWriter_head, use_last_error=False)(10, 'SetWriterByIndex', ((1, 'nIndex'),(1, 'pIMetadataWriter'),)))
     IWICMetadataBlockWriter.RemoveWriterByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'RemoveWriterByIndex', ((1, 'nIndex'),)))
+    win32more.Graphics.Imaging.IWICMetadataBlockReader
     return IWICMetadataBlockWriter
 def _define_IWICMetadataReader_head():
     class IWICMetadataReader(win32more.System.Com.IUnknown_head):
@@ -1381,6 +1424,7 @@ def _define_IWICMetadataReader():
     IWICMetadataReader.GetValueByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(6, 'GetValueByIndex', ((1, 'nIndex'),(1, 'pvarSchema'),(1, 'pvarId'),(1, 'pvarValue'),)))
     IWICMetadataReader.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(7, 'GetValue', ((1, 'pvarSchema'),(1, 'pvarId'),(1, 'pvarValue'),)))
     IWICMetadataReader.GetEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICEnumMetadataItem_head), use_last_error=False)(8, 'GetEnumerator', ((1, 'ppIEnumMetadata'),)))
+    win32more.System.Com.IUnknown
     return IWICMetadataReader
 def _define_IWICMetadataWriter_head():
     class IWICMetadataWriter(win32more.Graphics.Imaging.IWICMetadataReader_head):
@@ -1392,6 +1436,7 @@ def _define_IWICMetadataWriter():
     IWICMetadataWriter.SetValueByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(10, 'SetValueByIndex', ((1, 'nIndex'),(1, 'pvarSchema'),(1, 'pvarId'),(1, 'pvarValue'),)))
     IWICMetadataWriter.RemoveValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(11, 'RemoveValue', ((1, 'pvarSchema'),(1, 'pvarId'),)))
     IWICMetadataWriter.RemoveValueByIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(12, 'RemoveValueByIndex', ((1, 'nIndex'),)))
+    win32more.Graphics.Imaging.IWICMetadataReader
     return IWICMetadataWriter
 def _define_IWICStreamProvider_head():
     class IWICStreamProvider(win32more.System.Com.IUnknown_head):
@@ -1403,6 +1448,7 @@ def _define_IWICStreamProvider():
     IWICStreamProvider.GetPersistOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetPersistOptions', ((1, 'pdwPersistOptions'),)))
     IWICStreamProvider.GetPreferredVendorGUID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetPreferredVendorGUID', ((1, 'pguidPreferredVendor'),)))
     IWICStreamProvider.RefreshStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'RefreshStream', ()))
+    win32more.System.Com.IUnknown
     return IWICStreamProvider
 def _define_IWICPersistStream_head():
     class IWICPersistStream(win32more.System.Com.IPersistStream_head):
@@ -1412,6 +1458,7 @@ def _define_IWICPersistStream():
     IWICPersistStream = win32more.Graphics.Imaging.IWICPersistStream_head
     IWICPersistStream.LoadEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(Guid),UInt32, use_last_error=False)(8, 'LoadEx', ((1, 'pIStream'),(1, 'pguidPreferredVendor'),(1, 'dwPersistOptions'),)))
     IWICPersistStream.SaveEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,UInt32,win32more.Foundation.BOOL, use_last_error=False)(9, 'SaveEx', ((1, 'pIStream'),(1, 'dwPersistOptions'),(1, 'fClearDirty'),)))
+    win32more.System.Com.IPersistStream
     return IWICPersistStream
 def _define_IWICMetadataHandlerInfo_head():
     class IWICMetadataHandlerInfo(win32more.Graphics.Imaging.IWICComponentInfo_head):
@@ -1426,6 +1473,7 @@ def _define_IWICMetadataHandlerInfo():
     IWICMetadataHandlerInfo.DoesRequireFullStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(15, 'DoesRequireFullStream', ((1, 'pfRequiresFullStream'),)))
     IWICMetadataHandlerInfo.DoesSupportPadding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'DoesSupportPadding', ((1, 'pfSupportsPadding'),)))
     IWICMetadataHandlerInfo.DoesRequireFixedSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(17, 'DoesRequireFixedSize', ((1, 'pfFixedSize'),)))
+    win32more.Graphics.Imaging.IWICComponentInfo
     return IWICMetadataHandlerInfo
 def _define_WICMetadataPattern_head():
     class WICMetadataPattern(Structure):
@@ -1450,6 +1498,7 @@ def _define_IWICMetadataReaderInfo():
     IWICMetadataReaderInfo.GetPatterns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.Graphics.Imaging.WICMetadataPattern_head),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(18, 'GetPatterns', ((1, 'guidContainerFormat'),(1, 'cbSize'),(1, 'pPattern'),(1, 'pcCount'),(1, 'pcbActual'),)))
     IWICMetadataReaderInfo.MatchesPattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IStream_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(19, 'MatchesPattern', ((1, 'guidContainerFormat'),(1, 'pIStream'),(1, 'pfMatches'),)))
     IWICMetadataReaderInfo.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICMetadataReader_head), use_last_error=False)(20, 'CreateInstance', ((1, 'ppIReader'),)))
+    win32more.Graphics.Imaging.IWICMetadataHandlerInfo
     return IWICMetadataReaderInfo
 def _define_WICMetadataHeader_head():
     class WICMetadataHeader(Structure):
@@ -1472,6 +1521,7 @@ def _define_IWICMetadataWriterInfo():
     IWICMetadataWriterInfo = win32more.Graphics.Imaging.IWICMetadataWriterInfo_head
     IWICMetadataWriterInfo.GetHeader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.Graphics.Imaging.WICMetadataHeader_head),POINTER(UInt32), use_last_error=False)(18, 'GetHeader', ((1, 'guidContainerFormat'),(1, 'cbSize'),(1, 'pHeader'),(1, 'pcbActual'),)))
     IWICMetadataWriterInfo.CreateInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Imaging.IWICMetadataWriter_head), use_last_error=False)(19, 'CreateInstance', ((1, 'ppIWriter'),)))
+    win32more.Graphics.Imaging.IWICMetadataHandlerInfo
     return IWICMetadataWriterInfo
 def _define_IWICComponentFactory_head():
     class IWICComponentFactory(win32more.Graphics.Imaging.IWICImagingFactory_head):
@@ -1486,6 +1536,7 @@ def _define_IWICComponentFactory():
     IWICComponentFactory.CreateQueryReaderFromBlockReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICMetadataBlockReader_head,POINTER(win32more.Graphics.Imaging.IWICMetadataQueryReader_head), use_last_error=False)(32, 'CreateQueryReaderFromBlockReader', ((1, 'pIBlockReader'),(1, 'ppIQueryReader'),)))
     IWICComponentFactory.CreateQueryWriterFromBlockWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Imaging.IWICMetadataBlockWriter_head,POINTER(win32more.Graphics.Imaging.IWICMetadataQueryWriter_head), use_last_error=False)(33, 'CreateQueryWriterFromBlockWriter', ((1, 'pIBlockWriter'),(1, 'ppIQueryWriter'),)))
     IWICComponentFactory.CreateEncoderPropertyBag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPBAG2),UInt32,POINTER(win32more.System.Com.StructuredStorage.IPropertyBag2_head), use_last_error=False)(34, 'CreateEncoderPropertyBag', ((1, 'ppropOptions'),(1, 'cCount'),(1, 'ppIPropertyBag'),)))
+    win32more.Graphics.Imaging.IWICImagingFactory
     return IWICComponentFactory
 def _define_WICConvertBitmapSource():
     try:

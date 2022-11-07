@@ -366,6 +366,7 @@ def _define_IWCNDevice():
     IWCNDevice.SetVendorExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsConnectNow.WCN_VENDOR_EXTENSION_SPEC_head),UInt32,POINTER(Byte), use_last_error=False)(11, 'SetVendorExtension', ((1, 'pVendorExtSpec'),(1, 'cbBuffer'),(1, 'pbBuffer'),)))
     IWCNDevice.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Unadvise', ()))
     IWCNDevice.SetNFCPasswordParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsConnectNow.WCN_PASSWORD_TYPE,UInt32,UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte), use_last_error=False)(13, 'SetNFCPasswordParams', ((1, 'Type'),(1, 'dwOOBPasswordID'),(1, 'dwPasswordLength'),(1, 'pbPassword'),(1, 'dwRemotePublicKeyHashLength'),(1, 'pbRemotePublicKeyHash'),(1, 'dwDHKeyBlobLength'),(1, 'pbDHKeyBlob'),)))
+    win32more.System.Com.IUnknown
     return IWCNDevice
 def _define_IWCNConnectNotify_head():
     class IWCNConnectNotify(win32more.System.Com.IUnknown_head):
@@ -375,6 +376,7 @@ def _define_IWCNConnectNotify():
     IWCNConnectNotify = win32more.NetworkManagement.WindowsConnectNow.IWCNConnectNotify_head
     IWCNConnectNotify.ConnectSucceeded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'ConnectSucceeded', ()))
     IWCNConnectNotify.ConnectFailed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'ConnectFailed', ((1, 'hrFailure'),)))
+    win32more.System.Com.IUnknown
     return IWCNConnectNotify
 __all__ = [
     "WCN_E_PEER_NOT_FOUND",

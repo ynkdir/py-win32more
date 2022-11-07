@@ -1154,6 +1154,7 @@ def _define_IWiaDevMgr():
     IWiaDevMgr.RegisterEventCallbackInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(Guid),win32more.Devices.ImageAcquisition.IWiaEventCallback_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'RegisterEventCallbackInterface', ((1, 'lFlags'),(1, 'bstrDeviceID'),(1, 'pEventGUID'),(1, 'pIWiaEventCallback'),(1, 'pEventObject'),)))
     IWiaDevMgr.RegisterEventCallbackCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(Guid),POINTER(Guid),win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(10, 'RegisterEventCallbackCLSID', ((1, 'lFlags'),(1, 'bstrDeviceID'),(1, 'pEventGUID'),(1, 'pClsID'),(1, 'bstrName'),(1, 'bstrDescription'),(1, 'bstrIcon'),)))
     IWiaDevMgr.AddDeviceDlg = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,Int32, use_last_error=False)(11, 'AddDeviceDlg', ((1, 'hwndParent'),(1, 'lFlags'),)))
+    win32more.System.Com.IUnknown
     return IWiaDevMgr
 def _define_IEnumWIA_DEV_INFO_head():
     class IEnumWIA_DEV_INFO(win32more.System.Com.IUnknown_head):
@@ -1166,6 +1167,7 @@ def _define_IEnumWIA_DEV_INFO():
     IEnumWIA_DEV_INFO.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumWIA_DEV_INFO.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.IEnumWIA_DEV_INFO_head), use_last_error=False)(6, 'Clone', ((1, 'ppIEnum'),)))
     IEnumWIA_DEV_INFO.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'celt'),)))
+    win32more.System.Com.IUnknown
     return IEnumWIA_DEV_INFO
 def _define_IWiaEventCallback_head():
     class IWiaEventCallback(win32more.System.Com.IUnknown_head):
@@ -1174,6 +1176,7 @@ def _define_IWiaEventCallback_head():
 def _define_IWiaEventCallback():
     IWiaEventCallback = win32more.Devices.ImageAcquisition.IWiaEventCallback_head
     IWiaEventCallback.ImageEventCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,win32more.Foundation.BSTR,POINTER(UInt32),UInt32, use_last_error=False)(3, 'ImageEventCallback', ((1, 'pEventGUID'),(1, 'bstrEventDescription'),(1, 'bstrDeviceID'),(1, 'bstrDeviceDescription'),(1, 'dwDeviceType'),(1, 'bstrFullItemName'),(1, 'pulEventType'),(1, 'ulReserved'),)))
+    win32more.System.Com.IUnknown
     return IWiaEventCallback
 def _define_WIA_DATA_CALLBACK_HEADER_head():
     class WIA_DATA_CALLBACK_HEADER(Structure):
@@ -1195,6 +1198,7 @@ def _define_IWiaDataCallback_head():
 def _define_IWiaDataCallback():
     IWiaDataCallback = win32more.Devices.ImageAcquisition.IWiaDataCallback_head
     IWiaDataCallback.BandedDataCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32,Int32,Int32,Int32,c_char_p_no, use_last_error=False)(3, 'BandedDataCallback', ((1, 'lMessage'),(1, 'lStatus'),(1, 'lPercentComplete'),(1, 'lOffset'),(1, 'lLength'),(1, 'lReserved'),(1, 'lResLength'),(1, 'pbBuffer'),)))
+    win32more.System.Com.IUnknown
     return IWiaDataCallback
 def _define_WIA_DATA_TRANSFER_INFO_head():
     class WIA_DATA_TRANSFER_INFO(Structure):
@@ -1237,6 +1241,7 @@ def _define_IWiaDataTransfer():
     IWiaDataTransfer.idtQueryGetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.WIA_FORMAT_INFO_head), use_last_error=False)(5, 'idtQueryGetData', ((1, 'pfe'),)))
     IWiaDataTransfer.idtEnumWIA_FORMAT_INFO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.IEnumWIA_FORMAT_INFO_head), use_last_error=False)(6, 'idtEnumWIA_FORMAT_INFO', ((1, 'ppEnum'),)))
     IWiaDataTransfer.idtGetExtendedTransferInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.WIA_EXTENDED_TRANSFER_INFO_head), use_last_error=False)(7, 'idtGetExtendedTransferInfo', ((1, 'pExtendedTransferInfo'),)))
+    win32more.System.Com.IUnknown
     return IWiaDataTransfer
 def _define_IWiaItem_head():
     class IWiaItem(win32more.System.Com.IUnknown_head):
@@ -1259,6 +1264,7 @@ def _define_IWiaItem():
     IWiaItem.DumpDrvItemData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'DumpDrvItemData', ((1, 'bstrData'),)))
     IWiaItem.DumpTreeItemData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'DumpTreeItemData', ((1, 'bstrData'),)))
     IWiaItem.Diagnostic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte), use_last_error=False)(17, 'Diagnostic', ((1, 'ulSize'),(1, 'pBuffer'),)))
+    win32more.System.Com.IUnknown
     return IWiaItem
 def _define_IWiaPropertyStorage_head():
     class IWiaPropertyStorage(win32more.System.Com.IUnknown_head):
@@ -1282,6 +1288,7 @@ def _define_IWiaPropertyStorage():
     IWiaPropertyStorage.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(16, 'GetCount', ((1, 'pulNumProps'),)))
     IWiaPropertyStorage.GetPropertyStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IStream_head), use_last_error=False)(17, 'GetPropertyStream', ((1, 'pCompatibilityId'),(1, 'ppIStream'),)))
     IWiaPropertyStorage.SetPropertyStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IStream_head, use_last_error=False)(18, 'SetPropertyStream', ((1, 'pCompatibilityId'),(1, 'pIStream'),)))
+    win32more.System.Com.IUnknown
     return IWiaPropertyStorage
 def _define_IEnumWiaItem_head():
     class IEnumWiaItem(win32more.System.Com.IUnknown_head):
@@ -1294,6 +1301,7 @@ def _define_IEnumWiaItem():
     IEnumWiaItem.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumWiaItem.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.IEnumWiaItem_head), use_last_error=False)(6, 'Clone', ((1, 'ppIEnum'),)))
     IEnumWiaItem.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'celt'),)))
+    win32more.System.Com.IUnknown
     return IEnumWiaItem
 def _define_WIA_DEV_CAP_head():
     class WIA_DEV_CAP(Structure):
@@ -1321,6 +1329,7 @@ def _define_IEnumWIA_DEV_CAPS():
     IEnumWIA_DEV_CAPS.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumWIA_DEV_CAPS.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.IEnumWIA_DEV_CAPS_head), use_last_error=False)(6, 'Clone', ((1, 'ppIEnum'),)))
     IEnumWIA_DEV_CAPS.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'pcelt'),)))
+    win32more.System.Com.IUnknown
     return IEnumWIA_DEV_CAPS
 def _define_IEnumWIA_FORMAT_INFO_head():
     class IEnumWIA_FORMAT_INFO(win32more.System.Com.IUnknown_head):
@@ -1333,6 +1342,7 @@ def _define_IEnumWIA_FORMAT_INFO():
     IEnumWIA_FORMAT_INFO.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumWIA_FORMAT_INFO.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.IEnumWIA_FORMAT_INFO_head), use_last_error=False)(6, 'Clone', ((1, 'ppIEnum'),)))
     IEnumWIA_FORMAT_INFO.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'pcelt'),)))
+    win32more.System.Com.IUnknown
     return IEnumWIA_FORMAT_INFO
 def _define_IWiaLog_head():
     class IWiaLog(win32more.System.Com.IUnknown_head):
@@ -1343,6 +1353,7 @@ def _define_IWiaLog():
     IWiaLog.InitializeLog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'InitializeLog', ((1, 'hInstance'),)))
     IWiaLog.hResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(4, 'hResult', ((1, 'hResult'),)))
     IWiaLog.Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(5, 'Log', ((1, 'lFlags'),(1, 'lResID'),(1, 'lDetail'),(1, 'bstrText'),)))
+    win32more.System.Com.IUnknown
     return IWiaLog
 def _define_IWiaLogEx_head():
     class IWiaLogEx(win32more.System.Com.IUnknown_head):
@@ -1355,6 +1366,7 @@ def _define_IWiaLogEx():
     IWiaLogEx.Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(5, 'Log', ((1, 'lFlags'),(1, 'lResID'),(1, 'lDetail'),(1, 'bstrText'),)))
     IWiaLogEx.hResultEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.HRESULT, use_last_error=False)(6, 'hResultEx', ((1, 'lMethodId'),(1, 'hResult'),)))
     IWiaLogEx.LogEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32,win32more.Foundation.BSTR, use_last_error=False)(7, 'LogEx', ((1, 'lMethodId'),(1, 'lFlags'),(1, 'lResID'),(1, 'lDetail'),(1, 'bstrText'),)))
+    win32more.System.Com.IUnknown
     return IWiaLogEx
 def _define_IWiaNotifyDevMgr_head():
     class IWiaNotifyDevMgr(win32more.System.Com.IUnknown_head):
@@ -1363,6 +1375,7 @@ def _define_IWiaNotifyDevMgr_head():
 def _define_IWiaNotifyDevMgr():
     IWiaNotifyDevMgr = win32more.Devices.ImageAcquisition.IWiaNotifyDevMgr_head
     IWiaNotifyDevMgr.NewDeviceArrival = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'NewDeviceArrival', ()))
+    win32more.System.Com.IUnknown
     return IWiaNotifyDevMgr
 def _define_IWiaItemExtras_head():
     class IWiaItemExtras(win32more.System.Com.IUnknown_head):
@@ -1373,6 +1386,7 @@ def _define_IWiaItemExtras():
     IWiaItemExtras.GetExtendedErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetExtendedErrorInfo', ((1, 'bstrErrorText'),)))
     IWiaItemExtras.Escape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte),UInt32,c_char_p_no,UInt32,POINTER(UInt32), use_last_error=False)(4, 'Escape', ((1, 'dwEscapeCode'),(1, 'lpInData'),(1, 'cbInDataSize'),(1, 'pOutData'),(1, 'dwOutDataSize'),(1, 'pdwActualDataSize'),)))
     IWiaItemExtras.CancelPendingIO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'CancelPendingIO', ()))
+    win32more.System.Com.IUnknown
     return IWiaItemExtras
 def _define_IWiaAppErrorHandler_head():
     class IWiaAppErrorHandler(win32more.System.Com.IUnknown_head):
@@ -1382,6 +1396,7 @@ def _define_IWiaAppErrorHandler():
     IWiaAppErrorHandler = win32more.Devices.ImageAcquisition.IWiaAppErrorHandler_head
     IWiaAppErrorHandler.GetWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(3, 'GetWindow', ((1, 'phwnd'),)))
     IWiaAppErrorHandler.ReportStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.ImageAcquisition.IWiaItem2_head,win32more.Foundation.HRESULT,Int32, use_last_error=False)(4, 'ReportStatus', ((1, 'lFlags'),(1, 'pWiaItem2'),(1, 'hrStatus'),(1, 'lPercentComplete'),)))
+    win32more.System.Com.IUnknown
     return IWiaAppErrorHandler
 def _define_IWiaErrorHandler_head():
     class IWiaErrorHandler(win32more.System.Com.IUnknown_head):
@@ -1391,6 +1406,7 @@ def _define_IWiaErrorHandler():
     IWiaErrorHandler = win32more.Devices.ImageAcquisition.IWiaErrorHandler_head
     IWiaErrorHandler.ReportStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.HWND,win32more.Devices.ImageAcquisition.IWiaItem2_head,win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'ReportStatus', ((1, 'lFlags'),(1, 'hwndParent'),(1, 'pWiaItem2'),(1, 'hrStatus'),(1, 'lPercentComplete'),)))
     IWiaErrorHandler.GetStatusDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.ImageAcquisition.IWiaItem2_head,win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetStatusDescription', ((1, 'lFlags'),(1, 'pWiaItem2'),(1, 'hrStatus'),(1, 'pbstrDescription'),)))
+    win32more.System.Com.IUnknown
     return IWiaErrorHandler
 def _define_IWiaTransfer_head():
     class IWiaTransfer(win32more.System.Com.IUnknown_head):
@@ -1402,6 +1418,7 @@ def _define_IWiaTransfer():
     IWiaTransfer.Upload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.IStream_head,win32more.Devices.ImageAcquisition.IWiaTransferCallback_head, use_last_error=False)(4, 'Upload', ((1, 'lFlags'),(1, 'pSource'),(1, 'pIWiaTransferCallback'),)))
     IWiaTransfer.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Cancel', ()))
     IWiaTransfer.EnumWIA_FORMAT_INFO = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.IEnumWIA_FORMAT_INFO_head), use_last_error=False)(6, 'EnumWIA_FORMAT_INFO', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IWiaTransfer
 def _define_WiaTransferParams_head():
     class WiaTransferParams(Structure):
@@ -1424,6 +1441,7 @@ def _define_IWiaTransferCallback():
     IWiaTransferCallback = win32more.Devices.ImageAcquisition.IWiaTransferCallback_head
     IWiaTransferCallback.TransferCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.ImageAcquisition.WiaTransferParams_head), use_last_error=False)(3, 'TransferCallback', ((1, 'lFlags'),(1, 'pWiaTransferParams'),)))
     IWiaTransferCallback.GetNextStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(4, 'GetNextStream', ((1, 'lFlags'),(1, 'bstrItemName'),(1, 'bstrFullItemName'),(1, 'ppDestination'),)))
+    win32more.System.Com.IUnknown
     return IWiaTransferCallback
 def _define_IWiaSegmentationFilter_head():
     class IWiaSegmentationFilter(win32more.System.Com.IUnknown_head):
@@ -1432,6 +1450,7 @@ def _define_IWiaSegmentationFilter_head():
 def _define_IWiaSegmentationFilter():
     IWiaSegmentationFilter = win32more.Devices.ImageAcquisition.IWiaSegmentationFilter_head
     IWiaSegmentationFilter.DetectRegions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.IStream_head,win32more.Devices.ImageAcquisition.IWiaItem2_head, use_last_error=False)(3, 'DetectRegions', ((1, 'lFlags'),(1, 'pInputStream'),(1, 'pWiaItem2'),)))
+    win32more.System.Com.IUnknown
     return IWiaSegmentationFilter
 def _define_IWiaImageFilter_head():
     class IWiaImageFilter(win32more.System.Com.IUnknown_head):
@@ -1443,6 +1462,7 @@ def _define_IWiaImageFilter():
     IWiaImageFilter.SetNewCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.ImageAcquisition.IWiaTransferCallback_head, use_last_error=False)(4, 'SetNewCallback', ((1, 'pWiaTransferCallback'),)))
     IWiaImageFilter.FilterPreviewImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.ImageAcquisition.IWiaItem2_head,win32more.Foundation.RECT,win32more.System.Com.IStream_head, use_last_error=False)(5, 'FilterPreviewImage', ((1, 'lFlags'),(1, 'pWiaChildItem2'),(1, 'InputImageExtents'),(1, 'pInputStream'),)))
     IWiaImageFilter.ApplyProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.ImageAcquisition.IWiaPropertyStorage_head, use_last_error=False)(6, 'ApplyProperties', ((1, 'pWiaPropertyStorage'),)))
+    win32more.System.Com.IUnknown
     return IWiaImageFilter
 def _define_IWiaPreview_head():
     class IWiaPreview(win32more.System.Com.IUnknown_head):
@@ -1454,6 +1474,7 @@ def _define_IWiaPreview():
     IWiaPreview.UpdatePreview = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.ImageAcquisition.IWiaItem2_head,win32more.Devices.ImageAcquisition.IWiaTransferCallback_head, use_last_error=False)(4, 'UpdatePreview', ((1, 'lFlags'),(1, 'pChildWiaItem2'),(1, 'pWiaTransferCallback'),)))
     IWiaPreview.DetectRegions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(5, 'DetectRegions', ((1, 'lFlags'),)))
     IWiaPreview.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Clear', ()))
+    win32more.System.Com.IUnknown
     return IWiaPreview
 def _define_IEnumWiaItem2_head():
     class IEnumWiaItem2(win32more.System.Com.IUnknown_head):
@@ -1466,6 +1487,7 @@ def _define_IEnumWiaItem2():
     IEnumWiaItem2.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumWiaItem2.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.IEnumWiaItem2_head), use_last_error=False)(6, 'Clone', ((1, 'ppIEnum'),)))
     IEnumWiaItem2.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'cElt'),)))
+    win32more.System.Com.IUnknown
     return IEnumWiaItem2
 def _define_IWiaItem2_head():
     class IWiaItem2(win32more.System.Com.IUnknown_head):
@@ -1489,6 +1511,7 @@ def _define_IWiaItem2():
     IWiaItem2.GetPreviewComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.ImageAcquisition.IWiaPreview_head), use_last_error=False)(16, 'GetPreviewComponent', ((1, 'lFlags'),(1, 'ppWiaPreview'),)))
     IWiaItem2.EnumRegisterEventInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Guid),POINTER(win32more.Devices.ImageAcquisition.IEnumWIA_DEV_CAPS_head), use_last_error=False)(17, 'EnumRegisterEventInfo', ((1, 'lFlags'),(1, 'pEventGUID'),(1, 'ppIEnum'),)))
     IWiaItem2.Diagnostic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Byte), use_last_error=False)(18, 'Diagnostic', ((1, 'ulSize'),(1, 'pBuffer'),)))
+    win32more.System.Com.IUnknown
     return IWiaItem2
 def _define_IWiaDevMgr2_head():
     class IWiaDevMgr2(win32more.System.Com.IUnknown_head):
@@ -1504,6 +1527,7 @@ def _define_IWiaDevMgr2():
     IWiaDevMgr2.RegisterEventCallbackProgram = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(Guid),win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(8, 'RegisterEventCallbackProgram', ((1, 'lFlags'),(1, 'bstrDeviceID'),(1, 'pEventGUID'),(1, 'bstrFullAppName'),(1, 'bstrCommandLineArg'),(1, 'bstrName'),(1, 'bstrDescription'),(1, 'bstrIcon'),)))
     IWiaDevMgr2.RegisterEventCallbackCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(Guid),POINTER(Guid),win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(9, 'RegisterEventCallbackCLSID', ((1, 'lFlags'),(1, 'bstrDeviceID'),(1, 'pEventGUID'),(1, 'pClsID'),(1, 'bstrName'),(1, 'bstrDescription'),(1, 'bstrIcon'),)))
     IWiaDevMgr2.GetImageDlg = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.HWND,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int32),POINTER(POINTER(win32more.Foundation.BSTR)),POINTER(win32more.Devices.ImageAcquisition.IWiaItem2_head), use_last_error=False)(10, 'GetImageDlg', ((1, 'lFlags'),(1, 'bstrDeviceID'),(1, 'hwndParent'),(1, 'bstrFolderName'),(1, 'bstrFilename'),(1, 'plNumFiles'),(1, 'ppbstrFilePaths'),(1, 'ppItem'),)))
+    win32more.System.Com.IUnknown
     return IWiaDevMgr2
 def _define_MINIDRV_TRANSFER_CONTEXT_head():
     class MINIDRV_TRANSFER_CONTEXT(Structure):
@@ -1578,6 +1602,7 @@ def _define_IWiaMiniDrv():
     IWiaMiniDrv.drvGetWiaFormatInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,Int32,POINTER(Int32),POINTER(POINTER(win32more.Devices.ImageAcquisition.WIA_FORMAT_INFO_head)),POINTER(Int32), use_last_error=False)(17, 'drvGetWiaFormatInfo', ((1, '__MIDL__IWiaMiniDrv0059'),(1, '__MIDL__IWiaMiniDrv0060'),(1, '__MIDL__IWiaMiniDrv0061'),(1, '__MIDL__IWiaMiniDrv0062'),(1, '__MIDL__IWiaMiniDrv0063'),)))
     IWiaMiniDrv.drvNotifyPnpEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.BSTR,UInt32, use_last_error=False)(18, 'drvNotifyPnpEvent', ((1, 'pEventGUID'),(1, 'bstrDeviceID'),(1, 'ulReserved'),)))
     IWiaMiniDrv.drvUnInitializeWia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(19, 'drvUnInitializeWia', ((1, '__MIDL__IWiaMiniDrv0064'),)))
+    win32more.System.Com.IUnknown
     return IWiaMiniDrv
 def _define_IWiaMiniDrvCallBack_head():
     class IWiaMiniDrvCallBack(win32more.System.Com.IUnknown_head):
@@ -1586,6 +1611,7 @@ def _define_IWiaMiniDrvCallBack_head():
 def _define_IWiaMiniDrvCallBack():
     IWiaMiniDrvCallBack = win32more.Devices.ImageAcquisition.IWiaMiniDrvCallBack_head
     IWiaMiniDrvCallBack.MiniDrvCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int32,Int32,Int32,POINTER(win32more.Devices.ImageAcquisition.MINIDRV_TRANSFER_CONTEXT_head),Int32, use_last_error=False)(3, 'MiniDrvCallback', ((1, 'lReason'),(1, 'lStatus'),(1, 'lPercentComplete'),(1, 'lOffset'),(1, 'lLength'),(1, 'pTranCtx'),(1, 'lReserved'),)))
+    win32more.System.Com.IUnknown
     return IWiaMiniDrvCallBack
 def _define_IWiaMiniDrvTransferCallback_head():
     class IWiaMiniDrvTransferCallback(win32more.System.Com.IUnknown_head):
@@ -1595,6 +1621,7 @@ def _define_IWiaMiniDrvTransferCallback():
     IWiaMiniDrvTransferCallback = win32more.Devices.ImageAcquisition.IWiaMiniDrvTransferCallback_head
     IWiaMiniDrvTransferCallback.GetNextStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(3, 'GetNextStream', ((1, 'lFlags'),(1, 'bstrItemName'),(1, 'bstrFullItemName'),(1, 'ppIStream'),)))
     IWiaMiniDrvTransferCallback.SendMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.ImageAcquisition.WiaTransferParams_head), use_last_error=False)(4, 'SendMessage', ((1, 'lFlags'),(1, 'pWiaTransferParams'),)))
+    win32more.System.Com.IUnknown
     return IWiaMiniDrvTransferCallback
 def _define_IWiaDrvItem_head():
     class IWiaDrvItem(win32more.System.Com.IUnknown_head):
@@ -1615,6 +1642,7 @@ def _define_IWiaDrvItem():
     IWiaDrvItem.GetFirstChildItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.IWiaDrvItem_head), use_last_error=False)(13, 'GetFirstChildItem', ((1, '__MIDL__IWiaDrvItem0013'),)))
     IWiaDrvItem.GetNextSiblingItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.IWiaDrvItem_head), use_last_error=False)(14, 'GetNextSiblingItem', ((1, '__MIDL__IWiaDrvItem0014'),)))
     IWiaDrvItem.DumpItemData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'DumpItemData', ((1, '__MIDL__IWiaDrvItem0015'),)))
+    win32more.System.Com.IUnknown
     return IWiaDrvItem
 def _define_WIA_PROPERTY_INFO_head():
     class WIA_PROPERTY_INFO(Structure):
@@ -1807,6 +1835,7 @@ def _define_IWiaVideo():
     IWiaVideo.TakePicture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'TakePicture', ((1, 'pbstrNewImageFilename'),)))
     IWiaVideo.ResizeVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(14, 'ResizeVideo', ((1, 'bStretchToFitParent'),)))
     IWiaVideo.GetCurrentState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.WIAVIDEO_STATE), use_last_error=False)(15, 'GetCurrentState', ((1, 'pState'),)))
+    win32more.System.Com.IUnknown
     return IWiaVideo
 def _define_DEVICEDIALOGDATA2_head():
     class DEVICEDIALOGDATA2(Structure):
@@ -1834,6 +1863,7 @@ def _define_IWiaUIExtension2():
     IWiaUIExtension2 = win32more.Devices.ImageAcquisition.IWiaUIExtension2_head
     IWiaUIExtension2.DeviceDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.DEVICEDIALOGDATA2_head), use_last_error=False)(3, 'DeviceDialog', ((1, 'pDeviceDialogData'),)))
     IWiaUIExtension2.GetDeviceIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.UI.WindowsAndMessaging.HICON),UInt32, use_last_error=False)(4, 'GetDeviceIcon', ((1, 'bstrDeviceId'),(1, 'phIcon'),(1, 'nSize'),)))
+    win32more.System.Com.IUnknown
     return IWiaUIExtension2
 def _define_DEVICEDIALOGDATA_head():
     class DEVICEDIALOGDATA(Structure):
@@ -1860,6 +1890,7 @@ def _define_IWiaUIExtension():
     IWiaUIExtension.DeviceDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.DEVICEDIALOGDATA_head), use_last_error=False)(3, 'DeviceDialog', ((1, 'pDeviceDialogData'),)))
     IWiaUIExtension.GetDeviceIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.UI.WindowsAndMessaging.HICON),UInt32, use_last_error=False)(4, 'GetDeviceIcon', ((1, 'bstrDeviceId'),(1, 'phIcon'),(1, 'nSize'),)))
     IWiaUIExtension.GetDeviceBitmapLogo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Graphics.Gdi.HBITMAP),UInt32,UInt32, use_last_error=False)(5, 'GetDeviceBitmapLogo', ((1, 'bstrDeviceId'),(1, 'phBitmap'),(1, 'nMaxWidth'),(1, 'nMaxHeight'),)))
+    win32more.System.Com.IUnknown
     return IWiaUIExtension
 def _define_DeviceDialogFunction():
     return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.ImageAcquisition.DEVICEDIALOGDATA_head), use_last_error=False)

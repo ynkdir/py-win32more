@@ -4997,6 +4997,7 @@ def _define_IDot11AdHocManager():
     IDot11AdHocManager.GetIEnumDot11AdHocNetworks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head), use_last_error=False)(5, 'GetIEnumDot11AdHocNetworks', ((1, 'pContextGuid'),(1, 'ppEnum'),)))
     IDot11AdHocManager.GetIEnumDot11AdHocInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head), use_last_error=False)(6, 'GetIEnumDot11AdHocInterfaces', ((1, 'ppEnum'),)))
     IDot11AdHocManager.GetNetwork = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocNetwork_head), use_last_error=False)(7, 'GetNetwork', ((1, 'NetworkSignature'),(1, 'pNetwork'),)))
+    win32more.System.Com.IUnknown
     return IDot11AdHocManager
 def _define_IDot11AdHocManagerNotificationSink_head():
     class IDot11AdHocManagerNotificationSink(win32more.System.Com.IUnknown_head):
@@ -5008,6 +5009,7 @@ def _define_IDot11AdHocManagerNotificationSink():
     IDot11AdHocManagerNotificationSink.OnNetworkRemove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'OnNetworkRemove', ((1, 'Signature'),)))
     IDot11AdHocManagerNotificationSink.OnInterfaceAdd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head, use_last_error=False)(5, 'OnInterfaceAdd', ((1, 'pIAdHocInterface'),)))
     IDot11AdHocManagerNotificationSink.OnInterfaceRemove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(6, 'OnInterfaceRemove', ((1, 'Signature'),)))
+    win32more.System.Com.IUnknown
     return IDot11AdHocManagerNotificationSink
 def _define_IEnumDot11AdHocNetworks_head():
     class IEnumDot11AdHocNetworks(win32more.System.Com.IUnknown_head):
@@ -5019,6 +5021,7 @@ def _define_IEnumDot11AdHocNetworks():
     IEnumDot11AdHocNetworks.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cElt'),)))
     IEnumDot11AdHocNetworks.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDot11AdHocNetworks.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDot11AdHocNetworks
 def _define_IDot11AdHocNetwork_head():
     class IDot11AdHocNetwork(win32more.System.Com.IUnknown_head):
@@ -5038,6 +5041,7 @@ def _define_IDot11AdHocNetwork():
     IDot11AdHocNetwork.GetInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IDot11AdHocInterface_head), use_last_error=False)(12, 'GetInterface', ((1, 'pAdHocInterface'),)))
     IDot11AdHocNetwork.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Int32,win32more.Foundation.BOOLEAN,win32more.Foundation.BOOLEAN, use_last_error=False)(13, 'Connect', ((1, 'Passphrase'),(1, 'GeographicalId'),(1, 'fSaveProfile'),(1, 'fMakeSavedProfileUserSpecific'),)))
     IDot11AdHocNetwork.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Disconnect', ()))
+    win32more.System.Com.IUnknown
     return IDot11AdHocNetwork
 def _define_IDot11AdHocNetworkNotificationSink_head():
     class IDot11AdHocNetworkNotificationSink(win32more.System.Com.IUnknown_head):
@@ -5047,6 +5051,7 @@ def _define_IDot11AdHocNetworkNotificationSink():
     IDot11AdHocNetworkNotificationSink = win32more.NetworkManagement.WiFi.IDot11AdHocNetworkNotificationSink_head
     IDot11AdHocNetworkNotificationSink.OnStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS, use_last_error=False)(3, 'OnStatusChange', ((1, 'eStatus'),)))
     IDot11AdHocNetworkNotificationSink.OnConnectFail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.DOT11_ADHOC_CONNECT_FAIL_REASON, use_last_error=False)(4, 'OnConnectFail', ((1, 'eFailReason'),)))
+    win32more.System.Com.IUnknown
     return IDot11AdHocNetworkNotificationSink
 def _define_IDot11AdHocInterface_head():
     class IDot11AdHocInterface(win32more.System.Com.IUnknown_head):
@@ -5063,6 +5068,7 @@ def _define_IDot11AdHocInterface():
     IDot11AdHocInterface.GetIEnumSecuritySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head), use_last_error=False)(9, 'GetIEnumSecuritySettings', ((1, 'ppEnum'),)))
     IDot11AdHocInterface.GetIEnumDot11AdHocNetworks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocNetworks_head), use_last_error=False)(10, 'GetIEnumDot11AdHocNetworks', ((1, 'pFilterGuid'),(1, 'ppEnum'),)))
     IDot11AdHocInterface.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS), use_last_error=False)(11, 'GetStatus', ((1, 'pState'),)))
+    win32more.System.Com.IUnknown
     return IDot11AdHocInterface
 def _define_IEnumDot11AdHocInterfaces_head():
     class IEnumDot11AdHocInterfaces(win32more.System.Com.IUnknown_head):
@@ -5074,6 +5080,7 @@ def _define_IEnumDot11AdHocInterfaces():
     IEnumDot11AdHocInterfaces.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cElt'),)))
     IEnumDot11AdHocInterfaces.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDot11AdHocInterfaces.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocInterfaces_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDot11AdHocInterfaces
 def _define_IEnumDot11AdHocSecuritySettings_head():
     class IEnumDot11AdHocSecuritySettings(win32more.System.Com.IUnknown_head):
@@ -5085,6 +5092,7 @@ def _define_IEnumDot11AdHocSecuritySettings():
     IEnumDot11AdHocSecuritySettings.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cElt'),)))
     IEnumDot11AdHocSecuritySettings.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDot11AdHocSecuritySettings.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.IEnumDot11AdHocSecuritySettings_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDot11AdHocSecuritySettings
 def _define_IDot11AdHocSecuritySettings_head():
     class IDot11AdHocSecuritySettings(win32more.System.Com.IUnknown_head):
@@ -5094,6 +5102,7 @@ def _define_IDot11AdHocSecuritySettings():
     IDot11AdHocSecuritySettings = win32more.NetworkManagement.WiFi.IDot11AdHocSecuritySettings_head
     IDot11AdHocSecuritySettings.GetDot11AuthAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_AUTH_ALGORITHM), use_last_error=False)(3, 'GetDot11AuthAlgorithm', ((1, 'pAuth'),)))
     IDot11AdHocSecuritySettings.GetDot11CipherAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WiFi.DOT11_ADHOC_CIPHER_ALGORITHM), use_last_error=False)(4, 'GetDot11CipherAlgorithm', ((1, 'pCipher'),)))
+    win32more.System.Com.IUnknown
     return IDot11AdHocSecuritySettings
 def _define_IDot11AdHocInterfaceNotificationSink_head():
     class IDot11AdHocInterfaceNotificationSink(win32more.System.Com.IUnknown_head):
@@ -5102,6 +5111,7 @@ def _define_IDot11AdHocInterfaceNotificationSink_head():
 def _define_IDot11AdHocInterfaceNotificationSink():
     IDot11AdHocInterfaceNotificationSink = win32more.NetworkManagement.WiFi.IDot11AdHocInterfaceNotificationSink_head
     IDot11AdHocInterfaceNotificationSink.OnConnectionStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WiFi.DOT11_ADHOC_NETWORK_CONNECTION_STATUS, use_last_error=False)(3, 'OnConnectionStatusChange', ((1, 'eStatus'),)))
+    win32more.System.Com.IUnknown
     return IDot11AdHocInterfaceNotificationSink
 def _define_WlanOpenHandle():
     try:

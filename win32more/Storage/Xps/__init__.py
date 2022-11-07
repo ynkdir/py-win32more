@@ -467,6 +467,7 @@ def _define_IXpsOMShareable():
     IXpsOMShareable = win32more.Storage.Xps.IXpsOMShareable_head
     IXpsOMShareable.GetOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetOwner', ((1, 'owner'),)))
     IXpsOMShareable.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_OBJECT_TYPE), use_last_error=False)(4, 'GetType', ((1, 'type'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMShareable
 def _define_IXpsOMVisual_head():
     class IXpsOMVisual(win32more.Storage.Xps.IXpsOMShareable_head):
@@ -499,6 +500,7 @@ def _define_IXpsOMVisual():
     IXpsOMVisual.SetHyperlinkNavigateUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head, use_last_error=False)(27, 'SetHyperlinkNavigateUri', ((1, 'hyperlinkUri'),)))
     IXpsOMVisual.GetLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(28, 'GetLanguage', ((1, 'language'),)))
     IXpsOMVisual.SetLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(29, 'SetLanguage', ((1, 'language'),)))
+    win32more.Storage.Xps.IXpsOMShareable
     return IXpsOMVisual
 def _define_IXpsOMPart_head():
     class IXpsOMPart(win32more.System.Com.IUnknown_head):
@@ -508,6 +510,7 @@ def _define_IXpsOMPart():
     IXpsOMPart = win32more.Storage.Xps.IXpsOMPart_head
     IXpsOMPart.GetPartName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcPartUri_head), use_last_error=False)(3, 'GetPartName', ((1, 'partUri'),)))
     IXpsOMPart.SetPartName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(4, 'SetPartName', ((1, 'partUri'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMPart
 def _define_IXpsOMGlyphsEditor_head():
     class IXpsOMGlyphsEditor(win32more.System.Com.IUnknown_head):
@@ -533,6 +536,7 @@ def _define_IXpsOMGlyphsEditor():
     IXpsOMGlyphsEditor.SetIsSideways = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(18, 'SetIsSideways', ((1, 'isSideways'),)))
     IXpsOMGlyphsEditor.GetDeviceFontName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(19, 'GetDeviceFontName', ((1, 'deviceFontName'),)))
     IXpsOMGlyphsEditor.SetDeviceFontName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(20, 'SetDeviceFontName', ((1, 'deviceFontName'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMGlyphsEditor
 def _define_IXpsOMGlyphs_head():
     class IXpsOMGlyphs(win32more.Storage.Xps.IXpsOMVisual_head):
@@ -567,6 +571,7 @@ def _define_IXpsOMGlyphs():
     IXpsOMGlyphs.SetFillBrushLookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(54, 'SetFillBrushLookup', ((1, 'key'),)))
     IXpsOMGlyphs.GetGlyphsEditor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMGlyphsEditor_head), use_last_error=False)(55, 'GetGlyphsEditor', ((1, 'editor'),)))
     IXpsOMGlyphs.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMGlyphs_head), use_last_error=False)(56, 'Clone', ((1, 'glyphs'),)))
+    win32more.Storage.Xps.IXpsOMVisual
     return IXpsOMGlyphs
 def _define_IXpsOMDashCollection_head():
     class IXpsOMDashCollection(win32more.System.Com.IUnknown_head):
@@ -580,6 +585,7 @@ def _define_IXpsOMDashCollection():
     IXpsOMDashCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveAt', ((1, 'index'),)))
     IXpsOMDashCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.Xps.XPS_DASH_head), use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'dash'),)))
     IXpsOMDashCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_DASH_head), use_last_error=False)(8, 'Append', ((1, 'dash'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMDashCollection
 def _define_IXpsOMMatrixTransform_head():
     class IXpsOMMatrixTransform(win32more.Storage.Xps.IXpsOMShareable_head):
@@ -590,6 +596,7 @@ def _define_IXpsOMMatrixTransform():
     IXpsOMMatrixTransform.GetMatrix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_MATRIX_head), use_last_error=False)(5, 'GetMatrix', ((1, 'matrix'),)))
     IXpsOMMatrixTransform.SetMatrix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_MATRIX_head), use_last_error=False)(6, 'SetMatrix', ((1, 'matrix'),)))
     IXpsOMMatrixTransform.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMMatrixTransform_head), use_last_error=False)(7, 'Clone', ((1, 'matrixTransform'),)))
+    win32more.Storage.Xps.IXpsOMShareable
     return IXpsOMMatrixTransform
 def _define_IXpsOMGeometry_head():
     class IXpsOMGeometry(win32more.Storage.Xps.IXpsOMShareable_head):
@@ -606,6 +613,7 @@ def _define_IXpsOMGeometry():
     IXpsOMGeometry.GetTransformLookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(11, 'GetTransformLookup', ((1, 'lookup'),)))
     IXpsOMGeometry.SetTransformLookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(12, 'SetTransformLookup', ((1, 'lookup'),)))
     IXpsOMGeometry.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMGeometry_head), use_last_error=False)(13, 'Clone', ((1, 'geometry'),)))
+    win32more.Storage.Xps.IXpsOMShareable
     return IXpsOMGeometry
 def _define_IXpsOMGeometryFigure_head():
     class IXpsOMGeometryFigure(win32more.System.Com.IUnknown_head):
@@ -628,6 +636,7 @@ def _define_IXpsOMGeometryFigure():
     IXpsOMGeometryFigure.GetSegmentDataCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'GetSegmentDataCount', ((1, 'segmentDataCount'),)))
     IXpsOMGeometryFigure.GetSegmentStrokePattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_SEGMENT_STROKE_PATTERN), use_last_error=False)(16, 'GetSegmentStrokePattern', ((1, 'segmentStrokePattern'),)))
     IXpsOMGeometryFigure.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMGeometryFigure_head), use_last_error=False)(17, 'Clone', ((1, 'geometryFigure'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMGeometryFigure
 def _define_IXpsOMGeometryFigureCollection_head():
     class IXpsOMGeometryFigureCollection(win32more.System.Com.IUnknown_head):
@@ -641,6 +650,7 @@ def _define_IXpsOMGeometryFigureCollection():
     IXpsOMGeometryFigureCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveAt', ((1, 'index'),)))
     IXpsOMGeometryFigureCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Xps.IXpsOMGeometryFigure_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'geometryFigure'),)))
     IXpsOMGeometryFigureCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMGeometryFigure_head, use_last_error=False)(8, 'Append', ((1, 'geometryFigure'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMGeometryFigureCollection
 def _define_IXpsOMPath_head():
     class IXpsOMPath(win32more.Storage.Xps.IXpsOMVisual_head):
@@ -685,6 +695,7 @@ def _define_IXpsOMPath():
     IXpsOMPath.GetFillBrushLookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(64, 'GetFillBrushLookup', ((1, 'lookup'),)))
     IXpsOMPath.SetFillBrushLookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(65, 'SetFillBrushLookup', ((1, 'lookup'),)))
     IXpsOMPath.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMPath_head), use_last_error=False)(66, 'Clone', ((1, 'path'),)))
+    win32more.Storage.Xps.IXpsOMVisual
     return IXpsOMPath
 def _define_IXpsOMBrush_head():
     class IXpsOMBrush(win32more.Storage.Xps.IXpsOMShareable_head):
@@ -694,6 +705,7 @@ def _define_IXpsOMBrush():
     IXpsOMBrush = win32more.Storage.Xps.IXpsOMBrush_head
     IXpsOMBrush.GetOpacity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(5, 'GetOpacity', ((1, 'opacity'),)))
     IXpsOMBrush.SetOpacity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(6, 'SetOpacity', ((1, 'opacity'),)))
+    win32more.Storage.Xps.IXpsOMShareable
     return IXpsOMBrush
 def _define_IXpsOMGradientStopCollection_head():
     class IXpsOMGradientStopCollection(win32more.System.Com.IUnknown_head):
@@ -707,6 +719,7 @@ def _define_IXpsOMGradientStopCollection():
     IXpsOMGradientStopCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveAt', ((1, 'index'),)))
     IXpsOMGradientStopCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Xps.IXpsOMGradientStop_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'stop'),)))
     IXpsOMGradientStopCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMGradientStop_head, use_last_error=False)(8, 'Append', ((1, 'stop'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMGradientStopCollection
 def _define_IXpsOMSolidColorBrush_head():
     class IXpsOMSolidColorBrush(win32more.Storage.Xps.IXpsOMBrush_head):
@@ -717,6 +730,7 @@ def _define_IXpsOMSolidColorBrush():
     IXpsOMSolidColorBrush.GetColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_COLOR_head),POINTER(win32more.Storage.Xps.IXpsOMColorProfileResource_head), use_last_error=False)(7, 'GetColor', ((1, 'color'),(1, 'colorProfile'),)))
     IXpsOMSolidColorBrush.SetColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_COLOR_head),win32more.Storage.Xps.IXpsOMColorProfileResource_head, use_last_error=False)(8, 'SetColor', ((1, 'color'),(1, 'colorProfile'),)))
     IXpsOMSolidColorBrush.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMSolidColorBrush_head), use_last_error=False)(9, 'Clone', ((1, 'solidColorBrush'),)))
+    win32more.Storage.Xps.IXpsOMBrush
     return IXpsOMSolidColorBrush
 def _define_IXpsOMTileBrush_head():
     class IXpsOMTileBrush(win32more.Storage.Xps.IXpsOMBrush_head):
@@ -735,6 +749,7 @@ def _define_IXpsOMTileBrush():
     IXpsOMTileBrush.SetViewport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_RECT_head), use_last_error=False)(15, 'SetViewport', ((1, 'viewport'),)))
     IXpsOMTileBrush.GetTileMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_TILE_MODE), use_last_error=False)(16, 'GetTileMode', ((1, 'tileMode'),)))
     IXpsOMTileBrush.SetTileMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.XPS_TILE_MODE, use_last_error=False)(17, 'SetTileMode', ((1, 'tileMode'),)))
+    win32more.Storage.Xps.IXpsOMBrush
     return IXpsOMTileBrush
 def _define_IXpsOMVisualBrush_head():
     class IXpsOMVisualBrush(win32more.Storage.Xps.IXpsOMTileBrush_head):
@@ -748,6 +763,7 @@ def _define_IXpsOMVisualBrush():
     IXpsOMVisualBrush.GetVisualLookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(21, 'GetVisualLookup', ((1, 'lookup'),)))
     IXpsOMVisualBrush.SetVisualLookup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(22, 'SetVisualLookup', ((1, 'lookup'),)))
     IXpsOMVisualBrush.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMVisualBrush_head), use_last_error=False)(23, 'Clone', ((1, 'visualBrush'),)))
+    win32more.Storage.Xps.IXpsOMTileBrush
     return IXpsOMVisualBrush
 def _define_IXpsOMImageBrush_head():
     class IXpsOMImageBrush(win32more.Storage.Xps.IXpsOMTileBrush_head):
@@ -760,6 +776,7 @@ def _define_IXpsOMImageBrush():
     IXpsOMImageBrush.GetColorProfileResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMColorProfileResource_head), use_last_error=False)(20, 'GetColorProfileResource', ((1, 'colorProfileResource'),)))
     IXpsOMImageBrush.SetColorProfileResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMColorProfileResource_head, use_last_error=False)(21, 'SetColorProfileResource', ((1, 'colorProfileResource'),)))
     IXpsOMImageBrush.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMImageBrush_head), use_last_error=False)(22, 'Clone', ((1, 'imageBrush'),)))
+    win32more.Storage.Xps.IXpsOMTileBrush
     return IXpsOMImageBrush
 def _define_IXpsOMGradientStop_head():
     class IXpsOMGradientStop(win32more.System.Com.IUnknown_head):
@@ -773,6 +790,7 @@ def _define_IXpsOMGradientStop():
     IXpsOMGradientStop.GetColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_COLOR_head),POINTER(win32more.Storage.Xps.IXpsOMColorProfileResource_head), use_last_error=False)(6, 'GetColor', ((1, 'color'),(1, 'colorProfile'),)))
     IXpsOMGradientStop.SetColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_COLOR_head),win32more.Storage.Xps.IXpsOMColorProfileResource_head, use_last_error=False)(7, 'SetColor', ((1, 'color'),(1, 'colorProfile'),)))
     IXpsOMGradientStop.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMGradientStop_head), use_last_error=False)(8, 'Clone', ((1, 'gradientStop'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMGradientStop
 def _define_IXpsOMGradientBrush_head():
     class IXpsOMGradientBrush(win32more.Storage.Xps.IXpsOMBrush_head):
@@ -790,6 +808,7 @@ def _define_IXpsOMGradientBrush():
     IXpsOMGradientBrush.SetSpreadMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.XPS_SPREAD_METHOD, use_last_error=False)(14, 'SetSpreadMethod', ((1, 'spreadMethod'),)))
     IXpsOMGradientBrush.GetColorInterpolationMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_COLOR_INTERPOLATION), use_last_error=False)(15, 'GetColorInterpolationMode', ((1, 'colorInterpolationMode'),)))
     IXpsOMGradientBrush.SetColorInterpolationMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.XPS_COLOR_INTERPOLATION, use_last_error=False)(16, 'SetColorInterpolationMode', ((1, 'colorInterpolationMode'),)))
+    win32more.Storage.Xps.IXpsOMBrush
     return IXpsOMGradientBrush
 def _define_IXpsOMLinearGradientBrush_head():
     class IXpsOMLinearGradientBrush(win32more.Storage.Xps.IXpsOMGradientBrush_head):
@@ -802,6 +821,7 @@ def _define_IXpsOMLinearGradientBrush():
     IXpsOMLinearGradientBrush.GetEndPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_POINT_head), use_last_error=False)(19, 'GetEndPoint', ((1, 'endPoint'),)))
     IXpsOMLinearGradientBrush.SetEndPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_POINT_head), use_last_error=False)(20, 'SetEndPoint', ((1, 'endPoint'),)))
     IXpsOMLinearGradientBrush.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMLinearGradientBrush_head), use_last_error=False)(21, 'Clone', ((1, 'linearGradientBrush'),)))
+    win32more.Storage.Xps.IXpsOMGradientBrush
     return IXpsOMLinearGradientBrush
 def _define_IXpsOMRadialGradientBrush_head():
     class IXpsOMRadialGradientBrush(win32more.Storage.Xps.IXpsOMGradientBrush_head):
@@ -816,6 +836,7 @@ def _define_IXpsOMRadialGradientBrush():
     IXpsOMRadialGradientBrush.GetGradientOrigin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_POINT_head), use_last_error=False)(21, 'GetGradientOrigin', ((1, 'origin'),)))
     IXpsOMRadialGradientBrush.SetGradientOrigin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_POINT_head), use_last_error=False)(22, 'SetGradientOrigin', ((1, 'origin'),)))
     IXpsOMRadialGradientBrush.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMRadialGradientBrush_head), use_last_error=False)(23, 'Clone', ((1, 'radialGradientBrush'),)))
+    win32more.Storage.Xps.IXpsOMGradientBrush
     return IXpsOMRadialGradientBrush
 def _define_IXpsOMResource_head():
     class IXpsOMResource(win32more.Storage.Xps.IXpsOMPart_head):
@@ -823,6 +844,7 @@ def _define_IXpsOMResource_head():
     return IXpsOMResource
 def _define_IXpsOMResource():
     IXpsOMResource = win32more.Storage.Xps.IXpsOMResource_head
+    win32more.Storage.Xps.IXpsOMPart
     return IXpsOMResource
 def _define_IXpsOMPartResources_head():
     class IXpsOMPartResources(win32more.System.Com.IUnknown_head):
@@ -834,6 +856,7 @@ def _define_IXpsOMPartResources():
     IXpsOMPartResources.GetImageResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMImageResourceCollection_head), use_last_error=False)(4, 'GetImageResources', ((1, 'imageResources'),)))
     IXpsOMPartResources.GetColorProfileResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMColorProfileResourceCollection_head), use_last_error=False)(5, 'GetColorProfileResources', ((1, 'colorProfileResources'),)))
     IXpsOMPartResources.GetRemoteDictionaryResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMRemoteDictionaryResourceCollection_head), use_last_error=False)(6, 'GetRemoteDictionaryResources', ((1, 'dictionaryResources'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMPartResources
 def _define_IXpsOMDictionary_head():
     class IXpsOMDictionary(win32more.System.Com.IUnknown_head):
@@ -851,6 +874,7 @@ def _define_IXpsOMDictionary():
     IXpsOMDictionary.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(10, 'RemoveAt', ((1, 'index'),)))
     IXpsOMDictionary.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Storage.Xps.IXpsOMShareable_head, use_last_error=False)(11, 'SetAt', ((1, 'index'),(1, 'key'),(1, 'entry'),)))
     IXpsOMDictionary.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMDictionary_head), use_last_error=False)(12, 'Clone', ((1, 'dictionary'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMDictionary
 def _define_IXpsOMFontResource_head():
     class IXpsOMFontResource(win32more.Storage.Xps.IXpsOMResource_head):
@@ -861,6 +885,7 @@ def _define_IXpsOMFontResource():
     IXpsOMFontResource.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(5, 'GetStream', ((1, 'readerStream'),)))
     IXpsOMFontResource.SetContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Xps.XPS_FONT_EMBEDDING,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(6, 'SetContent', ((1, 'sourceStream'),(1, 'embeddingOption'),(1, 'partName'),)))
     IXpsOMFontResource.GetEmbeddingOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_FONT_EMBEDDING), use_last_error=False)(7, 'GetEmbeddingOption', ((1, 'embeddingOption'),)))
+    win32more.Storage.Xps.IXpsOMResource
     return IXpsOMFontResource
 def _define_IXpsOMFontResourceCollection_head():
     class IXpsOMFontResourceCollection(win32more.System.Com.IUnknown_head):
@@ -875,6 +900,7 @@ def _define_IXpsOMFontResourceCollection():
     IXpsOMFontResourceCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMFontResource_head, use_last_error=False)(7, 'Append', ((1, 'value'),)))
     IXpsOMFontResourceCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'RemoveAt', ((1, 'index'),)))
     IXpsOMFontResourceCollection.GetByPartName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMFontResource_head), use_last_error=False)(9, 'GetByPartName', ((1, 'partName'),(1, 'part'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMFontResourceCollection
 def _define_IXpsOMImageResource_head():
     class IXpsOMImageResource(win32more.Storage.Xps.IXpsOMResource_head):
@@ -885,6 +911,7 @@ def _define_IXpsOMImageResource():
     IXpsOMImageResource.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(5, 'GetStream', ((1, 'readerStream'),)))
     IXpsOMImageResource.SetContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Xps.XPS_IMAGE_TYPE,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(6, 'SetContent', ((1, 'sourceStream'),(1, 'imageType'),(1, 'partName'),)))
     IXpsOMImageResource.GetImageType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_IMAGE_TYPE), use_last_error=False)(7, 'GetImageType', ((1, 'imageType'),)))
+    win32more.Storage.Xps.IXpsOMResource
     return IXpsOMImageResource
 def _define_IXpsOMImageResourceCollection_head():
     class IXpsOMImageResourceCollection(win32more.System.Com.IUnknown_head):
@@ -899,6 +926,7 @@ def _define_IXpsOMImageResourceCollection():
     IXpsOMImageResourceCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Xps.IXpsOMImageResource_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'object'),)))
     IXpsOMImageResourceCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMImageResource_head, use_last_error=False)(8, 'Append', ((1, 'object'),)))
     IXpsOMImageResourceCollection.GetByPartName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMImageResource_head), use_last_error=False)(9, 'GetByPartName', ((1, 'partName'),(1, 'part'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMImageResourceCollection
 def _define_IXpsOMColorProfileResource_head():
     class IXpsOMColorProfileResource(win32more.Storage.Xps.IXpsOMResource_head):
@@ -908,6 +936,7 @@ def _define_IXpsOMColorProfileResource():
     IXpsOMColorProfileResource = win32more.Storage.Xps.IXpsOMColorProfileResource_head
     IXpsOMColorProfileResource.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(5, 'GetStream', ((1, 'stream'),)))
     IXpsOMColorProfileResource.SetContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(6, 'SetContent', ((1, 'sourceStream'),(1, 'partName'),)))
+    win32more.Storage.Xps.IXpsOMResource
     return IXpsOMColorProfileResource
 def _define_IXpsOMColorProfileResourceCollection_head():
     class IXpsOMColorProfileResourceCollection(win32more.System.Com.IUnknown_head):
@@ -922,6 +951,7 @@ def _define_IXpsOMColorProfileResourceCollection():
     IXpsOMColorProfileResourceCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Xps.IXpsOMColorProfileResource_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'object'),)))
     IXpsOMColorProfileResourceCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMColorProfileResource_head, use_last_error=False)(8, 'Append', ((1, 'object'),)))
     IXpsOMColorProfileResourceCollection.GetByPartName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMColorProfileResource_head), use_last_error=False)(9, 'GetByPartName', ((1, 'partName'),(1, 'part'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMColorProfileResourceCollection
 def _define_IXpsOMPrintTicketResource_head():
     class IXpsOMPrintTicketResource(win32more.Storage.Xps.IXpsOMResource_head):
@@ -931,6 +961,7 @@ def _define_IXpsOMPrintTicketResource():
     IXpsOMPrintTicketResource = win32more.Storage.Xps.IXpsOMPrintTicketResource_head
     IXpsOMPrintTicketResource.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(5, 'GetStream', ((1, 'stream'),)))
     IXpsOMPrintTicketResource.SetContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(6, 'SetContent', ((1, 'sourceStream'),(1, 'partName'),)))
+    win32more.Storage.Xps.IXpsOMResource
     return IXpsOMPrintTicketResource
 def _define_IXpsOMRemoteDictionaryResource_head():
     class IXpsOMRemoteDictionaryResource(win32more.Storage.Xps.IXpsOMResource_head):
@@ -940,6 +971,7 @@ def _define_IXpsOMRemoteDictionaryResource():
     IXpsOMRemoteDictionaryResource = win32more.Storage.Xps.IXpsOMRemoteDictionaryResource_head
     IXpsOMRemoteDictionaryResource.GetDictionary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMDictionary_head), use_last_error=False)(5, 'GetDictionary', ((1, 'dictionary'),)))
     IXpsOMRemoteDictionaryResource.SetDictionary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMDictionary_head, use_last_error=False)(6, 'SetDictionary', ((1, 'dictionary'),)))
+    win32more.Storage.Xps.IXpsOMResource
     return IXpsOMRemoteDictionaryResource
 def _define_IXpsOMRemoteDictionaryResourceCollection_head():
     class IXpsOMRemoteDictionaryResourceCollection(win32more.System.Com.IUnknown_head):
@@ -954,6 +986,7 @@ def _define_IXpsOMRemoteDictionaryResourceCollection():
     IXpsOMRemoteDictionaryResourceCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Xps.IXpsOMRemoteDictionaryResource_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'object'),)))
     IXpsOMRemoteDictionaryResourceCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMRemoteDictionaryResource_head, use_last_error=False)(8, 'Append', ((1, 'object'),)))
     IXpsOMRemoteDictionaryResourceCollection.GetByPartName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMRemoteDictionaryResource_head), use_last_error=False)(9, 'GetByPartName', ((1, 'partName'),(1, 'remoteDictionaryResource'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMRemoteDictionaryResourceCollection
 def _define_IXpsOMSignatureBlockResourceCollection_head():
     class IXpsOMSignatureBlockResourceCollection(win32more.System.Com.IUnknown_head):
@@ -968,6 +1001,7 @@ def _define_IXpsOMSignatureBlockResourceCollection():
     IXpsOMSignatureBlockResourceCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Xps.IXpsOMSignatureBlockResource_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'signatureBlockResource'),)))
     IXpsOMSignatureBlockResourceCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMSignatureBlockResource_head, use_last_error=False)(8, 'Append', ((1, 'signatureBlockResource'),)))
     IXpsOMSignatureBlockResourceCollection.GetByPartName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMSignatureBlockResource_head), use_last_error=False)(9, 'GetByPartName', ((1, 'partName'),(1, 'signatureBlockResource'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMSignatureBlockResourceCollection
 def _define_IXpsOMDocumentStructureResource_head():
     class IXpsOMDocumentStructureResource(win32more.Storage.Xps.IXpsOMResource_head):
@@ -978,6 +1012,7 @@ def _define_IXpsOMDocumentStructureResource():
     IXpsOMDocumentStructureResource.GetOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMDocument_head), use_last_error=False)(5, 'GetOwner', ((1, 'owner'),)))
     IXpsOMDocumentStructureResource.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(6, 'GetStream', ((1, 'stream'),)))
     IXpsOMDocumentStructureResource.SetContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(7, 'SetContent', ((1, 'sourceStream'),(1, 'partName'),)))
+    win32more.Storage.Xps.IXpsOMResource
     return IXpsOMDocumentStructureResource
 def _define_IXpsOMStoryFragmentsResource_head():
     class IXpsOMStoryFragmentsResource(win32more.Storage.Xps.IXpsOMResource_head):
@@ -988,6 +1023,7 @@ def _define_IXpsOMStoryFragmentsResource():
     IXpsOMStoryFragmentsResource.GetOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMPageReference_head), use_last_error=False)(5, 'GetOwner', ((1, 'owner'),)))
     IXpsOMStoryFragmentsResource.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(6, 'GetStream', ((1, 'stream'),)))
     IXpsOMStoryFragmentsResource.SetContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(7, 'SetContent', ((1, 'sourceStream'),(1, 'partName'),)))
+    win32more.Storage.Xps.IXpsOMResource
     return IXpsOMStoryFragmentsResource
 def _define_IXpsOMSignatureBlockResource_head():
     class IXpsOMSignatureBlockResource(win32more.Storage.Xps.IXpsOMResource_head):
@@ -998,6 +1034,7 @@ def _define_IXpsOMSignatureBlockResource():
     IXpsOMSignatureBlockResource.GetOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMDocument_head), use_last_error=False)(5, 'GetOwner', ((1, 'owner'),)))
     IXpsOMSignatureBlockResource.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(6, 'GetStream', ((1, 'stream'),)))
     IXpsOMSignatureBlockResource.SetContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(7, 'SetContent', ((1, 'sourceStream'),(1, 'partName'),)))
+    win32more.Storage.Xps.IXpsOMResource
     return IXpsOMSignatureBlockResource
 def _define_IXpsOMVisualCollection_head():
     class IXpsOMVisualCollection(win32more.System.Com.IUnknown_head):
@@ -1011,6 +1048,7 @@ def _define_IXpsOMVisualCollection():
     IXpsOMVisualCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveAt', ((1, 'index'),)))
     IXpsOMVisualCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Xps.IXpsOMVisual_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'object'),)))
     IXpsOMVisualCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMVisual_head, use_last_error=False)(8, 'Append', ((1, 'object'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMVisualCollection
 def _define_IXpsOMCanvas_head():
     class IXpsOMCanvas(win32more.Storage.Xps.IXpsOMVisual_head):
@@ -1031,6 +1069,7 @@ def _define_IXpsOMCanvas():
     IXpsOMCanvas.GetDictionaryResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMRemoteDictionaryResource_head), use_last_error=False)(40, 'GetDictionaryResource', ((1, 'remoteDictionaryResource'),)))
     IXpsOMCanvas.SetDictionaryResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMRemoteDictionaryResource_head, use_last_error=False)(41, 'SetDictionaryResource', ((1, 'remoteDictionaryResource'),)))
     IXpsOMCanvas.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMCanvas_head), use_last_error=False)(42, 'Clone', ((1, 'canvas'),)))
+    win32more.Storage.Xps.IXpsOMVisual
     return IXpsOMCanvas
 def _define_IXpsOMPage_head():
     class IXpsOMPage(win32more.Storage.Xps.IXpsOMPart_head):
@@ -1060,6 +1099,7 @@ def _define_IXpsOMPage():
     IXpsOMPage.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.ISequentialStream_head,win32more.Foundation.BOOL, use_last_error=False)(24, 'Write', ((1, 'stream'),(1, 'optimizeMarkupSize'),)))
     IXpsOMPage.GenerateUnusedLookupKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.XPS_OBJECT_TYPE,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(25, 'GenerateUnusedLookupKey', ((1, 'type'),(1, 'key'),)))
     IXpsOMPage.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMPage_head), use_last_error=False)(26, 'Clone', ((1, 'page'),)))
+    win32more.Storage.Xps.IXpsOMPart
     return IXpsOMPage
 def _define_IXpsOMPageReference_head():
     class IXpsOMPageReference(win32more.System.Com.IUnknown_head):
@@ -1084,6 +1124,7 @@ def _define_IXpsOMPageReference():
     IXpsOMPageReference.CollectPartResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMPartResources_head), use_last_error=False)(17, 'CollectPartResources', ((1, 'partResources'),)))
     IXpsOMPageReference.HasRestrictedFonts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(18, 'HasRestrictedFonts', ((1, 'restrictedFonts'),)))
     IXpsOMPageReference.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMPageReference_head), use_last_error=False)(19, 'Clone', ((1, 'pageReference'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMPageReference
 def _define_IXpsOMPageReferenceCollection_head():
     class IXpsOMPageReferenceCollection(win32more.System.Com.IUnknown_head):
@@ -1097,6 +1138,7 @@ def _define_IXpsOMPageReferenceCollection():
     IXpsOMPageReferenceCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveAt', ((1, 'index'),)))
     IXpsOMPageReferenceCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Xps.IXpsOMPageReference_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'pageReference'),)))
     IXpsOMPageReferenceCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMPageReference_head, use_last_error=False)(8, 'Append', ((1, 'pageReference'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMPageReferenceCollection
 def _define_IXpsOMDocument_head():
     class IXpsOMDocument(win32more.Storage.Xps.IXpsOMPart_head):
@@ -1112,6 +1154,7 @@ def _define_IXpsOMDocument():
     IXpsOMDocument.SetDocumentStructureResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMDocumentStructureResource_head, use_last_error=False)(10, 'SetDocumentStructureResource', ((1, 'documentStructureResource'),)))
     IXpsOMDocument.GetSignatureBlockResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMSignatureBlockResourceCollection_head), use_last_error=False)(11, 'GetSignatureBlockResources', ((1, 'signatureBlockResources'),)))
     IXpsOMDocument.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMDocument_head), use_last_error=False)(12, 'Clone', ((1, 'document'),)))
+    win32more.Storage.Xps.IXpsOMPart
     return IXpsOMDocument
 def _define_IXpsOMDocumentCollection_head():
     class IXpsOMDocumentCollection(win32more.System.Com.IUnknown_head):
@@ -1125,6 +1168,7 @@ def _define_IXpsOMDocumentCollection():
     IXpsOMDocumentCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveAt', ((1, 'index'),)))
     IXpsOMDocumentCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Xps.IXpsOMDocument_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'document'),)))
     IXpsOMDocumentCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMDocument_head, use_last_error=False)(8, 'Append', ((1, 'document'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMDocumentCollection
 def _define_IXpsOMDocumentSequence_head():
     class IXpsOMDocumentSequence(win32more.Storage.Xps.IXpsOMPart_head):
@@ -1136,6 +1180,7 @@ def _define_IXpsOMDocumentSequence():
     IXpsOMDocumentSequence.GetDocuments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMDocumentCollection_head), use_last_error=False)(6, 'GetDocuments', ((1, 'documents'),)))
     IXpsOMDocumentSequence.GetPrintTicketResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMPrintTicketResource_head), use_last_error=False)(7, 'GetPrintTicketResource', ((1, 'printTicketResource'),)))
     IXpsOMDocumentSequence.SetPrintTicketResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMPrintTicketResource_head, use_last_error=False)(8, 'SetPrintTicketResource', ((1, 'printTicketResource'),)))
+    win32more.Storage.Xps.IXpsOMPart
     return IXpsOMDocumentSequence
 def _define_IXpsOMCoreProperties_head():
     class IXpsOMCoreProperties(win32more.Storage.Xps.IXpsOMPart_head):
@@ -1177,6 +1222,7 @@ def _define_IXpsOMCoreProperties():
     IXpsOMCoreProperties.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(36, 'GetVersion', ((1, 'version'),)))
     IXpsOMCoreProperties.SetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(37, 'SetVersion', ((1, 'version'),)))
     IXpsOMCoreProperties.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMCoreProperties_head), use_last_error=False)(38, 'Clone', ((1, 'coreProperties'),)))
+    win32more.Storage.Xps.IXpsOMPart
     return IXpsOMCoreProperties
 def _define_IXpsOMPackage_head():
     class IXpsOMPackage(win32more.System.Com.IUnknown_head):
@@ -1194,6 +1240,7 @@ def _define_IXpsOMPackage():
     IXpsOMPackage.SetThumbnailResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMImageResource_head, use_last_error=False)(10, 'SetThumbnailResource', ((1, 'imageResource'),)))
     IXpsOMPackage.WriteToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,win32more.Foundation.BOOL, use_last_error=False)(11, 'WriteToFile', ((1, 'fileName'),(1, 'securityAttributes'),(1, 'flagsAndAttributes'),(1, 'optimizeMarkupSize'),)))
     IXpsOMPackage.WriteToStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.ISequentialStream_head,win32more.Foundation.BOOL, use_last_error=False)(12, 'WriteToStream', ((1, 'stream'),(1, 'optimizeMarkupSize'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMPackage
 def _define_IXpsOMObjectFactory_head():
     class IXpsOMObjectFactory(win32more.System.Com.IUnknown_head):
@@ -1238,6 +1285,7 @@ def _define_IXpsOMObjectFactory():
     IXpsOMObjectFactory.CreatePackageWriterOnStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.ISequentialStream_head,win32more.Foundation.BOOL,win32more.Storage.Xps.XPS_INTERLEAVING,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.Storage.Xps.IXpsOMCoreProperties_head,win32more.Storage.Xps.IXpsOMImageResource_head,win32more.Storage.Xps.IXpsOMPrintTicketResource_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMPackageWriter_head), use_last_error=False)(37, 'CreatePackageWriterOnStream', ((1, 'outputStream'),(1, 'optimizeMarkupSize'),(1, 'interleaving'),(1, 'documentSequencePartName'),(1, 'coreProperties'),(1, 'packageThumbnail'),(1, 'documentSequencePrintTicket'),(1, 'discardControlPartName'),(1, 'packageWriter'),)))
     IXpsOMObjectFactory.CreatePartUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.Packaging.Opc.IOpcPartUri_head), use_last_error=False)(38, 'CreatePartUri', ((1, 'uri'),(1, 'partUri'),)))
     IXpsOMObjectFactory.CreateReadOnlyStreamOnFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(39, 'CreateReadOnlyStreamOnFile', ((1, 'filename'),(1, 'stream'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMObjectFactory
 def _define_IXpsOMNameCollection_head():
     class IXpsOMNameCollection(win32more.System.Com.IUnknown_head):
@@ -1247,6 +1295,7 @@ def _define_IXpsOMNameCollection():
     IXpsOMNameCollection = win32more.Storage.Xps.IXpsOMNameCollection_head
     IXpsOMNameCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'count'),)))
     IXpsOMNameCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetAt', ((1, 'index'),(1, 'name'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMNameCollection
 def _define_IXpsOMPartUriCollection_head():
     class IXpsOMPartUriCollection(win32more.System.Com.IUnknown_head):
@@ -1260,6 +1309,7 @@ def _define_IXpsOMPartUriCollection():
     IXpsOMPartUriCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'RemoveAt', ((1, 'index'),)))
     IXpsOMPartUriCollection.SetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(7, 'SetAt', ((1, 'index'),(1, 'partUri'),)))
     IXpsOMPartUriCollection.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head, use_last_error=False)(8, 'Append', ((1, 'partUri'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMPartUriCollection
 def _define_IXpsOMPackageWriter_head():
     class IXpsOMPackageWriter(win32more.System.Com.IUnknown_head):
@@ -1272,6 +1322,7 @@ def _define_IXpsOMPackageWriter():
     IXpsOMPackageWriter.AddResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMResource_head, use_last_error=False)(5, 'AddResource', ((1, 'resource'),)))
     IXpsOMPackageWriter.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Close', ()))
     IXpsOMPackageWriter.IsClosed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'IsClosed', ((1, 'isClosed'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMPackageWriter
 def _define_IXpsOMPackageTarget_head():
     class IXpsOMPackageTarget(win32more.System.Com.IUnknown_head):
@@ -1280,6 +1331,7 @@ def _define_IXpsOMPackageTarget_head():
 def _define_IXpsOMPackageTarget():
     IXpsOMPackageTarget = win32more.Storage.Xps.IXpsOMPackageTarget_head
     IXpsOMPackageTarget.CreateXpsOMPackageWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.Storage.Xps.IXpsOMPrintTicketResource_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMPackageWriter_head), use_last_error=False)(3, 'CreateXpsOMPackageWriter', ((1, 'documentSequencePartName'),(1, 'documentSequencePrintTicket'),(1, 'discardControlPartName'),(1, 'packageWriter'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMPackageTarget
 def _define_IXpsOMThumbnailGenerator_head():
     class IXpsOMThumbnailGenerator(win32more.System.Com.IUnknown_head):
@@ -1288,6 +1340,7 @@ def _define_IXpsOMThumbnailGenerator_head():
 def _define_IXpsOMThumbnailGenerator():
     IXpsOMThumbnailGenerator = win32more.Storage.Xps.IXpsOMThumbnailGenerator_head
     IXpsOMThumbnailGenerator.GenerateThumbnail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.IXpsOMPage_head,win32more.Storage.Xps.XPS_IMAGE_TYPE,win32more.Storage.Xps.XPS_THUMBNAIL_SIZE,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMImageResource_head), use_last_error=False)(3, 'GenerateThumbnail', ((1, 'page'),(1, 'thumbnailType'),(1, 'thumbnailSize'),(1, 'imageResourcePartName'),(1, 'imageResource'),)))
+    win32more.System.Com.IUnknown
     return IXpsOMThumbnailGenerator
 XPS_DOCUMENT_TYPE = Int32
 XPS_DOCUMENT_TYPE_UNSPECIFIED = 1
@@ -1311,6 +1364,7 @@ def _define_IXpsOMObjectFactory1():
     IXpsOMObjectFactory1.CreatePage1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_SIZE_head),win32more.Foundation.PWSTR,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMPage1_head), use_last_error=False)(49, 'CreatePage1', ((1, 'pageDimensions'),(1, 'language'),(1, 'partUri'),(1, 'page'),)))
     IXpsOMObjectFactory1.CreatePageFromStream1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.Storage.Xps.IXpsOMPartResources_head,win32more.Foundation.BOOL,POINTER(win32more.Storage.Xps.IXpsOMPage1_head), use_last_error=False)(50, 'CreatePageFromStream1', ((1, 'pageMarkupStream'),(1, 'partUri'),(1, 'resources'),(1, 'reuseObjects'),(1, 'page'),)))
     IXpsOMObjectFactory1.CreateRemoteDictionaryResourceFromStream1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.Storage.Xps.IXpsOMPartResources_head,POINTER(win32more.Storage.Xps.IXpsOMRemoteDictionaryResource_head), use_last_error=False)(51, 'CreateRemoteDictionaryResourceFromStream1', ((1, 'dictionaryMarkupStream'),(1, 'partUri'),(1, 'resources'),(1, 'dictionaryResource'),)))
+    win32more.Storage.Xps.IXpsOMObjectFactory
     return IXpsOMObjectFactory1
 def _define_IXpsOMPackage1_head():
     class IXpsOMPackage1(win32more.Storage.Xps.IXpsOMPackage_head):
@@ -1321,6 +1375,7 @@ def _define_IXpsOMPackage1():
     IXpsOMPackage1.GetDocumentType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_DOCUMENT_TYPE), use_last_error=False)(13, 'GetDocumentType', ((1, 'documentType'),)))
     IXpsOMPackage1.WriteToFile1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32,win32more.Foundation.BOOL,win32more.Storage.Xps.XPS_DOCUMENT_TYPE, use_last_error=False)(14, 'WriteToFile1', ((1, 'fileName'),(1, 'securityAttributes'),(1, 'flagsAndAttributes'),(1, 'optimizeMarkupSize'),(1, 'documentType'),)))
     IXpsOMPackage1.WriteToStream1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.ISequentialStream_head,win32more.Foundation.BOOL,win32more.Storage.Xps.XPS_DOCUMENT_TYPE, use_last_error=False)(15, 'WriteToStream1', ((1, 'outputStream'),(1, 'optimizeMarkupSize'),(1, 'documentType'),)))
+    win32more.Storage.Xps.IXpsOMPackage
     return IXpsOMPackage1
 def _define_IXpsOMPage1_head():
     class IXpsOMPage1(win32more.Storage.Xps.IXpsOMPage_head):
@@ -1330,6 +1385,7 @@ def _define_IXpsOMPage1():
     IXpsOMPage1 = win32more.Storage.Xps.IXpsOMPage1_head
     IXpsOMPage1.GetDocumentType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_DOCUMENT_TYPE), use_last_error=False)(27, 'GetDocumentType', ((1, 'documentType'),)))
     IXpsOMPage1.Write1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.ISequentialStream_head,win32more.Foundation.BOOL,win32more.Storage.Xps.XPS_DOCUMENT_TYPE, use_last_error=False)(28, 'Write1', ((1, 'stream'),(1, 'optimizeMarkupSize'),(1, 'documentType'),)))
+    win32more.Storage.Xps.IXpsOMPage
     return IXpsOMPage1
 def _define_IXpsDocumentPackageTarget_head():
     class IXpsDocumentPackageTarget(win32more.System.Com.IUnknown_head):
@@ -1340,6 +1396,7 @@ def _define_IXpsDocumentPackageTarget():
     IXpsDocumentPackageTarget.GetXpsOMPackageWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head,POINTER(win32more.Storage.Xps.IXpsOMPackageWriter_head), use_last_error=False)(3, 'GetXpsOMPackageWriter', ((1, 'documentSequencePartName'),(1, 'discardControlPartName'),(1, 'packageWriter'),)))
     IXpsDocumentPackageTarget.GetXpsOMFactory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMObjectFactory_head), use_last_error=False)(4, 'GetXpsOMFactory', ((1, 'xpsFactory'),)))
     IXpsDocumentPackageTarget.GetXpsType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_DOCUMENT_TYPE), use_last_error=False)(5, 'GetXpsType', ((1, 'documentType'),)))
+    win32more.System.Com.IUnknown
     return IXpsDocumentPackageTarget
 def _define_IXpsOMRemoteDictionaryResource1_head():
     class IXpsOMRemoteDictionaryResource1(win32more.Storage.Xps.IXpsOMRemoteDictionaryResource_head):
@@ -1349,6 +1406,7 @@ def _define_IXpsOMRemoteDictionaryResource1():
     IXpsOMRemoteDictionaryResource1 = win32more.Storage.Xps.IXpsOMRemoteDictionaryResource1_head
     IXpsOMRemoteDictionaryResource1.GetDocumentType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_DOCUMENT_TYPE), use_last_error=False)(7, 'GetDocumentType', ((1, 'documentType'),)))
     IXpsOMRemoteDictionaryResource1.Write1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.ISequentialStream_head,win32more.Storage.Xps.XPS_DOCUMENT_TYPE, use_last_error=False)(8, 'Write1', ((1, 'stream'),(1, 'documentType'),)))
+    win32more.Storage.Xps.IXpsOMRemoteDictionaryResource
     return IXpsOMRemoteDictionaryResource1
 def _define_IXpsOMPackageWriter3D_head():
     class IXpsOMPackageWriter3D(win32more.Storage.Xps.IXpsOMPackageWriter_head):
@@ -1358,6 +1416,7 @@ def _define_IXpsOMPackageWriter3D():
     IXpsOMPackageWriter3D = win32more.Storage.Xps.IXpsOMPackageWriter3D_head
     IXpsOMPackageWriter3D.AddModelTexture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.System.Com.IStream_head, use_last_error=False)(8, 'AddModelTexture', ((1, 'texturePartName'),(1, 'textureData'),)))
     IXpsOMPackageWriter3D.SetModelPrintTicket = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.System.Com.IStream_head, use_last_error=False)(9, 'SetModelPrintTicket', ((1, 'printTicketPartName'),(1, 'printTicketData'),)))
+    win32more.Storage.Xps.IXpsOMPackageWriter
     return IXpsOMPackageWriter3D
 def _define_IXpsDocumentPackageTarget3D_head():
     class IXpsDocumentPackageTarget3D(win32more.System.Com.IUnknown_head):
@@ -1367,6 +1426,7 @@ def _define_IXpsDocumentPackageTarget3D():
     IXpsDocumentPackageTarget3D = win32more.Storage.Xps.IXpsDocumentPackageTarget3D_head
     IXpsDocumentPackageTarget3D.GetXpsOMPackageWriter3D = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.Storage.Packaging.Opc.IOpcPartUri_head,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Xps.IXpsOMPackageWriter3D_head), use_last_error=False)(3, 'GetXpsOMPackageWriter3D', ((1, 'documentSequencePartName'),(1, 'discardControlPartName'),(1, 'modelPartName'),(1, 'modelData'),(1, 'packageWriter'),)))
     IXpsDocumentPackageTarget3D.GetXpsOMFactory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsOMObjectFactory_head), use_last_error=False)(4, 'GetXpsOMFactory', ((1, 'xpsFactory'),)))
+    win32more.System.Com.IUnknown
     return IXpsDocumentPackageTarget3D
 XpsSignatureManager = Guid('b0c43320-2315-44a2-b70a-0943a140a8ee')
 XPS_SIGNATURE_STATUS = Int32
@@ -1408,6 +1468,7 @@ def _define_IXpsSigningOptions():
     IXpsSigningOptions.GetCertificateSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcCertificateSet_head), use_last_error=False)(17, 'GetCertificateSet', ((1, 'certificateSet'),)))
     IXpsSigningOptions.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.XPS_SIGN_FLAGS), use_last_error=False)(18, 'GetFlags', ((1, 'flags'),)))
     IXpsSigningOptions.SetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Xps.XPS_SIGN_FLAGS, use_last_error=False)(19, 'SetFlags', ((1, 'flags'),)))
+    win32more.System.Com.IUnknown
     return IXpsSigningOptions
 def _define_IXpsSignatureCollection_head():
     class IXpsSignatureCollection(win32more.System.Com.IUnknown_head):
@@ -1418,6 +1479,7 @@ def _define_IXpsSignatureCollection():
     IXpsSignatureCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'count'),)))
     IXpsSignatureCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.Xps.IXpsSignature_head), use_last_error=False)(4, 'GetAt', ((1, 'index'),(1, 'signature'),)))
     IXpsSignatureCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'RemoveAt', ((1, 'index'),)))
+    win32more.System.Com.IUnknown
     return IXpsSignatureCollection
 def _define_IXpsSignature_head():
     class IXpsSignature(win32more.System.Com.IUnknown_head):
@@ -1437,6 +1499,7 @@ def _define_IXpsSignature():
     IXpsSignature.GetCustomReferenceEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcSignatureReferenceEnumerator_head), use_last_error=False)(12, 'GetCustomReferenceEnumerator', ((1, 'customReferenceEnumerator'),)))
     IXpsSignature.GetSignatureXml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(13, 'GetSignatureXml', ((1, 'signatureXml'),(1, 'count'),)))
     IXpsSignature.SetSignatureXml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(14, 'SetSignatureXml', ((1, 'signatureXml'),(1, 'count'),)))
+    win32more.System.Com.IUnknown
     return IXpsSignature
 def _define_IXpsSignatureBlockCollection_head():
     class IXpsSignatureBlockCollection(win32more.System.Com.IUnknown_head):
@@ -1447,6 +1510,7 @@ def _define_IXpsSignatureBlockCollection():
     IXpsSignatureBlockCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'count'),)))
     IXpsSignatureBlockCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.Xps.IXpsSignatureBlock_head), use_last_error=False)(4, 'GetAt', ((1, 'index'),(1, 'signatureBlock'),)))
     IXpsSignatureBlockCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'RemoveAt', ((1, 'index'),)))
+    win32more.System.Com.IUnknown
     return IXpsSignatureBlockCollection
 def _define_IXpsSignatureBlock_head():
     class IXpsSignatureBlock(win32more.System.Com.IUnknown_head):
@@ -1459,6 +1523,7 @@ def _define_IXpsSignatureBlock():
     IXpsSignatureBlock.GetDocumentIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetDocumentIndex', ((1, 'fixedDocumentIndex'),)))
     IXpsSignatureBlock.GetDocumentName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Opc.IOpcPartUri_head), use_last_error=False)(6, 'GetDocumentName', ((1, 'fixedDocumentName'),)))
     IXpsSignatureBlock.CreateRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.Xps.IXpsSignatureRequest_head), use_last_error=False)(7, 'CreateRequest', ((1, 'requestId'),(1, 'signatureRequest'),)))
+    win32more.System.Com.IUnknown
     return IXpsSignatureBlock
 def _define_IXpsSignatureRequestCollection_head():
     class IXpsSignatureRequestCollection(win32more.System.Com.IUnknown_head):
@@ -1469,6 +1534,7 @@ def _define_IXpsSignatureRequestCollection():
     IXpsSignatureRequestCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'count'),)))
     IXpsSignatureRequestCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.Xps.IXpsSignatureRequest_head), use_last_error=False)(4, 'GetAt', ((1, 'index'),(1, 'signatureRequest'),)))
     IXpsSignatureRequestCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'RemoveAt', ((1, 'index'),)))
+    win32more.System.Com.IUnknown
     return IXpsSignatureRequestCollection
 def _define_IXpsSignatureRequest_head():
     class IXpsSignatureRequest(win32more.System.Com.IUnknown_head):
@@ -1488,6 +1554,7 @@ def _define_IXpsSignatureRequest():
     IXpsSignatureRequest.SetSpotLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Single,Single, use_last_error=False)(12, 'SetSpotLocation', ((1, 'pageIndex'),(1, 'x'),(1, 'y'),)))
     IXpsSignatureRequest.GetRequestId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(13, 'GetRequestId', ((1, 'requestId'),)))
     IXpsSignatureRequest.GetSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsSignature_head), use_last_error=False)(14, 'GetSignature', ((1, 'signature'),)))
+    win32more.System.Com.IUnknown
     return IXpsSignatureRequest
 def _define_IXpsSignatureManager_head():
     class IXpsSignatureManager(win32more.System.Com.IUnknown_head):
@@ -1506,6 +1573,7 @@ def _define_IXpsSignatureManager():
     IXpsSignatureManager.CreateSigningOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Xps.IXpsSigningOptions_head), use_last_error=False)(11, 'CreateSigningOptions', ((1, 'signingOptions'),)))
     IXpsSignatureManager.SavePackageToFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Security.SECURITY_ATTRIBUTES_head),UInt32, use_last_error=False)(12, 'SavePackageToFile', ((1, 'fileName'),(1, 'securityAttributes'),(1, 'flagsAndAttributes'),)))
     IXpsSignatureManager.SavePackageToStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(13, 'SavePackageToStream', ((1, 'stream'),)))
+    win32more.System.Com.IUnknown
     return IXpsSignatureManager
 def _define_DeviceCapabilitiesA():
     try:

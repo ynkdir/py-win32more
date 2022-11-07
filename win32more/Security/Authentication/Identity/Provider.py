@@ -36,6 +36,7 @@ def _define_IIdentityAdvise_head():
 def _define_IIdentityAdvise():
     IIdentityAdvise = win32more.Security.Authentication.Identity.Provider.IIdentityAdvise_head
     IIdentityAdvise.IdentityUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Authentication.Identity.Provider.IdentityUpdateEvent,win32more.Foundation.PWSTR, use_last_error=False)(3, 'IdentityUpdated', ((1, 'dwIdentityUpdateEvents'),(1, 'lpszUniqueID'),)))
+    win32more.System.Com.IUnknown
     return IIdentityAdvise
 def _define_AsyncIIdentityAdvise_head():
     class AsyncIIdentityAdvise(win32more.System.Com.IUnknown_head):
@@ -45,6 +46,7 @@ def _define_AsyncIIdentityAdvise():
     AsyncIIdentityAdvise = win32more.Security.Authentication.Identity.Provider.AsyncIIdentityAdvise_head
     AsyncIIdentityAdvise.Begin_IdentityUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Begin_IdentityUpdated', ((1, 'dwIdentityUpdateEvents'),(1, 'lpszUniqueID'),)))
     AsyncIIdentityAdvise.Finish_IdentityUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Finish_IdentityUpdated', ()))
+    win32more.System.Com.IUnknown
     return AsyncIIdentityAdvise
 def _define_IIdentityProvider_head():
     class IIdentityProvider(win32more.System.Com.IUnknown_head):
@@ -60,6 +62,7 @@ def _define_IIdentityProvider():
     IIdentityProvider.GetProviderPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(8, 'GetProviderPropertyStore', ((1, 'ppPropertyStore'),)))
     IIdentityProvider.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Authentication.Identity.Provider.IIdentityAdvise_head,win32more.Security.Authentication.Identity.Provider.IdentityUpdateEvent,POINTER(UInt32), use_last_error=False)(9, 'Advise', ((1, 'pIdentityAdvise'),(1, 'dwIdentityUpdateEvents'),(1, 'pdwCookie'),)))
     IIdentityProvider.UnAdvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(10, 'UnAdvise', ((1, 'dwCookie'),)))
+    win32more.System.Com.IUnknown
     return IIdentityProvider
 def _define_AsyncIIdentityProvider_head():
     class AsyncIIdentityProvider(win32more.System.Com.IUnknown_head):
@@ -83,6 +86,7 @@ def _define_AsyncIIdentityProvider():
     AsyncIIdentityProvider.Finish_Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(16, 'Finish_Advise', ((1, 'pdwCookie'),)))
     AsyncIIdentityProvider.Begin_UnAdvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(17, 'Begin_UnAdvise', ((1, 'dwCookie'),)))
     AsyncIIdentityProvider.Finish_UnAdvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'Finish_UnAdvise', ()))
+    win32more.System.Com.IUnknown
     return AsyncIIdentityProvider
 def _define_IAssociatedIdentityProvider_head():
     class IAssociatedIdentityProvider(win32more.System.Com.IUnknown_head):
@@ -93,6 +97,7 @@ def _define_IAssociatedIdentityProvider():
     IAssociatedIdentityProvider.AssociateIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(3, 'AssociateIdentity', ((1, 'hwndParent'),(1, 'ppPropertyStore'),)))
     IAssociatedIdentityProvider.DisassociateIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=False)(4, 'DisassociateIdentity', ((1, 'hwndParent'),(1, 'lpszUniqueID'),)))
     IAssociatedIdentityProvider.ChangeCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=False)(5, 'ChangeCredential', ((1, 'hwndParent'),(1, 'lpszUniqueID'),)))
+    win32more.System.Com.IUnknown
     return IAssociatedIdentityProvider
 def _define_AsyncIAssociatedIdentityProvider_head():
     class AsyncIAssociatedIdentityProvider(win32more.System.Com.IUnknown_head):
@@ -106,6 +111,7 @@ def _define_AsyncIAssociatedIdentityProvider():
     AsyncIAssociatedIdentityProvider.Finish_DisassociateIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Finish_DisassociateIdentity', ()))
     AsyncIAssociatedIdentityProvider.Begin_ChangeCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR, use_last_error=False)(7, 'Begin_ChangeCredential', ((1, 'hwndParent'),(1, 'lpszUniqueID'),)))
     AsyncIAssociatedIdentityProvider.Finish_ChangeCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Finish_ChangeCredential', ()))
+    win32more.System.Com.IUnknown
     return AsyncIAssociatedIdentityProvider
 IDENTITY_URL = Int32
 IDENTITY_URL_CREATE_ACCOUNT_WIZARD = 0
@@ -130,6 +136,7 @@ def _define_IConnectedIdentityProvider():
     IConnectedIdentityProvider.IsConnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsConnected', ((1, 'Connected'),)))
     IConnectedIdentityProvider.GetUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Authentication.Identity.Provider.IDENTITY_URL,win32more.System.Com.IBindCtx_head,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetUrl', ((1, 'Identifier'),(1, 'Context'),(1, 'PostData'),(1, 'Url'),)))
     IConnectedIdentityProvider.GetAccountState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authentication.Identity.Provider.ACCOUNT_STATE), use_last_error=False)(7, 'GetAccountState', ((1, 'pState'),)))
+    win32more.System.Com.IUnknown
     return IConnectedIdentityProvider
 def _define_AsyncIConnectedIdentityProvider_head():
     class AsyncIConnectedIdentityProvider(win32more.System.Com.IUnknown_head):
@@ -147,6 +154,7 @@ def _define_AsyncIConnectedIdentityProvider():
     AsyncIConnectedIdentityProvider.Finish_GetUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'Finish_GetUrl', ((1, 'PostData'),(1, 'Url'),)))
     AsyncIConnectedIdentityProvider.Begin_GetAccountState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Begin_GetAccountState', ()))
     AsyncIConnectedIdentityProvider.Finish_GetAccountState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Security.Authentication.Identity.Provider.ACCOUNT_STATE), use_last_error=False)(12, 'Finish_GetAccountState', ((1, 'pState'),)))
+    win32more.System.Com.IUnknown
     return AsyncIConnectedIdentityProvider
 def _define_IIdentityAuthentication_head():
     class IIdentityAuthentication(win32more.System.Com.IUnknown_head):
@@ -156,6 +164,7 @@ def _define_IIdentityAuthentication():
     IIdentityAuthentication = win32more.Security.Authentication.Identity.Provider.IIdentityAuthentication_head
     IIdentityAuthentication.SetIdentityCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32, use_last_error=False)(3, 'SetIdentityCredential', ((1, 'CredBuffer'),(1, 'CredBufferLength'),)))
     IIdentityAuthentication.ValidateIdentityCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(4, 'ValidateIdentityCredential', ((1, 'CredBuffer'),(1, 'CredBufferLength'),(1, 'ppIdentityProperties'),)))
+    win32more.System.Com.IUnknown
     return IIdentityAuthentication
 def _define_AsyncIIdentityAuthentication_head():
     class AsyncIIdentityAuthentication(win32more.System.Com.IUnknown_head):
@@ -167,6 +176,7 @@ def _define_AsyncIIdentityAuthentication():
     AsyncIIdentityAuthentication.Finish_SetIdentityCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Finish_SetIdentityCredential', ()))
     AsyncIIdentityAuthentication.Begin_ValidateIdentityCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(5, 'Begin_ValidateIdentityCredential', ((1, 'CredBuffer'),(1, 'CredBufferLength'),(1, 'ppIdentityProperties'),)))
     AsyncIIdentityAuthentication.Finish_ValidateIdentityCredential = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(6, 'Finish_ValidateIdentityCredential', ((1, 'ppIdentityProperties'),)))
+    win32more.System.Com.IUnknown
     return AsyncIIdentityAuthentication
 CoClassIdentityStore = Guid('30d49246-d217-465f-b00b-ac9ddd652eb7')
 CIdentityProfileHandler = Guid('ecf5bf46-e3b6-449a-b56b-43f58f867814')
@@ -182,6 +192,7 @@ def _define_IIdentityStore():
     IIdentityStore.ConvertToSid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),UInt16,POINTER(Byte),POINTER(UInt16), use_last_error=False)(6, 'ConvertToSid', ((1, 'lpszUniqueID'),(1, 'ProviderGUID'),(1, 'cbSid'),(1, 'pSid'),(1, 'pcbRequiredSid'),)))
     IIdentityStore.EnumerateIdentities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Authentication.Identity.Provider.IDENTITY_TYPE,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.IEnumUnknown_head), use_last_error=False)(7, 'EnumerateIdentities', ((1, 'eIdentityType'),(1, 'pFilterkey'),(1, 'pFilterPropVarValue'),(1, 'ppIdentityEnum'),)))
     IIdentityStore.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IIdentityStore
 def _define_AsyncIIdentityStore_head():
     class AsyncIIdentityStore(win32more.System.Com.IUnknown_head):
@@ -201,6 +212,7 @@ def _define_AsyncIIdentityStore():
     AsyncIIdentityStore.Finish_EnumerateIdentities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumUnknown_head), use_last_error=False)(12, 'Finish_EnumerateIdentities', ((1, 'ppIdentityEnum'),)))
     AsyncIIdentityStore.Begin_Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Begin_Reset', ()))
     AsyncIIdentityStore.Finish_Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Finish_Reset', ()))
+    win32more.System.Com.IUnknown
     return AsyncIIdentityStore
 def _define_IIdentityStoreEx_head():
     class IIdentityStoreEx(win32more.System.Com.IUnknown_head):
@@ -210,6 +222,7 @@ def _define_IIdentityStoreEx():
     IIdentityStoreEx = win32more.Security.Authentication.Identity.Provider.IIdentityStoreEx_head
     IIdentityStoreEx.CreateConnectedIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(3, 'CreateConnectedIdentity', ((1, 'LocalName'),(1, 'ConnectedName'),(1, 'ProviderGUID'),)))
     IIdentityStoreEx.DeleteConnectedIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(4, 'DeleteConnectedIdentity', ((1, 'ConnectedName'),(1, 'ProviderGUID'),)))
+    win32more.System.Com.IUnknown
     return IIdentityStoreEx
 def _define_AsyncIIdentityStoreEx_head():
     class AsyncIIdentityStoreEx(win32more.System.Com.IUnknown_head):
@@ -221,6 +234,7 @@ def _define_AsyncIIdentityStoreEx():
     AsyncIIdentityStoreEx.Finish_CreateConnectedIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Finish_CreateConnectedIdentity', ()))
     AsyncIIdentityStoreEx.Begin_DeleteConnectedIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(5, 'Begin_DeleteConnectedIdentity', ((1, 'ConnectedName'),(1, 'ProviderGUID'),)))
     AsyncIIdentityStoreEx.Finish_DeleteConnectedIdentity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Finish_DeleteConnectedIdentity', ()))
+    win32more.System.Com.IUnknown
     return AsyncIIdentityStoreEx
 __all__ = [
     "OID_OAssociatedIdentityProviderObject",

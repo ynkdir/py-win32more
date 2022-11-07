@@ -71,6 +71,7 @@ def _define_IWaaSAssessor_head():
 def _define_IWaaSAssessor():
     IWaaSAssessor = win32more.System.UpdateAssessment.IWaaSAssessor_head
     IWaaSAssessor.GetOSUpdateAssessment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAssessment.OSUpdateAssessment_head), use_last_error=False)(3, 'GetOSUpdateAssessment', ((1, 'result'),)))
+    win32more.System.Com.IUnknown
     return IWaaSAssessor
 __all__ = [
     "WaaSAssessor",

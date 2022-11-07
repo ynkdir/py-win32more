@@ -41,6 +41,7 @@ def _define_IPdfRendererNative():
     IPdfRendererNative = win32more.System.WinRT.Pdf.IPdfRendererNative_head
     IPdfRendererNative.RenderPageToSurface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.Dxgi.IDXGISurface_head,win32more.Foundation.POINT,POINTER(win32more.System.WinRT.Pdf.PDF_RENDER_PARAMS_head), use_last_error=False)(3, 'RenderPageToSurface', ((1, 'pdfPage'),(1, 'pSurface'),(1, 'offset'),(1, 'pRenderParams'),)))
     IPdfRendererNative.RenderPageToDeviceContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Graphics.Direct2D.ID2D1DeviceContext_head,POINTER(win32more.System.WinRT.Pdf.PDF_RENDER_PARAMS_head), use_last_error=False)(4, 'RenderPageToDeviceContext', ((1, 'pdfPage'),(1, 'pD2DDeviceContext'),(1, 'pRenderParams'),)))
+    win32more.System.Com.IUnknown
     return IPdfRendererNative
 def _define_PdfCreateRenderer():
     try:

@@ -7468,6 +7468,7 @@ def _define_ICertSrvSetupKeyInformation():
     ICertSrvSetupKeyInformation.put_HashAlgorithm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(16, 'put_HashAlgorithm', ((1, 'bstrVal'),)))
     ICertSrvSetupKeyInformation.get_ExistingCACertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'get_ExistingCACertificate', ((1, 'pVal'),)))
     ICertSrvSetupKeyInformation.put_ExistingCACertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(18, 'put_ExistingCACertificate', ((1, 'varVal'),)))
+    win32more.System.Com.IDispatch
     return ICertSrvSetupKeyInformation
 def _define_ICertSrvSetupKeyInformationCollection_head():
     class ICertSrvSetupKeyInformationCollection(win32more.System.Com.IDispatch_head):
@@ -7479,6 +7480,7 @@ def _define_ICertSrvSetupKeyInformationCollection():
     ICertSrvSetupKeyInformationCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'Index'),(1, 'pVal'),)))
     ICertSrvSetupKeyInformationCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'pVal'),)))
     ICertSrvSetupKeyInformationCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.ICertSrvSetupKeyInformation_head, use_last_error=False)(10, 'Add', ((1, 'pIKeyInformation'),)))
+    win32more.System.Com.IDispatch
     return ICertSrvSetupKeyInformationCollection
 CASetupProperty = Int32
 ENUM_SETUPPROP_INVALID = -1
@@ -7525,6 +7527,7 @@ def _define_ICertSrvSetup():
     ICertSrvSetup.Install = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'Install', ()))
     ICertSrvSetup.PreUnInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(25, 'PreUnInstall', ((1, 'bClientOnly'),)))
     ICertSrvSetup.PostUnInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(26, 'PostUnInstall', ()))
+    win32more.System.Com.IDispatch
     return ICertSrvSetup
 MSCEPSetupProperty = Int32
 ENUM_CEPSETUPPROP_USELOCALSYSTEM = 0
@@ -7559,6 +7562,7 @@ def _define_IMSCEPSetup():
     IMSCEPSetup.Install = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Install', ()))
     IMSCEPSetup.PreUnInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'PreUnInstall', ()))
     IMSCEPSetup.PostUnInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'PostUnInstall', ()))
+    win32more.System.Com.IDispatch
     return IMSCEPSetup
 CESSetupProperty = Int32
 ENUM_CESSETUPPROP_USE_IISAPPPOOLIDENTITY = 0
@@ -7581,6 +7585,7 @@ def _define_ICertificateEnrollmentServerSetup():
     ICertificateEnrollmentServerSetup.SetApplicationPoolCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(11, 'SetApplicationPoolCredentials', ((1, 'bstrUsername'),(1, 'bstrPassword'),)))
     ICertificateEnrollmentServerSetup.Install = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Install', ()))
     ICertificateEnrollmentServerSetup.UnInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'UnInstall', ((1, 'pCAConfig'),(1, 'pAuthentication'),)))
+    win32more.System.Com.IDispatch
     return ICertificateEnrollmentServerSetup
 CEPSetupProperty = Int32
 ENUM_CEPSETUPPROP_AUTHENTICATION = 0
@@ -7599,6 +7604,7 @@ def _define_ICertificateEnrollmentPolicyServerSetup():
     ICertificateEnrollmentPolicyServerSetup.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Cryptography.CEPSetupProperty,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'SetProperty', ((1, 'propertyId'),(1, 'pPropertyValue'),)))
     ICertificateEnrollmentPolicyServerSetup.Install = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Install', ()))
     ICertificateEnrollmentPolicyServerSetup.UnInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'UnInstall', ((1, 'pAuthKeyBasedRenewal'),)))
+    win32more.System.Com.IDispatch
     return ICertificateEnrollmentPolicyServerSetup
 def _define_CryptAcquireContextA():
     try:

@@ -54,6 +54,7 @@ def _define_IProvideWinSATAssessmentInfo():
     IProvideWinSATAssessmentInfo.get_Score = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(7, 'get_Score', ((1, 'score'),)))
     IProvideWinSATAssessmentInfo.get_Title = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Title', ((1, 'title'),)))
     IProvideWinSATAssessmentInfo.get_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Description', ((1, 'description'),)))
+    win32more.System.Com.IDispatch
     return IProvideWinSATAssessmentInfo
 def _define_IProvideWinSATResultsInfo_head():
     class IProvideWinSATResultsInfo(win32more.System.Com.IDispatch_head):
@@ -66,6 +67,7 @@ def _define_IProvideWinSATResultsInfo():
     IProvideWinSATResultsInfo.get_AssessmentDateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_AssessmentDateTime', ((1, 'fileTime'),)))
     IProvideWinSATResultsInfo.get_SystemRating = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(10, 'get_SystemRating', ((1, 'level'),)))
     IProvideWinSATResultsInfo.get_RatingStateDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_RatingStateDesc', ((1, 'description'),)))
+    win32more.System.Com.IDispatch
     return IProvideWinSATResultsInfo
 def _define_IQueryRecentWinSATAssessment_head():
     class IQueryRecentWinSATAssessment(win32more.System.Com.IDispatch_head):
@@ -75,6 +77,7 @@ def _define_IQueryRecentWinSATAssessment():
     IQueryRecentWinSATAssessment = win32more.System.AssessmentTool.IQueryRecentWinSATAssessment_head
     IQueryRecentWinSATAssessment.get_XML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNodeList_head), use_last_error=False)(7, 'get_XML', ((1, 'xPath'),(1, 'namespaces'),(1, 'ppDomNodeList'),)))
     IQueryRecentWinSATAssessment.get_Info = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AssessmentTool.IProvideWinSATResultsInfo_head), use_last_error=False)(8, 'get_Info', ((1, 'ppWinSATAssessmentInfo'),)))
+    win32more.System.Com.IDispatch
     return IQueryRecentWinSATAssessment
 def _define_IProvideWinSATVisuals_head():
     class IProvideWinSATVisuals(win32more.System.Com.IUnknown_head):
@@ -83,6 +86,7 @@ def _define_IProvideWinSATVisuals_head():
 def _define_IProvideWinSATVisuals():
     IProvideWinSATVisuals = win32more.System.AssessmentTool.IProvideWinSATVisuals_head
     IProvideWinSATVisuals.get_Bitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.AssessmentTool.WINSAT_BITMAP_SIZE,win32more.System.AssessmentTool.WINSAT_ASSESSMENT_STATE,Single,POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(3, 'get_Bitmap', ((1, 'bitmapSize'),(1, 'state'),(1, 'rating'),(1, 'pBitmap'),)))
+    win32more.System.Com.IUnknown
     return IProvideWinSATVisuals
 def _define_IQueryAllWinSATAssessments_head():
     class IQueryAllWinSATAssessments(win32more.System.Com.IDispatch_head):
@@ -91,6 +95,7 @@ def _define_IQueryAllWinSATAssessments_head():
 def _define_IQueryAllWinSATAssessments():
     IQueryAllWinSATAssessments = win32more.System.AssessmentTool.IQueryAllWinSATAssessments_head
     IQueryAllWinSATAssessments.get_AllXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNodeList_head), use_last_error=False)(7, 'get_AllXML', ((1, 'xPath'),(1, 'namespaces'),(1, 'ppDomNodeList'),)))
+    win32more.System.Com.IDispatch
     return IQueryAllWinSATAssessments
 def _define_IWinSATInitiateEvents_head():
     class IWinSATInitiateEvents(win32more.System.Com.IUnknown_head):
@@ -100,6 +105,7 @@ def _define_IWinSATInitiateEvents():
     IWinSATInitiateEvents = win32more.System.AssessmentTool.IWinSATInitiateEvents_head
     IWinSATInitiateEvents.WinSATComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'WinSATComplete', ((1, 'hresult'),(1, 'strDescription'),)))
     IWinSATInitiateEvents.WinSATUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'WinSATUpdate', ((1, 'uCurrentTick'),(1, 'uTickTotal'),(1, 'strCurrentState'),)))
+    win32more.System.Com.IUnknown
     return IWinSATInitiateEvents
 def _define_IInitiateWinSATAssessment_head():
     class IInitiateWinSATAssessment(win32more.System.Com.IUnknown_head):
@@ -110,6 +116,7 @@ def _define_IInitiateWinSATAssessment():
     IInitiateWinSATAssessment.InitiateAssessment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.AssessmentTool.IWinSATInitiateEvents_head,win32more.Foundation.HWND, use_last_error=False)(3, 'InitiateAssessment', ((1, 'cmdLine'),(1, 'pCallbacks'),(1, 'callerHwnd'),)))
     IInitiateWinSATAssessment.InitiateFormalAssessment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.AssessmentTool.IWinSATInitiateEvents_head,win32more.Foundation.HWND, use_last_error=False)(4, 'InitiateFormalAssessment', ((1, 'pCallbacks'),(1, 'callerHwnd'),)))
     IInitiateWinSATAssessment.CancelAssessment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'CancelAssessment', ()))
+    win32more.System.Com.IUnknown
     return IInitiateWinSATAssessment
 def _define_IAccessibleWinSAT_head():
     class IAccessibleWinSAT(win32more.UI.Accessibility.IAccessible_head):
@@ -118,6 +125,7 @@ def _define_IAccessibleWinSAT_head():
 def _define_IAccessibleWinSAT():
     IAccessibleWinSAT = win32more.System.AssessmentTool.IAccessibleWinSAT_head
     IAccessibleWinSAT.SetAccessiblityData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(28, 'SetAccessiblityData', ((1, 'wsName'),(1, 'wsValue'),(1, 'wsDesc'),)))
+    win32more.UI.Accessibility.IAccessible
     return IAccessibleWinSAT
 def _define_IQueryOEMWinSATCustomization_head():
     class IQueryOEMWinSATCustomization(win32more.System.Com.IUnknown_head):
@@ -126,6 +134,7 @@ def _define_IQueryOEMWinSATCustomization_head():
 def _define_IQueryOEMWinSATCustomization():
     IQueryOEMWinSATCustomization = win32more.System.AssessmentTool.IQueryOEMWinSATCustomization_head
     IQueryOEMWinSATCustomization.GetOEMPrePopulationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AssessmentTool.WINSAT_OEM_DATA_TYPE), use_last_error=False)(3, 'GetOEMPrePopulationInfo', ((1, 'state'),)))
+    win32more.System.Com.IUnknown
     return IQueryOEMWinSATCustomization
 __all__ = [
     "CInitiateWinSAT",

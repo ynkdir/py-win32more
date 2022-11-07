@@ -24,6 +24,7 @@ def _define_IWebApplicationScriptEvents():
     IWebApplicationScriptEvents = win32more.System.Diagnostics.Debug.WebApp.IWebApplicationScriptEvents_head
     IWebApplicationScriptEvents.BeforeScriptExecute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLWindow2_head, use_last_error=False)(3, 'BeforeScriptExecute', ((1, 'htmlWindow'),)))
     IWebApplicationScriptEvents.ScriptError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLWindow2_head,win32more.System.Diagnostics.Debug.IActiveScriptError_head,win32more.Foundation.PWSTR,win32more.Foundation.BOOL, use_last_error=False)(4, 'ScriptError', ((1, 'htmlWindow'),(1, 'scriptError'),(1, 'url'),(1, 'errorHandled'),)))
+    win32more.System.Com.IUnknown
     return IWebApplicationScriptEvents
 def _define_IWebApplicationNavigationEvents_head():
     class IWebApplicationNavigationEvents(win32more.System.Com.IUnknown_head):
@@ -37,6 +38,7 @@ def _define_IWebApplicationNavigationEvents():
     IWebApplicationNavigationEvents.DocumentComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Web.MsHtml.IHTMLWindow2_head,win32more.Foundation.PWSTR, use_last_error=False)(6, 'DocumentComplete', ((1, 'htmlWindow'),(1, 'url'),)))
     IWebApplicationNavigationEvents.DownloadBegin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'DownloadBegin', ()))
     IWebApplicationNavigationEvents.DownloadComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'DownloadComplete', ()))
+    win32more.System.Com.IUnknown
     return IWebApplicationNavigationEvents
 def _define_IWebApplicationUIEvents_head():
     class IWebApplicationUIEvents(win32more.System.Com.IUnknown_head):
@@ -45,6 +47,7 @@ def _define_IWebApplicationUIEvents_head():
 def _define_IWebApplicationUIEvents():
     IWebApplicationUIEvents = win32more.System.Diagnostics.Debug.WebApp.IWebApplicationUIEvents_head
     IWebApplicationUIEvents.SecurityProblem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(3, 'SecurityProblem', ((1, 'securityProblem'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return IWebApplicationUIEvents
 def _define_IWebApplicationUpdateEvents_head():
     class IWebApplicationUpdateEvents(win32more.System.Com.IUnknown_head):
@@ -54,6 +57,7 @@ def _define_IWebApplicationUpdateEvents():
     IWebApplicationUpdateEvents = win32more.System.Diagnostics.Debug.WebApp.IWebApplicationUpdateEvents_head
     IWebApplicationUpdateEvents.OnPaint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnPaint', ()))
     IWebApplicationUpdateEvents.OnCssChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnCssChanged', ()))
+    win32more.System.Com.IUnknown
     return IWebApplicationUpdateEvents
 def _define_IWebApplicationHost_head():
     class IWebApplicationHost(win32more.System.Com.IUnknown_head):
@@ -66,6 +70,7 @@ def _define_IWebApplicationHost():
     IWebApplicationHost.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Refresh', ()))
     IWebApplicationHost.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,POINTER(UInt32), use_last_error=False)(6, 'Advise', ((1, 'interfaceId'),(1, 'callback'),(1, 'cookie'),)))
     IWebApplicationHost.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'Unadvise', ((1, 'cookie'),)))
+    win32more.System.Com.IUnknown
     return IWebApplicationHost
 def _define_IWebApplicationActivation_head():
     class IWebApplicationActivation(win32more.System.Com.IUnknown_head):
@@ -74,6 +79,7 @@ def _define_IWebApplicationActivation_head():
 def _define_IWebApplicationActivation():
     IWebApplicationActivation = win32more.System.Diagnostics.Debug.WebApp.IWebApplicationActivation_head
     IWebApplicationActivation.CancelPendingActivation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'CancelPendingActivation', ()))
+    win32more.System.Com.IUnknown
     return IWebApplicationActivation
 def _define_IWebApplicationAuthoringMode_head():
     class IWebApplicationAuthoringMode(win32more.System.Com.IServiceProvider_head):
@@ -82,6 +88,7 @@ def _define_IWebApplicationAuthoringMode_head():
 def _define_IWebApplicationAuthoringMode():
     IWebApplicationAuthoringMode = win32more.System.Diagnostics.Debug.WebApp.IWebApplicationAuthoringMode_head
     IWebApplicationAuthoringMode.get_AuthoringClientBinary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_AuthoringClientBinary', ((1, 'designModeDllPath'),)))
+    win32more.System.Com.IServiceProvider
     return IWebApplicationAuthoringMode
 def _define_RegisterAuthoringClientFunctionType():
     return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Diagnostics.Debug.WebApp.IWebApplicationAuthoringMode_head,win32more.System.Diagnostics.Debug.WebApp.IWebApplicationHost_head, use_last_error=False)

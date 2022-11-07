@@ -533,6 +533,7 @@ def _define_IQueryForm():
     IQueryForm.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Registry.HKEY, use_last_error=False)(3, 'Initialize', ((1, 'hkForm'),)))
     IQueryForm.AddForms = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.ActiveDirectory.LPCQADDFORMSPROC,win32more.Foundation.LPARAM, use_last_error=False)(4, 'AddForms', ((1, 'pAddFormsProc'),(1, 'lParam'),)))
     IQueryForm.AddPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.ActiveDirectory.LPCQADDPAGESPROC,win32more.Foundation.LPARAM, use_last_error=False)(5, 'AddPages', ((1, 'pAddPagesProc'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
     return IQueryForm
 def _define_IPersistQuery_head():
     class IPersistQuery(win32more.System.Com.IPersist_head):
@@ -547,6 +548,7 @@ def _define_IPersistQuery():
     IPersistQuery.WriteStruct = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32, use_last_error=False)(8, 'WriteStruct', ((1, 'pSection'),(1, 'pValueName'),(1, 'pStruct'),(1, 'cbStruct'),)))
     IPersistQuery.ReadStruct = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32, use_last_error=False)(9, 'ReadStruct', ((1, 'pSection'),(1, 'pValueName'),(1, 'pStruct'),(1, 'cbStruct'),)))
     IPersistQuery.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Clear', ()))
+    win32more.System.Com.IPersist
     return IPersistQuery
 def _define_OPENQUERYWINDOW_head():
     class OPENQUERYWINDOW(Structure):
@@ -580,6 +582,7 @@ def _define_ICommonQuery_head():
 def _define_ICommonQuery():
     ICommonQuery = win32more.Networking.ActiveDirectory.ICommonQuery_head
     ICommonQuery.OpenQueryWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Networking.ActiveDirectory.OPENQUERYWINDOW_head),POINTER(win32more.System.Com.IDataObject_head), use_last_error=False)(3, 'OpenQueryWindow', ((1, 'hwndParent'),(1, 'pQueryWnd'),(1, 'ppDataObject'),)))
+    win32more.System.Com.IUnknown
     return ICommonQuery
 PropertyEntry = Guid('72d3edc2-a4c4-11d0-8533-00c04fd8d503')
 PropertyValue = Guid('7b9e38b0-a97c-11d0-8534-00c04fd8d503')
@@ -1255,6 +1258,7 @@ def _define_IADs():
     IADs.GetEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'GetEx', ((1, 'bstrName'),(1, 'pvProp'),)))
     IADs.PutEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(18, 'PutEx', ((1, 'lnControlCode'),(1, 'bstrName'),(1, 'vProp'),)))
     IADs.GetInfoEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,Int32, use_last_error=False)(19, 'GetInfoEx', ((1, 'vProperties'),(1, 'lnReserved'),)))
+    win32more.System.Com.IDispatch
     return IADs
 def _define_IADsContainer_head():
     class IADsContainer(win32more.System.Com.IDispatch_head):
@@ -1273,6 +1277,7 @@ def _define_IADsContainer():
     IADsContainer.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(15, 'Delete', ((1, 'bstrClassName'),(1, 'bstrRelativeName'),)))
     IADsContainer.CopyHere = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(16, 'CopyHere', ((1, 'SourceName'),(1, 'NewName'),(1, 'ppObject'),)))
     IADsContainer.MoveHere = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(17, 'MoveHere', ((1, 'SourceName'),(1, 'NewName'),(1, 'ppObject'),)))
+    win32more.System.Com.IDispatch
     return IADsContainer
 def _define_IADsCollection_head():
     class IADsCollection(win32more.System.Com.IDispatch_head):
@@ -1284,6 +1289,7 @@ def _define_IADsCollection():
     IADsCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(8, 'Add', ((1, 'bstrName'),(1, 'vItem'),)))
     IADsCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'Remove', ((1, 'bstrItemToBeRemoved'),)))
     IADsCollection.GetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'GetObject', ((1, 'bstrName'),(1, 'pvItem'),)))
+    win32more.System.Com.IDispatch
     return IADsCollection
 def _define_IADsMembers_head():
     class IADsMembers(win32more.System.Com.IDispatch_head):
@@ -1295,6 +1301,7 @@ def _define_IADsMembers():
     IADsMembers.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'ppEnumerator'),)))
     IADsMembers.get_Filter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Filter', ((1, 'pvFilter'),)))
     IADsMembers.put_Filter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(10, 'put_Filter', ((1, 'pvFilter'),)))
+    win32more.System.Com.IDispatch
     return IADsMembers
 def _define_IADsPropertyList_head():
     class IADsPropertyList(win32more.System.Com.IDispatch_head):
@@ -1311,6 +1318,7 @@ def _define_IADsPropertyList():
     IADsPropertyList.PutPropertyItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(13, 'PutPropertyItem', ((1, 'varData'),)))
     IADsPropertyList.ResetPropertyItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(14, 'ResetPropertyItem', ((1, 'varEntry'),)))
     IADsPropertyList.PurgePropertyList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'PurgePropertyList', ()))
+    win32more.System.Com.IDispatch
     return IADsPropertyList
 def _define_IADsPropertyEntry_head():
     class IADsPropertyEntry(win32more.System.Com.IDispatch_head):
@@ -1327,6 +1335,7 @@ def _define_IADsPropertyEntry():
     IADsPropertyEntry.put_ControlCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(13, 'put_ControlCode', ((1, 'lnControlCode'),)))
     IADsPropertyEntry.get_Values = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(14, 'get_Values', ((1, 'retval'),)))
     IADsPropertyEntry.put_Values = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(15, 'put_Values', ((1, 'vValues'),)))
+    win32more.System.Com.IDispatch
     return IADsPropertyEntry
 def _define_IADsPropertyValue_head():
     class IADsPropertyValue(win32more.System.Com.IDispatch_head):
@@ -1359,6 +1368,7 @@ def _define_IADsPropertyValue():
     IADsPropertyValue.put_LargeInteger = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(29, 'put_LargeInteger', ((1, 'pLargeInteger'),)))
     IADsPropertyValue.get_UTCTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(30, 'get_UTCTime', ((1, 'retval'),)))
     IADsPropertyValue.put_UTCTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(31, 'put_UTCTime', ((1, 'daUTCTime'),)))
+    win32more.System.Com.IDispatch
     return IADsPropertyValue
 def _define_IADsPropertyValue2_head():
     class IADsPropertyValue2(win32more.System.Com.IDispatch_head):
@@ -1368,6 +1378,7 @@ def _define_IADsPropertyValue2():
     IADsPropertyValue2 = win32more.Networking.ActiveDirectory.IADsPropertyValue2_head
     IADsPropertyValue2.GetObjectProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'GetObjectProperty', ((1, 'lnADsType'),(1, 'pvProp'),)))
     IADsPropertyValue2.PutObjectProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT, use_last_error=False)(8, 'PutObjectProperty', ((1, 'lnADsType'),(1, 'vProp'),)))
+    win32more.System.Com.IDispatch
     return IADsPropertyValue2
 def _define_IPrivateDispatch_head():
     class IPrivateDispatch(win32more.System.Com.IUnknown_head):
@@ -1380,6 +1391,7 @@ def _define_IPrivateDispatch():
     IPrivateDispatch.ADSIGetTypeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Com.ITypeInfo_head), use_last_error=False)(5, 'ADSIGetTypeInfo', ((1, 'itinfo'),(1, 'lcid'),(1, 'pptinfo'),)))
     IPrivateDispatch.ADSIGetIDsOfNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(POINTER(UInt16)),UInt32,UInt32,POINTER(Int32), use_last_error=False)(6, 'ADSIGetIDsOfNames', ((1, 'riid'),(1, 'rgszNames'),(1, 'cNames'),(1, 'lcid'),(1, 'rgdispid'),)))
     IPrivateDispatch.ADSIInvoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Guid),UInt32,UInt16,POINTER(win32more.System.Com.DISPPARAMS_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.EXCEPINFO_head),POINTER(UInt32), use_last_error=False)(7, 'ADSIInvoke', ((1, 'dispidMember'),(1, 'riid'),(1, 'lcid'),(1, 'wFlags'),(1, 'pdispparams'),(1, 'pvarResult'),(1, 'pexcepinfo'),(1, 'puArgErr'),)))
+    win32more.System.Com.IUnknown
     return IPrivateDispatch
 def _define_IPrivateUnknown_head():
     class IPrivateUnknown(win32more.System.Com.IUnknown_head):
@@ -1389,6 +1401,7 @@ def _define_IPrivateUnknown():
     IPrivateUnknown = win32more.Networking.ActiveDirectory.IPrivateUnknown_head
     IPrivateUnknown.ADSIInitializeObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32, use_last_error=False)(3, 'ADSIInitializeObject', ((1, 'lpszUserName'),(1, 'lpszPassword'),(1, 'lnReserved'),)))
     IPrivateUnknown.ADSIReleaseObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ADSIReleaseObject', ()))
+    win32more.System.Com.IUnknown
     return IPrivateUnknown
 def _define_IADsExtension_head():
     class IADsExtension(win32more.System.Com.IUnknown_head):
@@ -1399,6 +1412,7 @@ def _define_IADsExtension():
     IADsExtension.Operate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT, use_last_error=False)(3, 'Operate', ((1, 'dwCode'),(1, 'varData1'),(1, 'varData2'),(1, 'varData3'),)))
     IADsExtension.PrivateGetIDsOfNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(POINTER(UInt16)),UInt32,UInt32,POINTER(Int32), use_last_error=False)(4, 'PrivateGetIDsOfNames', ((1, 'riid'),(1, 'rgszNames'),(1, 'cNames'),(1, 'lcid'),(1, 'rgDispid'),)))
     IADsExtension.PrivateInvoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Guid),UInt32,UInt16,POINTER(win32more.System.Com.DISPPARAMS_head),POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.EXCEPINFO_head),POINTER(UInt32), use_last_error=False)(5, 'PrivateInvoke', ((1, 'dispidMember'),(1, 'riid'),(1, 'lcid'),(1, 'wFlags'),(1, 'pdispparams'),(1, 'pvarResult'),(1, 'pexcepinfo'),(1, 'puArgErr'),)))
+    win32more.System.Com.IUnknown
     return IADsExtension
 def _define_IADsDeleteOps_head():
     class IADsDeleteOps(win32more.System.Com.IDispatch_head):
@@ -1407,6 +1421,7 @@ def _define_IADsDeleteOps_head():
 def _define_IADsDeleteOps():
     IADsDeleteOps = win32more.Networking.ActiveDirectory.IADsDeleteOps_head
     IADsDeleteOps.DeleteObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(7, 'DeleteObject', ((1, 'lnFlags'),)))
+    win32more.System.Com.IDispatch
     return IADsDeleteOps
 def _define_IADsNamespaces_head():
     class IADsNamespaces(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1416,6 +1431,7 @@ def _define_IADsNamespaces():
     IADsNamespaces = win32more.Networking.ActiveDirectory.IADsNamespaces_head
     IADsNamespaces.get_DefaultContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'get_DefaultContainer', ((1, 'retval'),)))
     IADsNamespaces.put_DefaultContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(21, 'put_DefaultContainer', ((1, 'bstrDefaultContainer'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsNamespaces
 def _define_IADsClass_head():
     class IADsClass(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1453,6 +1469,7 @@ def _define_IADsClass():
     IADsClass.get_HelpFileContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(47, 'get_HelpFileContext', ((1, 'retval'),)))
     IADsClass.put_HelpFileContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(48, 'put_HelpFileContext', ((1, 'lnHelpFileContext'),)))
     IADsClass.Qualifiers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.ActiveDirectory.IADsCollection_head), use_last_error=False)(49, 'Qualifiers', ((1, 'ppQualifiers'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsClass
 def _define_IADsProperty_head():
     class IADsProperty(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1471,6 +1488,7 @@ def _define_IADsProperty():
     IADsProperty.get_MultiValued = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(28, 'get_MultiValued', ((1, 'retval'),)))
     IADsProperty.put_MultiValued = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(29, 'put_MultiValued', ((1, 'fMultiValued'),)))
     IADsProperty.Qualifiers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.ActiveDirectory.IADsCollection_head), use_last_error=False)(30, 'Qualifiers', ((1, 'ppQualifiers'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsProperty
 def _define_IADsSyntax_head():
     class IADsSyntax(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1480,6 +1498,7 @@ def _define_IADsSyntax():
     IADsSyntax = win32more.Networking.ActiveDirectory.IADsSyntax_head
     IADsSyntax.get_OleAutoDataType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(20, 'get_OleAutoDataType', ((1, 'retval'),)))
     IADsSyntax.put_OleAutoDataType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(21, 'put_OleAutoDataType', ((1, 'lnOleAutoDataType'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsSyntax
 def _define_IADsLocality_head():
     class IADsLocality(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1495,6 +1514,7 @@ def _define_IADsLocality():
     IADsLocality.put_PostalAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(25, 'put_PostalAddress', ((1, 'bstrPostalAddress'),)))
     IADsLocality.get_SeeAlso = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(26, 'get_SeeAlso', ((1, 'retval'),)))
     IADsLocality.put_SeeAlso = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(27, 'put_SeeAlso', ((1, 'vSeeAlso'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsLocality
 def _define_IADsO_head():
     class IADsO(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1514,6 +1534,7 @@ def _define_IADsO():
     IADsO.put_FaxNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(29, 'put_FaxNumber', ((1, 'bstrFaxNumber'),)))
     IADsO.get_SeeAlso = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(30, 'get_SeeAlso', ((1, 'retval'),)))
     IADsO.put_SeeAlso = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(31, 'put_SeeAlso', ((1, 'vSeeAlso'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsO
 def _define_IADsOU_head():
     class IADsOU(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1535,6 +1556,7 @@ def _define_IADsOU():
     IADsOU.put_SeeAlso = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(31, 'put_SeeAlso', ((1, 'vSeeAlso'),)))
     IADsOU.get_BusinessCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(32, 'get_BusinessCategory', ((1, 'retval'),)))
     IADsOU.put_BusinessCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(33, 'put_BusinessCategory', ((1, 'bstrBusinessCategory'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsOU
 def _define_IADsDomain_head():
     class IADsDomain(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1559,6 +1581,7 @@ def _define_IADsDomain():
     IADsDomain.put_AutoUnlockInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(34, 'put_AutoUnlockInterval', ((1, 'lnAutoUnlockInterval'),)))
     IADsDomain.get_LockoutObservationInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(35, 'get_LockoutObservationInterval', ((1, 'retval'),)))
     IADsDomain.put_LockoutObservationInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(36, 'put_LockoutObservationInterval', ((1, 'lnLockoutObservationInterval'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsDomain
 def _define_IADsComputer_head():
     class IADsComputer(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1598,6 +1621,7 @@ def _define_IADsComputer():
     IADsComputer.put_StorageCapacity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(49, 'put_StorageCapacity', ((1, 'bstrStorageCapacity'),)))
     IADsComputer.get_NetAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(50, 'get_NetAddresses', ((1, 'retval'),)))
     IADsComputer.put_NetAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(51, 'put_NetAddresses', ((1, 'vNetAddresses'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsComputer
 def _define_IADsComputerOperations_head():
     class IADsComputerOperations(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1607,6 +1631,7 @@ def _define_IADsComputerOperations():
     IADsComputerOperations = win32more.Networking.ActiveDirectory.IADsComputerOperations_head
     IADsComputerOperations.Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(20, 'Status', ((1, 'ppObject'),)))
     IADsComputerOperations.Shutdown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(21, 'Shutdown', ((1, 'bReboot'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsComputerOperations
 def _define_IADsGroup_head():
     class IADsGroup(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1620,6 +1645,7 @@ def _define_IADsGroup():
     IADsGroup.IsMember = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(23, 'IsMember', ((1, 'bstrMember'),(1, 'bMember'),)))
     IADsGroup.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(24, 'Add', ((1, 'bstrNewItem'),)))
     IADsGroup.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(25, 'Remove', ((1, 'bstrItemToBeRemoved'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsGroup
 def _define_IADsUser_head():
     class IADsUser(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1718,6 +1744,7 @@ def _define_IADsUser():
     IADsUser.Groups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.ActiveDirectory.IADsMembers_head), use_last_error=False)(108, 'Groups', ((1, 'ppGroups'),)))
     IADsUser.SetPassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(109, 'SetPassword', ((1, 'NewPassword'),)))
     IADsUser.ChangePassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(110, 'ChangePassword', ((1, 'bstrOldPassword'),(1, 'bstrNewPassword'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsUser
 def _define_IADsPrintQueue_head():
     class IADsPrintQueue(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1751,6 +1778,7 @@ def _define_IADsPrintQueue():
     IADsPrintQueue.put_PrintDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(43, 'put_PrintDevices', ((1, 'vPrintDevices'),)))
     IADsPrintQueue.get_NetAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(44, 'get_NetAddresses', ((1, 'retval'),)))
     IADsPrintQueue.put_NetAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(45, 'put_NetAddresses', ((1, 'vNetAddresses'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsPrintQueue
 def _define_IADsPrintQueueOperations_head():
     class IADsPrintQueueOperations(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1763,6 +1791,7 @@ def _define_IADsPrintQueueOperations():
     IADsPrintQueueOperations.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(22, 'Pause', ()))
     IADsPrintQueueOperations.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(23, 'Resume', ()))
     IADsPrintQueueOperations.Purge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'Purge', ()))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsPrintQueueOperations
 def _define_IADsPrintJob_head():
     class IADsPrintJob(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1788,6 +1817,7 @@ def _define_IADsPrintJob():
     IADsPrintJob.put_Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(35, 'put_Notify', ((1, 'bstrNotify'),)))
     IADsPrintJob.get_NotifyPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(36, 'get_NotifyPath', ((1, 'retval'),)))
     IADsPrintJob.put_NotifyPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(37, 'put_NotifyPath', ((1, 'bstrNotifyPath'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsPrintJob
 def _define_IADsPrintJobOperations_head():
     class IADsPrintJobOperations(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1802,6 +1832,7 @@ def _define_IADsPrintJobOperations():
     IADsPrintJobOperations.put_Position = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(24, 'put_Position', ((1, 'lnPosition'),)))
     IADsPrintJobOperations.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'Pause', ()))
     IADsPrintJobOperations.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(26, 'Resume', ()))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsPrintJobOperations
 def _define_IADsService_head():
     class IADsService(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1833,6 +1864,7 @@ def _define_IADsService():
     IADsService.put_ServiceAccountPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(41, 'put_ServiceAccountPath', ((1, 'bstrServiceAccountPath'),)))
     IADsService.get_Dependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(42, 'get_Dependencies', ((1, 'retval'),)))
     IADsService.put_Dependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(43, 'put_Dependencies', ((1, 'vDependencies'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsService
 def _define_IADsServiceOperations_head():
     class IADsServiceOperations(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1846,6 +1878,7 @@ def _define_IADsServiceOperations():
     IADsServiceOperations.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(23, 'Pause', ()))
     IADsServiceOperations.Continue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'Continue', ()))
     IADsServiceOperations.SetPassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(25, 'SetPassword', ((1, 'bstrNewPassword'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsServiceOperations
 def _define_IADsFileService_head():
     class IADsFileService(win32more.Networking.ActiveDirectory.IADsService_head):
@@ -1857,6 +1890,7 @@ def _define_IADsFileService():
     IADsFileService.put_Description = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(45, 'put_Description', ((1, 'bstrDescription'),)))
     IADsFileService.get_MaxUserCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(46, 'get_MaxUserCount', ((1, 'retval'),)))
     IADsFileService.put_MaxUserCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(47, 'put_MaxUserCount', ((1, 'lnMaxUserCount'),)))
+    win32more.Networking.ActiveDirectory.IADsService
     return IADsFileService
 def _define_IADsFileServiceOperations_head():
     class IADsFileServiceOperations(win32more.Networking.ActiveDirectory.IADsServiceOperations_head):
@@ -1866,6 +1900,7 @@ def _define_IADsFileServiceOperations():
     IADsFileServiceOperations = win32more.Networking.ActiveDirectory.IADsFileServiceOperations_head
     IADsFileServiceOperations.Sessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.ActiveDirectory.IADsCollection_head), use_last_error=False)(26, 'Sessions', ((1, 'ppSessions'),)))
     IADsFileServiceOperations.Resources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.ActiveDirectory.IADsCollection_head), use_last_error=False)(27, 'Resources', ((1, 'ppResources'),)))
+    win32more.Networking.ActiveDirectory.IADsServiceOperations
     return IADsFileServiceOperations
 def _define_IADsFileShare_head():
     class IADsFileShare(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1882,6 +1917,7 @@ def _define_IADsFileShare():
     IADsFileShare.put_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(26, 'put_Path', ((1, 'bstrPath'),)))
     IADsFileShare.get_MaxUserCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(27, 'get_MaxUserCount', ((1, 'retval'),)))
     IADsFileShare.put_MaxUserCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(28, 'put_MaxUserCount', ((1, 'lnMaxUserCount'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsFileShare
 def _define_IADsSession_head():
     class IADsSession(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1895,6 +1931,7 @@ def _define_IADsSession():
     IADsSession.get_ComputerPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(23, 'get_ComputerPath', ((1, 'retval'),)))
     IADsSession.get_ConnectTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(24, 'get_ConnectTime', ((1, 'retval'),)))
     IADsSession.get_IdleTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(25, 'get_IdleTime', ((1, 'retval'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsSession
 def _define_IADsResource_head():
     class IADsResource(win32more.Networking.ActiveDirectory.IADs_head):
@@ -1906,6 +1943,7 @@ def _define_IADsResource():
     IADsResource.get_UserPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'get_UserPath', ((1, 'retval'),)))
     IADsResource.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_Path', ((1, 'retval'),)))
     IADsResource.get_LockCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_LockCount', ((1, 'retval'),)))
+    win32more.Networking.ActiveDirectory.IADs
     return IADsResource
 def _define_IADsOpenDSObject_head():
     class IADsOpenDSObject(win32more.System.Com.IDispatch_head):
@@ -1914,6 +1952,7 @@ def _define_IADsOpenDSObject_head():
 def _define_IADsOpenDSObject():
     IADsOpenDSObject = win32more.Networking.ActiveDirectory.IADsOpenDSObject_head
     IADsOpenDSObject.OpenDSObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'OpenDSObject', ((1, 'lpszDNName'),(1, 'lpszUserName'),(1, 'lpszPassword'),(1, 'lnReserved'),(1, 'ppOleDsObj'),)))
+    win32more.System.Com.IDispatch
     return IADsOpenDSObject
 def _define_IDirectoryObject_head():
     class IDirectoryObject(win32more.System.Com.IUnknown_head):
@@ -1926,6 +1965,7 @@ def _define_IDirectoryObject():
     IDirectoryObject.SetObjectAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.ActiveDirectory.ADS_ATTR_INFO_head),UInt32,POINTER(UInt32), use_last_error=False)(5, 'SetObjectAttributes', ((1, 'pAttributeEntries'),(1, 'dwNumAttributes'),(1, 'pdwNumAttributesModified'),)))
     IDirectoryObject.CreateDSObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Networking.ActiveDirectory.ADS_ATTR_INFO_head),UInt32,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(6, 'CreateDSObject', ((1, 'pszRDNName'),(1, 'pAttributeEntries'),(1, 'dwNumAttributes'),(1, 'ppObject'),)))
     IDirectoryObject.DeleteDSObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'DeleteDSObject', ((1, 'pszRDNName'),)))
+    win32more.System.Com.IUnknown
     return IDirectoryObject
 def _define_IDirectorySearch_head():
     class IDirectorySearch(win32more.System.Com.IUnknown_head):
@@ -1943,6 +1983,7 @@ def _define_IDirectorySearch():
     IDirectorySearch.GetColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,win32more.Foundation.PWSTR,POINTER(win32more.Networking.ActiveDirectory.ads_search_column_head), use_last_error=False)(10, 'GetColumn', ((1, 'hSearchResult'),(1, 'szColumnName'),(1, 'pSearchColumn'),)))
     IDirectorySearch.FreeColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.ActiveDirectory.ads_search_column_head), use_last_error=False)(11, 'FreeColumn', ((1, 'pSearchColumn'),)))
     IDirectorySearch.CloseSearchHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr, use_last_error=False)(12, 'CloseSearchHandle', ((1, 'hSearchResult'),)))
+    win32more.System.Com.IUnknown
     return IDirectorySearch
 def _define_IDirectorySchemaMgmt_head():
     class IDirectorySchemaMgmt(win32more.System.Com.IUnknown_head):
@@ -1958,6 +1999,7 @@ def _define_IDirectorySchemaMgmt():
     IDirectorySchemaMgmt.WriteClassDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Networking.ActiveDirectory.ADS_CLASS_DEF_head), use_last_error=False)(8, 'WriteClassDefinition', ((1, 'pszClassName'),(1, 'pClassDefinition'),)))
     IDirectorySchemaMgmt.CreateClassDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Networking.ActiveDirectory.ADS_CLASS_DEF_head), use_last_error=False)(9, 'CreateClassDefinition', ((1, 'pszClassName'),(1, 'pClassDefinition'),)))
     IDirectorySchemaMgmt.DeleteClassDefinition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'DeleteClassDefinition', ((1, 'pszClassName'),)))
+    win32more.System.Com.IUnknown
     return IDirectorySchemaMgmt
 def _define_IADsAggregatee_head():
     class IADsAggregatee(win32more.System.Com.IUnknown_head):
@@ -1969,6 +2011,7 @@ def _define_IADsAggregatee():
     IADsAggregatee.DisconnectAsAggregatee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'DisconnectAsAggregatee', ()))
     IADsAggregatee.RelinquishInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'RelinquishInterface', ((1, 'riid'),)))
     IADsAggregatee.RestoreInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(6, 'RestoreInterface', ((1, 'riid'),)))
+    win32more.System.Com.IUnknown
     return IADsAggregatee
 def _define_IADsAggregator_head():
     class IADsAggregator(win32more.System.Com.IUnknown_head):
@@ -1978,6 +2021,7 @@ def _define_IADsAggregator():
     IADsAggregator = win32more.Networking.ActiveDirectory.IADsAggregator_head
     IADsAggregator.ConnectAsAggregator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'ConnectAsAggregator', ((1, 'pAggregatee'),)))
     IADsAggregator.DisconnectAsAggregator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'DisconnectAsAggregator', ()))
+    win32more.System.Com.IUnknown
     return IADsAggregator
 def _define_IADsAccessControlEntry_head():
     class IADsAccessControlEntry(win32more.System.Com.IDispatch_head):
@@ -1999,6 +2043,7 @@ def _define_IADsAccessControlEntry():
     IADsAccessControlEntry.put_InheritedObjectType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(18, 'put_InheritedObjectType', ((1, 'bstrInheritedObjectType'),)))
     IADsAccessControlEntry.get_Trustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_Trustee', ((1, 'retval'),)))
     IADsAccessControlEntry.put_Trustee = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(20, 'put_Trustee', ((1, 'bstrTrustee'),)))
+    win32more.System.Com.IDispatch
     return IADsAccessControlEntry
 def _define_IADsAccessControlList_head():
     class IADsAccessControlList(win32more.System.Com.IDispatch_head):
@@ -2014,6 +2059,7 @@ def _define_IADsAccessControlList():
     IADsAccessControlList.RemoveAce = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(12, 'RemoveAce', ((1, 'pAccessControlEntry'),)))
     IADsAccessControlList.CopyAccessList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(13, 'CopyAccessList', ((1, 'ppAccessControlList'),)))
     IADsAccessControlList.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(14, 'get__NewEnum', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IADsAccessControlList
 def _define_IADsSecurityDescriptor_head():
     class IADsSecurityDescriptor(win32more.System.Com.IDispatch_head):
@@ -2042,6 +2088,7 @@ def _define_IADsSecurityDescriptor():
     IADsSecurityDescriptor.get_SaclDefaulted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(25, 'get_SaclDefaulted', ((1, 'retval'),)))
     IADsSecurityDescriptor.put_SaclDefaulted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(26, 'put_SaclDefaulted', ((1, 'fSaclDefaulted'),)))
     IADsSecurityDescriptor.CopySecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(27, 'CopySecurityDescriptor', ((1, 'ppSecurityDescriptor'),)))
+    win32more.System.Com.IDispatch
     return IADsSecurityDescriptor
 def _define_IADsLargeInteger_head():
     class IADsLargeInteger(win32more.System.Com.IDispatch_head):
@@ -2053,6 +2100,7 @@ def _define_IADsLargeInteger():
     IADsLargeInteger.put_HighPart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_HighPart', ((1, 'lnHighPart'),)))
     IADsLargeInteger.get_LowPart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_LowPart', ((1, 'retval'),)))
     IADsLargeInteger.put_LowPart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_LowPart', ((1, 'lnLowPart'),)))
+    win32more.System.Com.IDispatch
     return IADsLargeInteger
 def _define_IADsNameTranslate_head():
     class IADsNameTranslate(win32more.System.Com.IDispatch_head):
@@ -2067,6 +2115,7 @@ def _define_IADsNameTranslate():
     IADsNameTranslate.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'Get', ((1, 'lnFormatType'),(1, 'pbstrADsPath'),)))
     IADsNameTranslate.SetEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT, use_last_error=False)(12, 'SetEx', ((1, 'lnFormatType'),(1, 'pvar'),)))
     IADsNameTranslate.GetEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'GetEx', ((1, 'lnFormatType'),(1, 'pvar'),)))
+    win32more.System.Com.IDispatch
     return IADsNameTranslate
 def _define_IADsCaseIgnoreList_head():
     class IADsCaseIgnoreList(win32more.System.Com.IDispatch_head):
@@ -2076,6 +2125,7 @@ def _define_IADsCaseIgnoreList():
     IADsCaseIgnoreList = win32more.Networking.ActiveDirectory.IADsCaseIgnoreList_head
     IADsCaseIgnoreList.get_CaseIgnoreList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_CaseIgnoreList', ((1, 'retval'),)))
     IADsCaseIgnoreList.put_CaseIgnoreList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_CaseIgnoreList', ((1, 'vCaseIgnoreList'),)))
+    win32more.System.Com.IDispatch
     return IADsCaseIgnoreList
 def _define_IADsFaxNumber_head():
     class IADsFaxNumber(win32more.System.Com.IDispatch_head):
@@ -2087,6 +2137,7 @@ def _define_IADsFaxNumber():
     IADsFaxNumber.put_TelephoneNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_TelephoneNumber', ((1, 'bstrTelephoneNumber'),)))
     IADsFaxNumber.get_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Parameters', ((1, 'retval'),)))
     IADsFaxNumber.put_Parameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(10, 'put_Parameters', ((1, 'vParameters'),)))
+    win32more.System.Com.IDispatch
     return IADsFaxNumber
 def _define_IADsNetAddress_head():
     class IADsNetAddress(win32more.System.Com.IDispatch_head):
@@ -2098,6 +2149,7 @@ def _define_IADsNetAddress():
     IADsNetAddress.put_AddressType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_AddressType', ((1, 'lnAddressType'),)))
     IADsNetAddress.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Address', ((1, 'retval'),)))
     IADsNetAddress.put_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(10, 'put_Address', ((1, 'vAddress'),)))
+    win32more.System.Com.IDispatch
     return IADsNetAddress
 def _define_IADsOctetList_head():
     class IADsOctetList(win32more.System.Com.IDispatch_head):
@@ -2107,6 +2159,7 @@ def _define_IADsOctetList():
     IADsOctetList = win32more.Networking.ActiveDirectory.IADsOctetList_head
     IADsOctetList.get_OctetList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_OctetList', ((1, 'retval'),)))
     IADsOctetList.put_OctetList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_OctetList', ((1, 'vOctetList'),)))
+    win32more.System.Com.IDispatch
     return IADsOctetList
 def _define_IADsEmail_head():
     class IADsEmail(win32more.System.Com.IDispatch_head):
@@ -2118,6 +2171,7 @@ def _define_IADsEmail():
     IADsEmail.put_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_Type', ((1, 'lnType'),)))
     IADsEmail.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Address', ((1, 'retval'),)))
     IADsEmail.put_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_Address', ((1, 'bstrAddress'),)))
+    win32more.System.Com.IDispatch
     return IADsEmail
 def _define_IADsPath_head():
     class IADsPath(win32more.System.Com.IDispatch_head):
@@ -2131,6 +2185,7 @@ def _define_IADsPath():
     IADsPath.put_VolumeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_VolumeName', ((1, 'bstrVolumeName'),)))
     IADsPath.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_Path', ((1, 'retval'),)))
     IADsPath.put_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'put_Path', ((1, 'bstrPath'),)))
+    win32more.System.Com.IDispatch
     return IADsPath
 def _define_IADsReplicaPointer_head():
     class IADsReplicaPointer(win32more.System.Com.IDispatch_head):
@@ -2148,6 +2203,7 @@ def _define_IADsReplicaPointer():
     IADsReplicaPointer.put_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(14, 'put_Count', ((1, 'lnCount'),)))
     IADsReplicaPointer.get_ReplicaAddressHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_ReplicaAddressHints', ((1, 'retval'),)))
     IADsReplicaPointer.put_ReplicaAddressHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(16, 'put_ReplicaAddressHints', ((1, 'vReplicaAddressHints'),)))
+    win32more.System.Com.IDispatch
     return IADsReplicaPointer
 def _define_IADsAcl_head():
     class IADsAcl(win32more.System.Com.IDispatch_head):
@@ -2162,6 +2218,7 @@ def _define_IADsAcl():
     IADsAcl.get_Privileges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_Privileges', ((1, 'retval'),)))
     IADsAcl.put_Privileges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'put_Privileges', ((1, 'lnPrivileges'),)))
     IADsAcl.CopyAcl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(13, 'CopyAcl', ((1, 'ppAcl'),)))
+    win32more.System.Com.IDispatch
     return IADsAcl
 def _define_IADsTimestamp_head():
     class IADsTimestamp(win32more.System.Com.IDispatch_head):
@@ -2173,6 +2230,7 @@ def _define_IADsTimestamp():
     IADsTimestamp.put_WholeSeconds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_WholeSeconds', ((1, 'lnWholeSeconds'),)))
     IADsTimestamp.get_EventID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_EventID', ((1, 'retval'),)))
     IADsTimestamp.put_EventID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_EventID', ((1, 'lnEventID'),)))
+    win32more.System.Com.IDispatch
     return IADsTimestamp
 def _define_IADsPostalAddress_head():
     class IADsPostalAddress(win32more.System.Com.IDispatch_head):
@@ -2182,6 +2240,7 @@ def _define_IADsPostalAddress():
     IADsPostalAddress = win32more.Networking.ActiveDirectory.IADsPostalAddress_head
     IADsPostalAddress.get_PostalAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_PostalAddress', ((1, 'retval'),)))
     IADsPostalAddress.put_PostalAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_PostalAddress', ((1, 'vPostalAddress'),)))
+    win32more.System.Com.IDispatch
     return IADsPostalAddress
 def _define_IADsBackLink_head():
     class IADsBackLink(win32more.System.Com.IDispatch_head):
@@ -2193,6 +2252,7 @@ def _define_IADsBackLink():
     IADsBackLink.put_RemoteID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_RemoteID', ((1, 'lnRemoteID'),)))
     IADsBackLink.get_ObjectName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_ObjectName', ((1, 'retval'),)))
     IADsBackLink.put_ObjectName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_ObjectName', ((1, 'bstrObjectName'),)))
+    win32more.System.Com.IDispatch
     return IADsBackLink
 def _define_IADsTypedName_head():
     class IADsTypedName(win32more.System.Com.IDispatch_head):
@@ -2206,6 +2266,7 @@ def _define_IADsTypedName():
     IADsTypedName.put_Level = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_Level', ((1, 'lnLevel'),)))
     IADsTypedName.get_Interval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_Interval', ((1, 'retval'),)))
     IADsTypedName.put_Interval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'put_Interval', ((1, 'lnInterval'),)))
+    win32more.System.Com.IDispatch
     return IADsTypedName
 def _define_IADsHold_head():
     class IADsHold(win32more.System.Com.IDispatch_head):
@@ -2217,6 +2278,7 @@ def _define_IADsHold():
     IADsHold.put_ObjectName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_ObjectName', ((1, 'bstrObjectName'),)))
     IADsHold.get_Amount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Amount', ((1, 'retval'),)))
     IADsHold.put_Amount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_Amount', ((1, 'lnAmount'),)))
+    win32more.System.Com.IDispatch
     return IADsHold
 def _define_IADsObjectOptions_head():
     class IADsObjectOptions(win32more.System.Com.IDispatch_head):
@@ -2226,6 +2288,7 @@ def _define_IADsObjectOptions():
     IADsObjectOptions = win32more.Networking.ActiveDirectory.IADsObjectOptions_head
     IADsObjectOptions.GetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'GetOption', ((1, 'lnOption'),(1, 'pvValue'),)))
     IADsObjectOptions.SetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.VARIANT, use_last_error=False)(8, 'SetOption', ((1, 'lnOption'),(1, 'vValue'),)))
+    win32more.System.Com.IDispatch
     return IADsObjectOptions
 def _define_IADsPathname_head():
     class IADsPathname(win32more.System.Com.IDispatch_head):
@@ -2244,6 +2307,7 @@ def _define_IADsPathname():
     IADsPathname.GetEscapedElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'GetEscapedElement', ((1, 'lnReserved'),(1, 'bstrInStr'),(1, 'pbstrOutStr'),)))
     IADsPathname.get_EscapedMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_EscapedMode', ((1, 'retval'),)))
     IADsPathname.put_EscapedMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(17, 'put_EscapedMode', ((1, 'lnEscapedMode'),)))
+    win32more.System.Com.IDispatch
     return IADsPathname
 def _define_IADsADSystemInfo_head():
     class IADsADSystemInfo(win32more.System.Com.IDispatch_head):
@@ -2264,6 +2328,7 @@ def _define_IADsADSystemInfo():
     IADsADSystemInfo.GetDCSiteName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'GetDCSiteName', ((1, 'szServer'),(1, 'pszSiteName'),)))
     IADsADSystemInfo.RefreshSchemaCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'RefreshSchemaCache', ()))
     IADsADSystemInfo.GetTrees = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'GetTrees', ((1, 'pvTrees'),)))
+    win32more.System.Com.IDispatch
     return IADsADSystemInfo
 def _define_IADsWinNTSystemInfo_head():
     class IADsWinNTSystemInfo(win32more.System.Com.IDispatch_head):
@@ -2275,6 +2340,7 @@ def _define_IADsWinNTSystemInfo():
     IADsWinNTSystemInfo.get_ComputerName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_ComputerName', ((1, 'retval'),)))
     IADsWinNTSystemInfo.get_DomainName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_DomainName', ((1, 'retval'),)))
     IADsWinNTSystemInfo.get_PDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_PDC', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IADsWinNTSystemInfo
 def _define_IADsDNWithBinary_head():
     class IADsDNWithBinary(win32more.System.Com.IDispatch_head):
@@ -2286,6 +2352,7 @@ def _define_IADsDNWithBinary():
     IADsDNWithBinary.put_BinaryValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_BinaryValue', ((1, 'vBinaryValue'),)))
     IADsDNWithBinary.get_DNString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_DNString', ((1, 'retval'),)))
     IADsDNWithBinary.put_DNString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_DNString', ((1, 'bstrDNString'),)))
+    win32more.System.Com.IDispatch
     return IADsDNWithBinary
 def _define_IADsDNWithString_head():
     class IADsDNWithString(win32more.System.Com.IDispatch_head):
@@ -2297,6 +2364,7 @@ def _define_IADsDNWithString():
     IADsDNWithString.put_StringValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_StringValue', ((1, 'bstrStringValue'),)))
     IADsDNWithString.get_DNString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_DNString', ((1, 'retval'),)))
     IADsDNWithString.put_DNString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_DNString', ((1, 'bstrDNString'),)))
+    win32more.System.Com.IDispatch
     return IADsDNWithString
 def _define_IADsSecurityUtility_head():
     class IADsSecurityUtility(win32more.System.Com.IDispatch_head):
@@ -2309,6 +2377,7 @@ def _define_IADsSecurityUtility():
     IADsSecurityUtility.ConvertSecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,Int32,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'ConvertSecurityDescriptor', ((1, 'varSD'),(1, 'lDataFormat'),(1, 'lOutFormat'),(1, 'pResult'),)))
     IADsSecurityUtility.get_SecurityMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_SecurityMask', ((1, 'retval'),)))
     IADsSecurityUtility.put_SecurityMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'put_SecurityMask', ((1, 'lnSecurityMask'),)))
+    win32more.System.Com.IDispatch
     return IADsSecurityUtility
 def _define_DSOBJECT_head():
     class DSOBJECT(Structure):
@@ -2402,6 +2471,7 @@ def _define_IDsBrowseDomainTree():
     IDsBrowseDomainTree.FreeDomains = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Networking.ActiveDirectory.DOMAIN_TREE_head)), use_last_error=False)(5, 'FreeDomains', ((1, 'ppDomainTree'),)))
     IDsBrowseDomainTree.FlushCachedDomains = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'FlushCachedDomains', ()))
     IDsBrowseDomainTree.SetComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(7, 'SetComputer', ((1, 'pszComputerName'),(1, 'pszUserName'),(1, 'pszPassword'),)))
+    win32more.System.Com.IUnknown
     return IDsBrowseDomainTree
 def _define_LPDSENUMATTRIBUTES():
     return CFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LPARAM,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)
@@ -2436,6 +2506,7 @@ def _define_IDsDisplaySpecifier():
     IDsDisplaySpecifier.GetClassCreationInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Networking.ActiveDirectory.DSCLASSCREATIONINFO_head)), use_last_error=False)(11, 'GetClassCreationInfo', ((1, 'pszObjectClass'),(1, 'ppdscci'),)))
     IDsDisplaySpecifier.EnumClassAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Networking.ActiveDirectory.LPDSENUMATTRIBUTES,win32more.Foundation.LPARAM, use_last_error=False)(12, 'EnumClassAttributes', ((1, 'pszObjectClass'),(1, 'pcbEnum'),(1, 'lParam'),)))
     IDsDisplaySpecifier.GetAttributeADsType = COMMETHOD(WINFUNCTYPE(win32more.Networking.ActiveDirectory.ADSTYPEENUM,win32more.Foundation.PWSTR, use_last_error=False)(13, 'GetAttributeADsType', ((1, 'pszAttributeName'),)))
+    win32more.System.Com.IUnknown
     return IDsDisplaySpecifier
 def _define_DSBROWSEINFOW_head():
     class DSBROWSEINFOW(Structure):
@@ -2611,6 +2682,7 @@ def _define_IDsObjectPicker():
     IDsObjectPicker = win32more.Networking.ActiveDirectory.IDsObjectPicker_head
     IDsObjectPicker.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.ActiveDirectory.DSOP_INIT_INFO_head), use_last_error=False)(3, 'Initialize', ((1, 'pInitInfo'),)))
     IDsObjectPicker.InvokeDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.System.Com.IDataObject_head), use_last_error=False)(4, 'InvokeDialog', ((1, 'hwndParent'),(1, 'ppdoSelections'),)))
+    win32more.System.Com.IUnknown
     return IDsObjectPicker
 def _define_IDsObjectPickerCredentials_head():
     class IDsObjectPickerCredentials(win32more.Networking.ActiveDirectory.IDsObjectPicker_head):
@@ -2619,6 +2691,7 @@ def _define_IDsObjectPickerCredentials_head():
 def _define_IDsObjectPickerCredentials():
     IDsObjectPickerCredentials = win32more.Networking.ActiveDirectory.IDsObjectPickerCredentials_head
     IDsObjectPickerCredentials.SetCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SetCredentials', ((1, 'szUserName'),(1, 'szPassword'),)))
+    win32more.Networking.ActiveDirectory.IDsObjectPicker
     return IDsObjectPickerCredentials
 def _define_DSQUERYINITPARAMS_head():
     class DSQUERYINITPARAMS(Structure):
@@ -2687,6 +2760,7 @@ def _define_IDsAdminCreateObj():
     IDsAdminCreateObj = win32more.Networking.ActiveDirectory.IDsAdminCreateObj_head
     IDsAdminCreateObj.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.ActiveDirectory.IADsContainer_head,win32more.Networking.ActiveDirectory.IADs_head,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Initialize', ((1, 'pADsContainerObj'),(1, 'pADsCopySource'),(1, 'lpszClassName'),)))
     IDsAdminCreateObj.CreateModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Networking.ActiveDirectory.IADs_head), use_last_error=False)(4, 'CreateModal', ((1, 'hwndParent'),(1, 'ppADsObj'),)))
+    win32more.System.Com.IUnknown
     return IDsAdminCreateObj
 def _define_IDsAdminNewObj_head():
     class IDsAdminNewObj(win32more.System.Com.IUnknown_head):
@@ -2696,6 +2770,7 @@ def _define_IDsAdminNewObj():
     IDsAdminNewObj = win32more.Networking.ActiveDirectory.IDsAdminNewObj_head
     IDsAdminNewObj.SetButtons = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BOOL, use_last_error=False)(3, 'SetButtons', ((1, 'nCurrIndex'),(1, 'bValid'),)))
     IDsAdminNewObj.GetPageCounts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32), use_last_error=False)(4, 'GetPageCounts', ((1, 'pnTotal'),(1, 'pnStartIndex'),)))
+    win32more.System.Com.IUnknown
     return IDsAdminNewObj
 def _define_IDsAdminNewObjPrimarySite_head():
     class IDsAdminNewObjPrimarySite(win32more.System.Com.IUnknown_head):
@@ -2705,6 +2780,7 @@ def _define_IDsAdminNewObjPrimarySite():
     IDsAdminNewObjPrimarySite = win32more.Networking.ActiveDirectory.IDsAdminNewObjPrimarySite_head
     IDsAdminNewObjPrimarySite.CreateNew = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'CreateNew', ((1, 'pszName'),)))
     IDsAdminNewObjPrimarySite.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Commit', ()))
+    win32more.System.Com.IUnknown
     return IDsAdminNewObjPrimarySite
 def _define_DSA_NEWOBJ_DISPINFO_head():
     class DSA_NEWOBJ_DISPINFO(Structure):
@@ -2731,6 +2807,7 @@ def _define_IDsAdminNewObjExt():
     IDsAdminNewObjExt.WriteData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(6, 'WriteData', ((1, 'hWnd'),(1, 'uContext'),)))
     IDsAdminNewObjExt.OnError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'OnError', ((1, 'hWnd'),(1, 'hr'),(1, 'uContext'),)))
     IDsAdminNewObjExt.GetSummaryInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'GetSummaryInfo', ((1, 'pBstrText'),)))
+    win32more.System.Com.IUnknown
     return IDsAdminNewObjExt
 def _define_IDsAdminNotifyHandler_head():
     class IDsAdminNotifyHandler(win32more.System.Com.IUnknown_head):
@@ -2742,6 +2819,7 @@ def _define_IDsAdminNotifyHandler():
     IDsAdminNotifyHandler.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IDataObject_head,win32more.System.Com.IDataObject_head,POINTER(UInt32),POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'Begin', ((1, 'uEvent'),(1, 'pArg1'),(1, 'pArg2'),(1, 'puFlags'),(1, 'pBstr'),)))
     IDsAdminNotifyHandler.Notify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(5, 'Notify', ((1, 'nItem'),(1, 'uFlags'),)))
     IDsAdminNotifyHandler.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'End', ()))
+    win32more.System.Com.IUnknown
     return IDsAdminNotifyHandler
 def _define_ADSPROPINITPARAMS_head():
     class ADSPROPINITPARAMS(Structure):

@@ -1282,6 +1282,7 @@ def _define_IEnumVdsObject():
     IEnumVdsObject.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumVdsObject.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumVdsObject.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumVdsObject
 def _define_IVdsAsync_head():
     class IVdsAsync(win32more.System.Com.IUnknown_head):
@@ -1292,6 +1293,7 @@ def _define_IVdsAsync():
     IVdsAsync.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Cancel', ()))
     IVdsAsync.Wait = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.Storage.VirtualDiskService.VDS_ASYNC_OUTPUT_head), use_last_error=False)(4, 'Wait', ((1, 'pHrResult'),(1, 'pAsyncOut'),)))
     IVdsAsync.QueryStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(UInt32), use_last_error=False)(5, 'QueryStatus', ((1, 'pHrResult'),(1, 'pulPercentCompleted'),)))
+    win32more.System.Com.IUnknown
     return IVdsAsync
 def _define_IVdsAdviseSink_head():
     class IVdsAdviseSink(win32more.System.Com.IUnknown_head):
@@ -1300,6 +1302,7 @@ def _define_IVdsAdviseSink_head():
 def _define_IVdsAdviseSink():
     IVdsAdviseSink = win32more.Storage.VirtualDiskService.IVdsAdviseSink_head
     IVdsAdviseSink.OnNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Storage.VirtualDiskService.VDS_NOTIFICATION), use_last_error=False)(3, 'OnNotify', ((1, 'lNumberOfNotifications'),(1, 'pNotificationArray'),)))
+    win32more.System.Com.IUnknown
     return IVdsAdviseSink
 def _define_IVdsProvider_head():
     class IVdsProvider(win32more.System.Com.IUnknown_head):
@@ -1308,6 +1311,7 @@ def _define_IVdsProvider_head():
 def _define_IVdsProvider():
     IVdsProvider = win32more.Storage.VirtualDiskService.IVdsProvider_head
     IVdsProvider.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_PROVIDER_PROP_head), use_last_error=False)(3, 'GetProperties', ((1, 'pProviderProp'),)))
+    win32more.System.Com.IUnknown
     return IVdsProvider
 def _define_IVdsProviderSupport_head():
     class IVdsProviderSupport(win32more.System.Com.IUnknown_head):
@@ -1316,6 +1320,7 @@ def _define_IVdsProviderSupport_head():
 def _define_IVdsProviderSupport():
     IVdsProviderSupport = win32more.Storage.VirtualDiskService.IVdsProviderSupport_head
     IVdsProviderSupport.GetVersionSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetVersionSupport', ((1, 'ulVersionSupport'),)))
+    win32more.System.Com.IUnknown
     return IVdsProviderSupport
 def _define_IVdsProviderPrivate_head():
     class IVdsProviderPrivate(win32more.System.Com.IUnknown_head):
@@ -1326,6 +1331,7 @@ def _define_IVdsProviderPrivate():
     IVdsProviderPrivate.GetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Storage.VirtualDiskService.VDS_OBJECT_TYPE,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetObject', ((1, 'ObjectId'),(1, 'type'),(1, 'ppObjectUnk'),)))
     IVdsProviderPrivate.OnLoad = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'OnLoad', ((1, 'pwszMachineName'),(1, 'pCallbackObject'),)))
     IVdsProviderPrivate.OnUnload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'OnUnload', ((1, 'bForceUnload'),)))
+    win32more.System.Com.IUnknown
     return IVdsProviderPrivate
 VDS_SUB_SYSTEM_STATUS = Int32
 VDS_SSS_UNKNOWN = 0
@@ -1878,6 +1884,7 @@ def _define_IVdsHwProvider():
     IVdsHwProvider.QuerySubSystems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(3, 'QuerySubSystems', ((1, 'ppEnum'),)))
     IVdsHwProvider.Reenumerate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reenumerate', ()))
     IVdsHwProvider.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Refresh', ()))
+    win32more.System.Com.IUnknown
     return IVdsHwProvider
 def _define_IVdsHwProviderType_head():
     class IVdsHwProviderType(win32more.System.Com.IUnknown_head):
@@ -1886,6 +1893,7 @@ def _define_IVdsHwProviderType_head():
 def _define_IVdsHwProviderType():
     IVdsHwProviderType = win32more.Storage.VirtualDiskService.IVdsHwProviderType_head
     IVdsHwProviderType.GetProviderType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE), use_last_error=False)(3, 'GetProviderType', ((1, 'pType'),)))
+    win32more.System.Com.IUnknown
     return IVdsHwProviderType
 def _define_IVdsHwProviderType2_head():
     class IVdsHwProviderType2(win32more.System.Com.IUnknown_head):
@@ -1894,6 +1902,7 @@ def _define_IVdsHwProviderType2_head():
 def _define_IVdsHwProviderType2():
     IVdsHwProviderType2 = win32more.Storage.VirtualDiskService.IVdsHwProviderType2_head
     IVdsHwProviderType2.GetProviderType2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HWPROVIDER_TYPE), use_last_error=False)(3, 'GetProviderType2', ((1, 'pType'),)))
+    win32more.System.Com.IUnknown
     return IVdsHwProviderType2
 def _define_IVdsHwProviderStoragePools_head():
     class IVdsHwProviderStoragePools(win32more.System.Com.IUnknown_head):
@@ -1904,6 +1913,7 @@ def _define_IVdsHwProviderStoragePools():
     IVdsHwProviderStoragePools.QueryStoragePools = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt64,POINTER(win32more.Storage.VirtualDiskService.VDS_POOL_ATTRIBUTES_head),POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(3, 'QueryStoragePools', ((1, 'ulFlags'),(1, 'ullRemainingFreeSpace'),(1, 'pPoolAttributes'),(1, 'ppEnum'),)))
     IVdsHwProviderStoragePools.CreateLunInStoragePool = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,UInt64,Guid,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head),POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head), use_last_error=False)(4, 'CreateLunInStoragePool', ((1, 'type'),(1, 'ullSizeInBytes'),(1, 'StoragePoolId'),(1, 'pwszUnmaskingList'),(1, 'pHints2'),(1, 'ppAsync'),)))
     IVdsHwProviderStoragePools.QueryMaxLunCreateSizeInStoragePool = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,Guid,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head),POINTER(UInt64), use_last_error=False)(5, 'QueryMaxLunCreateSizeInStoragePool', ((1, 'type'),(1, 'StoragePoolId'),(1, 'pHints2'),(1, 'pullMaxLunSize'),)))
+    win32more.System.Com.IUnknown
     return IVdsHwProviderStoragePools
 def _define_IVdsSubSystem_head():
     class IVdsSubSystem(win32more.System.Com.IUnknown_head):
@@ -1923,6 +1933,7 @@ def _define_IVdsSubSystem():
     IVdsSubSystem.ReplaceDrive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid, use_last_error=False)(12, 'ReplaceDrive', ((1, 'DriveToBeReplaced'),(1, 'ReplacementDrive'),)))
     IVdsSubSystem.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_SUB_SYSTEM_STATUS, use_last_error=False)(13, 'SetStatus', ((1, 'status'),)))
     IVdsSubSystem.QueryMaxLunCreateSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,POINTER(Guid),Int32,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head),POINTER(UInt64), use_last_error=False)(14, 'QueryMaxLunCreateSize', ((1, 'type'),(1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'pHints'),(1, 'pullMaxLunSize'),)))
+    win32more.System.Com.IUnknown
     return IVdsSubSystem
 def _define_IVdsSubSystem2_head():
     class IVdsSubSystem2(win32more.System.Com.IUnknown_head):
@@ -1934,6 +1945,7 @@ def _define_IVdsSubSystem2():
     IVdsSubSystem2.GetDrive2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,Int16,UInt32,POINTER(win32more.Storage.VirtualDiskService.IVdsDrive_head), use_last_error=False)(4, 'GetDrive2', ((1, 'sBusNumber'),(1, 'sSlotNumber'),(1, 'ulEnclosureNumber'),(1, 'ppDrive'),)))
     IVdsSubSystem2.CreateLun2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,UInt64,POINTER(Guid),Int32,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head),POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head), use_last_error=False)(5, 'CreateLun2', ((1, 'type'),(1, 'ullSizeInBytes'),(1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'pwszUnmaskingList'),(1, 'pHints2'),(1, 'ppAsync'),)))
     IVdsSubSystem2.QueryMaxLunCreateSize2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_TYPE,POINTER(Guid),Int32,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head),POINTER(UInt64), use_last_error=False)(6, 'QueryMaxLunCreateSize2', ((1, 'type'),(1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'pHints2'),(1, 'pullMaxLunSize'),)))
+    win32more.System.Com.IUnknown
     return IVdsSubSystem2
 def _define_IVdsSubSystemNaming_head():
     class IVdsSubSystemNaming(win32more.System.Com.IUnknown_head):
@@ -1942,6 +1954,7 @@ def _define_IVdsSubSystemNaming_head():
 def _define_IVdsSubSystemNaming():
     IVdsSubSystemNaming = win32more.Storage.VirtualDiskService.IVdsSubSystemNaming_head
     IVdsSubSystemNaming.SetFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetFriendlyName', ((1, 'pwszFriendlyName'),)))
+    win32more.System.Com.IUnknown
     return IVdsSubSystemNaming
 def _define_IVdsSubSystemIscsi_head():
     class IVdsSubSystemIscsi(win32more.System.Com.IUnknown_head):
@@ -1953,6 +1966,7 @@ def _define_IVdsSubSystemIscsi():
     IVdsSubSystemIscsi.QueryPortals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(4, 'QueryPortals', ((1, 'ppEnum'),)))
     IVdsSubSystemIscsi.CreateTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head), use_last_error=False)(5, 'CreateTarget', ((1, 'pwszIscsiName'),(1, 'pwszFriendlyName'),(1, 'ppAsync'),)))
     IVdsSubSystemIscsi.SetIpsecGroupPresharedKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head), use_last_error=False)(6, 'SetIpsecGroupPresharedKey', ((1, 'pIpsecKey'),)))
+    win32more.System.Com.IUnknown
     return IVdsSubSystemIscsi
 def _define_IVdsSubSystemInterconnect_head():
     class IVdsSubSystemInterconnect(win32more.System.Com.IUnknown_head):
@@ -1961,6 +1975,7 @@ def _define_IVdsSubSystemInterconnect_head():
 def _define_IVdsSubSystemInterconnect():
     IVdsSubSystemInterconnect = win32more.Storage.VirtualDiskService.IVdsSubSystemInterconnect_head
     IVdsSubSystemInterconnect.GetSupportedInterconnects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetSupportedInterconnects', ((1, 'pulSupportedInterconnectsFlag'),)))
+    win32more.System.Com.IUnknown
     return IVdsSubSystemInterconnect
 def _define_IVdsControllerPort_head():
     class IVdsControllerPort(win32more.System.Com.IUnknown_head):
@@ -1973,6 +1988,7 @@ def _define_IVdsControllerPort():
     IVdsControllerPort.QueryAssociatedLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(5, 'QueryAssociatedLuns', ((1, 'ppEnum'),)))
     IVdsControllerPort.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Reset', ()))
     IVdsControllerPort.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_PORT_STATUS, use_last_error=False)(7, 'SetStatus', ((1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IVdsControllerPort
 def _define_IVdsController_head():
     class IVdsController(win32more.System.Com.IUnknown_head):
@@ -1988,6 +2004,7 @@ def _define_IVdsController():
     IVdsController.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Reset', ()))
     IVdsController.QueryAssociatedLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(9, 'QueryAssociatedLuns', ((1, 'ppEnum'),)))
     IVdsController.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_CONTROLLER_STATUS, use_last_error=False)(10, 'SetStatus', ((1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IVdsController
 def _define_IVdsControllerControllerPort_head():
     class IVdsControllerControllerPort(win32more.System.Com.IUnknown_head):
@@ -1996,6 +2013,7 @@ def _define_IVdsControllerControllerPort_head():
 def _define_IVdsControllerControllerPort():
     IVdsControllerControllerPort = win32more.Storage.VirtualDiskService.IVdsControllerControllerPort_head
     IVdsControllerControllerPort.QueryControllerPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(3, 'QueryControllerPorts', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IVdsControllerControllerPort
 def _define_IVdsDrive_head():
     class IVdsDrive(win32more.System.Com.IUnknown_head):
@@ -2009,6 +2027,7 @@ def _define_IVdsDrive():
     IVdsDrive.SetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'SetFlags', ((1, 'ulFlags'),)))
     IVdsDrive.ClearFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'ClearFlags', ((1, 'ulFlags'),)))
     IVdsDrive.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_DRIVE_STATUS, use_last_error=False)(8, 'SetStatus', ((1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IVdsDrive
 def _define_IVdsDrive2_head():
     class IVdsDrive2(win32more.System.Com.IUnknown_head):
@@ -2017,6 +2036,7 @@ def _define_IVdsDrive2_head():
 def _define_IVdsDrive2():
     IVdsDrive2 = win32more.Storage.VirtualDiskService.IVdsDrive2_head
     IVdsDrive2.GetProperties2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_PROP2_head), use_last_error=False)(3, 'GetProperties2', ((1, 'pDriveProp2'),)))
+    win32more.System.Com.IUnknown
     return IVdsDrive2
 def _define_IVdsLun_head():
     class IVdsLun(win32more.System.Com.IUnknown_head):
@@ -2041,6 +2061,7 @@ def _define_IVdsLun():
     IVdsLun.ApplyHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head), use_last_error=False)(17, 'ApplyHints', ((1, 'pHints'),)))
     IVdsLun.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LUN_STATUS, use_last_error=False)(18, 'SetStatus', ((1, 'status'),)))
     IVdsLun.QueryMaxLunExtendSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),Int32,POINTER(UInt64), use_last_error=False)(19, 'QueryMaxLunExtendSize', ((1, 'pDriveIdArray'),(1, 'lNumberOfDrives'),(1, 'pullMaxBytesToBeAdded'),)))
+    win32more.System.Com.IUnknown
     return IVdsLun
 def _define_IVdsLun2_head():
     class IVdsLun2(win32more.System.Com.IUnknown_head):
@@ -2050,6 +2071,7 @@ def _define_IVdsLun2():
     IVdsLun2 = win32more.Storage.VirtualDiskService.IVdsLun2_head
     IVdsLun2.QueryHints2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head), use_last_error=False)(3, 'QueryHints2', ((1, 'pHints2'),)))
     IVdsLun2.ApplyHints2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS2_head), use_last_error=False)(4, 'ApplyHints2', ((1, 'pHints2'),)))
+    win32more.System.Com.IUnknown
     return IVdsLun2
 def _define_IVdsLunNaming_head():
     class IVdsLunNaming(win32more.System.Com.IUnknown_head):
@@ -2058,6 +2080,7 @@ def _define_IVdsLunNaming_head():
 def _define_IVdsLunNaming():
     IVdsLunNaming = win32more.Storage.VirtualDiskService.IVdsLunNaming_head
     IVdsLunNaming.SetFriendlyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetFriendlyName', ((1, 'pwszFriendlyName'),)))
+    win32more.System.Com.IUnknown
     return IVdsLunNaming
 def _define_IVdsLunNumber_head():
     class IVdsLunNumber(win32more.System.Com.IUnknown_head):
@@ -2066,6 +2089,7 @@ def _define_IVdsLunNumber_head():
 def _define_IVdsLunNumber():
     IVdsLunNumber = win32more.Storage.VirtualDiskService.IVdsLunNumber_head
     IVdsLunNumber.GetLunNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetLunNumber', ((1, 'pulLunNumber'),)))
+    win32more.System.Com.IUnknown
     return IVdsLunNumber
 def _define_IVdsLunControllerPorts_head():
     class IVdsLunControllerPorts(win32more.System.Com.IUnknown_head):
@@ -2075,6 +2099,7 @@ def _define_IVdsLunControllerPorts():
     IVdsLunControllerPorts = win32more.Storage.VirtualDiskService.IVdsLunControllerPorts_head
     IVdsLunControllerPorts.AssociateControllerPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),Int32,POINTER(Guid),Int32, use_last_error=False)(3, 'AssociateControllerPorts', ((1, 'pActiveControllerPortIdArray'),(1, 'lNumberOfActiveControllerPorts'),(1, 'pInactiveControllerPortIdArray'),(1, 'lNumberOfInactiveControllerPorts'),)))
     IVdsLunControllerPorts.QueryActiveControllerPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(4, 'QueryActiveControllerPorts', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IVdsLunControllerPorts
 def _define_IVdsLunMpio_head():
     class IVdsLunMpio(win32more.System.Com.IUnknown_head):
@@ -2086,6 +2111,7 @@ def _define_IVdsLunMpio():
     IVdsLunMpio.GetLoadBalancePolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_LOADBALANCE_POLICY_ENUM),POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_PATH_POLICY_head)),POINTER(Int32), use_last_error=False)(4, 'GetLoadBalancePolicy', ((1, 'pPolicy'),(1, 'ppPaths'),(1, 'plNumberOfPaths'),)))
     IVdsLunMpio.SetLoadBalancePolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_LOADBALANCE_POLICY_ENUM,POINTER(win32more.Storage.VirtualDiskService.VDS_PATH_POLICY),Int32, use_last_error=False)(5, 'SetLoadBalancePolicy', ((1, 'policy'),(1, 'pPaths'),(1, 'lNumberOfPaths'),)))
     IVdsLunMpio.GetSupportedLbPolicies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetSupportedLbPolicies', ((1, 'pulLbFlags'),)))
+    win32more.System.Com.IUnknown
     return IVdsLunMpio
 def _define_IVdsLunIscsi_head():
     class IVdsLunIscsi(win32more.System.Com.IUnknown_head):
@@ -2095,6 +2121,7 @@ def _define_IVdsLunIscsi():
     IVdsLunIscsi = win32more.Storage.VirtualDiskService.IVdsLunIscsi_head
     IVdsLunIscsi.AssociateTargets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),Int32, use_last_error=False)(3, 'AssociateTargets', ((1, 'pTargetIdArray'),(1, 'lNumberOfTargets'),)))
     IVdsLunIscsi.QueryAssociatedTargets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(4, 'QueryAssociatedTargets', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IVdsLunIscsi
 def _define_IVdsLunPlex_head():
     class IVdsLunPlex(win32more.System.Com.IUnknown_head):
@@ -2107,6 +2134,7 @@ def _define_IVdsLunPlex():
     IVdsLunPlex.QueryExtents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_DRIVE_EXTENT_head)),POINTER(Int32), use_last_error=False)(5, 'QueryExtents', ((1, 'ppExtentArray'),(1, 'plNumberOfExtents'),)))
     IVdsLunPlex.QueryHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head), use_last_error=False)(6, 'QueryHints', ((1, 'pHints'),)))
     IVdsLunPlex.ApplyHints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_HINTS_head), use_last_error=False)(7, 'ApplyHints', ((1, 'pHints'),)))
+    win32more.System.Com.IUnknown
     return IVdsLunPlex
 def _define_IVdsIscsiPortal_head():
     class IVdsIscsiPortal(win32more.System.Com.IUnknown_head):
@@ -2121,6 +2149,7 @@ def _define_IVdsIscsiPortal():
     IVdsIscsiPortal.SetIpsecTunnelAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head),POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head), use_last_error=False)(7, 'SetIpsecTunnelAddress', ((1, 'pTunnelAddress'),(1, 'pDestinationAddress'),)))
     IVdsIscsiPortal.GetIpsecSecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head),POINTER(UInt64), use_last_error=False)(8, 'GetIpsecSecurity', ((1, 'pInitiatorPortalAddress'),(1, 'pullSecurityFlags'),)))
     IVdsIscsiPortal.SetIpsecSecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_IPADDRESS_head),UInt64,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_IPSEC_KEY_head), use_last_error=False)(9, 'SetIpsecSecurity', ((1, 'pInitiatorPortalAddress'),(1, 'ullSecurityFlags'),(1, 'pIpsecKey'),)))
+    win32more.System.Com.IUnknown
     return IVdsIscsiPortal
 def _define_IVdsIscsiTarget_head():
     class IVdsIscsiTarget(win32more.System.Com.IUnknown_head):
@@ -2138,6 +2167,7 @@ def _define_IVdsIscsiTarget():
     IVdsIscsiTarget.SetSharedSecret = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head),win32more.Foundation.PWSTR, use_last_error=False)(10, 'SetSharedSecret', ((1, 'pTargetSharedSecret'),(1, 'pwszInitiatorName'),)))
     IVdsIscsiTarget.RememberInitiatorSharedSecret = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.VDS_ISCSI_SHARED_SECRET_head), use_last_error=False)(11, 'RememberInitiatorSharedSecret', ((1, 'pwszInitiatorName'),(1, 'pInitiatorSharedSecret'),)))
     IVdsIscsiTarget.GetConnectedInitiators = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(Int32), use_last_error=False)(12, 'GetConnectedInitiators', ((1, 'pppwszInitiatorList'),(1, 'plNumberOfInitiators'),)))
+    win32more.System.Com.IUnknown
     return IVdsIscsiTarget
 def _define_IVdsIscsiPortalGroup_head():
     class IVdsIscsiPortalGroup(win32more.System.Com.IUnknown_head):
@@ -2151,6 +2181,7 @@ def _define_IVdsIscsiPortalGroup():
     IVdsIscsiPortalGroup.AddPortal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head), use_last_error=False)(6, 'AddPortal', ((1, 'portalId'),(1, 'ppAsync'),)))
     IVdsIscsiPortalGroup.RemovePortal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head), use_last_error=False)(7, 'RemovePortal', ((1, 'portalId'),(1, 'ppAsync'),)))
     IVdsIscsiPortalGroup.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IVdsAsync_head), use_last_error=False)(8, 'Delete', ((1, 'ppAsync'),)))
+    win32more.System.Com.IUnknown
     return IVdsIscsiPortalGroup
 def _define_IVdsStoragePool_head():
     class IVdsStoragePool(win32more.System.Com.IUnknown_head):
@@ -2164,6 +2195,7 @@ def _define_IVdsStoragePool():
     IVdsStoragePool.QueryDriveExtents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Storage.VirtualDiskService.VDS_STORAGE_POOL_DRIVE_EXTENT_head)),POINTER(Int32), use_last_error=False)(6, 'QueryDriveExtents', ((1, 'ppExtentArray'),(1, 'plNumberOfExtents'),)))
     IVdsStoragePool.QueryAllocatedLuns = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(7, 'QueryAllocatedLuns', ((1, 'ppEnum'),)))
     IVdsStoragePool.QueryAllocatedStoragePools = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.VirtualDiskService.IEnumVdsObject_head), use_last_error=False)(8, 'QueryAllocatedStoragePools', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IVdsStoragePool
 def _define_IVdsMaintenance_head():
     class IVdsMaintenance(win32more.System.Com.IUnknown_head):
@@ -2174,6 +2206,7 @@ def _define_IVdsMaintenance():
     IVdsMaintenance.StartMaintenance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION, use_last_error=False)(3, 'StartMaintenance', ((1, 'operation'),)))
     IVdsMaintenance.StopMaintenance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION, use_last_error=False)(4, 'StopMaintenance', ((1, 'operation'),)))
     IVdsMaintenance.PulseMaintenance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_MAINTENANCE_OPERATION,UInt32, use_last_error=False)(5, 'PulseMaintenance', ((1, 'operation'),(1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IVdsMaintenance
 def _define_IVdsHwProviderPrivate_head():
     class IVdsHwProviderPrivate(win32more.System.Com.IUnknown_head):
@@ -2182,6 +2215,7 @@ def _define_IVdsHwProviderPrivate_head():
 def _define_IVdsHwProviderPrivate():
     IVdsHwProviderPrivate = win32more.Storage.VirtualDiskService.IVdsHwProviderPrivate_head
     IVdsHwProviderPrivate.QueryIfCreatedLun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.VirtualDiskService.VDS_LUN_INFORMATION_head),POINTER(Guid), use_last_error=False)(3, 'QueryIfCreatedLun', ((1, 'pwszDevicePath'),(1, 'pVdsLunInformation'),(1, 'pLunId'),)))
+    win32more.System.Com.IUnknown
     return IVdsHwProviderPrivate
 def _define_IVdsHwProviderPrivateMpio_head():
     class IVdsHwProviderPrivateMpio(win32more.System.Com.IUnknown_head):
@@ -2190,6 +2224,7 @@ def _define_IVdsHwProviderPrivateMpio_head():
 def _define_IVdsHwProviderPrivateMpio():
     IVdsHwProviderPrivateMpio = win32more.Storage.VirtualDiskService.IVdsHwProviderPrivateMpio_head
     IVdsHwProviderPrivateMpio.SetAllPathStatusesFromHbaPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.VirtualDiskService.VDS_HBAPORT_PROP,win32more.Storage.VirtualDiskService.VDS_PATH_STATUS, use_last_error=False)(3, 'SetAllPathStatusesFromHbaPort', ((1, 'hbaPortProp'),(1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IVdsHwProviderPrivateMpio
 def _define_IVdsAdmin_head():
     class IVdsAdmin(win32more.System.Com.IUnknown_head):
@@ -2199,6 +2234,7 @@ def _define_IVdsAdmin():
     IVdsAdmin = win32more.Storage.VirtualDiskService.IVdsAdmin_head
     IVdsAdmin.RegisterProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Guid,win32more.Foundation.PWSTR,win32more.Storage.VirtualDiskService.VDS_PROVIDER_TYPE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,Guid, use_last_error=False)(3, 'RegisterProvider', ((1, 'providerId'),(1, 'providerClsid'),(1, 'pwszName'),(1, 'type'),(1, 'pwszMachineName'),(1, 'pwszVersion'),(1, 'guidVersionId'),)))
     IVdsAdmin.UnregisterProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(4, 'UnregisterProvider', ((1, 'providerId'),)))
+    win32more.System.Com.IUnknown
     return IVdsAdmin
 __all__ = [
     "VDS_NF_VOLUME_ARRIVE",

@@ -21,6 +21,7 @@ def _define_ICoreFrameworkInputViewInterop_head():
 def _define_ICoreFrameworkInputViewInterop():
     ICoreFrameworkInputViewInterop = win32more.System.WinRT.CoreInputView.ICoreFrameworkInputViewInterop_head
     ICoreFrameworkInputViewInterop.GetForWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(6, 'GetForWindow', ((1, 'appWindow'),(1, 'riid'),(1, 'coreFrameworkInputView'),)))
+    win32more.System.WinRT.IInspectable
     return ICoreFrameworkInputViewInterop
 __all__ = [
     "ICoreFrameworkInputViewInterop",

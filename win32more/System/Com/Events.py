@@ -32,6 +32,7 @@ def _define_IEventSystem():
     IEventSystem.get_EventObjectChangeEventClassID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_EventObjectChangeEventClassID', ((1, 'pbstrEventClassID'),)))
     IEventSystem.QueryS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, 'QueryS', ((1, 'progID'),(1, 'queryCriteria'),(1, 'ppInterface'),)))
     IEventSystem.RemoveS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(12, 'RemoveS', ((1, 'progID'),(1, 'queryCriteria'),)))
+    win32more.System.Com.IDispatch
     return IEventSystem
 def _define_IEventPublisher_head():
     class IEventPublisher(win32more.System.Com.IDispatch_head):
@@ -53,6 +54,7 @@ def _define_IEventPublisher():
     IEventPublisher.PutDefaultProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'PutDefaultProperty', ((1, 'bstrPropertyName'),(1, 'propertyValue'),)))
     IEventPublisher.RemoveDefaultProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(19, 'RemoveDefaultProperty', ((1, 'bstrPropertyName'),)))
     IEventPublisher.GetDefaultPropertyCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.Events.IEventObjectCollection_head), use_last_error=False)(20, 'GetDefaultPropertyCollection', ((1, 'collection'),)))
+    win32more.System.Com.IDispatch
     return IEventPublisher
 def _define_IEventClass_head():
     class IEventClass(win32more.System.Com.IDispatch_head):
@@ -74,6 +76,7 @@ def _define_IEventClass():
     IEventClass.put_CustomConfigCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(18, 'put_CustomConfigCLSID', ((1, 'bstrCustomConfigCLSID'),)))
     IEventClass.get_TypeLib = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_TypeLib', ((1, 'pbstrTypeLib'),)))
     IEventClass.put_TypeLib = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(20, 'put_TypeLib', ((1, 'bstrTypeLib'),)))
+    win32more.System.Com.IDispatch
     return IEventClass
 def _define_IEventClass2_head():
     class IEventClass2(win32more.System.Com.Events.IEventClass_head):
@@ -89,6 +92,7 @@ def _define_IEventClass2():
     IEventClass2.put_AllowInprocActivation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(26, 'put_AllowInprocActivation', ((1, 'fAllowInprocActivation'),)))
     IEventClass2.get_FireInParallel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(27, 'get_FireInParallel', ((1, 'pfFireInParallel'),)))
     IEventClass2.put_FireInParallel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(28, 'put_FireInParallel', ((1, 'fFireInParallel'),)))
+    win32more.System.Com.Events.IEventClass
     return IEventClass2
 def _define_IEventSubscription_head():
     class IEventSubscription(win32more.System.Com.IDispatch_head):
@@ -130,6 +134,7 @@ def _define_IEventSubscription():
     IEventSubscription.GetSubscriberPropertyCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.Events.IEventObjectCollection_head), use_last_error=False)(38, 'GetSubscriberPropertyCollection', ((1, 'collection'),)))
     IEventSubscription.get_InterfaceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(39, 'get_InterfaceID', ((1, 'pbstrInterfaceID'),)))
     IEventSubscription.put_InterfaceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(40, 'put_InterfaceID', ((1, 'bstrInterfaceID'),)))
+    win32more.System.Com.IDispatch
     return IEventSubscription
 def _define_IFiringControl_head():
     class IFiringControl(win32more.System.Com.IDispatch_head):
@@ -138,6 +143,7 @@ def _define_IFiringControl_head():
 def _define_IFiringControl():
     IFiringControl = win32more.System.Com.Events.IFiringControl_head
     IFiringControl.FireSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Events.IEventSubscription_head, use_last_error=False)(7, 'FireSubscription', ((1, 'subscription'),)))
+    win32more.System.Com.IDispatch
     return IFiringControl
 def _define_IPublisherFilter_head():
     class IPublisherFilter(win32more.System.Com.IUnknown_head):
@@ -147,6 +153,7 @@ def _define_IPublisherFilter():
     IPublisherFilter = win32more.System.Com.Events.IPublisherFilter_head
     IPublisherFilter.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head, use_last_error=False)(3, 'Initialize', ((1, 'methodName'),(1, 'dispUserDefined'),)))
     IPublisherFilter.PrepareToFire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.Events.IFiringControl_head, use_last_error=False)(4, 'PrepareToFire', ((1, 'methodName'),(1, 'firingControl'),)))
+    win32more.System.Com.IUnknown
     return IPublisherFilter
 def _define_IMultiInterfacePublisherFilter_head():
     class IMultiInterfacePublisherFilter(win32more.System.Com.IUnknown_head):
@@ -156,6 +163,7 @@ def _define_IMultiInterfacePublisherFilter():
     IMultiInterfacePublisherFilter = win32more.System.Com.Events.IMultiInterfacePublisherFilter_head
     IMultiInterfacePublisherFilter.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Events.IMultiInterfaceEventControl_head, use_last_error=False)(3, 'Initialize', ((1, 'pEIC'),)))
     IMultiInterfacePublisherFilter.PrepareToFire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.BSTR,win32more.System.Com.Events.IFiringControl_head, use_last_error=False)(4, 'PrepareToFire', ((1, 'iid'),(1, 'methodName'),(1, 'firingControl'),)))
+    win32more.System.Com.IUnknown
     return IMultiInterfacePublisherFilter
 EOC_ChangeType = Int32
 EOC_NewObject = 0
@@ -170,6 +178,7 @@ def _define_IEventObjectChange():
     IEventObjectChange.ChangedSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Events.EOC_ChangeType,win32more.Foundation.BSTR, use_last_error=False)(3, 'ChangedSubscription', ((1, 'changeType'),(1, 'bstrSubscriptionID'),)))
     IEventObjectChange.ChangedEventClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Events.EOC_ChangeType,win32more.Foundation.BSTR, use_last_error=False)(4, 'ChangedEventClass', ((1, 'changeType'),(1, 'bstrEventClassID'),)))
     IEventObjectChange.ChangedPublisher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Events.EOC_ChangeType,win32more.Foundation.BSTR, use_last_error=False)(5, 'ChangedPublisher', ((1, 'changeType'),(1, 'bstrPublisherID'),)))
+    win32more.System.Com.IUnknown
     return IEventObjectChange
 def _define_COMEVENTSYSCHANGEINFO_head():
     class COMEVENTSYSCHANGEINFO(Structure):
@@ -194,6 +203,7 @@ def _define_IEventObjectChange2():
     IEventObjectChange2 = win32more.System.Com.Events.IEventObjectChange2_head
     IEventObjectChange2.ChangedSubscription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.Events.COMEVENTSYSCHANGEINFO_head), use_last_error=False)(3, 'ChangedSubscription', ((1, 'pInfo'),)))
     IEventObjectChange2.ChangedEventClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.Events.COMEVENTSYSCHANGEINFO_head), use_last_error=False)(4, 'ChangedEventClass', ((1, 'pInfo'),)))
+    win32more.System.Com.IUnknown
     return IEventObjectChange2
 def _define_IEnumEventObject_head():
     class IEnumEventObject(win32more.System.Com.IUnknown_head):
@@ -205,6 +215,7 @@ def _define_IEnumEventObject():
     IEnumEventObject.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IUnknown_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'cReqElem'),(1, 'ppInterface'),(1, 'cRetElem'),)))
     IEnumEventObject.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumEventObject.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'cSkipElem'),)))
+    win32more.System.Com.IUnknown
     return IEnumEventObject
 def _define_IEventObjectCollection_head():
     class IEventObjectCollection(win32more.System.Com.IDispatch_head):
@@ -218,6 +229,7 @@ def _define_IEventObjectCollection():
     IEventObjectCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_Count', ((1, 'pCount'),)))
     IEventObjectCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),win32more.Foundation.BSTR, use_last_error=False)(11, 'Add', ((1, 'item'),(1, 'objectID'),)))
     IEventObjectCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'Remove', ((1, 'objectID'),)))
+    win32more.System.Com.IDispatch
     return IEventObjectCollection
 def _define_IEventProperty_head():
     class IEventProperty(win32more.System.Com.IDispatch_head):
@@ -229,6 +241,7 @@ def _define_IEventProperty():
     IEventProperty.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_Name', ((1, 'propertyName'),)))
     IEventProperty.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Value', ((1, 'propertyValue'),)))
     IEventProperty.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'put_Value', ((1, 'propertyValue'),)))
+    win32more.System.Com.IDispatch
     return IEventProperty
 def _define_IEventControl_head():
     class IEventControl(win32more.System.Com.IDispatch_head):
@@ -241,6 +254,7 @@ def _define_IEventControl():
     IEventControl.put_AllowInprocActivation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(9, 'put_AllowInprocActivation', ((1, 'fAllowInprocActivation'),)))
     IEventControl.GetSubscriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int32),POINTER(win32more.System.Com.Events.IEventObjectCollection_head), use_last_error=False)(10, 'GetSubscriptions', ((1, 'methodName'),(1, 'optionalCriteria'),(1, 'optionalErrorIndex'),(1, 'ppCollection'),)))
     IEventControl.SetDefaultQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(11, 'SetDefaultQuery', ((1, 'methodName'),(1, 'criteria'),(1, 'errorIndex'),)))
+    win32more.System.Com.IDispatch
     return IEventControl
 def _define_IMultiInterfaceEventControl_head():
     class IMultiInterfaceEventControl(win32more.System.Com.IUnknown_head):
@@ -255,6 +269,7 @@ def _define_IMultiInterfaceEventControl():
     IMultiInterfaceEventControl.put_AllowInprocActivation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(7, 'put_AllowInprocActivation', ((1, 'fAllowInprocActivation'),)))
     IMultiInterfaceEventControl.get_FireInParallel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'get_FireInParallel', ((1, 'pfFireInParallel'),)))
     IMultiInterfaceEventControl.put_FireInParallel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(9, 'put_FireInParallel', ((1, 'fFireInParallel'),)))
+    win32more.System.Com.IUnknown
     return IMultiInterfaceEventControl
 def _define_IDontSupportEventSubscription_head():
     class IDontSupportEventSubscription(win32more.System.Com.IUnknown_head):
@@ -262,6 +277,7 @@ def _define_IDontSupportEventSubscription_head():
     return IDontSupportEventSubscription
 def _define_IDontSupportEventSubscription():
     IDontSupportEventSubscription = win32more.System.Com.Events.IDontSupportEventSubscription_head
+    win32more.System.Com.IUnknown
     return IDontSupportEventSubscription
 __all__ = [
     "CEventSystem",

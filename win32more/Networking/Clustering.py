@@ -4025,6 +4025,7 @@ def _define_IGetClusterUIInfo():
     IGetClusterUIInfo.GetLocale = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(4, 'GetLocale', ()))
     IGetClusterUIInfo.GetFont = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Gdi.HFONT, use_last_error=False)(5, 'GetFont', ()))
     IGetClusterUIInfo.GetIcon = COMMETHOD(WINFUNCTYPE(win32more.UI.WindowsAndMessaging.HICON, use_last_error=False)(6, 'GetIcon', ()))
+    win32more.System.Com.IUnknown
     return IGetClusterUIInfo
 def _define_IGetClusterDataInfo_head():
     class IGetClusterDataInfo(win32more.System.Com.IUnknown_head):
@@ -4035,6 +4036,7 @@ def _define_IGetClusterDataInfo():
     IGetClusterDataInfo.GetClusterName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(3, 'GetClusterName', ((1, 'lpszName'),(1, 'pcchName'),)))
     IGetClusterDataInfo.GetClusterHandle = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Networking.Clustering._HCLUSTER_head), use_last_error=False)(4, 'GetClusterHandle', ()))
     IGetClusterDataInfo.GetObjectCount = COMMETHOD(WINFUNCTYPE(Int32, use_last_error=False)(5, 'GetObjectCount', ()))
+    win32more.System.Com.IUnknown
     return IGetClusterDataInfo
 def _define_IGetClusterObjectInfo_head():
     class IGetClusterObjectInfo(win32more.System.Com.IUnknown_head):
@@ -4044,6 +4046,7 @@ def _define_IGetClusterObjectInfo():
     IGetClusterObjectInfo = win32more.Networking.Clustering.IGetClusterObjectInfo_head
     IGetClusterObjectInfo.GetObjectName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(3, 'GetObjectName', ((1, 'lObjIndex'),(1, 'lpszName'),(1, 'pcchName'),)))
     IGetClusterObjectInfo.GetObjectType = COMMETHOD(WINFUNCTYPE(win32more.Networking.Clustering.CLUADMEX_OBJECT_TYPE,Int32, use_last_error=False)(4, 'GetObjectType', ((1, 'lObjIndex'),)))
+    win32more.System.Com.IUnknown
     return IGetClusterObjectInfo
 def _define_IGetClusterNodeInfo_head():
     class IGetClusterNodeInfo(win32more.System.Com.IUnknown_head):
@@ -4052,6 +4055,7 @@ def _define_IGetClusterNodeInfo_head():
 def _define_IGetClusterNodeInfo():
     IGetClusterNodeInfo = win32more.Networking.Clustering.IGetClusterNodeInfo_head
     IGetClusterNodeInfo.GetNodeHandle = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Networking.Clustering._HNODE_head),Int32, use_last_error=False)(3, 'GetNodeHandle', ((1, 'lObjIndex'),)))
+    win32more.System.Com.IUnknown
     return IGetClusterNodeInfo
 def _define_IGetClusterGroupInfo_head():
     class IGetClusterGroupInfo(win32more.System.Com.IUnknown_head):
@@ -4060,6 +4064,7 @@ def _define_IGetClusterGroupInfo_head():
 def _define_IGetClusterGroupInfo():
     IGetClusterGroupInfo = win32more.Networking.Clustering.IGetClusterGroupInfo_head
     IGetClusterGroupInfo.GetGroupHandle = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Networking.Clustering._HGROUP_head),Int32, use_last_error=False)(3, 'GetGroupHandle', ((1, 'lObjIndex'),)))
+    win32more.System.Com.IUnknown
     return IGetClusterGroupInfo
 def _define_IGetClusterResourceInfo_head():
     class IGetClusterResourceInfo(win32more.System.Com.IUnknown_head):
@@ -4070,6 +4075,7 @@ def _define_IGetClusterResourceInfo():
     IGetClusterResourceInfo.GetResourceHandle = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Networking.Clustering._HRESOURCE_head),Int32, use_last_error=False)(3, 'GetResourceHandle', ((1, 'lObjIndex'),)))
     IGetClusterResourceInfo.GetResourceTypeName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,POINTER(Int32), use_last_error=False)(4, 'GetResourceTypeName', ((1, 'lObjIndex'),(1, 'lpszResTypeName'),(1, 'pcchResTypeName'),)))
     IGetClusterResourceInfo.GetResourceNetworkName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL,Int32,win32more.Foundation.BSTR,POINTER(UInt32), use_last_error=False)(5, 'GetResourceNetworkName', ((1, 'lObjIndex'),(1, 'lpszNetName'),(1, 'pcchNetName'),)))
+    win32more.System.Com.IUnknown
     return IGetClusterResourceInfo
 def _define_IGetClusterNetworkInfo_head():
     class IGetClusterNetworkInfo(win32more.System.Com.IUnknown_head):
@@ -4078,6 +4084,7 @@ def _define_IGetClusterNetworkInfo_head():
 def _define_IGetClusterNetworkInfo():
     IGetClusterNetworkInfo = win32more.Networking.Clustering.IGetClusterNetworkInfo_head
     IGetClusterNetworkInfo.GetNetworkHandle = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Networking.Clustering._HNETWORK_head),Int32, use_last_error=False)(3, 'GetNetworkHandle', ((1, 'lObjIndex'),)))
+    win32more.System.Com.IUnknown
     return IGetClusterNetworkInfo
 def _define_IGetClusterNetInterfaceInfo_head():
     class IGetClusterNetInterfaceInfo(win32more.System.Com.IUnknown_head):
@@ -4086,6 +4093,7 @@ def _define_IGetClusterNetInterfaceInfo_head():
 def _define_IGetClusterNetInterfaceInfo():
     IGetClusterNetInterfaceInfo = win32more.Networking.Clustering.IGetClusterNetInterfaceInfo_head
     IGetClusterNetInterfaceInfo.GetNetInterfaceHandle = COMMETHOD(WINFUNCTYPE(POINTER(win32more.Networking.Clustering._HNETINTERFACE_head),Int32, use_last_error=False)(3, 'GetNetInterfaceHandle', ((1, 'lObjIndex'),)))
+    win32more.System.Com.IUnknown
     return IGetClusterNetInterfaceInfo
 def _define_IWCPropertySheetCallback_head():
     class IWCPropertySheetCallback(win32more.System.Com.IUnknown_head):
@@ -4094,6 +4102,7 @@ def _define_IWCPropertySheetCallback_head():
 def _define_IWCPropertySheetCallback():
     IWCPropertySheetCallback = win32more.Networking.Clustering.IWCPropertySheetCallback_head
     IWCPropertySheetCallback.AddPropertySheetPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'AddPropertySheetPage', ((1, 'hpage'),)))
+    win32more.System.Com.IUnknown
     return IWCPropertySheetCallback
 def _define_IWEExtendPropertySheet_head():
     class IWEExtendPropertySheet(win32more.System.Com.IUnknown_head):
@@ -4102,6 +4111,7 @@ def _define_IWEExtendPropertySheet_head():
 def _define_IWEExtendPropertySheet():
     IWEExtendPropertySheet = win32more.Networking.Clustering.IWEExtendPropertySheet_head
     IWEExtendPropertySheet.CreatePropertySheetPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Networking.Clustering.IWCPropertySheetCallback_head, use_last_error=False)(3, 'CreatePropertySheetPages', ((1, 'piData'),(1, 'piCallback'),)))
+    win32more.System.Com.IUnknown
     return IWEExtendPropertySheet
 def _define_IWCWizardCallback_head():
     class IWCWizardCallback(win32more.System.Com.IUnknown_head):
@@ -4111,6 +4121,7 @@ def _define_IWCWizardCallback():
     IWCWizardCallback = win32more.Networking.Clustering.IWCWizardCallback_head
     IWCWizardCallback.AddWizardPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'AddWizardPage', ((1, 'hpage'),)))
     IWCWizardCallback.EnableNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),win32more.Foundation.BOOL, use_last_error=False)(4, 'EnableNext', ((1, 'hpage'),(1, 'bEnable'),)))
+    win32more.System.Com.IUnknown
     return IWCWizardCallback
 def _define_IWEExtendWizard_head():
     class IWEExtendWizard(win32more.System.Com.IUnknown_head):
@@ -4119,6 +4130,7 @@ def _define_IWEExtendWizard_head():
 def _define_IWEExtendWizard():
     IWEExtendWizard = win32more.Networking.Clustering.IWEExtendWizard_head
     IWEExtendWizard.CreateWizardPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Networking.Clustering.IWCWizardCallback_head, use_last_error=False)(3, 'CreateWizardPages', ((1, 'piData'),(1, 'piCallback'),)))
+    win32more.System.Com.IUnknown
     return IWEExtendWizard
 def _define_IWCContextMenuCallback_head():
     class IWCContextMenuCallback(win32more.System.Com.IUnknown_head):
@@ -4127,6 +4139,7 @@ def _define_IWCContextMenuCallback_head():
 def _define_IWCContextMenuCallback():
     IWCContextMenuCallback = win32more.Networking.Clustering.IWCContextMenuCallback_head
     IWCContextMenuCallback.AddExtensionMenuItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,UInt32,UInt32, use_last_error=False)(3, 'AddExtensionMenuItem', ((1, 'lpszName'),(1, 'lpszStatusBarText'),(1, 'nCommandID'),(1, 'nSubmenuCommandID'),(1, 'uFlags'),)))
+    win32more.System.Com.IUnknown
     return IWCContextMenuCallback
 def _define_IWEExtendContextMenu_head():
     class IWEExtendContextMenu(win32more.System.Com.IUnknown_head):
@@ -4135,6 +4148,7 @@ def _define_IWEExtendContextMenu_head():
 def _define_IWEExtendContextMenu():
     IWEExtendContextMenu = win32more.Networking.Clustering.IWEExtendContextMenu_head
     IWEExtendContextMenu.AddContextMenuItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Networking.Clustering.IWCContextMenuCallback_head, use_last_error=False)(3, 'AddContextMenuItems', ((1, 'piData'),(1, 'piCallback'),)))
+    win32more.System.Com.IUnknown
     return IWEExtendContextMenu
 def _define_IWEInvokeCommand_head():
     class IWEInvokeCommand(win32more.System.Com.IUnknown_head):
@@ -4143,6 +4157,7 @@ def _define_IWEInvokeCommand_head():
 def _define_IWEInvokeCommand():
     IWEInvokeCommand = win32more.Networking.Clustering.IWEInvokeCommand_head
     IWEInvokeCommand.InvokeCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'InvokeCommand', ((1, 'nCommandID'),(1, 'piData'),)))
+    win32more.System.Com.IUnknown
     return IWEInvokeCommand
 def _define_IWCWizard97Callback_head():
     class IWCWizard97Callback(win32more.System.Com.IUnknown_head):
@@ -4152,6 +4167,7 @@ def _define_IWCWizard97Callback():
     IWCWizard97Callback = win32more.Networking.Clustering.IWCWizard97Callback_head
     IWCWizard97Callback.AddWizard97Page = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'AddWizard97Page', ((1, 'hpage'),)))
     IWCWizard97Callback.EnableNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),win32more.Foundation.BOOL, use_last_error=False)(4, 'EnableNext', ((1, 'hpage'),(1, 'bEnable'),)))
+    win32more.System.Com.IUnknown
     return IWCWizard97Callback
 def _define_IWEExtendWizard97_head():
     class IWEExtendWizard97(win32more.System.Com.IUnknown_head):
@@ -4160,6 +4176,7 @@ def _define_IWEExtendWizard97_head():
 def _define_IWEExtendWizard97():
     IWEExtendWizard97 = win32more.Networking.Clustering.IWEExtendWizard97_head
     IWEExtendWizard97.CreateWizard97Pages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Networking.Clustering.IWCWizard97Callback_head, use_last_error=False)(3, 'CreateWizard97Pages', ((1, 'piData'),(1, 'piCallback'),)))
+    win32more.System.Com.IUnknown
     return IWEExtendWizard97
 ClusApplication = Guid('f2e606e5-2631-11d1-89f1-00a0c90d061e')
 Cluster = Guid('f2e606e3-2631-11d1-89f1-00a0c90d061e')
@@ -4210,6 +4227,7 @@ def _define_ISClusApplication():
     ISClusApplication.get_DomainNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISDomainNames_head), use_last_error=False)(7, 'get_DomainNames', ((1, 'ppDomains'),)))
     ISClusApplication.get_ClusterNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Networking.Clustering.ISClusterNames_head), use_last_error=False)(8, 'get_ClusterNames', ((1, 'bstrDomainName'),(1, 'ppClusters'),)))
     ISClusApplication.OpenCluster = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Networking.Clustering.ISCluster_head), use_last_error=False)(9, 'OpenCluster', ((1, 'bstrClusterName'),(1, 'pCluster'),)))
+    win32more.System.Com.IDispatch
     return ISClusApplication
 def _define_ISDomainNames_head():
     class ISDomainNames(win32more.System.Com.IDispatch_head):
@@ -4221,6 +4239,7 @@ def _define_ISDomainNames():
     ISDomainNames.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ISDomainNames.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     ISDomainNames.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'pbstrDomainName'),)))
+    win32more.System.Com.IDispatch
     return ISDomainNames
 def _define_ISClusterNames_head():
     class ISClusterNames(win32more.System.Com.IDispatch_head):
@@ -4233,6 +4252,7 @@ def _define_ISClusterNames():
     ISClusterNames.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     ISClusterNames.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'pbstrClusterName'),)))
     ISClusterNames.get_DomainName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_DomainName', ((1, 'pbstrDomainName'),)))
+    win32more.System.Com.IDispatch
     return ISClusterNames
 def _define_ISClusRefObject_head():
     class ISClusRefObject(win32more.System.Com.IDispatch_head):
@@ -4241,6 +4261,7 @@ def _define_ISClusRefObject_head():
 def _define_ISClusRefObject():
     ISClusRefObject = win32more.Networking.Clustering.ISClusRefObject_head
     ISClusRefObject.get_Handle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr), use_last_error=False)(7, 'get_Handle', ((1, 'phandle'),)))
+    win32more.System.Com.IDispatch
     return ISClusRefObject
 def _define_ISClusVersion_head():
     class ISClusVersion(win32more.System.Com.IDispatch_head):
@@ -4258,6 +4279,7 @@ def _define_ISClusVersion():
     ISClusVersion.get_ClusterLowestVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_ClusterLowestVersion', ((1, 'pnClusterLowestVersion'),)))
     ISClusVersion.get_Flags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_Flags', ((1, 'pnFlags'),)))
     ISClusVersion.get_MixedVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'get_MixedVersion', ((1, 'pvarMixedVersion'),)))
+    win32more.System.Com.IDispatch
     return ISClusVersion
 def _define_ISCluster_head():
     class ISCluster(win32more.System.Com.IDispatch_head):
@@ -4286,6 +4308,7 @@ def _define_ISCluster():
     ISCluster.get_ResourceTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusResTypes_head), use_last_error=False)(25, 'get_ResourceTypes', ((1, 'ppResourceTypes'),)))
     ISCluster.get_Networks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusNetworks_head), use_last_error=False)(26, 'get_Networks', ((1, 'ppNetworks'),)))
     ISCluster.get_NetInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusNetInterfaces_head), use_last_error=False)(27, 'get_NetInterfaces', ((1, 'ppNetInterfaces'),)))
+    win32more.System.Com.IDispatch
     return ISCluster
 def _define_ISClusNode_head():
     class ISClusNode(win32more.System.Com.IDispatch_head):
@@ -4307,6 +4330,7 @@ def _define_ISClusNode():
     ISClusNode.get_ResourceGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusResGroups_head), use_last_error=False)(18, 'get_ResourceGroups', ((1, 'ppResourceGroups'),)))
     ISClusNode.get_Cluster = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISCluster_head), use_last_error=False)(19, 'get_Cluster', ((1, 'ppCluster'),)))
     ISClusNode.get_NetInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusNodeNetInterfaces_head), use_last_error=False)(20, 'get_NetInterfaces', ((1, 'ppClusNetInterfaces'),)))
+    win32more.System.Com.IDispatch
     return ISClusNode
 def _define_ISClusNodes_head():
     class ISClusNodes(win32more.System.Com.IDispatch_head):
@@ -4318,6 +4342,7 @@ def _define_ISClusNodes():
     ISClusNodes.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ISClusNodes.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     ISClusNodes.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusNode_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppNode'),)))
+    win32more.System.Com.IDispatch
     return ISClusNodes
 def _define_ISClusNetwork_head():
     class ISClusNetwork(win32more.System.Com.IDispatch_head):
@@ -4336,6 +4361,7 @@ def _define_ISClusNetwork():
     ISClusNetwork.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.CLUSTER_NETWORK_STATE), use_last_error=False)(15, 'get_State', ((1, 'dwState'),)))
     ISClusNetwork.get_NetInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusNetworkNetInterfaces_head), use_last_error=False)(16, 'get_NetInterfaces', ((1, 'ppClusNetInterfaces'),)))
     ISClusNetwork.get_Cluster = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISCluster_head), use_last_error=False)(17, 'get_Cluster', ((1, 'ppCluster'),)))
+    win32more.System.Com.IDispatch
     return ISClusNetwork
 def _define_ISClusNetworks_head():
     class ISClusNetworks(win32more.System.Com.IDispatch_head):
@@ -4347,6 +4373,7 @@ def _define_ISClusNetworks():
     ISClusNetworks.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ISClusNetworks.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     ISClusNetworks.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusNetwork_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppClusNetwork'),)))
+    win32more.System.Com.IDispatch
     return ISClusNetworks
 def _define_ISClusNetInterface_head():
     class ISClusNetInterface(win32more.System.Com.IDispatch_head):
@@ -4362,6 +4389,7 @@ def _define_ISClusNetInterface():
     ISClusNetInterface.get_Handle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr), use_last_error=False)(12, 'get_Handle', ((1, 'phandle'),)))
     ISClusNetInterface.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.CLUSTER_NETINTERFACE_STATE), use_last_error=False)(13, 'get_State', ((1, 'dwState'),)))
     ISClusNetInterface.get_Cluster = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISCluster_head), use_last_error=False)(14, 'get_Cluster', ((1, 'ppCluster'),)))
+    win32more.System.Com.IDispatch
     return ISClusNetInterface
 def _define_ISClusNetInterfaces_head():
     class ISClusNetInterfaces(win32more.System.Com.IDispatch_head):
@@ -4373,6 +4401,7 @@ def _define_ISClusNetInterfaces():
     ISClusNetInterfaces.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ISClusNetInterfaces.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     ISClusNetInterfaces.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusNetInterface_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppClusNetInterface'),)))
+    win32more.System.Com.IDispatch
     return ISClusNetInterfaces
 def _define_ISClusNodeNetInterfaces_head():
     class ISClusNodeNetInterfaces(win32more.System.Com.IDispatch_head):
@@ -4384,6 +4413,7 @@ def _define_ISClusNodeNetInterfaces():
     ISClusNodeNetInterfaces.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ISClusNodeNetInterfaces.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     ISClusNodeNetInterfaces.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusNetInterface_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppClusNetInterface'),)))
+    win32more.System.Com.IDispatch
     return ISClusNodeNetInterfaces
 def _define_ISClusNetworkNetInterfaces_head():
     class ISClusNetworkNetInterfaces(win32more.System.Com.IDispatch_head):
@@ -4395,6 +4425,7 @@ def _define_ISClusNetworkNetInterfaces():
     ISClusNetworkNetInterfaces.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ISClusNetworkNetInterfaces.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     ISClusNetworkNetInterfaces.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusNetInterface_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppClusNetInterface'),)))
+    win32more.System.Com.IDispatch
     return ISClusNetworkNetInterfaces
 def _define_ISClusResGroup_head():
     class ISClusResGroup(win32more.System.Com.IDispatch_head):
@@ -4418,6 +4449,7 @@ def _define_ISClusResGroup():
     ISClusResGroup.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(20, 'Move', ((1, 'varTimeout'),(1, 'varNode'),(1, 'pvarPending'),)))
     ISClusResGroup.Offline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(21, 'Offline', ((1, 'varTimeout'),(1, 'pvarPending'),)))
     ISClusResGroup.get_Cluster = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISCluster_head), use_last_error=False)(22, 'get_Cluster', ((1, 'ppCluster'),)))
+    win32more.System.Com.IDispatch
     return ISClusResGroup
 def _define_ISClusResGroups_head():
     class ISClusResGroups(win32more.System.Com.IDispatch_head):
@@ -4431,6 +4463,7 @@ def _define_ISClusResGroups():
     ISClusResGroups.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusResGroup_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppClusResGroup'),)))
     ISClusResGroups.CreateItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Networking.Clustering.ISClusResGroup_head), use_last_error=False)(11, 'CreateItem', ((1, 'bstrResourceGroupName'),(1, 'ppResourceGroup'),)))
     ISClusResGroups.DeleteItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'DeleteItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusResGroups
 def _define_ISClusResource_head():
     class ISClusResource(win32more.System.Com.IDispatch_head):
@@ -4470,6 +4503,7 @@ def _define_ISClusResource():
     ISClusResource.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusResType_head), use_last_error=False)(36, 'get_Type', ((1, 'ppResourceType'),)))
     ISClusResource.get_MaintenanceMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(37, 'get_MaintenanceMode', ((1, 'pbMaintenanceMode'),)))
     ISClusResource.put_MaintenanceMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(38, 'put_MaintenanceMode', ((1, 'bMaintenanceMode'),)))
+    win32more.System.Com.IDispatch
     return ISClusResource
 def _define_ISClusResDependencies_head():
     class ISClusResDependencies(win32more.System.Com.IDispatch_head):
@@ -4485,6 +4519,7 @@ def _define_ISClusResDependencies():
     ISClusResDependencies.DeleteItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'DeleteItem', ((1, 'varIndex'),)))
     ISClusResDependencies.AddItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.Clustering.ISClusResource_head, use_last_error=False)(13, 'AddItem', ((1, 'pResource'),)))
     ISClusResDependencies.RemoveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(14, 'RemoveItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusResDependencies
 def _define_ISClusResGroupResources_head():
     class ISClusResGroupResources(win32more.System.Com.IDispatch_head):
@@ -4498,6 +4533,7 @@ def _define_ISClusResGroupResources():
     ISClusResGroupResources.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusResource_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppClusResource'),)))
     ISClusResGroupResources.CreateItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS,POINTER(win32more.Networking.Clustering.ISClusResource_head), use_last_error=False)(11, 'CreateItem', ((1, 'bstrResourceName'),(1, 'bstrResourceType'),(1, 'dwFlags'),(1, 'ppClusterResource'),)))
     ISClusResGroupResources.DeleteItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'DeleteItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusResGroupResources
 def _define_ISClusResTypeResources_head():
     class ISClusResTypeResources(win32more.System.Com.IDispatch_head):
@@ -4511,6 +4547,7 @@ def _define_ISClusResTypeResources():
     ISClusResTypeResources.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusResource_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppClusResource'),)))
     ISClusResTypeResources.CreateItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS,POINTER(win32more.Networking.Clustering.ISClusResource_head), use_last_error=False)(11, 'CreateItem', ((1, 'bstrResourceName'),(1, 'bstrGroupName'),(1, 'dwFlags'),(1, 'ppClusterResource'),)))
     ISClusResTypeResources.DeleteItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'DeleteItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusResTypeResources
 def _define_ISClusResources_head():
     class ISClusResources(win32more.System.Com.IDispatch_head):
@@ -4524,6 +4561,7 @@ def _define_ISClusResources():
     ISClusResources.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusResource_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppClusResource'),)))
     ISClusResources.CreateItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Networking.Clustering.CLUSTER_RESOURCE_CREATE_FLAGS,POINTER(win32more.Networking.Clustering.ISClusResource_head), use_last_error=False)(11, 'CreateItem', ((1, 'bstrResourceName'),(1, 'bstrResourceType'),(1, 'bstrGroupName'),(1, 'dwFlags'),(1, 'ppClusterResource'),)))
     ISClusResources.DeleteItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'DeleteItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusResources
 def _define_ISClusResGroupPreferredOwnerNodes_head():
     class ISClusResGroupPreferredOwnerNodes(win32more.System.Com.IDispatch_head):
@@ -4540,6 +4578,7 @@ def _define_ISClusResGroupPreferredOwnerNodes():
     ISClusResGroupPreferredOwnerNodes.get_Modified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_Modified', ((1, 'pvarModified'),)))
     ISClusResGroupPreferredOwnerNodes.SaveChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'SaveChanges', ()))
     ISClusResGroupPreferredOwnerNodes.AddItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.Clustering.ISClusNode_head, use_last_error=False)(15, 'AddItem', ((1, 'pNode'),)))
+    win32more.System.Com.IDispatch
     return ISClusResGroupPreferredOwnerNodes
 def _define_ISClusResPossibleOwnerNodes_head():
     class ISClusResPossibleOwnerNodes(win32more.System.Com.IDispatch_head):
@@ -4554,6 +4593,7 @@ def _define_ISClusResPossibleOwnerNodes():
     ISClusResPossibleOwnerNodes.AddItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.Clustering.ISClusNode_head, use_last_error=False)(11, 'AddItem', ((1, 'pNode'),)))
     ISClusResPossibleOwnerNodes.RemoveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'RemoveItem', ((1, 'varIndex'),)))
     ISClusResPossibleOwnerNodes.get_Modified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_Modified', ((1, 'pvarModified'),)))
+    win32more.System.Com.IDispatch
     return ISClusResPossibleOwnerNodes
 def _define_ISClusResTypePossibleOwnerNodes_head():
     class ISClusResTypePossibleOwnerNodes(win32more.System.Com.IDispatch_head):
@@ -4565,6 +4605,7 @@ def _define_ISClusResTypePossibleOwnerNodes():
     ISClusResTypePossibleOwnerNodes.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ISClusResTypePossibleOwnerNodes.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     ISClusResTypePossibleOwnerNodes.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusNode_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppNode'),)))
+    win32more.System.Com.IDispatch
     return ISClusResTypePossibleOwnerNodes
 def _define_ISClusResType_head():
     class ISClusResType(win32more.System.Com.IDispatch_head):
@@ -4582,6 +4623,7 @@ def _define_ISClusResType():
     ISClusResType.get_Resources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusResTypeResources_head), use_last_error=False)(14, 'get_Resources', ((1, 'ppClusterResTypeResources'),)))
     ISClusResType.get_PossibleOwnerNodes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusResTypePossibleOwnerNodes_head), use_last_error=False)(15, 'get_PossibleOwnerNodes', ((1, 'ppOwnerNodes'),)))
     ISClusResType.get_AvailableDisks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusDisks_head), use_last_error=False)(16, 'get_AvailableDisks', ((1, 'ppAvailableDisks'),)))
+    win32more.System.Com.IDispatch
     return ISClusResType
 def _define_ISClusResTypes_head():
     class ISClusResTypes(win32more.System.Com.IDispatch_head):
@@ -4595,6 +4637,7 @@ def _define_ISClusResTypes():
     ISClusResTypes.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusResType_head), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'ppClusResType'),)))
     ISClusResTypes.CreateItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.Networking.Clustering.ISClusResType_head), use_last_error=False)(11, 'CreateItem', ((1, 'bstrResourceTypeName'),(1, 'bstrDisplayName'),(1, 'bstrResourceTypeDll'),(1, 'dwLooksAlivePollInterval'),(1, 'dwIsAlivePollInterval'),(1, 'ppResourceType'),)))
     ISClusResTypes.DeleteItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'DeleteItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusResTypes
 def _define_ISClusProperty_head():
     class ISClusProperty(win32more.System.Com.IDispatch_head):
@@ -4617,6 +4660,7 @@ def _define_ISClusProperty():
     ISClusProperty.get_Common = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'get_Common', ((1, 'pvarCommon'),)))
     ISClusProperty.get_Modified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(20, 'get_Modified', ((1, 'pvarModified'),)))
     ISClusProperty.UseDefaultValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'UseDefaultValue', ()))
+    win32more.System.Com.IDispatch
     return ISClusProperty
 def _define_ISClusPropertyValue_head():
     class ISClusPropertyValue(win32more.System.Com.IDispatch_head):
@@ -4633,6 +4677,7 @@ def _define_ISClusPropertyValue():
     ISClusPropertyValue.get_Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_Length', ((1, 'pLength'),)))
     ISClusPropertyValue.get_DataCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_DataCount', ((1, 'pCount'),)))
     ISClusPropertyValue.get_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusPropertyValueData_head), use_last_error=False)(15, 'get_Data', ((1, 'ppClusterPropertyValueData'),)))
+    win32more.System.Com.IDispatch
     return ISClusPropertyValue
 def _define_ISClusPropertyValues_head():
     class ISClusPropertyValues(win32more.System.Com.IDispatch_head):
@@ -4645,6 +4690,7 @@ def _define_ISClusPropertyValues():
     ISClusPropertyValues.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusPropertyValue_head), use_last_error=False)(9, 'get_Item', ((1, 'varIndex'),(1, 'ppPropertyValue'),)))
     ISClusPropertyValues.CreateItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusPropertyValue_head), use_last_error=False)(10, 'CreateItem', ((1, 'bstrName'),(1, 'varValue'),(1, 'ppPropertyValue'),)))
     ISClusPropertyValues.RemoveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(11, 'RemoveItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusPropertyValues
 def _define_ISClusProperties_head():
     class ISClusProperties(win32more.System.Com.IDispatch_head):
@@ -4663,6 +4709,7 @@ def _define_ISClusProperties():
     ISClusProperties.get_Private = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_Private', ((1, 'pvarPrivate'),)))
     ISClusProperties.get_Common = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'get_Common', ((1, 'pvarCommon'),)))
     ISClusProperties.get_Modified = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'get_Modified', ((1, 'pvarModified'),)))
+    win32more.System.Com.IDispatch
     return ISClusProperties
 def _define_ISClusPropertyValueData_head():
     class ISClusPropertyValueData(win32more.System.Com.IDispatch_head):
@@ -4675,6 +4722,7 @@ def _define_ISClusPropertyValueData():
     ISClusPropertyValueData.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Item', ((1, 'varIndex'),(1, 'pvarValue'),)))
     ISClusPropertyValueData.CreateItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'CreateItem', ((1, 'varValue'),(1, 'pvarData'),)))
     ISClusPropertyValueData.RemoveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(11, 'RemoveItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusPropertyValueData
 def _define_ISClusPartition_head():
     class ISClusPartition(win32more.System.Com.IDispatch_head):
@@ -4689,6 +4737,7 @@ def _define_ISClusPartition():
     ISClusPartition.get_MaximumComponentLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_MaximumComponentLength', ((1, 'plMaximumComponentLength'),)))
     ISClusPartition.get_FileSystemFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_FileSystemFlags', ((1, 'plFileSystemFlags'),)))
     ISClusPartition.get_FileSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_FileSystem', ((1, 'pbstrFileSystem'),)))
+    win32more.System.Com.IDispatch
     return ISClusPartition
 def _define_ISClusPartitionEx_head():
     class ISClusPartitionEx(win32more.Networking.Clustering.ISClusPartition_head):
@@ -4701,6 +4750,7 @@ def _define_ISClusPartitionEx():
     ISClusPartitionEx.get_DeviceNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_DeviceNumber', ((1, 'plDeviceNumber'),)))
     ISClusPartitionEx.get_PartitionNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_PartitionNumber', ((1, 'plPartitionNumber'),)))
     ISClusPartitionEx.get_VolumeGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_VolumeGuid', ((1, 'pbstrVolumeGuid'),)))
+    win32more.Networking.Clustering.ISClusPartition
     return ISClusPartitionEx
 def _define_ISClusPartitions_head():
     class ISClusPartitions(win32more.System.Com.IDispatch_head):
@@ -4711,6 +4761,7 @@ def _define_ISClusPartitions():
     ISClusPartitions.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'plCount'),)))
     ISClusPartitions.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ISClusPartitions.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusPartition_head), use_last_error=False)(9, 'get_Item', ((1, 'varIndex'),(1, 'ppPartition'),)))
+    win32more.System.Com.IDispatch
     return ISClusPartitions
 def _define_ISClusDisk_head():
     class ISClusDisk(win32more.System.Com.IDispatch_head):
@@ -4722,6 +4773,7 @@ def _define_ISClusDisk():
     ISClusDisk.get_ScsiAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusScsiAddress_head), use_last_error=False)(8, 'get_ScsiAddress', ((1, 'ppScsiAddress'),)))
     ISClusDisk.get_DiskNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_DiskNumber', ((1, 'plDiskNumber'),)))
     ISClusDisk.get_Partitions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.Clustering.ISClusPartitions_head), use_last_error=False)(10, 'get_Partitions', ((1, 'ppPartitions'),)))
+    win32more.System.Com.IDispatch
     return ISClusDisk
 def _define_ISClusDisks_head():
     class ISClusDisks(win32more.System.Com.IDispatch_head):
@@ -4732,6 +4784,7 @@ def _define_ISClusDisks():
     ISClusDisks.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'plCount'),)))
     ISClusDisks.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ISClusDisks.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Networking.Clustering.ISClusDisk_head), use_last_error=False)(9, 'get_Item', ((1, 'varIndex'),(1, 'ppDisk'),)))
+    win32more.System.Com.IDispatch
     return ISClusDisks
 def _define_ISClusScsiAddress_head():
     class ISClusScsiAddress(win32more.System.Com.IDispatch_head):
@@ -4743,6 +4796,7 @@ def _define_ISClusScsiAddress():
     ISClusScsiAddress.get_PathId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_PathId', ((1, 'pvarPathId'),)))
     ISClusScsiAddress.get_TargetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_TargetId', ((1, 'pvarTargetId'),)))
     ISClusScsiAddress.get_Lun = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_Lun', ((1, 'pvarLun'),)))
+    win32more.System.Com.IDispatch
     return ISClusScsiAddress
 def _define_ISClusRegistryKeys_head():
     class ISClusRegistryKeys(win32more.System.Com.IDispatch_head):
@@ -4756,6 +4810,7 @@ def _define_ISClusRegistryKeys():
     ISClusRegistryKeys.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'pbstrRegistryKey'),)))
     ISClusRegistryKeys.AddItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'AddItem', ((1, 'bstrRegistryKey'),)))
     ISClusRegistryKeys.RemoveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'RemoveItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusRegistryKeys
 def _define_ISClusCryptoKeys_head():
     class ISClusCryptoKeys(win32more.System.Com.IDispatch_head):
@@ -4769,6 +4824,7 @@ def _define_ISClusCryptoKeys():
     ISClusCryptoKeys.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Item', ((1, 'varIndex'),(1, 'pbstrCyrptoKey'),)))
     ISClusCryptoKeys.AddItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'AddItem', ((1, 'bstrCryptoKey'),)))
     ISClusCryptoKeys.RemoveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'RemoveItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusCryptoKeys
 def _define_ISClusResDependents_head():
     class ISClusResDependents(win32more.System.Com.IDispatch_head):
@@ -4784,6 +4840,7 @@ def _define_ISClusResDependents():
     ISClusResDependents.DeleteItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'DeleteItem', ((1, 'varIndex'),)))
     ISClusResDependents.AddItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.Clustering.ISClusResource_head, use_last_error=False)(13, 'AddItem', ((1, 'pResource'),)))
     ISClusResDependents.RemoveItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(14, 'RemoveItem', ((1, 'varIndex'),)))
+    win32more.System.Com.IDispatch
     return ISClusResDependents
 def _define_GetNodeClusterState():
     try:

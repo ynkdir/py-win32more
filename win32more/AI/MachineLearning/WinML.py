@@ -260,6 +260,7 @@ def _define_IWinMLModel():
     IWinMLModel.EnumerateMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'EnumerateMetadata', ((1, 'Index'),(1, 'pKey'),(1, 'pValue'),)))
     IWinMLModel.EnumerateModelInputs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.AI.MachineLearning.WinML.WINML_VARIABLE_DESC_head)), use_last_error=False)(5, 'EnumerateModelInputs', ((1, 'Index'),(1, 'ppInputDescriptor'),)))
     IWinMLModel.EnumerateModelOutputs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.AI.MachineLearning.WinML.WINML_VARIABLE_DESC_head)), use_last_error=False)(6, 'EnumerateModelOutputs', ((1, 'Index'),(1, 'ppOutputDescriptor'),)))
+    win32more.System.Com.IUnknown
     return IWinMLModel
 def _define_IWinMLEvaluationContext_head():
     class IWinMLEvaluationContext(win32more.System.Com.IUnknown_head):
@@ -270,6 +271,7 @@ def _define_IWinMLEvaluationContext():
     IWinMLEvaluationContext.BindValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.AI.MachineLearning.WinML.WINML_BINDING_DESC_head), use_last_error=False)(3, 'BindValue', ((1, 'pDescriptor'),)))
     IWinMLEvaluationContext.GetValueByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.AI.MachineLearning.WinML.WINML_BINDING_DESC_head)), use_last_error=False)(4, 'GetValueByName', ((1, 'Name'),(1, 'pDescriptor'),)))
     IWinMLEvaluationContext.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Clear', ()))
+    win32more.System.Com.IUnknown
     return IWinMLEvaluationContext
 def _define_IWinMLRuntime_head():
     class IWinMLRuntime(win32more.System.Com.IUnknown_head):
@@ -280,6 +282,7 @@ def _define_IWinMLRuntime():
     IWinMLRuntime.LoadModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.AI.MachineLearning.WinML.IWinMLModel_head), use_last_error=False)(3, 'LoadModel', ((1, 'Path'),(1, 'ppModel'),)))
     IWinMLRuntime.CreateEvaluationContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Device_head,POINTER(win32more.AI.MachineLearning.WinML.IWinMLEvaluationContext_head), use_last_error=False)(4, 'CreateEvaluationContext', ((1, 'device'),(1, 'ppContext'),)))
     IWinMLRuntime.EvaluateModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.AI.MachineLearning.WinML.IWinMLEvaluationContext_head, use_last_error=False)(5, 'EvaluateModel', ((1, 'pContext'),)))
+    win32more.System.Com.IUnknown
     return IWinMLRuntime
 WINML_RUNTIME_TYPE = Int32
 WINML_RUNTIME_CNTK = 0
@@ -290,6 +293,7 @@ def _define_IWinMLRuntimeFactory_head():
 def _define_IWinMLRuntimeFactory():
     IWinMLRuntimeFactory = win32more.AI.MachineLearning.WinML.IWinMLRuntimeFactory_head
     IWinMLRuntimeFactory.CreateRuntime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.AI.MachineLearning.WinML.WINML_RUNTIME_TYPE,POINTER(win32more.AI.MachineLearning.WinML.IWinMLRuntime_head), use_last_error=False)(3, 'CreateRuntime', ((1, 'RuntimeType'),(1, 'ppRuntime'),)))
+    win32more.System.Com.IUnknown
     return IWinMLRuntimeFactory
 MLOperatorAttributeType = UInt32
 MLOperatorAttributeType_Undefined = 0
@@ -349,6 +353,7 @@ def _define_IMLOperatorAttributes():
     IMLOperatorAttributes.GetAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,win32more.AI.MachineLearning.WinML.MLOperatorAttributeType,UInt32,UIntPtr,c_void_p, use_last_error=False)(4, 'GetAttribute', ((1, 'name'),(1, 'type'),(1, 'elementCount'),(1, 'elementByteSize'),(1, 'value'),)))
     IMLOperatorAttributes.GetStringAttributeElementLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,POINTER(UInt32), use_last_error=False)(5, 'GetStringAttributeElementLength', ((1, 'name'),(1, 'elementIndex'),(1, 'attributeElementByteSize'),)))
     IMLOperatorAttributes.GetStringAttributeElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PSTR,UInt32,UInt32,POINTER(Byte), use_last_error=False)(6, 'GetStringAttributeElement', ((1, 'name'),(1, 'elementIndex'),(1, 'attributeElementByteSize'),(1, 'attributeElement'),)))
+    win32more.System.Com.IUnknown
     return IMLOperatorAttributes
 def _define_IMLOperatorTensorShapeDescription_head():
     class IMLOperatorTensorShapeDescription(win32more.System.Com.IUnknown_head):
@@ -361,6 +366,7 @@ def _define_IMLOperatorTensorShapeDescription():
     IMLOperatorTensorShapeDescription.HasOutputShapeDescription = COMMETHOD(WINFUNCTYPE(Boolean, use_last_error=False)(5, 'HasOutputShapeDescription', ()))
     IMLOperatorTensorShapeDescription.GetOutputTensorDimensionCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(6, 'GetOutputTensorDimensionCount', ((1, 'outputIndex'),(1, 'dimensionCount'),)))
     IMLOperatorTensorShapeDescription.GetOutputTensorShape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(7, 'GetOutputTensorShape', ((1, 'outputIndex'),(1, 'dimensionCount'),(1, 'dimensions'),)))
+    win32more.System.Com.IUnknown
     return IMLOperatorTensorShapeDescription
 def _define_IMLOperatorKernelCreationContext_head():
     class IMLOperatorKernelCreationContext(win32more.AI.MachineLearning.WinML.IMLOperatorAttributes_head):
@@ -377,6 +383,7 @@ def _define_IMLOperatorKernelCreationContext():
     IMLOperatorKernelCreationContext.HasTensorShapeDescription = COMMETHOD(WINFUNCTYPE(Boolean, use_last_error=False)(13, 'HasTensorShapeDescription', ()))
     IMLOperatorKernelCreationContext.GetTensorShapeDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.AI.MachineLearning.WinML.IMLOperatorTensorShapeDescription_head), use_last_error=False)(14, 'GetTensorShapeDescription', ((1, 'shapeDescription'),)))
     IMLOperatorKernelCreationContext.GetExecutionInterface = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(15, 'GetExecutionInterface', ((1, 'executionObject'),)))
+    win32more.AI.MachineLearning.WinML.IMLOperatorAttributes
     return IMLOperatorKernelCreationContext
 def _define_IMLOperatorTensor_head():
     class IMLOperatorTensor(win32more.System.Com.IUnknown_head):
@@ -391,6 +398,7 @@ def _define_IMLOperatorTensor():
     IMLOperatorTensor.IsDataInterface = COMMETHOD(WINFUNCTYPE(Boolean, use_last_error=False)(7, 'IsDataInterface', ()))
     IMLOperatorTensor.GetData = COMMETHOD(WINFUNCTYPE(c_void_p, use_last_error=False)(8, 'GetData', ()))
     IMLOperatorTensor.GetDataInterface = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'GetDataInterface', ((1, 'dataInterface'),)))
+    win32more.System.Com.IUnknown
     return IMLOperatorTensor
 def _define_IMLOperatorKernelContext_head():
     class IMLOperatorKernelContext(win32more.System.Com.IUnknown_head):
@@ -403,6 +411,7 @@ def _define_IMLOperatorKernelContext():
     IMLOperatorKernelContext.GetOutputTensor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.AI.MachineLearning.WinML.IMLOperatorTensor_head), use_last_error=False)(5, 'GetOutputTensor', ((1, 'outputIndex'),(1, 'tensor'),)))
     IMLOperatorKernelContext.AllocateTemporaryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'AllocateTemporaryData', ((1, 'size'),(1, 'data'),)))
     IMLOperatorKernelContext.GetExecutionInterface = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'GetExecutionInterface', ((1, 'executionObject'),)))
+    win32more.System.Com.IUnknown
     return IMLOperatorKernelContext
 def _define_IMLOperatorKernel_head():
     class IMLOperatorKernel(win32more.System.Com.IUnknown_head):
@@ -411,6 +420,7 @@ def _define_IMLOperatorKernel_head():
 def _define_IMLOperatorKernel():
     IMLOperatorKernel = win32more.AI.MachineLearning.WinML.IMLOperatorKernel_head
     IMLOperatorKernel.Compute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.AI.MachineLearning.WinML.IMLOperatorKernelContext_head, use_last_error=False)(3, 'Compute', ((1, 'context'),)))
+    win32more.System.Com.IUnknown
     return IMLOperatorKernel
 MLOperatorParameterOptions = UInt32
 MLOperatorParameterOptions_Single = 0
@@ -467,6 +477,7 @@ def _define_IMLOperatorShapeInferenceContext():
     IMLOperatorShapeInferenceContext.GetInputTensorDimensionCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(12, 'GetInputTensorDimensionCount', ((1, 'inputIndex'),(1, 'dimensionCount'),)))
     IMLOperatorShapeInferenceContext.GetInputTensorShape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(13, 'GetInputTensorShape', ((1, 'inputIndex'),(1, 'dimensionCount'),(1, 'dimensions'),)))
     IMLOperatorShapeInferenceContext.SetOutputTensorShape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(14, 'SetOutputTensorShape', ((1, 'outputIndex'),(1, 'dimensionCount'),(1, 'dimensions'),)))
+    win32more.AI.MachineLearning.WinML.IMLOperatorAttributes
     return IMLOperatorShapeInferenceContext
 def _define_IMLOperatorTypeInferenceContext_head():
     class IMLOperatorTypeInferenceContext(win32more.AI.MachineLearning.WinML.IMLOperatorAttributes_head):
@@ -480,6 +491,7 @@ def _define_IMLOperatorTypeInferenceContext():
     IMLOperatorTypeInferenceContext.IsOutputValid = COMMETHOD(WINFUNCTYPE(Boolean,UInt32, use_last_error=False)(10, 'IsOutputValid', ((1, 'outputIndex'),)))
     IMLOperatorTypeInferenceContext.GetInputEdgeDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.AI.MachineLearning.WinML.MLOperatorEdgeDescription_head), use_last_error=False)(11, 'GetInputEdgeDescription', ((1, 'inputIndex'),(1, 'edgeDescription'),)))
     IMLOperatorTypeInferenceContext.SetOutputEdgeDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.AI.MachineLearning.WinML.MLOperatorEdgeDescription_head), use_last_error=False)(12, 'SetOutputEdgeDescription', ((1, 'outputIndex'),(1, 'edgeDescription'),)))
+    win32more.AI.MachineLearning.WinML.IMLOperatorAttributes
     return IMLOperatorTypeInferenceContext
 def _define_IMLOperatorTypeInferrer_head():
     class IMLOperatorTypeInferrer(win32more.System.Com.IUnknown_head):
@@ -488,6 +500,7 @@ def _define_IMLOperatorTypeInferrer_head():
 def _define_IMLOperatorTypeInferrer():
     IMLOperatorTypeInferrer = win32more.AI.MachineLearning.WinML.IMLOperatorTypeInferrer_head
     IMLOperatorTypeInferrer.InferOutputTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.AI.MachineLearning.WinML.IMLOperatorTypeInferenceContext_head, use_last_error=False)(3, 'InferOutputTypes', ((1, 'context'),)))
+    win32more.System.Com.IUnknown
     return IMLOperatorTypeInferrer
 def _define_IMLOperatorShapeInferrer_head():
     class IMLOperatorShapeInferrer(win32more.System.Com.IUnknown_head):
@@ -496,6 +509,7 @@ def _define_IMLOperatorShapeInferrer_head():
 def _define_IMLOperatorShapeInferrer():
     IMLOperatorShapeInferrer = win32more.AI.MachineLearning.WinML.IMLOperatorShapeInferrer_head
     IMLOperatorShapeInferrer.InferOutputShapes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.AI.MachineLearning.WinML.IMLOperatorShapeInferenceContext_head, use_last_error=False)(3, 'InferOutputShapes', ((1, 'context'),)))
+    win32more.System.Com.IUnknown
     return IMLOperatorShapeInferrer
 def _define_MLOperatorAttribute_head():
     class MLOperatorAttribute(Structure):
@@ -598,6 +612,7 @@ def _define_IMLOperatorKernelFactory_head():
 def _define_IMLOperatorKernelFactory():
     IMLOperatorKernelFactory = win32more.AI.MachineLearning.WinML.IMLOperatorKernelFactory_head
     IMLOperatorKernelFactory.CreateKernel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.AI.MachineLearning.WinML.IMLOperatorKernelCreationContext_head,POINTER(win32more.AI.MachineLearning.WinML.IMLOperatorKernel_head), use_last_error=False)(3, 'CreateKernel', ((1, 'context'),(1, 'kernel'),)))
+    win32more.System.Com.IUnknown
     return IMLOperatorKernelFactory
 def _define_IMLOperatorRegistry_head():
     class IMLOperatorRegistry(win32more.System.Com.IUnknown_head):
@@ -607,6 +622,7 @@ def _define_IMLOperatorRegistry():
     IMLOperatorRegistry = win32more.AI.MachineLearning.WinML.IMLOperatorRegistry_head
     IMLOperatorRegistry.RegisterOperatorSetSchema = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.AI.MachineLearning.WinML.MLOperatorSetId_head),Int32,POINTER(POINTER(win32more.AI.MachineLearning.WinML.MLOperatorSchemaDescription_head)),UInt32,win32more.AI.MachineLearning.WinML.IMLOperatorTypeInferrer_head,win32more.AI.MachineLearning.WinML.IMLOperatorShapeInferrer_head, use_last_error=False)(3, 'RegisterOperatorSetSchema', ((1, 'operatorSetId'),(1, 'baselineVersion'),(1, 'schema'),(1, 'schemaCount'),(1, 'typeInferrer'),(1, 'shapeInferrer'),)))
     IMLOperatorRegistry.RegisterOperatorKernel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.AI.MachineLearning.WinML.MLOperatorKernelDescription_head),win32more.AI.MachineLearning.WinML.IMLOperatorKernelFactory_head,win32more.AI.MachineLearning.WinML.IMLOperatorShapeInferrer_head, use_last_error=False)(4, 'RegisterOperatorKernel', ((1, 'operatorKernel'),(1, 'operatorKernelFactory'),(1, 'shapeInferrer'),)))
+    win32more.System.Com.IUnknown
     return IMLOperatorRegistry
 def _define_WinMLCreateRuntime():
     try:

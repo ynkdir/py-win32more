@@ -77,6 +77,7 @@ def _define_IPhotoAcquireItem():
     IPhotoAcquireItem.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Delete', ()))
     IPhotoAcquireItem.GetSubItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'GetSubItemCount', ((1, 'pnCount'),)))
     IPhotoAcquireItem.GetSubItemAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.PictureAcquisition.IPhotoAcquireItem_head), use_last_error=False)(11, 'GetSubItemAt', ((1, 'nItemIndex'),(1, 'ppPhotoAcquireItem'),)))
+    win32more.System.Com.IUnknown
     return IPhotoAcquireItem
 USER_INPUT_STRING_TYPE = Int32
 USER_INPUT_DEFAULT = 0
@@ -97,6 +98,7 @@ def _define_IUserInputString():
     IUserInputString.GetMruCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'GetMruCount', ((1, 'pnMruCount'),)))
     IUserInputString.GetMruEntryAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'GetMruEntryAt', ((1, 'nIndex'),(1, 'pbstrMruEntry'),)))
     IUserInputString.GetImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Gdi.HBITMAP),POINTER(win32more.UI.WindowsAndMessaging.HICON), use_last_error=False)(12, 'GetImage', ((1, 'nSize'),(1, 'phBitmap'),(1, 'phIcon'),)))
+    win32more.System.Com.IUnknown
     return IUserInputString
 ERROR_ADVISE_MESSAGE_TYPE = Int32
 PHOTOACQUIRE_ERROR_SKIPRETRYCANCEL = 0
@@ -136,6 +138,7 @@ def _define_IPhotoAcquireProgressCB():
     IPhotoAcquireProgressCB.GetDeleteAfterAcquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(19, 'GetDeleteAfterAcquire', ((1, 'pfDeleteAfterAcquire'),)))
     IPhotoAcquireProgressCB.ErrorAdvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.PictureAcquisition.ERROR_ADVISE_MESSAGE_TYPE,POINTER(win32more.Media.PictureAcquisition.ERROR_ADVISE_RESULT), use_last_error=False)(20, 'ErrorAdvise', ((1, 'hr'),(1, 'pszErrorMessage'),(1, 'nMessageType'),(1, 'pnErrorAdviseResult'),)))
     IPhotoAcquireProgressCB.GetUserInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(21, 'GetUserInput', ((1, 'riidType'),(1, 'pUnknown'),(1, 'pPropVarResult'),(1, 'pPropVarDefault'),)))
+    win32more.System.Com.IUnknown
     return IPhotoAcquireProgressCB
 def _define_IPhotoProgressActionCB_head():
     class IPhotoProgressActionCB(win32more.System.Com.IUnknown_head):
@@ -144,6 +147,7 @@ def _define_IPhotoProgressActionCB_head():
 def _define_IPhotoProgressActionCB():
     IPhotoProgressActionCB = win32more.Media.PictureAcquisition.IPhotoProgressActionCB_head
     IPhotoProgressActionCB.DoAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(3, 'DoAction', ((1, 'hWndParent'),)))
+    win32more.System.Com.IUnknown
     return IPhotoProgressActionCB
 PROGRESS_DIALOG_IMAGE_TYPE = Int32
 PROGRESS_DIALOG_ICON_SMALL = 0
@@ -176,6 +180,7 @@ def _define_IPhotoProgressDialog():
     IPhotoProgressDialog.ShowActionLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(18, 'ShowActionLink', ((1, 'fShow'),)))
     IPhotoProgressDialog.IsCancelled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(19, 'IsCancelled', ((1, 'pfCancelled'),)))
     IPhotoProgressDialog.GetUserInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(20, 'GetUserInput', ((1, 'riidType'),(1, 'pUnknown'),(1, 'pPropVarResult'),(1, 'pPropVarDefault'),)))
+    win32more.System.Com.IUnknown
     return IPhotoProgressDialog
 def _define_IPhotoAcquireSource_head():
     class IPhotoAcquireSource(win32more.System.Com.IUnknown_head):
@@ -191,6 +196,7 @@ def _define_IPhotoAcquireSource():
     IPhotoAcquireSource.GetPhotoAcquireSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.PictureAcquisition.IPhotoAcquireSettings_head), use_last_error=False)(8, 'GetPhotoAcquireSettings', ((1, 'ppPhotoAcquireSettings'),)))
     IPhotoAcquireSource.GetDeviceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'GetDeviceId', ((1, 'pbstrDeviceId'),)))
     IPhotoAcquireSource.BindToObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(10, 'BindToObject', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IPhotoAcquireSource
 def _define_IPhotoAcquire_head():
     class IPhotoAcquire(win32more.System.Com.IUnknown_head):
@@ -201,6 +207,7 @@ def _define_IPhotoAcquire():
     IPhotoAcquire.CreatePhotoSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Media.PictureAcquisition.IPhotoAcquireSource_head), use_last_error=False)(3, 'CreatePhotoSource', ((1, 'pszDevice'),(1, 'ppPhotoAcquireSource'),)))
     IPhotoAcquire.Acquire = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.PictureAcquisition.IPhotoAcquireSource_head,win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.PWSTR,win32more.Media.PictureAcquisition.IPhotoAcquireProgressCB_head, use_last_error=False)(4, 'Acquire', ((1, 'pPhotoAcquireSource'),(1, 'fShowProgress'),(1, 'hWndParent'),(1, 'pszApplicationName'),(1, 'pPhotoAcquireProgressCB'),)))
     IPhotoAcquire.EnumResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head), use_last_error=False)(5, 'EnumResults', ((1, 'ppEnumFilePaths'),)))
+    win32more.System.Com.IUnknown
     return IPhotoAcquire
 def _define_IPhotoAcquireSettings_head():
     class IPhotoAcquireSettings(win32more.System.Com.IUnknown_head):
@@ -221,6 +228,7 @@ def _define_IPhotoAcquireSettings():
     IPhotoAcquireSettings.GetSequenceZeroPadding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(13, 'GetSequenceZeroPadding', ((1, 'pfZeroPad'),)))
     IPhotoAcquireSettings.GetGroupTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'GetGroupTag', ((1, 'pbstrGroupTag'),)))
     IPhotoAcquireSettings.GetAcquisitionTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(15, 'GetAcquisitionTime', ((1, 'pftAcquisitionTime'),)))
+    win32more.System.Com.IUnknown
     return IPhotoAcquireSettings
 def _define_IPhotoAcquireOptionsDialog_head():
     class IPhotoAcquireOptionsDialog(win32more.System.Com.IUnknown_head):
@@ -233,6 +241,7 @@ def _define_IPhotoAcquireOptionsDialog():
     IPhotoAcquireOptionsDialog.Destroy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Destroy', ()))
     IPhotoAcquireOptionsDialog.DoModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(IntPtr), use_last_error=False)(6, 'DoModal', ((1, 'hWndParent'),(1, 'ppnReturnCode'),)))
     IPhotoAcquireOptionsDialog.SaveData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'SaveData', ()))
+    win32more.System.Com.IUnknown
     return IPhotoAcquireOptionsDialog
 DEVICE_SELECTION_DEVICE_TYPE = Int32
 DST_UNKNOWN_DEVICE = 0
@@ -251,6 +260,7 @@ def _define_IPhotoAcquireDeviceSelectionDialog():
     IPhotoAcquireDeviceSelectionDialog.SetTitle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetTitle', ((1, 'pszTitle'),)))
     IPhotoAcquireDeviceSelectionDialog.SetSubmitButtonText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'SetSubmitButtonText', ((1, 'pszSubmitButtonText'),)))
     IPhotoAcquireDeviceSelectionDialog.DoModal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Media.PictureAcquisition.DEVICE_SELECTION_DEVICE_TYPE), use_last_error=False)(5, 'DoModal', ((1, 'hWndParent'),(1, 'dwDeviceFlags'),(1, 'pbstrDeviceId'),(1, 'pnDeviceType'),)))
+    win32more.System.Com.IUnknown
     return IPhotoAcquireDeviceSelectionDialog
 def _define_IPhotoAcquirePlugin_head():
     class IPhotoAcquirePlugin(win32more.System.Com.IUnknown_head):
@@ -262,6 +272,7 @@ def _define_IPhotoAcquirePlugin():
     IPhotoAcquirePlugin.ProcessItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Media.PictureAcquisition.IPhotoAcquireItem_head,win32more.System.Com.IStream_head,win32more.Foundation.PWSTR,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, use_last_error=False)(4, 'ProcessItem', ((1, 'dwAcquireStage'),(1, 'pPhotoAcquireItem'),(1, 'pOriginalItemStream'),(1, 'pszFinalFilename'),(1, 'pPropertyStore'),)))
     IPhotoAcquirePlugin.TransferComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(5, 'TransferComplete', ((1, 'hr'),)))
     IPhotoAcquirePlugin.DisplayConfigureDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(6, 'DisplayConfigureDialog', ((1, 'hWndParent'),)))
+    win32more.System.Com.IUnknown
     return IPhotoAcquirePlugin
 __all__ = [
     "PKEY_PhotoAcquire_RelativePathname",

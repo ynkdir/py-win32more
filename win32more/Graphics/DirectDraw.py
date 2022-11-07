@@ -1653,6 +1653,7 @@ def _define_IDirectDraw():
     IDirectDraw.SetCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(20, 'SetCooperativeLevel', ((1, 'param0'),(1, 'param1'),)))
     IDirectDraw.SetDisplayMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32, use_last_error=False)(21, 'SetDisplayMode', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectDraw.WaitForVerticalBlank = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HANDLE, use_last_error=False)(22, 'WaitForVerticalBlank', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDirectDraw
 def _define_IDirectDraw2_head():
     class IDirectDraw2(win32more.System.Com.IUnknown_head):
@@ -1681,6 +1682,7 @@ def _define_IDirectDraw2():
     IDirectDraw2.SetDisplayMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(21, 'SetDisplayMode', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
     IDirectDraw2.WaitForVerticalBlank = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HANDLE, use_last_error=False)(22, 'WaitForVerticalBlank', ((1, 'param0'),(1, 'param1'),)))
     IDirectDraw2.GetAvailableVidMem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectDraw.DDSCAPS_head),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(23, 'GetAvailableVidMem', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
     return IDirectDraw2
 def _define_IDirectDraw4_head():
     class IDirectDraw4(win32more.System.Com.IUnknown_head):
@@ -1713,6 +1715,7 @@ def _define_IDirectDraw4():
     IDirectDraw4.RestoreAllSurfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'RestoreAllSurfaces', ()))
     IDirectDraw4.TestCooperativeLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(26, 'TestCooperativeLevel', ()))
     IDirectDraw4.GetDeviceIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectDraw.DDDEVICEIDENTIFIER_head),UInt32, use_last_error=False)(27, 'GetDeviceIdentifier', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDirectDraw4
 def _define_IDirectDraw7_head():
     class IDirectDraw7(win32more.System.Com.IUnknown_head):
@@ -1747,6 +1750,7 @@ def _define_IDirectDraw7():
     IDirectDraw7.GetDeviceIdentifier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectDraw.DDDEVICEIDENTIFIER2_head),UInt32, use_last_error=False)(27, 'GetDeviceIdentifier', ((1, 'param0'),(1, 'param1'),)))
     IDirectDraw7.StartModeTest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head),UInt32,UInt32, use_last_error=False)(28, 'StartModeTest', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectDraw7.EvaluateMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(29, 'EvaluateMode', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDirectDraw7
 def _define_IDirectDrawPalette_head():
     class IDirectDrawPalette(win32more.System.Com.IUnknown_head):
@@ -1758,6 +1762,7 @@ def _define_IDirectDrawPalette():
     IDirectDrawPalette.GetEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head), use_last_error=False)(4, 'GetEntries', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
     IDirectDrawPalette.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectDraw.IDirectDraw_head,UInt32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head), use_last_error=False)(5, 'Initialize', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
     IDirectDrawPalette.SetEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.Graphics.Gdi.PALETTEENTRY_head), use_last_error=False)(6, 'SetEntries', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawPalette
 def _define_IDirectDrawClipper_head():
     class IDirectDrawClipper(win32more.System.Com.IUnknown_head):
@@ -1771,6 +1776,7 @@ def _define_IDirectDrawClipper():
     IDirectDrawClipper.IsClipListChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'IsClipListChanged', ((1, 'param0'),)))
     IDirectDrawClipper.SetClipList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.RGNDATA_head),UInt32, use_last_error=False)(7, 'SetClipList', ((1, 'param0'),(1, 'param1'),)))
     IDirectDrawClipper.SetHWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HWND, use_last_error=False)(8, 'SetHWnd', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawClipper
 def _define_IDirectDrawSurface_head():
     class IDirectDrawSurface(win32more.System.Com.IUnknown_head):
@@ -1811,6 +1817,7 @@ def _define_IDirectDrawSurface():
     IDirectDrawSurface.UpdateOverlay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head),win32more.Graphics.DirectDraw.IDirectDrawSurface_head,POINTER(win32more.Foundation.RECT_head),UInt32,POINTER(win32more.Graphics.DirectDraw.DDOVERLAYFX_head), use_last_error=False)(33, 'UpdateOverlay', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),(1, 'param4'),)))
     IDirectDrawSurface.UpdateOverlayDisplay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(34, 'UpdateOverlayDisplay', ((1, 'param0'),)))
     IDirectDrawSurface.UpdateOverlayZOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.DirectDraw.IDirectDrawSurface_head, use_last_error=False)(35, 'UpdateOverlayZOrder', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawSurface
 def _define_IDirectDrawSurface2_head():
     class IDirectDrawSurface2(win32more.System.Com.IUnknown_head):
@@ -1854,6 +1861,7 @@ def _define_IDirectDrawSurface2():
     IDirectDrawSurface2.GetDDInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p), use_last_error=False)(36, 'GetDDInterface', ((1, 'param0'),)))
     IDirectDrawSurface2.PageLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(37, 'PageLock', ((1, 'param0'),)))
     IDirectDrawSurface2.PageUnlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(38, 'PageUnlock', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawSurface2
 def _define_IDirectDrawSurface3_head():
     class IDirectDrawSurface3(win32more.System.Com.IUnknown_head):
@@ -1898,6 +1906,7 @@ def _define_IDirectDrawSurface3():
     IDirectDrawSurface3.PageLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(37, 'PageLock', ((1, 'param0'),)))
     IDirectDrawSurface3.PageUnlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(38, 'PageUnlock', ((1, 'param0'),)))
     IDirectDrawSurface3.SetSurfaceDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectDraw.DDSURFACEDESC_head),UInt32, use_last_error=False)(39, 'SetSurfaceDesc', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawSurface3
 def _define_IDirectDrawSurface4_head():
     class IDirectDrawSurface4(win32more.System.Com.IUnknown_head):
@@ -1947,6 +1956,7 @@ def _define_IDirectDrawSurface4():
     IDirectDrawSurface4.FreePrivateData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(42, 'FreePrivateData', ((1, 'param0'),)))
     IDirectDrawSurface4.GetUniquenessValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(43, 'GetUniquenessValue', ((1, 'param0'),)))
     IDirectDrawSurface4.ChangeUniquenessValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(44, 'ChangeUniquenessValue', ()))
+    win32more.System.Com.IUnknown
     return IDirectDrawSurface4
 def _define_IDirectDrawSurface7_head():
     class IDirectDrawSurface7(win32more.System.Com.IUnknown_head):
@@ -2000,6 +2010,7 @@ def _define_IDirectDrawSurface7():
     IDirectDrawSurface7.GetPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(46, 'GetPriority', ((1, 'param0'),)))
     IDirectDrawSurface7.SetLOD = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(47, 'SetLOD', ((1, 'param0'),)))
     IDirectDrawSurface7.GetLOD = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(48, 'GetLOD', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawSurface7
 def _define_IDirectDrawColorControl_head():
     class IDirectDrawColorControl(win32more.System.Com.IUnknown_head):
@@ -2009,6 +2020,7 @@ def _define_IDirectDrawColorControl():
     IDirectDrawColorControl = win32more.Graphics.DirectDraw.IDirectDrawColorControl_head
     IDirectDrawColorControl.GetColorControls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectDraw.DDCOLORCONTROL_head), use_last_error=False)(3, 'GetColorControls', ((1, 'param0'),)))
     IDirectDrawColorControl.SetColorControls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectDraw.DDCOLORCONTROL_head), use_last_error=False)(4, 'SetColorControls', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawColorControl
 def _define_IDirectDrawGammaControl_head():
     class IDirectDrawGammaControl(win32more.System.Com.IUnknown_head):
@@ -2018,6 +2030,7 @@ def _define_IDirectDrawGammaControl():
     IDirectDrawGammaControl = win32more.Graphics.DirectDraw.IDirectDrawGammaControl_head
     IDirectDrawGammaControl.GetGammaRamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectDraw.DDGAMMARAMP_head), use_last_error=False)(3, 'GetGammaRamp', ((1, 'param0'),(1, 'param1'),)))
     IDirectDrawGammaControl.SetGammaRamp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectDraw.DDGAMMARAMP_head), use_last_error=False)(4, 'SetGammaRamp', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawGammaControl
 def _define_DDSURFACEDESC_head():
     class DDSURFACEDESC(Structure):
@@ -2192,6 +2205,7 @@ def _define_IDDVideoPortContainer():
     IDDVideoPortContainer.EnumVideoPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectDraw.DDVIDEOPORTCAPS_head),c_void_p,win32more.Graphics.DirectDraw.LPDDENUMVIDEOCALLBACK, use_last_error=False)(4, 'EnumVideoPorts', ((1, 'param0'),(1, 'param1'),(1, 'param2'),(1, 'param3'),)))
     IDDVideoPortContainer.GetVideoPortConnectInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.Graphics.DirectDraw.DDVIDEOPORTCONNECT), use_last_error=False)(5, 'GetVideoPortConnectInfo', ((1, 'param0'),(1, 'pcInfo'),(1, 'param2'),)))
     IDDVideoPortContainer.QueryVideoPortStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.DirectDraw.DDVIDEOPORTSTATUS_head), use_last_error=False)(6, 'QueryVideoPortStatus', ((1, 'param0'),(1, 'param1'),)))
+    win32more.System.Com.IUnknown
     return IDDVideoPortContainer
 def _define_IDirectDrawVideoPort_head():
     class IDirectDrawVideoPort(win32more.System.Com.IUnknown_head):
@@ -2213,6 +2227,7 @@ def _define_IDirectDrawVideoPort():
     IDirectDrawVideoPort.StopVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'StopVideo', ()))
     IDirectDrawVideoPort.UpdateVideo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectDraw.DDVIDEOPORTINFO_head), use_last_error=False)(15, 'UpdateVideo', ((1, 'param0'),)))
     IDirectDrawVideoPort.WaitForSync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32, use_last_error=False)(16, 'WaitForSync', ((1, 'param0'),(1, 'param1'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawVideoPort
 def _define_IDirectDrawVideoPortNotify_head():
     class IDirectDrawVideoPortNotify(win32more.System.Com.IUnknown_head):
@@ -2222,6 +2237,7 @@ def _define_IDirectDrawVideoPortNotify():
     IDirectDrawVideoPortNotify = win32more.Graphics.DirectDraw.IDirectDrawVideoPortNotify_head
     IDirectDrawVideoPortNotify.AcquireNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE),POINTER(win32more.Graphics.DirectDraw.DDVIDEOPORTNOTIFY_head), use_last_error=False)(3, 'AcquireNotification', ((1, 'param0'),(1, 'param1'),)))
     IDirectDrawVideoPortNotify.ReleaseNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(4, 'ReleaseNotification', ((1, 'param0'),)))
+    win32more.System.Com.IUnknown
     return IDirectDrawVideoPortNotify
 def _define_DDVIDEOPORTCONNECT_head():
     class DDVIDEOPORTCONNECT(Structure):
@@ -2362,6 +2378,7 @@ def _define_IDirectDrawKernel():
     IDirectDrawKernel.GetCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectDraw.DDKERNELCAPS_head), use_last_error=False)(3, 'GetCaps', ((1, 'param0'),)))
     IDirectDrawKernel.GetKernelHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr), use_last_error=False)(4, 'GetKernelHandle', ((1, 'param0'),)))
     IDirectDrawKernel.ReleaseKernelHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ReleaseKernelHandle', ()))
+    win32more.System.Com.IUnknown
     return IDirectDrawKernel
 def _define_IDirectDrawSurfaceKernel_head():
     class IDirectDrawSurfaceKernel(win32more.System.Com.IUnknown_head):
@@ -2371,6 +2388,7 @@ def _define_IDirectDrawSurfaceKernel():
     IDirectDrawSurfaceKernel = win32more.Graphics.DirectDraw.IDirectDrawSurfaceKernel_head
     IDirectDrawSurfaceKernel.GetKernelHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UIntPtr), use_last_error=False)(3, 'GetKernelHandle', ((1, 'param0'),)))
     IDirectDrawSurfaceKernel.ReleaseKernelHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ReleaseKernelHandle', ()))
+    win32more.System.Com.IUnknown
     return IDirectDrawSurfaceKernel
 def _define_DDKERNELCAPS_head():
     class DDKERNELCAPS(Structure):

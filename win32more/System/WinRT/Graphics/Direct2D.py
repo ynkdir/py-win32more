@@ -39,6 +39,7 @@ def _define_IGraphicsEffectD2D1Interop():
     IGraphicsEffectD2D1Interop.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p, use_last_error=False)(6, 'GetProperty', ((1, 'index'),(1, 'value'),)))
     IGraphicsEffectD2D1Interop.GetSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p, use_last_error=False)(7, 'GetSource', ((1, 'index'),(1, 'source'),)))
     IGraphicsEffectD2D1Interop.GetSourceCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetSourceCount', ((1, 'count'),)))
+    win32more.System.Com.IUnknown
     return IGraphicsEffectD2D1Interop
 def _define_IGeometrySource2DInterop_head():
     class IGeometrySource2DInterop(win32more.System.Com.IUnknown_head):
@@ -48,6 +49,7 @@ def _define_IGeometrySource2DInterop():
     IGeometrySource2DInterop = win32more.System.WinRT.Graphics.Direct2D.IGeometrySource2DInterop_head
     IGeometrySource2DInterop.GetGeometry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head), use_last_error=False)(3, 'GetGeometry', ((1, 'value'),)))
     IGeometrySource2DInterop.TryGetGeometryUsingFactory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct2D.ID2D1Factory_head,POINTER(win32more.Graphics.Direct2D.ID2D1Geometry_head), use_last_error=False)(4, 'TryGetGeometryUsingFactory', ((1, 'factory'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IGeometrySource2DInterop
 __all__ = [
     "GRAPHICS_EFFECT_PROPERTY_MAPPING",

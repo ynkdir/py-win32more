@@ -73,6 +73,7 @@ def _define_IUISimplePropertySet_head():
 def _define_IUISimplePropertySet():
     IUISimplePropertySet = win32more.UI.Ribbon.IUISimplePropertySet_head
     IUISimplePropertySet.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(3, 'GetValue', ((1, 'key'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IUISimplePropertySet
 def _define_IUIRibbon_head():
     class IUIRibbon(win32more.System.Com.IUnknown_head):
@@ -83,6 +84,7 @@ def _define_IUIRibbon():
     IUIRibbon.GetHeight = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetHeight', ((1, 'cy'),)))
     IUIRibbon.LoadSettingsFromStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(4, 'LoadSettingsFromStream', ((1, 'pStream'),)))
     IUIRibbon.SaveSettingsToStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(5, 'SaveSettingsToStream', ((1, 'pStream'),)))
+    win32more.System.Com.IUnknown
     return IUIRibbon
 UI_INVALIDATIONS = Int32
 UI_INVALIDATIONS_STATE = 1
@@ -104,6 +106,7 @@ def _define_IUIFramework():
     IUIFramework.InvalidateUICommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Ribbon.UI_INVALIDATIONS,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(9, 'InvalidateUICommand', ((1, 'commandId'),(1, 'flags'),(1, 'key'),)))
     IUIFramework.FlushPendingInvalidations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'FlushPendingInvalidations', ()))
     IUIFramework.SetModes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'SetModes', ((1, 'iModes'),)))
+    win32more.System.Com.IUnknown
     return IUIFramework
 def _define_UI_EVENTPARAMS_COMMAND_head():
     class UI_EVENTPARAMS_COMMAND(Structure):
@@ -147,6 +150,7 @@ def _define_IUIEventLogger_head():
 def _define_IUIEventLogger():
     IUIEventLogger = win32more.UI.Ribbon.IUIEventLogger_head
     IUIEventLogger.OnUIEvent = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.UI.Ribbon.UI_EVENTPARAMS_head), use_last_error=False)(3, 'OnUIEvent', ((1, 'pEventParams'),)))
+    win32more.System.Com.IUnknown
     return IUIEventLogger
 def _define_IUIEventingManager_head():
     class IUIEventingManager(win32more.System.Com.IUnknown_head):
@@ -155,6 +159,7 @@ def _define_IUIEventingManager_head():
 def _define_IUIEventingManager():
     IUIEventingManager = win32more.UI.Ribbon.IUIEventingManager_head
     IUIEventingManager.SetEventLogger = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Ribbon.IUIEventLogger_head, use_last_error=False)(3, 'SetEventLogger', ((1, 'eventLogger'),)))
+    win32more.System.Com.IUnknown
     return IUIEventingManager
 def _define_IUIContextualUI_head():
     class IUIContextualUI(win32more.System.Com.IUnknown_head):
@@ -163,6 +168,7 @@ def _define_IUIContextualUI_head():
 def _define_IUIContextualUI():
     IUIContextualUI = win32more.UI.Ribbon.IUIContextualUI_head
     IUIContextualUI.ShowAtLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(3, 'ShowAtLocation', ((1, 'x'),(1, 'y'),)))
+    win32more.System.Com.IUnknown
     return IUIContextualUI
 def _define_IUICollection_head():
     class IUICollection(win32more.System.Com.IUnknown_head):
@@ -177,6 +183,7 @@ def _define_IUICollection():
     IUICollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'RemoveAt', ((1, 'index'),)))
     IUICollection.Replace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(8, 'Replace', ((1, 'indexReplaced'),(1, 'itemReplaceWith'),)))
     IUICollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Clear', ()))
+    win32more.System.Com.IUnknown
     return IUICollection
 UI_COLLECTIONCHANGE = Int32
 UI_COLLECTIONCHANGE_INSERT = 0
@@ -190,6 +197,7 @@ def _define_IUICollectionChangedEvent_head():
 def _define_IUICollectionChangedEvent():
     IUICollectionChangedEvent = win32more.UI.Ribbon.IUICollectionChangedEvent_head
     IUICollectionChangedEvent.OnChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Ribbon.UI_COLLECTIONCHANGE,UInt32,win32more.System.Com.IUnknown_head,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'OnChanged', ((1, 'action'),(1, 'oldIndex'),(1, 'oldItem'),(1, 'newIndex'),(1, 'newItem'),)))
+    win32more.System.Com.IUnknown
     return IUICollectionChangedEvent
 UI_EXECUTIONVERB = Int32
 UI_EXECUTIONVERB_EXECUTE = 0
@@ -203,6 +211,7 @@ def _define_IUICommandHandler():
     IUICommandHandler = win32more.UI.Ribbon.IUICommandHandler_head
     IUICommandHandler.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Ribbon.UI_EXECUTIONVERB,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),win32more.UI.Ribbon.IUISimplePropertySet_head, use_last_error=False)(3, 'Execute', ((1, 'commandId'),(1, 'verb'),(1, 'key'),(1, 'currentValue'),(1, 'commandExecutionProperties'),)))
     IUICommandHandler.UpdateProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(4, 'UpdateProperty', ((1, 'commandId'),(1, 'key'),(1, 'currentValue'),(1, 'newValue'),)))
+    win32more.System.Com.IUnknown
     return IUICommandHandler
 UI_COMMANDTYPE = Int32
 UI_COMMANDTYPE_UNKNOWN = 0
@@ -234,6 +243,7 @@ def _define_IUIApplication():
     IUIApplication.OnViewChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Ribbon.UI_VIEWTYPE,win32more.System.Com.IUnknown_head,win32more.UI.Ribbon.UI_VIEWVERB,Int32, use_last_error=False)(3, 'OnViewChanged', ((1, 'viewId'),(1, 'typeID'),(1, 'view'),(1, 'verb'),(1, 'uReasonCode'),)))
     IUIApplication.OnCreateUICommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Ribbon.UI_COMMANDTYPE,POINTER(win32more.UI.Ribbon.IUICommandHandler_head), use_last_error=False)(4, 'OnCreateUICommand', ((1, 'commandId'),(1, 'typeID'),(1, 'commandHandler'),)))
     IUIApplication.OnDestroyUICommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.Ribbon.UI_COMMANDTYPE,win32more.UI.Ribbon.IUICommandHandler_head, use_last_error=False)(5, 'OnDestroyUICommand', ((1, 'commandId'),(1, 'typeID'),(1, 'commandHandler'),)))
+    win32more.System.Com.IUnknown
     return IUIApplication
 def _define_IUIImage_head():
     class IUIImage(win32more.System.Com.IUnknown_head):
@@ -242,6 +252,7 @@ def _define_IUIImage_head():
 def _define_IUIImage():
     IUIImage = win32more.UI.Ribbon.IUIImage_head
     IUIImage.GetBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(3, 'GetBitmap', ((1, 'bitmap'),)))
+    win32more.System.Com.IUnknown
     return IUIImage
 UI_OWNERSHIP = Int32
 UI_OWNERSHIP_TRANSFER = 0
@@ -253,6 +264,7 @@ def _define_IUIImageFromBitmap_head():
 def _define_IUIImageFromBitmap():
     IUIImageFromBitmap = win32more.UI.Ribbon.IUIImageFromBitmap_head
     IUIImageFromBitmap.CreateImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HBITMAP,win32more.UI.Ribbon.UI_OWNERSHIP,POINTER(win32more.UI.Ribbon.IUIImage_head), use_last_error=False)(3, 'CreateImage', ((1, 'bitmap'),(1, 'options'),(1, 'image'),)))
+    win32more.System.Com.IUnknown
     return IUIImageFromBitmap
 __all__ = [
     "UI_ALL_COMMANDS",

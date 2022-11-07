@@ -397,6 +397,7 @@ def _define_IDataCollectorSet():
     IDataCollectorSet.SetXml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Performance.IValueMap_head), use_last_error=False)(64, 'SetXml', ((1, 'xml'),(1, 'validation'),)))
     IDataCollectorSet.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(65, 'SetValue', ((1, 'key'),(1, 'value'),)))
     IDataCollectorSet.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(66, 'GetValue', ((1, 'key'),(1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IDataCollectorSet
 def _define_IDataManager_head():
     class IDataManager(win32more.System.Com.IDispatch_head):
@@ -429,6 +430,7 @@ def _define_IDataManager():
     IDataManager.put_Rules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(29, 'put_Rules', ((1, 'bstrXml'),)))
     IDataManager.Run = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.DataManagerSteps,win32more.Foundation.BSTR,POINTER(win32more.System.Performance.IValueMap_head), use_last_error=False)(30, 'Run', ((1, 'Steps'),(1, 'bstrFolder'),(1, 'Errors'),)))
     IDataManager.Extract = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(31, 'Extract', ((1, 'CabFilename'),(1, 'DestinationPath'),)))
+    win32more.System.Com.IDispatch
     return IDataManager
 def _define_IFolderAction_head():
     class IFolderAction(win32more.System.Com.IDispatch_head):
@@ -444,6 +446,7 @@ def _define_IFolderAction():
     IFolderAction.put_Actions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.FolderActionSteps, use_last_error=False)(12, 'put_Actions', ((1, 'Steps'),)))
     IFolderAction.get_SendCabTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_SendCabTo', ((1, 'pbstrDestination'),)))
     IFolderAction.put_SendCabTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(14, 'put_SendCabTo', ((1, 'bstrDestination'),)))
+    win32more.System.Com.IDispatch
     return IFolderAction
 def _define_IFolderActionCollection_head():
     class IFolderActionCollection(win32more.System.Com.IDispatch_head):
@@ -459,6 +462,7 @@ def _define_IFolderActionCollection():
     IFolderActionCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     IFolderActionCollection.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.IFolderActionCollection_head, use_last_error=False)(13, 'AddRange', ((1, 'Actions'),)))
     IFolderActionCollection.CreateFolderAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Performance.IFolderAction_head), use_last_error=False)(14, 'CreateFolderAction', ((1, 'FolderAction'),)))
+    win32more.System.Com.IDispatch
     return IFolderActionCollection
 def _define_IDataCollector_head():
     class IDataCollector(win32more.System.Com.IDispatch_head):
@@ -491,6 +495,7 @@ def _define_IDataCollector():
     IDataCollector.get_Xml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(29, 'get_Xml', ((1, 'Xml'),)))
     IDataCollector.SetXml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Performance.IValueMap_head), use_last_error=False)(30, 'SetXml', ((1, 'Xml'),(1, 'Validation'),)))
     IDataCollector.CreateOutputLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,POINTER(win32more.Foundation.BSTR), use_last_error=False)(31, 'CreateOutputLocation', ((1, 'Latest'),(1, 'Location'),)))
+    win32more.System.Com.IDispatch
     return IDataCollector
 def _define_IPerformanceCounterDataCollector_head():
     class IPerformanceCounterDataCollector(win32more.System.Performance.IDataCollector_head):
@@ -508,6 +513,7 @@ def _define_IPerformanceCounterDataCollector():
     IPerformanceCounterDataCollector.put_SampleInterval = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(39, 'put_SampleInterval', ((1, 'interval'),)))
     IPerformanceCounterDataCollector.get_SegmentMaxRecords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(40, 'get_SegmentMaxRecords', ((1, 'records'),)))
     IPerformanceCounterDataCollector.put_SegmentMaxRecords = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(41, 'put_SegmentMaxRecords', ((1, 'records'),)))
+    win32more.System.Performance.IDataCollector
     return IPerformanceCounterDataCollector
 def _define_ITraceDataCollector_head():
     class ITraceDataCollector(win32more.System.Performance.IDataCollector_head):
@@ -555,6 +561,7 @@ def _define_ITraceDataCollector():
     ITraceDataCollector.get_StreamMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Performance.StreamMode), use_last_error=False)(69, 'get_StreamMode', ((1, 'mode'),)))
     ITraceDataCollector.put_StreamMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.StreamMode, use_last_error=False)(70, 'put_StreamMode', ((1, 'mode'),)))
     ITraceDataCollector.get_TraceDataProviders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Performance.ITraceDataProviderCollection_head), use_last_error=False)(71, 'get_TraceDataProviders', ((1, 'providers'),)))
+    win32more.System.Performance.IDataCollector
     return ITraceDataCollector
 def _define_IConfigurationDataCollector_head():
     class IConfigurationDataCollector(win32more.System.Performance.IDataCollector_head):
@@ -580,6 +587,7 @@ def _define_IConfigurationDataCollector():
     IConfigurationDataCollector.put_RegistryMaxRecursiveDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(47, 'put_RegistryMaxRecursiveDepth', ((1, 'depth'),)))
     IConfigurationDataCollector.get_SystemStateFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(48, 'get_SystemStateFile', ((1, 'FileName'),)))
     IConfigurationDataCollector.put_SystemStateFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(49, 'put_SystemStateFile', ((1, 'FileName'),)))
+    win32more.System.Performance.IDataCollector
     return IConfigurationDataCollector
 def _define_IAlertDataCollector_head():
     class IAlertDataCollector(win32more.System.Performance.IDataCollector_head):
@@ -603,6 +611,7 @@ def _define_IAlertDataCollector():
     IAlertDataCollector.put_TaskUserTextArguments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(45, 'put_TaskUserTextArguments', ((1, 'task'),)))
     IAlertDataCollector.get_TriggerDataCollectorSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(46, 'get_TriggerDataCollectorSet', ((1, 'name'),)))
     IAlertDataCollector.put_TriggerDataCollectorSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(47, 'put_TriggerDataCollectorSet', ((1, 'name'),)))
+    win32more.System.Performance.IDataCollector
     return IAlertDataCollector
 def _define_IApiTracingDataCollector_head():
     class IApiTracingDataCollector(win32more.System.Performance.IDataCollector_head):
@@ -624,6 +633,7 @@ def _define_IApiTracingDataCollector():
     IApiTracingDataCollector.put_IncludeApis = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(43, 'put_IncludeApis', ((1, 'includeapis'),)))
     IApiTracingDataCollector.get_ExcludeApis = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(44, 'get_ExcludeApis', ((1, 'excludeapis'),)))
     IApiTracingDataCollector.put_ExcludeApis = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(45, 'put_ExcludeApis', ((1, 'excludeapis'),)))
+    win32more.System.Performance.IDataCollector
     return IApiTracingDataCollector
 def _define_IDataCollectorCollection_head():
     class IDataCollectorCollection(win32more.System.Com.IDispatch_head):
@@ -640,6 +650,7 @@ def _define_IDataCollectorCollection():
     IDataCollectorCollection.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.IDataCollectorCollection_head, use_last_error=False)(13, 'AddRange', ((1, 'collectors'),)))
     IDataCollectorCollection.CreateDataCollectorFromXml = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Performance.IValueMap_head),POINTER(win32more.System.Performance.IDataCollector_head), use_last_error=False)(14, 'CreateDataCollectorFromXml', ((1, 'bstrXml'),(1, 'pValidation'),(1, 'pCollector'),)))
     IDataCollectorCollection.CreateDataCollector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.DataCollectorType,POINTER(win32more.System.Performance.IDataCollector_head), use_last_error=False)(15, 'CreateDataCollector', ((1, 'Type'),(1, 'Collector'),)))
+    win32more.System.Com.IDispatch
     return IDataCollectorCollection
 def _define_IDataCollectorSetCollection_head():
     class IDataCollectorSetCollection(win32more.System.Com.IDispatch_head):
@@ -655,6 +666,7 @@ def _define_IDataCollectorSetCollection():
     IDataCollectorSetCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     IDataCollectorSetCollection.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.IDataCollectorSetCollection_head, use_last_error=False)(13, 'AddRange', ((1, 'sets'),)))
     IDataCollectorSetCollection.GetDataCollectorSets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(14, 'GetDataCollectorSets', ((1, 'server'),(1, 'filter'),)))
+    win32more.System.Com.IDispatch
     return IDataCollectorSetCollection
 def _define_ITraceDataProvider_head():
     class ITraceDataProvider(win32more.System.Com.IDispatch_head):
@@ -681,6 +693,7 @@ def _define_ITraceDataProvider():
     ITraceDataProvider.SetSecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(23, 'SetSecurity', ((1, 'Sddl'),)))
     ITraceDataProvider.GetSecurity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(24, 'GetSecurity', ((1, 'SecurityInfo'),(1, 'Sddl'),)))
     ITraceDataProvider.GetRegisteredProcesses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Performance.IValueMap_head), use_last_error=False)(25, 'GetRegisteredProcesses', ((1, 'Processes'),)))
+    win32more.System.Com.IDispatch
     return ITraceDataProvider
 def _define_ITraceDataProviderCollection_head():
     class ITraceDataProviderCollection(win32more.System.Com.IDispatch_head):
@@ -698,6 +711,7 @@ def _define_ITraceDataProviderCollection():
     ITraceDataProviderCollection.CreateTraceDataProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Performance.ITraceDataProvider_head), use_last_error=False)(14, 'CreateTraceDataProvider', ((1, 'Provider'),)))
     ITraceDataProviderCollection.GetTraceDataProviders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'GetTraceDataProviders', ((1, 'server'),)))
     ITraceDataProviderCollection.GetTraceDataProvidersByProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32, use_last_error=False)(16, 'GetTraceDataProvidersByProcess', ((1, 'Server'),(1, 'Pid'),)))
+    win32more.System.Com.IDispatch
     return ITraceDataProviderCollection
 def _define_ISchedule_head():
     class ISchedule(win32more.System.Com.IDispatch_head):
@@ -713,6 +727,7 @@ def _define_ISchedule():
     ISchedule.put_StartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(12, 'put_StartTime', ((1, 'start'),)))
     ISchedule.get_Days = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Performance.WeekDays), use_last_error=False)(13, 'get_Days', ((1, 'days'),)))
     ISchedule.put_Days = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.WeekDays, use_last_error=False)(14, 'put_Days', ((1, 'days'),)))
+    win32more.System.Com.IDispatch
     return ISchedule
 def _define_IScheduleCollection_head():
     class IScheduleCollection(win32more.System.Com.IDispatch_head):
@@ -728,6 +743,7 @@ def _define_IScheduleCollection():
     IScheduleCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Clear', ()))
     IScheduleCollection.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.IScheduleCollection_head, use_last_error=False)(13, 'AddRange', ((1, 'pSchedules'),)))
     IScheduleCollection.CreateSchedule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Performance.ISchedule_head), use_last_error=False)(14, 'CreateSchedule', ((1, 'Schedule'),)))
+    win32more.System.Com.IDispatch
     return IScheduleCollection
 def _define_IValueMapItem_head():
     class IValueMapItem(win32more.System.Com.IDispatch_head):
@@ -745,6 +761,7 @@ def _define_IValueMapItem():
     IValueMapItem.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(14, 'put_Value', ((1, 'Value'),)))
     IValueMapItem.get_ValueMapType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Performance.ValueMapType), use_last_error=False)(15, 'get_ValueMapType', ((1, 'type'),)))
     IValueMapItem.put_ValueMapType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.ValueMapType, use_last_error=False)(16, 'put_ValueMapType', ((1, 'type'),)))
+    win32more.System.Com.IDispatch
     return IValueMapItem
 def _define_IValueMap_head():
     class IValueMap(win32more.System.Com.IDispatch_head):
@@ -766,6 +783,7 @@ def _define_IValueMap():
     IValueMap.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'Clear', ()))
     IValueMap.AddRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Performance.IValueMap_head, use_last_error=False)(19, 'AddRange', ((1, 'map'),)))
     IValueMap.CreateValueMapItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Performance.IValueMapItem_head), use_last_error=False)(20, 'CreateValueMapItem', ((1, 'Item'),)))
+    win32more.System.Com.IDispatch
     return IValueMap
 def _define_PERF_COUNTERSET_INFO_head():
     class PERF_COUNTERSET_INFO(Structure):
@@ -1626,6 +1644,7 @@ def _define_ICounterItem():
     ICounterItem.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_Path', ((1, 'pstrValue'),)))
     ICounterItem.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),POINTER(Int32), use_last_error=False)(13, 'GetValue', ((1, 'Value'),(1, 'Status'),)))
     ICounterItem.GetStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),POINTER(Double),POINTER(Double),POINTER(Int32), use_last_error=False)(14, 'GetStatistics', ((1, 'Max'),(1, 'Min'),(1, 'Avg'),(1, 'Status'),)))
+    win32more.System.Com.IUnknown
     return ICounterItem
 def _define_ICounterItem2_head():
     class ICounterItem2(win32more.System.Performance.ICounterItem_head):
@@ -1638,6 +1657,7 @@ def _define_ICounterItem2():
     ICounterItem2.put_Visible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'put_Visible', ((1, 'bState'),)))
     ICounterItem2.get_Visible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(18, 'get_Visible', ((1, 'pbState'),)))
     ICounterItem2.GetDataAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Performance.SysmonDataType,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'GetDataAt', ((1, 'iIndex'),(1, 'iWhich'),(1, 'pVariant'),)))
+    win32more.System.Performance.ICounterItem
     return ICounterItem2
 def _define__ICounterItemUnion_head():
     class _ICounterItemUnion(win32more.System.Com.IUnknown_head):
@@ -1662,6 +1682,7 @@ def _define__ICounterItemUnion():
     _ICounterItemUnion.put_Visible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'put_Visible', ((1, 'bState'),)))
     _ICounterItemUnion.get_Visible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(18, 'get_Visible', ((1, 'pbState'),)))
     _ICounterItemUnion.GetDataAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Performance.SysmonDataType,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'GetDataAt', ((1, 'iIndex'),(1, 'iWhich'),(1, 'pVariant'),)))
+    win32more.System.Com.IUnknown
     return _ICounterItemUnion
 def _define_DICounterItem_head():
     class DICounterItem(win32more.System.Com.IDispatch_head):
@@ -1669,6 +1690,7 @@ def _define_DICounterItem_head():
     return DICounterItem
 def _define_DICounterItem():
     DICounterItem = win32more.System.Performance.DICounterItem_head
+    win32more.System.Com.IDispatch
     return DICounterItem
 def _define_ICounters_head():
     class ICounters(win32more.System.Com.IDispatch_head):
@@ -1681,6 +1703,7 @@ def _define_ICounters():
     ICounters.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Performance.DICounterItem_head), use_last_error=False)(9, 'get_Item', ((1, 'index'),(1, 'ppI'),)))
     ICounters.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Performance.DICounterItem_head), use_last_error=False)(10, 'Add', ((1, 'pathname'),(1, 'ppI'),)))
     ICounters.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(11, 'Remove', ((1, 'index'),)))
+    win32more.System.Com.IDispatch
     return ICounters
 def _define_ILogFileItem_head():
     class ILogFileItem(win32more.System.Com.IUnknown_head):
@@ -1689,6 +1712,7 @@ def _define_ILogFileItem_head():
 def _define_ILogFileItem():
     ILogFileItem = win32more.System.Performance.ILogFileItem_head
     ILogFileItem.get_Path = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_Path', ((1, 'pstrValue'),)))
+    win32more.System.Com.IUnknown
     return ILogFileItem
 def _define_DILogFileItem_head():
     class DILogFileItem(win32more.System.Com.IDispatch_head):
@@ -1696,6 +1720,7 @@ def _define_DILogFileItem_head():
     return DILogFileItem
 def _define_DILogFileItem():
     DILogFileItem = win32more.System.Performance.DILogFileItem_head
+    win32more.System.Com.IDispatch
     return DILogFileItem
 def _define_ILogFiles_head():
     class ILogFiles(win32more.System.Com.IDispatch_head):
@@ -1708,6 +1733,7 @@ def _define_ILogFiles():
     ILogFiles.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Performance.DILogFileItem_head), use_last_error=False)(9, 'get_Item', ((1, 'index'),(1, 'ppI'),)))
     ILogFiles.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Performance.DILogFileItem_head), use_last_error=False)(10, 'Add', ((1, 'pathname'),(1, 'ppI'),)))
     ILogFiles.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(11, 'Remove', ((1, 'index'),)))
+    win32more.System.Com.IDispatch
     return ILogFiles
 def _define_ISystemMonitor_head():
     class ISystemMonitor(win32more.System.Com.IUnknown_head):
@@ -1791,6 +1817,7 @@ def _define_ISystemMonitor():
     ISystemMonitor.get_SqlDsnName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(76, 'get_SqlDsnName', ((1, 'bsSqlDsnName'),)))
     ISystemMonitor.put_SqlLogSetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(77, 'put_SqlLogSetName', ((1, 'bsSqlLogSetName'),)))
     ISystemMonitor.get_SqlLogSetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(78, 'get_SqlLogSetName', ((1, 'bsSqlLogSetName'),)))
+    win32more.System.Com.IUnknown
     return ISystemMonitor
 def _define_ISystemMonitor2_head():
     class ISystemMonitor2(win32more.System.Performance.ISystemMonitor_head):
@@ -1818,6 +1845,7 @@ def _define_ISystemMonitor2():
     ISystemMonitor2.GetLogViewRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),POINTER(Double), use_last_error=False)(96, 'GetLogViewRange', ((1, 'StartTime'),(1, 'StopTime'),)))
     ISystemMonitor2.BatchingLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,win32more.System.Performance.SysmonBatchReason, use_last_error=False)(97, 'BatchingLock', ((1, 'fLock'),(1, 'eBatchReason'),)))
     ISystemMonitor2.LoadSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(98, 'LoadSettings', ((1, 'bstrSettingFileName'),)))
+    win32more.System.Performance.ISystemMonitor
     return ISystemMonitor2
 def _define__ISystemMonitorUnion_head():
     class _ISystemMonitorUnion(win32more.System.Com.IUnknown_head):
@@ -1921,6 +1949,7 @@ def _define__ISystemMonitorUnion():
     _ISystemMonitorUnion.GetLogViewRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double),POINTER(Double), use_last_error=False)(96, 'GetLogViewRange', ((1, 'StartTime'),(1, 'StopTime'),)))
     _ISystemMonitorUnion.BatchingLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16,win32more.System.Performance.SysmonBatchReason, use_last_error=False)(97, 'BatchingLock', ((1, 'fLock'),(1, 'eBatchReason'),)))
     _ISystemMonitorUnion.LoadSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(98, 'LoadSettings', ((1, 'bstrSettingFileName'),)))
+    win32more.System.Com.IUnknown
     return _ISystemMonitorUnion
 def _define_DISystemMonitor_head():
     class DISystemMonitor(win32more.System.Com.IDispatch_head):
@@ -1928,6 +1957,7 @@ def _define_DISystemMonitor_head():
     return DISystemMonitor
 def _define_DISystemMonitor():
     DISystemMonitor = win32more.System.Performance.DISystemMonitor_head
+    win32more.System.Com.IDispatch
     return DISystemMonitor
 def _define_DISystemMonitorInternal_head():
     class DISystemMonitorInternal(win32more.System.Com.IDispatch_head):
@@ -1935,6 +1965,7 @@ def _define_DISystemMonitorInternal_head():
     return DISystemMonitorInternal
 def _define_DISystemMonitorInternal():
     DISystemMonitorInternal = win32more.System.Performance.DISystemMonitorInternal_head
+    win32more.System.Com.IDispatch
     return DISystemMonitorInternal
 def _define_ISystemMonitorEvents_head():
     class ISystemMonitorEvents(win32more.System.Com.IUnknown_head):
@@ -1947,6 +1978,7 @@ def _define_ISystemMonitorEvents():
     ISystemMonitorEvents.OnCounterDeleted = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(5, 'OnCounterDeleted', ((1, 'Index'),)))
     ISystemMonitorEvents.OnSampleCollected = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(6, 'OnSampleCollected', ()))
     ISystemMonitorEvents.OnDblClick = COMMETHOD(WINFUNCTYPE(Void,Int32, use_last_error=False)(7, 'OnDblClick', ((1, 'Index'),)))
+    win32more.System.Com.IUnknown
     return ISystemMonitorEvents
 def _define_DISystemMonitorEvents_head():
     class DISystemMonitorEvents(win32more.System.Com.IDispatch_head):
@@ -1954,6 +1986,7 @@ def _define_DISystemMonitorEvents_head():
     return DISystemMonitorEvents
 def _define_DISystemMonitorEvents():
     DISystemMonitorEvents = win32more.System.Performance.DISystemMonitorEvents_head
+    win32more.System.Com.IDispatch
     return DISystemMonitorEvents
 def _define_QueryPerformanceCounter():
     try:

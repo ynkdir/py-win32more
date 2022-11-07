@@ -1446,6 +1446,7 @@ def _define_ICloneViewHelper():
     ICloneViewHelper.GetActiveTopology = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'GetActiveTopology', ((1, 'wszAdaptorName'),(1, 'ulSourceID'),(1, 'pulCount'),(1, 'pulTargetID'),)))
     ICloneViewHelper.SetActiveTopology = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(5, 'SetActiveTopology', ((1, 'wszAdaptorName'),(1, 'ulSourceID'),(1, 'ulCount'),(1, 'pulTargetID'),)))
     ICloneViewHelper.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(6, 'Commit', ((1, 'fFinalCall'),)))
+    win32more.System.Com.IUnknown
     return ICloneViewHelper
 def _define_IViewHelper_head():
     class IViewHelper(win32more.System.Com.IUnknown_head):
@@ -1459,6 +1460,7 @@ def _define_IViewHelper():
     IViewHelper.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Commit', ()))
     IViewHelper.SetConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(UInt32), use_last_error=False)(7, 'SetConfiguration', ((1, 'pIStream'),(1, 'pulStatus'),)))
     IViewHelper.GetProceedOnNewConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'GetProceedOnNewConfiguration', ()))
+    win32more.System.Com.IUnknown
     return IViewHelper
 def _define_VIDEOPARAMETERS_head():
     class VIDEOPARAMETERS(Structure):

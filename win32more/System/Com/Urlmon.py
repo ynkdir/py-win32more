@@ -337,6 +337,7 @@ def _define_IPersistMoniker():
     IPersistMoniker.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,win32more.System.Com.IBindCtx_head,win32more.Foundation.BOOL, use_last_error=False)(6, 'Save', ((1, 'pimkName'),(1, 'pbc'),(1, 'fRemember'),)))
     IPersistMoniker.SaveCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head,win32more.System.Com.IBindCtx_head, use_last_error=False)(7, 'SaveCompleted', ((1, 'pimkName'),(1, 'pibc'),)))
     IPersistMoniker.GetCurMoniker = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IMoniker_head), use_last_error=False)(8, 'GetCurMoniker', ((1, 'ppimkName'),)))
+    win32more.System.Com.IUnknown
     return IPersistMoniker
 MONIKERPROPERTY = Int32
 MIMETYPEPROP = 0
@@ -351,6 +352,7 @@ def _define_IMonikerProp_head():
 def _define_IMonikerProp():
     IMonikerProp = win32more.System.Com.Urlmon.IMonikerProp_head
     IMonikerProp.PutProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.MONIKERPROPERTY,win32more.Foundation.PWSTR, use_last_error=False)(3, 'PutProperty', ((1, 'mkp'),(1, 'val'),)))
+    win32more.System.Com.IUnknown
     return IMonikerProp
 def _define_IBindProtocol_head():
     class IBindProtocol(win32more.System.Com.IUnknown_head):
@@ -359,6 +361,7 @@ def _define_IBindProtocol_head():
 def _define_IBindProtocol():
     IBindProtocol = win32more.System.Com.Urlmon.IBindProtocol_head
     IBindProtocol.CreateBinding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IBindCtx_head,POINTER(win32more.System.Com.IBinding_head), use_last_error=False)(3, 'CreateBinding', ((1, 'szUrl'),(1, 'pbc'),(1, 'ppb'),)))
+    win32more.System.Com.IUnknown
     return IBindProtocol
 BINDVERB = Int32
 BINDVERB_GET = 0
@@ -598,6 +601,7 @@ def _define_IHttpNegotiate():
     IHttpNegotiate = win32more.System.Com.Urlmon.IHttpNegotiate_head
     IHttpNegotiate.BeginningTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'BeginningTransaction', ((1, 'szURL'),(1, 'szHeaders'),(1, 'dwReserved'),(1, 'pszAdditionalHeaders'),)))
     IHttpNegotiate.OnResponse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'OnResponse', ((1, 'dwResponseCode'),(1, 'szResponseHeaders'),(1, 'szRequestHeaders'),(1, 'pszAdditionalRequestHeaders'),)))
+    win32more.System.Com.IUnknown
     return IHttpNegotiate
 def _define_IHttpNegotiate2_head():
     class IHttpNegotiate2(win32more.System.Com.Urlmon.IHttpNegotiate_head):
@@ -606,6 +610,7 @@ def _define_IHttpNegotiate2_head():
 def _define_IHttpNegotiate2():
     IHttpNegotiate2 = win32more.System.Com.Urlmon.IHttpNegotiate2_head
     IHttpNegotiate2.GetRootSecurityId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),POINTER(UInt32),UIntPtr, use_last_error=False)(5, 'GetRootSecurityId', ((1, 'pbSecurityId'),(1, 'pcbSecurityId'),(1, 'dwReserved'),)))
+    win32more.System.Com.Urlmon.IHttpNegotiate
     return IHttpNegotiate2
 def _define_IHttpNegotiate3_head():
     class IHttpNegotiate3(win32more.System.Com.Urlmon.IHttpNegotiate2_head):
@@ -614,6 +619,7 @@ def _define_IHttpNegotiate3_head():
 def _define_IHttpNegotiate3():
     IHttpNegotiate3 = win32more.System.Com.Urlmon.IHttpNegotiate3_head
     IHttpNegotiate3.GetSerializedClientCertContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(6, 'GetSerializedClientCertContext', ((1, 'ppbCert'),(1, 'pcbCert'),)))
+    win32more.System.Com.Urlmon.IHttpNegotiate2
     return IHttpNegotiate3
 def _define_IWinInetFileStream_head():
     class IWinInetFileStream(win32more.System.Com.IUnknown_head):
@@ -623,6 +629,7 @@ def _define_IWinInetFileStream():
     IWinInetFileStream = win32more.System.Com.Urlmon.IWinInetFileStream_head
     IWinInetFileStream.SetHandleForUnlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UIntPtr, use_last_error=False)(3, 'SetHandleForUnlock', ((1, 'hWinInetLockHandle'),(1, 'dwReserved'),)))
     IWinInetFileStream.SetDeleteFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(4, 'SetDeleteFile', ((1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return IWinInetFileStream
 def _define_IWindowForBindingUI_head():
     class IWindowForBindingUI(win32more.System.Com.IUnknown_head):
@@ -631,6 +638,7 @@ def _define_IWindowForBindingUI_head():
 def _define_IWindowForBindingUI():
     IWindowForBindingUI = win32more.System.Com.Urlmon.IWindowForBindingUI_head
     IWindowForBindingUI.GetWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.HWND), use_last_error=False)(3, 'GetWindow', ((1, 'rguidReason'),(1, 'phwnd'),)))
+    win32more.System.Com.IUnknown
     return IWindowForBindingUI
 CIP_STATUS = Int32
 CIP_DISK_FULL = 0
@@ -650,6 +658,7 @@ def _define_ICodeInstall_head():
 def _define_ICodeInstall():
     ICodeInstall = win32more.System.Com.Urlmon.ICodeInstall_head
     ICodeInstall.OnCodeInstallProblem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(4, 'OnCodeInstallProblem', ((1, 'ulStatusCode'),(1, 'szDestination'),(1, 'szSource'),(1, 'dwReserved'),)))
+    win32more.System.Com.Urlmon.IWindowForBindingUI
     return ICodeInstall
 Uri_HOST_TYPE = Int32
 Uri_HOST_UNKNOWN = 0
@@ -664,6 +673,7 @@ def _define_IUriContainer_head():
 def _define_IUriContainer():
     IUriContainer = win32more.System.Com.Urlmon.IUriContainer_head
     IUriContainer.GetIUri = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUri_head), use_last_error=False)(3, 'GetIUri', ((1, 'ppIUri'),)))
+    win32more.System.Com.IUnknown
     return IUriContainer
 def _define_IUriBuilderFactory_head():
     class IUriBuilderFactory(win32more.System.Com.IUnknown_head):
@@ -673,6 +683,7 @@ def _define_IUriBuilderFactory():
     IUriBuilderFactory = win32more.System.Com.Urlmon.IUriBuilderFactory_head
     IUriBuilderFactory.CreateIUriBuilder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,POINTER(win32more.System.Com.IUriBuilder_head), use_last_error=False)(3, 'CreateIUriBuilder', ((1, 'dwFlags'),(1, 'dwReserved'),(1, 'ppIUriBuilder'),)))
     IUriBuilderFactory.CreateInitializedIUriBuilder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr,POINTER(win32more.System.Com.IUriBuilder_head), use_last_error=False)(4, 'CreateInitializedIUriBuilder', ((1, 'dwFlags'),(1, 'dwReserved'),(1, 'ppIUriBuilder'),)))
+    win32more.System.Com.IUnknown
     return IUriBuilderFactory
 def _define_IWinInetInfo_head():
     class IWinInetInfo(win32more.System.Com.IUnknown_head):
@@ -681,6 +692,7 @@ def _define_IWinInetInfo_head():
 def _define_IWinInetInfo():
     IWinInetInfo = win32more.System.Com.Urlmon.IWinInetInfo_head
     IWinInetInfo.QueryOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Void),POINTER(UInt32), use_last_error=False)(3, 'QueryOption', ((1, 'dwOption'),(1, 'pBuffer'),(1, 'pcbBuf'),)))
+    win32more.System.Com.IUnknown
     return IWinInetInfo
 def _define_IHttpSecurity_head():
     class IHttpSecurity(win32more.System.Com.Urlmon.IWindowForBindingUI_head):
@@ -689,6 +701,7 @@ def _define_IHttpSecurity_head():
 def _define_IHttpSecurity():
     IHttpSecurity = win32more.System.Com.Urlmon.IHttpSecurity_head
     IHttpSecurity.OnSecurityProblem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'OnSecurityProblem', ((1, 'dwProblem'),)))
+    win32more.System.Com.Urlmon.IWindowForBindingUI
     return IHttpSecurity
 def _define_IWinInetHttpInfo_head():
     class IWinInetHttpInfo(win32more.System.Com.Urlmon.IWinInetInfo_head):
@@ -697,6 +710,7 @@ def _define_IWinInetHttpInfo_head():
 def _define_IWinInetHttpInfo():
     IWinInetHttpInfo = win32more.System.Com.Urlmon.IWinInetHttpInfo_head
     IWinInetHttpInfo.QueryInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Void),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'QueryInfo', ((1, 'dwOption'),(1, 'pBuffer'),(1, 'pcbBuf'),(1, 'pdwFlags'),(1, 'pdwReserved'),)))
+    win32more.System.Com.Urlmon.IWinInetInfo
     return IWinInetHttpInfo
 def _define_IWinInetHttpTimeouts_head():
     class IWinInetHttpTimeouts(win32more.System.Com.IUnknown_head):
@@ -705,6 +719,7 @@ def _define_IWinInetHttpTimeouts_head():
 def _define_IWinInetHttpTimeouts():
     IWinInetHttpTimeouts = win32more.System.Com.Urlmon.IWinInetHttpTimeouts_head
     IWinInetHttpTimeouts.GetRequestTimeouts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'GetRequestTimeouts', ((1, 'pdwConnectTimeout'),(1, 'pdwSendTimeout'),(1, 'pdwReceiveTimeout'),)))
+    win32more.System.Com.IUnknown
     return IWinInetHttpTimeouts
 def _define_IWinInetCacheHints_head():
     class IWinInetCacheHints(win32more.System.Com.IUnknown_head):
@@ -713,6 +728,7 @@ def _define_IWinInetCacheHints_head():
 def _define_IWinInetCacheHints():
     IWinInetCacheHints = win32more.System.Com.Urlmon.IWinInetCacheHints_head
     IWinInetCacheHints.SetCacheExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Void),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(3, 'SetCacheExtension', ((1, 'pwzExt'),(1, 'pszCacheFile'),(1, 'pcbCacheFile'),(1, 'pdwWinInetError'),(1, 'pdwReserved'),)))
+    win32more.System.Com.IUnknown
     return IWinInetCacheHints
 def _define_IWinInetCacheHints2_head():
     class IWinInetCacheHints2(win32more.System.Com.Urlmon.IWinInetCacheHints_head):
@@ -721,6 +737,7 @@ def _define_IWinInetCacheHints2_head():
 def _define_IWinInetCacheHints2():
     IWinInetCacheHints2 = win32more.System.Com.Urlmon.IWinInetCacheHints2_head
     IWinInetCacheHints2.SetCacheExtension2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(4, 'SetCacheExtension2', ((1, 'pwzExt'),(1, 'pwzCacheFile'),(1, 'pcchCacheFile'),(1, 'pdwWinInetError'),(1, 'pdwReserved'),)))
+    win32more.System.Com.Urlmon.IWinInetCacheHints
     return IWinInetCacheHints2
 def _define_IInternet_head():
     class IInternet(win32more.System.Com.IUnknown_head):
@@ -728,6 +745,7 @@ def _define_IInternet_head():
     return IInternet
 def _define_IInternet():
     IInternet = win32more.System.Com.Urlmon.IInternet_head
+    win32more.System.Com.IUnknown
     return IInternet
 BINDSTRING = Int32
 BINDSTRING_HEADERS = 1
@@ -764,6 +782,7 @@ def _define_IInternetBindInfo():
     IInternetBindInfo = win32more.System.Com.Urlmon.IInternetBindInfo_head
     IInternetBindInfo.GetBindInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.System.Com.BINDINFO_head), use_last_error=False)(3, 'GetBindInfo', ((1, 'grfBINDF'),(1, 'pbindinfo'),)))
     IInternetBindInfo.GetBindString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),UInt32,POINTER(UInt32), use_last_error=False)(4, 'GetBindString', ((1, 'ulStringType'),(1, 'ppwzStr'),(1, 'cEl'),(1, 'pcElFetched'),)))
+    win32more.System.Com.IUnknown
     return IInternetBindInfo
 def _define_IInternetBindInfoEx_head():
     class IInternetBindInfoEx(win32more.System.Com.Urlmon.IInternetBindInfo_head):
@@ -772,6 +791,7 @@ def _define_IInternetBindInfoEx_head():
 def _define_IInternetBindInfoEx():
     IInternetBindInfoEx = win32more.System.Com.Urlmon.IInternetBindInfoEx_head
     IInternetBindInfoEx.GetBindInfoEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(win32more.System.Com.BINDINFO_head),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(5, 'GetBindInfoEx', ((1, 'grfBINDF'),(1, 'pbindinfo'),(1, 'grfBINDF2'),(1, 'pdwReserved'),)))
+    win32more.System.Com.Urlmon.IInternetBindInfo
     return IInternetBindInfoEx
 PI_FLAGS = Int32
 PI_PARSE_URL = 1
@@ -826,6 +846,7 @@ def _define_IInternetProtocolRoot():
     IInternetProtocolRoot.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Terminate', ((1, 'dwOptions'),)))
     IInternetProtocolRoot.Suspend = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Suspend', ()))
     IInternetProtocolRoot.Resume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Resume', ()))
+    win32more.System.Com.IUnknown
     return IInternetProtocolRoot
 def _define_IInternetProtocol_head():
     class IInternetProtocol(win32more.System.Com.Urlmon.IInternetProtocolRoot_head):
@@ -837,6 +858,7 @@ def _define_IInternetProtocol():
     IInternetProtocol.Seek = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LARGE_INTEGER,UInt32,POINTER(win32more.Foundation.ULARGE_INTEGER_head), use_last_error=False)(10, 'Seek', ((1, 'dlibMove'),(1, 'dwOrigin'),(1, 'plibNewPosition'),)))
     IInternetProtocol.LockRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(11, 'LockRequest', ((1, 'dwOptions'),)))
     IInternetProtocol.UnlockRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'UnlockRequest', ()))
+    win32more.System.Com.Urlmon.IInternetProtocolRoot
     return IInternetProtocol
 def _define_IInternetProtocolEx_head():
     class IInternetProtocolEx(win32more.System.Com.Urlmon.IInternetProtocol_head):
@@ -845,6 +867,7 @@ def _define_IInternetProtocolEx_head():
 def _define_IInternetProtocolEx():
     IInternetProtocolEx = win32more.System.Com.Urlmon.IInternetProtocolEx_head
     IInternetProtocolEx.StartEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,win32more.System.Com.Urlmon.IInternetProtocolSink_head,win32more.System.Com.Urlmon.IInternetBindInfo_head,UInt32,win32more.Foundation.HANDLE_PTR, use_last_error=False)(13, 'StartEx', ((1, 'pUri'),(1, 'pOIProtSink'),(1, 'pOIBindInfo'),(1, 'grfPI'),(1, 'dwReserved'),)))
+    win32more.System.Com.Urlmon.IInternetProtocol
     return IInternetProtocolEx
 def _define_IInternetProtocolSink_head():
     class IInternetProtocolSink(win32more.System.Com.IUnknown_head):
@@ -856,6 +879,7 @@ def _define_IInternetProtocolSink():
     IInternetProtocolSink.ReportProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'ReportProgress', ((1, 'ulStatusCode'),(1, 'szStatusText'),)))
     IInternetProtocolSink.ReportData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32, use_last_error=False)(5, 'ReportData', ((1, 'grfBSCF'),(1, 'ulProgress'),(1, 'ulProgressMax'),)))
     IInternetProtocolSink.ReportResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(6, 'ReportResult', ((1, 'hrResult'),(1, 'dwError'),(1, 'szResult'),)))
+    win32more.System.Com.IUnknown
     return IInternetProtocolSink
 def _define_IInternetProtocolSinkStackable_head():
     class IInternetProtocolSinkStackable(win32more.System.Com.IUnknown_head):
@@ -866,6 +890,7 @@ def _define_IInternetProtocolSinkStackable():
     IInternetProtocolSinkStackable.SwitchSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.IInternetProtocolSink_head, use_last_error=False)(3, 'SwitchSink', ((1, 'pOIProtSink'),)))
     IInternetProtocolSinkStackable.CommitSwitch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'CommitSwitch', ()))
     IInternetProtocolSinkStackable.RollbackSwitch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'RollbackSwitch', ()))
+    win32more.System.Com.IUnknown
     return IInternetProtocolSinkStackable
 OIBDG_FLAGS = Int32
 OIBDG_APARTMENTTHREADED = 256
@@ -883,6 +908,7 @@ def _define_IInternetSession():
     IInternetSession.CreateBinding = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,win32more.Foundation.PWSTR,win32more.System.Com.IUnknown_head,POINTER(win32more.System.Com.IUnknown_head),POINTER(win32more.System.Com.Urlmon.IInternetProtocol_head),UInt32, use_last_error=False)(7, 'CreateBinding', ((1, 'pBC'),(1, 'szUrl'),(1, 'pUnkOuter'),(1, 'ppUnk'),(1, 'ppOInetProt'),(1, 'dwOption'),)))
     IInternetSession.SetSessionOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,UInt32,UInt32, use_last_error=False)(8, 'SetSessionOption', ((1, 'dwOption'),(1, 'pBuffer'),(1, 'dwBufferLength'),(1, 'dwReserved'),)))
     IInternetSession.GetSessionOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_void_p,POINTER(UInt32),UInt32, use_last_error=False)(9, 'GetSessionOption', ((1, 'dwOption'),(1, 'pBuffer'),(1, 'pdwBufferLength'),(1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return IInternetSession
 def _define_IInternetThreadSwitch_head():
     class IInternetThreadSwitch(win32more.System.Com.IUnknown_head):
@@ -892,6 +918,7 @@ def _define_IInternetThreadSwitch():
     IInternetThreadSwitch = win32more.System.Com.Urlmon.IInternetThreadSwitch_head
     IInternetThreadSwitch.Prepare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Prepare', ()))
     IInternetThreadSwitch.Continue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Continue', ()))
+    win32more.System.Com.IUnknown
     return IInternetThreadSwitch
 def _define_IInternetPriority_head():
     class IInternetPriority(win32more.System.Com.IUnknown_head):
@@ -901,6 +928,7 @@ def _define_IInternetPriority():
     IInternetPriority = win32more.System.Com.Urlmon.IInternetPriority_head
     IInternetPriority.SetPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'SetPriority', ((1, 'nPriority'),)))
     IInternetPriority.GetPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'GetPriority', ((1, 'pnPriority'),)))
+    win32more.System.Com.IUnknown
     return IInternetPriority
 PARSEACTION = Int32
 PARSE_CANONICALIZE = 1
@@ -952,6 +980,7 @@ def _define_IInternetProtocolInfo():
     IInternetProtocolInfo.CombineUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(UInt32),UInt32, use_last_error=False)(4, 'CombineUrl', ((1, 'pwzBaseUrl'),(1, 'pwzRelativeUrl'),(1, 'dwCombineFlags'),(1, 'pwzResult'),(1, 'cchResult'),(1, 'pcchResult'),(1, 'dwReserved'),)))
     IInternetProtocolInfo.CompareUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(5, 'CompareUrl', ((1, 'pwzUrl1'),(1, 'pwzUrl2'),(1, 'dwCompareFlags'),)))
     IInternetProtocolInfo.QueryInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.QUERYOPTION,UInt32,POINTER(Void),UInt32,POINTER(UInt32),UInt32, use_last_error=False)(6, 'QueryInfo', ((1, 'pwzUrl'),(1, 'OueryOption'),(1, 'dwQueryFlags'),(1, 'pBuffer'),(1, 'cbBuffer'),(1, 'pcbBuf'),(1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return IInternetProtocolInfo
 INTERNETFEATURELIST = Int32
 FEATURE_OBJECT_CACHING = 0
@@ -991,6 +1020,7 @@ def _define_IInternetSecurityMgrSite():
     IInternetSecurityMgrSite = win32more.System.Com.Urlmon.IInternetSecurityMgrSite_head
     IInternetSecurityMgrSite.GetWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(3, 'GetWindow', ((1, 'phwnd'),)))
     IInternetSecurityMgrSite.EnableModeless = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'EnableModeless', ((1, 'fEnable'),)))
+    win32more.System.Com.IUnknown
     return IInternetSecurityMgrSite
 PUAF = Int32
 PUAF_DEFAULT = 0
@@ -1034,6 +1064,7 @@ def _define_IInternetSecurityManager():
     IInternetSecurityManager.QueryCustomPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(c_char_p_no),POINTER(UInt32),c_char_p_no,UInt32,UInt32, use_last_error=False)(8, 'QueryCustomPolicy', ((1, 'pwszUrl'),(1, 'guidKey'),(1, 'ppPolicy'),(1, 'pcbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwReserved'),)))
     IInternetSecurityManager.SetZoneMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(9, 'SetZoneMapping', ((1, 'dwZone'),(1, 'lpszPattern'),(1, 'dwFlags'),)))
     IInternetSecurityManager.GetZoneMappings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.IEnumString_head),UInt32, use_last_error=False)(10, 'GetZoneMappings', ((1, 'dwZone'),(1, 'ppenumString'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IInternetSecurityManager
 def _define_IInternetSecurityManagerEx_head():
     class IInternetSecurityManagerEx(win32more.System.Com.Urlmon.IInternetSecurityManager_head):
@@ -1042,6 +1073,7 @@ def _define_IInternetSecurityManagerEx_head():
 def _define_IInternetSecurityManagerEx():
     IInternetSecurityManagerEx = win32more.System.Com.Urlmon.IInternetSecurityManagerEx_head
     IInternetSecurityManagerEx.ProcessUrlActionEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,POINTER(Byte),UInt32,c_char_p_no,UInt32,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(11, 'ProcessUrlActionEx', ((1, 'pwszUrl'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwFlags'),(1, 'dwReserved'),(1, 'pdwOutFlags'),)))
+    win32more.System.Com.Urlmon.IInternetSecurityManager
     return IInternetSecurityManagerEx
 def _define_IInternetSecurityManagerEx2_head():
     class IInternetSecurityManagerEx2(win32more.System.Com.Urlmon.IInternetSecurityManagerEx_head):
@@ -1053,6 +1085,7 @@ def _define_IInternetSecurityManagerEx2():
     IInternetSecurityManagerEx2.ProcessUrlActionEx2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,UInt32,POINTER(Byte),UInt32,c_char_p_no,UInt32,UInt32,UIntPtr,POINTER(UInt32), use_last_error=False)(13, 'ProcessUrlActionEx2', ((1, 'pUri'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwFlags'),(1, 'dwReserved'),(1, 'pdwOutFlags'),)))
     IInternetSecurityManagerEx2.GetSecurityIdEx2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,POINTER(Byte),POINTER(UInt32),UIntPtr, use_last_error=False)(14, 'GetSecurityIdEx2', ((1, 'pUri'),(1, 'pbSecurityId'),(1, 'pcbSecurityId'),(1, 'dwReserved'),)))
     IInternetSecurityManagerEx2.QueryCustomPolicyEx2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUri_head,POINTER(Guid),POINTER(c_char_p_no),POINTER(UInt32),c_char_p_no,UInt32,UIntPtr, use_last_error=False)(15, 'QueryCustomPolicyEx2', ((1, 'pUri'),(1, 'guidKey'),(1, 'ppPolicy'),(1, 'pcbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwReserved'),)))
+    win32more.System.Com.Urlmon.IInternetSecurityManagerEx
     return IInternetSecurityManagerEx2
 def _define_IZoneIdentifier_head():
     class IZoneIdentifier(win32more.System.Com.IUnknown_head):
@@ -1063,6 +1096,7 @@ def _define_IZoneIdentifier():
     IZoneIdentifier.GetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetId', ((1, 'pdwZone'),)))
     IZoneIdentifier.SetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetId', ((1, 'dwZone'),)))
     IZoneIdentifier.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Remove', ()))
+    win32more.System.Com.IUnknown
     return IZoneIdentifier
 def _define_IZoneIdentifier2_head():
     class IZoneIdentifier2(win32more.System.Com.Urlmon.IZoneIdentifier_head):
@@ -1076,6 +1110,7 @@ def _define_IZoneIdentifier2():
     IZoneIdentifier2.GetAppZoneId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetAppZoneId', ((1, 'zone'),)))
     IZoneIdentifier2.SetAppZoneId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(10, 'SetAppZoneId', ((1, 'zone'),)))
     IZoneIdentifier2.RemoveAppZoneId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'RemoveAppZoneId', ()))
+    win32more.System.Com.Urlmon.IZoneIdentifier
     return IZoneIdentifier2
 def _define_IInternetHostSecurityManager_head():
     class IInternetHostSecurityManager(win32more.System.Com.IUnknown_head):
@@ -1086,6 +1121,7 @@ def _define_IInternetHostSecurityManager():
     IInternetHostSecurityManager.GetSecurityId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),POINTER(UInt32),UIntPtr, use_last_error=False)(3, 'GetSecurityId', ((1, 'pbSecurityId'),(1, 'pcbSecurityId'),(1, 'dwReserved'),)))
     IInternetHostSecurityManager.ProcessUrlAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,c_char_p_no,UInt32,POINTER(Byte),UInt32,UInt32,UInt32, use_last_error=False)(4, 'ProcessUrlAction', ((1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwFlags'),(1, 'dwReserved'),)))
     IInternetHostSecurityManager.QueryCustomPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_char_p_no),POINTER(UInt32),POINTER(Byte),UInt32,UInt32, use_last_error=False)(5, 'QueryCustomPolicy', ((1, 'guidKey'),(1, 'ppPolicy'),(1, 'pcbPolicy'),(1, 'pContext'),(1, 'cbContext'),(1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return IInternetHostSecurityManager
 URLZONE = Int32
 URLZONE_INVALID = -1
@@ -1162,6 +1198,7 @@ def _define_IInternetZoneManager():
     IInternetZoneManager.GetZoneAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(12, 'GetZoneAt', ((1, 'dwEnum'),(1, 'dwIndex'),(1, 'pdwZone'),)))
     IInternetZoneManager.DestroyZoneEnumerator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(13, 'DestroyZoneEnumerator', ((1, 'dwEnum'),)))
     IInternetZoneManager.CopyTemplatePoliciesToZone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32, use_last_error=False)(14, 'CopyTemplatePoliciesToZone', ((1, 'dwTemplate'),(1, 'dwZone'),(1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return IInternetZoneManager
 def _define_IInternetZoneManagerEx_head():
     class IInternetZoneManagerEx(win32more.System.Com.Urlmon.IInternetZoneManager_head):
@@ -1171,6 +1208,7 @@ def _define_IInternetZoneManagerEx():
     IInternetZoneManagerEx = win32more.System.Com.Urlmon.IInternetZoneManagerEx_head
     IInternetZoneManagerEx.GetZoneActionPolicyEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Byte),UInt32,win32more.System.Com.Urlmon.URLZONEREG,UInt32, use_last_error=False)(15, 'GetZoneActionPolicyEx', ((1, 'dwZone'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'urlZoneReg'),(1, 'dwFlags'),)))
     IInternetZoneManagerEx.SetZoneActionPolicyEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(Byte),UInt32,win32more.System.Com.Urlmon.URLZONEREG,UInt32, use_last_error=False)(16, 'SetZoneActionPolicyEx', ((1, 'dwZone'),(1, 'dwAction'),(1, 'pPolicy'),(1, 'cbPolicy'),(1, 'urlZoneReg'),(1, 'dwFlags'),)))
+    win32more.System.Com.Urlmon.IInternetZoneManager
     return IInternetZoneManagerEx
 def _define_IInternetZoneManagerEx2_head():
     class IInternetZoneManagerEx2(win32more.System.Com.Urlmon.IInternetZoneManagerEx_head):
@@ -1182,6 +1220,7 @@ def _define_IInternetZoneManagerEx2():
     IInternetZoneManagerEx2.GetZoneSecurityState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BOOL,POINTER(UInt32),POINTER(win32more.Foundation.BOOL), use_last_error=False)(18, 'GetZoneSecurityState', ((1, 'dwZoneIndex'),(1, 'fRespectPolicy'),(1, 'pdwState'),(1, 'pfPolicyEncountered'),)))
     IInternetZoneManagerEx2.GetIESecurityState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(UInt32),POINTER(win32more.Foundation.BOOL),win32more.Foundation.BOOL, use_last_error=False)(19, 'GetIESecurityState', ((1, 'fRespectPolicy'),(1, 'pdwState'),(1, 'pfPolicyEncountered'),(1, 'fNoCache'),)))
     IInternetZoneManagerEx2.FixUnsecureSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(20, 'FixUnsecureSettings', ()))
+    win32more.System.Com.Urlmon.IInternetZoneManagerEx
     return IInternetZoneManagerEx2
 def _define_CODEBASEHOLD_head():
     class CODEBASEHOLD(Structure):
@@ -1230,6 +1269,7 @@ def _define_ISoftDistExt():
     ISoftDistExt.GetFirstCodeBase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32), use_last_error=False)(4, 'GetFirstCodeBase', ((1, 'szCodeBase'),(1, 'dwMaxSize'),)))
     ISoftDistExt.GetNextCodeBase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32), use_last_error=False)(5, 'GetNextCodeBase', ((1, 'szCodeBase'),(1, 'dwMaxSize'),)))
     ISoftDistExt.AsyncInstallDistributionUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IBindCtx_head,c_void_p,UInt32,POINTER(win32more.System.Com.Urlmon.CODEBASEHOLD_head), use_last_error=False)(6, 'AsyncInstallDistributionUnit', ((1, 'pbc'),(1, 'pvReserved'),(1, 'flags'),(1, 'lpcbh'),)))
+    win32more.System.Com.IUnknown
     return ISoftDistExt
 def _define_ICatalogFileInfo_head():
     class ICatalogFileInfo(win32more.System.Com.IUnknown_head):
@@ -1239,6 +1279,7 @@ def _define_ICatalogFileInfo():
     ICatalogFileInfo = win32more.System.Com.Urlmon.ICatalogFileInfo_head
     ICatalogFileInfo.GetCatalogFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PSTR), use_last_error=False)(3, 'GetCatalogFile', ((1, 'ppszCatalogFile'),)))
     ICatalogFileInfo.GetJavaTrust = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_void_p), use_last_error=False)(4, 'GetJavaTrust', ((1, 'ppJavaTrust'),)))
+    win32more.System.Com.IUnknown
     return ICatalogFileInfo
 def _define_IDataFilter_head():
     class IDataFilter(win32more.System.Com.IUnknown_head):
@@ -1249,6 +1290,7 @@ def _define_IDataFilter():
     IDataFilter.DoEncode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32,POINTER(Byte),Int32,POINTER(Byte),Int32,POINTER(Int32),POINTER(Int32),UInt32, use_last_error=False)(3, 'DoEncode', ((1, 'dwFlags'),(1, 'lInBufferSize'),(1, 'pbInBuffer'),(1, 'lOutBufferSize'),(1, 'pbOutBuffer'),(1, 'lInBytesAvailable'),(1, 'plInBytesRead'),(1, 'plOutBytesWritten'),(1, 'dwReserved'),)))
     IDataFilter.DoDecode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32,POINTER(Byte),Int32,POINTER(Byte),Int32,POINTER(Int32),POINTER(Int32),UInt32, use_last_error=False)(4, 'DoDecode', ((1, 'dwFlags'),(1, 'lInBufferSize'),(1, 'pbInBuffer'),(1, 'lOutBufferSize'),(1, 'pbOutBuffer'),(1, 'lInBytesAvailable'),(1, 'plInBytesRead'),(1, 'plOutBytesWritten'),(1, 'dwReserved'),)))
     IDataFilter.SetEncodingLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'SetEncodingLevel', ((1, 'dwEncLevel'),)))
+    win32more.System.Com.IUnknown
     return IDataFilter
 def _define_PROTOCOLFILTERDATA_head():
     class PROTOCOLFILTERDATA(Structure):
@@ -1285,6 +1327,7 @@ def _define_IEncodingFilterFactory():
     IEncodingFilterFactory = win32more.System.Com.Urlmon.IEncodingFilterFactory_head
     IEncodingFilterFactory.FindBestFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.System.Com.Urlmon.DATAINFO,POINTER(win32more.System.Com.Urlmon.IDataFilter_head), use_last_error=False)(3, 'FindBestFilter', ((1, 'pwzCodeIn'),(1, 'pwzCodeOut'),(1, 'info'),(1, 'ppDF'),)))
     IEncodingFilterFactory.GetDefaultFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.Urlmon.IDataFilter_head), use_last_error=False)(4, 'GetDefaultFilter', ((1, 'pwzCodeIn'),(1, 'pwzCodeOut'),(1, 'ppDF'),)))
+    win32more.System.Com.IUnknown
     return IEncodingFilterFactory
 def _define_HIT_LOGGING_INFO_head():
     class HIT_LOGGING_INFO(Structure):
@@ -1319,6 +1362,7 @@ def _define_IWrappedProtocol_head():
 def _define_IWrappedProtocol():
     IWrappedProtocol = win32more.System.Com.Urlmon.IWrappedProtocol_head
     IWrappedProtocol.GetWrapperCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),UIntPtr, use_last_error=False)(3, 'GetWrapperCode', ((1, 'pnCode'),(1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return IWrappedProtocol
 BINDHANDLETYPES = Int32
 BINDHANDLETYPES_APPCACHE = 0
@@ -1331,6 +1375,7 @@ def _define_IGetBindHandle_head():
 def _define_IGetBindHandle():
     IGetBindHandle = win32more.System.Com.Urlmon.IGetBindHandle_head
     IGetBindHandle.GetBindHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.Urlmon.BINDHANDLETYPES,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(3, 'GetBindHandle', ((1, 'enumRequestedHandle'),(1, 'pRetHandle'),)))
+    win32more.System.Com.IUnknown
     return IGetBindHandle
 def _define_PROTOCOL_ARGUMENT_head():
     class PROTOCOL_ARGUMENT(Structure):
@@ -1350,6 +1395,7 @@ def _define_IBindCallbackRedirect_head():
 def _define_IBindCallbackRedirect():
     IBindCallbackRedirect = win32more.System.Com.Urlmon.IBindCallbackRedirect_head
     IBindCallbackRedirect.Redirect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Int16), use_last_error=False)(3, 'Redirect', ((1, 'lpcUrl'),(1, 'vbCancel'),)))
+    win32more.System.Com.IUnknown
     return IBindCallbackRedirect
 def _define_IBindHttpSecurity_head():
     class IBindHttpSecurity(win32more.System.Com.IUnknown_head):
@@ -1358,6 +1404,7 @@ def _define_IBindHttpSecurity_head():
 def _define_IBindHttpSecurity():
     IBindHttpSecurity = win32more.System.Com.Urlmon.IBindHttpSecurity_head
     IBindHttpSecurity.GetIgnoreCertMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetIgnoreCertMask', ((1, 'pdwIgnoreCertMask'),)))
+    win32more.System.Com.IUnknown
     return IBindHttpSecurity
 def _define_CreateURLMoniker():
     try:

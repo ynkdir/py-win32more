@@ -35,6 +35,7 @@ def _define_IIsolatedAppLauncher_head():
 def _define_IIsolatedAppLauncher():
     IIsolatedAppLauncher = win32more.Security.Isolation.IIsolatedAppLauncher_head
     IIsolatedAppLauncher.Launch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Security.Isolation.IsolatedAppLauncherTelemetryParameters_head), use_last_error=False)(3, 'Launch', ((1, 'appUserModelId'),(1, 'arguments'),(1, 'telemetryParameters'),)))
+    win32more.System.Com.IUnknown
     return IIsolatedAppLauncher
 def _define_GetAppContainerNamedObjectPath():
     try:

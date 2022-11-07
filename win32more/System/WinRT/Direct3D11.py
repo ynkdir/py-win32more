@@ -23,6 +23,7 @@ def _define_IDirect3DDxgiInterfaceAccess_head():
 def _define_IDirect3DDxgiInterfaceAccess():
     IDirect3DDxgiInterfaceAccess = win32more.System.WinRT.Direct3D11.IDirect3DDxgiInterfaceAccess_head
     IDirect3DDxgiInterfaceAccess.GetInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'GetInterface', ((1, 'iid'),(1, 'p'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DDxgiInterfaceAccess
 def _define_CreateDirect3D11DeviceFromDXGIDevice():
     try:

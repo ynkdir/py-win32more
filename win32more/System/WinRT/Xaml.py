@@ -26,6 +26,7 @@ def _define_ISurfaceImageSourceNative():
     ISurfaceImageSourceNative.SetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGIDevice_head, use_last_error=False)(3, 'SetDevice', ((1, 'device'),)))
     ISurfaceImageSourceNative.BeginDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.RECT,POINTER(win32more.Graphics.Dxgi.IDXGISurface_head),POINTER(win32more.Foundation.POINT_head), use_last_error=False)(4, 'BeginDraw', ((1, 'updateRect'),(1, 'surface'),(1, 'offset'),)))
     ISurfaceImageSourceNative.EndDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'EndDraw', ()))
+    win32more.System.Com.IUnknown
     return ISurfaceImageSourceNative
 def _define_IVirtualSurfaceUpdatesCallbackNative_head():
     class IVirtualSurfaceUpdatesCallbackNative(win32more.System.Com.IUnknown_head):
@@ -34,6 +35,7 @@ def _define_IVirtualSurfaceUpdatesCallbackNative_head():
 def _define_IVirtualSurfaceUpdatesCallbackNative():
     IVirtualSurfaceUpdatesCallbackNative = win32more.System.WinRT.Xaml.IVirtualSurfaceUpdatesCallbackNative_head
     IVirtualSurfaceUpdatesCallbackNative.UpdatesNeeded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'UpdatesNeeded', ()))
+    win32more.System.Com.IUnknown
     return IVirtualSurfaceUpdatesCallbackNative
 def _define_IVirtualSurfaceImageSourceNative_head():
     class IVirtualSurfaceImageSourceNative(win32more.System.WinRT.Xaml.ISurfaceImageSourceNative_head):
@@ -47,6 +49,7 @@ def _define_IVirtualSurfaceImageSourceNative():
     IVirtualSurfaceImageSourceNative.GetVisibleBounds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(9, 'GetVisibleBounds', ((1, 'bounds'),)))
     IVirtualSurfaceImageSourceNative.RegisterForUpdatesNeeded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.Xaml.IVirtualSurfaceUpdatesCallbackNative_head, use_last_error=False)(10, 'RegisterForUpdatesNeeded', ((1, 'callback'),)))
     IVirtualSurfaceImageSourceNative.Resize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(11, 'Resize', ((1, 'newWidth'),(1, 'newHeight'),)))
+    win32more.System.WinRT.Xaml.ISurfaceImageSourceNative
     return IVirtualSurfaceImageSourceNative
 def _define_ISwapChainBackgroundPanelNative_head():
     class ISwapChainBackgroundPanelNative(win32more.System.Com.IUnknown_head):
@@ -55,6 +58,7 @@ def _define_ISwapChainBackgroundPanelNative_head():
 def _define_ISwapChainBackgroundPanelNative():
     ISwapChainBackgroundPanelNative = win32more.System.WinRT.Xaml.ISwapChainBackgroundPanelNative_head
     ISwapChainBackgroundPanelNative.SetSwapChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISwapChain_head, use_last_error=False)(3, 'SetSwapChain', ((1, 'swapChain'),)))
+    win32more.System.Com.IUnknown
     return ISwapChainBackgroundPanelNative
 def _define_ISurfaceImageSourceManagerNative_head():
     class ISurfaceImageSourceManagerNative(win32more.System.Com.IUnknown_head):
@@ -63,6 +67,7 @@ def _define_ISurfaceImageSourceManagerNative_head():
 def _define_ISurfaceImageSourceManagerNative():
     ISurfaceImageSourceManagerNative = win32more.System.WinRT.Xaml.ISurfaceImageSourceManagerNative_head
     ISurfaceImageSourceManagerNative.FlushAllSurfacesWithDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'FlushAllSurfacesWithDevice', ((1, 'device'),)))
+    win32more.System.Com.IUnknown
     return ISurfaceImageSourceManagerNative
 def _define_ISurfaceImageSourceNativeWithD2D_head():
     class ISurfaceImageSourceNativeWithD2D(win32more.System.Com.IUnknown_head):
@@ -75,6 +80,7 @@ def _define_ISurfaceImageSourceNativeWithD2D():
     ISurfaceImageSourceNativeWithD2D.EndDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'EndDraw', ()))
     ISurfaceImageSourceNativeWithD2D.SuspendDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'SuspendDraw', ()))
     ISurfaceImageSourceNativeWithD2D.ResumeDraw = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'ResumeDraw', ()))
+    win32more.System.Com.IUnknown
     return ISurfaceImageSourceNativeWithD2D
 def _define_ISwapChainPanelNative_head():
     class ISwapChainPanelNative(win32more.System.Com.IUnknown_head):
@@ -83,6 +89,7 @@ def _define_ISwapChainPanelNative_head():
 def _define_ISwapChainPanelNative():
     ISwapChainPanelNative = win32more.System.WinRT.Xaml.ISwapChainPanelNative_head
     ISwapChainPanelNative.SetSwapChain = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Dxgi.IDXGISwapChain_head, use_last_error=False)(3, 'SetSwapChain', ((1, 'swapChain'),)))
+    win32more.System.Com.IUnknown
     return ISwapChainPanelNative
 def _define_ISwapChainPanelNative2_head():
     class ISwapChainPanelNative2(win32more.System.WinRT.Xaml.ISwapChainPanelNative_head):
@@ -91,6 +98,7 @@ def _define_ISwapChainPanelNative2_head():
 def _define_ISwapChainPanelNative2():
     ISwapChainPanelNative2 = win32more.System.WinRT.Xaml.ISwapChainPanelNative2_head
     ISwapChainPanelNative2.SetSwapChainHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(4, 'SetSwapChainHandle', ((1, 'swapChainHandle'),)))
+    win32more.System.WinRT.Xaml.ISwapChainPanelNative
     return ISwapChainPanelNative2
 def _define_IDesktopWindowXamlSourceNative_head():
     class IDesktopWindowXamlSourceNative(win32more.System.Com.IUnknown_head):
@@ -100,6 +108,7 @@ def _define_IDesktopWindowXamlSourceNative():
     IDesktopWindowXamlSourceNative = win32more.System.WinRT.Xaml.IDesktopWindowXamlSourceNative_head
     IDesktopWindowXamlSourceNative.AttachToWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(3, 'AttachToWindow', ((1, 'parentWnd'),)))
     IDesktopWindowXamlSourceNative.get_WindowHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(4, 'get_WindowHandle', ((1, 'hWnd'),)))
+    win32more.System.Com.IUnknown
     return IDesktopWindowXamlSourceNative
 def _define_IDesktopWindowXamlSourceNative2_head():
     class IDesktopWindowXamlSourceNative2(win32more.System.WinRT.Xaml.IDesktopWindowXamlSourceNative_head):
@@ -108,6 +117,7 @@ def _define_IDesktopWindowXamlSourceNative2_head():
 def _define_IDesktopWindowXamlSourceNative2():
     IDesktopWindowXamlSourceNative2 = win32more.System.WinRT.Xaml.IDesktopWindowXamlSourceNative2_head
     IDesktopWindowXamlSourceNative2.PreTranslateMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'PreTranslateMessage', ((1, 'message'),(1, 'result'),)))
+    win32more.System.WinRT.Xaml.IDesktopWindowXamlSourceNative
     return IDesktopWindowXamlSourceNative2
 def _define_IReferenceTrackerTarget_head():
     class IReferenceTrackerTarget(win32more.System.Com.IUnknown_head):
@@ -119,6 +129,7 @@ def _define_IReferenceTrackerTarget():
     IReferenceTrackerTarget.ReleaseFromReferenceTracker = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(4, 'ReleaseFromReferenceTracker', ()))
     IReferenceTrackerTarget.Peg = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Peg', ()))
     IReferenceTrackerTarget.Unpeg = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Unpeg', ()))
+    win32more.System.Com.IUnknown
     return IReferenceTrackerTarget
 def _define_IReferenceTracker_head():
     class IReferenceTracker(win32more.System.Com.IUnknown_head):
@@ -133,6 +144,7 @@ def _define_IReferenceTracker():
     IReferenceTracker.AddRefFromTrackerSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'AddRefFromTrackerSource', ()))
     IReferenceTracker.ReleaseFromTrackerSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'ReleaseFromTrackerSource', ()))
     IReferenceTracker.PegFromTrackerSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'PegFromTrackerSource', ()))
+    win32more.System.Com.IUnknown
     return IReferenceTracker
 def _define_IReferenceTrackerManager_head():
     class IReferenceTrackerManager(win32more.System.Com.IUnknown_head):
@@ -144,6 +156,7 @@ def _define_IReferenceTrackerManager():
     IReferenceTrackerManager.FindTrackerTargetsCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte, use_last_error=False)(4, 'FindTrackerTargetsCompleted', ((1, 'findFailed'),)))
     IReferenceTrackerManager.ReferenceTrackingCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'ReferenceTrackingCompleted', ()))
     IReferenceTrackerManager.SetReferenceTrackerHost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.Xaml.IReferenceTrackerHost_head, use_last_error=False)(6, 'SetReferenceTrackerHost', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IReferenceTrackerManager
 def _define_IFindReferenceTargetsCallback_head():
     class IFindReferenceTargetsCallback(win32more.System.Com.IUnknown_head):
@@ -152,6 +165,7 @@ def _define_IFindReferenceTargetsCallback_head():
 def _define_IFindReferenceTargetsCallback():
     IFindReferenceTargetsCallback = win32more.System.WinRT.Xaml.IFindReferenceTargetsCallback_head
     IFindReferenceTargetsCallback.FoundTrackerTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.WinRT.Xaml.IReferenceTrackerTarget_head, use_last_error=False)(3, 'FoundTrackerTarget', ((1, 'target'),)))
+    win32more.System.Com.IUnknown
     return IFindReferenceTargetsCallback
 XAML_REFERENCETRACKER_DISCONNECT = Int32
 XAML_REFERENCETRACKER_DISCONNECT_DEFAULT = 0
@@ -168,6 +182,7 @@ def _define_IReferenceTrackerHost():
     IReferenceTrackerHost.GetTrackerTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(win32more.System.WinRT.Xaml.IReferenceTrackerTarget_head), use_last_error=False)(6, 'GetTrackerTarget', ((1, 'unknown'),(1, 'newReference'),)))
     IReferenceTrackerHost.AddMemoryPressure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(7, 'AddMemoryPressure', ((1, 'bytesAllocated'),)))
     IReferenceTrackerHost.RemoveMemoryPressure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(8, 'RemoveMemoryPressure', ((1, 'bytesAllocated'),)))
+    win32more.System.Com.IUnknown
     return IReferenceTrackerHost
 def _define_IReferenceTrackerExtension_head():
     class IReferenceTrackerExtension(win32more.System.Com.IUnknown_head):
@@ -175,6 +190,7 @@ def _define_IReferenceTrackerExtension_head():
     return IReferenceTrackerExtension
 def _define_IReferenceTrackerExtension():
     IReferenceTrackerExtension = win32more.System.WinRT.Xaml.IReferenceTrackerExtension_head
+    win32more.System.Com.IUnknown
     return IReferenceTrackerExtension
 def _define_TrackerHandle___head():
     class TrackerHandle__(Structure):
@@ -196,6 +212,7 @@ def _define_ITrackerOwner():
     ITrackerOwner.DeleteTrackerHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.Xaml.TrackerHandle___head), use_last_error=False)(4, 'DeleteTrackerHandle', ((1, 'handle'),)))
     ITrackerOwner.SetTrackerValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.WinRT.Xaml.TrackerHandle___head),win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'SetTrackerValue', ((1, 'handle'),(1, 'value'),)))
     ITrackerOwner.TryGetSafeTrackerValue = COMMETHOD(WINFUNCTYPE(Byte,POINTER(win32more.System.WinRT.Xaml.TrackerHandle___head),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'TryGetSafeTrackerValue', ((1, 'handle'),(1, 'returnValue'),)))
+    win32more.System.Com.IUnknown
     return ITrackerOwner
 __all__ = [
     "E_SURFACE_CONTENTS_LOST",

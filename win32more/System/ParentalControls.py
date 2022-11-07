@@ -128,6 +128,7 @@ def _define_IWPCProviderState():
     IWPCProviderState = win32more.System.ParentalControls.IWPCProviderState_head
     IWPCProviderState.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Enable', ()))
     IWPCProviderState.Disable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Disable', ()))
+    win32more.System.Com.IUnknown
     return IWPCProviderState
 WPCFLAG_OVERRIDE = Int32
 WPCFLAG_APPLICATION = 1
@@ -140,6 +141,7 @@ def _define_IWPCProviderConfig():
     IWPCProviderConfig.GetUserSummary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetUserSummary', ((1, 'bstrSID'),(1, 'pbstrUserSummary'),)))
     IWPCProviderConfig.Configure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR, use_last_error=False)(4, 'Configure', ((1, 'hWnd'),(1, 'bstrSID'),)))
     IWPCProviderConfig.RequestOverride = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR,win32more.System.ParentalControls.WPCFLAG_RESTRICTION, use_last_error=False)(5, 'RequestOverride', ((1, 'hWnd'),(1, 'bstrPath'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IWPCProviderConfig
 WPCFLAG_RESTRICTION = Int32
 WPCFLAG_NO_RESTRICTION = 0
@@ -159,6 +161,7 @@ def _define_IWPCSettings():
     IWPCSettings.IsLoggingRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsLoggingRequired', ((1, 'pfRequired'),)))
     IWPCSettings.GetLastSettingsChangeTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(4, 'GetLastSettingsChangeTime', ((1, 'pTime'),)))
     IWPCSettings.GetRestrictions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ParentalControls.WPCFLAG_RESTRICTION), use_last_error=False)(5, 'GetRestrictions', ((1, 'pdwRestrictions'),)))
+    win32more.System.Com.IUnknown
     return IWPCSettings
 def _define_IWPCGamesSettings_head():
     class IWPCGamesSettings(win32more.System.ParentalControls.IWPCSettings_head):
@@ -167,6 +170,7 @@ def _define_IWPCGamesSettings_head():
 def _define_IWPCGamesSettings():
     IWPCGamesSettings = win32more.System.ParentalControls.IWPCGamesSettings_head
     IWPCGamesSettings.IsBlocked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(UInt32), use_last_error=False)(6, 'IsBlocked', ((1, 'guidAppID'),(1, 'pdwReasons'),)))
+    win32more.System.ParentalControls.IWPCSettings
     return IWPCGamesSettings
 WPCFLAG_WEB_SETTING = Int32
 WPCFLAG_WEB_SETTING_NOTBLOCKED = 0
@@ -179,6 +183,7 @@ def _define_IWPCWebSettings():
     IWPCWebSettings = win32more.System.ParentalControls.IWPCWebSettings_head
     IWPCWebSettings.GetSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.ParentalControls.WPCFLAG_WEB_SETTING), use_last_error=False)(6, 'GetSettings', ((1, 'pdwSettings'),)))
     IWPCWebSettings.RequestURLOverride = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'RequestURLOverride', ((1, 'hWnd'),(1, 'pcszURL'),(1, 'cURLs'),(1, 'ppcszSubURLs'),(1, 'pfChanged'),)))
+    win32more.System.ParentalControls.IWPCSettings
     return IWPCWebSettings
 WPCFLAG_VISIBILITY = Int32
 WPCFLAG_WPC_VISIBLE = 0
@@ -193,6 +198,7 @@ def _define_IWindowsParentalControlsCore():
     IWindowsParentalControlsCore.GetUserSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.ParentalControls.IWPCSettings_head), use_last_error=False)(4, 'GetUserSettings', ((1, 'pcszSID'),(1, 'ppSettings'),)))
     IWindowsParentalControlsCore.GetWebSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.ParentalControls.IWPCWebSettings_head), use_last_error=False)(5, 'GetWebSettings', ((1, 'pcszSID'),(1, 'ppSettings'),)))
     IWindowsParentalControlsCore.GetWebFilterInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetWebFilterInfo', ((1, 'pguidID'),(1, 'ppszName'),)))
+    win32more.System.Com.IUnknown
     return IWindowsParentalControlsCore
 def _define_IWindowsParentalControls_head():
     class IWindowsParentalControls(win32more.System.ParentalControls.IWindowsParentalControlsCore_head):
@@ -201,6 +207,7 @@ def _define_IWindowsParentalControls_head():
 def _define_IWindowsParentalControls():
     IWindowsParentalControls = win32more.System.ParentalControls.IWindowsParentalControls_head
     IWindowsParentalControls.GetGamesSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.ParentalControls.IWPCGamesSettings_head), use_last_error=False)(7, 'GetGamesSettings', ((1, 'pcszSID'),(1, 'ppSettings'),)))
+    win32more.System.ParentalControls.IWindowsParentalControlsCore
     return IWindowsParentalControls
 def _define_IWPCProviderSupport_head():
     class IWPCProviderSupport(win32more.System.Com.IUnknown_head):
@@ -209,6 +216,7 @@ def _define_IWPCProviderSupport_head():
 def _define_IWPCProviderSupport():
     IWPCProviderSupport = win32more.System.ParentalControls.IWPCProviderSupport_head
     IWPCProviderSupport.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetCurrent', ((1, 'pguidProvider'),)))
+    win32more.System.Com.IUnknown
     return IWPCProviderSupport
 WPCFLAG_ISBLOCKED = Int32
 WPCFLAG_ISBLOCKED_NOTBLOCKED = 0

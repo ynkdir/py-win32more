@@ -109,6 +109,7 @@ def _define_IDirectManipulationManager():
     IDirectManipulationManager.GetUpdateManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(7, 'GetUpdateManager', ((1, 'riid'),(1, 'object'),)))
     IDirectManipulationManager.CreateViewport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationFrameInfoProvider_head,win32more.Foundation.HWND,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(8, 'CreateViewport', ((1, 'frameInfo'),(1, 'window'),(1, 'riid'),(1, 'object'),)))
     IDirectManipulationManager.CreateContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationFrameInfoProvider_head,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'CreateContent', ((1, 'frameInfo'),(1, 'clsid'),(1, 'riid'),(1, 'object'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationManager
 def _define_IDirectManipulationManager2_head():
     class IDirectManipulationManager2(win32more.Graphics.DirectManipulation.IDirectManipulationManager_head):
@@ -117,6 +118,7 @@ def _define_IDirectManipulationManager2_head():
 def _define_IDirectManipulationManager2():
     IDirectManipulationManager2 = win32more.Graphics.DirectManipulation.IDirectManipulationManager2_head
     IDirectManipulationManager2.CreateBehavior = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(10, 'CreateBehavior', ((1, 'clsid'),(1, 'riid'),(1, 'object'),)))
+    win32more.Graphics.DirectManipulation.IDirectManipulationManager
     return IDirectManipulationManager2
 def _define_IDirectManipulationManager3_head():
     class IDirectManipulationManager3(win32more.Graphics.DirectManipulation.IDirectManipulationManager2_head):
@@ -125,6 +127,7 @@ def _define_IDirectManipulationManager3_head():
 def _define_IDirectManipulationManager3():
     IDirectManipulationManager3 = win32more.Graphics.DirectManipulation.IDirectManipulationManager3_head
     IDirectManipulationManager3.GetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(11, 'GetService', ((1, 'clsid'),(1, 'riid'),(1, 'object'),)))
+    win32more.Graphics.DirectManipulation.IDirectManipulationManager2
     return IDirectManipulationManager3
 def _define_IDirectManipulationViewport_head():
     class IDirectManipulationViewport(win32more.System.Com.IUnknown_head):
@@ -160,6 +163,7 @@ def _define_IDirectManipulationViewport():
     IDirectManipulationViewport.SetUpdateMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_INPUT_MODE, use_last_error=False)(28, 'SetUpdateMode', ((1, 'mode'),)))
     IDirectManipulationViewport.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(29, 'Stop', ()))
     IDirectManipulationViewport.Abandon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(30, 'Abandon', ()))
+    win32more.System.Com.IUnknown
     return IDirectManipulationViewport
 def _define_IDirectManipulationViewport2_head():
     class IDirectManipulationViewport2(win32more.Graphics.DirectManipulation.IDirectManipulationViewport_head):
@@ -170,6 +174,7 @@ def _define_IDirectManipulationViewport2():
     IDirectManipulationViewport2.AddBehavior = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(UInt32), use_last_error=False)(31, 'AddBehavior', ((1, 'behavior'),(1, 'cookie'),)))
     IDirectManipulationViewport2.RemoveBehavior = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(32, 'RemoveBehavior', ((1, 'cookie'),)))
     IDirectManipulationViewport2.RemoveAllBehaviors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(33, 'RemoveAllBehaviors', ()))
+    win32more.Graphics.DirectManipulation.IDirectManipulationViewport
     return IDirectManipulationViewport2
 def _define_IDirectManipulationViewportEventHandler_head():
     class IDirectManipulationViewportEventHandler(win32more.System.Com.IUnknown_head):
@@ -180,6 +185,7 @@ def _define_IDirectManipulationViewportEventHandler():
     IDirectManipulationViewportEventHandler.OnViewportStatusChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationViewport_head,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_STATUS,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_STATUS, use_last_error=False)(3, 'OnViewportStatusChanged', ((1, 'viewport'),(1, 'current'),(1, 'previous'),)))
     IDirectManipulationViewportEventHandler.OnViewportUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationViewport_head, use_last_error=False)(4, 'OnViewportUpdated', ((1, 'viewport'),)))
     IDirectManipulationViewportEventHandler.OnContentUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationViewport_head,win32more.Graphics.DirectManipulation.IDirectManipulationContent_head, use_last_error=False)(5, 'OnContentUpdated', ((1, 'viewport'),(1, 'content'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationViewportEventHandler
 def _define_IDirectManipulationContent_head():
     class IDirectManipulationContent(win32more.System.Com.IUnknown_head):
@@ -195,6 +201,7 @@ def _define_IDirectManipulationContent():
     IDirectManipulationContent.GetOutputTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32, use_last_error=False)(8, 'GetOutputTransform', ((1, 'matrix'),(1, 'pointCount'),)))
     IDirectManipulationContent.GetContentTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32, use_last_error=False)(9, 'GetContentTransform', ((1, 'matrix'),(1, 'pointCount'),)))
     IDirectManipulationContent.SyncContentTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32, use_last_error=False)(10, 'SyncContentTransform', ((1, 'matrix'),(1, 'pointCount'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationContent
 def _define_IDirectManipulationPrimaryContent_head():
     class IDirectManipulationPrimaryContent(win32more.System.Com.IUnknown_head):
@@ -211,6 +218,7 @@ def _define_IDirectManipulationPrimaryContent():
     IDirectManipulationPrimaryContent.SetVerticalAlignment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_VERTICALALIGNMENT, use_last_error=False)(9, 'SetVerticalAlignment', ((1, 'alignment'),)))
     IDirectManipulationPrimaryContent.GetInertiaEndTransform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32, use_last_error=False)(10, 'GetInertiaEndTransform', ((1, 'matrix'),(1, 'pointCount'),)))
     IDirectManipulationPrimaryContent.GetCenterPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),POINTER(Single), use_last_error=False)(11, 'GetCenterPoint', ((1, 'centerX'),(1, 'centerY'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationPrimaryContent
 DIRECTMANIPULATION_DRAG_DROP_STATUS = Int32
 DIRECTMANIPULATION_DRAG_DROP_READY = 0
@@ -226,6 +234,7 @@ def _define_IDirectManipulationDragDropEventHandler_head():
 def _define_IDirectManipulationDragDropEventHandler():
     IDirectManipulationDragDropEventHandler = win32more.Graphics.DirectManipulation.IDirectManipulationDragDropEventHandler_head
     IDirectManipulationDragDropEventHandler.OnDragDropStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationViewport2_head,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_DRAG_DROP_STATUS,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_DRAG_DROP_STATUS, use_last_error=False)(3, 'OnDragDropStatusChange', ((1, 'viewport'),(1, 'current'),(1, 'previous'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationDragDropEventHandler
 DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION = Int32
 DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION_VERTICAL = 1
@@ -241,6 +250,7 @@ def _define_IDirectManipulationDragDropBehavior():
     IDirectManipulationDragDropBehavior = win32more.Graphics.DirectManipulation.IDirectManipulationDragDropBehavior_head
     IDirectManipulationDragDropBehavior.SetConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_DRAG_DROP_CONFIGURATION, use_last_error=False)(3, 'SetConfiguration', ((1, 'configuration'),)))
     IDirectManipulationDragDropBehavior.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_DRAG_DROP_STATUS), use_last_error=False)(4, 'GetStatus', ((1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationDragDropBehavior
 DIRECTMANIPULATION_INTERACTION_TYPE = Int32
 DIRECTMANIPULATION_INTERACTION_BEGIN = 0
@@ -257,6 +267,7 @@ def _define_IDirectManipulationInteractionEventHandler_head():
 def _define_IDirectManipulationInteractionEventHandler():
     IDirectManipulationInteractionEventHandler = win32more.Graphics.DirectManipulation.IDirectManipulationInteractionEventHandler_head
     IDirectManipulationInteractionEventHandler.OnInteraction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationViewport2_head,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_INTERACTION_TYPE, use_last_error=False)(3, 'OnInteraction', ((1, 'viewport'),(1, 'interaction'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationInteractionEventHandler
 def _define_IDirectManipulationFrameInfoProvider_head():
     class IDirectManipulationFrameInfoProvider(win32more.System.Com.IUnknown_head):
@@ -265,6 +276,7 @@ def _define_IDirectManipulationFrameInfoProvider_head():
 def _define_IDirectManipulationFrameInfoProvider():
     IDirectManipulationFrameInfoProvider = win32more.Graphics.DirectManipulation.IDirectManipulationFrameInfoProvider_head
     IDirectManipulationFrameInfoProvider.GetNextFrameInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64),POINTER(UInt64), use_last_error=False)(3, 'GetNextFrameInfo', ((1, 'time'),(1, 'processTime'),(1, 'compositionTime'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationFrameInfoProvider
 def _define_IDirectManipulationCompositor_head():
     class IDirectManipulationCompositor(win32more.System.Com.IUnknown_head):
@@ -276,6 +288,7 @@ def _define_IDirectManipulationCompositor():
     IDirectManipulationCompositor.RemoveContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationContent_head, use_last_error=False)(4, 'RemoveContent', ((1, 'content'),)))
     IDirectManipulationCompositor.SetUpdateManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationUpdateManager_head, use_last_error=False)(5, 'SetUpdateManager', ((1, 'updateManager'),)))
     IDirectManipulationCompositor.Flush = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Flush', ()))
+    win32more.System.Com.IUnknown
     return IDirectManipulationCompositor
 def _define_IDirectManipulationCompositor2_head():
     class IDirectManipulationCompositor2(win32more.Graphics.DirectManipulation.IDirectManipulationCompositor_head):
@@ -284,6 +297,7 @@ def _define_IDirectManipulationCompositor2_head():
 def _define_IDirectManipulationCompositor2():
     IDirectManipulationCompositor2 = win32more.Graphics.DirectManipulation.IDirectManipulationCompositor2_head
     IDirectManipulationCompositor2.AddContentWithCrossProcessChaining = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationPrimaryContent_head,win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head, use_last_error=False)(7, 'AddContentWithCrossProcessChaining', ((1, 'content'),(1, 'device'),(1, 'parentVisual'),(1, 'childVisual'),)))
+    win32more.Graphics.DirectManipulation.IDirectManipulationCompositor
     return IDirectManipulationCompositor2
 def _define_IDirectManipulationUpdateHandler_head():
     class IDirectManipulationUpdateHandler(win32more.System.Com.IUnknown_head):
@@ -292,6 +306,7 @@ def _define_IDirectManipulationUpdateHandler_head():
 def _define_IDirectManipulationUpdateHandler():
     IDirectManipulationUpdateHandler = win32more.Graphics.DirectManipulation.IDirectManipulationUpdateHandler_head
     IDirectManipulationUpdateHandler.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Update', ()))
+    win32more.System.Com.IUnknown
     return IDirectManipulationUpdateHandler
 def _define_IDirectManipulationUpdateManager_head():
     class IDirectManipulationUpdateManager(win32more.System.Com.IUnknown_head):
@@ -302,6 +317,7 @@ def _define_IDirectManipulationUpdateManager():
     IDirectManipulationUpdateManager.RegisterWaitHandleCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE,win32more.Graphics.DirectManipulation.IDirectManipulationUpdateHandler_head,POINTER(UInt32), use_last_error=False)(3, 'RegisterWaitHandleCallback', ((1, 'handle'),(1, 'eventHandler'),(1, 'cookie'),)))
     IDirectManipulationUpdateManager.UnregisterWaitHandleCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'UnregisterWaitHandleCallback', ((1, 'cookie'),)))
     IDirectManipulationUpdateManager.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.IDirectManipulationFrameInfoProvider_head, use_last_error=False)(5, 'Update', ((1, 'frameInfo'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationUpdateManager
 DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION = Int32
 DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_STOP = 0
@@ -314,6 +330,7 @@ def _define_IDirectManipulationAutoScrollBehavior_head():
 def _define_IDirectManipulationAutoScrollBehavior():
     IDirectManipulationAutoScrollBehavior = win32more.Graphics.DirectManipulation.IDirectManipulationAutoScrollBehavior_head
     IDirectManipulationAutoScrollBehavior.SetConfiguration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_MOTION_TYPES,win32more.Graphics.DirectManipulation.DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION, use_last_error=False)(3, 'SetConfiguration', ((1, 'motionTypes'),(1, 'scrollMotion'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationAutoScrollBehavior
 def _define_IDirectManipulationDeferContactService_head():
     class IDirectManipulationDeferContactService(win32more.System.Com.IUnknown_head):
@@ -324,6 +341,7 @@ def _define_IDirectManipulationDeferContactService():
     IDirectManipulationDeferContactService.DeferContact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(3, 'DeferContact', ((1, 'pointerId'),(1, 'timeout'),)))
     IDirectManipulationDeferContactService.CancelContact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'CancelContact', ((1, 'pointerId'),)))
     IDirectManipulationDeferContactService.CancelDeferral = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'CancelDeferral', ((1, 'pointerId'),)))
+    win32more.System.Com.IUnknown
     return IDirectManipulationDeferContactService
 __all__ = [
     "DIRECTMANIPULATION_KEYBOARDFOCUS",

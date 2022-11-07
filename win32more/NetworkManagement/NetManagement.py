@@ -5863,6 +5863,7 @@ def _define_IEnumNetCfgBindingInterface():
     IEnumNetCfgBindingInterface.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumNetCfgBindingInterface.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumNetCfgBindingInterface.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetManagement.IEnumNetCfgBindingInterface_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumNetCfgBindingInterface
 def _define_IEnumNetCfgBindingPath_head():
     class IEnumNetCfgBindingPath(win32more.System.Com.IUnknown_head):
@@ -5874,6 +5875,7 @@ def _define_IEnumNetCfgBindingPath():
     IEnumNetCfgBindingPath.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumNetCfgBindingPath.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumNetCfgBindingPath.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetManagement.IEnumNetCfgBindingPath_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumNetCfgBindingPath
 def _define_IEnumNetCfgComponent_head():
     class IEnumNetCfgComponent(win32more.System.Com.IUnknown_head):
@@ -5885,6 +5887,7 @@ def _define_IEnumNetCfgComponent():
     IEnumNetCfgComponent.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumNetCfgComponent.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumNetCfgComponent.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetManagement.IEnumNetCfgComponent_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumNetCfgComponent
 def _define_INetCfg_head():
     class INetCfg(win32more.System.Com.IUnknown_head):
@@ -5899,6 +5902,7 @@ def _define_INetCfg():
     INetCfg.EnumComponents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.NetworkManagement.NetManagement.IEnumNetCfgComponent_head), use_last_error=False)(7, 'EnumComponents', ((1, 'pguidClass'),(1, 'ppenumComponent'),)))
     INetCfg.FindComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.NetManagement.INetCfgComponent_head), use_last_error=False)(8, 'FindComponent', ((1, 'pszwInfId'),(1, 'pComponent'),)))
     INetCfg.QueryNetCfgClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(9, 'QueryNetCfgClass', ((1, 'pguidClass'),(1, 'riid'),(1, 'ppvObject'),)))
+    win32more.System.Com.IUnknown
     return INetCfg
 def _define_INetCfgLock_head():
     class INetCfgLock(win32more.System.Com.IUnknown_head):
@@ -5909,6 +5913,7 @@ def _define_INetCfgLock():
     INetCfgLock.AcquireWriteLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'AcquireWriteLock', ((1, 'cmsTimeout'),(1, 'pszwClientDescription'),(1, 'ppszwClientDescription'),)))
     INetCfgLock.ReleaseWriteLock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ReleaseWriteLock', ()))
     INetCfgLock.IsWriteLocked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'IsWriteLocked', ((1, 'ppszwClientDescription'),)))
+    win32more.System.Com.IUnknown
     return INetCfgLock
 def _define_INetCfgBindingInterface_head():
     class INetCfgBindingInterface(win32more.System.Com.IUnknown_head):
@@ -5919,6 +5924,7 @@ def _define_INetCfgBindingInterface():
     INetCfgBindingInterface.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'ppszwInterfaceName'),)))
     INetCfgBindingInterface.GetUpperComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetManagement.INetCfgComponent_head), use_last_error=False)(4, 'GetUpperComponent', ((1, 'ppnccItem'),)))
     INetCfgBindingInterface.GetLowerComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetManagement.INetCfgComponent_head), use_last_error=False)(5, 'GetLowerComponent', ((1, 'ppnccItem'),)))
+    win32more.System.Com.IUnknown
     return INetCfgBindingInterface
 def _define_INetCfgBindingPath_head():
     class INetCfgBindingPath(win32more.System.Com.IUnknown_head):
@@ -5934,6 +5940,7 @@ def _define_INetCfgBindingPath():
     INetCfgBindingPath.GetOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetManagement.INetCfgComponent_head), use_last_error=False)(8, 'GetOwner', ((1, 'ppComponent'),)))
     INetCfgBindingPath.GetDepth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'GetDepth', ((1, 'pcInterfaces'),)))
     INetCfgBindingPath.EnumBindingInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetManagement.IEnumNetCfgBindingInterface_head), use_last_error=False)(10, 'EnumBindingInterfaces', ((1, 'ppenumInterface'),)))
+    win32more.System.Com.IUnknown
     return INetCfgBindingPath
 def _define_INetCfgClass_head():
     class INetCfgClass(win32more.System.Com.IUnknown_head):
@@ -5943,6 +5950,7 @@ def _define_INetCfgClass():
     INetCfgClass = win32more.NetworkManagement.NetManagement.INetCfgClass_head
     INetCfgClass.FindComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.NetManagement.INetCfgComponent_head), use_last_error=False)(3, 'FindComponent', ((1, 'pszwInfId'),(1, 'ppnccItem'),)))
     INetCfgClass.EnumComponents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetManagement.IEnumNetCfgComponent_head), use_last_error=False)(4, 'EnumComponents', ((1, 'ppenumComponent'),)))
+    win32more.System.Com.IUnknown
     return INetCfgClass
 OBO_TOKEN_TYPE = Int32
 OBO_USER = 1
@@ -5972,6 +5980,7 @@ def _define_INetCfgClassSetup():
     INetCfgClassSetup.SelectAndInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.NetworkManagement.NetManagement.OBO_TOKEN_head),POINTER(win32more.NetworkManagement.NetManagement.INetCfgComponent_head), use_last_error=False)(3, 'SelectAndInstall', ((1, 'hwndParent'),(1, 'pOboToken'),(1, 'ppnccItem'),)))
     INetCfgClassSetup.Install = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.NetManagement.OBO_TOKEN_head),UInt32,UInt32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.NetworkManagement.NetManagement.INetCfgComponent_head), use_last_error=False)(4, 'Install', ((1, 'pszwInfId'),(1, 'pOboToken'),(1, 'dwSetupFlags'),(1, 'dwUpgradeFromBuildNo'),(1, 'pszwAnswerFile'),(1, 'pszwAnswerSections'),(1, 'ppnccItem'),)))
     INetCfgClassSetup.DeInstall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetManagement.INetCfgComponent_head,POINTER(win32more.NetworkManagement.NetManagement.OBO_TOKEN_head),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'DeInstall', ((1, 'pComponent'),(1, 'pOboToken'),(1, 'pmszwRefs'),)))
+    win32more.System.Com.IUnknown
     return INetCfgClassSetup
 def _define_INetCfgClassSetup2_head():
     class INetCfgClassSetup2(win32more.NetworkManagement.NetManagement.INetCfgClassSetup_head):
@@ -5980,6 +5989,7 @@ def _define_INetCfgClassSetup2_head():
 def _define_INetCfgClassSetup2():
     INetCfgClassSetup2 = win32more.NetworkManagement.NetManagement.INetCfgClassSetup2_head
     INetCfgClassSetup2.UpdateNonEnumeratedComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetManagement.INetCfgComponent_head,UInt32,UInt32, use_last_error=False)(6, 'UpdateNonEnumeratedComponent', ((1, 'pIComp'),(1, 'dwSetupFlags'),(1, 'dwUpgradeFromBuildNo'),)))
+    win32more.NetworkManagement.NetManagement.INetCfgClassSetup
     return INetCfgClassSetup2
 COMPONENT_CHARACTERISTICS = Int32
 NCF_VIRTUAL = 1
@@ -6018,6 +6028,7 @@ def _define_INetCfgComponent():
     INetCfgComponent.GetDeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'GetDeviceStatus', ((1, 'pulStatus'),)))
     INetCfgComponent.OpenParamKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Registry.HKEY), use_last_error=False)(13, 'OpenParamKey', ((1, 'phkey'),)))
     INetCfgComponent.RaisePropertyUi = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.System.Com.IUnknown_head, use_last_error=False)(14, 'RaisePropertyUi', ((1, 'hwndParent'),(1, 'dwFlags'),(1, 'punkContext'),)))
+    win32more.System.Com.IUnknown
     return INetCfgComponent
 SUPPORTS_BINDING_INTERFACE_FLAGS = Int32
 NCF_LOWER = 1
@@ -6039,6 +6050,7 @@ def _define_INetCfgComponentBindings():
     INetCfgComponentBindings.EnumBindingPaths = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.NetworkManagement.NetManagement.IEnumNetCfgBindingPath_head), use_last_error=False)(8, 'EnumBindingPaths', ((1, 'dwFlags'),(1, 'ppIEnum'),)))
     INetCfgComponentBindings.MoveBefore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetManagement.INetCfgBindingPath_head,win32more.NetworkManagement.NetManagement.INetCfgBindingPath_head, use_last_error=False)(9, 'MoveBefore', ((1, 'pncbItemSrc'),(1, 'pncbItemDest'),)))
     INetCfgComponentBindings.MoveAfter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetManagement.INetCfgBindingPath_head,win32more.NetworkManagement.NetManagement.INetCfgBindingPath_head, use_last_error=False)(10, 'MoveAfter', ((1, 'pncbItemSrc'),(1, 'pncbItemDest'),)))
+    win32more.System.Com.IUnknown
     return INetCfgComponentBindings
 def _define_INetCfgSysPrep_head():
     class INetCfgSysPrep(win32more.System.Com.IUnknown_head):
@@ -6050,6 +6062,7 @@ def _define_INetCfgSysPrep():
     INetCfgSysPrep.HrSetupSetFirstString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'HrSetupSetFirstString', ((1, 'pwszSection'),(1, 'pwszKey'),(1, 'pwszValue'),)))
     INetCfgSysPrep.HrSetupSetFirstStringAsBool = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL, use_last_error=False)(5, 'HrSetupSetFirstStringAsBool', ((1, 'pwszSection'),(1, 'pwszKey'),(1, 'fValue'),)))
     INetCfgSysPrep.HrSetupSetFirstMultiSzField = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(6, 'HrSetupSetFirstMultiSzField', ((1, 'pwszSection'),(1, 'pwszKey'),(1, 'pmszValue'),)))
+    win32more.System.Com.IUnknown
     return INetCfgSysPrep
 NCPNP_RECONFIG_LAYER = Int32
 NCRL_NDIS = 1
@@ -6061,6 +6074,7 @@ def _define_INetCfgPnpReconfigCallback_head():
 def _define_INetCfgPnpReconfigCallback():
     INetCfgPnpReconfigCallback = win32more.NetworkManagement.NetManagement.INetCfgPnpReconfigCallback_head
     INetCfgPnpReconfigCallback.SendPnpReconfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetManagement.NCPNP_RECONFIG_LAYER,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_void_p,UInt32, use_last_error=False)(3, 'SendPnpReconfig', ((1, 'Layer'),(1, 'pszwUpper'),(1, 'pszwLower'),(1, 'pvData'),(1, 'dwSizeOfData'),)))
+    win32more.System.Com.IUnknown
     return INetCfgPnpReconfigCallback
 def _define_INetCfgComponentControl_head():
     class INetCfgComponentControl(win32more.System.Com.IUnknown_head):
@@ -6072,6 +6086,7 @@ def _define_INetCfgComponentControl():
     INetCfgComponentControl.ApplyRegistryChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ApplyRegistryChanges', ()))
     INetCfgComponentControl.ApplyPnpChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetManagement.INetCfgPnpReconfigCallback_head, use_last_error=False)(5, 'ApplyPnpChanges', ((1, 'pICallback'),)))
     INetCfgComponentControl.CancelChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'CancelChanges', ()))
+    win32more.System.Com.IUnknown
     return INetCfgComponentControl
 NETWORK_INSTALL_TIME = Int32
 NSF_PRIMARYINSTALL = 1
@@ -6093,6 +6108,7 @@ def _define_INetCfgComponentSetup():
     INetCfgComponentSetup.Upgrade = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(4, 'Upgrade', ((1, 'dwSetupFlags'),(1, 'dwUpgradeFomBuildNo'),)))
     INetCfgComponentSetup.ReadAnswerFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(5, 'ReadAnswerFile', ((1, 'pszwAnswerFile'),(1, 'pszwAnswerSections'),)))
     INetCfgComponentSetup.Removing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Removing', ()))
+    win32more.System.Com.IUnknown
     return INetCfgComponentSetup
 DEFAULT_PAGES = Int32
 DPP_ADVANCED = 1
@@ -6108,6 +6124,7 @@ def _define_INetCfgComponentPropertyUi():
     INetCfgComponentPropertyUi.ValidateProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(6, 'ValidateProperties', ((1, 'hwndSheet'),)))
     INetCfgComponentPropertyUi.ApplyProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'ApplyProperties', ()))
     INetCfgComponentPropertyUi.CancelProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'CancelProperties', ()))
+    win32more.System.Com.IUnknown
     return INetCfgComponentPropertyUi
 BIND_FLAGS1 = Int32
 NCN_ADD = 1
@@ -6129,6 +6146,7 @@ def _define_INetCfgComponentNotifyBinding():
     INetCfgComponentNotifyBinding = win32more.NetworkManagement.NetManagement.INetCfgComponentNotifyBinding_head
     INetCfgComponentNotifyBinding.QueryBindingPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.NetworkManagement.NetManagement.INetCfgBindingPath_head, use_last_error=False)(3, 'QueryBindingPath', ((1, 'dwChangeFlag'),(1, 'pIPath'),)))
     INetCfgComponentNotifyBinding.NotifyBindingPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.NetworkManagement.NetManagement.INetCfgBindingPath_head, use_last_error=False)(4, 'NotifyBindingPath', ((1, 'dwChangeFlag'),(1, 'pIPath'),)))
+    win32more.System.Com.IUnknown
     return INetCfgComponentNotifyBinding
 def _define_INetCfgComponentNotifyGlobal_head():
     class INetCfgComponentNotifyGlobal(win32more.System.Com.IUnknown_head):
@@ -6140,6 +6158,7 @@ def _define_INetCfgComponentNotifyGlobal():
     INetCfgComponentNotifyGlobal.SysQueryBindingPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.NetworkManagement.NetManagement.INetCfgBindingPath_head, use_last_error=False)(4, 'SysQueryBindingPath', ((1, 'dwChangeFlag'),(1, 'pIPath'),)))
     INetCfgComponentNotifyGlobal.SysNotifyBindingPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.NetworkManagement.NetManagement.INetCfgBindingPath_head, use_last_error=False)(5, 'SysNotifyBindingPath', ((1, 'dwChangeFlag'),(1, 'pIPath'),)))
     INetCfgComponentNotifyGlobal.SysNotifyComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.NetworkManagement.NetManagement.INetCfgComponent_head, use_last_error=False)(6, 'SysNotifyComponent', ((1, 'dwChangeFlag'),(1, 'pIComp'),)))
+    win32more.System.Com.IUnknown
     return INetCfgComponentNotifyGlobal
 def _define_INetCfgComponentUpperEdge_head():
     class INetCfgComponentUpperEdge(win32more.System.Com.IUnknown_head):
@@ -6150,6 +6169,7 @@ def _define_INetCfgComponentUpperEdge():
     INetCfgComponentUpperEdge.GetInterfaceIdsForAdapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetManagement.INetCfgComponent_head,POINTER(UInt32),POINTER(POINTER(Guid)), use_last_error=False)(3, 'GetInterfaceIdsForAdapter', ((1, 'pAdapter'),(1, 'pdwNumInterfaces'),(1, 'ppguidInterfaceIds'),)))
     INetCfgComponentUpperEdge.AddInterfacesToAdapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'AddInterfacesToAdapter', ()))
     INetCfgComponentUpperEdge.RemoveInterfacesFromAdapter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetManagement.INetCfgComponent_head,UInt32,POINTER(Guid), use_last_error=False)(5, 'RemoveInterfacesFromAdapter', ((1, 'pAdapter'),(1, 'dwNumInterfaces'),(1, 'pguidInterfaceIds'),)))
+    win32more.System.Com.IUnknown
     return INetCfgComponentUpperEdge
 def _define_INetLanConnectionUiInfo_head():
     class INetLanConnectionUiInfo(win32more.System.Com.IUnknown_head):
@@ -6158,6 +6178,7 @@ def _define_INetLanConnectionUiInfo_head():
 def _define_INetLanConnectionUiInfo():
     INetLanConnectionUiInfo = win32more.NetworkManagement.NetManagement.INetLanConnectionUiInfo_head
     INetLanConnectionUiInfo.GetDeviceGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetDeviceGuid', ((1, 'pguid'),)))
+    win32more.System.Com.IUnknown
     return INetLanConnectionUiInfo
 tagRASCON_IPUI_FLAGS = Int32
 RCUIF_VPN = 1
@@ -6207,6 +6228,7 @@ def _define_INetRasConnectionIpUiInfo_head():
 def _define_INetRasConnectionIpUiInfo():
     INetRasConnectionIpUiInfo = win32more.NetworkManagement.NetManagement.INetRasConnectionIpUiInfo_head
     INetRasConnectionIpUiInfo.GetUiInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.NetManagement.RASCON_IPUI_head), use_last_error=False)(3, 'GetUiInfo', ((1, 'pInfo'),)))
+    win32more.System.Com.IUnknown
     return INetRasConnectionIpUiInfo
 def _define_INetCfgComponentSysPrep_head():
     class INetCfgComponentSysPrep(win32more.System.Com.IUnknown_head):
@@ -6216,6 +6238,7 @@ def _define_INetCfgComponentSysPrep():
     INetCfgComponentSysPrep = win32more.NetworkManagement.NetManagement.INetCfgComponentSysPrep_head
     INetCfgComponentSysPrep.SaveAdapterParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.NetManagement.INetCfgSysPrep_head,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(3, 'SaveAdapterParameters', ((1, 'pncsp'),(1, 'pszwAnswerSections'),(1, 'pAdapterInstanceGuid'),)))
     INetCfgComponentSysPrep.RestoreAdapterParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)(4, 'RestoreAdapterParameters', ((1, 'pszwAnswerFile'),(1, 'pszwAnswerSection'),(1, 'pAdapterInstanceGuid'),)))
+    win32more.System.Com.IUnknown
     return INetCfgComponentSysPrep
 NetProvisioning = Guid('2aa2b5fe-b846-4d07-810c-b21ee45320e3')
 def _define_IProvisioningDomain_head():
@@ -6226,6 +6249,7 @@ def _define_IProvisioningDomain():
     IProvisioningDomain = win32more.NetworkManagement.NetManagement.IProvisioningDomain_head
     IProvisioningDomain.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Add', ((1, 'pszwPathToFolder'),)))
     IProvisioningDomain.Query = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Data.Xml.MsXml.IXMLDOMNodeList_head), use_last_error=False)(4, 'Query', ((1, 'pszwDomain'),(1, 'pszwLanguage'),(1, 'pszwXPathQuery'),(1, 'Nodes'),)))
+    win32more.System.Com.IUnknown
     return IProvisioningDomain
 def _define_IProvisioningProfileWireless_head():
     class IProvisioningProfileWireless(win32more.System.Com.IUnknown_head):
@@ -6234,6 +6258,7 @@ def _define_IProvisioningProfileWireless_head():
 def _define_IProvisioningProfileWireless():
     IProvisioningProfileWireless = win32more.NetworkManagement.NetManagement.IProvisioningProfileWireless_head
     IProvisioningProfileWireless.CreateProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Guid),POINTER(UInt32), use_last_error=False)(3, 'CreateProfile', ((1, 'bstrXMLWirelessConfigProfile'),(1, 'bstrXMLConnectionConfigProfile'),(1, 'pAdapterInstanceGuid'),(1, 'pulStatus'),)))
+    win32more.System.Com.IUnknown
     return IProvisioningProfileWireless
 def _define_RTR_TOC_ENTRY_head():
     class RTR_TOC_ENTRY(Structure):

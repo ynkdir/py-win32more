@@ -519,6 +519,7 @@ def _define_IDiscMaster2():
     IDiscMaster2.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_Item', ((1, 'index'),(1, 'value'),)))
     IDiscMaster2.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'value'),)))
     IDiscMaster2.get_IsSupportedEnvironment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_IsSupportedEnvironment', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IDiscMaster2
 def _define_DDiscMaster2Events_head():
     class DDiscMaster2Events(win32more.System.Com.IDispatch_head):
@@ -528,6 +529,7 @@ def _define_DDiscMaster2Events():
     DDiscMaster2Events = win32more.Storage.Imapi.DDiscMaster2Events_head
     DDiscMaster2Events.NotifyDeviceAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.Foundation.BSTR, use_last_error=False)(7, 'NotifyDeviceAdded', ((1, 'object'),(1, 'uniqueId'),)))
     DDiscMaster2Events.NotifyDeviceRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.Foundation.BSTR, use_last_error=False)(8, 'NotifyDeviceRemoved', ((1, 'object'),(1, 'uniqueId'),)))
+    win32more.System.Com.IDispatch
     return DDiscMaster2Events
 def _define_IDiscRecorder2Ex_head():
     class IDiscRecorder2Ex(win32more.System.Com.IUnknown_head):
@@ -553,6 +555,7 @@ def _define_IDiscRecorder2Ex():
     IDiscRecorder2Ex.GetByteAlignmentMask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(18, 'GetByteAlignmentMask', ((1, 'value'),)))
     IDiscRecorder2Ex.GetMaximumNonPageAlignedTransferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(19, 'GetMaximumNonPageAlignedTransferSize', ((1, 'value'),)))
     IDiscRecorder2Ex.GetMaximumPageAlignedTransferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(20, 'GetMaximumPageAlignedTransferSize', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IDiscRecorder2Ex
 def _define_IDiscRecorder2_head():
     class IDiscRecorder2(win32more.System.Com.IDispatch_head):
@@ -581,6 +584,7 @@ def _define_IDiscRecorder2():
     IDiscRecorder2.get_CurrentProfiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(25, 'get_CurrentProfiles', ((1, 'value'),)))
     IDiscRecorder2.get_SupportedModePages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(26, 'get_SupportedModePages', ((1, 'value'),)))
     IDiscRecorder2.get_ExclusiveAccessOwner = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(27, 'get_ExclusiveAccessOwner', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IDiscRecorder2
 def _define_IWriteEngine2_head():
     class IWriteEngine2(win32more.System.Com.IDispatch_head):
@@ -601,6 +605,7 @@ def _define_IWriteEngine2():
     IWriteEngine2.put_BytesPerSector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(17, 'put_BytesPerSector', ((1, 'value'),)))
     IWriteEngine2.get_BytesPerSector = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_BytesPerSector', ((1, 'value'),)))
     IWriteEngine2.get_WriteInProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(19, 'get_WriteInProgress', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IWriteEngine2
 def _define_IWriteEngine2EventArgs_head():
     class IWriteEngine2EventArgs(win32more.System.Com.IDispatch_head):
@@ -615,6 +620,7 @@ def _define_IWriteEngine2EventArgs():
     IWriteEngine2EventArgs.get_TotalSystemBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_TotalSystemBuffer', ((1, 'value'),)))
     IWriteEngine2EventArgs.get_UsedSystemBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_UsedSystemBuffer', ((1, 'value'),)))
     IWriteEngine2EventArgs.get_FreeSystemBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_FreeSystemBuffer', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IWriteEngine2EventArgs
 def _define_DWriteEngine2Events_head():
     class DWriteEngine2Events(win32more.System.Com.IDispatch_head):
@@ -623,6 +629,7 @@ def _define_DWriteEngine2Events_head():
 def _define_DWriteEngine2Events():
     DWriteEngine2Events = win32more.Storage.Imapi.DWriteEngine2Events_head
     DWriteEngine2Events.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head, use_last_error=False)(7, 'Update', ((1, 'object'),(1, 'progress'),)))
+    win32more.System.Com.IDispatch
     return DWriteEngine2Events
 def _define_IDiscFormat2_head():
     class IDiscFormat2(win32more.System.Com.IDispatch_head):
@@ -635,6 +642,7 @@ def _define_IDiscFormat2():
     IDiscFormat2.get_MediaPhysicallyBlank = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_MediaPhysicallyBlank', ((1, 'value'),)))
     IDiscFormat2.get_MediaHeuristicallyBlank = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_MediaHeuristicallyBlank', ((1, 'value'),)))
     IDiscFormat2.get_SupportedMediaTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(11, 'get_SupportedMediaTypes', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IDiscFormat2
 def _define_IDiscFormat2Erase_head():
     class IDiscFormat2Erase(win32more.Storage.Imapi.IDiscFormat2_head):
@@ -650,6 +658,7 @@ def _define_IDiscFormat2Erase():
     IDiscFormat2Erase.put_ClientName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(17, 'put_ClientName', ((1, 'value'),)))
     IDiscFormat2Erase.get_ClientName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_ClientName', ((1, 'value'),)))
     IDiscFormat2Erase.EraseMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'EraseMedia', ()))
+    win32more.Storage.Imapi.IDiscFormat2
     return IDiscFormat2Erase
 def _define_DDiscFormat2EraseEvents_head():
     class DDiscFormat2EraseEvents(win32more.System.Com.IDispatch_head):
@@ -658,6 +667,7 @@ def _define_DDiscFormat2EraseEvents_head():
 def _define_DDiscFormat2EraseEvents():
     DDiscFormat2EraseEvents = win32more.Storage.Imapi.DDiscFormat2EraseEvents_head
     DDiscFormat2EraseEvents.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,Int32,Int32, use_last_error=False)(7, 'Update', ((1, 'object'),(1, 'elapsedSeconds'),(1, 'estimatedTotalSeconds'),)))
+    win32more.System.Com.IDispatch
     return DDiscFormat2EraseEvents
 def _define_IDiscFormat2Data_head():
     class IDiscFormat2Data(win32more.Storage.Imapi.IDiscFormat2_head):
@@ -697,6 +707,7 @@ def _define_IDiscFormat2Data():
     IDiscFormat2Data.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(41, 'Write', ((1, 'data'),)))
     IDiscFormat2Data.CancelWrite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(42, 'CancelWrite', ()))
     IDiscFormat2Data.SetWriteSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int16, use_last_error=False)(43, 'SetWriteSpeed', ((1, 'RequestedSectorsPerSecond'),(1, 'RotationTypeIsPureCAV'),)))
+    win32more.Storage.Imapi.IDiscFormat2
     return IDiscFormat2Data
 def _define_DDiscFormat2DataEvents_head():
     class DDiscFormat2DataEvents(win32more.System.Com.IDispatch_head):
@@ -705,6 +716,7 @@ def _define_DDiscFormat2DataEvents_head():
 def _define_DDiscFormat2DataEvents():
     DDiscFormat2DataEvents = win32more.Storage.Imapi.DDiscFormat2DataEvents_head
     DDiscFormat2DataEvents.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head, use_last_error=False)(7, 'Update', ((1, 'object'),(1, 'progress'),)))
+    win32more.System.Com.IDispatch
     return DDiscFormat2DataEvents
 def _define_IDiscFormat2DataEventArgs_head():
     class IDiscFormat2DataEventArgs(win32more.Storage.Imapi.IWriteEngine2EventArgs_head):
@@ -716,6 +728,7 @@ def _define_IDiscFormat2DataEventArgs():
     IDiscFormat2DataEventArgs.get_RemainingTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_RemainingTime', ((1, 'value'),)))
     IDiscFormat2DataEventArgs.get_TotalTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_TotalTime', ((1, 'value'),)))
     IDiscFormat2DataEventArgs.get_CurrentAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IMAPI_FORMAT2_DATA_WRITE_ACTION), use_last_error=False)(17, 'get_CurrentAction', ((1, 'value'),)))
+    win32more.Storage.Imapi.IWriteEngine2EventArgs
     return IDiscFormat2DataEventArgs
 def _define_IDiscFormat2TrackAtOnce_head():
     class IDiscFormat2TrackAtOnce(win32more.Storage.Imapi.IDiscFormat2_head):
@@ -748,6 +761,7 @@ def _define_IDiscFormat2TrackAtOnce():
     IDiscFormat2TrackAtOnce.get_CurrentRotationTypeIsPureCAV = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(34, 'get_CurrentRotationTypeIsPureCAV', ((1, 'value'),)))
     IDiscFormat2TrackAtOnce.get_SupportedWriteSpeeds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(35, 'get_SupportedWriteSpeeds', ((1, 'supportedSpeeds'),)))
     IDiscFormat2TrackAtOnce.get_SupportedWriteSpeedDescriptors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(36, 'get_SupportedWriteSpeedDescriptors', ((1, 'supportedSpeedDescriptors'),)))
+    win32more.Storage.Imapi.IDiscFormat2
     return IDiscFormat2TrackAtOnce
 def _define_DDiscFormat2TrackAtOnceEvents_head():
     class DDiscFormat2TrackAtOnceEvents(win32more.System.Com.IDispatch_head):
@@ -756,6 +770,7 @@ def _define_DDiscFormat2TrackAtOnceEvents_head():
 def _define_DDiscFormat2TrackAtOnceEvents():
     DDiscFormat2TrackAtOnceEvents = win32more.Storage.Imapi.DDiscFormat2TrackAtOnceEvents_head
     DDiscFormat2TrackAtOnceEvents.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head, use_last_error=False)(7, 'Update', ((1, 'object'),(1, 'progress'),)))
+    win32more.System.Com.IDispatch
     return DDiscFormat2TrackAtOnceEvents
 def _define_IDiscFormat2TrackAtOnceEventArgs_head():
     class IDiscFormat2TrackAtOnceEventArgs(win32more.Storage.Imapi.IWriteEngine2EventArgs_head):
@@ -767,6 +782,7 @@ def _define_IDiscFormat2TrackAtOnceEventArgs():
     IDiscFormat2TrackAtOnceEventArgs.get_CurrentAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IMAPI_FORMAT2_TAO_WRITE_ACTION), use_last_error=False)(15, 'get_CurrentAction', ((1, 'value'),)))
     IDiscFormat2TrackAtOnceEventArgs.get_ElapsedTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_ElapsedTime', ((1, 'value'),)))
     IDiscFormat2TrackAtOnceEventArgs.get_RemainingTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_RemainingTime', ((1, 'value'),)))
+    win32more.Storage.Imapi.IWriteEngine2EventArgs
     return IDiscFormat2TrackAtOnceEventArgs
 def _define_IDiscFormat2RawCD_head():
     class IDiscFormat2RawCD(win32more.Storage.Imapi.IDiscFormat2_head):
@@ -798,6 +814,7 @@ def _define_IDiscFormat2RawCD():
     IDiscFormat2RawCD.get_CurrentRotationTypeIsPureCAV = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(33, 'get_CurrentRotationTypeIsPureCAV', ((1, 'value'),)))
     IDiscFormat2RawCD.get_SupportedWriteSpeeds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(34, 'get_SupportedWriteSpeeds', ((1, 'supportedSpeeds'),)))
     IDiscFormat2RawCD.get_SupportedWriteSpeedDescriptors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(35, 'get_SupportedWriteSpeedDescriptors', ((1, 'supportedSpeedDescriptors'),)))
+    win32more.Storage.Imapi.IDiscFormat2
     return IDiscFormat2RawCD
 def _define_DDiscFormat2RawCDEvents_head():
     class DDiscFormat2RawCDEvents(win32more.System.Com.IDispatch_head):
@@ -806,6 +823,7 @@ def _define_DDiscFormat2RawCDEvents_head():
 def _define_DDiscFormat2RawCDEvents():
     DDiscFormat2RawCDEvents = win32more.Storage.Imapi.DDiscFormat2RawCDEvents_head
     DDiscFormat2RawCDEvents.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head, use_last_error=False)(7, 'Update', ((1, 'object'),(1, 'progress'),)))
+    win32more.System.Com.IDispatch
     return DDiscFormat2RawCDEvents
 def _define_IDiscFormat2RawCDEventArgs_head():
     class IDiscFormat2RawCDEventArgs(win32more.Storage.Imapi.IWriteEngine2EventArgs_head):
@@ -816,6 +834,7 @@ def _define_IDiscFormat2RawCDEventArgs():
     IDiscFormat2RawCDEventArgs.get_CurrentAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IMAPI_FORMAT2_RAW_CD_WRITE_ACTION), use_last_error=False)(14, 'get_CurrentAction', ((1, 'value'),)))
     IDiscFormat2RawCDEventArgs.get_ElapsedTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_ElapsedTime', ((1, 'value'),)))
     IDiscFormat2RawCDEventArgs.get_RemainingTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_RemainingTime', ((1, 'value'),)))
+    win32more.Storage.Imapi.IWriteEngine2EventArgs
     return IDiscFormat2RawCDEventArgs
 def _define_IBurnVerification_head():
     class IBurnVerification(win32more.System.Com.IUnknown_head):
@@ -825,6 +844,7 @@ def _define_IBurnVerification():
     IBurnVerification = win32more.Storage.Imapi.IBurnVerification_head
     IBurnVerification.put_BurnVerificationLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Imapi.IMAPI_BURN_VERIFICATION_LEVEL, use_last_error=False)(3, 'put_BurnVerificationLevel', ((1, 'value'),)))
     IBurnVerification.get_BurnVerificationLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IMAPI_BURN_VERIFICATION_LEVEL), use_last_error=False)(4, 'get_BurnVerificationLevel', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IBurnVerification
 def _define_IWriteSpeedDescriptor_head():
     class IWriteSpeedDescriptor(win32more.System.Com.IDispatch_head):
@@ -835,6 +855,7 @@ def _define_IWriteSpeedDescriptor():
     IWriteSpeedDescriptor.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IMAPI_MEDIA_PHYSICAL_TYPE), use_last_error=False)(7, 'get_MediaType', ((1, 'value'),)))
     IWriteSpeedDescriptor.get_RotationTypeIsPureCAV = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_RotationTypeIsPureCAV', ((1, 'value'),)))
     IWriteSpeedDescriptor.get_WriteSpeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_WriteSpeed', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IWriteSpeedDescriptor
 def _define_IMultisession_head():
     class IMultisession(win32more.System.Com.IDispatch_head):
@@ -846,6 +867,7 @@ def _define_IMultisession():
     IMultisession.put_InUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(8, 'put_InUse', ((1, 'value'),)))
     IMultisession.get_InUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_InUse', ((1, 'value'),)))
     IMultisession.get_ImportRecorder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IDiscRecorder2_head), use_last_error=False)(10, 'get_ImportRecorder', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IMultisession
 def _define_IMultisessionSequential_head():
     class IMultisessionSequential(win32more.Storage.Imapi.IMultisession_head):
@@ -858,6 +880,7 @@ def _define_IMultisessionSequential():
     IMultisessionSequential.get_LastWrittenAddressOfPreviousSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_LastWrittenAddressOfPreviousSession', ((1, 'value'),)))
     IMultisessionSequential.get_NextWritableAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_NextWritableAddress', ((1, 'value'),)))
     IMultisessionSequential.get_FreeSectorsOnMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_FreeSectorsOnMedia', ((1, 'value'),)))
+    win32more.Storage.Imapi.IMultisession
     return IMultisessionSequential
 def _define_IMultisessionSequential2_head():
     class IMultisessionSequential2(win32more.Storage.Imapi.IMultisessionSequential_head):
@@ -866,6 +889,7 @@ def _define_IMultisessionSequential2_head():
 def _define_IMultisessionSequential2():
     IMultisessionSequential2 = win32more.Storage.Imapi.IMultisessionSequential2_head
     IMultisessionSequential2.get_WriteUnitSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_WriteUnitSize', ((1, 'value'),)))
+    win32more.Storage.Imapi.IMultisessionSequential
     return IMultisessionSequential2
 def _define_IMultisessionRandomWrite_head():
     class IMultisessionRandomWrite(win32more.Storage.Imapi.IMultisession_head):
@@ -876,6 +900,7 @@ def _define_IMultisessionRandomWrite():
     IMultisessionRandomWrite.get_WriteUnitSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_WriteUnitSize', ((1, 'value'),)))
     IMultisessionRandomWrite.get_LastWrittenAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_LastWrittenAddress', ((1, 'value'),)))
     IMultisessionRandomWrite.get_TotalSectorsOnMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_TotalSectorsOnMedia', ((1, 'value'),)))
+    win32more.Storage.Imapi.IMultisession
     return IMultisessionRandomWrite
 def _define_IStreamPseudoRandomBased_head():
     class IStreamPseudoRandomBased(win32more.System.Com.IStream_head):
@@ -887,6 +912,7 @@ def _define_IStreamPseudoRandomBased():
     IStreamPseudoRandomBased.get_Seed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'get_Seed', ((1, 'value'),)))
     IStreamPseudoRandomBased.put_ExtendedSeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32, use_last_error=False)(16, 'put_ExtendedSeed', ((1, 'values'),(1, 'eCount'),)))
     IStreamPseudoRandomBased.get_ExtendedSeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt32)),POINTER(UInt32), use_last_error=False)(17, 'get_ExtendedSeed', ((1, 'values'),(1, 'eCount'),)))
+    win32more.System.Com.IStream
     return IStreamPseudoRandomBased
 def _define_IStreamConcatenate_head():
     class IStreamConcatenate(win32more.System.Com.IStream_head):
@@ -898,6 +924,7 @@ def _define_IStreamConcatenate():
     IStreamConcatenate.Initialize2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head),UInt32, use_last_error=False)(15, 'Initialize2', ((1, 'streams'),(1, 'streamCount'),)))
     IStreamConcatenate.Append = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(16, 'Append', ((1, 'stream'),)))
     IStreamConcatenate.Append2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head),UInt32, use_last_error=False)(17, 'Append2', ((1, 'streams'),(1, 'streamCount'),)))
+    win32more.System.Com.IStream
     return IStreamConcatenate
 def _define_IStreamInterleave_head():
     class IStreamInterleave(win32more.System.Com.IStream_head):
@@ -906,6 +933,7 @@ def _define_IStreamInterleave_head():
 def _define_IStreamInterleave():
     IStreamInterleave = win32more.Storage.Imapi.IStreamInterleave_head
     IStreamInterleave.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head),POINTER(UInt32),UInt32, use_last_error=False)(14, 'Initialize', ((1, 'streams'),(1, 'interleaveSizes'),(1, 'streamCount'),)))
+    win32more.System.Com.IStream
     return IStreamInterleave
 def _define_IRawCDImageCreator_head():
     class IRawCDImageCreator(win32more.System.Com.IDispatch_head):
@@ -932,6 +960,7 @@ def _define_IRawCDImageCreator():
     IRawCDImageCreator.get_NumberOfExistingTracks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_NumberOfExistingTracks', ((1, 'value'),)))
     IRawCDImageCreator.get_LastUsedUserSectorInImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(24, 'get_LastUsedUserSectorInImage', ((1, 'value'),)))
     IRawCDImageCreator.get_ExpectedTableOfContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(25, 'get_ExpectedTableOfContents', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IRawCDImageCreator
 def _define_IRawCDImageTrackInfo_head():
     class IRawCDImageTrackInfo(win32more.System.Com.IDispatch_head):
@@ -952,6 +981,7 @@ def _define_IRawCDImageTrackInfo():
     IRawCDImageTrackInfo.get_TrackIndexes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(17, 'get_TrackIndexes', ((1, 'value'),)))
     IRawCDImageTrackInfo.AddTrackIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(18, 'AddTrackIndex', ((1, 'lbaOffset'),)))
     IRawCDImageTrackInfo.ClearTrackIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(19, 'ClearTrackIndex', ((1, 'lbaOffset'),)))
+    win32more.System.Com.IDispatch
     return IRawCDImageTrackInfo
 def _define_IBlockRange_head():
     class IBlockRange(win32more.System.Com.IDispatch_head):
@@ -961,6 +991,7 @@ def _define_IBlockRange():
     IBlockRange = win32more.Storage.Imapi.IBlockRange_head
     IBlockRange.get_StartLba = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_StartLba', ((1, 'value'),)))
     IBlockRange.get_EndLba = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_EndLba', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IBlockRange
 def _define_IBlockRangeList_head():
     class IBlockRangeList(win32more.System.Com.IDispatch_head):
@@ -969,6 +1000,7 @@ def _define_IBlockRangeList_head():
 def _define_IBlockRangeList():
     IBlockRangeList = win32more.Storage.Imapi.IBlockRangeList_head
     IBlockRangeList.get_BlockRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(7, 'get_BlockRanges', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IBlockRangeList
 BootOptions = Guid('2c941fce-975b-59be-a960-9a2a262853a5')
 FsiStream = Guid('2c941fcd-975b-59be-a960-9a2a262853a5')
@@ -1020,6 +1052,7 @@ def _define_IBootOptions():
     IBootOptions.put_Emulation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Imapi.EmulationType, use_last_error=False)(13, 'put_Emulation', ((1, 'newVal'),)))
     IBootOptions.get_ImageSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'get_ImageSize', ((1, 'pVal'),)))
     IBootOptions.AssignBootImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(15, 'AssignBootImage', ((1, 'newVal'),)))
+    win32more.System.Com.IDispatch
     return IBootOptions
 def _define_IProgressItem_head():
     class IProgressItem(win32more.System.Com.IDispatch_head):
@@ -1031,6 +1064,7 @@ def _define_IProgressItem():
     IProgressItem.get_FirstBlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'get_FirstBlock', ((1, 'block'),)))
     IProgressItem.get_LastBlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(9, 'get_LastBlock', ((1, 'block'),)))
     IProgressItem.get_BlockCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'get_BlockCount', ((1, 'blocks'),)))
+    win32more.System.Com.IDispatch
     return IProgressItem
 def _define_IEnumProgressItems_head():
     class IEnumProgressItems(win32more.System.Com.IUnknown_head):
@@ -1042,6 +1076,7 @@ def _define_IEnumProgressItems():
     IEnumProgressItems.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumProgressItems.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumProgressItems.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IEnumProgressItems_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumProgressItems
 def _define_IProgressItems_head():
     class IProgressItems(win32more.System.Com.IDispatch_head):
@@ -1055,6 +1090,7 @@ def _define_IProgressItems():
     IProgressItems.ProgressItemFromBlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.Imapi.IProgressItem_head), use_last_error=False)(10, 'ProgressItemFromBlock', ((1, 'block'),(1, 'item'),)))
     IProgressItems.ProgressItemFromDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Storage.Imapi.IProgressItem_head), use_last_error=False)(11, 'ProgressItemFromDescription', ((1, 'description'),(1, 'item'),)))
     IProgressItems.get_EnumProgressItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IEnumProgressItems_head), use_last_error=False)(12, 'get_EnumProgressItems', ((1, 'NewEnum'),)))
+    win32more.System.Com.IDispatch
     return IProgressItems
 def _define_IFileSystemImageResult_head():
     class IFileSystemImageResult(win32more.System.Com.IDispatch_head):
@@ -1067,6 +1103,7 @@ def _define_IFileSystemImageResult():
     IFileSystemImageResult.get_TotalBlocks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_TotalBlocks', ((1, 'pVal'),)))
     IFileSystemImageResult.get_BlockSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_BlockSize', ((1, 'pVal'),)))
     IFileSystemImageResult.get_DiscId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_DiscId', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IFileSystemImageResult
 def _define_IFileSystemImageResult2_head():
     class IFileSystemImageResult2(win32more.Storage.Imapi.IFileSystemImageResult_head):
@@ -1075,6 +1112,7 @@ def _define_IFileSystemImageResult2_head():
 def _define_IFileSystemImageResult2():
     IFileSystemImageResult2 = win32more.Storage.Imapi.IFileSystemImageResult2_head
     IFileSystemImageResult2.get_ModifiedBlocks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IBlockRangeList_head), use_last_error=False)(12, 'get_ModifiedBlocks', ((1, 'pVal'),)))
+    win32more.Storage.Imapi.IFileSystemImageResult
     return IFileSystemImageResult2
 def _define_IFsiItem_head():
     class IFsiItem(win32more.System.Com.IDispatch_head):
@@ -1094,6 +1132,7 @@ def _define_IFsiItem():
     IFsiItem.put_IsHidden = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(16, 'put_IsHidden', ((1, 'newVal'),)))
     IFsiItem.FileSystemName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Imapi.FsiFileSystems,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'FileSystemName', ((1, 'fileSystem'),(1, 'pVal'),)))
     IFsiItem.FileSystemPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Imapi.FsiFileSystems,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'FileSystemPath', ((1, 'fileSystem'),(1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return IFsiItem
 def _define_IEnumFsiItems_head():
     class IEnumFsiItems(win32more.System.Com.IUnknown_head):
@@ -1105,6 +1144,7 @@ def _define_IEnumFsiItems():
     IEnumFsiItems.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumFsiItems.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumFsiItems.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IEnumFsiItems_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumFsiItems
 def _define_IFsiFileItem_head():
     class IFsiFileItem(win32more.Storage.Imapi.IFsiItem_head):
@@ -1117,6 +1157,7 @@ def _define_IFsiFileItem():
     IFsiFileItem.get_DataSize32BitHigh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(21, 'get_DataSize32BitHigh', ((1, 'pVal'),)))
     IFsiFileItem.get_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(22, 'get_Data', ((1, 'pVal'),)))
     IFsiFileItem.put_Data = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(23, 'put_Data', ((1, 'newVal'),)))
+    win32more.Storage.Imapi.IFsiItem
     return IFsiFileItem
 def _define_IFsiFileItem2_head():
     class IFsiFileItem2(win32more.Storage.Imapi.IFsiFileItem_head):
@@ -1130,6 +1171,7 @@ def _define_IFsiFileItem2():
     IFsiFileItem2.RemoveStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(27, 'RemoveStream', ((1, 'name'),)))
     IFsiFileItem2.get_IsRealTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(28, 'get_IsRealTime', ((1, 'pVal'),)))
     IFsiFileItem2.put_IsRealTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(29, 'put_IsRealTime', ((1, 'newVal'),)))
+    win32more.Storage.Imapi.IFsiFileItem
     return IFsiFileItem2
 def _define_IFsiNamedStreams_head():
     class IFsiNamedStreams(win32more.System.Com.IDispatch_head):
@@ -1141,6 +1183,7 @@ def _define_IFsiNamedStreams():
     IFsiNamedStreams.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Storage.Imapi.IFsiFileItem2_head), use_last_error=False)(8, 'get_Item', ((1, 'index'),(1, 'item'),)))
     IFsiNamedStreams.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'count'),)))
     IFsiNamedStreams.get_EnumNamedStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IEnumFsiItems_head), use_last_error=False)(10, 'get_EnumNamedStreams', ((1, 'NewEnum'),)))
+    win32more.System.Com.IDispatch
     return IFsiNamedStreams
 def _define_IFsiDirectoryItem_head():
     class IFsiDirectoryItem(win32more.Storage.Imapi.IFsiItem_head):
@@ -1158,6 +1201,7 @@ def _define_IFsiDirectoryItem():
     IFsiDirectoryItem.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Imapi.IFsiItem_head, use_last_error=False)(26, 'Add', ((1, 'item'),)))
     IFsiDirectoryItem.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(27, 'Remove', ((1, 'path'),)))
     IFsiDirectoryItem.RemoveTree = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(28, 'RemoveTree', ((1, 'path'),)))
+    win32more.Storage.Imapi.IFsiItem
     return IFsiDirectoryItem
 def _define_IFsiDirectoryItem2_head():
     class IFsiDirectoryItem2(win32more.Storage.Imapi.IFsiDirectoryItem_head):
@@ -1166,6 +1210,7 @@ def _define_IFsiDirectoryItem2_head():
 def _define_IFsiDirectoryItem2():
     IFsiDirectoryItem2 = win32more.Storage.Imapi.IFsiDirectoryItem2_head
     IFsiDirectoryItem2.AddTreeWithNamedStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(29, 'AddTreeWithNamedStreams', ((1, 'sourceDirectory'),(1, 'includeBaseDirectory'),)))
+    win32more.Storage.Imapi.IFsiDirectoryItem
     return IFsiDirectoryItem2
 def _define_IFileSystemImage_head():
     class IFileSystemImage(win32more.System.Com.IDispatch_head):
@@ -1223,6 +1268,7 @@ def _define_IFileSystemImage():
     IFileSystemImage.put_StageFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(54, 'put_StageFiles', ((1, 'newVal'),)))
     IFileSystemImage.get_MultisessionInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(55, 'get_MultisessionInterfaces', ((1, 'pVal'),)))
     IFileSystemImage.put_MultisessionInterfaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(56, 'put_MultisessionInterfaces', ((1, 'newVal'),)))
+    win32more.System.Com.IDispatch
     return IFileSystemImage
 def _define_IFileSystemImage2_head():
     class IFileSystemImage2(win32more.Storage.Imapi.IFileSystemImage_head):
@@ -1232,6 +1278,7 @@ def _define_IFileSystemImage2():
     IFileSystemImage2 = win32more.Storage.Imapi.IFileSystemImage2_head
     IFileSystemImage2.get_BootImageOptionsArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(57, 'get_BootImageOptionsArray', ((1, 'pVal'),)))
     IFileSystemImage2.put_BootImageOptionsArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(58, 'put_BootImageOptionsArray', ((1, 'newVal'),)))
+    win32more.Storage.Imapi.IFileSystemImage
     return IFileSystemImage2
 def _define_IFileSystemImage3_head():
     class IFileSystemImage3(win32more.Storage.Imapi.IFileSystemImage2_head):
@@ -1242,6 +1289,7 @@ def _define_IFileSystemImage3():
     IFileSystemImage3.get_CreateRedundantUdfMetadataFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(59, 'get_CreateRedundantUdfMetadataFiles', ((1, 'pVal'),)))
     IFileSystemImage3.put_CreateRedundantUdfMetadataFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(60, 'put_CreateRedundantUdfMetadataFiles', ((1, 'newVal'),)))
     IFileSystemImage3.ProbeSpecificFileSystem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Imapi.FsiFileSystems,POINTER(Int16), use_last_error=False)(61, 'ProbeSpecificFileSystem', ((1, 'fileSystemToProbe'),(1, 'isAppendable'),)))
+    win32more.Storage.Imapi.IFileSystemImage2
     return IFileSystemImage3
 def _define_DFileSystemImageEvents_head():
     class DFileSystemImageEvents(win32more.System.Com.IDispatch_head):
@@ -1250,6 +1298,7 @@ def _define_DFileSystemImageEvents_head():
 def _define_DFileSystemImageEvents():
     DFileSystemImageEvents = win32more.Storage.Imapi.DFileSystemImageEvents_head
     DFileSystemImageEvents.Update = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.Foundation.BSTR,Int32,Int32, use_last_error=False)(7, 'Update', ((1, 'object'),(1, 'currentFile'),(1, 'copiedSectors'),(1, 'totalSectors'),)))
+    win32more.System.Com.IDispatch
     return DFileSystemImageEvents
 def _define_DFileSystemImageImportEvents_head():
     class DFileSystemImageImportEvents(win32more.System.Com.IDispatch_head):
@@ -1258,6 +1307,7 @@ def _define_DFileSystemImageImportEvents_head():
 def _define_DFileSystemImageImportEvents():
     DFileSystemImageImportEvents = win32more.Storage.Imapi.DFileSystemImageImportEvents_head
     DFileSystemImageImportEvents.UpdateImport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head,win32more.Storage.Imapi.FsiFileSystems,win32more.Foundation.BSTR,Int32,Int32,Int32,Int32, use_last_error=False)(7, 'UpdateImport', ((1, 'object'),(1, 'fileSystem'),(1, 'currentItem'),(1, 'importedDirectoryItems'),(1, 'totalDirectoryItems'),(1, 'importedFileItems'),(1, 'totalFileItems'),)))
+    win32more.System.Com.IDispatch
     return DFileSystemImageImportEvents
 def _define_IIsoImageManager_head():
     class IIsoImageManager(win32more.System.Com.IDispatch_head):
@@ -1270,6 +1320,7 @@ def _define_IIsoImageManager():
     IIsoImageManager.SetPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'SetPath', ((1, 'Val'),)))
     IIsoImageManager.SetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(10, 'SetStream', ((1, 'data'),)))
     IIsoImageManager.Validate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Validate', ()))
+    win32more.System.Com.IDispatch
     return IIsoImageManager
 MSDiscRecorderObj = Guid('520cca61-51a5-11d3-9144-00104ba11c5e')
 MSDiscMasterObj = Guid('520cca63-51a5-11d3-9144-00104ba11c5e')
@@ -1310,6 +1361,7 @@ def _define_IDiscRecorder():
     IDiscRecorder.Eject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Eject', ()))
     IDiscRecorder.Erase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte, use_last_error=False)(16, 'Erase', ((1, 'bFullErase'),)))
     IDiscRecorder.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IDiscRecorder
 def _define_IEnumDiscRecorders_head():
     class IEnumDiscRecorders(win32more.System.Com.IUnknown_head):
@@ -1321,6 +1373,7 @@ def _define_IEnumDiscRecorders():
     IEnumDiscRecorders.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cRecorders'),)))
     IEnumDiscRecorders.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDiscRecorders.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IEnumDiscRecorders_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDiscRecorders
 def _define_IEnumDiscMasterFormats_head():
     class IEnumDiscMasterFormats(win32more.System.Com.IUnknown_head):
@@ -1332,6 +1385,7 @@ def _define_IEnumDiscMasterFormats():
     IEnumDiscMasterFormats.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cFormats'),)))
     IEnumDiscMasterFormats.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumDiscMasterFormats.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Imapi.IEnumDiscMasterFormats_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDiscMasterFormats
 def _define_IRedbookDiscMaster_head():
     class IRedbookDiscMaster(win32more.System.Com.IUnknown_head):
@@ -1347,6 +1401,7 @@ def _define_IRedbookDiscMaster():
     IRedbookDiscMaster.CreateAudioTrack = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'CreateAudioTrack', ((1, 'nBlocks'),)))
     IRedbookDiscMaster.AddAudioTrackBlocks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),Int32, use_last_error=False)(9, 'AddAudioTrackBlocks', ((1, 'pby'),(1, 'cb'),)))
     IRedbookDiscMaster.CloseAudioTrack = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'CloseAudioTrack', ()))
+    win32more.System.Com.IUnknown
     return IRedbookDiscMaster
 def _define_IJolietDiscMaster_head():
     class IJolietDiscMaster(win32more.System.Com.IUnknown_head):
@@ -1360,6 +1415,7 @@ def _define_IJolietDiscMaster():
     IJolietDiscMaster.AddData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IStorage_head,Int32, use_last_error=False)(6, 'AddData', ((1, 'pStorage'),(1, 'lFileOverwrite'),)))
     IJolietDiscMaster.GetJolietProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.IPropertyStorage_head), use_last_error=False)(7, 'GetJolietProperties', ((1, 'ppPropStg'),)))
     IJolietDiscMaster.SetJolietProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.StructuredStorage.IPropertyStorage_head, use_last_error=False)(8, 'SetJolietProperties', ((1, 'pPropStg'),)))
+    win32more.System.Com.IUnknown
     return IJolietDiscMaster
 def _define_IDiscMasterProgressEvents_head():
     class IDiscMasterProgressEvents(win32more.System.Com.IUnknown_head):
@@ -1376,6 +1432,7 @@ def _define_IDiscMasterProgressEvents():
     IDiscMasterProgressEvents.NotifyClosingDisc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'NotifyClosingDisc', ((1, 'nEstimatedSeconds'),)))
     IDiscMasterProgressEvents.NotifyBurnComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(10, 'NotifyBurnComplete', ((1, 'status'),)))
     IDiscMasterProgressEvents.NotifyEraseComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(11, 'NotifyEraseComplete', ((1, 'status'),)))
+    win32more.System.Com.IUnknown
     return IDiscMasterProgressEvents
 def _define_IDiscMaster_head():
     class IDiscMaster(win32more.System.Com.IUnknown_head):
@@ -1395,6 +1452,7 @@ def _define_IDiscMaster():
     IDiscMaster.ProgressUnadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr, use_last_error=False)(12, 'ProgressUnadvise', ((1, 'vCookie'),)))
     IDiscMaster.RecordDisc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte,Byte, use_last_error=False)(13, 'RecordDisc', ((1, 'bSimulate'),(1, 'bEjectAfterBurn'),)))
     IDiscMaster.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IDiscMaster
 def _define__MSGSESS_head():
     class _MSGSESS(Structure):

@@ -3209,6 +3209,7 @@ def _define_ITTAPI():
     ITTAPI.SetApplicationPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int16, use_last_error=False)(20, 'SetApplicationPriority', ((1, 'pAppFilename'),(1, 'lMediaType'),(1, 'fPriority'),)))
     ITTAPI.put_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(21, 'put_EventFilter', ((1, 'lFilterMask'),)))
     ITTAPI.get_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_EventFilter', ((1, 'plFilterMask'),)))
+    win32more.System.Com.IDispatch
     return ITTAPI
 def _define_ITTAPI2_head():
     class ITTAPI2(win32more.Devices.Tapi.ITTAPI_head):
@@ -3219,6 +3220,7 @@ def _define_ITTAPI2():
     ITTAPI2.get_Phones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(23, 'get_Phones', ((1, 'pPhones'),)))
     ITTAPI2.EnumeratePhones = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head), use_last_error=False)(24, 'EnumeratePhones', ((1, 'ppEnumPhone'),)))
     ITTAPI2.CreateEmptyCollectionObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCollection2_head), use_last_error=False)(25, 'CreateEmptyCollectionObject', ((1, 'ppCollection'),)))
+    win32more.Devices.Tapi.ITTAPI
     return ITTAPI2
 def _define_ITMediaSupport_head():
     class ITMediaSupport(win32more.System.Com.IDispatch_head):
@@ -3228,6 +3230,7 @@ def _define_ITMediaSupport():
     ITMediaSupport = win32more.Devices.Tapi.ITMediaSupport_head
     ITMediaSupport.get_MediaTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_MediaTypes', ((1, 'plMediaTypes'),)))
     ITMediaSupport.QueryMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int16), use_last_error=False)(8, 'QueryMediaType', ((1, 'lMediaType'),(1, 'pfSupport'),)))
+    win32more.System.Com.IDispatch
     return ITMediaSupport
 def _define_ITPluggableTerminalClassInfo_head():
     class ITPluggableTerminalClassInfo(win32more.System.Com.IDispatch_head):
@@ -3242,6 +3245,7 @@ def _define_ITPluggableTerminalClassInfo():
     ITPluggableTerminalClassInfo.get_CLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_CLSID', ((1, 'pCLSID'),)))
     ITPluggableTerminalClassInfo.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION), use_last_error=False)(12, 'get_Direction', ((1, 'pDirection'),)))
     ITPluggableTerminalClassInfo.get_MediaTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_MediaTypes', ((1, 'pMediaTypes'),)))
+    win32more.System.Com.IDispatch
     return ITPluggableTerminalClassInfo
 def _define_ITPluggableTerminalSuperclassInfo_head():
     class ITPluggableTerminalSuperclassInfo(win32more.System.Com.IDispatch_head):
@@ -3251,6 +3255,7 @@ def _define_ITPluggableTerminalSuperclassInfo():
     ITPluggableTerminalSuperclassInfo = win32more.Devices.Tapi.ITPluggableTerminalSuperclassInfo_head
     ITPluggableTerminalSuperclassInfo.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'pName'),)))
     ITPluggableTerminalSuperclassInfo.get_CLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_CLSID', ((1, 'pCLSID'),)))
+    win32more.System.Com.IDispatch
     return ITPluggableTerminalSuperclassInfo
 def _define_ITTerminalSupport_head():
     class ITTerminalSupport(win32more.System.Com.IDispatch_head):
@@ -3264,6 +3269,7 @@ def _define_ITTerminalSupport():
     ITTerminalSupport.EnumerateDynamicTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminalClass_head), use_last_error=False)(10, 'EnumerateDynamicTerminalClasses', ((1, 'ppTerminalClassEnumerator'),)))
     ITTerminalSupport.CreateTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(11, 'CreateTerminal', ((1, 'pTerminalClass'),(1, 'lMediaType'),(1, 'Direction'),(1, 'ppTerminal'),)))
     ITTerminalSupport.GetDefaultStaticTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(12, 'GetDefaultStaticTerminal', ((1, 'lMediaType'),(1, 'Direction'),(1, 'ppTerminal'),)))
+    win32more.System.Com.IDispatch
     return ITTerminalSupport
 def _define_ITTerminalSupport2_head():
     class ITTerminalSupport2(win32more.Devices.Tapi.ITTerminalSupport_head):
@@ -3275,6 +3281,7 @@ def _define_ITTerminalSupport2():
     ITTerminalSupport2.EnumeratePluggableSuperclasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPluggableSuperclassInfo_head), use_last_error=False)(14, 'EnumeratePluggableSuperclasses', ((1, 'ppSuperclassEnumerator'),)))
     ITTerminalSupport2.get_PluggableTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_PluggableTerminalClasses', ((1, 'bstrTerminalSuperclass'),(1, 'lMediaType'),(1, 'pVariant'),)))
     ITTerminalSupport2.EnumeratePluggableTerminalClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,Int32,POINTER(win32more.Devices.Tapi.IEnumPluggableTerminalClassInfo_head), use_last_error=False)(16, 'EnumeratePluggableTerminalClasses', ((1, 'iidTerminalSuperclass'),(1, 'lMediaType'),(1, 'ppClassEnumerator'),)))
+    win32more.Devices.Tapi.ITTerminalSupport
     return ITTerminalSupport2
 def _define_ITAddress_head():
     class ITAddress(win32more.System.Com.IDispatch_head):
@@ -3297,6 +3304,7 @@ def _define_ITAddress():
     ITAddress.get_MessageWaiting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(19, 'get_MessageWaiting', ((1, 'pfMessageWaiting'),)))
     ITAddress.put_DoNotDisturb = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(20, 'put_DoNotDisturb', ((1, 'fDoNotDisturb'),)))
     ITAddress.get_DoNotDisturb = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(21, 'get_DoNotDisturb', ((1, 'pfDoNotDisturb'),)))
+    win32more.System.Com.IDispatch
     return ITAddress
 def _define_ITAddress2_head():
     class ITAddress2(win32more.Devices.Tapi.ITAddress_head):
@@ -3314,6 +3322,7 @@ def _define_ITAddress2():
     ITAddress2.DeviceSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head,c_char_p_no,UInt32, use_last_error=False)(29, 'DeviceSpecific', ((1, 'pCall'),(1, 'pParams'),(1, 'dwSize'),)))
     ITAddress2.DeviceSpecificVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head,win32more.System.Com.VARIANT, use_last_error=False)(30, 'DeviceSpecificVariant', ((1, 'pCall'),(1, 'varDevSpecificByteArray'),)))
     ITAddress2.NegotiateExtVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(Int32), use_last_error=False)(31, 'NegotiateExtVersion', ((1, 'lLowVersion'),(1, 'lHighVersion'),(1, 'plExtVersion'),)))
+    win32more.Devices.Tapi.ITAddress
     return ITAddress2
 def _define_ITAddressCapabilities_head():
     class ITAddressCapabilities(win32more.System.Com.IDispatch_head):
@@ -3329,6 +3338,7 @@ def _define_ITAddressCapabilities():
     ITAddressCapabilities.EnumerateCompletionMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head), use_last_error=False)(12, 'EnumerateCompletionMessages', ((1, 'ppEnumCompletionMessage'),)))
     ITAddressCapabilities.get_DeviceClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_DeviceClasses', ((1, 'pVariant'),)))
     ITAddressCapabilities.EnumerateDeviceClasses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head), use_last_error=False)(14, 'EnumerateDeviceClasses', ((1, 'ppEnumDeviceClass'),)))
+    win32more.System.Com.IDispatch
     return ITAddressCapabilities
 def _define_ITPhone_head():
     class ITPhone(win32more.System.Com.IDispatch_head):
@@ -3369,6 +3379,7 @@ def _define_ITPhone():
     ITPhone.DeviceSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(37, 'DeviceSpecific', ((1, 'pParams'),(1, 'dwSize'),)))
     ITPhone.DeviceSpecificVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(38, 'DeviceSpecificVariant', ((1, 'varDevSpecificByteArray'),)))
     ITPhone.NegotiateExtVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(Int32), use_last_error=False)(39, 'NegotiateExtVersion', ((1, 'lLowVersion'),(1, 'lHighVersion'),(1, 'plExtVersion'),)))
+    win32more.System.Com.IDispatch
     return ITPhone
 def _define_ITAutomatedPhoneControl_head():
     class ITAutomatedPhoneControl(win32more.System.Com.IDispatch_head):
@@ -3408,6 +3419,7 @@ def _define_ITAutomatedPhoneControl():
     ITAutomatedPhoneControl.UnselectCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITCallInfo_head, use_last_error=False)(36, 'UnselectCall', ((1, 'pCall'),)))
     ITAutomatedPhoneControl.EnumerateSelectedCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head), use_last_error=False)(37, 'EnumerateSelectedCalls', ((1, 'ppCallEnum'),)))
     ITAutomatedPhoneControl.get_SelectedCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(38, 'get_SelectedCalls', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
     return ITAutomatedPhoneControl
 def _define_ITBasicCallControl_head():
     class ITBasicCallControl(win32more.System.Com.IDispatch_head):
@@ -3433,6 +3445,7 @@ def _define_ITBasicCallControl():
     ITBasicCallControl.Dial = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(22, 'Dial', ((1, 'pDestAddress'),)))
     ITBasicCallControl.Finish = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.FINISH_MODE, use_last_error=False)(23, 'Finish', ((1, 'finishMode'),)))
     ITBasicCallControl.RemoveFromConference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'RemoveFromConference', ()))
+    win32more.System.Com.IDispatch
     return ITBasicCallControl
 def _define_ITCallInfo_head():
     class ITCallInfo(win32more.System.Com.IDispatch_head):
@@ -3453,6 +3466,7 @@ def _define_ITCallInfo():
     ITCallInfo.GetCallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(17, 'GetCallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'pdwSize'),(1, 'ppCallInfoBuffer'),)))
     ITCallInfo.SetCallInfoBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.CALLINFO_BUFFER,UInt32,POINTER(Byte), use_last_error=False)(18, 'SetCallInfoBuffer', ((1, 'CallInfoBuffer'),(1, 'dwSize'),(1, 'pCallInfoBuffer'),)))
     ITCallInfo.ReleaseUserUserInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'ReleaseUserUserInfo', ()))
+    win32more.System.Com.IDispatch
     return ITCallInfo
 def _define_ITCallInfo2_head():
     class ITCallInfo2(win32more.Devices.Tapi.ITCallInfo_head):
@@ -3462,6 +3476,7 @@ def _define_ITCallInfo2():
     ITCallInfo2 = win32more.Devices.Tapi.ITCallInfo2_head
     ITCallInfo2.get_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,POINTER(Int16), use_last_error=False)(20, 'get_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'pEnable'),)))
     ITCallInfo2.put_EventFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,Int32,Int16, use_last_error=False)(21, 'put_EventFilter', ((1, 'TapiEvent'),(1, 'lSubEvent'),(1, 'bEnable'),)))
+    win32more.Devices.Tapi.ITCallInfo
     return ITCallInfo2
 def _define_ITTerminal_head():
     class ITTerminal(win32more.System.Com.IDispatch_head):
@@ -3475,6 +3490,7 @@ def _define_ITTerminal():
     ITTerminal.get_TerminalClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_TerminalClass', ((1, 'ppTerminalClass'),)))
     ITTerminal.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_MediaType', ((1, 'plMediaType'),)))
     ITTerminal.get_Direction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION), use_last_error=False)(12, 'get_Direction', ((1, 'pDirection'),)))
+    win32more.System.Com.IDispatch
     return ITTerminal
 def _define_ITMultiTrackTerminal_head():
     class ITMultiTrackTerminal(win32more.System.Com.IDispatch_head):
@@ -3488,6 +3504,7 @@ def _define_ITMultiTrackTerminal():
     ITMultiTrackTerminal.get_MediaTypesInUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_MediaTypesInUse', ((1, 'plMediaTypesInUse'),)))
     ITMultiTrackTerminal.get_DirectionsInUse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_DIRECTION), use_last_error=False)(11, 'get_DirectionsInUse', ((1, 'plDirectionsInUsed'),)))
     ITMultiTrackTerminal.RemoveTrackTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(12, 'RemoveTrackTerminal', ((1, 'pTrackTerminalToRemove'),)))
+    win32more.System.Com.IDispatch
     return ITMultiTrackTerminal
 TERMINAL_MEDIA_STATE = Int32
 TMS_IDLE = 0
@@ -3511,6 +3528,7 @@ def _define_ITFileTrack():
     ITFileTrack.get_AudioFormatForScripting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITScriptableAudioFormat_head), use_last_error=False)(10, 'get_AudioFormatForScripting', ((1, 'ppAudioFormat'),)))
     ITFileTrack.put_AudioFormatForScripting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITScriptableAudioFormat_head, use_last_error=False)(11, 'put_AudioFormatForScripting', ((1, 'pAudioFormat'),)))
     ITFileTrack.get_EmptyAudioFormatForScripting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITScriptableAudioFormat_head), use_last_error=False)(12, 'get_EmptyAudioFormatForScripting', ((1, 'ppAudioFormat'),)))
+    win32more.System.Com.IDispatch
     return ITFileTrack
 def _define_ITMediaPlayback_head():
     class ITMediaPlayback(win32more.System.Com.IDispatch_head):
@@ -3520,6 +3538,7 @@ def _define_ITMediaPlayback():
     ITMediaPlayback = win32more.Devices.Tapi.ITMediaPlayback_head
     ITMediaPlayback.put_PlayList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(7, 'put_PlayList', ((1, 'PlayListVariant'),)))
     ITMediaPlayback.get_PlayList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_PlayList', ((1, 'pPlayListVariant'),)))
+    win32more.System.Com.IDispatch
     return ITMediaPlayback
 def _define_ITMediaRecord_head():
     class ITMediaRecord(win32more.System.Com.IDispatch_head):
@@ -3529,6 +3548,7 @@ def _define_ITMediaRecord():
     ITMediaRecord = win32more.Devices.Tapi.ITMediaRecord_head
     ITMediaRecord.put_FileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'put_FileName', ((1, 'bstrFileName'),)))
     ITMediaRecord.get_FileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_FileName', ((1, 'pbstrFileName'),)))
+    win32more.System.Com.IDispatch
     return ITMediaRecord
 def _define_ITMediaControl_head():
     class ITMediaControl(win32more.System.Com.IDispatch_head):
@@ -3540,6 +3560,7 @@ def _define_ITMediaControl():
     ITMediaControl.Stop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Stop', ()))
     ITMediaControl.Pause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Pause', ()))
     ITMediaControl.get_MediaState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_MEDIA_STATE), use_last_error=False)(10, 'get_MediaState', ((1, 'pTerminalMediaState'),)))
+    win32more.System.Com.IDispatch
     return ITMediaControl
 def _define_ITBasicAudioTerminal_head():
     class ITBasicAudioTerminal(win32more.System.Com.IDispatch_head):
@@ -3551,6 +3572,7 @@ def _define_ITBasicAudioTerminal():
     ITBasicAudioTerminal.get_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Volume', ((1, 'plVolume'),)))
     ITBasicAudioTerminal.put_Balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(9, 'put_Balance', ((1, 'lBalance'),)))
     ITBasicAudioTerminal.get_Balance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_Balance', ((1, 'plBalance'),)))
+    win32more.System.Com.IDispatch
     return ITBasicAudioTerminal
 def _define_ITStaticAudioTerminal_head():
     class ITStaticAudioTerminal(win32more.System.Com.IDispatch_head):
@@ -3559,6 +3581,7 @@ def _define_ITStaticAudioTerminal_head():
 def _define_ITStaticAudioTerminal():
     ITStaticAudioTerminal = win32more.Devices.Tapi.ITStaticAudioTerminal_head
     ITStaticAudioTerminal.get_WaveId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_WaveId', ((1, 'plWaveId'),)))
+    win32more.System.Com.IDispatch
     return ITStaticAudioTerminal
 def _define_ITCallHub_head():
     class ITCallHub(win32more.System.Com.IDispatch_head):
@@ -3571,6 +3594,7 @@ def _define_ITCallHub():
     ITCallHub.get_Calls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Calls', ((1, 'pCalls'),)))
     ITCallHub.get_NumCalls = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_NumCalls', ((1, 'plCalls'),)))
     ITCallHub.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALLHUB_STATE), use_last_error=False)(11, 'get_State', ((1, 'pState'),)))
+    win32more.System.Com.IDispatch
     return ITCallHub
 def _define_ITLegacyAddressMediaControl_head():
     class ITLegacyAddressMediaControl(win32more.System.Com.IUnknown_head):
@@ -3581,6 +3605,7 @@ def _define_ITLegacyAddressMediaControl():
     ITLegacyAddressMediaControl.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(3, 'GetID', ((1, 'pDeviceClass'),(1, 'pdwSize'),(1, 'ppDeviceID'),)))
     ITLegacyAddressMediaControl.GetDevConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(4, 'GetDevConfig', ((1, 'pDeviceClass'),(1, 'pdwSize'),(1, 'ppDeviceConfig'),)))
     ITLegacyAddressMediaControl.SetDevConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32,POINTER(Byte), use_last_error=False)(5, 'SetDevConfig', ((1, 'pDeviceClass'),(1, 'dwSize'),(1, 'pDeviceConfig'),)))
+    win32more.System.Com.IUnknown
     return ITLegacyAddressMediaControl
 def _define_ITPrivateEvent_head():
     class ITPrivateEvent(win32more.System.Com.IDispatch_head):
@@ -3593,6 +3618,7 @@ def _define_ITPrivateEvent():
     ITPrivateEvent.get_CallHub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallHub_head), use_last_error=False)(9, 'get_CallHub', ((1, 'ppCallHub'),)))
     ITPrivateEvent.get_EventCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_EventCode', ((1, 'plEventCode'),)))
     ITPrivateEvent.get_EventInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(11, 'get_EventInterface', ((1, 'pEventInterface'),)))
+    win32more.System.Com.IDispatch
     return ITPrivateEvent
 def _define_ITLegacyAddressMediaControl2_head():
     class ITLegacyAddressMediaControl2(win32more.Devices.Tapi.ITLegacyAddressMediaControl_head):
@@ -3602,6 +3628,7 @@ def _define_ITLegacyAddressMediaControl2():
     ITLegacyAddressMediaControl2 = win32more.Devices.Tapi.ITLegacyAddressMediaControl2_head
     ITLegacyAddressMediaControl2.ConfigDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR, use_last_error=False)(6, 'ConfigDialog', ((1, 'hwndOwner'),(1, 'pDeviceClass'),)))
     ITLegacyAddressMediaControl2.ConfigDialogEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR,UInt32,POINTER(Byte),POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(7, 'ConfigDialogEdit', ((1, 'hwndOwner'),(1, 'pDeviceClass'),(1, 'dwSizeIn'),(1, 'pDeviceConfigIn'),(1, 'pdwSizeOut'),(1, 'ppDeviceConfigOut'),)))
+    win32more.Devices.Tapi.ITLegacyAddressMediaControl
     return ITLegacyAddressMediaControl2
 def _define_ITLegacyCallMediaControl_head():
     class ITLegacyCallMediaControl(win32more.System.Com.IDispatch_head):
@@ -3614,6 +3641,7 @@ def _define_ITLegacyCallMediaControl():
     ITLegacyCallMediaControl.GetID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(9, 'GetID', ((1, 'pDeviceClass'),(1, 'pdwSize'),(1, 'ppDeviceID'),)))
     ITLegacyCallMediaControl.SetMediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'SetMediaType', ((1, 'lMediaType'),)))
     ITLegacyCallMediaControl.MonitorMedia = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'MonitorMedia', ((1, 'lMediaType'),)))
+    win32more.System.Com.IDispatch
     return ITLegacyCallMediaControl
 def _define_ITLegacyCallMediaControl2_head():
     class ITLegacyCallMediaControl2(win32more.Devices.Tapi.ITLegacyCallMediaControl_head):
@@ -3631,6 +3659,7 @@ def _define_ITLegacyCallMediaControl2():
     ITLegacyCallMediaControl2.CreateDetectToneObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITDetectTone_head), use_last_error=False)(19, 'CreateDetectToneObject', ((1, 'ppDetectTone'),)))
     ITLegacyCallMediaControl2.CreateCustomToneObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCustomTone_head), use_last_error=False)(20, 'CreateCustomToneObject', ((1, 'ppCustomTone'),)))
     ITLegacyCallMediaControl2.GetIDAsVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(21, 'GetIDAsVariant', ((1, 'bstrDeviceClass'),(1, 'pVarDeviceID'),)))
+    win32more.Devices.Tapi.ITLegacyCallMediaControl
     return ITLegacyCallMediaControl2
 def _define_ITDetectTone_head():
     class ITDetectTone(win32more.System.Com.IDispatch_head):
@@ -3644,6 +3673,7 @@ def _define_ITDetectTone():
     ITDetectTone.put_Duration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_Duration', ((1, 'lDuration'),)))
     ITDetectTone.get_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(11, 'get_Frequency', ((1, 'Index'),(1, 'plFrequency'),)))
     ITDetectTone.put_Frequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(12, 'put_Frequency', ((1, 'Index'),(1, 'lFrequency'),)))
+    win32more.System.Com.IDispatch
     return ITDetectTone
 def _define_ITCustomTone_head():
     class ITCustomTone(win32more.System.Com.IDispatch_head):
@@ -3659,6 +3689,7 @@ def _define_ITCustomTone():
     ITCustomTone.put_CadenceOff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'put_CadenceOff', ((1, 'lCadenceOff'),)))
     ITCustomTone.get_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_Volume', ((1, 'plVolume'),)))
     ITCustomTone.put_Volume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(14, 'put_Volume', ((1, 'lVolume'),)))
+    win32more.System.Com.IDispatch
     return ITCustomTone
 def _define_IEnumPhone_head():
     class IEnumPhone(win32more.System.Com.IUnknown_head):
@@ -3670,6 +3701,7 @@ def _define_IEnumPhone():
     IEnumPhone.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumPhone.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumPhone.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPhone_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumPhone
 def _define_IEnumTerminal_head():
     class IEnumTerminal(win32more.System.Com.IUnknown_head):
@@ -3681,6 +3713,7 @@ def _define_IEnumTerminal():
     IEnumTerminal.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumTerminal.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumTerminal.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumTerminal
 def _define_IEnumTerminalClass_head():
     class IEnumTerminalClass(win32more.System.Com.IUnknown_head):
@@ -3692,6 +3725,7 @@ def _define_IEnumTerminalClass():
     IEnumTerminalClass.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumTerminalClass.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumTerminalClass.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminalClass_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumTerminalClass
 def _define_IEnumCall_head():
     class IEnumCall(win32more.System.Com.IUnknown_head):
@@ -3703,6 +3737,7 @@ def _define_IEnumCall():
     IEnumCall.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumCall.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumCall.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCall_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumCall
 def _define_IEnumAddress_head():
     class IEnumAddress(win32more.System.Com.IUnknown_head):
@@ -3714,6 +3749,7 @@ def _define_IEnumAddress():
     IEnumAddress.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumAddress.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumAddress.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumAddress
 def _define_IEnumCallHub_head():
     class IEnumCallHub(win32more.System.Com.IUnknown_head):
@@ -3725,6 +3761,7 @@ def _define_IEnumCallHub():
     IEnumCallHub.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumCallHub.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumCallHub.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallHub_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumCallHub
 def _define_IEnumBstr_head():
     class IEnumBstr(win32more.System.Com.IUnknown_head):
@@ -3736,6 +3773,7 @@ def _define_IEnumBstr():
     IEnumBstr.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumBstr.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumBstr.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumBstr
 def _define_IEnumPluggableTerminalClassInfo_head():
     class IEnumPluggableTerminalClassInfo(win32more.System.Com.IUnknown_head):
@@ -3747,6 +3785,7 @@ def _define_IEnumPluggableTerminalClassInfo():
     IEnumPluggableTerminalClassInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumPluggableTerminalClassInfo.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumPluggableTerminalClassInfo.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPluggableTerminalClassInfo_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumPluggableTerminalClassInfo
 def _define_IEnumPluggableSuperclassInfo_head():
     class IEnumPluggableSuperclassInfo(win32more.System.Com.IUnknown_head):
@@ -3758,6 +3797,7 @@ def _define_IEnumPluggableSuperclassInfo():
     IEnumPluggableSuperclassInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumPluggableSuperclassInfo.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumPluggableSuperclassInfo.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumPluggableSuperclassInfo_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumPluggableSuperclassInfo
 def _define_ITPhoneEvent_head():
     class ITPhoneEvent(win32more.System.Com.IDispatch_head):
@@ -3774,6 +3814,7 @@ def _define_ITPhoneEvent():
     ITPhoneEvent.get_ButtonLampId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_ButtonLampId', ((1, 'plButtonLampId'),)))
     ITPhoneEvent.get_NumberGathered = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_NumberGathered', ((1, 'ppNumber'),)))
     ITPhoneEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(15, 'get_Call', ((1, 'ppCallInfo'),)))
+    win32more.System.Com.IDispatch
     return ITPhoneEvent
 def _define_ITCallStateEvent_head():
     class ITCallStateEvent(win32more.System.Com.IDispatch_head):
@@ -3785,6 +3826,7 @@ def _define_ITCallStateEvent():
     ITCallStateEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_STATE), use_last_error=False)(8, 'get_State', ((1, 'pCallState'),)))
     ITCallStateEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_STATE_EVENT_CAUSE), use_last_error=False)(9, 'get_Cause', ((1, 'pCEC'),)))
     ITCallStateEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
     return ITCallStateEvent
 def _define_ITPhoneDeviceSpecificEvent_head():
     class ITPhoneDeviceSpecificEvent(win32more.System.Com.IDispatch_head):
@@ -3796,6 +3838,7 @@ def _define_ITPhoneDeviceSpecificEvent():
     ITPhoneDeviceSpecificEvent.get_lParam1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_lParam1', ((1, 'pParam1'),)))
     ITPhoneDeviceSpecificEvent.get_lParam2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_lParam2', ((1, 'pParam2'),)))
     ITPhoneDeviceSpecificEvent.get_lParam3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_lParam3', ((1, 'pParam3'),)))
+    win32more.System.Com.IDispatch
     return ITPhoneDeviceSpecificEvent
 def _define_ITCallMediaEvent_head():
     class ITCallMediaEvent(win32more.System.Com.IDispatch_head):
@@ -3809,6 +3852,7 @@ def _define_ITCallMediaEvent():
     ITCallMediaEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(10, 'get_Terminal', ((1, 'ppTerminal'),)))
     ITCallMediaEvent.get_Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITStream_head), use_last_error=False)(11, 'get_Stream', ((1, 'ppStream'),)))
     ITCallMediaEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_MEDIA_EVENT_CAUSE), use_last_error=False)(12, 'get_Cause', ((1, 'pCause'),)))
+    win32more.System.Com.IDispatch
     return ITCallMediaEvent
 def _define_ITDigitDetectionEvent_head():
     class ITDigitDetectionEvent(win32more.System.Com.IDispatch_head):
@@ -3821,6 +3865,7 @@ def _define_ITDigitDetectionEvent():
     ITDigitDetectionEvent.get_DigitMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_DigitMode', ((1, 'pDigitMode'),)))
     ITDigitDetectionEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_TickCount', ((1, 'plTickCount'),)))
     ITDigitDetectionEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
     return ITDigitDetectionEvent
 def _define_ITDigitGenerationEvent_head():
     class ITDigitGenerationEvent(win32more.System.Com.IDispatch_head):
@@ -3832,6 +3877,7 @@ def _define_ITDigitGenerationEvent():
     ITDigitGenerationEvent.get_GenerationTermination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_GenerationTermination', ((1, 'plGenerationTermination'),)))
     ITDigitGenerationEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_TickCount', ((1, 'plTickCount'),)))
     ITDigitGenerationEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
     return ITDigitGenerationEvent
 def _define_ITDigitsGatheredEvent_head():
     class ITDigitsGatheredEvent(win32more.System.Com.IDispatch_head):
@@ -3844,6 +3890,7 @@ def _define_ITDigitsGatheredEvent():
     ITDigitsGatheredEvent.get_GatherTermination = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPI_GATHERTERM), use_last_error=False)(9, 'get_GatherTermination', ((1, 'pGatherTermination'),)))
     ITDigitsGatheredEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_TickCount', ((1, 'plTickCount'),)))
     ITDigitsGatheredEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
     return ITDigitsGatheredEvent
 def _define_ITToneDetectionEvent_head():
     class ITToneDetectionEvent(win32more.System.Com.IDispatch_head):
@@ -3855,6 +3902,7 @@ def _define_ITToneDetectionEvent():
     ITToneDetectionEvent.get_AppSpecific = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_AppSpecific', ((1, 'plAppSpecific'),)))
     ITToneDetectionEvent.get_TickCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_TickCount', ((1, 'plTickCount'),)))
     ITToneDetectionEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
     return ITToneDetectionEvent
 def _define_ITTAPIObjectEvent_head():
     class ITTAPIObjectEvent(win32more.System.Com.IDispatch_head):
@@ -3866,6 +3914,7 @@ def _define_ITTAPIObjectEvent():
     ITTAPIObjectEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TAPIOBJECT_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
     ITTAPIObjectEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head), use_last_error=False)(9, 'get_Address', ((1, 'ppAddress'),)))
     ITTAPIObjectEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
     return ITTAPIObjectEvent
 def _define_ITTAPIObjectEvent2_head():
     class ITTAPIObjectEvent2(win32more.Devices.Tapi.ITTAPIObjectEvent_head):
@@ -3874,6 +3923,7 @@ def _define_ITTAPIObjectEvent2_head():
 def _define_ITTAPIObjectEvent2():
     ITTAPIObjectEvent2 = win32more.Devices.Tapi.ITTAPIObjectEvent2_head
     ITTAPIObjectEvent2.get_Phone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITPhone_head), use_last_error=False)(11, 'get_Phone', ((1, 'ppPhone'),)))
+    win32more.Devices.Tapi.ITTAPIObjectEvent
     return ITTAPIObjectEvent2
 def _define_ITTAPIEventNotification_head():
     class ITTAPIEventNotification(win32more.System.Com.IUnknown_head):
@@ -3882,6 +3932,7 @@ def _define_ITTAPIEventNotification_head():
 def _define_ITTAPIEventNotification():
     ITTAPIEventNotification = win32more.Devices.Tapi.ITTAPIEventNotification_head
     ITTAPIEventNotification.Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.TAPI_EVENT,win32more.System.Com.IDispatch_head, use_last_error=False)(3, 'Event', ((1, 'TapiEvent'),(1, 'pEvent'),)))
+    win32more.System.Com.IUnknown
     return ITTAPIEventNotification
 def _define_ITCallHubEvent_head():
     class ITCallHubEvent(win32more.System.Com.IDispatch_head):
@@ -3892,6 +3943,7 @@ def _define_ITCallHubEvent():
     ITCallHubEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALLHUB_EVENT), use_last_error=False)(7, 'get_Event', ((1, 'pEvent'),)))
     ITCallHubEvent.get_CallHub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallHub_head), use_last_error=False)(8, 'get_CallHub', ((1, 'ppCallHub'),)))
     ITCallHubEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(9, 'get_Call', ((1, 'ppCall'),)))
+    win32more.System.Com.IDispatch
     return ITCallHubEvent
 def _define_ITAddressEvent_head():
     class ITAddressEvent(win32more.System.Com.IDispatch_head):
@@ -3902,6 +3954,7 @@ def _define_ITAddressEvent():
     ITAddressEvent.get_Address = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAddress_head), use_last_error=False)(7, 'get_Address', ((1, 'ppAddress'),)))
     ITAddressEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ADDRESS_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
     ITAddressEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(9, 'get_Terminal', ((1, 'ppTerminal'),)))
+    win32more.System.Com.IDispatch
     return ITAddressEvent
 def _define_ITAddressDeviceSpecificEvent_head():
     class ITAddressDeviceSpecificEvent(win32more.System.Com.IDispatch_head):
@@ -3914,6 +3967,7 @@ def _define_ITAddressDeviceSpecificEvent():
     ITAddressDeviceSpecificEvent.get_lParam1 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_lParam1', ((1, 'pParam1'),)))
     ITAddressDeviceSpecificEvent.get_lParam2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_lParam2', ((1, 'pParam2'),)))
     ITAddressDeviceSpecificEvent.get_lParam3 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_lParam3', ((1, 'pParam3'),)))
+    win32more.System.Com.IDispatch
     return ITAddressDeviceSpecificEvent
 def _define_ITFileTerminalEvent_head():
     class ITFileTerminalEvent(win32more.System.Com.IDispatch_head):
@@ -3927,6 +3981,7 @@ def _define_ITFileTerminalEvent():
     ITFileTerminalEvent.get_State = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.TERMINAL_MEDIA_STATE), use_last_error=False)(10, 'get_State', ((1, 'pState'),)))
     ITFileTerminalEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.FT_STATE_EVENT_CAUSE), use_last_error=False)(11, 'get_Cause', ((1, 'pCause'),)))
     ITFileTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(12, 'get_Error', ((1, 'phrErrorCode'),)))
+    win32more.System.Com.IDispatch
     return ITFileTerminalEvent
 def _define_ITTTSTerminalEvent_head():
     class ITTTSTerminalEvent(win32more.System.Com.IDispatch_head):
@@ -3937,6 +3992,7 @@ def _define_ITTTSTerminalEvent():
     ITTTSTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(7, 'get_Terminal', ((1, 'ppTerminal'),)))
     ITTTSTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(8, 'get_Call', ((1, 'ppCall'),)))
     ITTTSTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(9, 'get_Error', ((1, 'phrErrorCode'),)))
+    win32more.System.Com.IDispatch
     return ITTTSTerminalEvent
 def _define_ITASRTerminalEvent_head():
     class ITASRTerminalEvent(win32more.System.Com.IDispatch_head):
@@ -3947,6 +4003,7 @@ def _define_ITASRTerminalEvent():
     ITASRTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(7, 'get_Terminal', ((1, 'ppTerminal'),)))
     ITASRTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(8, 'get_Call', ((1, 'ppCall'),)))
     ITASRTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(9, 'get_Error', ((1, 'phrErrorCode'),)))
+    win32more.System.Com.IDispatch
     return ITASRTerminalEvent
 def _define_ITToneTerminalEvent_head():
     class ITToneTerminalEvent(win32more.System.Com.IDispatch_head):
@@ -3957,6 +4014,7 @@ def _define_ITToneTerminalEvent():
     ITToneTerminalEvent.get_Terminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(7, 'get_Terminal', ((1, 'ppTerminal'),)))
     ITToneTerminalEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(8, 'get_Call', ((1, 'ppCall'),)))
     ITToneTerminalEvent.get_Error = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(9, 'get_Error', ((1, 'phrErrorCode'),)))
+    win32more.System.Com.IDispatch
     return ITToneTerminalEvent
 def _define_ITQOSEvent_head():
     class ITQOSEvent(win32more.System.Com.IDispatch_head):
@@ -3967,6 +4025,7 @@ def _define_ITQOSEvent():
     ITQOSEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCall'),)))
     ITQOSEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.QOS_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pQosEvent'),)))
     ITQOSEvent.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_MediaType', ((1, 'plMediaType'),)))
+    win32more.System.Com.IDispatch
     return ITQOSEvent
 def _define_ITCallInfoChangeEvent_head():
     class ITCallInfoChangeEvent(win32more.System.Com.IDispatch_head):
@@ -3977,6 +4036,7 @@ def _define_ITCallInfoChangeEvent():
     ITCallInfoChangeEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCall'),)))
     ITCallInfoChangeEvent.get_Cause = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALLINFOCHANGE_CAUSE), use_last_error=False)(8, 'get_Cause', ((1, 'pCIC'),)))
     ITCallInfoChangeEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
     return ITCallInfoChangeEvent
 def _define_ITRequest_head():
     class ITRequest(win32more.System.Com.IDispatch_head):
@@ -3985,6 +4045,7 @@ def _define_ITRequest_head():
 def _define_ITRequest():
     ITRequest = win32more.Devices.Tapi.ITRequest_head
     ITRequest.MakeCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(7, 'MakeCall', ((1, 'pDestAddress'),(1, 'pAppName'),(1, 'pCalledParty'),(1, 'pComment'),)))
+    win32more.System.Com.IDispatch
     return ITRequest
 def _define_ITRequestEvent_head():
     class ITRequestEvent(win32more.System.Com.IDispatch_head):
@@ -3998,6 +4059,7 @@ def _define_ITRequestEvent():
     ITRequestEvent.get_AppName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_AppName', ((1, 'ppAppName'),)))
     ITRequestEvent.get_CalledParty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_CalledParty', ((1, 'ppCalledParty'),)))
     ITRequestEvent.get_Comment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_Comment', ((1, 'ppComment'),)))
+    win32more.System.Com.IDispatch
     return ITRequestEvent
 def _define_ITCollection_head():
     class ITCollection(win32more.System.Com.IDispatch_head):
@@ -4008,6 +4070,7 @@ def _define_ITCollection():
     ITCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'lCount'),)))
     ITCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_Item', ((1, 'Index'),(1, 'pVariant'),)))
     ITCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'ppNewEnum'),)))
+    win32more.System.Com.IDispatch
     return ITCollection
 def _define_ITCollection2_head():
     class ITCollection2(win32more.Devices.Tapi.ITCollection_head):
@@ -4017,6 +4080,7 @@ def _define_ITCollection2():
     ITCollection2 = win32more.Devices.Tapi.ITCollection2_head
     ITCollection2.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'Add', ((1, 'Index'),(1, 'pVariant'),)))
     ITCollection2.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'Index'),)))
+    win32more.Devices.Tapi.ITCollection
     return ITCollection2
 def _define_ITForwardInformation_head():
     class ITForwardInformation(win32more.System.Com.IDispatch_head):
@@ -4031,6 +4095,7 @@ def _define_ITForwardInformation():
     ITForwardInformation.get_ForwardTypeCaller = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_ForwardTypeCaller', ((1, 'Forwardtype'),(1, 'ppCallerAddress'),)))
     ITForwardInformation.GetForwardType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR),POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'GetForwardType', ((1, 'ForwardType'),(1, 'ppDestinationAddress'),(1, 'ppCallerAddress'),)))
     ITForwardInformation.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Clear', ()))
+    win32more.System.Com.IDispatch
     return ITForwardInformation
 def _define_ITForwardInformation2_head():
     class ITForwardInformation2(win32more.Devices.Tapi.ITForwardInformation_head):
@@ -4042,6 +4107,7 @@ def _define_ITForwardInformation2():
     ITForwardInformation2.GetForwardType2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.BSTR),POINTER(Int32),POINTER(win32more.Foundation.BSTR),POINTER(Int32), use_last_error=False)(15, 'GetForwardType2', ((1, 'ForwardType'),(1, 'ppDestinationAddress'),(1, 'pDestAddressType'),(1, 'ppCallerAddress'),(1, 'pCallerAddressType'),)))
     ITForwardInformation2.get_ForwardTypeDestinationAddressType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(16, 'get_ForwardTypeDestinationAddressType', ((1, 'ForwardType'),(1, 'pDestAddressType'),)))
     ITForwardInformation2.get_ForwardTypeCallerAddressType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(17, 'get_ForwardTypeCallerAddressType', ((1, 'Forwardtype'),(1, 'pCallerAddressType'),)))
+    win32more.Devices.Tapi.ITForwardInformation
     return ITForwardInformation2
 def _define_ITAddressTranslation_head():
     class ITAddressTranslation(win32more.System.Com.IDispatch_head):
@@ -4055,6 +4121,7 @@ def _define_ITAddressTranslation():
     ITAddressTranslation.get_Locations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_Locations', ((1, 'pVariant'),)))
     ITAddressTranslation.EnumerateCallingCards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallingCard_head), use_last_error=False)(11, 'EnumerateCallingCards', ((1, 'ppEnumCallingCard'),)))
     ITAddressTranslation.get_CallingCards = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_CallingCards', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
     return ITAddressTranslation
 def _define_ITAddressTranslationInfo_head():
     class ITAddressTranslationInfo(win32more.System.Com.IDispatch_head):
@@ -4067,6 +4134,7 @@ def _define_ITAddressTranslationInfo():
     ITAddressTranslationInfo.get_CurrentCountryCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_CurrentCountryCode', ((1, 'CountryCode'),)))
     ITAddressTranslationInfo.get_DestinationCountryCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_DestinationCountryCode', ((1, 'CountryCode'),)))
     ITAddressTranslationInfo.get_TranslationResults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_TranslationResults', ((1, 'plResults'),)))
+    win32more.System.Com.IDispatch
     return ITAddressTranslationInfo
 def _define_ITLocationInfo_head():
     class ITLocationInfo(win32more.System.Com.IDispatch_head):
@@ -4085,6 +4153,7 @@ def _define_ITLocationInfo():
     ITLocationInfo.get_LongDistanceAccessCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'get_LongDistanceAccessCode', ((1, 'ppCode'),)))
     ITLocationInfo.get_TollPrefixList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_TollPrefixList', ((1, 'ppTollList'),)))
     ITLocationInfo.get_CancelCallWaitingCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_CancelCallWaitingCode', ((1, 'ppCode'),)))
+    win32more.System.Com.IDispatch
     return ITLocationInfo
 def _define_IEnumLocation_head():
     class IEnumLocation(win32more.System.Com.IUnknown_head):
@@ -4096,6 +4165,7 @@ def _define_IEnumLocation():
     IEnumLocation.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumLocation.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumLocation.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumLocation_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumLocation
 def _define_ITCallingCard_head():
     class ITCallingCard(win32more.System.Com.IDispatch_head):
@@ -4110,6 +4180,7 @@ def _define_ITCallingCard():
     ITCallingCard.get_SameAreaDialingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_SameAreaDialingRule', ((1, 'ppRule'),)))
     ITCallingCard.get_LongDistanceDialingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_LongDistanceDialingRule', ((1, 'ppRule'),)))
     ITCallingCard.get_InternationalDialingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_InternationalDialingRule', ((1, 'ppRule'),)))
+    win32more.System.Com.IDispatch
     return ITCallingCard
 def _define_IEnumCallingCard_head():
     class IEnumCallingCard(win32more.System.Com.IUnknown_head):
@@ -4121,6 +4192,7 @@ def _define_IEnumCallingCard():
     IEnumCallingCard.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumCallingCard.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumCallingCard.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumCallingCard_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumCallingCard
 def _define_ITCallNotificationEvent_head():
     class ITCallNotificationEvent(win32more.System.Com.IDispatch_head):
@@ -4131,6 +4203,7 @@ def _define_ITCallNotificationEvent():
     ITCallNotificationEvent.get_Call = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITCallInfo_head), use_last_error=False)(7, 'get_Call', ((1, 'ppCall'),)))
     ITCallNotificationEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.CALL_NOTIFICATION_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pCallNotificationEvent'),)))
     ITCallNotificationEvent.get_CallbackInstance = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_CallbackInstance', ((1, 'plCallbackInstance'),)))
+    win32more.System.Com.IDispatch
     return ITCallNotificationEvent
 def _define_ITDispatchMapper_head():
     class ITDispatchMapper(win32more.System.Com.IDispatch_head):
@@ -4139,6 +4212,7 @@ def _define_ITDispatchMapper_head():
 def _define_ITDispatchMapper():
     ITDispatchMapper = win32more.Devices.Tapi.ITDispatchMapper_head
     ITDispatchMapper.QueryDispatchInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'QueryDispatchInterface', ((1, 'pIID'),(1, 'pInterfaceToMap'),(1, 'ppReturnedInterface'),)))
+    win32more.System.Com.IDispatch
     return ITDispatchMapper
 def _define_ITStreamControl_head():
     class ITStreamControl(win32more.System.Com.IDispatch_head):
@@ -4150,6 +4224,7 @@ def _define_ITStreamControl():
     ITStreamControl.RemoveStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITStream_head, use_last_error=False)(8, 'RemoveStream', ((1, 'pStream'),)))
     ITStreamControl.EnumerateStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumStream_head), use_last_error=False)(9, 'EnumerateStreams', ((1, 'ppEnumStream'),)))
     ITStreamControl.get_Streams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_Streams', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
     return ITStreamControl
 def _define_ITStream_head():
     class ITStream(win32more.System.Com.IDispatch_head):
@@ -4167,6 +4242,7 @@ def _define_ITStream():
     ITStream.UnselectTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(14, 'UnselectTerminal', ((1, 'pTerminal'),)))
     ITStream.EnumerateTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head), use_last_error=False)(15, 'EnumerateTerminals', ((1, 'ppEnumTerminal'),)))
     ITStream.get_Terminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(16, 'get_Terminals', ((1, 'pTerminals'),)))
+    win32more.System.Com.IDispatch
     return ITStream
 def _define_IEnumStream_head():
     class IEnumStream(win32more.System.Com.IUnknown_head):
@@ -4178,6 +4254,7 @@ def _define_IEnumStream():
     IEnumStream.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumStream.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumStream.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumStream_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumStream
 def _define_ITSubStreamControl_head():
     class ITSubStreamControl(win32more.System.Com.IDispatch_head):
@@ -4189,6 +4266,7 @@ def _define_ITSubStreamControl():
     ITSubStreamControl.RemoveSubStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITSubStream_head, use_last_error=False)(8, 'RemoveSubStream', ((1, 'pSubStream'),)))
     ITSubStreamControl.EnumerateSubStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumSubStream_head), use_last_error=False)(9, 'EnumerateSubStreams', ((1, 'ppEnumSubStream'),)))
     ITSubStreamControl.get_SubStreams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'get_SubStreams', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
     return ITSubStreamControl
 def _define_ITSubStream_head():
     class ITSubStream(win32more.System.Com.IDispatch_head):
@@ -4204,6 +4282,7 @@ def _define_ITSubStream():
     ITSubStream.EnumerateTerminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumTerminal_head), use_last_error=False)(12, 'EnumerateTerminals', ((1, 'ppEnumTerminal'),)))
     ITSubStream.get_Terminals = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_Terminals', ((1, 'pTerminals'),)))
     ITSubStream.get_Stream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITStream_head), use_last_error=False)(14, 'get_Stream', ((1, 'ppITStream'),)))
+    win32more.System.Com.IDispatch
     return ITSubStream
 def _define_IEnumSubStream_head():
     class IEnumSubStream(win32more.System.Com.IUnknown_head):
@@ -4215,6 +4294,7 @@ def _define_IEnumSubStream():
     IEnumSubStream.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumSubStream.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumSubStream.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumSubStream_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumSubStream
 def _define_ITLegacyWaveSupport_head():
     class ITLegacyWaveSupport(win32more.System.Com.IDispatch_head):
@@ -4223,6 +4303,7 @@ def _define_ITLegacyWaveSupport_head():
 def _define_ITLegacyWaveSupport():
     ITLegacyWaveSupport = win32more.Devices.Tapi.ITLegacyWaveSupport_head
     ITLegacyWaveSupport.IsFullDuplex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.FULLDUPLEX_SUPPORT), use_last_error=False)(7, 'IsFullDuplex', ((1, 'pSupport'),)))
+    win32more.System.Com.IDispatch
     return ITLegacyWaveSupport
 def _define_ITBasicCallControl2_head():
     class ITBasicCallControl2(win32more.Devices.Tapi.ITBasicCallControl_head):
@@ -4233,6 +4314,7 @@ def _define_ITBasicCallControl2():
     ITBasicCallControl2.RequestTerminal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Devices.Tapi.TERMINAL_DIRECTION,POINTER(win32more.Devices.Tapi.ITTerminal_head), use_last_error=False)(25, 'RequestTerminal', ((1, 'bstrTerminalClassGUID'),(1, 'lMediaType'),(1, 'Direction'),(1, 'ppTerminal'),)))
     ITBasicCallControl2.SelectTerminalOnCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(26, 'SelectTerminalOnCall', ((1, 'pTerminal'),)))
     ITBasicCallControl2.UnselectTerminalOnCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITTerminal_head, use_last_error=False)(27, 'UnselectTerminalOnCall', ((1, 'pTerminal'),)))
+    win32more.Devices.Tapi.ITBasicCallControl
     return ITBasicCallControl2
 def _define_ITScriptableAudioFormat_head():
     class ITScriptableAudioFormat(win32more.System.Com.IDispatch_head):
@@ -4252,6 +4334,7 @@ def _define_ITScriptableAudioFormat():
     ITScriptableAudioFormat.put_BitsPerSample = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(16, 'put_BitsPerSample', ((1, 'nNewVal'),)))
     ITScriptableAudioFormat.get_FormatTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_FormatTag', ((1, 'pVal'),)))
     ITScriptableAudioFormat.put_FormatTag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(18, 'put_FormatTag', ((1, 'nNewVal'),)))
+    win32more.System.Com.IDispatch
     return ITScriptableAudioFormat
 AGENT_EVENT = Int32
 AE_NOT_READY = 0
@@ -4312,6 +4395,7 @@ def _define_ITAgent():
     ITAgent.get_TotalACDCallTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(21, 'get_TotalACDCallTime', ((1, 'plCallTime'),)))
     ITAgent.get_TotalWrapUpTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_TotalWrapUpTime', ((1, 'plWrapUpTime'),)))
     ITAgent.get_AgentSessions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(23, 'get_AgentSessions', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
     return ITAgent
 def _define_ITAgentSession_head():
     class ITAgentSession(win32more.System.Com.IDispatch_head):
@@ -4336,6 +4420,7 @@ def _define_ITAgentSession():
     ITAgentSession.get_ACDCallRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.CY_head), use_last_error=False)(21, 'get_ACDCallRate', ((1, 'pcyCallrate'),)))
     ITAgentSession.get_LongestTimeToAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'get_LongestTimeToAnswer', ((1, 'plAnswerTime'),)))
     ITAgentSession.get_AverageTimeToAnswer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(23, 'get_AverageTimeToAnswer', ((1, 'plAnswerTime'),)))
+    win32more.System.Com.IDispatch
     return ITAgentSession
 def _define_ITACDGroup_head():
     class ITACDGroup(win32more.System.Com.IDispatch_head):
@@ -4346,6 +4431,7 @@ def _define_ITACDGroup():
     ITACDGroup.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'ppName'),)))
     ITACDGroup.EnumerateQueues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumQueue_head), use_last_error=False)(8, 'EnumerateQueues', ((1, 'ppEnumQueue'),)))
     ITACDGroup.get_Queues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'get_Queues', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
     return ITACDGroup
 def _define_ITQueue_head():
     class ITQueue(win32more.System.Com.IDispatch_head):
@@ -4365,6 +4451,7 @@ def _define_ITQueue():
     ITQueue.get_AverageWaitTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_AverageWaitTime', ((1, 'plWaitTime'),)))
     ITQueue.get_FinalDisposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_FinalDisposition', ((1, 'plCalls'),)))
     ITQueue.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_Name', ((1, 'ppName'),)))
+    win32more.System.Com.IDispatch
     return ITQueue
 def _define_ITAgentEvent_head():
     class ITAgentEvent(win32more.System.Com.IDispatch_head):
@@ -4374,6 +4461,7 @@ def _define_ITAgentEvent():
     ITAgentEvent = win32more.Devices.Tapi.ITAgentEvent_head
     ITAgentEvent.get_Agent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgent_head), use_last_error=False)(7, 'get_Agent', ((1, 'ppAgent'),)))
     ITAgentEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
     return ITAgentEvent
 def _define_ITAgentSessionEvent_head():
     class ITAgentSessionEvent(win32more.System.Com.IDispatch_head):
@@ -4383,6 +4471,7 @@ def _define_ITAgentSessionEvent():
     ITAgentSessionEvent = win32more.Devices.Tapi.ITAgentSessionEvent_head
     ITAgentSessionEvent.get_Session = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgentSession_head), use_last_error=False)(7, 'get_Session', ((1, 'ppSession'),)))
     ITAgentSessionEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENT_SESSION_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
     return ITAgentSessionEvent
 def _define_ITACDGroupEvent_head():
     class ITACDGroupEvent(win32more.System.Com.IDispatch_head):
@@ -4392,6 +4481,7 @@ def _define_ITACDGroupEvent():
     ITACDGroupEvent = win32more.Devices.Tapi.ITACDGroupEvent_head
     ITACDGroupEvent.get_Group = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITACDGroup_head), use_last_error=False)(7, 'get_Group', ((1, 'ppGroup'),)))
     ITACDGroupEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ACDGROUP_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
     return ITACDGroupEvent
 def _define_ITQueueEvent_head():
     class ITQueueEvent(win32more.System.Com.IDispatch_head):
@@ -4401,6 +4491,7 @@ def _define_ITQueueEvent():
     ITQueueEvent = win32more.Devices.Tapi.ITQueueEvent_head
     ITQueueEvent.get_Queue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITQueue_head), use_last_error=False)(7, 'get_Queue', ((1, 'ppQueue'),)))
     ITQueueEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ACDQUEUE_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
     return ITQueueEvent
 def _define_ITAgentHandlerEvent_head():
     class ITAgentHandlerEvent(win32more.System.Com.IDispatch_head):
@@ -4410,6 +4501,7 @@ def _define_ITAgentHandlerEvent():
     ITAgentHandlerEvent = win32more.Devices.Tapi.ITAgentHandlerEvent_head
     ITAgentHandlerEvent.get_AgentHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.ITAgentHandler_head), use_last_error=False)(7, 'get_AgentHandler', ((1, 'ppAgentHandler'),)))
     ITAgentHandlerEvent.get_Event = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.AGENTHANDLER_EVENT), use_last_error=False)(8, 'get_Event', ((1, 'pEvent'),)))
+    win32more.System.Com.IDispatch
     return ITAgentHandlerEvent
 def _define_ITTAPICallCenter_head():
     class ITTAPICallCenter(win32more.System.Com.IDispatch_head):
@@ -4419,6 +4511,7 @@ def _define_ITTAPICallCenter():
     ITTAPICallCenter = win32more.Devices.Tapi.ITTAPICallCenter_head
     ITTAPICallCenter.EnumerateAgentHandlers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentHandler_head), use_last_error=False)(7, 'EnumerateAgentHandlers', ((1, 'ppEnumHandler'),)))
     ITTAPICallCenter.get_AgentHandlers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_AgentHandlers', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
     return ITTAPICallCenter
 def _define_ITAgentHandler_head():
     class ITAgentHandler(win32more.System.Com.IDispatch_head):
@@ -4433,6 +4526,7 @@ def _define_ITAgentHandler():
     ITAgentHandler.EnumerateUsableAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAddress_head), use_last_error=False)(11, 'EnumerateUsableAddresses', ((1, 'ppEnumAddress'),)))
     ITAgentHandler.get_ACDGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(12, 'get_ACDGroups', ((1, 'pVariant'),)))
     ITAgentHandler.get_UsableAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(13, 'get_UsableAddresses', ((1, 'pVariant'),)))
+    win32more.System.Com.IDispatch
     return ITAgentHandler
 def _define_IEnumAgent_head():
     class IEnumAgent(win32more.System.Com.IUnknown_head):
@@ -4444,6 +4538,7 @@ def _define_IEnumAgent():
     IEnumAgent.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumAgent.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumAgent.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgent_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumAgent
 def _define_IEnumAgentSession_head():
     class IEnumAgentSession(win32more.System.Com.IUnknown_head):
@@ -4455,6 +4550,7 @@ def _define_IEnumAgentSession():
     IEnumAgentSession.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumAgentSession.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumAgentSession.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentSession_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumAgentSession
 def _define_IEnumQueue_head():
     class IEnumQueue(win32more.System.Com.IUnknown_head):
@@ -4466,6 +4562,7 @@ def _define_IEnumQueue():
     IEnumQueue.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumQueue.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumQueue.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumQueue_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumQueue
 def _define_IEnumACDGroup_head():
     class IEnumACDGroup(win32more.System.Com.IUnknown_head):
@@ -4477,6 +4574,7 @@ def _define_IEnumACDGroup():
     IEnumACDGroup.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumACDGroup.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumACDGroup.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumACDGroup_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumACDGroup
 def _define_IEnumAgentHandler_head():
     class IEnumAgentHandler(win32more.System.Com.IUnknown_head):
@@ -4488,6 +4586,7 @@ def _define_IEnumAgentHandler():
     IEnumAgentHandler.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumAgentHandler.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumAgentHandler.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumAgentHandler_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumAgentHandler
 def _define_ITAMMediaFormat_head():
     class ITAMMediaFormat(win32more.System.Com.IUnknown_head):
@@ -4497,6 +4596,7 @@ def _define_ITAMMediaFormat():
     ITAMMediaFormat = win32more.Devices.Tapi.ITAMMediaFormat_head
     ITAMMediaFormat.get_MediaFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.DirectShow.AM_MEDIA_TYPE_head)), use_last_error=False)(3, 'get_MediaFormat', ((1, 'ppmt'),)))
     ITAMMediaFormat.put_MediaFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.DirectShow.AM_MEDIA_TYPE_head), use_last_error=False)(4, 'put_MediaFormat', ((1, 'pmt'),)))
+    win32more.System.Com.IUnknown
     return ITAMMediaFormat
 def _define_ITAllocatorProperties_head():
     class ITAllocatorProperties(win32more.System.Com.IUnknown_head):
@@ -4510,6 +4610,7 @@ def _define_ITAllocatorProperties():
     ITAllocatorProperties.GetAllocateBuffers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetAllocateBuffers', ((1, 'pbAllocBuffers'),)))
     ITAllocatorProperties.SetBufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'SetBufferSize', ((1, 'BufferSize'),)))
     ITAllocatorProperties.GetBufferSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetBufferSize', ((1, 'pBufferSize'),)))
+    win32more.System.Com.IUnknown
     return ITAllocatorProperties
 MSP_ADDRESS_EVENT = Int32
 ADDRESS_TERMINAL_AVAILABLE = 0
@@ -4628,6 +4729,7 @@ def _define_ITPluggableTerminalEventSink_head():
 def _define_ITPluggableTerminalEventSink():
     ITPluggableTerminalEventSink = win32more.Devices.Tapi.ITPluggableTerminalEventSink_head
     ITPluggableTerminalEventSink.FireEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.MSP_EVENT_INFO_head), use_last_error=False)(3, 'FireEvent', ((1, 'pMspEventInfo'),)))
+    win32more.System.Com.IUnknown
     return ITPluggableTerminalEventSink
 def _define_ITPluggableTerminalEventSinkRegistration_head():
     class ITPluggableTerminalEventSinkRegistration(win32more.System.Com.IUnknown_head):
@@ -4637,6 +4739,7 @@ def _define_ITPluggableTerminalEventSinkRegistration():
     ITPluggableTerminalEventSinkRegistration = win32more.Devices.Tapi.ITPluggableTerminalEventSinkRegistration_head
     ITPluggableTerminalEventSinkRegistration.RegisterSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITPluggableTerminalEventSink_head, use_last_error=False)(3, 'RegisterSink', ((1, 'pEventSink'),)))
     ITPluggableTerminalEventSinkRegistration.UnregisterSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'UnregisterSink', ()))
+    win32more.System.Com.IUnknown
     return ITPluggableTerminalEventSinkRegistration
 def _define_ITMSPAddress_head():
     class ITMSPAddress(win32more.System.Com.IUnknown_head):
@@ -4650,6 +4753,7 @@ def _define_ITMSPAddress():
     ITMSPAddress.ShutdownMSPCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(6, 'ShutdownMSPCall', ((1, 'pStreamControl'),)))
     ITMSPAddress.ReceiveTSPData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Byte),UInt32, use_last_error=False)(7, 'ReceiveTSPData', ((1, 'pMSPCall'),(1, 'pBuffer'),(1, 'dwSize'),)))
     ITMSPAddress.GetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(Byte), use_last_error=False)(8, 'GetEvent', ((1, 'pdwSize'),(1, 'pEventBuffer'),)))
+    win32more.System.Com.IUnknown
     return ITMSPAddress
 def _define_ITTAPIDispatchEventNotification_head():
     class ITTAPIDispatchEventNotification(win32more.System.Com.IDispatch_head):
@@ -4657,6 +4761,7 @@ def _define_ITTAPIDispatchEventNotification_head():
     return ITTAPIDispatchEventNotification
 def _define_ITTAPIDispatchEventNotification():
     ITTAPIDispatchEventNotification = win32more.Devices.Tapi.ITTAPIDispatchEventNotification_head
+    win32more.System.Com.IDispatch
     return ITTAPIDispatchEventNotification
 Rendezvous = Guid('f1029e5b-cb5b-11d0-8d59-00c04fd91ac0')
 DIRECTORY_TYPE = Int32
@@ -4691,6 +4796,7 @@ def _define_ITDirectoryObjectConference():
     ITDirectoryObjectConference.put_StartTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(19, 'put_StartTime', ((1, 'Date'),)))
     ITDirectoryObjectConference.get_StopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(20, 'get_StopTime', ((1, 'pDate'),)))
     ITDirectoryObjectConference.put_StopTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double, use_last_error=False)(21, 'put_StopTime', ((1, 'Date'),)))
+    win32more.System.Com.IDispatch
     return ITDirectoryObjectConference
 def _define_ITDirectoryObjectUser_head():
     class ITDirectoryObjectUser(win32more.System.Com.IDispatch_head):
@@ -4700,6 +4806,7 @@ def _define_ITDirectoryObjectUser():
     ITDirectoryObjectUser = win32more.Devices.Tapi.ITDirectoryObjectUser_head
     ITDirectoryObjectUser.get_IPPhonePrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_IPPhonePrimary', ((1, 'ppName'),)))
     ITDirectoryObjectUser.put_IPPhonePrimary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_IPPhonePrimary', ((1, 'pName'),)))
+    win32more.System.Com.IDispatch
     return ITDirectoryObjectUser
 def _define_IEnumDialableAddrs_head():
     class IEnumDialableAddrs(win32more.System.Com.IUnknown_head):
@@ -4711,6 +4818,7 @@ def _define_IEnumDialableAddrs():
     IEnumDialableAddrs.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumDialableAddrs.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumDialableAddrs.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDialableAddrs_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDialableAddrs
 def _define_ITDirectoryObject_head():
     class ITDirectoryObject(win32more.System.Com.IDispatch_head):
@@ -4725,6 +4833,7 @@ def _define_ITDirectoryObject():
     ITDirectoryObject.EnumerateDialableAddrs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.Tapi.IEnumDialableAddrs_head), use_last_error=False)(11, 'EnumerateDialableAddrs', ((1, 'dwAddressType'),(1, 'ppEnumDialableAddrs'),)))
     ITDirectoryObject.get_SecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(12, 'get_SecurityDescriptor', ((1, 'ppSecDes'),)))
     ITDirectoryObject.put_SecurityDescriptor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDispatch_head, use_last_error=False)(13, 'put_SecurityDescriptor', ((1, 'pSecDes'),)))
+    win32more.System.Com.IDispatch
     return ITDirectoryObject
 def _define_IEnumDirectoryObject_head():
     class IEnumDirectoryObject(win32more.System.Com.IUnknown_head):
@@ -4736,6 +4845,7 @@ def _define_IEnumDirectoryObject():
     IEnumDirectoryObject.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumDirectoryObject.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumDirectoryObject.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDirectoryObject_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDirectoryObject
 def _define_ITILSConfig_head():
     class ITILSConfig(win32more.System.Com.IDispatch_head):
@@ -4745,6 +4855,7 @@ def _define_ITILSConfig():
     ITILSConfig = win32more.Devices.Tapi.ITILSConfig_head
     ITILSConfig.get_Port = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Port', ((1, 'pPort'),)))
     ITILSConfig.put_Port = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(8, 'put_Port', ((1, 'Port'),)))
+    win32more.System.Com.IDispatch
     return ITILSConfig
 def _define_ITDirectory_head():
     class ITDirectory(win32more.System.Com.IDispatch_head):
@@ -4766,6 +4877,7 @@ def _define_ITDirectory():
     ITDirectory.DeleteDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.ITDirectoryObject_head, use_last_error=False)(18, 'DeleteDirectoryObject', ((1, 'pDirectoryObject'),)))
     ITDirectory.get_DirectoryObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(19, 'get_DirectoryObjects', ((1, 'DirectoryObjectType'),(1, 'pName'),(1, 'pVariant'),)))
     ITDirectory.EnumerateDirectoryObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.IEnumDirectoryObject_head), use_last_error=False)(20, 'EnumerateDirectoryObjects', ((1, 'DirectoryObjectType'),(1, 'pName'),(1, 'ppEnumObject'),)))
+    win32more.System.Com.IDispatch
     return ITDirectory
 def _define_IEnumDirectory_head():
     class IEnumDirectory(win32more.System.Com.IUnknown_head):
@@ -4777,6 +4889,7 @@ def _define_IEnumDirectory():
     IEnumDirectory.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumDirectory.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumDirectory.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDirectory_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumDirectory
 def _define_ITRendezvous_head():
     class ITRendezvous(win32more.System.Com.IDispatch_head):
@@ -4788,6 +4901,7 @@ def _define_ITRendezvous():
     ITRendezvous.EnumerateDefaultDirectories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumDirectory_head), use_last_error=False)(8, 'EnumerateDefaultDirectories', ((1, 'ppEnumDirectory'),)))
     ITRendezvous.CreateDirectory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_TYPE,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITDirectory_head), use_last_error=False)(9, 'CreateDirectory', ((1, 'DirectoryType'),(1, 'pName'),(1, 'ppDir'),)))
     ITRendezvous.CreateDirectoryObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.DIRECTORY_OBJECT_TYPE,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.ITDirectoryObject_head), use_last_error=False)(10, 'CreateDirectoryObject', ((1, 'DirectoryObjectType'),(1, 'pName'),(1, 'ppDirectoryObject'),)))
+    win32more.System.Com.IDispatch
     return ITRendezvous
 McastAddressAllocation = Guid('df0daef2-a289-11d1-8697-006008b0e5d2')
 def _define_IMcastScope_head():
@@ -4801,6 +4915,7 @@ def _define_IMcastScope():
     IMcastScope.get_InterfaceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_InterfaceID', ((1, 'pID'),)))
     IMcastScope.get_ScopeDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_ScopeDescription', ((1, 'ppDescription'),)))
     IMcastScope.get_TTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_TTL', ((1, 'pTTL'),)))
+    win32more.System.Com.IDispatch
     return IMcastScope
 def _define_IMcastLeaseInfo_head():
     class IMcastLeaseInfo(win32more.System.Com.IDispatch_head):
@@ -4818,6 +4933,7 @@ def _define_IMcastLeaseInfo():
     IMcastLeaseInfo.get_TTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_TTL', ((1, 'pTTL'),)))
     IMcastLeaseInfo.get_Addresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(15, 'get_Addresses', ((1, 'pVariant'),)))
     IMcastLeaseInfo.EnumerateAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumBstr_head), use_last_error=False)(16, 'EnumerateAddresses', ((1, 'ppEnumAddresses'),)))
+    win32more.System.Com.IDispatch
     return IMcastLeaseInfo
 def _define_IEnumMcastScope_head():
     class IEnumMcastScope(win32more.System.Com.IUnknown_head):
@@ -4829,6 +4945,7 @@ def _define_IEnumMcastScope():
     IEnumMcastScope.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Reset', ()))
     IEnumMcastScope.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'Skip', ((1, 'celt'),)))
     IEnumMcastScope.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Tapi.IEnumMcastScope_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumMcastScope
 def _define_IMcastAddressAllocation_head():
     class IMcastAddressAllocation(win32more.System.Com.IDispatch_head):
@@ -4843,6 +4960,7 @@ def _define_IMcastAddressAllocation():
     IMcastAddressAllocation.ReleaseAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Tapi.IMcastLeaseInfo_head, use_last_error=False)(11, 'ReleaseAddress', ((1, 'pReleaseRequest'),)))
     IMcastAddressAllocation.CreateLeaseInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,UInt32,POINTER(win32more.Foundation.PWSTR),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head), use_last_error=False)(12, 'CreateLeaseInfo', ((1, 'LeaseStartTime'),(1, 'LeaseStopTime'),(1, 'dwNumAddresses'),(1, 'ppAddresses'),(1, 'pRequestID'),(1, 'pServerAddress'),(1, 'ppReleaseRequest'),)))
     IMcastAddressAllocation.CreateLeaseInfoFromVariant = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,win32more.System.Com.VARIANT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Devices.Tapi.IMcastLeaseInfo_head), use_last_error=False)(13, 'CreateLeaseInfoFromVariant', ((1, 'LeaseStartTime'),(1, 'LeaseStopTime'),(1, 'vAddresses'),(1, 'pRequestID'),(1, 'pServerAddress'),(1, 'ppReleaseRequest'),)))
+    win32more.System.Com.IDispatch
     return IMcastAddressAllocation
 def _define_STnefProblem_head():
     class STnefProblem(Structure):
@@ -4881,6 +4999,7 @@ def _define_ITnef():
     ITnef.SetProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.System.AddressBook.SPropValue_head), use_last_error=False)(7, 'SetProps', ((1, 'ulFlags'),(1, 'ulElemID'),(1, 'cValues'),(1, 'lpProps'),)))
     ITnef.EncodeRecips = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.AddressBook.IMAPITable_head, use_last_error=False)(8, 'EncodeRecips', ((1, 'ulFlags'),(1, 'lpRecipientTable'),)))
     ITnef.FinishComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(win32more.System.AddressBook.SPropValue_head),POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(POINTER(win32more.Devices.Tapi.STnefProblemArray_head)), use_last_error=False)(9, 'FinishComponent', ((1, 'ulFlags'),(1, 'ulComponentID'),(1, 'lpCustomPropList'),(1, 'lpCustomProps'),(1, 'lpPropList'),(1, 'lpProblems'),)))
+    win32more.System.Com.IUnknown
     return ITnef
 def _define_LPOPENTNEFSTREAM():
     return CFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.System.Com.IStream_head,POINTER(SByte),UInt32,win32more.System.AddressBook.IMessage_head,UInt16,POINTER(win32more.Devices.Tapi.ITnef_head), use_last_error=False)

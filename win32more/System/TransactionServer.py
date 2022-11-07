@@ -31,6 +31,7 @@ def _define_ICatalog():
     ICatalog.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(8, 'Connect', ((1, 'bstrConnectString'),(1, 'ppCatalogCollection'),)))
     ICatalog.get_MajorVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_MajorVersion', ((1, 'retval'),)))
     ICatalog.get_MinorVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_MinorVersion', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return ICatalog
 def _define_IComponentUtil_head():
     class IComponentUtil(win32more.System.Com.IDispatch_head):
@@ -42,6 +43,7 @@ def _define_IComponentUtil():
     IComponentUtil.ImportComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'ImportComponent', ((1, 'bstrCLSID'),)))
     IComponentUtil.ImportComponentByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'ImportComponentByName', ((1, 'bstrProgID'),)))
     IComponentUtil.GetCLSIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(10, 'GetCLSIDs', ((1, 'bstrDLLFile'),(1, 'bstrTypelibFile'),(1, 'aCLSIDs'),)))
+    win32more.System.Com.IDispatch
     return IComponentUtil
 def _define_IPackageUtil_head():
     class IPackageUtil(win32more.System.Com.IDispatch_head):
@@ -52,6 +54,7 @@ def _define_IPackageUtil():
     IPackageUtil.InstallPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32, use_last_error=False)(7, 'InstallPackage', ((1, 'bstrPackageFile'),(1, 'bstrInstallPath'),(1, 'lOptions'),)))
     IPackageUtil.ExportPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32, use_last_error=False)(8, 'ExportPackage', ((1, 'bstrPackageID'),(1, 'bstrPackageFile'),(1, 'lOptions'),)))
     IPackageUtil.ShutdownPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'ShutdownPackage', ((1, 'bstrPackageID'),)))
+    win32more.System.Com.IDispatch
     return IPackageUtil
 def _define_IRemoteComponentUtil_head():
     class IRemoteComponentUtil(win32more.System.Com.IDispatch_head):
@@ -61,6 +64,7 @@ def _define_IRemoteComponentUtil():
     IRemoteComponentUtil = win32more.System.TransactionServer.IRemoteComponentUtil_head
     IRemoteComponentUtil.InstallRemoteComponent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(7, 'InstallRemoteComponent', ((1, 'bstrServer'),(1, 'bstrPackageID'),(1, 'bstrCLSID'),)))
     IRemoteComponentUtil.InstallRemoteComponentByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(8, 'InstallRemoteComponentByName', ((1, 'bstrServer'),(1, 'bstrPackageName'),(1, 'bstrProgID'),)))
+    win32more.System.Com.IDispatch
     return IRemoteComponentUtil
 def _define_IRoleAssociationUtil_head():
     class IRoleAssociationUtil(win32more.System.Com.IDispatch_head):
@@ -70,6 +74,7 @@ def _define_IRoleAssociationUtil():
     IRoleAssociationUtil = win32more.System.TransactionServer.IRoleAssociationUtil_head
     IRoleAssociationUtil.AssociateRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(7, 'AssociateRole', ((1, 'bstrRoleID'),)))
     IRoleAssociationUtil.AssociateRoleByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'AssociateRoleByName', ((1, 'bstrRoleName'),)))
+    win32more.System.Com.IDispatch
     return IRoleAssociationUtil
 __MIDL___MIDL_itf_mtxadmin_0107_0001 = Int32
 __MIDL___MIDL_itf_mtxadmin_0107_0001_mtsInstallUsers = 1

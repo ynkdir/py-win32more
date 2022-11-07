@@ -6874,6 +6874,7 @@ def _define_ICcgDomainAuthCredentials_head():
 def _define_ICcgDomainAuthCredentials():
     ICcgDomainAuthCredentials = win32more.Security.Authentication.Identity.ICcgDomainAuthCredentials_head
     ICcgDomainAuthCredentials.GetPasswordCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetPasswordCredentials', ((1, 'pluginInput'),(1, 'domainName'),(1, 'username'),(1, 'password'),)))
+    win32more.System.Com.IUnknown
     return ICcgDomainAuthCredentials
 def _define_LsaRegisterLogonProcess():
     try:

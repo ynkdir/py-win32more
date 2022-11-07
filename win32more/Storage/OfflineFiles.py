@@ -316,6 +316,7 @@ def _define_IOfflineFilesEvents():
     IOfflineFilesEvents.ItemRenamed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Storage.OfflineFiles.OFFLINEFILES_ITEM_TYPE, use_last_error=False)(25, 'ItemRenamed', ((1, 'pszOldPath'),(1, 'pszNewPath'),(1, 'ItemType'),)))
     IOfflineFilesEvents.DataLost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(26, 'DataLost', ()))
     IOfflineFilesEvents.Ping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(27, 'Ping', ()))
+    win32more.System.Com.IUnknown
     return IOfflineFilesEvents
 def _define_IOfflineFilesEvents2_head():
     class IOfflineFilesEvents2(win32more.Storage.OfflineFiles.IOfflineFilesEvents_head):
@@ -332,6 +333,7 @@ def _define_IOfflineFilesEvents2():
     IOfflineFilesEvents2.PolicyChangeDetected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(34, 'PolicyChangeDetected', ()))
     IOfflineFilesEvents2.PreferenceChangeDetected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(35, 'PreferenceChangeDetected', ()))
     IOfflineFilesEvents2.SettingsChangesApplied = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(36, 'SettingsChangesApplied', ()))
+    win32more.Storage.OfflineFiles.IOfflineFilesEvents
     return IOfflineFilesEvents2
 def _define_IOfflineFilesEvents3_head():
     class IOfflineFilesEvents3(win32more.Storage.OfflineFiles.IOfflineFilesEvents2_head):
@@ -342,6 +344,7 @@ def _define_IOfflineFilesEvents3():
     IOfflineFilesEvents3.TransparentCacheItemNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Storage.OfflineFiles.OFFLINEFILES_EVENTS,win32more.Storage.OfflineFiles.OFFLINEFILES_ITEM_TYPE,win32more.Foundation.BOOL,win32more.Foundation.BOOL,win32more.Foundation.PWSTR, use_last_error=False)(37, 'TransparentCacheItemNotify', ((1, 'pszPath'),(1, 'EventType'),(1, 'ItemType'),(1, 'bModifiedData'),(1, 'bModifiedAttributes'),(1, 'pzsOldPath'),)))
     IOfflineFilesEvents3.PrefetchFileBegin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(38, 'PrefetchFileBegin', ((1, 'pszPath'),)))
     IOfflineFilesEvents3.PrefetchFileEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.HRESULT, use_last_error=False)(39, 'PrefetchFileEnd', ((1, 'pszPath'),(1, 'hrResult'),)))
+    win32more.Storage.OfflineFiles.IOfflineFilesEvents2
     return IOfflineFilesEvents3
 def _define_IOfflineFilesEvents4_head():
     class IOfflineFilesEvents4(win32more.Storage.OfflineFiles.IOfflineFilesEvents3_head):
@@ -351,6 +354,7 @@ def _define_IOfflineFilesEvents4():
     IOfflineFilesEvents4 = win32more.Storage.OfflineFiles.IOfflineFilesEvents4_head
     IOfflineFilesEvents4.PrefetchCloseHandleBegin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(40, 'PrefetchCloseHandleBegin', ()))
     IOfflineFilesEvents4.PrefetchCloseHandleEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.HRESULT, use_last_error=False)(41, 'PrefetchCloseHandleEnd', ((1, 'dwClosedHandleCount'),(1, 'dwOpenHandleCount'),(1, 'hrResult'),)))
+    win32more.Storage.OfflineFiles.IOfflineFilesEvents3
     return IOfflineFilesEvents4
 def _define_IOfflineFilesEventsFilter_head():
     class IOfflineFilesEventsFilter(win32more.System.Com.IUnknown_head):
@@ -361,6 +365,7 @@ def _define_IOfflineFilesEventsFilter():
     IOfflineFilesEventsFilter.GetPathFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_PATHFILTER_MATCH), use_last_error=False)(3, 'GetPathFilter', ((1, 'ppszFilter'),(1, 'pMatch'),)))
     IOfflineFilesEventsFilter.GetIncludedEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_EVENTS),POINTER(UInt32), use_last_error=False)(4, 'GetIncludedEvents', ((1, 'cElements'),(1, 'prgEvents'),(1, 'pcEvents'),)))
     IOfflineFilesEventsFilter.GetExcludedEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_EVENTS),POINTER(UInt32), use_last_error=False)(5, 'GetExcludedEvents', ((1, 'cElements'),(1, 'prgEvents'),(1, 'pcEvents'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesEventsFilter
 def _define_IOfflineFilesErrorInfo_head():
     class IOfflineFilesErrorInfo(win32more.System.Com.IUnknown_head):
@@ -370,6 +375,7 @@ def _define_IOfflineFilesErrorInfo():
     IOfflineFilesErrorInfo = win32more.Storage.OfflineFiles.IOfflineFilesErrorInfo_head
     IOfflineFilesErrorInfo.GetRawData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.BYTE_BLOB_head)), use_last_error=False)(3, 'GetRawData', ((1, 'ppBlob'),)))
     IOfflineFilesErrorInfo.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetDescription', ((1, 'ppszDescription'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesErrorInfo
 def _define_IOfflineFilesSyncErrorItemInfo_head():
     class IOfflineFilesSyncErrorItemInfo(win32more.System.Com.IUnknown_head):
@@ -380,6 +386,7 @@ def _define_IOfflineFilesSyncErrorItemInfo():
     IOfflineFilesSyncErrorItemInfo.GetFileAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetFileAttributes', ((1, 'pdwAttributes'),)))
     IOfflineFilesSyncErrorItemInfo.GetFileTimes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(4, 'GetFileTimes', ((1, 'pftLastWrite'),(1, 'pftChange'),)))
     IOfflineFilesSyncErrorItemInfo.GetFileSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.LARGE_INTEGER_head), use_last_error=False)(5, 'GetFileSize', ((1, 'pSize'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesSyncErrorItemInfo
 def _define_IOfflineFilesSyncErrorInfo_head():
     class IOfflineFilesSyncErrorInfo(win32more.Storage.OfflineFiles.IOfflineFilesErrorInfo_head):
@@ -394,6 +401,7 @@ def _define_IOfflineFilesSyncErrorInfo():
     IOfflineFilesSyncErrorInfo.GetLocalInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.IOfflineFilesSyncErrorItemInfo_head), use_last_error=False)(9, 'GetLocalInfo', ((1, 'ppInfo'),)))
     IOfflineFilesSyncErrorInfo.GetRemoteInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.IOfflineFilesSyncErrorItemInfo_head), use_last_error=False)(10, 'GetRemoteInfo', ((1, 'ppInfo'),)))
     IOfflineFilesSyncErrorInfo.GetOriginalInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.IOfflineFilesSyncErrorItemInfo_head), use_last_error=False)(11, 'GetOriginalInfo', ((1, 'ppInfo'),)))
+    win32more.Storage.OfflineFiles.IOfflineFilesErrorInfo
     return IOfflineFilesSyncErrorInfo
 def _define_IOfflineFilesProgress_head():
     class IOfflineFilesProgress(win32more.System.Com.IUnknown_head):
@@ -404,6 +412,7 @@ def _define_IOfflineFilesProgress():
     IOfflineFilesProgress.Begin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'Begin', ((1, 'pbAbort'),)))
     IOfflineFilesProgress.QueryAbort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'QueryAbort', ((1, 'pbAbort'),)))
     IOfflineFilesProgress.End = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(5, 'End', ((1, 'hrResult'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesProgress
 def _define_IOfflineFilesSimpleProgress_head():
     class IOfflineFilesSimpleProgress(win32more.Storage.OfflineFiles.IOfflineFilesProgress_head):
@@ -413,6 +422,7 @@ def _define_IOfflineFilesSimpleProgress():
     IOfflineFilesSimpleProgress = win32more.Storage.OfflineFiles.IOfflineFilesSimpleProgress_head
     IOfflineFilesSimpleProgress.ItemBegin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_OP_RESPONSE), use_last_error=False)(6, 'ItemBegin', ((1, 'pszFile'),(1, 'pResponse'),)))
     IOfflineFilesSimpleProgress.ItemResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_OP_RESPONSE), use_last_error=False)(7, 'ItemResult', ((1, 'pszFile'),(1, 'hrResult'),(1, 'pResponse'),)))
+    win32more.Storage.OfflineFiles.IOfflineFilesProgress
     return IOfflineFilesSimpleProgress
 def _define_IOfflineFilesSyncProgress_head():
     class IOfflineFilesSyncProgress(win32more.Storage.OfflineFiles.IOfflineFilesProgress_head):
@@ -422,6 +432,7 @@ def _define_IOfflineFilesSyncProgress():
     IOfflineFilesSyncProgress = win32more.Storage.OfflineFiles.IOfflineFilesSyncProgress_head
     IOfflineFilesSyncProgress.SyncItemBegin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_OP_RESPONSE), use_last_error=False)(6, 'SyncItemBegin', ((1, 'pszFile'),(1, 'pResponse'),)))
     IOfflineFilesSyncProgress.SyncItemResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.HRESULT,win32more.Storage.OfflineFiles.IOfflineFilesSyncErrorInfo_head,POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_OP_RESPONSE), use_last_error=False)(7, 'SyncItemResult', ((1, 'pszFile'),(1, 'hrResult'),(1, 'pErrorInfo'),(1, 'pResponse'),)))
+    win32more.Storage.OfflineFiles.IOfflineFilesProgress
     return IOfflineFilesSyncProgress
 def _define_IOfflineFilesSyncConflictHandler_head():
     class IOfflineFilesSyncConflictHandler(win32more.System.Com.IUnknown_head):
@@ -430,6 +441,7 @@ def _define_IOfflineFilesSyncConflictHandler_head():
 def _define_IOfflineFilesSyncConflictHandler():
     IOfflineFilesSyncConflictHandler = win32more.Storage.OfflineFiles.IOfflineFilesSyncConflictHandler_head
     IOfflineFilesSyncConflictHandler.ResolveConflict = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,win32more.Storage.OfflineFiles.OFFLINEFILES_SYNC_STATE,UInt32,POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_SYNC_CONFLICT_RESOLVE),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'ResolveConflict', ((1, 'pszPath'),(1, 'fStateKnown'),(1, 'state'),(1, 'fChangeDetails'),(1, 'pConflictResolution'),(1, 'ppszNewName'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesSyncConflictHandler
 def _define_IOfflineFilesItemFilter_head():
     class IOfflineFilesItemFilter(win32more.System.Com.IUnknown_head):
@@ -440,6 +452,7 @@ def _define_IOfflineFilesItemFilter():
     IOfflineFilesItemFilter.GetFilterFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64), use_last_error=False)(3, 'GetFilterFlags', ((1, 'pullFlags'),(1, 'pullMask'),)))
     IOfflineFilesItemFilter.GetTimeFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.BOOL),POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_ITEM_TIME),POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_COMPARE), use_last_error=False)(4, 'GetTimeFilter', ((1, 'pftTime'),(1, 'pbEvalTimeOfDay'),(1, 'pTimeType'),(1, 'pCompare'),)))
     IOfflineFilesItemFilter.GetPatternFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(5, 'GetPatternFilter', ((1, 'pszPattern'),(1, 'cchPattern'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesItemFilter
 def _define_IOfflineFilesItem_head():
     class IOfflineFilesItem(win32more.System.Com.IUnknown_head):
@@ -452,6 +465,7 @@ def _define_IOfflineFilesItem():
     IOfflineFilesItem.GetParentItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.IOfflineFilesItem_head), use_last_error=False)(5, 'GetParentItem', ((1, 'ppItem'),)))
     IOfflineFilesItem.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Refresh', ((1, 'dwQueryFlags'),)))
     IOfflineFilesItem.IsMarkedForDeletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'IsMarkedForDeletion', ((1, 'pbMarkedForDeletion'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesItem
 def _define_IOfflineFilesServerItem_head():
     class IOfflineFilesServerItem(win32more.Storage.OfflineFiles.IOfflineFilesItem_head):
@@ -459,6 +473,7 @@ def _define_IOfflineFilesServerItem_head():
     return IOfflineFilesServerItem
 def _define_IOfflineFilesServerItem():
     IOfflineFilesServerItem = win32more.Storage.OfflineFiles.IOfflineFilesServerItem_head
+    win32more.Storage.OfflineFiles.IOfflineFilesItem
     return IOfflineFilesServerItem
 def _define_IOfflineFilesShareItem_head():
     class IOfflineFilesShareItem(win32more.Storage.OfflineFiles.IOfflineFilesItem_head):
@@ -466,6 +481,7 @@ def _define_IOfflineFilesShareItem_head():
     return IOfflineFilesShareItem
 def _define_IOfflineFilesShareItem():
     IOfflineFilesShareItem = win32more.Storage.OfflineFiles.IOfflineFilesShareItem_head
+    win32more.Storage.OfflineFiles.IOfflineFilesItem
     return IOfflineFilesShareItem
 def _define_IOfflineFilesDirectoryItem_head():
     class IOfflineFilesDirectoryItem(win32more.Storage.OfflineFiles.IOfflineFilesItem_head):
@@ -473,6 +489,7 @@ def _define_IOfflineFilesDirectoryItem_head():
     return IOfflineFilesDirectoryItem
 def _define_IOfflineFilesDirectoryItem():
     IOfflineFilesDirectoryItem = win32more.Storage.OfflineFiles.IOfflineFilesDirectoryItem_head
+    win32more.Storage.OfflineFiles.IOfflineFilesItem
     return IOfflineFilesDirectoryItem
 def _define_IOfflineFilesFileItem_head():
     class IOfflineFilesFileItem(win32more.Storage.OfflineFiles.IOfflineFilesItem_head):
@@ -482,6 +499,7 @@ def _define_IOfflineFilesFileItem():
     IOfflineFilesFileItem = win32more.Storage.OfflineFiles.IOfflineFilesFileItem_head
     IOfflineFilesFileItem.IsSparse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'IsSparse', ((1, 'pbIsSparse'),)))
     IOfflineFilesFileItem.IsEncrypted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'IsEncrypted', ((1, 'pbIsEncrypted'),)))
+    win32more.Storage.OfflineFiles.IOfflineFilesItem
     return IOfflineFilesFileItem
 def _define_IEnumOfflineFilesItems_head():
     class IEnumOfflineFilesItems(win32more.System.Com.IUnknown_head):
@@ -493,6 +511,7 @@ def _define_IEnumOfflineFilesItems():
     IEnumOfflineFilesItems.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumOfflineFilesItems.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumOfflineFilesItems.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.IEnumOfflineFilesItems_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumOfflineFilesItems
 def _define_IOfflineFilesItemContainer_head():
     class IOfflineFilesItemContainer(win32more.System.Com.IUnknown_head):
@@ -502,6 +521,7 @@ def _define_IOfflineFilesItemContainer():
     IOfflineFilesItemContainer = win32more.Storage.OfflineFiles.IOfflineFilesItemContainer_head
     IOfflineFilesItemContainer.EnumItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.OfflineFiles.IEnumOfflineFilesItems_head), use_last_error=False)(3, 'EnumItems', ((1, 'dwQueryFlags'),(1, 'ppenum'),)))
     IOfflineFilesItemContainer.EnumItemsEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.OfflineFiles.IOfflineFilesItemFilter_head,win32more.Storage.OfflineFiles.IOfflineFilesItemFilter_head,win32more.Storage.OfflineFiles.IOfflineFilesItemFilter_head,win32more.Storage.OfflineFiles.IOfflineFilesItemFilter_head,UInt32,UInt32,POINTER(win32more.Storage.OfflineFiles.IEnumOfflineFilesItems_head), use_last_error=False)(4, 'EnumItemsEx', ((1, 'pIncludeFileFilter'),(1, 'pIncludeDirFilter'),(1, 'pExcludeFileFilter'),(1, 'pExcludeDirFilter'),(1, 'dwEnumFlags'),(1, 'dwQueryFlags'),(1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesItemContainer
 def _define_IOfflineFilesChangeInfo_head():
     class IOfflineFilesChangeInfo(win32more.System.Com.IUnknown_head):
@@ -515,6 +535,7 @@ def _define_IOfflineFilesChangeInfo():
     IOfflineFilesChangeInfo.IsLocallyModifiedData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'IsLocallyModifiedData', ((1, 'pbLocallyModifiedData'),)))
     IOfflineFilesChangeInfo.IsLocallyModifiedAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'IsLocallyModifiedAttributes', ((1, 'pbLocallyModifiedAttributes'),)))
     IOfflineFilesChangeInfo.IsLocallyModifiedTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'IsLocallyModifiedTime', ((1, 'pbLocallyModifiedTime'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesChangeInfo
 def _define_IOfflineFilesDirtyInfo_head():
     class IOfflineFilesDirtyInfo(win32more.System.Com.IUnknown_head):
@@ -524,6 +545,7 @@ def _define_IOfflineFilesDirtyInfo():
     IOfflineFilesDirtyInfo = win32more.Storage.OfflineFiles.IOfflineFilesDirtyInfo_head
     IOfflineFilesDirtyInfo.LocalDirtyByteCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.LARGE_INTEGER_head), use_last_error=False)(3, 'LocalDirtyByteCount', ((1, 'pDirtyByteCount'),)))
     IOfflineFilesDirtyInfo.RemoteDirtyByteCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.LARGE_INTEGER_head), use_last_error=False)(4, 'RemoteDirtyByteCount', ((1, 'pDirtyByteCount'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesDirtyInfo
 def _define_IOfflineFilesFileSysInfo_head():
     class IOfflineFilesFileSysInfo(win32more.System.Com.IUnknown_head):
@@ -534,6 +556,7 @@ def _define_IOfflineFilesFileSysInfo():
     IOfflineFilesFileSysInfo.GetAttributes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.OfflineFiles.OFFLINEFILES_ITEM_COPY,POINTER(UInt32), use_last_error=False)(3, 'GetAttributes', ((1, 'copy'),(1, 'pdwAttributes'),)))
     IOfflineFilesFileSysInfo.GetTimes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.OfflineFiles.OFFLINEFILES_ITEM_COPY,POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head),POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(4, 'GetTimes', ((1, 'copy'),(1, 'pftCreationTime'),(1, 'pftLastWriteTime'),(1, 'pftChangeTime'),(1, 'pftLastAccessTime'),)))
     IOfflineFilesFileSysInfo.GetFileSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.OfflineFiles.OFFLINEFILES_ITEM_COPY,POINTER(win32more.Foundation.LARGE_INTEGER_head), use_last_error=False)(5, 'GetFileSize', ((1, 'copy'),(1, 'pSize'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesFileSysInfo
 def _define_IOfflineFilesPinInfo_head():
     class IOfflineFilesPinInfo(win32more.System.Com.IUnknown_head):
@@ -546,6 +569,7 @@ def _define_IOfflineFilesPinInfo():
     IOfflineFilesPinInfo.IsPinnedForUserByPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsPinnedForUserByPolicy', ((1, 'pbPinnedForUser'),(1, 'pbInherit'),)))
     IOfflineFilesPinInfo.IsPinnedForComputer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'IsPinnedForComputer', ((1, 'pbPinnedForComputer'),(1, 'pbInherit'),)))
     IOfflineFilesPinInfo.IsPinnedForFolderRedirection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'IsPinnedForFolderRedirection', ((1, 'pbPinnedForFolderRedirection'),(1, 'pbInherit'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesPinInfo
 def _define_IOfflineFilesPinInfo2_head():
     class IOfflineFilesPinInfo2(win32more.Storage.OfflineFiles.IOfflineFilesPinInfo_head):
@@ -554,6 +578,7 @@ def _define_IOfflineFilesPinInfo2_head():
 def _define_IOfflineFilesPinInfo2():
     IOfflineFilesPinInfo2 = win32more.Storage.OfflineFiles.IOfflineFilesPinInfo2_head
     IOfflineFilesPinInfo2.IsPartlyPinned = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'IsPartlyPinned', ((1, 'pbPartlyPinned'),)))
+    win32more.Storage.OfflineFiles.IOfflineFilesPinInfo
     return IOfflineFilesPinInfo2
 def _define_IOfflineFilesTransparentCacheInfo_head():
     class IOfflineFilesTransparentCacheInfo(win32more.System.Com.IUnknown_head):
@@ -562,6 +587,7 @@ def _define_IOfflineFilesTransparentCacheInfo_head():
 def _define_IOfflineFilesTransparentCacheInfo():
     IOfflineFilesTransparentCacheInfo = win32more.Storage.OfflineFiles.IOfflineFilesTransparentCacheInfo_head
     IOfflineFilesTransparentCacheInfo.IsTransparentlyCached = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsTransparentlyCached', ((1, 'pbTransparentlyCached'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesTransparentCacheInfo
 def _define_IOfflineFilesGhostInfo_head():
     class IOfflineFilesGhostInfo(win32more.System.Com.IUnknown_head):
@@ -570,6 +596,7 @@ def _define_IOfflineFilesGhostInfo_head():
 def _define_IOfflineFilesGhostInfo():
     IOfflineFilesGhostInfo = win32more.Storage.OfflineFiles.IOfflineFilesGhostInfo_head
     IOfflineFilesGhostInfo.IsGhosted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsGhosted', ((1, 'pbGhosted'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesGhostInfo
 def _define_IOfflineFilesConnectionInfo_head():
     class IOfflineFilesConnectionInfo(win32more.System.Com.IUnknown_head):
@@ -581,6 +608,7 @@ def _define_IOfflineFilesConnectionInfo():
     IOfflineFilesConnectionInfo.SetConnectState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Storage.OfflineFiles.OFFLINEFILES_CONNECT_STATE, use_last_error=False)(4, 'SetConnectState', ((1, 'hwndParent'),(1, 'dwFlags'),(1, 'ConnectState'),)))
     IOfflineFilesConnectionInfo.TransitionOnline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(5, 'TransitionOnline', ((1, 'hwndParent'),(1, 'dwFlags'),)))
     IOfflineFilesConnectionInfo.TransitionOffline = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32,win32more.Foundation.BOOL,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'TransitionOffline', ((1, 'hwndParent'),(1, 'dwFlags'),(1, 'bForceOpenFilesClosed'),(1, 'pbOpenFilesPreventedTransition'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesConnectionInfo
 def _define_IOfflineFilesShareInfo_head():
     class IOfflineFilesShareInfo(win32more.System.Com.IUnknown_head):
@@ -591,6 +619,7 @@ def _define_IOfflineFilesShareInfo():
     IOfflineFilesShareInfo.GetShareItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.IOfflineFilesShareItem_head), use_last_error=False)(3, 'GetShareItem', ((1, 'ppShareItem'),)))
     IOfflineFilesShareInfo.GetShareCachingMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_CACHING_MODE), use_last_error=False)(4, 'GetShareCachingMode', ((1, 'pCachingMode'),)))
     IOfflineFilesShareInfo.IsShareDfsJunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsShareDfsJunction', ((1, 'pbIsDfsJunction'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesShareInfo
 def _define_IOfflineFilesSuspend_head():
     class IOfflineFilesSuspend(win32more.System.Com.IUnknown_head):
@@ -599,6 +628,7 @@ def _define_IOfflineFilesSuspend_head():
 def _define_IOfflineFilesSuspend():
     IOfflineFilesSuspend = win32more.Storage.OfflineFiles.IOfflineFilesSuspend_head
     IOfflineFilesSuspend.SuspendRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'SuspendRoot', ((1, 'bSuspend'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesSuspend
 def _define_IOfflineFilesSuspendInfo_head():
     class IOfflineFilesSuspendInfo(win32more.System.Com.IUnknown_head):
@@ -607,6 +637,7 @@ def _define_IOfflineFilesSuspendInfo_head():
 def _define_IOfflineFilesSuspendInfo():
     IOfflineFilesSuspendInfo = win32more.Storage.OfflineFiles.IOfflineFilesSuspendInfo_head
     IOfflineFilesSuspendInfo.IsSuspended = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsSuspended', ((1, 'pbSuspended'),(1, 'pbSuspendedRoot'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesSuspendInfo
 def _define_IOfflineFilesSetting_head():
     class IOfflineFilesSetting(win32more.System.Com.IUnknown_head):
@@ -623,6 +654,7 @@ def _define_IOfflineFilesSetting():
     IOfflineFilesSetting.GetPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),UInt32, use_last_error=False)(9, 'GetPolicy', ((1, 'pvarValue'),(1, 'dwScope'),)))
     IOfflineFilesSetting.GetPolicyScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'GetPolicyScope', ((1, 'pdwScope'),)))
     IOfflineFilesSetting.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'GetValue', ((1, 'pvarValue'),(1, 'pbSetByPolicy'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesSetting
 def _define_IEnumOfflineFilesSettings_head():
     class IEnumOfflineFilesSettings(win32more.System.Com.IUnknown_head):
@@ -634,6 +666,7 @@ def _define_IEnumOfflineFilesSettings():
     IEnumOfflineFilesSettings.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumOfflineFilesSettings.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumOfflineFilesSettings.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.IEnumOfflineFilesSettings_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumOfflineFilesSettings
 def _define_IOfflineFilesCache_head():
     class IOfflineFilesCache(win32more.System.Com.IUnknown_head):
@@ -658,6 +691,7 @@ def _define_IOfflineFilesCache():
     IOfflineFilesCache.GetSettingObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.OfflineFiles.IOfflineFilesSetting_head), use_last_error=False)(17, 'GetSettingObject', ((1, 'pszSettingName'),(1, 'ppSetting'),)))
     IOfflineFilesCache.EnumSettingObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.OfflineFiles.IEnumOfflineFilesSettings_head), use_last_error=False)(18, 'EnumSettingObjects', ((1, 'ppEnum'),)))
     IOfflineFilesCache.IsPathCacheable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL),POINTER(win32more.Storage.OfflineFiles.OFFLINEFILES_CACHING_MODE), use_last_error=False)(19, 'IsPathCacheable', ((1, 'pszPath'),(1, 'pbCacheable'),(1, 'pShareCachingMode'),)))
+    win32more.System.Com.IUnknown
     return IOfflineFilesCache
 def _define_IOfflineFilesCache2_head():
     class IOfflineFilesCache2(win32more.Storage.OfflineFiles.IOfflineFilesCache_head):
@@ -666,6 +700,7 @@ def _define_IOfflineFilesCache2_head():
 def _define_IOfflineFilesCache2():
     IOfflineFilesCache2 = win32more.Storage.OfflineFiles.IOfflineFilesCache2_head
     IOfflineFilesCache2.RenameItemEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOL, use_last_error=False)(20, 'RenameItemEx', ((1, 'pszPathOriginal'),(1, 'pszPathNew'),(1, 'bReplaceIfExists'),)))
+    win32more.Storage.OfflineFiles.IOfflineFilesCache
     return IOfflineFilesCache2
 def _define_OfflineFilesEnable():
     try:

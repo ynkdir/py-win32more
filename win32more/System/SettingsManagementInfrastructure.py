@@ -116,6 +116,7 @@ def _define_IItemEnumerator():
     IItemEnumerator.Current = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(3, 'Current', ((1, 'Item'),)))
     IItemEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MoveNext', ((1, 'ItemValid'),)))
     IItemEnumerator.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return IItemEnumerator
 def _define_ISettingsIdentity_head():
     class ISettingsIdentity(win32more.System.Com.IUnknown_head):
@@ -127,6 +128,7 @@ def _define_ISettingsIdentity():
     ISettingsIdentity.SetAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'SetAttribute', ((1, 'Reserved'),(1, 'Name'),(1, 'Value'),)))
     ISettingsIdentity.GetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetFlags', ((1, 'Flags'),)))
     ISettingsIdentity.SetFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'SetFlags', ((1, 'Flags'),)))
+    win32more.System.Com.IUnknown
     return ISettingsIdentity
 def _define_ITargetInfo_head():
     class ITargetInfo(win32more.System.Com.IUnknown_head):
@@ -155,6 +157,7 @@ def _define_ITargetInfo():
     ITargetInfo.GetSchemaHiveLocation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(21, 'GetSchemaHiveLocation', ((1, 'pHiveLocation'),)))
     ITargetInfo.SetSchemaHiveMountName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(22, 'SetSchemaHiveMountName', ((1, 'pwzMountName'),)))
     ITargetInfo.GetSchemaHiveMountName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(23, 'GetSchemaHiveMountName', ((1, 'pMountName'),)))
+    win32more.System.Com.IUnknown
     return ITargetInfo
 def _define_ISettingsEngine_head():
     class ISettingsEngine(win32more.System.Com.IUnknown_head):
@@ -178,6 +181,7 @@ def _define_ISettingsEngine():
     ISettingsEngine.SetSettingsContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SettingsManagementInfrastructure.ISettingsContext_head, use_last_error=False)(16, 'SetSettingsContext', ((1, 'SettingsContext'),)))
     ISettingsEngine.ApplySettingsContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SettingsManagementInfrastructure.ISettingsContext_head,POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(UIntPtr), use_last_error=False)(17, 'ApplySettingsContext', ((1, 'SettingsContext'),(1, 'pppwzIdentities'),(1, 'pcIdentities'),)))
     ISettingsEngine.GetSettingsContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.SettingsManagementInfrastructure.ISettingsContext_head), use_last_error=False)(18, 'GetSettingsContext', ((1, 'SettingsContext'),)))
+    win32more.System.Com.IUnknown
     return ISettingsEngine
 def _define_ISettingsItem_head():
     class ISettingsItem(win32more.System.Com.IUnknown_head):
@@ -207,6 +211,7 @@ def _define_ISettingsItem():
     ISettingsItem.GetRestrictionFacets = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.SettingsManagementInfrastructure.WcmRestrictionFacets), use_last_error=False)(22, 'GetRestrictionFacets', ((1, 'RestrictionFacets'),)))
     ISettingsItem.GetRestriction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SettingsManagementInfrastructure.WcmRestrictionFacets,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(23, 'GetRestriction', ((1, 'RestrictionFacet'),(1, 'FacetData'),)))
     ISettingsItem.GetKeyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(24, 'GetKeyValue', ((1, 'Value'),)))
+    win32more.System.Com.IUnknown
     return ISettingsItem
 def _define_ISettingsNamespace_head():
     class ISettingsNamespace(win32more.System.Com.IUnknown_head):
@@ -221,6 +226,7 @@ def _define_ISettingsNamespace():
     ISettingsNamespace.CreateSettingByPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.SettingsManagementInfrastructure.ISettingsItem_head), use_last_error=False)(7, 'CreateSettingByPath', ((1, 'Path'),(1, 'Setting'),)))
     ISettingsNamespace.RemoveSettingByPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(8, 'RemoveSettingByPath', ((1, 'Path'),)))
     ISettingsNamespace.GetAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'GetAttribute', ((1, 'Name'),(1, 'Value'),)))
+    win32more.System.Com.IUnknown
     return ISettingsNamespace
 def _define_ISettingsResult_head():
     class ISettingsResult(win32more.System.Com.IUnknown_head):
@@ -234,6 +240,7 @@ def _define_ISettingsResult():
     ISettingsResult.GetLine = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetLine', ((1, 'dwLine'),)))
     ISettingsResult.GetColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetColumn', ((1, 'dwColumn'),)))
     ISettingsResult.GetSource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'GetSource', ((1, 'file'),)))
+    win32more.System.Com.IUnknown
     return ISettingsResult
 def _define_ISettingsContext_head():
     class ISettingsContext(win32more.System.Com.IUnknown_head):
@@ -248,6 +255,7 @@ def _define_ISettingsContext():
     ISettingsContext.GetNamespaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.SettingsManagementInfrastructure.IItemEnumerator_head), use_last_error=False)(7, 'GetNamespaces', ((1, 'ppNamespaceIds'),)))
     ISettingsContext.GetStoredSettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SettingsManagementInfrastructure.ISettingsIdentity_head,POINTER(win32more.System.SettingsManagementInfrastructure.IItemEnumerator_head),POINTER(win32more.System.SettingsManagementInfrastructure.IItemEnumerator_head),POINTER(win32more.System.SettingsManagementInfrastructure.IItemEnumerator_head), use_last_error=False)(8, 'GetStoredSettings', ((1, 'pIdentity'),(1, 'ppAddedSettings'),(1, 'ppModifiedSettings'),(1, 'ppDeletedSettings'),)))
     ISettingsContext.RevertSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SettingsManagementInfrastructure.ISettingsIdentity_head,win32more.Foundation.PWSTR, use_last_error=False)(9, 'RevertSetting', ((1, 'pIdentity'),(1, 'pwzSetting'),)))
+    win32more.System.Com.IUnknown
     return ISettingsContext
 __all__ = [
     "WCM_SETTINGS_ID_FLAG_REFERENCE",

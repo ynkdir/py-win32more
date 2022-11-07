@@ -21,6 +21,7 @@ def _define_IIsolatedEnvironmentInterop_head():
 def _define_IIsolatedEnvironmentInterop():
     IIsolatedEnvironmentInterop = win32more.System.WinRT.Isolation.IIsolatedEnvironmentInterop_head
     IIsolatedEnvironmentInterop.GetHostHwndInterop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.Foundation.HWND), use_last_error=False)(3, 'GetHostHwndInterop', ((1, 'containerHwnd'),(1, 'hostHwnd'),)))
+    win32more.System.Com.IUnknown
     return IIsolatedEnvironmentInterop
 __all__ = [
     "IIsolatedEnvironmentInterop",

@@ -29,6 +29,7 @@ def _define_IAudioEndpointFormatControl_head():
 def _define_IAudioEndpointFormatControl():
     IAudioEndpointFormatControl = win32more.Media.Audio.Endpoints.IAudioEndpointFormatControl_head
     IAudioEndpointFormatControl.ResetToDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'ResetToDefault', ((1, 'ResetFlags'),)))
+    win32more.System.Com.IUnknown
     return IAudioEndpointFormatControl
 EndpointConnectorType = Int32
 EndpointConnectorType_eHostProcessConnector = 0
@@ -58,6 +59,7 @@ def _define_IAudioEndpointOffloadStreamVolume():
     IAudioEndpointOffloadStreamVolume.GetVolumeChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetVolumeChannelCount', ((1, 'pu32ChannelCount'),)))
     IAudioEndpointOffloadStreamVolume.SetChannelVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),win32more.Media.KernelStreaming.AUDIO_CURVE_TYPE,POINTER(Int64), use_last_error=False)(4, 'SetChannelVolumes', ((1, 'u32ChannelCount'),(1, 'pf32Volumes'),(1, 'u32CurveType'),(1, 'pCurveDuration'),)))
     IAudioEndpointOffloadStreamVolume.GetChannelVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(5, 'GetChannelVolumes', ((1, 'u32ChannelCount'),(1, 'pf32Volumes'),)))
+    win32more.System.Com.IUnknown
     return IAudioEndpointOffloadStreamVolume
 def _define_IAudioEndpointOffloadStreamMute_head():
     class IAudioEndpointOffloadStreamMute(win32more.System.Com.IUnknown_head):
@@ -67,6 +69,7 @@ def _define_IAudioEndpointOffloadStreamMute():
     IAudioEndpointOffloadStreamMute = win32more.Media.Audio.Endpoints.IAudioEndpointOffloadStreamMute_head
     IAudioEndpointOffloadStreamMute.SetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte, use_last_error=False)(3, 'SetMute', ((1, 'bMuted'),)))
     IAudioEndpointOffloadStreamMute.GetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(4, 'GetMute', ((1, 'pbMuted'),)))
+    win32more.System.Com.IUnknown
     return IAudioEndpointOffloadStreamMute
 def _define_IAudioEndpointOffloadStreamMeter_head():
     class IAudioEndpointOffloadStreamMeter(win32more.System.Com.IUnknown_head):
@@ -76,6 +79,7 @@ def _define_IAudioEndpointOffloadStreamMeter():
     IAudioEndpointOffloadStreamMeter = win32more.Media.Audio.Endpoints.IAudioEndpointOffloadStreamMeter_head
     IAudioEndpointOffloadStreamMeter.GetMeterChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetMeterChannelCount', ((1, 'pu32ChannelCount'),)))
     IAudioEndpointOffloadStreamMeter.GetMeteringData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(4, 'GetMeteringData', ((1, 'u32ChannelCount'),(1, 'pf32PeakValues'),)))
+    win32more.System.Com.IUnknown
     return IAudioEndpointOffloadStreamMeter
 def _define_IAudioEndpointLastBufferControl_head():
     class IAudioEndpointLastBufferControl(win32more.System.Com.IUnknown_head):
@@ -85,6 +89,7 @@ def _define_IAudioEndpointLastBufferControl():
     IAudioEndpointLastBufferControl = win32more.Media.Audio.Endpoints.IAudioEndpointLastBufferControl_head
     IAudioEndpointLastBufferControl.IsLastBufferControlSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(3, 'IsLastBufferControlSupported', ()))
     IAudioEndpointLastBufferControl.ReleaseOutputDataPointerForLastBuffer = COMMETHOD(WINFUNCTYPE(Void,POINTER(win32more.Media.Audio.Apo.APO_CONNECTION_PROPERTY_head), use_last_error=False)(4, 'ReleaseOutputDataPointerForLastBuffer', ((1, 'pConnectionProperty'),)))
+    win32more.System.Com.IUnknown
     return IAudioEndpointLastBufferControl
 def _define_IAudioLfxControl_head():
     class IAudioLfxControl(win32more.System.Com.IUnknown_head):
@@ -94,6 +99,7 @@ def _define_IAudioLfxControl():
     IAudioLfxControl = win32more.Media.Audio.Endpoints.IAudioLfxControl_head
     IAudioLfxControl.SetLocalEffectsState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(3, 'SetLocalEffectsState', ((1, 'bEnabled'),)))
     IAudioLfxControl.GetLocalEffectsState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetLocalEffectsState', ((1, 'pbEnabled'),)))
+    win32more.System.Com.IUnknown
     return IAudioLfxControl
 def _define_IHardwareAudioEngineBase_head():
     class IHardwareAudioEngineBase(win32more.System.Com.IUnknown_head):
@@ -106,6 +112,7 @@ def _define_IHardwareAudioEngineBase():
     IHardwareAudioEngineBase.SetEngineDeviceFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IMMDevice_head,POINTER(win32more.Media.Audio.WAVEFORMATEX_head), use_last_error=False)(5, 'SetEngineDeviceFormat', ((1, 'pDevice'),(1, '_pwfxFormat'),)))
     IHardwareAudioEngineBase.SetGfxState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IMMDevice_head,win32more.Foundation.BOOL, use_last_error=False)(6, 'SetGfxState', ((1, 'pDevice'),(1, '_bEnable'),)))
     IHardwareAudioEngineBase.GetGfxState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IMMDevice_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'GetGfxState', ((1, 'pDevice'),(1, '_pbEnable'),)))
+    win32more.System.Com.IUnknown
     return IHardwareAudioEngineBase
 DEVINTERFACE_AUDIOENDPOINTPLUGIN = Guid('9f2f7b66-65ac-4fa6-8ae4-123c78b89313')
 def _define_IAudioEndpointVolumeCallback_head():
@@ -115,6 +122,7 @@ def _define_IAudioEndpointVolumeCallback_head():
 def _define_IAudioEndpointVolumeCallback():
     IAudioEndpointVolumeCallback = win32more.Media.Audio.Endpoints.IAudioEndpointVolumeCallback_head
     IAudioEndpointVolumeCallback.OnNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.AUDIO_VOLUME_NOTIFICATION_DATA_head), use_last_error=False)(3, 'OnNotify', ((1, 'pNotify'),)))
+    win32more.System.Com.IUnknown
     return IAudioEndpointVolumeCallback
 def _define_IAudioEndpointVolume_head():
     class IAudioEndpointVolume(win32more.System.Com.IUnknown_head):
@@ -140,6 +148,7 @@ def _define_IAudioEndpointVolume():
     IAudioEndpointVolume.VolumeStepDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(18, 'VolumeStepDown', ((1, 'pguidEventContext'),)))
     IAudioEndpointVolume.QueryHardwareSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(19, 'QueryHardwareSupport', ((1, 'pdwHardwareSupportMask'),)))
     IAudioEndpointVolume.GetVolumeRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),POINTER(Single),POINTER(Single), use_last_error=False)(20, 'GetVolumeRange', ((1, 'pflVolumeMindB'),(1, 'pflVolumeMaxdB'),(1, 'pflVolumeIncrementdB'),)))
+    win32more.System.Com.IUnknown
     return IAudioEndpointVolume
 def _define_IAudioEndpointVolumeEx_head():
     class IAudioEndpointVolumeEx(win32more.Media.Audio.Endpoints.IAudioEndpointVolume_head):
@@ -148,6 +157,7 @@ def _define_IAudioEndpointVolumeEx_head():
 def _define_IAudioEndpointVolumeEx():
     IAudioEndpointVolumeEx = win32more.Media.Audio.Endpoints.IAudioEndpointVolumeEx_head
     IAudioEndpointVolumeEx.GetVolumeRangeChannel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),POINTER(Single),POINTER(Single), use_last_error=False)(21, 'GetVolumeRangeChannel', ((1, 'iChannel'),(1, 'pflVolumeMindB'),(1, 'pflVolumeMaxdB'),(1, 'pflVolumeIncrementdB'),)))
+    win32more.Media.Audio.Endpoints.IAudioEndpointVolume
     return IAudioEndpointVolumeEx
 def _define_IAudioMeterInformation_head():
     class IAudioMeterInformation(win32more.System.Com.IUnknown_head):
@@ -159,6 +169,7 @@ def _define_IAudioMeterInformation():
     IAudioMeterInformation.GetMeteringChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetMeteringChannelCount', ((1, 'pnChannelCount'),)))
     IAudioMeterInformation.GetChannelsPeakValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(5, 'GetChannelsPeakValues', ((1, 'u32ChannelCount'),(1, 'afPeakValues'),)))
     IAudioMeterInformation.QueryHardwareSupport = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'QueryHardwareSupport', ((1, 'pdwHardwareSupportMask'),)))
+    win32more.System.Com.IUnknown
     return IAudioMeterInformation
 __all__ = [
     "DEVPKEY_AudioEndpointPlugin_FactoryCLSID",

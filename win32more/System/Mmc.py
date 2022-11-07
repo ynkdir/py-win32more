@@ -132,6 +132,7 @@ def _define_ISnapinProperties():
     ISnapinProperties.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.Properties_head, use_last_error=False)(3, 'Initialize', ((1, 'pProperties'),)))
     ISnapinProperties.QueryPropertyNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.ISnapinPropertiesCallback_head, use_last_error=False)(4, 'QueryPropertyNames', ((1, 'pCallback'),)))
     ISnapinProperties.PropertiesChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Mmc.MMC_SNAPIN_PROPERTY), use_last_error=False)(5, 'PropertiesChanged', ((1, 'cProperties'),(1, 'pProperties'),)))
+    win32more.System.Com.IUnknown
     return ISnapinProperties
 def _define_ISnapinPropertiesCallback_head():
     class ISnapinPropertiesCallback(win32more.System.Com.IUnknown_head):
@@ -140,6 +141,7 @@ def _define_ISnapinPropertiesCallback_head():
 def _define_ISnapinPropertiesCallback():
     ISnapinPropertiesCallback = win32more.System.Mmc.ISnapinPropertiesCallback_head
     ISnapinPropertiesCallback.AddPropertyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'AddPropertyName', ((1, 'pszPropName'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return ISnapinPropertiesCallback
 _DocumentMode = Int32
 DocumentMode_Author = 0
@@ -181,6 +183,7 @@ def _define__Application():
     _Application.put_UserControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(16, 'put_UserControl', ((1, 'UserControl'),)))
     _Application.get_VersionMajor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_VersionMajor', ((1, 'VersionMajor'),)))
     _Application.get_VersionMinor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(18, 'get_VersionMinor', ((1, 'VersionMinor'),)))
+    win32more.System.Com.IDispatch
     return _Application
 def _define__AppEvents_head():
     class _AppEvents(win32more.System.Com.IDispatch_head):
@@ -200,6 +203,7 @@ def _define__AppEvents():
     _AppEvents.OnContextMenuExecuted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.MenuItem_head, use_last_error=False)(16, 'OnContextMenuExecuted', ((1, 'MenuItem'),)))
     _AppEvents.OnToolbarButtonClicked = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'OnToolbarButtonClicked', ()))
     _AppEvents.OnListUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.View_head, use_last_error=False)(18, 'OnListUpdated', ((1, 'View'),)))
+    win32more.System.Com.IDispatch
     return _AppEvents
 def _define_AppEvents_head():
     class AppEvents(win32more.System.Com.IDispatch_head):
@@ -207,6 +211,7 @@ def _define_AppEvents_head():
     return AppEvents
 def _define_AppEvents():
     AppEvents = win32more.System.Mmc.AppEvents_head
+    win32more.System.Com.IDispatch
     return AppEvents
 def _define__EventConnector_head():
     class _EventConnector(win32more.System.Com.IDispatch_head):
@@ -216,6 +221,7 @@ def _define__EventConnector():
     _EventConnector = win32more.System.Mmc._EventConnector_head
     _EventConnector.ConnectTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc._Application_head, use_last_error=False)(7, 'ConnectTo', ((1, 'Application'),)))
     _EventConnector.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Disconnect', ()))
+    win32more.System.Com.IDispatch
     return _EventConnector
 def _define_Frame_head():
     class Frame(win32more.System.Com.IDispatch_head):
@@ -234,6 +240,7 @@ def _define_Frame():
     Frame.put_Left = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(15, 'put_Left', ((1, 'left'),)))
     Frame.get_Right = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_Right', ((1, 'Right'),)))
     Frame.put_Right = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(17, 'put_Right', ((1, 'right'),)))
+    win32more.System.Com.IDispatch
     return Frame
 def _define_Node_head():
     class Node(win32more.System.Com.IDispatch_head):
@@ -246,6 +253,7 @@ def _define_Node():
     Node.get_Bookmark = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(9, 'get_Bookmark', ((1, 'Bookmark'),)))
     Node.IsScopeNode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(10, 'IsScopeNode', ((1, 'IsScopeNode'),)))
     Node.get_Nodetype = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(11, 'get_Nodetype', ((1, 'Nodetype'),)))
+    win32more.System.Com.IDispatch
     return Node
 def _define_ScopeNamespace_head():
     class ScopeNamespace(win32more.System.Com.IDispatch_head):
@@ -258,6 +266,7 @@ def _define_ScopeNamespace():
     ScopeNamespace.GetNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.Node_head,POINTER(win32more.System.Mmc.Node_head), use_last_error=False)(9, 'GetNext', ((1, 'Node'),(1, 'Next'),)))
     ScopeNamespace.GetRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.Node_head), use_last_error=False)(10, 'GetRoot', ((1, 'Root'),)))
     ScopeNamespace.Expand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.Node_head, use_last_error=False)(11, 'Expand', ((1, 'Node'),)))
+    win32more.System.Com.IDispatch
     return ScopeNamespace
 def _define_Document_head():
     class Document(win32more.System.Com.IDispatch_head):
@@ -281,6 +290,7 @@ def _define_Document():
     Document.get_ScopeNamespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.ScopeNamespace_head), use_last_error=False)(20, 'get_ScopeNamespace', ((1, 'ScopeNamespace'),)))
     Document.CreateProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.Properties_head), use_last_error=False)(21, 'CreateProperties', ((1, 'Properties'),)))
     Document.get_Application = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc._Application_head), use_last_error=False)(22, 'get_Application', ((1, 'Application'),)))
+    win32more.System.Com.IDispatch
     return Document
 def _define_SnapIn_head():
     class SnapIn(win32more.System.Com.IDispatch_head):
@@ -295,6 +305,7 @@ def _define_SnapIn():
     SnapIn.get_SnapinCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(11, 'get_SnapinCLSID', ((1, 'SnapinCLSID'),)))
     SnapIn.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.Properties_head), use_last_error=False)(12, 'get_Properties', ((1, 'Properties'),)))
     SnapIn.EnableAllExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(13, 'EnableAllExtensions', ((1, 'Enable'),)))
+    win32more.System.Com.IDispatch
     return SnapIn
 def _define_SnapIns_head():
     class SnapIns(win32more.System.Com.IDispatch_head):
@@ -307,6 +318,7 @@ def _define_SnapIns():
     SnapIns.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'Count'),)))
     SnapIns.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT,win32more.System.Com.VARIANT,POINTER(win32more.System.Mmc.SnapIn_head), use_last_error=False)(10, 'Add', ((1, 'SnapinNameOrCLSID'),(1, 'ParentSnapin'),(1, 'Properties'),(1, 'SnapIn'),)))
     SnapIns.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.SnapIn_head, use_last_error=False)(11, 'Remove', ((1, 'SnapIn'),)))
+    win32more.System.Com.IDispatch
     return SnapIns
 def _define_Extension_head():
     class Extension(win32more.System.Com.IDispatch_head):
@@ -321,6 +333,7 @@ def _define_Extension():
     Extension.get_SnapinCLSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(11, 'get_SnapinCLSID', ((1, 'SnapinCLSID'),)))
     Extension.EnableAllExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(12, 'EnableAllExtensions', ((1, 'Enable'),)))
     Extension.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(13, 'Enable', ((1, 'Enable'),)))
+    win32more.System.Com.IDispatch
     return Extension
 def _define_Extensions_head():
     class Extensions(win32more.System.Com.IDispatch_head):
@@ -331,6 +344,7 @@ def _define_Extensions():
     Extensions.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'retval'),)))
     Extensions.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Mmc.Extension_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Extension'),)))
     Extensions.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'Count'),)))
+    win32more.System.Com.IDispatch
     return Extensions
 def _define_Columns_head():
     class Columns(win32more.System.Com.IDispatch_head):
@@ -341,6 +355,7 @@ def _define_Columns():
     Columns.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Mmc.Column_head), use_last_error=False)(7, 'Item', ((1, 'Index'),(1, 'Column'),)))
     Columns.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'Count'),)))
     Columns.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return Columns
 _ColumnSortOrder = Int32
 SortOrder_Ascending = 0
@@ -360,6 +375,7 @@ def _define_Column():
     Column.put_Hidden = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(13, 'put_Hidden', ((1, 'Hidden'),)))
     Column.SetAsSortColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc._ColumnSortOrder, use_last_error=False)(14, 'SetAsSortColumn', ((1, 'SortOrder'),)))
     Column.IsSortColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(15, 'IsSortColumn', ((1, 'IsSortColumn'),)))
+    win32more.System.Com.IDispatch
     return Column
 def _define_Views_head():
     class Views(win32more.System.Com.IDispatch_head):
@@ -371,6 +387,7 @@ def _define_Views():
     Views.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'Count'),)))
     Views.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.Node_head,win32more.System.Mmc._ViewOptions, use_last_error=False)(9, 'Add', ((1, 'Node'),(1, 'viewOptions'),)))
     Views.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(10, 'get__NewEnum', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return Views
 def _define_View_head():
     class View(win32more.System.Com.IDispatch_head):
@@ -420,6 +437,7 @@ def _define_View():
     View.get_ListViewMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc._ListViewMode), use_last_error=False)(46, 'get_ListViewMode', ((1, 'Mode'),)))
     View.put_ListViewMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc._ListViewMode, use_last_error=False)(47, 'put_ListViewMode', ((1, 'mode'),)))
     View.get_ControlObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(48, 'get_ControlObject', ((1, 'Control'),)))
+    win32more.System.Com.IDispatch
     return View
 def _define_Nodes_head():
     class Nodes(win32more.System.Com.IDispatch_head):
@@ -430,6 +448,7 @@ def _define_Nodes():
     Nodes.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'retval'),)))
     Nodes.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Mmc.Node_head), use_last_error=False)(8, 'Item', ((1, 'Index'),(1, 'Node'),)))
     Nodes.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'Count'),)))
+    win32more.System.Com.IDispatch
     return Nodes
 def _define_ContextMenu_head():
     class ContextMenu(win32more.System.Com.IDispatch_head):
@@ -440,6 +459,7 @@ def _define_ContextMenu():
     ContextMenu.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'retval'),)))
     ContextMenu.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Mmc.MenuItem_head), use_last_error=False)(8, 'get_Item', ((1, 'IndexOrPath'),(1, 'MenuItem'),)))
     ContextMenu.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'Count'),)))
+    win32more.System.Com.IDispatch
     return ContextMenu
 def _define_MenuItem_head():
     class MenuItem(win32more.System.Com.IDispatch_head):
@@ -453,6 +473,7 @@ def _define_MenuItem():
     MenuItem.get_LanguageIndependentPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(10, 'get_LanguageIndependentPath', ((1, 'LanguageIndependentPath'),)))
     MenuItem.Execute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Execute', ()))
     MenuItem.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'get_Enabled', ((1, 'Enabled'),)))
+    win32more.System.Com.IDispatch
     return MenuItem
 def _define_Properties_head():
     class Properties(win32more.System.Com.IDispatch_head):
@@ -464,6 +485,7 @@ def _define_Properties():
     Properties.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Mmc.Property_head), use_last_error=False)(8, 'Item', ((1, 'Name'),(1, 'Property'),)))
     Properties.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'Count'),)))
     Properties.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'Remove', ((1, 'Name'),)))
+    win32more.System.Com.IDispatch
     return Properties
 def _define_Property_head():
     class Property(win32more.System.Com.IDispatch_head):
@@ -474,6 +496,7 @@ def _define_Property():
     Property.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_Value', ((1, 'Value'),)))
     Property.put_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(8, 'put_Value', ((1, 'Value'),)))
     Property.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(UInt16)), use_last_error=False)(9, 'get_Name', ((1, 'Name'),)))
+    win32more.System.Com.IDispatch
     return Property
 MMCVersionInfo = Guid('d6fedb1d-cf21-4bd9-af3b-c5468e9c6684')
 ConsolePower = Guid('f0285374-dff1-11d3-b433-00c04f8ecd78')
@@ -770,6 +793,7 @@ def _define_IComponentData():
     IComponentData.QueryDataObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,win32more.System.Mmc.DATA_OBJECT_TYPES,POINTER(win32more.System.Com.IDataObject_head), use_last_error=False)(7, 'QueryDataObject', ((1, 'cookie'),(1, 'type'),(1, 'ppDataObject'),)))
     IComponentData.GetDisplayInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.SCOPEDATAITEM_head), use_last_error=False)(8, 'GetDisplayInfo', ((1, 'pScopeDataItem'),)))
     IComponentData.CompareObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,win32more.System.Com.IDataObject_head, use_last_error=False)(9, 'CompareObjects', ((1, 'lpDataObjectA'),(1, 'lpDataObjectB'),)))
+    win32more.System.Com.IUnknown
     return IComponentData
 def _define_IComponent_head():
     class IComponent(win32more.System.Com.IUnknown_head):
@@ -784,6 +808,7 @@ def _define_IComponent():
     IComponent.GetResultViewType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,POINTER(win32more.Foundation.PWSTR),POINTER(Int32), use_last_error=False)(7, 'GetResultViewType', ((1, 'cookie'),(1, 'ppViewType'),(1, 'pViewOptions'),)))
     IComponent.GetDisplayInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.RESULTDATAITEM_head), use_last_error=False)(8, 'GetDisplayInfo', ((1, 'pResultDataItem'),)))
     IComponent.CompareObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,win32more.System.Com.IDataObject_head, use_last_error=False)(9, 'CompareObjects', ((1, 'lpDataObjectA'),(1, 'lpDataObjectB'),)))
+    win32more.System.Com.IUnknown
     return IComponent
 def _define_IResultDataCompare_head():
     class IResultDataCompare(win32more.System.Com.IUnknown_head):
@@ -792,6 +817,7 @@ def _define_IResultDataCompare_head():
 def _define_IResultDataCompare():
     IResultDataCompare = win32more.System.Mmc.IResultDataCompare_head
     IResultDataCompare.Compare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LPARAM,IntPtr,IntPtr,POINTER(Int32), use_last_error=False)(3, 'Compare', ((1, 'lUserParam'),(1, 'cookieA'),(1, 'cookieB'),(1, 'pnResult'),)))
+    win32more.System.Com.IUnknown
     return IResultDataCompare
 def _define_IResultOwnerData_head():
     class IResultOwnerData(win32more.System.Com.IUnknown_head):
@@ -802,6 +828,7 @@ def _define_IResultOwnerData():
     IResultOwnerData.FindItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.RESULTFINDINFO_head),POINTER(Int32), use_last_error=False)(3, 'FindItem', ((1, 'pFindInfo'),(1, 'pnFoundIndex'),)))
     IResultOwnerData.CacheHint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(4, 'CacheHint', ((1, 'nStartIndex'),(1, 'nEndIndex'),)))
     IResultOwnerData.SortItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,win32more.Foundation.LPARAM, use_last_error=False)(5, 'SortItems', ((1, 'nColumn'),(1, 'dwSortOptions'),(1, 'lUserParam'),)))
+    win32more.System.Com.IUnknown
     return IResultOwnerData
 def _define_IConsole_head():
     class IConsole(win32more.System.Com.IUnknown_head):
@@ -820,6 +847,7 @@ def _define_IConsole():
     IConsole.SelectScopeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr, use_last_error=False)(11, 'SelectScopeItem', ((1, 'hScopeItem'),)))
     IConsole.GetMainWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(12, 'GetMainWindow', ((1, 'phwnd'),)))
     IConsole.NewWindow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,UInt32, use_last_error=False)(13, 'NewWindow', ((1, 'hScopeItem'),(1, 'lOptions'),)))
+    win32more.System.Com.IUnknown
     return IConsole
 def _define_IHeaderCtrl_head():
     class IHeaderCtrl(win32more.System.Com.IUnknown_head):
@@ -833,6 +861,7 @@ def _define_IHeaderCtrl():
     IHeaderCtrl.GetColumnText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetColumnText', ((1, 'nCol'),(1, 'pText'),)))
     IHeaderCtrl.SetColumnWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(7, 'SetColumnWidth', ((1, 'nCol'),(1, 'nWidth'),)))
     IHeaderCtrl.GetColumnWidth = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(Int32), use_last_error=False)(8, 'GetColumnWidth', ((1, 'nCol'),(1, 'pWidth'),)))
+    win32more.System.Com.IUnknown
     return IHeaderCtrl
 CCM_INSERTIONPOINTID = Int32
 CCM_INSERTIONPOINTID_MASK_SPECIAL = -65536
@@ -870,6 +899,7 @@ def _define_IContextMenuCallback_head():
 def _define_IContextMenuCallback():
     IContextMenuCallback = win32more.System.Mmc.IContextMenuCallback_head
     IContextMenuCallback.AddItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.CONTEXTMENUITEM_head), use_last_error=False)(3, 'AddItem', ((1, 'pItem'),)))
+    win32more.System.Com.IUnknown
     return IContextMenuCallback
 def _define_IContextMenuProvider_head():
     class IContextMenuProvider(win32more.System.Mmc.IContextMenuCallback_head):
@@ -881,6 +911,7 @@ def _define_IContextMenuProvider():
     IContextMenuProvider.AddPrimaryExtensionItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.Com.IDataObject_head, use_last_error=False)(5, 'AddPrimaryExtensionItems', ((1, 'piExtension'),(1, 'piDataObject'),)))
     IContextMenuProvider.AddThirdPartyExtensionItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head, use_last_error=False)(6, 'AddThirdPartyExtensionItems', ((1, 'piDataObject'),)))
     IContextMenuProvider.ShowContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,Int32,Int32,POINTER(Int32), use_last_error=False)(7, 'ShowContextMenu', ((1, 'hwndParent'),(1, 'xPos'),(1, 'yPos'),(1, 'plSelected'),)))
+    win32more.System.Mmc.IContextMenuCallback
     return IContextMenuProvider
 def _define_IExtendContextMenu_head():
     class IExtendContextMenu(win32more.System.Com.IUnknown_head):
@@ -890,6 +921,7 @@ def _define_IExtendContextMenu():
     IExtendContextMenu = win32more.System.Mmc.IExtendContextMenu_head
     IExtendContextMenu.AddMenuItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,win32more.System.Mmc.IContextMenuCallback_head,POINTER(Int32), use_last_error=False)(3, 'AddMenuItems', ((1, 'piDataObject'),(1, 'piCallback'),(1, 'pInsertionAllowed'),)))
     IExtendContextMenu.Command = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Com.IDataObject_head, use_last_error=False)(4, 'Command', ((1, 'lCommandID'),(1, 'piDataObject'),)))
+    win32more.System.Com.IUnknown
     return IExtendContextMenu
 def _define_IImageList_head():
     class IImageList(win32more.System.Com.IUnknown_head):
@@ -899,6 +931,7 @@ def _define_IImageList():
     IImageList = win32more.System.Mmc.IImageList_head
     IImageList.ImageListSetIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr),Int32, use_last_error=False)(3, 'ImageListSetIcon', ((1, 'pIcon'),(1, 'nLoc'),)))
     IImageList.ImageListSetStrip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(IntPtr),POINTER(IntPtr),Int32,UInt32, use_last_error=False)(4, 'ImageListSetStrip', ((1, 'pBMapSm'),(1, 'pBMapLg'),(1, 'nStartLoc'),(1, 'cMask'),)))
+    win32more.System.Com.IUnknown
     return IImageList
 def _define_IResultData_head():
     class IResultData(win32more.System.Com.IUnknown_head):
@@ -921,6 +954,7 @@ def _define_IResultData():
     IResultData.Sort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32,win32more.Foundation.LPARAM, use_last_error=False)(15, 'Sort', ((1, 'nColumn'),(1, 'dwSortOptions'),(1, 'lUserParam'),)))
     IResultData.SetDescBarText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(16, 'SetDescBarText', ((1, 'DescText'),)))
     IResultData.SetItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,UInt32, use_last_error=False)(17, 'SetItemCount', ((1, 'nItemCount'),(1, 'dwOptions'),)))
+    win32more.System.Com.IUnknown
     return IResultData
 def _define_IConsoleNameSpace_head():
     class IConsoleNameSpace(win32more.System.Com.IUnknown_head):
@@ -935,6 +969,7 @@ def _define_IConsoleNameSpace():
     IConsoleNameSpace.GetChildItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,POINTER(IntPtr),POINTER(IntPtr), use_last_error=False)(7, 'GetChildItem', ((1, 'item'),(1, 'pItemChild'),(1, 'pCookie'),)))
     IConsoleNameSpace.GetNextItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,POINTER(IntPtr),POINTER(IntPtr), use_last_error=False)(8, 'GetNextItem', ((1, 'item'),(1, 'pItemNext'),(1, 'pCookie'),)))
     IConsoleNameSpace.GetParentItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,POINTER(IntPtr),POINTER(IntPtr), use_last_error=False)(9, 'GetParentItem', ((1, 'item'),(1, 'pItemParent'),(1, 'pCookie'),)))
+    win32more.System.Com.IUnknown
     return IConsoleNameSpace
 def _define_IConsoleNameSpace2_head():
     class IConsoleNameSpace2(win32more.System.Mmc.IConsoleNameSpace_head):
@@ -944,6 +979,7 @@ def _define_IConsoleNameSpace2():
     IConsoleNameSpace2 = win32more.System.Mmc.IConsoleNameSpace2_head
     IConsoleNameSpace2.Expand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr, use_last_error=False)(10, 'Expand', ((1, 'hItem'),)))
     IConsoleNameSpace2.AddExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,POINTER(Guid), use_last_error=False)(11, 'AddExtension', ((1, 'hItem'),(1, 'lpClsid'),)))
+    win32more.System.Mmc.IConsoleNameSpace
     return IConsoleNameSpace2
 def _define_IPropertySheetCallback_head():
     class IPropertySheetCallback(win32more.System.Com.IUnknown_head):
@@ -953,6 +989,7 @@ def _define_IPropertySheetCallback():
     IPropertySheetCallback = win32more.System.Mmc.IPropertySheetCallback_head
     IPropertySheetCallback.AddPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Controls.HPROPSHEETPAGE, use_last_error=False)(3, 'AddPage', ((1, 'hPage'),)))
     IPropertySheetCallback.RemovePage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Controls.HPROPSHEETPAGE, use_last_error=False)(4, 'RemovePage', ((1, 'hPage'),)))
+    win32more.System.Com.IUnknown
     return IPropertySheetCallback
 def _define_IPropertySheetProvider_head():
     class IPropertySheetProvider(win32more.System.Com.IUnknown_head):
@@ -965,6 +1002,7 @@ def _define_IPropertySheetProvider():
     IPropertySheetProvider.AddPrimaryPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.Foundation.BOOL,win32more.Foundation.HWND,win32more.Foundation.BOOL, use_last_error=False)(5, 'AddPrimaryPages', ((1, 'lpUnknown'),(1, 'bCreateHandle'),(1, 'hNotifyWindow'),(1, 'bScopePane'),)))
     IPropertySheetProvider.AddExtensionPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'AddExtensionPages', ()))
     IPropertySheetProvider.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,Int32, use_last_error=False)(7, 'Show', ((1, 'window'),(1, 'page'),)))
+    win32more.System.Com.IUnknown
     return IPropertySheetProvider
 def _define_IExtendPropertySheet_head():
     class IExtendPropertySheet(win32more.System.Com.IUnknown_head):
@@ -974,6 +1012,7 @@ def _define_IExtendPropertySheet():
     IExtendPropertySheet = win32more.System.Mmc.IExtendPropertySheet_head
     IExtendPropertySheet.CreatePropertyPages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.IPropertySheetCallback_head,IntPtr,win32more.System.Com.IDataObject_head, use_last_error=False)(3, 'CreatePropertyPages', ((1, 'lpProvider'),(1, 'handle'),(1, 'lpIDataObject'),)))
     IExtendPropertySheet.QueryPagesFor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head, use_last_error=False)(4, 'QueryPagesFor', ((1, 'lpDataObject'),)))
+    win32more.System.Com.IUnknown
     return IExtendPropertySheet
 def _define_IControlbar_head():
     class IControlbar(win32more.System.Com.IUnknown_head):
@@ -984,6 +1023,7 @@ def _define_IControlbar():
     IControlbar.Create = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.MMC_CONTROL_TYPE,win32more.System.Mmc.IExtendControlbar_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'Create', ((1, 'nType'),(1, 'pExtendControlbar'),(1, 'ppUnknown'),)))
     IControlbar.Attach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.MMC_CONTROL_TYPE,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'Attach', ((1, 'nType'),(1, 'lpUnknown'),)))
     IControlbar.Detach = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'Detach', ((1, 'lpUnknown'),)))
+    win32more.System.Com.IUnknown
     return IControlbar
 def _define_IExtendControlbar_head():
     class IExtendControlbar(win32more.System.Com.IUnknown_head):
@@ -993,6 +1033,7 @@ def _define_IExtendControlbar():
     IExtendControlbar = win32more.System.Mmc.IExtendControlbar_head
     IExtendControlbar.SetControlbar = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.IControlbar_head, use_last_error=False)(3, 'SetControlbar', ((1, 'pControlbar'),)))
     IExtendControlbar.ControlbarNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.MMC_NOTIFY_TYPE,win32more.Foundation.LPARAM,win32more.Foundation.LPARAM, use_last_error=False)(4, 'ControlbarNotify', ((1, 'event'),(1, 'arg'),(1, 'param2'),)))
+    win32more.System.Com.IUnknown
     return IExtendControlbar
 def _define_IToolbar_head():
     class IToolbar(win32more.System.Com.IUnknown_head):
@@ -1006,6 +1047,7 @@ def _define_IToolbar():
     IToolbar.DeleteButton = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(6, 'DeleteButton', ((1, 'nIndex'),)))
     IToolbar.GetButtonState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Mmc.MMC_BUTTON_STATE,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'GetButtonState', ((1, 'idCommand'),(1, 'nState'),(1, 'pState'),)))
     IToolbar.SetButtonState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Mmc.MMC_BUTTON_STATE,win32more.Foundation.BOOL, use_last_error=False)(8, 'SetButtonState', ((1, 'idCommand'),(1, 'nState'),(1, 'bState'),)))
+    win32more.System.Com.IUnknown
     return IToolbar
 def _define_IConsoleVerb_head():
     class IConsoleVerb(win32more.System.Com.IUnknown_head):
@@ -1017,6 +1059,7 @@ def _define_IConsoleVerb():
     IConsoleVerb.SetVerbState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.MMC_CONSOLE_VERB,win32more.System.Mmc.MMC_BUTTON_STATE,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetVerbState', ((1, 'eCmdID'),(1, 'nState'),(1, 'bState'),)))
     IConsoleVerb.SetDefaultVerb = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.MMC_CONSOLE_VERB, use_last_error=False)(5, 'SetDefaultVerb', ((1, 'eCmdID'),)))
     IConsoleVerb.GetDefaultVerb = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.MMC_CONSOLE_VERB), use_last_error=False)(6, 'GetDefaultVerb', ((1, 'peCmdID'),)))
+    win32more.System.Com.IUnknown
     return IConsoleVerb
 def _define_ISnapinAbout_head():
     class ISnapinAbout(win32more.System.Com.IUnknown_head):
@@ -1029,6 +1072,7 @@ def _define_ISnapinAbout():
     ISnapinAbout.GetSnapinVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetSnapinVersion', ((1, 'lpVersion'),)))
     ISnapinAbout.GetSnapinImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.HICON), use_last_error=False)(6, 'GetSnapinImage', ((1, 'hAppIcon'),)))
     ISnapinAbout.GetStaticFolderImage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.HBITMAP),POINTER(win32more.Graphics.Gdi.HBITMAP),POINTER(win32more.Graphics.Gdi.HBITMAP),POINTER(UInt32), use_last_error=False)(7, 'GetStaticFolderImage', ((1, 'hSmallImage'),(1, 'hSmallImageOpen'),(1, 'hLargeImage'),(1, 'cMask'),)))
+    win32more.System.Com.IUnknown
     return ISnapinAbout
 def _define_IMenuButton_head():
     class IMenuButton(win32more.System.Com.IUnknown_head):
@@ -1039,6 +1083,7 @@ def _define_IMenuButton():
     IMenuButton.AddButton = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'AddButton', ((1, 'idCommand'),(1, 'lpButtonText'),(1, 'lpTooltipText'),)))
     IMenuButton.SetButton = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(4, 'SetButton', ((1, 'idCommand'),(1, 'lpButtonText'),(1, 'lpTooltipText'),)))
     IMenuButton.SetButtonState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.Mmc.MMC_BUTTON_STATE,win32more.Foundation.BOOL, use_last_error=False)(5, 'SetButtonState', ((1, 'idCommand'),(1, 'nState'),(1, 'bState'),)))
+    win32more.System.Com.IUnknown
     return IMenuButton
 def _define_ISnapinHelp_head():
     class ISnapinHelp(win32more.System.Com.IUnknown_head):
@@ -1047,6 +1092,7 @@ def _define_ISnapinHelp_head():
 def _define_ISnapinHelp():
     ISnapinHelp = win32more.System.Mmc.ISnapinHelp_head
     ISnapinHelp.GetHelpTopic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetHelpTopic', ((1, 'lpCompiledHelpFile'),)))
+    win32more.System.Com.IUnknown
     return ISnapinHelp
 def _define_IExtendPropertySheet2_head():
     class IExtendPropertySheet2(win32more.System.Mmc.IExtendPropertySheet_head):
@@ -1055,6 +1101,7 @@ def _define_IExtendPropertySheet2_head():
 def _define_IExtendPropertySheet2():
     IExtendPropertySheet2 = win32more.System.Mmc.IExtendPropertySheet2_head
     IExtendPropertySheet2.GetWatermarks = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,POINTER(win32more.Graphics.Gdi.HBITMAP),POINTER(win32more.Graphics.Gdi.HBITMAP),POINTER(win32more.Graphics.Gdi.HPALETTE),POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'GetWatermarks', ((1, 'lpIDataObject'),(1, 'lphWatermark'),(1, 'lphHeader'),(1, 'lphPalette'),(1, 'bStretch'),)))
+    win32more.System.Mmc.IExtendPropertySheet
     return IExtendPropertySheet2
 def _define_IHeaderCtrl2_head():
     class IHeaderCtrl2(win32more.System.Mmc.IHeaderCtrl_head):
@@ -1065,6 +1112,7 @@ def _define_IHeaderCtrl2():
     IHeaderCtrl2.SetChangeTimeOut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'SetChangeTimeOut', ((1, 'uTimeout'),)))
     IHeaderCtrl2.SetColumnFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.Mmc.MMC_FILTERDATA_head), use_last_error=False)(10, 'SetColumnFilter', ((1, 'nColumn'),(1, 'dwType'),(1, 'pFilterData'),)))
     IHeaderCtrl2.GetColumnFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(win32more.System.Mmc.MMC_FILTERDATA_head), use_last_error=False)(11, 'GetColumnFilter', ((1, 'nColumn'),(1, 'pdwType'),(1, 'pFilterData'),)))
+    win32more.System.Mmc.IHeaderCtrl
     return IHeaderCtrl2
 def _define_ISnapinHelp2_head():
     class ISnapinHelp2(win32more.System.Mmc.ISnapinHelp_head):
@@ -1073,6 +1121,7 @@ def _define_ISnapinHelp2_head():
 def _define_ISnapinHelp2():
     ISnapinHelp2 = win32more.System.Mmc.ISnapinHelp2_head
     ISnapinHelp2.GetLinkedTopics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetLinkedTopics', ((1, 'lpCompiledHelpFiles'),)))
+    win32more.System.Mmc.ISnapinHelp
     return ISnapinHelp2
 MMC_TASK_DISPLAY_TYPE = Int32
 MMC_TASK_DISPLAY_UNINITIALIZED = 0
@@ -1174,6 +1223,7 @@ def _define_IEnumTASK():
     IEnumTASK.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumTASK.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTASK.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.IEnumTASK_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumTASK
 def _define_IExtendTaskPad_head():
     class IExtendTaskPad(win32more.System.Com.IUnknown_head):
@@ -1187,6 +1237,7 @@ def _define_IExtendTaskPad():
     IExtendTaskPad.GetDescriptiveText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetDescriptiveText', ((1, 'pszGroup'),(1, 'pszDescriptiveText'),)))
     IExtendTaskPad.GetBackground = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Mmc.MMC_TASK_DISPLAY_OBJECT_head), use_last_error=False)(7, 'GetBackground', ((1, 'pszGroup'),(1, 'pTDO'),)))
     IExtendTaskPad.GetListPadInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Mmc.MMC_LISTPAD_INFO_head), use_last_error=False)(8, 'GetListPadInfo', ((1, 'pszGroup'),(1, 'lpListPadInfo'),)))
+    win32more.System.Com.IUnknown
     return IExtendTaskPad
 def _define_IConsole2_head():
     class IConsole2(win32more.System.Mmc.IConsole_head):
@@ -1197,6 +1248,7 @@ def _define_IConsole2():
     IConsole2.Expand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,win32more.Foundation.BOOL, use_last_error=False)(14, 'Expand', ((1, 'hItem'),(1, 'bExpand'),)))
     IConsole2.IsTaskpadViewPreferred = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'IsTaskpadViewPreferred', ()))
     IConsole2.SetStatusText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(16, 'SetStatusText', ((1, 'pszStatusText'),)))
+    win32more.System.Mmc.IConsole
     return IConsole2
 def _define_IDisplayHelp_head():
     class IDisplayHelp(win32more.System.Com.IUnknown_head):
@@ -1205,6 +1257,7 @@ def _define_IDisplayHelp_head():
 def _define_IDisplayHelp():
     IDisplayHelp = win32more.System.Mmc.IDisplayHelp_head
     IDisplayHelp.ShowTopic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'ShowTopic', ((1, 'pszHelpTopic'),)))
+    win32more.System.Com.IUnknown
     return IDisplayHelp
 def _define_IRequiredExtensions_head():
     class IRequiredExtensions(win32more.System.Com.IUnknown_head):
@@ -1215,6 +1268,7 @@ def _define_IRequiredExtensions():
     IRequiredExtensions.EnableAllExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'EnableAllExtensions', ()))
     IRequiredExtensions.GetFirstExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetFirstExtension', ((1, 'pExtCLSID'),)))
     IRequiredExtensions.GetNextExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(5, 'GetNextExtension', ((1, 'pExtCLSID'),)))
+    win32more.System.Com.IUnknown
     return IRequiredExtensions
 def _define_IStringTable_head():
     class IStringTable(win32more.System.Com.IUnknown_head):
@@ -1229,6 +1283,7 @@ def _define_IStringTable():
     IStringTable.DeleteAllStrings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'DeleteAllStrings', ()))
     IStringTable.FindString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(8, 'FindString', ((1, 'pszFind'),(1, 'pStringID'),)))
     IStringTable.Enumerate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head), use_last_error=False)(9, 'Enumerate', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IStringTable
 def _define_MMC_COLUMN_DATA_head():
     class MMC_COLUMN_DATA(Structure):
@@ -1289,6 +1344,7 @@ def _define_IColumnData():
     IColumnData.GetColumnConfigData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.SColumnSetID_head),POINTER(POINTER(win32more.System.Mmc.MMC_COLUMN_SET_DATA_head)), use_last_error=False)(4, 'GetColumnConfigData', ((1, 'pColID'),(1, 'ppColSetData'),)))
     IColumnData.SetColumnSortData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.SColumnSetID_head),POINTER(win32more.System.Mmc.MMC_SORT_SET_DATA_head), use_last_error=False)(5, 'SetColumnSortData', ((1, 'pColID'),(1, 'pColSortData'),)))
     IColumnData.GetColumnSortData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.SColumnSetID_head),POINTER(POINTER(win32more.System.Mmc.MMC_SORT_SET_DATA_head)), use_last_error=False)(6, 'GetColumnSortData', ((1, 'pColID'),(1, 'ppColSortData'),)))
+    win32more.System.Com.IUnknown
     return IColumnData
 IconIdentifier = Int32
 Icon_None = 0
@@ -1308,6 +1364,7 @@ def _define_IMessageView():
     IMessageView.SetBodyText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'SetBodyText', ((1, 'pszBodyText'),)))
     IMessageView.SetIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Mmc.IconIdentifier, use_last_error=False)(5, 'SetIcon', ((1, 'id'),)))
     IMessageView.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Clear', ()))
+    win32more.System.Com.IUnknown
     return IMessageView
 def _define_RDITEMHDR_head():
     class RDITEMHDR(Structure):
@@ -1343,6 +1400,7 @@ def _define_IResultDataCompareEx_head():
 def _define_IResultDataCompareEx():
     IResultDataCompareEx = win32more.System.Mmc.IResultDataCompareEx_head
     IResultDataCompareEx.Compare = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.RDCOMPARE_head),POINTER(Int32), use_last_error=False)(3, 'Compare', ((1, 'prdc'),(1, 'pnResult'),)))
+    win32more.System.Com.IUnknown
     return IResultDataCompareEx
 MMC_VIEW_TYPE = Int32
 MMC_VIEW_TYPE_LIST = 0
@@ -1424,6 +1482,7 @@ def _define_IComponentData2_head():
 def _define_IComponentData2():
     IComponentData2 = win32more.System.Mmc.IComponentData2_head
     IComponentData2.QueryDispatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,win32more.System.Mmc.DATA_OBJECT_TYPES,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'QueryDispatch', ((1, 'cookie'),(1, 'type'),(1, 'ppDispatch'),)))
+    win32more.System.Mmc.IComponentData
     return IComponentData2
 def _define_IComponent2_head():
     class IComponent2(win32more.System.Mmc.IComponent_head):
@@ -1434,6 +1493,7 @@ def _define_IComponent2():
     IComponent2.QueryDispatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,win32more.System.Mmc.DATA_OBJECT_TYPES,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(10, 'QueryDispatch', ((1, 'cookie'),(1, 'type'),(1, 'ppDispatch'),)))
     IComponent2.GetResultViewType2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,POINTER(win32more.System.Mmc.RESULT_VIEW_TYPE_INFO_head), use_last_error=False)(11, 'GetResultViewType2', ((1, 'cookie'),(1, 'pResultViewType'),)))
     IComponent2.RestoreResultView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr,POINTER(win32more.System.Mmc.RESULT_VIEW_TYPE_INFO_head), use_last_error=False)(12, 'RestoreResultView', ((1, 'cookie'),(1, 'pResultViewType'),)))
+    win32more.System.Mmc.IComponent
     return IComponent2
 def _define_IContextMenuCallback2_head():
     class IContextMenuCallback2(win32more.System.Com.IUnknown_head):
@@ -1442,6 +1502,7 @@ def _define_IContextMenuCallback2_head():
 def _define_IContextMenuCallback2():
     IContextMenuCallback2 = win32more.System.Mmc.IContextMenuCallback2_head
     IContextMenuCallback2.AddItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.CONTEXTMENUITEM2_head), use_last_error=False)(3, 'AddItem', ((1, 'pItem'),)))
+    win32more.System.Com.IUnknown
     return IContextMenuCallback2
 def _define_IMMCVersionInfo_head():
     class IMMCVersionInfo(win32more.System.Com.IUnknown_head):
@@ -1450,6 +1511,7 @@ def _define_IMMCVersionInfo_head():
 def _define_IMMCVersionInfo():
     IMMCVersionInfo = win32more.System.Mmc.IMMCVersionInfo_head
     IMMCVersionInfo.GetMMCVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32), use_last_error=False)(3, 'GetMMCVersion', ((1, 'pVersionMajor'),(1, 'pVersionMinor'),)))
+    win32more.System.Com.IUnknown
     return IMMCVersionInfo
 def _define_IExtendView_head():
     class IExtendView(win32more.System.Com.IUnknown_head):
@@ -1458,6 +1520,7 @@ def _define_IExtendView_head():
 def _define_IExtendView():
     IExtendView = win32more.System.Mmc.IExtendView_head
     IExtendView.GetViews = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,win32more.System.Mmc.IViewExtensionCallback_head, use_last_error=False)(3, 'GetViews', ((1, 'pDataObject'),(1, 'pViewExtensionCallback'),)))
+    win32more.System.Com.IUnknown
     return IExtendView
 def _define_IViewExtensionCallback_head():
     class IViewExtensionCallback(win32more.System.Com.IUnknown_head):
@@ -1466,6 +1529,7 @@ def _define_IViewExtensionCallback_head():
 def _define_IViewExtensionCallback():
     IViewExtensionCallback = win32more.System.Mmc.IViewExtensionCallback_head
     IViewExtensionCallback.AddView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Mmc.MMC_EXT_VIEW_DATA_head), use_last_error=False)(3, 'AddView', ((1, 'pExtViewData'),)))
+    win32more.System.Com.IUnknown
     return IViewExtensionCallback
 def _define_IConsolePower_head():
     class IConsolePower(win32more.System.Com.IUnknown_head):
@@ -1475,6 +1539,7 @@ def _define_IConsolePower():
     IConsolePower = win32more.System.Mmc.IConsolePower_head
     IConsolePower.SetExecutionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(3, 'SetExecutionState', ((1, 'dwAdd'),(1, 'dwRemove'),)))
     IConsolePower.ResetIdleTimer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'ResetIdleTimer', ((1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IConsolePower
 def _define_IConsolePowerSink_head():
     class IConsolePowerSink(win32more.System.Com.IUnknown_head):
@@ -1483,6 +1548,7 @@ def _define_IConsolePowerSink_head():
 def _define_IConsolePowerSink():
     IConsolePowerSink = win32more.System.Mmc.IConsolePowerSink_head
     IConsolePowerSink.OnPowerBroadcast = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.LRESULT), use_last_error=False)(3, 'OnPowerBroadcast', ((1, 'nEvent'),(1, 'lParam'),(1, 'plReturn'),)))
+    win32more.System.Com.IUnknown
     return IConsolePowerSink
 def _define_INodeProperties_head():
     class INodeProperties(win32more.System.Com.IUnknown_head):
@@ -1491,6 +1557,7 @@ def _define_INodeProperties_head():
 def _define_INodeProperties():
     INodeProperties = win32more.System.Mmc.INodeProperties_head
     INodeProperties.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IDataObject_head,win32more.Foundation.BSTR,POINTER(POINTER(UInt16)), use_last_error=False)(3, 'GetProperty', ((1, 'pDataObject'),(1, 'szPropertyName'),(1, 'pbstrProperty'),)))
+    win32more.System.Com.IUnknown
     return INodeProperties
 def _define_IConsole3_head():
     class IConsole3(win32more.System.Mmc.IConsole2_head):
@@ -1499,6 +1566,7 @@ def _define_IConsole3_head():
 def _define_IConsole3():
     IConsole3 = win32more.System.Mmc.IConsole3_head
     IConsole3.RenameScopeItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr, use_last_error=False)(17, 'RenameScopeItem', ((1, 'hScopeItem'),)))
+    win32more.System.Mmc.IConsole2
     return IConsole3
 def _define_IResultData2_head():
     class IResultData2(win32more.System.Mmc.IResultData_head):
@@ -1507,6 +1575,7 @@ def _define_IResultData2_head():
 def _define_IResultData2():
     IResultData2 = win32more.System.Mmc.IResultData2_head
     IResultData2.RenameResultItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,IntPtr, use_last_error=False)(18, 'RenameResultItem', ((1, 'itemID'),)))
+    win32more.System.Mmc.IResultData
     return IResultData2
 __all__ = [
     "MMC_VER",

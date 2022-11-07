@@ -29,6 +29,7 @@ def _define_IUPnPNAT():
     IUPnPNAT.get_StaticPortMappingCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IStaticPortMappingCollection_head), use_last_error=False)(7, 'get_StaticPortMappingCollection', ((1, 'ppSPMs'),)))
     IUPnPNAT.get_DynamicPortMappingCollection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IDynamicPortMappingCollection_head), use_last_error=False)(8, 'get_DynamicPortMappingCollection', ((1, 'ppDPMs'),)))
     IUPnPNAT.get_NATEventManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INATEventManager_head), use_last_error=False)(9, 'get_NATEventManager', ((1, 'ppNEM'),)))
+    win32more.System.Com.IDispatch
     return IUPnPNAT
 def _define_INATEventManager_head():
     class INATEventManager(win32more.System.Com.IDispatch_head):
@@ -38,6 +39,7 @@ def _define_INATEventManager():
     INATEventManager = win32more.NetworkManagement.WindowsFirewall.INATEventManager_head
     INATEventManager.put_ExternalIPAddressCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(7, 'put_ExternalIPAddressCallback', ((1, 'pUnk'),)))
     INATEventManager.put_NumberOfEntriesCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(8, 'put_NumberOfEntriesCallback', ((1, 'pUnk'),)))
+    win32more.System.Com.IDispatch
     return INATEventManager
 def _define_INATExternalIPAddressCallback_head():
     class INATExternalIPAddressCallback(win32more.System.Com.IUnknown_head):
@@ -46,6 +48,7 @@ def _define_INATExternalIPAddressCallback_head():
 def _define_INATExternalIPAddressCallback():
     INATExternalIPAddressCallback = win32more.NetworkManagement.WindowsFirewall.INATExternalIPAddressCallback_head
     INATExternalIPAddressCallback.NewExternalIPAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(3, 'NewExternalIPAddress', ((1, 'bstrNewExternalIPAddress'),)))
+    win32more.System.Com.IUnknown
     return INATExternalIPAddressCallback
 def _define_INATNumberOfEntriesCallback_head():
     class INATNumberOfEntriesCallback(win32more.System.Com.IUnknown_head):
@@ -54,6 +57,7 @@ def _define_INATNumberOfEntriesCallback_head():
 def _define_INATNumberOfEntriesCallback():
     INATNumberOfEntriesCallback = win32more.NetworkManagement.WindowsFirewall.INATNumberOfEntriesCallback_head
     INATNumberOfEntriesCallback.NewNumberOfEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'NewNumberOfEntries', ((1, 'lNewNumberOfEntries'),)))
+    win32more.System.Com.IUnknown
     return INATNumberOfEntriesCallback
 def _define_IDynamicPortMappingCollection_head():
     class IDynamicPortMappingCollection(win32more.System.Com.IDispatch_head):
@@ -66,6 +70,7 @@ def _define_IDynamicPortMappingCollection():
     IDynamicPortMappingCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'pVal'),)))
     IDynamicPortMappingCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR, use_last_error=False)(10, 'Remove', ((1, 'bstrRemoteHost'),(1, 'lExternalPort'),(1, 'bstrProtocol'),)))
     IDynamicPortMappingCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,Int16,win32more.Foundation.BSTR,Int32,POINTER(win32more.NetworkManagement.WindowsFirewall.IDynamicPortMapping_head), use_last_error=False)(11, 'Add', ((1, 'bstrRemoteHost'),(1, 'lExternalPort'),(1, 'bstrProtocol'),(1, 'lInternalPort'),(1, 'bstrInternalClient'),(1, 'bEnabled'),(1, 'bstrDescription'),(1, 'lLeaseDuration'),(1, 'ppDPM'),)))
+    win32more.System.Com.IDispatch
     return IDynamicPortMappingCollection
 def _define_IDynamicPortMapping_head():
     class IDynamicPortMapping(win32more.System.Com.IDispatch_head):
@@ -87,6 +92,7 @@ def _define_IDynamicPortMapping():
     IDynamicPortMapping.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(18, 'Enable', ((1, 'vb'),)))
     IDynamicPortMapping.EditDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(19, 'EditDescription', ((1, 'bstrDescription'),)))
     IDynamicPortMapping.EditInternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(20, 'EditInternalPort', ((1, 'lInternalPort'),)))
+    win32more.System.Com.IDispatch
     return IDynamicPortMapping
 def _define_IStaticPortMappingCollection_head():
     class IStaticPortMappingCollection(win32more.System.Com.IDispatch_head):
@@ -99,6 +105,7 @@ def _define_IStaticPortMappingCollection():
     IStaticPortMappingCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'pVal'),)))
     IStaticPortMappingCollection.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(10, 'Remove', ((1, 'lExternalPort'),(1, 'bstrProtocol'),)))
     IStaticPortMappingCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,Int16,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.IStaticPortMapping_head), use_last_error=False)(11, 'Add', ((1, 'lExternalPort'),(1, 'bstrProtocol'),(1, 'lInternalPort'),(1, 'bstrInternalClient'),(1, 'bEnabled'),(1, 'bstrDescription'),(1, 'ppSPM'),)))
+    win32more.System.Com.IDispatch
     return IStaticPortMappingCollection
 def _define_IStaticPortMapping_head():
     class IStaticPortMapping(win32more.System.Com.IDispatch_head):
@@ -117,6 +124,7 @@ def _define_IStaticPortMapping():
     IStaticPortMapping.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(15, 'Enable', ((1, 'vb'),)))
     IStaticPortMapping.EditDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(16, 'EditDescription', ((1, 'bstrDescription'),)))
     IStaticPortMapping.EditInternalPort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(17, 'EditInternalPort', ((1, 'lInternalPort'),)))
+    win32more.System.Com.IDispatch
     return IStaticPortMapping
 NetSharingManager = Guid('5c63c1ad-3956-4ff8-8486-40034758315b')
 def _define_IEnumNetConnection_head():
@@ -129,6 +137,7 @@ def _define_IEnumNetConnection():
     IEnumNetConnection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumNetConnection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumNetConnection.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetConnection_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumNetConnection
 NETCON_CHARACTERISTIC_FLAGS = Int32
 NCCF_NONE = 0
@@ -218,6 +227,7 @@ def _define_INetConnection():
     INetConnection.GetProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.NetworkManagement.WindowsFirewall.NETCON_PROPERTIES_head)), use_last_error=False)(7, 'GetProperties', ((1, 'ppProps'),)))
     INetConnection.GetUiObjectClassId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(8, 'GetUiObjectClassId', ((1, 'pclsid'),)))
     INetConnection.Rename = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(9, 'Rename', ((1, 'pszwNewName'),)))
+    win32more.System.Com.IUnknown
     return INetConnection
 NETCONMGR_ENUM_FLAGS = Int32
 NCME_DEFAULT = 0
@@ -229,6 +239,7 @@ def _define_INetConnectionManager_head():
 def _define_INetConnectionManager():
     INetConnectionManager = win32more.NetworkManagement.WindowsFirewall.INetConnectionManager_head
     INetConnectionManager.EnumConnections = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NETCONMGR_ENUM_FLAGS,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetConnection_head), use_last_error=False)(3, 'EnumConnections', ((1, 'Flags'),(1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return INetConnectionManager
 NETCONUI_CONNECT_FLAGS = Int32
 NCUC_DEFAULT = 0
@@ -243,6 +254,7 @@ def _define_INetConnectionConnectUi():
     INetConnectionConnectUi.SetConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetConnection_head, use_last_error=False)(3, 'SetConnection', ((1, 'pCon'),)))
     INetConnectionConnectUi.Connect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(4, 'Connect', ((1, 'hwndParent'),(1, 'dwFlags'),)))
     INetConnectionConnectUi.Disconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt32, use_last_error=False)(5, 'Disconnect', ((1, 'hwndParent'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return INetConnectionConnectUi
 def _define_IEnumNetSharingPortMapping_head():
     class IEnumNetSharingPortMapping(win32more.System.Com.IUnknown_head):
@@ -254,6 +266,7 @@ def _define_IEnumNetSharingPortMapping():
     IEnumNetSharingPortMapping.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumNetSharingPortMapping.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumNetSharingPortMapping.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPortMapping_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumNetSharingPortMapping
 def _define_INetSharingPortMappingProps_head():
     class INetSharingPortMappingProps(win32more.System.Com.IDispatch_head):
@@ -269,6 +282,7 @@ def _define_INetSharingPortMappingProps():
     INetSharingPortMappingProps.get_TargetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'get_TargetName', ((1, 'pbstrTargetName'),)))
     INetSharingPortMappingProps.get_TargetIPAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(13, 'get_TargetIPAddress', ((1, 'pbstrTargetIPAddress'),)))
     INetSharingPortMappingProps.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(14, 'get_Enabled', ((1, 'pbool'),)))
+    win32more.System.Com.IDispatch
     return INetSharingPortMappingProps
 def _define_INetSharingPortMapping_head():
     class INetSharingPortMapping(win32more.System.Com.IDispatch_head):
@@ -280,6 +294,7 @@ def _define_INetSharingPortMapping():
     INetSharingPortMapping.Enable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Enable', ()))
     INetSharingPortMapping.get_Properties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPortMappingProps_head), use_last_error=False)(9, 'get_Properties', ((1, 'ppNSPMP'),)))
     INetSharingPortMapping.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Delete', ()))
+    win32more.System.Com.IDispatch
     return INetSharingPortMapping
 def _define_IEnumNetSharingEveryConnection_head():
     class IEnumNetSharingEveryConnection(win32more.System.Com.IUnknown_head):
@@ -291,6 +306,7 @@ def _define_IEnumNetSharingEveryConnection():
     IEnumNetSharingEveryConnection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumNetSharingEveryConnection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumNetSharingEveryConnection.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingEveryConnection_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumNetSharingEveryConnection
 def _define_IEnumNetSharingPublicConnection_head():
     class IEnumNetSharingPublicConnection(win32more.System.Com.IUnknown_head):
@@ -302,6 +318,7 @@ def _define_IEnumNetSharingPublicConnection():
     IEnumNetSharingPublicConnection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumNetSharingPublicConnection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumNetSharingPublicConnection.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPublicConnection_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumNetSharingPublicConnection
 def _define_IEnumNetSharingPrivateConnection_head():
     class IEnumNetSharingPrivateConnection(win32more.System.Com.IUnknown_head):
@@ -313,6 +330,7 @@ def _define_IEnumNetSharingPrivateConnection():
     IEnumNetSharingPrivateConnection.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'celt'),)))
     IEnumNetSharingPrivateConnection.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumNetSharingPrivateConnection.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.IEnumNetSharingPrivateConnection_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
+    win32more.System.Com.IUnknown
     return IEnumNetSharingPrivateConnection
 def _define_INetSharingPortMappingCollection_head():
     class INetSharingPortMappingCollection(win32more.System.Com.IDispatch_head):
@@ -322,6 +340,7 @@ def _define_INetSharingPortMappingCollection():
     INetSharingPortMappingCollection = win32more.NetworkManagement.WindowsFirewall.INetSharingPortMappingCollection_head
     INetSharingPortMappingCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'pVal'),)))
     INetSharingPortMappingCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return INetSharingPortMappingCollection
 def _define_INetConnectionProps_head():
     class INetConnectionProps(win32more.System.Com.IDispatch_head):
@@ -335,6 +354,7 @@ def _define_INetConnectionProps():
     INetConnectionProps.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NETCON_STATUS), use_last_error=False)(10, 'get_Status', ((1, 'pStatus'),)))
     INetConnectionProps.get_MediaType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NETCON_MEDIATYPE), use_last_error=False)(11, 'get_MediaType', ((1, 'pMediaType'),)))
     INetConnectionProps.get_Characteristics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'get_Characteristics', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IDispatch
     return INetConnectionProps
 SHARINGCONNECTIONTYPE = Int32
 ICSSHARINGTYPE_PUBLIC = 0
@@ -361,6 +381,7 @@ def _define_INetSharingConfiguration():
     INetSharingConfiguration.get_EnumPortMappings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.SHARINGCONNECTION_ENUM_FLAGS,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPortMappingCollection_head), use_last_error=False)(14, 'get_EnumPortMappings', ((1, 'Flags'),(1, 'ppColl'),)))
     INetSharingConfiguration.AddPortMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Byte,UInt16,UInt16,UInt32,win32more.Foundation.BSTR,win32more.NetworkManagement.WindowsFirewall.ICS_TARGETTYPE,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingPortMapping_head), use_last_error=False)(15, 'AddPortMapping', ((1, 'bstrName'),(1, 'ucIPProtocol'),(1, 'usExternalPort'),(1, 'usInternalPort'),(1, 'dwOptions'),(1, 'bstrTargetNameOrIPAddress'),(1, 'eTargetType'),(1, 'ppMapping'),)))
     INetSharingConfiguration.RemovePortMapping = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetSharingPortMapping_head, use_last_error=False)(16, 'RemovePortMapping', ((1, 'pMapping'),)))
+    win32more.System.Com.IDispatch
     return INetSharingConfiguration
 def _define_INetSharingEveryConnectionCollection_head():
     class INetSharingEveryConnectionCollection(win32more.System.Com.IDispatch_head):
@@ -370,6 +391,7 @@ def _define_INetSharingEveryConnectionCollection():
     INetSharingEveryConnectionCollection = win32more.NetworkManagement.WindowsFirewall.INetSharingEveryConnectionCollection_head
     INetSharingEveryConnectionCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'pVal'),)))
     INetSharingEveryConnectionCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return INetSharingEveryConnectionCollection
 def _define_INetSharingPublicConnectionCollection_head():
     class INetSharingPublicConnectionCollection(win32more.System.Com.IDispatch_head):
@@ -379,6 +401,7 @@ def _define_INetSharingPublicConnectionCollection():
     INetSharingPublicConnectionCollection = win32more.NetworkManagement.WindowsFirewall.INetSharingPublicConnectionCollection_head
     INetSharingPublicConnectionCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'pVal'),)))
     INetSharingPublicConnectionCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return INetSharingPublicConnectionCollection
 def _define_INetSharingPrivateConnectionCollection_head():
     class INetSharingPrivateConnectionCollection(win32more.System.Com.IDispatch_head):
@@ -388,6 +411,7 @@ def _define_INetSharingPrivateConnectionCollection():
     INetSharingPrivateConnectionCollection = win32more.NetworkManagement.WindowsFirewall.INetSharingPrivateConnectionCollection_head
     INetSharingPrivateConnectionCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'pVal'),)))
     INetSharingPrivateConnectionCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Count', ((1, 'pVal'),)))
+    win32more.System.Com.IDispatch
     return INetSharingPrivateConnectionCollection
 def _define_INetSharingManager_head():
     class INetSharingManager(win32more.System.Com.IDispatch_head):
@@ -401,6 +425,7 @@ def _define_INetSharingManager():
     INetSharingManager.get_INetSharingConfigurationForINetConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetConnection_head,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingConfiguration_head), use_last_error=False)(10, 'get_INetSharingConfigurationForINetConnection', ((1, 'pNetConnection'),(1, 'ppNetSharingConfiguration'),)))
     INetSharingManager.get_EnumEveryConnection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetSharingEveryConnectionCollection_head), use_last_error=False)(11, 'get_EnumEveryConnection', ((1, 'ppColl'),)))
     INetSharingManager.get_NetConnectionProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetConnection_head,POINTER(win32more.NetworkManagement.WindowsFirewall.INetConnectionProps_head), use_last_error=False)(12, 'get_NetConnectionProps', ((1, 'pNetConnection'),(1, 'ppProps'),)))
+    win32more.System.Com.IDispatch
     return INetSharingManager
 NetFwRule = Guid('2c5bc43e-3369-4c33-ab0c-be9469677af4')
 NetFwOpenPort = Guid('0ca545c6-37ad-4a6c-bf92-9f7610067ef5')
@@ -622,6 +647,7 @@ def _define_INetFwRemoteAdminSettings():
     INetFwRemoteAdminSettings.put_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'put_RemoteAddresses', ((1, 'remoteAddrs'),)))
     INetFwRemoteAdminSettings.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(13, 'get_Enabled', ((1, 'enabled'),)))
     INetFwRemoteAdminSettings.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(14, 'put_Enabled', ((1, 'enabled'),)))
+    win32more.System.Com.IDispatch
     return INetFwRemoteAdminSettings
 def _define_INetFwIcmpSettings_head():
     class INetFwIcmpSettings(win32more.System.Com.IDispatch_head):
@@ -649,6 +675,7 @@ def _define_INetFwIcmpSettings():
     INetFwIcmpSettings.put_AllowInboundMaskRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(24, 'put_AllowInboundMaskRequest', ((1, 'allow'),)))
     INetFwIcmpSettings.get_AllowOutboundPacketTooBig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(25, 'get_AllowOutboundPacketTooBig', ((1, 'allow'),)))
     INetFwIcmpSettings.put_AllowOutboundPacketTooBig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(26, 'put_AllowOutboundPacketTooBig', ((1, 'allow'),)))
+    win32more.System.Com.IDispatch
     return INetFwIcmpSettings
 def _define_INetFwOpenPort_head():
     class INetFwOpenPort(win32more.System.Com.IDispatch_head):
@@ -671,6 +698,7 @@ def _define_INetFwOpenPort():
     INetFwOpenPort.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(19, 'get_Enabled', ((1, 'enabled'),)))
     INetFwOpenPort.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(20, 'put_Enabled', ((1, 'enabled'),)))
     INetFwOpenPort.get_BuiltIn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(21, 'get_BuiltIn', ((1, 'builtIn'),)))
+    win32more.System.Com.IDispatch
     return INetFwOpenPort
 def _define_INetFwOpenPorts_head():
     class INetFwOpenPorts(win32more.System.Com.IDispatch_head):
@@ -683,6 +711,7 @@ def _define_INetFwOpenPorts():
     INetFwOpenPorts.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL, use_last_error=False)(9, 'Remove', ((1, 'portNumber'),(1, 'ipProtocol'),)))
     INetFwOpenPorts.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwOpenPort_head), use_last_error=False)(10, 'Item', ((1, 'portNumber'),(1, 'ipProtocol'),(1, 'openPort'),)))
     INetFwOpenPorts.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, 'get__NewEnum', ((1, 'newEnum'),)))
+    win32more.System.Com.IDispatch
     return INetFwOpenPorts
 def _define_INetFwService_head():
     class INetFwService(win32more.System.Com.IDispatch_head):
@@ -702,6 +731,7 @@ def _define_INetFwService():
     INetFwService.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(16, 'get_Enabled', ((1, 'enabled'),)))
     INetFwService.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(17, 'put_Enabled', ((1, 'enabled'),)))
     INetFwService.get_GloballyOpenPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwOpenPorts_head), use_last_error=False)(18, 'get_GloballyOpenPorts', ((1, 'openPorts'),)))
+    win32more.System.Com.IDispatch
     return INetFwService
 def _define_INetFwServices_head():
     class INetFwServices(win32more.System.Com.IDispatch_head):
@@ -712,6 +742,7 @@ def _define_INetFwServices():
     INetFwServices.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_Count', ((1, 'count'),)))
     INetFwServices.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_SERVICE_TYPE,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwService_head), use_last_error=False)(8, 'Item', ((1, 'svcType'),(1, 'service'),)))
     INetFwServices.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'get__NewEnum', ((1, 'newEnum'),)))
+    win32more.System.Com.IDispatch
     return INetFwServices
 def _define_INetFwAuthorizedApplication_head():
     class INetFwAuthorizedApplication(win32more.System.Com.IDispatch_head):
@@ -731,6 +762,7 @@ def _define_INetFwAuthorizedApplication():
     INetFwAuthorizedApplication.put_RemoteAddresses = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(16, 'put_RemoteAddresses', ((1, 'remoteAddrs'),)))
     INetFwAuthorizedApplication.get_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(17, 'get_Enabled', ((1, 'enabled'),)))
     INetFwAuthorizedApplication.put_Enabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(18, 'put_Enabled', ((1, 'enabled'),)))
+    win32more.System.Com.IDispatch
     return INetFwAuthorizedApplication
 def _define_INetFwAuthorizedApplications_head():
     class INetFwAuthorizedApplications(win32more.System.Com.IDispatch_head):
@@ -743,6 +775,7 @@ def _define_INetFwAuthorizedApplications():
     INetFwAuthorizedApplications.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'Remove', ((1, 'imageFileName'),)))
     INetFwAuthorizedApplications.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplication_head), use_last_error=False)(10, 'Item', ((1, 'imageFileName'),(1, 'app'),)))
     INetFwAuthorizedApplications.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, 'get__NewEnum', ((1, 'newEnum'),)))
+    win32more.System.Com.IDispatch
     return INetFwAuthorizedApplications
 def _define_INetFwRule_head():
     class INetFwRule(win32more.System.Com.IDispatch_head):
@@ -786,6 +819,7 @@ def _define_INetFwRule():
     INetFwRule.put_EdgeTraversal = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(40, 'put_EdgeTraversal', ((1, 'enabled'),)))
     INetFwRule.get_Action = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION), use_last_error=False)(41, 'get_Action', ((1, 'action'),)))
     INetFwRule.put_Action = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION, use_last_error=False)(42, 'put_Action', ((1, 'action'),)))
+    win32more.System.Com.IDispatch
     return INetFwRule
 def _define_INetFwRule2_head():
     class INetFwRule2(win32more.NetworkManagement.WindowsFirewall.INetFwRule_head):
@@ -795,6 +829,7 @@ def _define_INetFwRule2():
     INetFwRule2 = win32more.NetworkManagement.WindowsFirewall.INetFwRule2_head
     INetFwRule2.get_EdgeTraversalOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(43, 'get_EdgeTraversalOptions', ((1, 'lOptions'),)))
     INetFwRule2.put_EdgeTraversalOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(44, 'put_EdgeTraversalOptions', ((1, 'lOptions'),)))
+    win32more.NetworkManagement.WindowsFirewall.INetFwRule
     return INetFwRule2
 def _define_INetFwRule3_head():
     class INetFwRule3(win32more.NetworkManagement.WindowsFirewall.INetFwRule2_head):
@@ -814,6 +849,7 @@ def _define_INetFwRule3():
     INetFwRule3.put_RemoteMachineAuthorizedList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(54, 'put_RemoteMachineAuthorizedList', ((1, 'wszUserAuthList'),)))
     INetFwRule3.get_SecureFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(55, 'get_SecureFlags', ((1, 'lOptions'),)))
     INetFwRule3.put_SecureFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(56, 'put_SecureFlags', ((1, 'lOptions'),)))
+    win32more.NetworkManagement.WindowsFirewall.INetFwRule2
     return INetFwRule3
 def _define_INetFwRules_head():
     class INetFwRules(win32more.System.Com.IDispatch_head):
@@ -826,6 +862,7 @@ def _define_INetFwRules():
     INetFwRules.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(9, 'Remove', ((1, 'name'),)))
     INetFwRules.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRule_head), use_last_error=False)(10, 'Item', ((1, 'name'),(1, 'rule'),)))
     INetFwRules.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(11, 'get__NewEnum', ((1, 'newEnum'),)))
+    win32more.System.Com.IDispatch
     return INetFwRules
 def _define_INetFwServiceRestriction_head():
     class INetFwServiceRestriction(win32more.System.Com.IDispatch_head):
@@ -836,6 +873,7 @@ def _define_INetFwServiceRestriction():
     INetFwServiceRestriction.RestrictService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int16,Int16, use_last_error=False)(7, 'RestrictService', ((1, 'serviceName'),(1, 'appName'),(1, 'restrictService'),(1, 'serviceSidRestricted'),)))
     INetFwServiceRestriction.ServiceRestricted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(8, 'ServiceRestricted', ((1, 'serviceName'),(1, 'appName'),(1, 'serviceRestricted'),)))
     INetFwServiceRestriction.get_Rules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwRules_head), use_last_error=False)(9, 'get_Rules', ((1, 'rules'),)))
+    win32more.System.Com.IDispatch
     return INetFwServiceRestriction
 def _define_INetFwProfile_head():
     class INetFwProfile(win32more.System.Com.IDispatch_head):
@@ -857,6 +895,7 @@ def _define_INetFwProfile():
     INetFwProfile.get_GloballyOpenPorts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwOpenPorts_head), use_last_error=False)(18, 'get_GloballyOpenPorts', ((1, 'openPorts'),)))
     INetFwProfile.get_Services = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwServices_head), use_last_error=False)(19, 'get_Services', ((1, 'services'),)))
     INetFwProfile.get_AuthorizedApplications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwAuthorizedApplications_head), use_last_error=False)(20, 'get_AuthorizedApplications', ((1, 'apps'),)))
+    win32more.System.Com.IDispatch
     return INetFwProfile
 def _define_INetFwPolicy_head():
     class INetFwPolicy(win32more.System.Com.IDispatch_head):
@@ -866,6 +905,7 @@ def _define_INetFwPolicy():
     INetFwPolicy = win32more.NetworkManagement.WindowsFirewall.INetFwPolicy_head
     INetFwPolicy.get_CurrentProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwProfile_head), use_last_error=False)(7, 'get_CurrentProfile', ((1, 'profile'),)))
     INetFwPolicy.GetProfileByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwProfile_head), use_last_error=False)(8, 'GetProfileByType', ((1, 'profileType'),(1, 'profile'),)))
+    win32more.System.Com.IDispatch
     return INetFwPolicy
 def _define_INetFwPolicy2_head():
     class INetFwPolicy2(win32more.System.Com.IDispatch_head):
@@ -895,6 +935,7 @@ def _define_INetFwPolicy2():
     INetFwPolicy2.put_DefaultOutboundAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_PROFILE_TYPE2,win32more.NetworkManagement.WindowsFirewall.NET_FW_ACTION, use_last_error=False)(26, 'put_DefaultOutboundAction', ((1, 'profileType'),(1, 'action'),)))
     INetFwPolicy2.get_IsRuleGroupCurrentlyEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Int16), use_last_error=False)(27, 'get_IsRuleGroupCurrentlyEnabled', ((1, 'group'),(1, 'enabled'),)))
     INetFwPolicy2.get_LocalPolicyModifyState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.NetworkManagement.WindowsFirewall.NET_FW_MODIFY_STATE), use_last_error=False)(28, 'get_LocalPolicyModifyState', ((1, 'modifyState'),)))
+    win32more.System.Com.IDispatch
     return INetFwPolicy2
 def _define_INetFwMgr_head():
     class INetFwMgr(win32more.System.Com.IDispatch_head):
@@ -907,6 +948,7 @@ def _define_INetFwMgr():
     INetFwMgr.RestoreDefaults = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'RestoreDefaults', ()))
     INetFwMgr.IsPortAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION,Int32,win32more.Foundation.BSTR,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_PROTOCOL,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(10, 'IsPortAllowed', ((1, 'imageFileName'),(1, 'ipVersion'),(1, 'portNumber'),(1, 'localAddress'),(1, 'ipProtocol'),(1, 'allowed'),(1, 'restricted'),)))
     INetFwMgr.IsIcmpTypeAllowed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.NET_FW_IP_VERSION,win32more.Foundation.BSTR,Byte,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(11, 'IsIcmpTypeAllowed', ((1, 'ipVersion'),(1, 'localAddress'),(1, 'type'),(1, 'allowed'),(1, 'restricted'),)))
+    win32more.System.Com.IDispatch
     return INetFwMgr
 def _define_INetFwProduct_head():
     class INetFwProduct(win32more.System.Com.IDispatch_head):
@@ -919,6 +961,7 @@ def _define_INetFwProduct():
     INetFwProduct.get_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_DisplayName', ((1, 'displayName'),)))
     INetFwProduct.put_DisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_DisplayName', ((1, 'displayName'),)))
     INetFwProduct.get_PathToSignedProductExe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_PathToSignedProductExe', ((1, 'path'),)))
+    win32more.System.Com.IDispatch
     return INetFwProduct
 def _define_INetFwProducts_head():
     class INetFwProducts(win32more.System.Com.IDispatch_head):
@@ -930,6 +973,7 @@ def _define_INetFwProducts():
     INetFwProducts.Register = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.NetworkManagement.WindowsFirewall.INetFwProduct_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'Register', ((1, 'product'),(1, 'registration'),)))
     INetFwProducts.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.NetworkManagement.WindowsFirewall.INetFwProduct_head), use_last_error=False)(9, 'Item', ((1, 'index'),(1, 'product'),)))
     INetFwProducts.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(10, 'get__NewEnum', ((1, 'newEnum'),)))
+    win32more.System.Com.IDispatch
     return INetFwProducts
 def _define_NetworkIsolationSetupAppContainerBinaries():
     try:

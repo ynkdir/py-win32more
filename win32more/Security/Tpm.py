@@ -64,6 +64,7 @@ def _define_ITpmVirtualSmartCardManagerStatusCallback():
     ITpmVirtualSmartCardManagerStatusCallback = win32more.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head
     ITpmVirtualSmartCardManagerStatusCallback.ReportProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Tpm.TPMVSCMGR_STATUS, use_last_error=False)(3, 'ReportProgress', ((1, 'Status'),)))
     ITpmVirtualSmartCardManagerStatusCallback.ReportError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Security.Tpm.TPMVSCMGR_ERROR, use_last_error=False)(4, 'ReportError', ((1, 'Error'),)))
+    win32more.System.Com.IUnknown
     return ITpmVirtualSmartCardManagerStatusCallback
 def _define_ITpmVirtualSmartCardManager_head():
     class ITpmVirtualSmartCardManager(win32more.System.Com.IUnknown_head):
@@ -73,6 +74,7 @@ def _define_ITpmVirtualSmartCardManager():
     ITpmVirtualSmartCardManager = win32more.Security.Tpm.ITpmVirtualSmartCardManager_head
     ITpmVirtualSmartCardManager.CreateVirtualSmartCard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Byte,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Foundation.BOOL,win32more.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'CreateVirtualSmartCard', ((1, 'pszFriendlyName'),(1, 'bAdminAlgId'),(1, 'pbAdminKey'),(1, 'cbAdminKey'),(1, 'pbAdminKcv'),(1, 'cbAdminKcv'),(1, 'pbPuk'),(1, 'cbPuk'),(1, 'pbPin'),(1, 'cbPin'),(1, 'fGenerate'),(1, 'pStatusCallback'),(1, 'ppszInstanceId'),(1, 'pfNeedReboot'),)))
     ITpmVirtualSmartCardManager.DestroyVirtualSmartCard = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'DestroyVirtualSmartCard', ((1, 'pszInstanceId'),(1, 'pStatusCallback'),(1, 'pfNeedReboot'),)))
+    win32more.System.Com.IUnknown
     return ITpmVirtualSmartCardManager
 def _define_ITpmVirtualSmartCardManager2_head():
     class ITpmVirtualSmartCardManager2(win32more.Security.Tpm.ITpmVirtualSmartCardManager_head):
@@ -81,6 +83,7 @@ def _define_ITpmVirtualSmartCardManager2_head():
 def _define_ITpmVirtualSmartCardManager2():
     ITpmVirtualSmartCardManager2 = win32more.Security.Tpm.ITpmVirtualSmartCardManager2_head
     ITpmVirtualSmartCardManager2.CreateVirtualSmartCardWithPinPolicy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Byte,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Foundation.BOOL,win32more.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'CreateVirtualSmartCardWithPinPolicy', ((1, 'pszFriendlyName'),(1, 'bAdminAlgId'),(1, 'pbAdminKey'),(1, 'cbAdminKey'),(1, 'pbAdminKcv'),(1, 'cbAdminKcv'),(1, 'pbPuk'),(1, 'cbPuk'),(1, 'pbPin'),(1, 'cbPin'),(1, 'pbPinPolicy'),(1, 'cbPinPolicy'),(1, 'fGenerate'),(1, 'pStatusCallback'),(1, 'ppszInstanceId'),(1, 'pfNeedReboot'),)))
+    win32more.Security.Tpm.ITpmVirtualSmartCardManager
     return ITpmVirtualSmartCardManager2
 def _define_ITpmVirtualSmartCardManager3_head():
     class ITpmVirtualSmartCardManager3(win32more.Security.Tpm.ITpmVirtualSmartCardManager2_head):
@@ -89,6 +92,7 @@ def _define_ITpmVirtualSmartCardManager3_head():
 def _define_ITpmVirtualSmartCardManager3():
     ITpmVirtualSmartCardManager3 = win32more.Security.Tpm.ITpmVirtualSmartCardManager3_head
     ITpmVirtualSmartCardManager3.CreateVirtualSmartCardWithAttestation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,Byte,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,POINTER(Byte),UInt32,win32more.Security.Tpm.TPMVSC_ATTESTATION_TYPE,win32more.Foundation.BOOL,win32more.Security.Tpm.ITpmVirtualSmartCardManagerStatusCallback_head,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'CreateVirtualSmartCardWithAttestation', ((1, 'pszFriendlyName'),(1, 'bAdminAlgId'),(1, 'pbAdminKey'),(1, 'cbAdminKey'),(1, 'pbAdminKcv'),(1, 'cbAdminKcv'),(1, 'pbPuk'),(1, 'cbPuk'),(1, 'pbPin'),(1, 'cbPin'),(1, 'pbPinPolicy'),(1, 'cbPinPolicy'),(1, 'attestationType'),(1, 'fGenerate'),(1, 'pStatusCallback'),(1, 'ppszInstanceId'),)))
+    win32more.Security.Tpm.ITpmVirtualSmartCardManager2
     return ITpmVirtualSmartCardManager3
 __all__ = [
     "TPMVSC_DEFAULT_ADMIN_ALGORITHM_ID",

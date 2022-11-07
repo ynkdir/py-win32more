@@ -55,6 +55,7 @@ def _define_ISideShowSession():
     ISideShowSession = win32more.System.SideShow.ISideShowSession_head
     ISideShowSession.RegisterContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.System.SideShow.ISideShowContentManager_head), use_last_error=False)(3, 'RegisterContent', ((1, 'in_applicationId'),(1, 'in_endpointId'),(1, 'out_ppIContent'),)))
     ISideShowSession.RegisterNotifications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.SideShow.ISideShowNotificationManager_head), use_last_error=False)(4, 'RegisterNotifications', ((1, 'in_applicationId'),(1, 'out_ppINotification'),)))
+    win32more.System.Com.IUnknown
     return ISideShowSession
 def _define_ISideShowNotificationManager_head():
     class ISideShowNotificationManager(win32more.System.Com.IUnknown_head):
@@ -65,6 +66,7 @@ def _define_ISideShowNotificationManager():
     ISideShowNotificationManager.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SideShow.ISideShowNotification_head, use_last_error=False)(3, 'Show', ((1, 'in_pINotification'),)))
     ISideShowNotificationManager.Revoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Revoke', ((1, 'in_notificationId'),)))
     ISideShowNotificationManager.RevokeAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'RevokeAll', ()))
+    win32more.System.Com.IUnknown
     return ISideShowNotificationManager
 def _define_ISideShowNotification_head():
     class ISideShowNotification(win32more.System.Com.IUnknown_head):
@@ -82,6 +84,7 @@ def _define_ISideShowNotification():
     ISideShowNotification.put_Image = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HICON, use_last_error=False)(10, 'put_Image', ((1, 'in_hIcon'),)))
     ISideShowNotification.get_ExpirationTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(11, 'get_ExpirationTime', ((1, 'out_pTime'),)))
     ISideShowNotification.put_ExpirationTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SYSTEMTIME_head), use_last_error=False)(12, 'put_ExpirationTime', ((1, 'in_pTime'),)))
+    win32more.System.Com.IUnknown
     return ISideShowNotification
 def _define_ISideShowContentManager_head():
     class ISideShowContentManager(win32more.System.Com.IUnknown_head):
@@ -94,6 +97,7 @@ def _define_ISideShowContentManager():
     ISideShowContentManager.RemoveAll = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'RemoveAll', ()))
     ISideShowContentManager.SetEventSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SideShow.ISideShowEvents_head, use_last_error=False)(6, 'SetEventSink', ((1, 'in_pIEvents'),)))
     ISideShowContentManager.GetDeviceCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.SideShow.ISideShowCapabilitiesCollection_head), use_last_error=False)(7, 'GetDeviceCapabilities', ((1, 'out_ppCollection'),)))
+    win32more.System.Com.IUnknown
     return ISideShowContentManager
 def _define_ISideShowContent_head():
     class ISideShowContent(win32more.System.Com.IUnknown_head):
@@ -104,6 +108,7 @@ def _define_ISideShowContent():
     ISideShowContent.GetContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SideShow.ISideShowCapabilities_head,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(3, 'GetContent', ((1, 'in_pICapabilities'),(1, 'out_pdwSize'),(1, 'out_ppbData'),)))
     ISideShowContent.get_ContentId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'get_ContentId', ((1, 'out_pcontentId'),)))
     ISideShowContent.get_DifferentiateContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'get_DifferentiateContent', ((1, 'out_pfDifferentiateContent'),)))
+    win32more.System.Com.IUnknown
     return ISideShowContent
 def _define_ISideShowEvents_head():
     class ISideShowEvents(win32more.System.Com.IUnknown_head):
@@ -115,6 +120,7 @@ def _define_ISideShowEvents():
     ISideShowEvents.ApplicationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SideShow.ISideShowCapabilities_head,UInt32,UInt32,POINTER(Byte), use_last_error=False)(4, 'ApplicationEvent', ((1, 'in_pICapabilities'),(1, 'in_dwEventId'),(1, 'in_dwEventSize'),(1, 'in_pbEventData'),)))
     ISideShowEvents.DeviceAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SideShow.ISideShowCapabilities_head, use_last_error=False)(5, 'DeviceAdded', ((1, 'in_pIDevice'),)))
     ISideShowEvents.DeviceRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SideShow.ISideShowCapabilities_head, use_last_error=False)(6, 'DeviceRemoved', ((1, 'in_pIDevice'),)))
+    win32more.System.Com.IUnknown
     return ISideShowEvents
 def _define_ISideShowCapabilities_head():
     class ISideShowCapabilities(win32more.System.Com.IUnknown_head):
@@ -123,6 +129,7 @@ def _define_ISideShowCapabilities_head():
 def _define_ISideShowCapabilities():
     ISideShowCapabilities = win32more.System.SideShow.ISideShowCapabilities_head
     ISideShowCapabilities.GetCapability = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(3, 'GetCapability', ((1, 'in_keyCapability'),(1, 'inout_pValue'),)))
+    win32more.System.Com.IUnknown
     return ISideShowCapabilities
 def _define_ISideShowCapabilitiesCollection_head():
     class ISideShowCapabilitiesCollection(win32more.System.Com.IUnknown_head):
@@ -132,6 +139,7 @@ def _define_ISideShowCapabilitiesCollection():
     ISideShowCapabilitiesCollection = win32more.System.SideShow.ISideShowCapabilitiesCollection_head
     ISideShowCapabilitiesCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'out_pdwCount'),)))
     ISideShowCapabilitiesCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.SideShow.ISideShowCapabilities_head), use_last_error=False)(4, 'GetAt', ((1, 'in_dwIndex'),(1, 'out_ppCapabilities'),)))
+    win32more.System.Com.IUnknown
     return ISideShowCapabilitiesCollection
 def _define_ISideShowBulkCapabilities_head():
     class ISideShowBulkCapabilities(win32more.System.SideShow.ISideShowCapabilities_head):
@@ -140,6 +148,7 @@ def _define_ISideShowBulkCapabilities_head():
 def _define_ISideShowBulkCapabilities():
     ISideShowBulkCapabilities = win32more.System.SideShow.ISideShowBulkCapabilities_head
     ISideShowBulkCapabilities.GetCapabilities = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.SideShow.ISideShowKeyCollection_head,POINTER(win32more.System.SideShow.ISideShowPropVariantCollection_head), use_last_error=False)(4, 'GetCapabilities', ((1, 'in_keyCollection'),(1, 'inout_pValues'),)))
+    win32more.System.SideShow.ISideShowCapabilities
     return ISideShowBulkCapabilities
 def _define_ISideShowKeyCollection_head():
     class ISideShowKeyCollection(win32more.System.Com.IUnknown_head):
@@ -152,6 +161,7 @@ def _define_ISideShowKeyCollection():
     ISideShowKeyCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(5, 'GetAt', ((1, 'dwIndex'),(1, 'pKey'),)))
     ISideShowKeyCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetCount', ((1, 'pcElems'),)))
     ISideShowKeyCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'RemoveAt', ((1, 'dwIndex'),)))
+    win32more.System.Com.IUnknown
     return ISideShowKeyCollection
 def _define_ISideShowPropVariantCollection_head():
     class ISideShowPropVariantCollection(win32more.System.Com.IUnknown_head):
@@ -164,6 +174,7 @@ def _define_ISideShowPropVariantCollection():
     ISideShowPropVariantCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(5, 'GetAt', ((1, 'dwIndex'),(1, 'pValue'),)))
     ISideShowPropVariantCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetCount', ((1, 'pcElems'),)))
     ISideShowPropVariantCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'RemoveAt', ((1, 'dwIndex'),)))
+    win32more.System.Com.IUnknown
     return ISideShowPropVariantCollection
 SIDESHOW_SCREEN_TYPE = Int32
 SIDESHOW_SCREEN_TYPE_BITMAP = 0

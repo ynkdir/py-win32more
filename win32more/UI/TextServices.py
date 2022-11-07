@@ -604,6 +604,7 @@ def _define_ITextStoreACP():
     ITextStoreACP.GetTextExt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32,Int32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(26, 'GetTextExt', ((1, 'vcView'),(1, 'acpStart'),(1, 'acpEnd'),(1, 'prc'),(1, 'pfClipped'),)))
     ITextStoreACP.GetScreenExt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(27, 'GetScreenExt', ((1, 'vcView'),(1, 'prc'),)))
     ITextStoreACP.GetWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.HWND), use_last_error=False)(28, 'GetWnd', ((1, 'vcView'),(1, 'phwnd'),)))
+    win32more.System.Com.IUnknown
     return ITextStoreACP
 def _define_ITextStoreACP2_head():
     class ITextStoreACP2(win32more.System.Com.IUnknown_head):
@@ -636,6 +637,7 @@ def _define_ITextStoreACP2():
     ITextStoreACP2.GetACPFromPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.POINT_head),UInt32,POINTER(Int32), use_last_error=False)(25, 'GetACPFromPoint', ((1, 'vcView'),(1, 'ptScreen'),(1, 'dwFlags'),(1, 'pacp'),)))
     ITextStoreACP2.GetTextExt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Int32,Int32,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(26, 'GetTextExt', ((1, 'vcView'),(1, 'acpStart'),(1, 'acpEnd'),(1, 'prc'),(1, 'pfClipped'),)))
     ITextStoreACP2.GetScreenExt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(27, 'GetScreenExt', ((1, 'vcView'),(1, 'prc'),)))
+    win32more.System.Com.IUnknown
     return ITextStoreACP2
 def _define_ITextStoreACPSink_head():
     class ITextStoreACPSink(win32more.System.Com.IUnknown_head):
@@ -651,6 +653,7 @@ def _define_ITextStoreACPSink():
     ITextStoreACPSink.OnLockGranted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.TEXT_STORE_LOCK_FLAGS, use_last_error=False)(8, 'OnLockGranted', ((1, 'dwLockFlags'),)))
     ITextStoreACPSink.OnStartEditTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'OnStartEditTransaction', ()))
     ITextStoreACPSink.OnEndEditTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'OnEndEditTransaction', ()))
+    win32more.System.Com.IUnknown
     return ITextStoreACPSink
 TsGravity = Int32
 TS_GR_BACKWARD = 0
@@ -675,6 +678,7 @@ def _define_IAnchor():
     IAnchor.GetChangeHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ANCHOR_CHANGE_HISTORY_FLAGS), use_last_error=False)(11, 'GetChangeHistory', ((1, 'pdwHistory'),)))
     IAnchor.ClearChangeHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'ClearChangeHistory', ()))
     IAnchor.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.IAnchor_head), use_last_error=False)(13, 'Clone', ((1, 'ppaClone'),)))
+    win32more.System.Com.IUnknown
     return IAnchor
 def _define_ITextStoreAnchor_head():
     class ITextStoreAnchor(win32more.System.Com.IUnknown_head):
@@ -709,6 +713,7 @@ def _define_ITextStoreAnchor():
     ITextStoreAnchor.QueryInsertEmbedded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.FORMATETC_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(27, 'QueryInsertEmbedded', ((1, 'pguidService'),(1, 'pFormatEtc'),(1, 'pfInsertable'),)))
     ITextStoreAnchor.InsertTextAtSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Char),UInt32,POINTER(win32more.UI.TextServices.IAnchor_head),POINTER(win32more.UI.TextServices.IAnchor_head), use_last_error=False)(28, 'InsertTextAtSelection', ((1, 'dwFlags'),(1, 'pchText'),(1, 'cch'),(1, 'ppaStart'),(1, 'ppaEnd'),)))
     ITextStoreAnchor.InsertEmbeddedAtSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.System.Com.IDataObject_head,POINTER(win32more.UI.TextServices.IAnchor_head),POINTER(win32more.UI.TextServices.IAnchor_head), use_last_error=False)(29, 'InsertEmbeddedAtSelection', ((1, 'dwFlags'),(1, 'pDataObject'),(1, 'ppaStart'),(1, 'ppaEnd'),)))
+    win32more.System.Com.IUnknown
     return ITextStoreAnchor
 def _define_ITextStoreAnchorSink_head():
     class ITextStoreAnchorSink(win32more.System.Com.IUnknown_head):
@@ -724,6 +729,7 @@ def _define_ITextStoreAnchorSink():
     ITextStoreAnchorSink.OnLockGranted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.TEXT_STORE_LOCK_FLAGS, use_last_error=False)(8, 'OnLockGranted', ((1, 'dwLockFlags'),)))
     ITextStoreAnchorSink.OnStartEditTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'OnStartEditTransaction', ()))
     ITextStoreAnchorSink.OnEndEditTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'OnEndEditTransaction', ()))
+    win32more.System.Com.IUnknown
     return ITextStoreAnchorSink
 def _define_ITfLangBarMgr_head():
     class ITfLangBarMgr(win32more.System.Com.IUnknown_head):
@@ -740,6 +746,7 @@ def _define_ITfLangBarMgr():
     ITfLangBarMgr.SetModalInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfLangBarEventSink_head,UInt32,UInt32, use_last_error=False)(9, 'SetModalInput', ((1, 'pSink'),(1, 'dwThreadId'),(1, 'dwFlags'),)))
     ITfLangBarMgr.ShowFloating = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(10, 'ShowFloating', ((1, 'dwFlags'),)))
     ITfLangBarMgr.GetShowFloatingStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(11, 'GetShowFloatingStatus', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IUnknown
     return ITfLangBarMgr
 def _define_ITfLangBarEventSink_head():
     class ITfLangBarEventSink(win32more.System.Com.IUnknown_head):
@@ -753,6 +760,7 @@ def _define_ITfLangBarEventSink():
     ITfLangBarEventSink.OnModalInput = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(6, 'OnModalInput', ((1, 'dwThreadId'),(1, 'uMsg'),(1, 'wParam'),(1, 'lParam'),)))
     ITfLangBarEventSink.ShowFloating = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'ShowFloating', ((1, 'dwFlags'),)))
     ITfLangBarEventSink.GetItemFloatingRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(win32more.Foundation.RECT_head), use_last_error=False)(8, 'GetItemFloatingRect', ((1, 'dwThreadId'),(1, 'rguid'),(1, 'prc'),)))
+    win32more.System.Com.IUnknown
     return ITfLangBarEventSink
 def _define_ITfLangBarItemSink_head():
     class ITfLangBarItemSink(win32more.System.Com.IUnknown_head):
@@ -761,6 +769,7 @@ def _define_ITfLangBarItemSink_head():
 def _define_ITfLangBarItemSink():
     ITfLangBarItemSink = win32more.UI.TextServices.ITfLangBarItemSink_head
     ITfLangBarItemSink.OnUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'OnUpdate', ((1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return ITfLangBarItemSink
 def _define_IEnumTfLangBarItems_head():
     class IEnumTfLangBarItems(win32more.System.Com.IUnknown_head):
@@ -772,6 +781,7 @@ def _define_IEnumTfLangBarItems():
     IEnumTfLangBarItems.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfLangBarItem_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'ppItem'),(1, 'pcFetched'),)))
     IEnumTfLangBarItems.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfLangBarItems.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfLangBarItems
 def _define_TF_LANGBARITEMINFO_head():
     class TF_LANGBARITEMINFO(Structure):
@@ -805,6 +815,7 @@ def _define_ITfLangBarItemMgr():
     ITfLangBarItemMgr.GetItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfLangBarItem_head),POINTER(win32more.UI.TextServices.TF_LANGBARITEMINFO),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(12, 'GetItems', ((1, 'ulCount'),(1, 'ppItem'),(1, 'pInfo'),(1, 'pdwStatus'),(1, 'pcFetched'),)))
     ITfLangBarItemMgr.AdviseItemsSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfLangBarItemSink_head),POINTER(Guid),POINTER(UInt32), use_last_error=False)(13, 'AdviseItemsSink', ((1, 'ulCount'),(1, 'ppunk'),(1, 'pguidItem'),(1, 'pdwCookie'),)))
     ITfLangBarItemMgr.UnadviseItemsSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(14, 'UnadviseItemsSink', ((1, 'ulCount'),(1, 'pdwCookie'),)))
+    win32more.System.Com.IUnknown
     return ITfLangBarItemMgr
 def _define_ITfLangBarItem_head():
     class ITfLangBarItem(win32more.System.Com.IUnknown_head):
@@ -816,6 +827,7 @@ def _define_ITfLangBarItem():
     ITfLangBarItem.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetStatus', ((1, 'pdwStatus'),)))
     ITfLangBarItem.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'Show', ((1, 'fShow'),)))
     ITfLangBarItem.GetTooltipString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetTooltipString', ((1, 'pbstrToolTip'),)))
+    win32more.System.Com.IUnknown
     return ITfLangBarItem
 def _define_ITfSystemLangBarItemSink_head():
     class ITfSystemLangBarItemSink(win32more.System.Com.IUnknown_head):
@@ -825,6 +837,7 @@ def _define_ITfSystemLangBarItemSink():
     ITfSystemLangBarItemSink = win32more.UI.TextServices.ITfSystemLangBarItemSink_head
     ITfSystemLangBarItemSink.InitMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfMenu_head, use_last_error=False)(3, 'InitMenu', ((1, 'pMenu'),)))
     ITfSystemLangBarItemSink.OnMenuSelect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'OnMenuSelect', ((1, 'wID'),)))
+    win32more.System.Com.IUnknown
     return ITfSystemLangBarItemSink
 def _define_ITfSystemLangBarItem_head():
     class ITfSystemLangBarItem(win32more.System.Com.IUnknown_head):
@@ -834,6 +847,7 @@ def _define_ITfSystemLangBarItem():
     ITfSystemLangBarItem = win32more.UI.TextServices.ITfSystemLangBarItem_head
     ITfSystemLangBarItem.SetIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HICON, use_last_error=False)(3, 'SetIcon', ((1, 'hIcon'),)))
     ITfSystemLangBarItem.SetTooltipString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(4, 'SetTooltipString', ((1, 'pchToolTip'),(1, 'cch'),)))
+    win32more.System.Com.IUnknown
     return ITfSystemLangBarItem
 def _define_ITfSystemLangBarItemText_head():
     class ITfSystemLangBarItemText(win32more.System.Com.IUnknown_head):
@@ -843,6 +857,7 @@ def _define_ITfSystemLangBarItemText():
     ITfSystemLangBarItemText = win32more.UI.TextServices.ITfSystemLangBarItemText_head
     ITfSystemLangBarItemText.SetItemText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32, use_last_error=False)(3, 'SetItemText', ((1, 'pch'),(1, 'cch'),)))
     ITfSystemLangBarItemText.GetItemText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetItemText', ((1, 'pbstrText'),)))
+    win32more.System.Com.IUnknown
     return ITfSystemLangBarItemText
 def _define_ITfSystemDeviceTypeLangBarItem_head():
     class ITfSystemDeviceTypeLangBarItem(win32more.System.Com.IUnknown_head):
@@ -852,6 +867,7 @@ def _define_ITfSystemDeviceTypeLangBarItem():
     ITfSystemDeviceTypeLangBarItem = win32more.UI.TextServices.ITfSystemDeviceTypeLangBarItem_head
     ITfSystemDeviceTypeLangBarItem.SetIconMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.LANG_BAR_ITEM_ICON_MODE_FLAGS, use_last_error=False)(3, 'SetIconMode', ((1, 'dwFlags'),)))
     ITfSystemDeviceTypeLangBarItem.GetIconMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetIconMode', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IUnknown
     return ITfSystemDeviceTypeLangBarItem
 TfLBIClick = Int32
 TF_LBI_CLK_RIGHT = 1
@@ -867,6 +883,7 @@ def _define_ITfLangBarItemButton():
     ITfLangBarItemButton.OnMenuSelect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'OnMenuSelect', ((1, 'wID'),)))
     ITfLangBarItemButton.GetIcon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.HICON), use_last_error=False)(10, 'GetIcon', ((1, 'phIcon'),)))
     ITfLangBarItemButton.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'GetText', ((1, 'pbstrText'),)))
+    win32more.UI.TextServices.ITfLangBarItem
     return ITfLangBarItemButton
 def _define_ITfLangBarItemBitmapButton_head():
     class ITfLangBarItemBitmapButton(win32more.UI.TextServices.ITfLangBarItem_head):
@@ -880,6 +897,7 @@ def _define_ITfLangBarItemBitmapButton():
     ITfLangBarItemBitmapButton.GetPreferredSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head),POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(10, 'GetPreferredSize', ((1, 'pszDefault'),(1, 'psz'),)))
     ITfLangBarItemBitmapButton.DrawBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,UInt32,POINTER(win32more.Graphics.Gdi.HBITMAP),POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(11, 'DrawBitmap', ((1, 'bmWidth'),(1, 'bmHeight'),(1, 'dwFlags'),(1, 'phbmp'),(1, 'phbmpMask'),)))
     ITfLangBarItemBitmapButton.GetText = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(12, 'GetText', ((1, 'pbstrText'),)))
+    win32more.UI.TextServices.ITfLangBarItem
     return ITfLangBarItemBitmapButton
 def _define_ITfLangBarItemBitmap_head():
     class ITfLangBarItemBitmap(win32more.UI.TextServices.ITfLangBarItem_head):
@@ -890,6 +908,7 @@ def _define_ITfLangBarItemBitmap():
     ITfLangBarItemBitmap.OnClick = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.TfLBIClick,win32more.Foundation.POINT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(7, 'OnClick', ((1, 'click'),(1, 'pt'),(1, 'prcArea'),)))
     ITfLangBarItemBitmap.GetPreferredSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head),POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(8, 'GetPreferredSize', ((1, 'pszDefault'),(1, 'psz'),)))
     ITfLangBarItemBitmap.DrawBitmap = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,UInt32,POINTER(win32more.Graphics.Gdi.HBITMAP),POINTER(win32more.Graphics.Gdi.HBITMAP), use_last_error=False)(9, 'DrawBitmap', ((1, 'bmWidth'),(1, 'bmHeight'),(1, 'dwFlags'),(1, 'phbmp'),(1, 'phbmpMask'),)))
+    win32more.UI.TextServices.ITfLangBarItem
     return ITfLangBarItemBitmap
 TfLBBalloonStyle = Int32
 TF_LB_BALLOON_RECO = 0
@@ -915,6 +934,7 @@ def _define_ITfLangBarItemBalloon():
     ITfLangBarItemBalloon.OnClick = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.TfLBIClick,win32more.Foundation.POINT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(7, 'OnClick', ((1, 'click'),(1, 'pt'),(1, 'prcArea'),)))
     ITfLangBarItemBalloon.GetPreferredSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.SIZE_head),POINTER(win32more.Foundation.SIZE_head), use_last_error=False)(8, 'GetPreferredSize', ((1, 'pszDefault'),(1, 'psz'),)))
     ITfLangBarItemBalloon.GetBalloonInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.TF_LBBALLOONINFO_head), use_last_error=False)(9, 'GetBalloonInfo', ((1, 'pInfo'),)))
+    win32more.UI.TextServices.ITfLangBarItem
     return ITfLangBarItemBalloon
 def _define_ITfMenu_head():
     class ITfMenu(win32more.System.Com.IUnknown_head):
@@ -923,6 +943,7 @@ def _define_ITfMenu_head():
 def _define_ITfMenu():
     ITfMenu = win32more.UI.TextServices.ITfMenu_head
     ITfMenu.AddMenuItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Graphics.Gdi.HBITMAP,win32more.Graphics.Gdi.HBITMAP,POINTER(Char),UInt32,POINTER(win32more.UI.TextServices.ITfMenu_head), use_last_error=False)(3, 'AddMenuItem', ((1, 'uId'),(1, 'dwFlags'),(1, 'hbmp'),(1, 'hbmpMask'),(1, 'pch'),(1, 'cch'),(1, 'ppMenu'),)))
+    win32more.System.Com.IUnknown
     return ITfMenu
 def _define_TF_PERSISTENT_PROPERTY_HEADER_ACP_head():
     class TF_PERSISTENT_PROPERTY_HEADER_ACP(Structure):
@@ -973,6 +994,7 @@ def _define_ITfThreadMgr():
     ITfThreadMgr.GetFunctionProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.TextServices.ITfFunctionProvider_head), use_last_error=False)(11, 'GetFunctionProvider', ((1, 'clsid'),(1, 'ppFuncProv'),)))
     ITfThreadMgr.EnumFunctionProviders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.IEnumTfFunctionProviders_head), use_last_error=False)(12, 'EnumFunctionProviders', ((1, 'ppEnum'),)))
     ITfThreadMgr.GetGlobalCompartment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfCompartmentMgr_head), use_last_error=False)(13, 'GetGlobalCompartment', ((1, 'ppCompMgr'),)))
+    win32more.System.Com.IUnknown
     return ITfThreadMgr
 def _define_ITfThreadMgrEx_head():
     class ITfThreadMgrEx(win32more.UI.TextServices.ITfThreadMgr_head):
@@ -982,6 +1004,7 @@ def _define_ITfThreadMgrEx():
     ITfThreadMgrEx = win32more.UI.TextServices.ITfThreadMgrEx_head
     ITfThreadMgrEx.ActivateEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32, use_last_error=False)(14, 'ActivateEx', ((1, 'ptid'),(1, 'dwFlags'),)))
     ITfThreadMgrEx.GetActiveFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'GetActiveFlags', ((1, 'lpdwFlags'),)))
+    win32more.UI.TextServices.ITfThreadMgr
     return ITfThreadMgrEx
 def _define_ITfThreadMgr2_head():
     class ITfThreadMgr2(win32more.System.Com.IUnknown_head):
@@ -1003,6 +1026,7 @@ def _define_ITfThreadMgr2():
     ITfThreadMgr2.GetActiveFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'GetActiveFlags', ((1, 'lpdwFlags'),)))
     ITfThreadMgr2.SuspendKeystrokeHandling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'SuspendKeystrokeHandling', ()))
     ITfThreadMgr2.ResumeKeystrokeHandling = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'ResumeKeystrokeHandling', ()))
+    win32more.System.Com.IUnknown
     return ITfThreadMgr2
 def _define_ITfThreadMgrEventSink_head():
     class ITfThreadMgrEventSink(win32more.System.Com.IUnknown_head):
@@ -1015,6 +1039,7 @@ def _define_ITfThreadMgrEventSink():
     ITfThreadMgrEventSink.OnSetFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfDocumentMgr_head,win32more.UI.TextServices.ITfDocumentMgr_head, use_last_error=False)(5, 'OnSetFocus', ((1, 'pdimFocus'),(1, 'pdimPrevFocus'),)))
     ITfThreadMgrEventSink.OnPushContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head, use_last_error=False)(6, 'OnPushContext', ((1, 'pic'),)))
     ITfThreadMgrEventSink.OnPopContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head, use_last_error=False)(7, 'OnPopContext', ((1, 'pic'),)))
+    win32more.System.Com.IUnknown
     return ITfThreadMgrEventSink
 def _define_ITfConfigureSystemKeystrokeFeed_head():
     class ITfConfigureSystemKeystrokeFeed(win32more.System.Com.IUnknown_head):
@@ -1024,6 +1049,7 @@ def _define_ITfConfigureSystemKeystrokeFeed():
     ITfConfigureSystemKeystrokeFeed = win32more.UI.TextServices.ITfConfigureSystemKeystrokeFeed_head
     ITfConfigureSystemKeystrokeFeed.DisableSystemKeystrokeFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'DisableSystemKeystrokeFeed', ()))
     ITfConfigureSystemKeystrokeFeed.EnableSystemKeystrokeFeed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'EnableSystemKeystrokeFeed', ()))
+    win32more.System.Com.IUnknown
     return ITfConfigureSystemKeystrokeFeed
 def _define_IEnumTfDocumentMgrs_head():
     class IEnumTfDocumentMgrs(win32more.System.Com.IUnknown_head):
@@ -1035,6 +1061,7 @@ def _define_IEnumTfDocumentMgrs():
     IEnumTfDocumentMgrs.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfDocumentMgr_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgDocumentMgr'),(1, 'pcFetched'),)))
     IEnumTfDocumentMgrs.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfDocumentMgrs.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfDocumentMgrs
 def _define_ITfDocumentMgr_head():
     class ITfDocumentMgr(win32more.System.Com.IUnknown_head):
@@ -1048,6 +1075,7 @@ def _define_ITfDocumentMgr():
     ITfDocumentMgr.GetTop = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfContext_head), use_last_error=False)(6, 'GetTop', ((1, 'ppic'),)))
     ITfDocumentMgr.GetBase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfContext_head), use_last_error=False)(7, 'GetBase', ((1, 'ppic'),)))
     ITfDocumentMgr.EnumContexts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.IEnumTfContexts_head), use_last_error=False)(8, 'EnumContexts', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return ITfDocumentMgr
 def _define_IEnumTfContexts_head():
     class IEnumTfContexts(win32more.System.Com.IUnknown_head):
@@ -1059,6 +1087,7 @@ def _define_IEnumTfContexts():
     IEnumTfContexts.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfContext_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgContext'),(1, 'pcFetched'),)))
     IEnumTfContexts.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfContexts.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfContexts
 def _define_ITfCompositionView_head():
     class ITfCompositionView(win32more.System.Com.IUnknown_head):
@@ -1068,6 +1097,7 @@ def _define_ITfCompositionView():
     ITfCompositionView = win32more.UI.TextServices.ITfCompositionView_head
     ITfCompositionView.GetOwnerClsid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetOwnerClsid', ((1, 'pclsid'),)))
     ITfCompositionView.GetRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfRange_head), use_last_error=False)(4, 'GetRange', ((1, 'ppRange'),)))
+    win32more.System.Com.IUnknown
     return ITfCompositionView
 def _define_IEnumITfCompositionView_head():
     class IEnumITfCompositionView(win32more.System.Com.IUnknown_head):
@@ -1079,6 +1109,7 @@ def _define_IEnumITfCompositionView():
     IEnumITfCompositionView.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfCompositionView_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgCompositionView'),(1, 'pcFetched'),)))
     IEnumITfCompositionView.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumITfCompositionView.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumITfCompositionView
 def _define_ITfComposition_head():
     class ITfComposition(win32more.System.Com.IUnknown_head):
@@ -1090,6 +1121,7 @@ def _define_ITfComposition():
     ITfComposition.ShiftStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head, use_last_error=False)(4, 'ShiftStart', ((1, 'ecWrite'),(1, 'pNewStart'),)))
     ITfComposition.ShiftEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head, use_last_error=False)(5, 'ShiftEnd', ((1, 'ecWrite'),(1, 'pNewEnd'),)))
     ITfComposition.EndComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'EndComposition', ((1, 'ecWrite'),)))
+    win32more.System.Com.IUnknown
     return ITfComposition
 def _define_ITfCompositionSink_head():
     class ITfCompositionSink(win32more.System.Com.IUnknown_head):
@@ -1098,6 +1130,7 @@ def _define_ITfCompositionSink_head():
 def _define_ITfCompositionSink():
     ITfCompositionSink = win32more.UI.TextServices.ITfCompositionSink_head
     ITfCompositionSink.OnCompositionTerminated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfComposition_head, use_last_error=False)(3, 'OnCompositionTerminated', ((1, 'ecWrite'),(1, 'pComposition'),)))
+    win32more.System.Com.IUnknown
     return ITfCompositionSink
 def _define_ITfContextComposition_head():
     class ITfContextComposition(win32more.System.Com.IUnknown_head):
@@ -1109,6 +1142,7 @@ def _define_ITfContextComposition():
     ITfContextComposition.EnumCompositions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.IEnumITfCompositionView_head), use_last_error=False)(4, 'EnumCompositions', ((1, 'ppEnum'),)))
     ITfContextComposition.FindComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.UI.TextServices.IEnumITfCompositionView_head), use_last_error=False)(5, 'FindComposition', ((1, 'ecRead'),(1, 'pTestRange'),(1, 'ppEnum'),)))
     ITfContextComposition.TakeOwnership = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfCompositionView_head,win32more.UI.TextServices.ITfCompositionSink_head,POINTER(win32more.UI.TextServices.ITfComposition_head), use_last_error=False)(6, 'TakeOwnership', ((1, 'ecWrite'),(1, 'pComposition'),(1, 'pSink'),(1, 'ppComposition'),)))
+    win32more.System.Com.IUnknown
     return ITfContextComposition
 def _define_ITfContextOwnerCompositionServices_head():
     class ITfContextOwnerCompositionServices(win32more.UI.TextServices.ITfContextComposition_head):
@@ -1117,6 +1151,7 @@ def _define_ITfContextOwnerCompositionServices_head():
 def _define_ITfContextOwnerCompositionServices():
     ITfContextOwnerCompositionServices = win32more.UI.TextServices.ITfContextOwnerCompositionServices_head
     ITfContextOwnerCompositionServices.TerminateComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfCompositionView_head, use_last_error=False)(7, 'TerminateComposition', ((1, 'pComposition'),)))
+    win32more.UI.TextServices.ITfContextComposition
     return ITfContextOwnerCompositionServices
 def _define_ITfContextOwnerCompositionSink_head():
     class ITfContextOwnerCompositionSink(win32more.System.Com.IUnknown_head):
@@ -1127,6 +1162,7 @@ def _define_ITfContextOwnerCompositionSink():
     ITfContextOwnerCompositionSink.OnStartComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfCompositionView_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnStartComposition', ((1, 'pComposition'),(1, 'pfOk'),)))
     ITfContextOwnerCompositionSink.OnUpdateComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfCompositionView_head,win32more.UI.TextServices.ITfRange_head, use_last_error=False)(4, 'OnUpdateComposition', ((1, 'pComposition'),(1, 'pRangeNew'),)))
     ITfContextOwnerCompositionSink.OnEndComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfCompositionView_head, use_last_error=False)(5, 'OnEndComposition', ((1, 'pComposition'),)))
+    win32more.System.Com.IUnknown
     return ITfContextOwnerCompositionSink
 def _define_ITfContextView_head():
     class ITfContextView(win32more.System.Com.IUnknown_head):
@@ -1138,6 +1174,7 @@ def _define_ITfContextView():
     ITfContextView.GetTextExt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.Foundation.RECT_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetTextExt', ((1, 'ec'),(1, 'pRange'),(1, 'prc'),(1, 'pfClipped'),)))
     ITfContextView.GetScreenExt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(5, 'GetScreenExt', ((1, 'prc'),)))
     ITfContextView.GetWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(6, 'GetWnd', ((1, 'phwnd'),)))
+    win32more.System.Com.IUnknown
     return ITfContextView
 def _define_IEnumTfContextViews_head():
     class IEnumTfContextViews(win32more.System.Com.IUnknown_head):
@@ -1149,6 +1186,7 @@ def _define_IEnumTfContextViews():
     IEnumTfContextViews.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfContextView_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgViews'),(1, 'pcFetched'),)))
     IEnumTfContextViews.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfContextViews.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfContextViews
 TfActiveSelEnd = Int32
 TF_AE_NONE = 0
@@ -1197,6 +1235,7 @@ def _define_ITfContext():
     ITfContext.EnumProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.IEnumTfProperties_head), use_last_error=False)(15, 'EnumProperties', ((1, 'ppEnum'),)))
     ITfContext.GetDocumentMgr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfDocumentMgr_head), use_last_error=False)(16, 'GetDocumentMgr', ((1, 'ppDm'),)))
     ITfContext.CreateRangeBackup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.UI.TextServices.ITfRangeBackup_head), use_last_error=False)(17, 'CreateRangeBackup', ((1, 'ec'),(1, 'pRange'),(1, 'ppBackup'),)))
+    win32more.System.Com.IUnknown
     return ITfContext
 def _define_ITfQueryEmbedded_head():
     class ITfQueryEmbedded(win32more.System.Com.IUnknown_head):
@@ -1205,6 +1244,7 @@ def _define_ITfQueryEmbedded_head():
 def _define_ITfQueryEmbedded():
     ITfQueryEmbedded = win32more.UI.TextServices.ITfQueryEmbedded_head
     ITfQueryEmbedded.QueryInsertEmbedded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.FORMATETC_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'QueryInsertEmbedded', ((1, 'pguidService'),(1, 'pFormatEtc'),(1, 'pfInsertable'),)))
+    win32more.System.Com.IUnknown
     return ITfQueryEmbedded
 def _define_ITfInsertAtSelection_head():
     class ITfInsertAtSelection(win32more.System.Com.IUnknown_head):
@@ -1214,6 +1254,7 @@ def _define_ITfInsertAtSelection():
     ITfInsertAtSelection = win32more.UI.TextServices.ITfInsertAtSelection_head
     ITfInsertAtSelection.InsertTextAtSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.INSERT_TEXT_AT_SELECTION_FLAGS,POINTER(Char),Int32,POINTER(win32more.UI.TextServices.ITfRange_head), use_last_error=False)(3, 'InsertTextAtSelection', ((1, 'ec'),(1, 'dwFlags'),(1, 'pchText'),(1, 'cch'),(1, 'ppRange'),)))
     ITfInsertAtSelection.InsertEmbeddedAtSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.System.Com.IDataObject_head,POINTER(win32more.UI.TextServices.ITfRange_head), use_last_error=False)(4, 'InsertEmbeddedAtSelection', ((1, 'ec'),(1, 'dwFlags'),(1, 'pDataObject'),(1, 'ppRange'),)))
+    win32more.System.Com.IUnknown
     return ITfInsertAtSelection
 def _define_ITfCleanupContextSink_head():
     class ITfCleanupContextSink(win32more.System.Com.IUnknown_head):
@@ -1222,6 +1263,7 @@ def _define_ITfCleanupContextSink_head():
 def _define_ITfCleanupContextSink():
     ITfCleanupContextSink = win32more.UI.TextServices.ITfCleanupContextSink_head
     ITfCleanupContextSink.OnCleanupContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfContext_head, use_last_error=False)(3, 'OnCleanupContext', ((1, 'ecWrite'),(1, 'pic'),)))
+    win32more.System.Com.IUnknown
     return ITfCleanupContextSink
 def _define_ITfCleanupContextDurationSink_head():
     class ITfCleanupContextDurationSink(win32more.System.Com.IUnknown_head):
@@ -1231,6 +1273,7 @@ def _define_ITfCleanupContextDurationSink():
     ITfCleanupContextDurationSink = win32more.UI.TextServices.ITfCleanupContextDurationSink_head
     ITfCleanupContextDurationSink.OnStartCleanupContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnStartCleanupContext', ()))
     ITfCleanupContextDurationSink.OnEndCleanupContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnEndCleanupContext', ()))
+    win32more.System.Com.IUnknown
     return ITfCleanupContextDurationSink
 def _define_ITfReadOnlyProperty_head():
     class ITfReadOnlyProperty(win32more.System.Com.IUnknown_head):
@@ -1242,6 +1285,7 @@ def _define_ITfReadOnlyProperty():
     ITfReadOnlyProperty.EnumRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.IEnumTfRanges_head),win32more.UI.TextServices.ITfRange_head, use_last_error=False)(4, 'EnumRanges', ((1, 'ec'),(1, 'ppEnum'),(1, 'pTargetRange'),)))
     ITfReadOnlyProperty.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(5, 'GetValue', ((1, 'ec'),(1, 'pRange'),(1, 'pvarValue'),)))
     ITfReadOnlyProperty.GetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfContext_head), use_last_error=False)(6, 'GetContext', ((1, 'ppContext'),)))
+    win32more.System.Com.IUnknown
     return ITfReadOnlyProperty
 def _define_TF_PROPERTYVAL_head():
     class TF_PROPERTYVAL(Structure):
@@ -1264,6 +1308,7 @@ def _define_IEnumTfPropertyValue():
     IEnumTfPropertyValue.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.TF_PROPERTYVAL),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgValues'),(1, 'pcFetched'),)))
     IEnumTfPropertyValue.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfPropertyValue.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfPropertyValue
 def _define_ITfMouseTracker_head():
     class ITfMouseTracker(win32more.System.Com.IUnknown_head):
@@ -1273,6 +1318,7 @@ def _define_ITfMouseTracker():
     ITfMouseTracker = win32more.UI.TextServices.ITfMouseTracker_head
     ITfMouseTracker.AdviseMouseSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head,win32more.UI.TextServices.ITfMouseSink_head,POINTER(UInt32), use_last_error=False)(3, 'AdviseMouseSink', ((1, 'range'),(1, 'pSink'),(1, 'pdwCookie'),)))
     ITfMouseTracker.UnadviseMouseSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'UnadviseMouseSink', ((1, 'dwCookie'),)))
+    win32more.System.Com.IUnknown
     return ITfMouseTracker
 def _define_ITfMouseTrackerACP_head():
     class ITfMouseTrackerACP(win32more.System.Com.IUnknown_head):
@@ -1282,6 +1328,7 @@ def _define_ITfMouseTrackerACP():
     ITfMouseTrackerACP = win32more.UI.TextServices.ITfMouseTrackerACP_head
     ITfMouseTrackerACP.AdviseMouseSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRangeACP_head,win32more.UI.TextServices.ITfMouseSink_head,POINTER(UInt32), use_last_error=False)(3, 'AdviseMouseSink', ((1, 'range'),(1, 'pSink'),(1, 'pdwCookie'),)))
     ITfMouseTrackerACP.UnadviseMouseSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'UnadviseMouseSink', ((1, 'dwCookie'),)))
+    win32more.System.Com.IUnknown
     return ITfMouseTrackerACP
 def _define_ITfMouseSink_head():
     class ITfMouseSink(win32more.System.Com.IUnknown_head):
@@ -1290,6 +1337,7 @@ def _define_ITfMouseSink_head():
 def _define_ITfMouseSink():
     ITfMouseSink = win32more.UI.TextServices.ITfMouseSink_head
     ITfMouseSink.OnMouseEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnMouseEvent', ((1, 'uEdge'),(1, 'uQuadrant'),(1, 'dwBtnStatus'),(1, 'pfEaten'),)))
+    win32more.System.Com.IUnknown
     return ITfMouseSink
 def _define_ITfEditRecord_head():
     class ITfEditRecord(win32more.System.Com.IUnknown_head):
@@ -1299,6 +1347,7 @@ def _define_ITfEditRecord():
     ITfEditRecord = win32more.UI.TextServices.ITfEditRecord_head
     ITfEditRecord.GetSelectionStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetSelectionStatus', ((1, 'pfChanged'),)))
     ITfEditRecord.GetTextAndPropertyUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.GET_TEXT_AND_PROPERTY_UPDATES_FLAGS,POINTER(POINTER(Guid)),UInt32,POINTER(win32more.UI.TextServices.IEnumTfRanges_head), use_last_error=False)(4, 'GetTextAndPropertyUpdates', ((1, 'dwFlags'),(1, 'prgProperties'),(1, 'cProperties'),(1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return ITfEditRecord
 def _define_ITfTextEditSink_head():
     class ITfTextEditSink(win32more.System.Com.IUnknown_head):
@@ -1307,6 +1356,7 @@ def _define_ITfTextEditSink_head():
 def _define_ITfTextEditSink():
     ITfTextEditSink = win32more.UI.TextServices.ITfTextEditSink_head
     ITfTextEditSink.OnEndEdit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head,UInt32,win32more.UI.TextServices.ITfEditRecord_head, use_last_error=False)(3, 'OnEndEdit', ((1, 'pic'),(1, 'ecReadOnly'),(1, 'pEditRecord'),)))
+    win32more.System.Com.IUnknown
     return ITfTextEditSink
 TfLayoutCode = Int32
 TF_LC_CREATE = 0
@@ -1319,6 +1369,7 @@ def _define_ITfTextLayoutSink_head():
 def _define_ITfTextLayoutSink():
     ITfTextLayoutSink = win32more.UI.TextServices.ITfTextLayoutSink_head
     ITfTextLayoutSink.OnLayoutChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head,win32more.UI.TextServices.TfLayoutCode,win32more.UI.TextServices.ITfContextView_head, use_last_error=False)(3, 'OnLayoutChange', ((1, 'pic'),(1, 'lcode'),(1, 'pView'),)))
+    win32more.System.Com.IUnknown
     return ITfTextLayoutSink
 def _define_ITfStatusSink_head():
     class ITfStatusSink(win32more.System.Com.IUnknown_head):
@@ -1327,6 +1378,7 @@ def _define_ITfStatusSink_head():
 def _define_ITfStatusSink():
     ITfStatusSink = win32more.UI.TextServices.ITfStatusSink_head
     ITfStatusSink.OnStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head,UInt32, use_last_error=False)(3, 'OnStatusChange', ((1, 'pic'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return ITfStatusSink
 def _define_ITfEditTransactionSink_head():
     class ITfEditTransactionSink(win32more.System.Com.IUnknown_head):
@@ -1336,6 +1388,7 @@ def _define_ITfEditTransactionSink():
     ITfEditTransactionSink = win32more.UI.TextServices.ITfEditTransactionSink_head
     ITfEditTransactionSink.OnStartEditTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head, use_last_error=False)(3, 'OnStartEditTransaction', ((1, 'pic'),)))
     ITfEditTransactionSink.OnEndEditTransaction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head, use_last_error=False)(4, 'OnEndEditTransaction', ((1, 'pic'),)))
+    win32more.System.Com.IUnknown
     return ITfEditTransactionSink
 def _define_ITfContextOwner_head():
     class ITfContextOwner(win32more.System.Com.IUnknown_head):
@@ -1349,6 +1402,7 @@ def _define_ITfContextOwner():
     ITfContextOwner.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.TS_STATUS_head), use_last_error=False)(6, 'GetStatus', ((1, 'pdcs'),)))
     ITfContextOwner.GetWnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HWND), use_last_error=False)(7, 'GetWnd', ((1, 'phwnd'),)))
     ITfContextOwner.GetAttribute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'GetAttribute', ((1, 'rguidAttribute'),(1, 'pvarValue'),)))
+    win32more.System.Com.IUnknown
     return ITfContextOwner
 def _define_ITfContextOwnerServices_head():
     class ITfContextOwnerServices(win32more.System.Com.IUnknown_head):
@@ -1363,6 +1417,7 @@ def _define_ITfContextOwnerServices():
     ITfContextOwnerServices.Unserialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfProperty_head,POINTER(win32more.UI.TextServices.TF_PERSISTENT_PROPERTY_HEADER_ACP_head),win32more.System.Com.IStream_head,win32more.UI.TextServices.ITfPersistentPropertyLoaderACP_head, use_last_error=False)(7, 'Unserialize', ((1, 'pProp'),(1, 'pHdr'),(1, 'pStream'),(1, 'pLoader'),)))
     ITfContextOwnerServices.ForceLoadProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfProperty_head, use_last_error=False)(8, 'ForceLoadProperty', ((1, 'pProp'),)))
     ITfContextOwnerServices.CreateRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.UI.TextServices.ITfRangeACP_head), use_last_error=False)(9, 'CreateRange', ((1, 'acpStart'),(1, 'acpEnd'),(1, 'ppRange'),)))
+    win32more.System.Com.IUnknown
     return ITfContextOwnerServices
 def _define_ITfContextKeyEventSink_head():
     class ITfContextKeyEventSink(win32more.System.Com.IUnknown_head):
@@ -1374,6 +1429,7 @@ def _define_ITfContextKeyEventSink():
     ITfContextKeyEventSink.OnKeyUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'OnKeyUp', ((1, 'wParam'),(1, 'lParam'),(1, 'pfEaten'),)))
     ITfContextKeyEventSink.OnTestKeyDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'OnTestKeyDown', ((1, 'wParam'),(1, 'lParam'),(1, 'pfEaten'),)))
     ITfContextKeyEventSink.OnTestKeyUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'OnTestKeyUp', ((1, 'wParam'),(1, 'lParam'),(1, 'pfEaten'),)))
+    win32more.System.Com.IUnknown
     return ITfContextKeyEventSink
 def _define_ITfEditSession_head():
     class ITfEditSession(win32more.System.Com.IUnknown_head):
@@ -1382,6 +1438,7 @@ def _define_ITfEditSession_head():
 def _define_ITfEditSession():
     ITfEditSession = win32more.UI.TextServices.ITfEditSession_head
     ITfEditSession.DoEditSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'DoEditSession', ((1, 'ec'),)))
+    win32more.System.Com.IUnknown
     return ITfEditSession
 TfGravity = Int32
 TF_GRAVITY_BACKWARD = 0
@@ -1429,6 +1486,7 @@ def _define_ITfRange():
     ITfRange.SetGravity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.TfGravity,win32more.UI.TextServices.TfGravity, use_last_error=False)(22, 'SetGravity', ((1, 'ec'),(1, 'gStart'),(1, 'gEnd'),)))
     ITfRange.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfRange_head), use_last_error=False)(23, 'Clone', ((1, 'ppClone'),)))
     ITfRange.GetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfContext_head), use_last_error=False)(24, 'GetContext', ((1, 'ppContext'),)))
+    win32more.System.Com.IUnknown
     return ITfRange
 def _define_ITfRangeACP_head():
     class ITfRangeACP(win32more.UI.TextServices.ITfRange_head):
@@ -1438,6 +1496,7 @@ def _define_ITfRangeACP():
     ITfRangeACP = win32more.UI.TextServices.ITfRangeACP_head
     ITfRangeACP.GetExtent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32), use_last_error=False)(25, 'GetExtent', ((1, 'pacpAnchor'),(1, 'pcch'),)))
     ITfRangeACP.SetExtent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(26, 'SetExtent', ((1, 'acpAnchor'),(1, 'cch'),)))
+    win32more.UI.TextServices.ITfRange
     return ITfRangeACP
 def _define_ITextStoreACPServices_head():
     class ITextStoreACPServices(win32more.System.Com.IUnknown_head):
@@ -1449,6 +1508,7 @@ def _define_ITextStoreACPServices():
     ITextStoreACPServices.Unserialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfProperty_head,POINTER(win32more.UI.TextServices.TF_PERSISTENT_PROPERTY_HEADER_ACP_head),win32more.System.Com.IStream_head,win32more.UI.TextServices.ITfPersistentPropertyLoaderACP_head, use_last_error=False)(4, 'Unserialize', ((1, 'pProp'),(1, 'pHdr'),(1, 'pStream'),(1, 'pLoader'),)))
     ITextStoreACPServices.ForceLoadProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfProperty_head, use_last_error=False)(5, 'ForceLoadProperty', ((1, 'pProp'),)))
     ITextStoreACPServices.CreateRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.UI.TextServices.ITfRangeACP_head), use_last_error=False)(6, 'CreateRange', ((1, 'acpStart'),(1, 'acpEnd'),(1, 'ppRange'),)))
+    win32more.System.Com.IUnknown
     return ITextStoreACPServices
 def _define_ITfRangeBackup_head():
     class ITfRangeBackup(win32more.System.Com.IUnknown_head):
@@ -1457,6 +1517,7 @@ def _define_ITfRangeBackup_head():
 def _define_ITfRangeBackup():
     ITfRangeBackup = win32more.UI.TextServices.ITfRangeBackup_head
     ITfRangeBackup.Restore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head, use_last_error=False)(3, 'Restore', ((1, 'ec'),(1, 'pRange'),)))
+    win32more.System.Com.IUnknown
     return ITfRangeBackup
 def _define_ITfPropertyStore_head():
     class ITfPropertyStore(win32more.System.Com.IUnknown_head):
@@ -1473,6 +1534,7 @@ def _define_ITfPropertyStore():
     ITfPropertyStore.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfPropertyStore_head), use_last_error=False)(9, 'Clone', ((1, 'pPropStore'),)))
     ITfPropertyStore.GetPropertyRangeCreator = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(10, 'GetPropertyRangeCreator', ((1, 'pclsid'),)))
     ITfPropertyStore.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(UInt32), use_last_error=False)(11, 'Serialize', ((1, 'pStream'),(1, 'pcb'),)))
+    win32more.System.Com.IUnknown
     return ITfPropertyStore
 def _define_IEnumTfRanges_head():
     class IEnumTfRanges(win32more.System.Com.IUnknown_head):
@@ -1484,6 +1546,7 @@ def _define_IEnumTfRanges():
     IEnumTfRanges.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfRange_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'ppRange'),(1, 'pcFetched'),)))
     IEnumTfRanges.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfRanges.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfRanges
 def _define_ITfCreatePropertyStore_head():
     class ITfCreatePropertyStore(win32more.System.Com.IUnknown_head):
@@ -1493,6 +1556,7 @@ def _define_ITfCreatePropertyStore():
     ITfCreatePropertyStore = win32more.UI.TextServices.ITfCreatePropertyStore_head
     ITfCreatePropertyStore.IsStoreSerializable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.UI.TextServices.ITfRange_head,win32more.UI.TextServices.ITfPropertyStore_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsStoreSerializable', ((1, 'guidProp'),(1, 'pRange'),(1, 'pPropStore'),(1, 'pfSerializable'),)))
     ITfCreatePropertyStore.CreatePropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.UI.TextServices.ITfRange_head,UInt32,win32more.System.Com.IStream_head,POINTER(win32more.UI.TextServices.ITfPropertyStore_head), use_last_error=False)(4, 'CreatePropertyStore', ((1, 'guidProp'),(1, 'pRange'),(1, 'cb'),(1, 'pStream'),(1, 'ppStore'),)))
+    win32more.System.Com.IUnknown
     return ITfCreatePropertyStore
 def _define_ITfPersistentPropertyLoaderACP_head():
     class ITfPersistentPropertyLoaderACP(win32more.System.Com.IUnknown_head):
@@ -1501,6 +1565,7 @@ def _define_ITfPersistentPropertyLoaderACP_head():
 def _define_ITfPersistentPropertyLoaderACP():
     ITfPersistentPropertyLoaderACP = win32more.UI.TextServices.ITfPersistentPropertyLoaderACP_head
     ITfPersistentPropertyLoaderACP.LoadProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.TF_PERSISTENT_PROPERTY_HEADER_ACP_head),POINTER(win32more.System.Com.IStream_head), use_last_error=False)(3, 'LoadProperty', ((1, 'pHdr'),(1, 'ppStream'),)))
+    win32more.System.Com.IUnknown
     return ITfPersistentPropertyLoaderACP
 def _define_ITfProperty_head():
     class ITfProperty(win32more.UI.TextServices.ITfReadOnlyProperty_head):
@@ -1512,6 +1577,7 @@ def _define_ITfProperty():
     ITfProperty.SetValueStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head,win32more.UI.TextServices.ITfPropertyStore_head, use_last_error=False)(8, 'SetValueStore', ((1, 'ec'),(1, 'pRange'),(1, 'pPropStore'),)))
     ITfProperty.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(9, 'SetValue', ((1, 'ec'),(1, 'pRange'),(1, 'pvarValue'),)))
     ITfProperty.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.ITfRange_head, use_last_error=False)(10, 'Clear', ((1, 'ec'),(1, 'pRange'),)))
+    win32more.UI.TextServices.ITfReadOnlyProperty
     return ITfProperty
 def _define_IEnumTfProperties_head():
     class IEnumTfProperties(win32more.System.Com.IUnknown_head):
@@ -1523,6 +1589,7 @@ def _define_IEnumTfProperties():
     IEnumTfProperties.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfProperty_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'ppProp'),(1, 'pcFetched'),)))
     IEnumTfProperties.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfProperties.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfProperties
 def _define_ITfCompartment_head():
     class ITfCompartment(win32more.System.Com.IUnknown_head):
@@ -1532,6 +1599,7 @@ def _define_ITfCompartment():
     ITfCompartment = win32more.UI.TextServices.ITfCompartment_head
     ITfCompartment.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(3, 'SetValue', ((1, 'tid'),(1, 'pvarValue'),)))
     ITfCompartment.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(4, 'GetValue', ((1, 'pvarValue'),)))
+    win32more.System.Com.IUnknown
     return ITfCompartment
 def _define_ITfCompartmentEventSink_head():
     class ITfCompartmentEventSink(win32more.System.Com.IUnknown_head):
@@ -1540,6 +1608,7 @@ def _define_ITfCompartmentEventSink_head():
 def _define_ITfCompartmentEventSink():
     ITfCompartmentEventSink = win32more.UI.TextServices.ITfCompartmentEventSink_head
     ITfCompartmentEventSink.OnChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'OnChange', ((1, 'rguid'),)))
+    win32more.System.Com.IUnknown
     return ITfCompartmentEventSink
 def _define_ITfCompartmentMgr_head():
     class ITfCompartmentMgr(win32more.System.Com.IUnknown_head):
@@ -1550,6 +1619,7 @@ def _define_ITfCompartmentMgr():
     ITfCompartmentMgr.GetCompartment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.TextServices.ITfCompartment_head), use_last_error=False)(3, 'GetCompartment', ((1, 'rguid'),(1, 'ppcomp'),)))
     ITfCompartmentMgr.ClearCompartment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(4, 'ClearCompartment', ((1, 'tid'),(1, 'rguid'),)))
     ITfCompartmentMgr.EnumCompartments = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumGUID_head), use_last_error=False)(5, 'EnumCompartments', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return ITfCompartmentMgr
 def _define_ITfFunction_head():
     class ITfFunction(win32more.System.Com.IUnknown_head):
@@ -1558,6 +1628,7 @@ def _define_ITfFunction_head():
 def _define_ITfFunction():
     ITfFunction = win32more.UI.TextServices.ITfFunction_head
     ITfFunction.GetDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetDisplayName', ((1, 'pbstrName'),)))
+    win32more.System.Com.IUnknown
     return ITfFunction
 def _define_ITfFunctionProvider_head():
     class ITfFunctionProvider(win32more.System.Com.IUnknown_head):
@@ -1568,6 +1639,7 @@ def _define_ITfFunctionProvider():
     ITfFunctionProvider.GetType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'GetType', ((1, 'pguid'),)))
     ITfFunctionProvider.GetDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetDescription', ((1, 'pbstrDesc'),)))
     ITfFunctionProvider.GetFunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'GetFunction', ((1, 'rguid'),(1, 'riid'),(1, 'ppunk'),)))
+    win32more.System.Com.IUnknown
     return ITfFunctionProvider
 def _define_IEnumTfFunctionProviders_head():
     class IEnumTfFunctionProviders(win32more.System.Com.IUnknown_head):
@@ -1579,6 +1651,7 @@ def _define_IEnumTfFunctionProviders():
     IEnumTfFunctionProviders.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfFunctionProvider_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'ppCmdobj'),(1, 'pcFetch'),)))
     IEnumTfFunctionProviders.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfFunctionProviders.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfFunctionProviders
 def _define_ITfInputProcessorProfiles_head():
     class ITfInputProcessorProfiles(win32more.System.Com.IUnknown_head):
@@ -1604,6 +1677,7 @@ def _define_ITfInputProcessorProfiles():
     ITfInputProcessorProfiles.IsEnabledLanguageProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt16,POINTER(Guid),POINTER(win32more.Foundation.BOOL), use_last_error=False)(18, 'IsEnabledLanguageProfile', ((1, 'rclsid'),(1, 'langid'),(1, 'guidProfile'),(1, 'pfEnable'),)))
     ITfInputProcessorProfiles.EnableLanguageProfileByDefault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt16,POINTER(Guid),win32more.Foundation.BOOL, use_last_error=False)(19, 'EnableLanguageProfileByDefault', ((1, 'rclsid'),(1, 'langid'),(1, 'guidProfile'),(1, 'fEnable'),)))
     ITfInputProcessorProfiles.SubstituteKeyboardLayout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt16,POINTER(Guid),win32more.UI.TextServices.HKL, use_last_error=False)(20, 'SubstituteKeyboardLayout', ((1, 'rclsid'),(1, 'langid'),(1, 'guidProfile'),(1, 'hKL'),)))
+    win32more.System.Com.IUnknown
     return ITfInputProcessorProfiles
 def _define_ITfInputProcessorProfilesEx_head():
     class ITfInputProcessorProfilesEx(win32more.UI.TextServices.ITfInputProcessorProfiles_head):
@@ -1612,6 +1686,7 @@ def _define_ITfInputProcessorProfilesEx_head():
 def _define_ITfInputProcessorProfilesEx():
     ITfInputProcessorProfilesEx = win32more.UI.TextServices.ITfInputProcessorProfilesEx_head
     ITfInputProcessorProfilesEx.SetLanguageProfileDisplayName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt16,POINTER(Guid),POINTER(Char),UInt32,UInt32, use_last_error=False)(21, 'SetLanguageProfileDisplayName', ((1, 'rclsid'),(1, 'langid'),(1, 'guidProfile'),(1, 'pchFile'),(1, 'cchFile'),(1, 'uResId'),)))
+    win32more.UI.TextServices.ITfInputProcessorProfiles
     return ITfInputProcessorProfilesEx
 def _define_ITfInputProcessorProfileSubstituteLayout_head():
     class ITfInputProcessorProfileSubstituteLayout(win32more.System.Com.IUnknown_head):
@@ -1620,6 +1695,7 @@ def _define_ITfInputProcessorProfileSubstituteLayout_head():
 def _define_ITfInputProcessorProfileSubstituteLayout():
     ITfInputProcessorProfileSubstituteLayout = win32more.UI.TextServices.ITfInputProcessorProfileSubstituteLayout_head
     ITfInputProcessorProfileSubstituteLayout.GetSubstituteKeyboardLayout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt16,POINTER(Guid),POINTER(win32more.UI.TextServices.HKL), use_last_error=False)(3, 'GetSubstituteKeyboardLayout', ((1, 'rclsid'),(1, 'langid'),(1, 'guidProfile'),(1, 'phKL'),)))
+    win32more.System.Com.IUnknown
     return ITfInputProcessorProfileSubstituteLayout
 def _define_ITfActiveLanguageProfileNotifySink_head():
     class ITfActiveLanguageProfileNotifySink(win32more.System.Com.IUnknown_head):
@@ -1628,6 +1704,7 @@ def _define_ITfActiveLanguageProfileNotifySink_head():
 def _define_ITfActiveLanguageProfileNotifySink():
     ITfActiveLanguageProfileNotifySink = win32more.UI.TextServices.ITfActiveLanguageProfileNotifySink_head
     ITfActiveLanguageProfileNotifySink.OnActivated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid),win32more.Foundation.BOOL, use_last_error=False)(3, 'OnActivated', ((1, 'clsid'),(1, 'guidProfile'),(1, 'fActivated'),)))
+    win32more.System.Com.IUnknown
     return ITfActiveLanguageProfileNotifySink
 def _define_IEnumTfLanguageProfiles_head():
     class IEnumTfLanguageProfiles(win32more.System.Com.IUnknown_head):
@@ -1639,6 +1716,7 @@ def _define_IEnumTfLanguageProfiles():
     IEnumTfLanguageProfiles.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.TF_LANGUAGEPROFILE),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'pProfile'),(1, 'pcFetch'),)))
     IEnumTfLanguageProfiles.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfLanguageProfiles.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfLanguageProfiles
 def _define_ITfLanguageProfileNotifySink_head():
     class ITfLanguageProfileNotifySink(win32more.System.Com.IUnknown_head):
@@ -1648,6 +1726,7 @@ def _define_ITfLanguageProfileNotifySink():
     ITfLanguageProfileNotifySink = win32more.UI.TextServices.ITfLanguageProfileNotifySink_head
     ITfLanguageProfileNotifySink.OnLanguageChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnLanguageChange', ((1, 'langid'),(1, 'pfAccept'),)))
     ITfLanguageProfileNotifySink.OnLanguageChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnLanguageChanged', ()))
+    win32more.System.Com.IUnknown
     return ITfLanguageProfileNotifySink
 def _define_TF_INPUTPROCESSORPROFILE_head():
     class TF_INPUTPROCESSORPROFILE(Structure):
@@ -1681,6 +1760,7 @@ def _define_ITfInputProcessorProfileMgr():
     ITfInputProcessorProfileMgr.RegisterProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt16,POINTER(Guid),POINTER(Char),UInt32,POINTER(Char),UInt32,UInt32,win32more.UI.TextServices.HKL,UInt32,win32more.Foundation.BOOL,UInt32, use_last_error=False)(8, 'RegisterProfile', ((1, 'rclsid'),(1, 'langid'),(1, 'guidProfile'),(1, 'pchDesc'),(1, 'cchDesc'),(1, 'pchIconFile'),(1, 'cchFile'),(1, 'uIconIndex'),(1, 'hklsubstitute'),(1, 'dwPreferredLayout'),(1, 'bEnabledByDefault'),(1, 'dwFlags'),)))
     ITfInputProcessorProfileMgr.UnregisterProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt16,POINTER(Guid),UInt32, use_last_error=False)(9, 'UnregisterProfile', ((1, 'rclsid'),(1, 'langid'),(1, 'guidProfile'),(1, 'dwFlags'),)))
     ITfInputProcessorProfileMgr.GetActiveProfile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.TextServices.TF_INPUTPROCESSORPROFILE_head), use_last_error=False)(10, 'GetActiveProfile', ((1, 'catid'),(1, 'pProfile'),)))
+    win32more.System.Com.IUnknown
     return ITfInputProcessorProfileMgr
 def _define_IEnumTfInputProcessorProfiles_head():
     class IEnumTfInputProcessorProfiles(win32more.System.Com.IUnknown_head):
@@ -1692,6 +1772,7 @@ def _define_IEnumTfInputProcessorProfiles():
     IEnumTfInputProcessorProfiles.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.TF_INPUTPROCESSORPROFILE),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'pProfile'),(1, 'pcFetch'),)))
     IEnumTfInputProcessorProfiles.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfInputProcessorProfiles.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfInputProcessorProfiles
 def _define_ITfInputProcessorProfileActivationSink_head():
     class ITfInputProcessorProfileActivationSink(win32more.System.Com.IUnknown_head):
@@ -1700,6 +1781,7 @@ def _define_ITfInputProcessorProfileActivationSink_head():
 def _define_ITfInputProcessorProfileActivationSink():
     ITfInputProcessorProfileActivationSink = win32more.UI.TextServices.ITfInputProcessorProfileActivationSink_head
     ITfInputProcessorProfileActivationSink.OnActivated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt16,POINTER(Guid),POINTER(Guid),POINTER(Guid),win32more.UI.TextServices.HKL,UInt32, use_last_error=False)(3, 'OnActivated', ((1, 'dwProfileType'),(1, 'langid'),(1, 'clsid'),(1, 'catid'),(1, 'guidProfile'),(1, 'hkl'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return ITfInputProcessorProfileActivationSink
 def _define_TF_PRESERVEDKEY_head():
     class TF_PRESERVEDKEY(Structure):
@@ -1732,6 +1814,7 @@ def _define_ITfKeystrokeMgr():
     ITfKeystrokeMgr.SetPreservedKeyDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Char),UInt32, use_last_error=False)(14, 'SetPreservedKeyDescription', ((1, 'rguid'),(1, 'pchDesc'),(1, 'cchDesc'),)))
     ITfKeystrokeMgr.GetPreservedKeyDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.BSTR), use_last_error=False)(15, 'GetPreservedKeyDescription', ((1, 'rguid'),(1, 'pbstrDesc'),)))
     ITfKeystrokeMgr.SimulatePreservedKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head,POINTER(Guid),POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'SimulatePreservedKey', ((1, 'pic'),(1, 'rguid'),(1, 'pfEaten'),)))
+    win32more.System.Com.IUnknown
     return ITfKeystrokeMgr
 def _define_ITfKeyEventSink_head():
     class ITfKeyEventSink(win32more.System.Com.IUnknown_head):
@@ -1745,6 +1828,7 @@ def _define_ITfKeyEventSink():
     ITfKeyEventSink.OnKeyDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'OnKeyDown', ((1, 'pic'),(1, 'wParam'),(1, 'lParam'),(1, 'pfEaten'),)))
     ITfKeyEventSink.OnKeyUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'OnKeyUp', ((1, 'pic'),(1, 'wParam'),(1, 'lParam'),(1, 'pfEaten'),)))
     ITfKeyEventSink.OnPreservedKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head,POINTER(Guid),POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'OnPreservedKey', ((1, 'pic'),(1, 'rguid'),(1, 'pfEaten'),)))
+    win32more.System.Com.IUnknown
     return ITfKeyEventSink
 def _define_ITfKeyTraceEventSink_head():
     class ITfKeyTraceEventSink(win32more.System.Com.IUnknown_head):
@@ -1754,6 +1838,7 @@ def _define_ITfKeyTraceEventSink():
     ITfKeyTraceEventSink = win32more.UI.TextServices.ITfKeyTraceEventSink_head
     ITfKeyTraceEventSink.OnKeyTraceDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(3, 'OnKeyTraceDown', ((1, 'wParam'),(1, 'lParam'),)))
     ITfKeyTraceEventSink.OnKeyTraceUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(4, 'OnKeyTraceUp', ((1, 'wParam'),(1, 'lParam'),)))
+    win32more.System.Com.IUnknown
     return ITfKeyTraceEventSink
 def _define_ITfPreservedKeyNotifySink_head():
     class ITfPreservedKeyNotifySink(win32more.System.Com.IUnknown_head):
@@ -1762,6 +1847,7 @@ def _define_ITfPreservedKeyNotifySink_head():
 def _define_ITfPreservedKeyNotifySink():
     ITfPreservedKeyNotifySink = win32more.UI.TextServices.ITfPreservedKeyNotifySink_head
     ITfPreservedKeyNotifySink.OnUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.TF_PRESERVEDKEY_head), use_last_error=False)(3, 'OnUpdated', ((1, 'pprekey'),)))
+    win32more.System.Com.IUnknown
     return ITfPreservedKeyNotifySink
 def _define_ITfMessagePump_head():
     class ITfMessagePump(win32more.System.Com.IUnknown_head):
@@ -1773,6 +1859,7 @@ def _define_ITfMessagePump():
     ITfMessagePump.GetMessageA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetMessageA', ((1, 'pMsg'),(1, 'hwnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),(1, 'pfResult'),)))
     ITfMessagePump.PeekMessageW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'PeekMessageW', ((1, 'pMsg'),(1, 'hwnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),(1, 'wRemoveMsg'),(1, 'pfResult'),)))
     ITfMessagePump.GetMessageW = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.WindowsAndMessaging.MSG_head),win32more.Foundation.HWND,UInt32,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetMessageW', ((1, 'pMsg'),(1, 'hwnd'),(1, 'wMsgFilterMin'),(1, 'wMsgFilterMax'),(1, 'pfResult'),)))
+    win32more.System.Com.IUnknown
     return ITfMessagePump
 def _define_ITfThreadFocusSink_head():
     class ITfThreadFocusSink(win32more.System.Com.IUnknown_head):
@@ -1782,6 +1869,7 @@ def _define_ITfThreadFocusSink():
     ITfThreadFocusSink = win32more.UI.TextServices.ITfThreadFocusSink_head
     ITfThreadFocusSink.OnSetThreadFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnSetThreadFocus', ()))
     ITfThreadFocusSink.OnKillThreadFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'OnKillThreadFocus', ()))
+    win32more.System.Com.IUnknown
     return ITfThreadFocusSink
 def _define_ITfTextInputProcessor_head():
     class ITfTextInputProcessor(win32more.System.Com.IUnknown_head):
@@ -1791,6 +1879,7 @@ def _define_ITfTextInputProcessor():
     ITfTextInputProcessor = win32more.UI.TextServices.ITfTextInputProcessor_head
     ITfTextInputProcessor.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfThreadMgr_head,UInt32, use_last_error=False)(3, 'Activate', ((1, 'ptim'),(1, 'tid'),)))
     ITfTextInputProcessor.Deactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Deactivate', ()))
+    win32more.System.Com.IUnknown
     return ITfTextInputProcessor
 def _define_ITfTextInputProcessorEx_head():
     class ITfTextInputProcessorEx(win32more.UI.TextServices.ITfTextInputProcessor_head):
@@ -1799,6 +1888,7 @@ def _define_ITfTextInputProcessorEx_head():
 def _define_ITfTextInputProcessorEx():
     ITfTextInputProcessorEx = win32more.UI.TextServices.ITfTextInputProcessorEx_head
     ITfTextInputProcessorEx.ActivateEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfThreadMgr_head,UInt32,UInt32, use_last_error=False)(5, 'ActivateEx', ((1, 'ptim'),(1, 'tid'),(1, 'dwFlags'),)))
+    win32more.UI.TextServices.ITfTextInputProcessor
     return ITfTextInputProcessorEx
 def _define_ITfClientId_head():
     class ITfClientId(win32more.System.Com.IUnknown_head):
@@ -1807,6 +1897,7 @@ def _define_ITfClientId_head():
 def _define_ITfClientId():
     ITfClientId = win32more.UI.TextServices.ITfClientId_head
     ITfClientId.GetClientId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32), use_last_error=False)(3, 'GetClientId', ((1, 'rclsid'),(1, 'ptid'),)))
+    win32more.System.Com.IUnknown
     return ITfClientId
 TF_DA_LINESTYLE = Int32
 TF_LS_NONE = 0
@@ -1872,6 +1963,7 @@ def _define_ITfDisplayAttributeInfo():
     ITfDisplayAttributeInfo.GetAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.TF_DISPLAYATTRIBUTE_head), use_last_error=False)(5, 'GetAttributeInfo', ((1, 'pda'),)))
     ITfDisplayAttributeInfo.SetAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.TF_DISPLAYATTRIBUTE_head), use_last_error=False)(6, 'SetAttributeInfo', ((1, 'pda'),)))
     ITfDisplayAttributeInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Reset', ()))
+    win32more.System.Com.IUnknown
     return ITfDisplayAttributeInfo
 def _define_IEnumTfDisplayAttributeInfo_head():
     class IEnumTfDisplayAttributeInfo(win32more.System.Com.IUnknown_head):
@@ -1883,6 +1975,7 @@ def _define_IEnumTfDisplayAttributeInfo():
     IEnumTfDisplayAttributeInfo.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfDisplayAttributeInfo_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgInfo'),(1, 'pcFetched'),)))
     IEnumTfDisplayAttributeInfo.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfDisplayAttributeInfo.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfDisplayAttributeInfo
 def _define_ITfDisplayAttributeProvider_head():
     class ITfDisplayAttributeProvider(win32more.System.Com.IUnknown_head):
@@ -1892,6 +1985,7 @@ def _define_ITfDisplayAttributeProvider():
     ITfDisplayAttributeProvider = win32more.UI.TextServices.ITfDisplayAttributeProvider_head
     ITfDisplayAttributeProvider.EnumDisplayAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.IEnumTfDisplayAttributeInfo_head), use_last_error=False)(3, 'EnumDisplayAttributeInfo', ((1, 'ppEnum'),)))
     ITfDisplayAttributeProvider.GetDisplayAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.TextServices.ITfDisplayAttributeInfo_head), use_last_error=False)(4, 'GetDisplayAttributeInfo', ((1, 'guid'),(1, 'ppInfo'),)))
+    win32more.System.Com.IUnknown
     return ITfDisplayAttributeProvider
 def _define_ITfDisplayAttributeMgr_head():
     class ITfDisplayAttributeMgr(win32more.System.Com.IUnknown_head):
@@ -1902,6 +1996,7 @@ def _define_ITfDisplayAttributeMgr():
     ITfDisplayAttributeMgr.OnUpdateInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnUpdateInfo', ()))
     ITfDisplayAttributeMgr.EnumDisplayAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.IEnumTfDisplayAttributeInfo_head), use_last_error=False)(4, 'EnumDisplayAttributeInfo', ((1, 'ppEnum'),)))
     ITfDisplayAttributeMgr.GetDisplayAttributeInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.UI.TextServices.ITfDisplayAttributeInfo_head),POINTER(Guid), use_last_error=False)(5, 'GetDisplayAttributeInfo', ((1, 'guid'),(1, 'ppInfo'),(1, 'pclsidOwner'),)))
+    win32more.System.Com.IUnknown
     return ITfDisplayAttributeMgr
 def _define_ITfDisplayAttributeNotifySink_head():
     class ITfDisplayAttributeNotifySink(win32more.System.Com.IUnknown_head):
@@ -1910,6 +2005,7 @@ def _define_ITfDisplayAttributeNotifySink_head():
 def _define_ITfDisplayAttributeNotifySink():
     ITfDisplayAttributeNotifySink = win32more.UI.TextServices.ITfDisplayAttributeNotifySink_head
     ITfDisplayAttributeNotifySink.OnUpdateInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnUpdateInfo', ()))
+    win32more.System.Com.IUnknown
     return ITfDisplayAttributeNotifySink
 def _define_ITfCategoryMgr_head():
     class ITfCategoryMgr(win32more.System.Com.IUnknown_head):
@@ -1931,6 +2027,7 @@ def _define_ITfCategoryMgr():
     ITfCategoryMgr.RegisterGUID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32), use_last_error=False)(14, 'RegisterGUID', ((1, 'rguid'),(1, 'pguidatom'),)))
     ITfCategoryMgr.GetGUID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(15, 'GetGUID', ((1, 'guidatom'),(1, 'pguid'),)))
     ITfCategoryMgr.IsEqualTfGuidAtom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'IsEqualTfGuidAtom', ((1, 'guidatom'),(1, 'rguid'),(1, 'pfEqual'),)))
+    win32more.System.Com.IUnknown
     return ITfCategoryMgr
 def _define_ITfSource_head():
     class ITfSource(win32more.System.Com.IUnknown_head):
@@ -1940,6 +2037,7 @@ def _define_ITfSource():
     ITfSource = win32more.UI.TextServices.ITfSource_head
     ITfSource.AdviseSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head,POINTER(UInt32), use_last_error=False)(3, 'AdviseSink', ((1, 'riid'),(1, 'punk'),(1, 'pdwCookie'),)))
     ITfSource.UnadviseSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'UnadviseSink', ((1, 'dwCookie'),)))
+    win32more.System.Com.IUnknown
     return ITfSource
 def _define_ITfSourceSingle_head():
     class ITfSourceSingle(win32more.System.Com.IUnknown_head):
@@ -1949,6 +2047,7 @@ def _define_ITfSourceSingle():
     ITfSourceSingle = win32more.UI.TextServices.ITfSourceSingle_head
     ITfSourceSingle.AdviseSingleSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'AdviseSingleSink', ((1, 'tid'),(1, 'riid'),(1, 'punk'),)))
     ITfSourceSingle.UnadviseSingleSink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(4, 'UnadviseSingleSink', ((1, 'tid'),(1, 'riid'),)))
+    win32more.System.Com.IUnknown
     return ITfSourceSingle
 def _define_ITfUIElementMgr_head():
     class ITfUIElementMgr(win32more.System.Com.IUnknown_head):
@@ -1961,6 +2060,7 @@ def _define_ITfUIElementMgr():
     ITfUIElementMgr.EndUIElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'EndUIElement', ((1, 'dwUIElementId'),)))
     ITfUIElementMgr.GetUIElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfUIElement_head), use_last_error=False)(6, 'GetUIElement', ((1, 'dwUIELementId'),(1, 'ppElement'),)))
     ITfUIElementMgr.EnumUIElements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.IEnumTfUIElements_head), use_last_error=False)(7, 'EnumUIElements', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return ITfUIElementMgr
 def _define_IEnumTfUIElements_head():
     class IEnumTfUIElements(win32more.System.Com.IUnknown_head):
@@ -1972,6 +2072,7 @@ def _define_IEnumTfUIElements():
     IEnumTfUIElements.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfUIElement_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'ppElement'),(1, 'pcFetched'),)))
     IEnumTfUIElements.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfUIElements.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfUIElements
 def _define_ITfUIElementSink_head():
     class ITfUIElementSink(win32more.System.Com.IUnknown_head):
@@ -1982,6 +2083,7 @@ def _define_ITfUIElementSink():
     ITfUIElementSink.BeginUIElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'BeginUIElement', ((1, 'dwUIElementId'),(1, 'pbShow'),)))
     ITfUIElementSink.UpdateUIElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'UpdateUIElement', ((1, 'dwUIElementId'),)))
     ITfUIElementSink.EndUIElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(5, 'EndUIElement', ((1, 'dwUIElementId'),)))
+    win32more.System.Com.IUnknown
     return ITfUIElementSink
 def _define_ITfUIElement_head():
     class ITfUIElement(win32more.System.Com.IUnknown_head):
@@ -1993,6 +2095,7 @@ def _define_ITfUIElement():
     ITfUIElement.GetGUID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetGUID', ((1, 'pguid'),)))
     ITfUIElement.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(5, 'Show', ((1, 'bShow'),)))
     ITfUIElement.IsShown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'IsShown', ((1, 'pbShow'),)))
+    win32more.System.Com.IUnknown
     return ITfUIElement
 def _define_ITfCandidateListUIElement_head():
     class ITfCandidateListUIElement(win32more.UI.TextServices.ITfUIElement_head):
@@ -2008,6 +2111,7 @@ def _define_ITfCandidateListUIElement():
     ITfCandidateListUIElement.GetPageIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32,POINTER(UInt32), use_last_error=False)(12, 'GetPageIndex', ((1, 'pIndex'),(1, 'uSize'),(1, 'puPageCnt'),)))
     ITfCandidateListUIElement.SetPageIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32, use_last_error=False)(13, 'SetPageIndex', ((1, 'pIndex'),(1, 'uPageCnt'),)))
     ITfCandidateListUIElement.GetCurrentPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'GetCurrentPage', ((1, 'puPage'),)))
+    win32more.UI.TextServices.ITfUIElement
     return ITfCandidateListUIElement
 def _define_ITfCandidateListUIElementBehavior_head():
     class ITfCandidateListUIElementBehavior(win32more.UI.TextServices.ITfCandidateListUIElement_head):
@@ -2018,6 +2122,7 @@ def _define_ITfCandidateListUIElementBehavior():
     ITfCandidateListUIElementBehavior.SetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(15, 'SetSelection', ((1, 'nIndex'),)))
     ITfCandidateListUIElementBehavior.Finalize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Finalize', ()))
     ITfCandidateListUIElementBehavior.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'Abort', ()))
+    win32more.UI.TextServices.ITfCandidateListUIElement
     return ITfCandidateListUIElementBehavior
 def _define_ITfReadingInformationUIElement_head():
     class ITfReadingInformationUIElement(win32more.UI.TextServices.ITfUIElement_head):
@@ -2031,6 +2136,7 @@ def _define_ITfReadingInformationUIElement():
     ITfReadingInformationUIElement.GetMaxReadingStringLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'GetMaxReadingStringLength', ((1, 'pcchMax'),)))
     ITfReadingInformationUIElement.GetErrorIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(11, 'GetErrorIndex', ((1, 'pErrorIndex'),)))
     ITfReadingInformationUIElement.IsVerticalOrderPreferred = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(12, 'IsVerticalOrderPreferred', ((1, 'pfVertical'),)))
+    win32more.UI.TextServices.ITfUIElement
     return ITfReadingInformationUIElement
 def _define_ITfTransitoryExtensionUIElement_head():
     class ITfTransitoryExtensionUIElement(win32more.UI.TextServices.ITfUIElement_head):
@@ -2039,6 +2145,7 @@ def _define_ITfTransitoryExtensionUIElement_head():
 def _define_ITfTransitoryExtensionUIElement():
     ITfTransitoryExtensionUIElement = win32more.UI.TextServices.ITfTransitoryExtensionUIElement_head
     ITfTransitoryExtensionUIElement.GetDocumentMgr = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.ITfDocumentMgr_head), use_last_error=False)(7, 'GetDocumentMgr', ((1, 'ppdim'),)))
+    win32more.UI.TextServices.ITfUIElement
     return ITfTransitoryExtensionUIElement
 def _define_ITfTransitoryExtensionSink_head():
     class ITfTransitoryExtensionSink(win32more.System.Com.IUnknown_head):
@@ -2047,6 +2154,7 @@ def _define_ITfTransitoryExtensionSink_head():
 def _define_ITfTransitoryExtensionSink():
     ITfTransitoryExtensionSink = win32more.UI.TextServices.ITfTransitoryExtensionSink_head
     ITfTransitoryExtensionSink.OnTransitoryExtensionUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head,UInt32,win32more.UI.TextServices.ITfRange_head,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'OnTransitoryExtensionUpdated', ((1, 'pic'),(1, 'ecReadOnly'),(1, 'pResultRange'),(1, 'pCompositionRange'),(1, 'pfDeleteResultRange'),)))
+    win32more.System.Com.IUnknown
     return ITfTransitoryExtensionSink
 def _define_ITfToolTipUIElement_head():
     class ITfToolTipUIElement(win32more.UI.TextServices.ITfUIElement_head):
@@ -2055,6 +2163,7 @@ def _define_ITfToolTipUIElement_head():
 def _define_ITfToolTipUIElement():
     ITfToolTipUIElement = win32more.UI.TextServices.ITfToolTipUIElement_head
     ITfToolTipUIElement.GetString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetString', ((1, 'pstr'),)))
+    win32more.UI.TextServices.ITfUIElement
     return ITfToolTipUIElement
 def _define_ITfReverseConversionList_head():
     class ITfReverseConversionList(win32more.System.Com.IUnknown_head):
@@ -2064,6 +2173,7 @@ def _define_ITfReverseConversionList():
     ITfReverseConversionList = win32more.UI.TextServices.ITfReverseConversionList_head
     ITfReverseConversionList.GetLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetLength', ((1, 'puIndex'),)))
     ITfReverseConversionList.GetString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'GetString', ((1, 'uIndex'),(1, 'pbstr'),)))
+    win32more.System.Com.IUnknown
     return ITfReverseConversionList
 def _define_ITfReverseConversion_head():
     class ITfReverseConversion(win32more.System.Com.IUnknown_head):
@@ -2072,6 +2182,7 @@ def _define_ITfReverseConversion_head():
 def _define_ITfReverseConversion():
     ITfReverseConversion = win32more.UI.TextServices.ITfReverseConversion_head
     ITfReverseConversion.DoReverseConversion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.TextServices.ITfReverseConversionList_head), use_last_error=False)(3, 'DoReverseConversion', ((1, 'lpstr'),(1, 'ppList'),)))
+    win32more.System.Com.IUnknown
     return ITfReverseConversion
 def _define_ITfReverseConversionMgr_head():
     class ITfReverseConversionMgr(win32more.System.Com.IUnknown_head):
@@ -2080,6 +2191,7 @@ def _define_ITfReverseConversionMgr_head():
 def _define_ITfReverseConversionMgr():
     ITfReverseConversionMgr = win32more.UI.TextServices.ITfReverseConversionMgr_head
     ITfReverseConversionMgr.GetReverseConversion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(Guid),UInt32,POINTER(win32more.UI.TextServices.ITfReverseConversion_head), use_last_error=False)(3, 'GetReverseConversion', ((1, 'langid'),(1, 'guidProfile'),(1, 'dwflag'),(1, 'ppReverseConversion'),)))
+    win32more.System.Com.IUnknown
     return ITfReverseConversionMgr
 def _define_ITfCandidateString_head():
     class ITfCandidateString(win32more.System.Com.IUnknown_head):
@@ -2089,6 +2201,7 @@ def _define_ITfCandidateString():
     ITfCandidateString = win32more.UI.TextServices.ITfCandidateString_head
     ITfCandidateString.GetString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'GetString', ((1, 'pbstr'),)))
     ITfCandidateString.GetIndex = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetIndex', ((1, 'pnIndex'),)))
+    win32more.System.Com.IUnknown
     return ITfCandidateString
 def _define_IEnumTfCandidates_head():
     class IEnumTfCandidates(win32more.System.Com.IUnknown_head):
@@ -2100,6 +2213,7 @@ def _define_IEnumTfCandidates():
     IEnumTfCandidates.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfCandidateString_head),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'ppCand'),(1, 'pcFetched'),)))
     IEnumTfCandidates.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfCandidates.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfCandidates
 TfCandidateResult = Int32
 CAND_FINALIZED = 0
@@ -2115,6 +2229,7 @@ def _define_ITfCandidateList():
     ITfCandidateList.GetCandidate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.ITfCandidateString_head), use_last_error=False)(4, 'GetCandidate', ((1, 'nIndex'),(1, 'ppCand'),)))
     ITfCandidateList.GetCandidateNum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetCandidateNum', ((1, 'pnCnt'),)))
     ITfCandidateList.SetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.UI.TextServices.TfCandidateResult, use_last_error=False)(6, 'SetResult', ((1, 'nIndex'),(1, 'imcr'),)))
+    win32more.System.Com.IUnknown
     return ITfCandidateList
 def _define_ITfFnReconversion_head():
     class ITfFnReconversion(win32more.UI.TextServices.ITfFunction_head):
@@ -2125,6 +2240,7 @@ def _define_ITfFnReconversion():
     ITfFnReconversion.QueryRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.UI.TextServices.ITfRange_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'QueryRange', ((1, 'pRange'),(1, 'ppNewRange'),(1, 'pfConvertable'),)))
     ITfFnReconversion.GetReconversion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.UI.TextServices.ITfCandidateList_head), use_last_error=False)(5, 'GetReconversion', ((1, 'pRange'),(1, 'ppCandList'),)))
     ITfFnReconversion.Reconvert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head, use_last_error=False)(6, 'Reconvert', ((1, 'pRange'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnReconversion
 def _define_ITfFnPlayBack_head():
     class ITfFnPlayBack(win32more.UI.TextServices.ITfFunction_head):
@@ -2134,6 +2250,7 @@ def _define_ITfFnPlayBack():
     ITfFnPlayBack = win32more.UI.TextServices.ITfFnPlayBack_head
     ITfFnPlayBack.QueryRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.UI.TextServices.ITfRange_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'QueryRange', ((1, 'pRange'),(1, 'ppNewRange'),(1, 'pfPlayable'),)))
     ITfFnPlayBack.Play = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head, use_last_error=False)(5, 'Play', ((1, 'pRange'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnPlayBack
 def _define_ITfFnLangProfileUtil_head():
     class ITfFnLangProfileUtil(win32more.UI.TextServices.ITfFunction_head):
@@ -2143,6 +2260,7 @@ def _define_ITfFnLangProfileUtil():
     ITfFnLangProfileUtil = win32more.UI.TextServices.ITfFnLangProfileUtil_head
     ITfFnLangProfileUtil.RegisterActiveProfiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'RegisterActiveProfiles', ()))
     ITfFnLangProfileUtil.IsProfileAvailableForLang = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsProfileAvailableForLang', ((1, 'langid'),(1, 'pfAvailable'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnLangProfileUtil
 def _define_ITfFnConfigure_head():
     class ITfFnConfigure(win32more.UI.TextServices.ITfFunction_head):
@@ -2151,6 +2269,7 @@ def _define_ITfFnConfigure_head():
 def _define_ITfFnConfigure():
     ITfFnConfigure = win32more.UI.TextServices.ITfFnConfigure_head
     ITfFnConfigure.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt16,POINTER(Guid), use_last_error=False)(4, 'Show', ((1, 'hwndParent'),(1, 'langid'),(1, 'rguidProfile'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnConfigure
 def _define_ITfFnConfigureRegisterWord_head():
     class ITfFnConfigureRegisterWord(win32more.UI.TextServices.ITfFunction_head):
@@ -2159,6 +2278,7 @@ def _define_ITfFnConfigureRegisterWord_head():
 def _define_ITfFnConfigureRegisterWord():
     ITfFnConfigureRegisterWord = win32more.UI.TextServices.ITfFnConfigureRegisterWord_head
     ITfFnConfigureRegisterWord.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt16,POINTER(Guid),win32more.Foundation.BSTR, use_last_error=False)(4, 'Show', ((1, 'hwndParent'),(1, 'langid'),(1, 'rguidProfile'),(1, 'bstrRegistered'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnConfigureRegisterWord
 def _define_ITfFnConfigureRegisterEudc_head():
     class ITfFnConfigureRegisterEudc(win32more.UI.TextServices.ITfFunction_head):
@@ -2167,6 +2287,7 @@ def _define_ITfFnConfigureRegisterEudc_head():
 def _define_ITfFnConfigureRegisterEudc():
     ITfFnConfigureRegisterEudc = win32more.UI.TextServices.ITfFnConfigureRegisterEudc_head
     ITfFnConfigureRegisterEudc.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,UInt16,POINTER(Guid),win32more.Foundation.BSTR, use_last_error=False)(4, 'Show', ((1, 'hwndParent'),(1, 'langid'),(1, 'rguidProfile'),(1, 'bstrRegistered'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnConfigureRegisterEudc
 def _define_ITfFnShowHelp_head():
     class ITfFnShowHelp(win32more.UI.TextServices.ITfFunction_head):
@@ -2175,6 +2296,7 @@ def _define_ITfFnShowHelp_head():
 def _define_ITfFnShowHelp():
     ITfFnShowHelp = win32more.UI.TextServices.ITfFnShowHelp_head
     ITfFnShowHelp.Show = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(4, 'Show', ((1, 'hwndParent'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnShowHelp
 def _define_ITfFnBalloon_head():
     class ITfFnBalloon(win32more.System.Com.IUnknown_head):
@@ -2183,6 +2305,7 @@ def _define_ITfFnBalloon_head():
 def _define_ITfFnBalloon():
     ITfFnBalloon = win32more.UI.TextServices.ITfFnBalloon_head
     ITfFnBalloon.UpdateBalloon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.TfLBBalloonStyle,POINTER(Char),UInt32, use_last_error=False)(3, 'UpdateBalloon', ((1, 'style'),(1, 'pch'),(1, 'cch'),)))
+    win32more.System.Com.IUnknown
     return ITfFnBalloon
 TfSapiObject = Int32
 GETIF_RESMGR = 0
@@ -2198,6 +2321,7 @@ def _define_ITfFnGetSAPIObject_head():
 def _define_ITfFnGetSAPIObject():
     ITfFnGetSAPIObject = win32more.UI.TextServices.ITfFnGetSAPIObject_head
     ITfFnGetSAPIObject.Get = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.TfSapiObject,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'Get', ((1, 'sObj'),(1, 'ppunk'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnGetSAPIObject
 def _define_ITfFnPropertyUIStatus_head():
     class ITfFnPropertyUIStatus(win32more.UI.TextServices.ITfFunction_head):
@@ -2207,6 +2331,7 @@ def _define_ITfFnPropertyUIStatus():
     ITfFnPropertyUIStatus = win32more.UI.TextServices.ITfFnPropertyUIStatus_head
     ITfFnPropertyUIStatus.GetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(UInt32), use_last_error=False)(4, 'GetStatus', ((1, 'refguidProp'),(1, 'pdw'),)))
     ITfFnPropertyUIStatus.SetStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32, use_last_error=False)(5, 'SetStatus', ((1, 'refguidProp'),(1, 'dw'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnPropertyUIStatus
 def _define_IEnumSpeechCommands_head():
     class IEnumSpeechCommands(win32more.System.Com.IUnknown_head):
@@ -2218,6 +2343,7 @@ def _define_IEnumSpeechCommands():
     IEnumSpeechCommands.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(UInt16)),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'pSpCmds'),(1, 'pcFetched'),)))
     IEnumSpeechCommands.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumSpeechCommands.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumSpeechCommands
 def _define_ISpeechCommandProvider_head():
     class ISpeechCommandProvider(win32more.System.Com.IUnknown_head):
@@ -2227,6 +2353,7 @@ def _define_ISpeechCommandProvider():
     ISpeechCommandProvider = win32more.UI.TextServices.ISpeechCommandProvider_head
     ISpeechCommandProvider.EnumSpeechCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,POINTER(win32more.UI.TextServices.IEnumSpeechCommands_head), use_last_error=False)(3, 'EnumSpeechCommands', ((1, 'langid'),(1, 'ppEnum'),)))
     ISpeechCommandProvider.ProcessCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,UInt16, use_last_error=False)(4, 'ProcessCommand', ((1, 'pszCommand'),(1, 'cch'),(1, 'langid'),)))
+    win32more.System.Com.IUnknown
     return ISpeechCommandProvider
 def _define_ITfFnCustomSpeechCommand_head():
     class ITfFnCustomSpeechCommand(win32more.UI.TextServices.ITfFunction_head):
@@ -2235,6 +2362,7 @@ def _define_ITfFnCustomSpeechCommand_head():
 def _define_ITfFnCustomSpeechCommand():
     ITfFnCustomSpeechCommand = win32more.UI.TextServices.ITfFnCustomSpeechCommand_head
     ITfFnCustomSpeechCommand.SetSpeechCommandProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'SetSpeechCommandProvider', ((1, 'pspcmdProvider'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnCustomSpeechCommand
 def _define_ITfFnLMProcessor_head():
     class ITfFnLMProcessor(win32more.UI.TextServices.ITfFunction_head):
@@ -2249,6 +2377,7 @@ def _define_ITfFnLMProcessor():
     ITfFnLMProcessor.QueryKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'QueryKey', ((1, 'fUp'),(1, 'vKey'),(1, 'lparamKeydata'),(1, 'pfInterested'),)))
     ITfFnLMProcessor.InvokeKey = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM, use_last_error=False)(9, 'InvokeKey', ((1, 'fUp'),(1, 'vKey'),(1, 'lparamKeyData'),)))
     ITfFnLMProcessor.InvokeFunc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfContext_head,POINTER(Guid), use_last_error=False)(10, 'InvokeFunc', ((1, 'pic'),(1, 'refguidFunc'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnLMProcessor
 def _define_ITfFnLMInternal_head():
     class ITfFnLMInternal(win32more.UI.TextServices.ITfFnLMProcessor_head):
@@ -2257,6 +2386,7 @@ def _define_ITfFnLMInternal_head():
 def _define_ITfFnLMInternal():
     ITfFnLMInternal = win32more.UI.TextServices.ITfFnLMInternal_head
     ITfFnLMInternal.ProcessLattice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head, use_last_error=False)(11, 'ProcessLattice', ((1, 'pRange'),)))
+    win32more.UI.TextServices.ITfFnLMProcessor
     return ITfFnLMInternal
 def _define_TF_LMLATTELEMENT_head():
     class TF_LMLATTELEMENT(Structure):
@@ -2290,6 +2420,7 @@ def _define_IEnumTfLatticeElements():
     IEnumTfLatticeElements.Next = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.TextServices.TF_LMLATTELEMENT),POINTER(UInt32), use_last_error=False)(4, 'Next', ((1, 'ulCount'),(1, 'rgsElements'),(1, 'pcFetched'),)))
     IEnumTfLatticeElements.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumTfLatticeElements.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Skip', ((1, 'ulCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumTfLatticeElements
 def _define_ITfLMLattice_head():
     class ITfLMLattice(win32more.System.Com.IUnknown_head):
@@ -2299,6 +2430,7 @@ def _define_ITfLMLattice():
     ITfLMLattice = win32more.UI.TextServices.ITfLMLattice_head
     ITfLMLattice.QueryType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'QueryType', ((1, 'rguidType'),(1, 'pfSupported'),)))
     ITfLMLattice.EnumLatticeElements = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(win32more.UI.TextServices.IEnumTfLatticeElements_head), use_last_error=False)(4, 'EnumLatticeElements', ((1, 'dwFrameStart'),(1, 'rguidType'),(1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return ITfLMLattice
 def _define_ITfFnAdviseText_head():
     class ITfFnAdviseText(win32more.UI.TextServices.ITfFunction_head):
@@ -2308,6 +2440,7 @@ def _define_ITfFnAdviseText():
     ITfFnAdviseText = win32more.UI.TextServices.ITfFnAdviseText_head
     ITfFnAdviseText.OnTextUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head,POINTER(Char),Int32, use_last_error=False)(4, 'OnTextUpdate', ((1, 'pRange'),(1, 'pchText'),(1, 'cch'),)))
     ITfFnAdviseText.OnLatticeUpdate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head,win32more.UI.TextServices.ITfLMLattice_head, use_last_error=False)(5, 'OnLatticeUpdate', ((1, 'pRange'),(1, 'pLattice'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnAdviseText
 def _define_ITfFnSearchCandidateProvider_head():
     class ITfFnSearchCandidateProvider(win32more.UI.TextServices.ITfFunction_head):
@@ -2317,6 +2450,7 @@ def _define_ITfFnSearchCandidateProvider():
     ITfFnSearchCandidateProvider = win32more.UI.TextServices.ITfFnSearchCandidateProvider_head
     ITfFnSearchCandidateProvider.GetSearchCandidates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.UI.TextServices.ITfCandidateList_head), use_last_error=False)(4, 'GetSearchCandidates', ((1, 'bstrQuery'),(1, 'bstrApplicationId'),(1, 'pplist'),)))
     ITfFnSearchCandidateProvider.SetResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(5, 'SetResult', ((1, 'bstrQuery'),(1, 'bstrApplicationID'),(1, 'bstrResult'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnSearchCandidateProvider
 TfIntegratableCandidateListSelectionStyle = Int32
 STYLE_ACTIVE_SELECTION = 0
@@ -2332,6 +2466,7 @@ def _define_ITfIntegratableCandidateListUIElement():
     ITfIntegratableCandidateListUIElement.OnKeyDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.WPARAM,win32more.Foundation.LPARAM,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'OnKeyDown', ((1, 'wParam'),(1, 'lParam'),(1, 'pfEaten'),)))
     ITfIntegratableCandidateListUIElement.ShowCandidateNumbers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'ShowCandidateNumbers', ((1, 'pfShow'),)))
     ITfIntegratableCandidateListUIElement.FinalizeExactCompositionString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'FinalizeExactCompositionString', ()))
+    win32more.System.Com.IUnknown
     return ITfIntegratableCandidateListUIElement
 TKBLayoutType = Int32
 TKBLT_UNDEFINED = 0
@@ -2344,6 +2479,7 @@ def _define_ITfFnGetPreferredTouchKeyboardLayout_head():
 def _define_ITfFnGetPreferredTouchKeyboardLayout():
     ITfFnGetPreferredTouchKeyboardLayout = win32more.UI.TextServices.ITfFnGetPreferredTouchKeyboardLayout_head
     ITfFnGetPreferredTouchKeyboardLayout.GetLayout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.TextServices.TKBLayoutType),POINTER(UInt16), use_last_error=False)(4, 'GetLayout', ((1, 'pTKBLayoutType'),(1, 'pwPreferredLayoutId'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnGetPreferredTouchKeyboardLayout
 def _define_ITfFnGetLinguisticAlternates_head():
     class ITfFnGetLinguisticAlternates(win32more.UI.TextServices.ITfFunction_head):
@@ -2352,6 +2488,7 @@ def _define_ITfFnGetLinguisticAlternates_head():
 def _define_ITfFnGetLinguisticAlternates():
     ITfFnGetLinguisticAlternates = win32more.UI.TextServices.ITfFnGetLinguisticAlternates_head
     ITfFnGetLinguisticAlternates.GetAlternates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.ITfRange_head,POINTER(win32more.UI.TextServices.ITfCandidateList_head), use_last_error=False)(4, 'GetAlternates', ((1, 'pRange'),(1, 'ppCandidateList'),)))
+    win32more.UI.TextServices.ITfFunction
     return ITfFnGetLinguisticAlternates
 def _define_IUIManagerEventSink_head():
     class IUIManagerEventSink(win32more.System.Com.IUnknown_head):
@@ -2365,6 +2502,7 @@ def _define_IUIManagerEventSink():
     IUIManagerEventSink.OnWindowUpdated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(6, 'OnWindowUpdated', ((1, 'prcUpdatedBounds'),)))
     IUIManagerEventSink.OnWindowClosing = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'OnWindowClosing', ()))
     IUIManagerEventSink.OnWindowClosed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'OnWindowClosed', ()))
+    win32more.System.Com.IUnknown
     return IUIManagerEventSink
 InputScope = Int32
 IS_DEFAULT = 0
@@ -2452,6 +2590,7 @@ def _define_ITfInputScope():
     ITfInputScope.GetRegularExpression = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetRegularExpression', ((1, 'pbstrRegExp'),)))
     ITfInputScope.GetSRGS = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetSRGS', ((1, 'pbstrSRGS'),)))
     ITfInputScope.GetXML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetXML', ((1, 'pbstrXML'),)))
+    win32more.System.Com.IUnknown
     return ITfInputScope
 def _define_ITfInputScope2_head():
     class ITfInputScope2(win32more.UI.TextServices.ITfInputScope_head):
@@ -2460,6 +2599,7 @@ def _define_ITfInputScope2_head():
 def _define_ITfInputScope2():
     ITfInputScope2 = win32more.UI.TextServices.ITfInputScope2_head
     ITfInputScope2.EnumWordList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IEnumString_head), use_last_error=False)(8, 'EnumWordList', ((1, 'ppEnumString'),)))
+    win32more.UI.TextServices.ITfInputScope
     return ITfInputScope2
 MSAAControl = Guid('08cd963f-7a3e-4f5c-9bd8-d692bb043c5b')
 AccStore = Guid('5440837f-4bff-4ae5-a1b1-7722ecc6332a')
@@ -2475,6 +2615,7 @@ def _define_ITfMSAAControl():
     ITfMSAAControl = win32more.UI.TextServices.ITfMSAAControl_head
     ITfMSAAControl.SystemEnableMSAA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'SystemEnableMSAA', ()))
     ITfMSAAControl.SystemDisableMSAA = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'SystemDisableMSAA', ()))
+    win32more.System.Com.IUnknown
     return ITfMSAAControl
 def _define_IInternalDocWrap_head():
     class IInternalDocWrap(win32more.System.Com.IUnknown_head):
@@ -2483,6 +2624,7 @@ def _define_IInternalDocWrap_head():
 def _define_IInternalDocWrap():
     IInternalDocWrap = win32more.UI.TextServices.IInternalDocWrap_head
     IInternalDocWrap.NotifyRevoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'NotifyRevoke', ()))
+    win32more.System.Com.IUnknown
     return IInternalDocWrap
 def _define_ITextStoreACPEx_head():
     class ITextStoreACPEx(win32more.System.Com.IUnknown_head):
@@ -2491,6 +2633,7 @@ def _define_ITextStoreACPEx_head():
 def _define_ITextStoreACPEx():
     ITextStoreACPEx = win32more.UI.TextServices.ITextStoreACPEx_head
     ITextStoreACPEx.ScrollToRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,win32more.Foundation.RECT,UInt32, use_last_error=False)(3, 'ScrollToRect', ((1, 'acpStart'),(1, 'acpEnd'),(1, 'rc'),(1, 'dwPosition'),)))
+    win32more.System.Com.IUnknown
     return ITextStoreACPEx
 def _define_ITextStoreAnchorEx_head():
     class ITextStoreAnchorEx(win32more.System.Com.IUnknown_head):
@@ -2499,6 +2642,7 @@ def _define_ITextStoreAnchorEx_head():
 def _define_ITextStoreAnchorEx():
     ITextStoreAnchorEx = win32more.UI.TextServices.ITextStoreAnchorEx_head
     ITextStoreAnchorEx.ScrollToRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.IAnchor_head,win32more.UI.TextServices.IAnchor_head,win32more.Foundation.RECT,UInt32, use_last_error=False)(3, 'ScrollToRect', ((1, 'pStart'),(1, 'pEnd'),(1, 'rc'),(1, 'dwPosition'),)))
+    win32more.System.Com.IUnknown
     return ITextStoreAnchorEx
 def _define_ITextStoreACPSinkEx_head():
     class ITextStoreACPSinkEx(win32more.UI.TextServices.ITextStoreACPSink_head):
@@ -2507,6 +2651,7 @@ def _define_ITextStoreACPSinkEx_head():
 def _define_ITextStoreACPSinkEx():
     ITextStoreACPSinkEx = win32more.UI.TextServices.ITextStoreACPSinkEx_head
     ITextStoreACPSinkEx.OnDisconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'OnDisconnect', ()))
+    win32more.UI.TextServices.ITextStoreACPSink
     return ITextStoreACPSinkEx
 def _define_ITextStoreSinkAnchorEx_head():
     class ITextStoreSinkAnchorEx(win32more.UI.TextServices.ITextStoreAnchorSink_head):
@@ -2515,6 +2660,7 @@ def _define_ITextStoreSinkAnchorEx_head():
 def _define_ITextStoreSinkAnchorEx():
     ITextStoreSinkAnchorEx = win32more.UI.TextServices.ITextStoreSinkAnchorEx_head
     ITextStoreSinkAnchorEx.OnDisconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'OnDisconnect', ()))
+    win32more.UI.TextServices.ITextStoreAnchorSink
     return ITextStoreSinkAnchorEx
 def _define_IAccDictionary_head():
     class IAccDictionary(win32more.System.Com.IUnknown_head):
@@ -2527,6 +2673,7 @@ def _define_IAccDictionary():
     IAccDictionary.GetMnemonicString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'GetMnemonicString', ((1, 'Term'),(1, 'pResult'),)))
     IAccDictionary.LookupMnemonicTerm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(Guid), use_last_error=False)(6, 'LookupMnemonicTerm', ((1, 'bstrMnemonic'),(1, 'pTerm'),)))
     IAccDictionary.ConvertValueToString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,win32more.System.Com.VARIANT,POINTER(win32more.Foundation.BSTR),POINTER(UInt32), use_last_error=False)(7, 'ConvertValueToString', ((1, 'Term'),(1, 'lcid'),(1, 'varValue'),(1, 'pbstrResult'),(1, 'plcid'),)))
+    win32more.System.Com.IUnknown
     return IAccDictionary
 def _define_IVersionInfo_head():
     class IVersionInfo(win32more.System.Com.IUnknown_head):
@@ -2539,6 +2686,7 @@ def _define_IVersionInfo():
     IVersionInfo.GetBuildVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(5, 'GetBuildVersion', ((1, 'ulSub'),(1, 'pdwMajor'),(1, 'pdwMinor'),)))
     IVersionInfo.GetComponentDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'GetComponentDescription', ((1, 'ulSub'),(1, 'pImplStr'),)))
     IVersionInfo.GetInstanceDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'GetInstanceDescription', ((1, 'ulSub'),(1, 'pImplStr'),)))
+    win32more.System.Com.IUnknown
     return IVersionInfo
 def _define_ICoCreateLocally_head():
     class ICoCreateLocally(win32more.System.Com.IUnknown_head):
@@ -2547,6 +2695,7 @@ def _define_ICoCreateLocally_head():
 def _define_ICoCreateLocally():
     ICoCreateLocally = win32more.UI.TextServices.ICoCreateLocally_head
     ICoCreateLocally.CoCreateLocally = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head),POINTER(Guid),win32more.System.Com.IUnknown_head,win32more.System.Com.VARIANT, use_last_error=False)(3, 'CoCreateLocally', ((1, 'rclsid'),(1, 'dwClsContext'),(1, 'riid'),(1, 'punk'),(1, 'riidParam'),(1, 'punkParam'),(1, 'varParam'),)))
+    win32more.System.Com.IUnknown
     return ICoCreateLocally
 def _define_ICoCreatedLocally_head():
     class ICoCreatedLocally(win32more.System.Com.IUnknown_head):
@@ -2555,6 +2704,7 @@ def _define_ICoCreatedLocally_head():
 def _define_ICoCreatedLocally():
     ICoCreatedLocally = win32more.UI.TextServices.ICoCreatedLocally_head
     ICoCreatedLocally.LocalInit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,POINTER(Guid),win32more.System.Com.IUnknown_head,win32more.System.Com.VARIANT, use_last_error=False)(3, 'LocalInit', ((1, 'punkLocalObject'),(1, 'riidParam'),(1, 'punkParam'),(1, 'varParam'),)))
+    win32more.System.Com.IUnknown
     return ICoCreatedLocally
 def _define_IAccStore_head():
     class IAccStore(win32more.System.Com.IUnknown_head):
@@ -2569,6 +2719,7 @@ def _define_IAccStore():
     IAccStore.LookupByPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'LookupByPoint', ((1, 'pt'),(1, 'riid'),(1, 'ppunk'),)))
     IAccStore.OnDocumentFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(8, 'OnDocumentFocus', ((1, 'punk'),)))
     IAccStore.GetFocused = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(9, 'GetFocused', ((1, 'riid'),(1, 'ppunk'),)))
+    win32more.System.Com.IUnknown
     return IAccStore
 def _define_IAccServerDocMgr_head():
     class IAccServerDocMgr(win32more.System.Com.IUnknown_head):
@@ -2579,6 +2730,7 @@ def _define_IAccServerDocMgr():
     IAccServerDocMgr.NewDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'NewDocument', ((1, 'riid'),(1, 'punk'),)))
     IAccServerDocMgr.RevokeDocument = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(4, 'RevokeDocument', ((1, 'punk'),)))
     IAccServerDocMgr.OnDocumentFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(5, 'OnDocumentFocus', ((1, 'punk'),)))
+    win32more.System.Com.IUnknown
     return IAccServerDocMgr
 def _define_IAccClientDocMgr_head():
     class IAccClientDocMgr(win32more.System.Com.IUnknown_head):
@@ -2590,6 +2742,7 @@ def _define_IAccClientDocMgr():
     IAccClientDocMgr.LookupByHWND = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'LookupByHWND', ((1, 'hWnd'),(1, 'riid'),(1, 'ppunk'),)))
     IAccClientDocMgr.LookupByPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.POINT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(5, 'LookupByPoint', ((1, 'pt'),(1, 'riid'),(1, 'ppunk'),)))
     IAccClientDocMgr.GetFocused = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(6, 'GetFocused', ((1, 'riid'),(1, 'ppunk'),)))
+    win32more.System.Com.IUnknown
     return IAccClientDocMgr
 def _define_IDocWrap_head():
     class IDocWrap(win32more.System.Com.IUnknown_head):
@@ -2599,6 +2752,7 @@ def _define_IDocWrap():
     IDocWrap = win32more.UI.TextServices.IDocWrap_head
     IDocWrap.SetDoc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetDoc', ((1, 'riid'),(1, 'punk'),)))
     IDocWrap.GetWrappedDoc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'GetWrappedDoc', ((1, 'riid'),(1, 'ppunk'),)))
+    win32more.System.Com.IUnknown
     return IDocWrap
 def _define_IClonableWrapper_head():
     class IClonableWrapper(win32more.System.Com.IUnknown_head):
@@ -2607,6 +2761,7 @@ def _define_IClonableWrapper_head():
 def _define_IClonableWrapper():
     IClonableWrapper = win32more.UI.TextServices.IClonableWrapper_head
     IClonableWrapper.CloneNewWrapper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(3, 'CloneNewWrapper', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IClonableWrapper
 def _define_ITfSpeechUIServer_head():
     class ITfSpeechUIServer(win32more.System.Com.IUnknown_head):
@@ -2617,6 +2772,7 @@ def _define_ITfSpeechUIServer():
     ITfSpeechUIServer.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Initialize', ()))
     ITfSpeechUIServer.ShowUI = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'ShowUI', ((1, 'fShow'),)))
     ITfSpeechUIServer.UpdateBalloon = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.TextServices.TfLBBalloonStyle,POINTER(Char),UInt32, use_last_error=False)(5, 'UpdateBalloon', ((1, 'style'),(1, 'pch'),(1, 'cch'),)))
+    win32more.System.Com.IUnknown
     return ITfSpeechUIServer
 def _define_DoMsCtfMonitor():
     try:

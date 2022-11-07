@@ -2082,6 +2082,7 @@ def _define_IDirect3D9():
     IDirect3D9.GetDeviceCaps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D9.D3DDEVTYPE,POINTER(win32more.Graphics.Direct3D9.D3DCAPS9_head), use_last_error=False)(14, 'GetDeviceCaps', ((1, 'Adapter'),(1, 'DeviceType'),(1, 'pCaps'),)))
     IDirect3D9.GetAdapterMonitor = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Gdi.HMONITOR,UInt32, use_last_error=False)(15, 'GetAdapterMonitor', ((1, 'Adapter'),)))
     IDirect3D9.CreateDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D9.D3DDEVTYPE,win32more.Foundation.HWND,UInt32,POINTER(win32more.Graphics.Direct3D9.D3DPRESENT_PARAMETERS_head),POINTER(win32more.Graphics.Direct3D9.IDirect3DDevice9_head), use_last_error=False)(16, 'CreateDevice', ((1, 'Adapter'),(1, 'DeviceType'),(1, 'hFocusWindow'),(1, 'BehaviorFlags'),(1, 'pPresentationParameters'),(1, 'ppReturnedDeviceInterface'),)))
+    win32more.System.Com.IUnknown
     return IDirect3D9
 def _define_IDirect3DDevice9_head():
     class IDirect3DDevice9(win32more.System.Com.IUnknown_head):
@@ -2205,6 +2206,7 @@ def _define_IDirect3DDevice9():
     IDirect3DDevice9.DrawTriPatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),POINTER(win32more.Graphics.Direct3D9.D3DTRIPATCH_INFO_head), use_last_error=False)(116, 'DrawTriPatch', ((1, 'Handle'),(1, 'pNumSegs'),(1, 'pTriPatchInfo'),)))
     IDirect3DDevice9.DeletePatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(117, 'DeletePatch', ((1, 'Handle'),)))
     IDirect3DDevice9.CreateQuery = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.D3DQUERYTYPE,POINTER(win32more.Graphics.Direct3D9.IDirect3DQuery9_head), use_last_error=False)(118, 'CreateQuery', ((1, 'Type'),(1, 'ppQuery'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DDevice9
 def _define_IDirect3DStateBlock9_head():
     class IDirect3DStateBlock9(win32more.System.Com.IUnknown_head):
@@ -2215,6 +2217,7 @@ def _define_IDirect3DStateBlock9():
     IDirect3DStateBlock9.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.IDirect3DDevice9_head), use_last_error=False)(3, 'GetDevice', ((1, 'ppDevice'),)))
     IDirect3DStateBlock9.Capture = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Capture', ()))
     IDirect3DStateBlock9.Apply = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Apply', ()))
+    win32more.System.Com.IUnknown
     return IDirect3DStateBlock9
 def _define_IDirect3DSwapChain9_head():
     class IDirect3DSwapChain9(win32more.System.Com.IUnknown_head):
@@ -2229,6 +2232,7 @@ def _define_IDirect3DSwapChain9():
     IDirect3DSwapChain9.GetDisplayMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYMODE_head), use_last_error=False)(7, 'GetDisplayMode', ((1, 'pMode'),)))
     IDirect3DSwapChain9.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.IDirect3DDevice9_head), use_last_error=False)(8, 'GetDevice', ((1, 'ppDevice'),)))
     IDirect3DSwapChain9.GetPresentParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DPRESENT_PARAMETERS_head), use_last_error=False)(9, 'GetPresentParameters', ((1, 'pPresentationParameters'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DSwapChain9
 def _define_IDirect3DResource9_head():
     class IDirect3DResource9(win32more.System.Com.IUnknown_head):
@@ -2244,6 +2248,7 @@ def _define_IDirect3DResource9():
     IDirect3DResource9.GetPriority = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(8, 'GetPriority', ()))
     IDirect3DResource9.PreLoad = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(9, 'PreLoad', ()))
     IDirect3DResource9.GetType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D9.D3DRESOURCETYPE, use_last_error=False)(10, 'GetType', ()))
+    win32more.System.Com.IUnknown
     return IDirect3DResource9
 def _define_IDirect3DVertexDeclaration9_head():
     class IDirect3DVertexDeclaration9(win32more.System.Com.IUnknown_head):
@@ -2253,6 +2258,7 @@ def _define_IDirect3DVertexDeclaration9():
     IDirect3DVertexDeclaration9 = win32more.Graphics.Direct3D9.IDirect3DVertexDeclaration9_head
     IDirect3DVertexDeclaration9.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.IDirect3DDevice9_head), use_last_error=False)(3, 'GetDevice', ((1, 'ppDevice'),)))
     IDirect3DVertexDeclaration9.GetDeclaration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DVERTEXELEMENT9_head),POINTER(UInt32), use_last_error=False)(4, 'GetDeclaration', ((1, 'pElement'),(1, 'pNumElements'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DVertexDeclaration9
 def _define_IDirect3DVertexShader9_head():
     class IDirect3DVertexShader9(win32more.System.Com.IUnknown_head):
@@ -2262,6 +2268,7 @@ def _define_IDirect3DVertexShader9():
     IDirect3DVertexShader9 = win32more.Graphics.Direct3D9.IDirect3DVertexShader9_head
     IDirect3DVertexShader9.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.IDirect3DDevice9_head), use_last_error=False)(3, 'GetDevice', ((1, 'ppDevice'),)))
     IDirect3DVertexShader9.GetFunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32), use_last_error=False)(4, 'GetFunction', ((1, 'param0'),(1, 'pSizeOfData'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DVertexShader9
 def _define_IDirect3DPixelShader9_head():
     class IDirect3DPixelShader9(win32more.System.Com.IUnknown_head):
@@ -2271,6 +2278,7 @@ def _define_IDirect3DPixelShader9():
     IDirect3DPixelShader9 = win32more.Graphics.Direct3D9.IDirect3DPixelShader9_head
     IDirect3DPixelShader9.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.IDirect3DDevice9_head), use_last_error=False)(3, 'GetDevice', ((1, 'ppDevice'),)))
     IDirect3DPixelShader9.GetFunction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32), use_last_error=False)(4, 'GetFunction', ((1, 'param0'),(1, 'pSizeOfData'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DPixelShader9
 def _define_IDirect3DBaseTexture9_head():
     class IDirect3DBaseTexture9(win32more.Graphics.Direct3D9.IDirect3DResource9_head):
@@ -2284,6 +2292,7 @@ def _define_IDirect3DBaseTexture9():
     IDirect3DBaseTexture9.SetAutoGenFilterType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.D3DTEXTUREFILTERTYPE, use_last_error=False)(14, 'SetAutoGenFilterType', ((1, 'FilterType'),)))
     IDirect3DBaseTexture9.GetAutoGenFilterType = COMMETHOD(WINFUNCTYPE(win32more.Graphics.Direct3D9.D3DTEXTUREFILTERTYPE, use_last_error=False)(15, 'GetAutoGenFilterType', ()))
     IDirect3DBaseTexture9.GenerateMipSubLevels = COMMETHOD(WINFUNCTYPE(Void, use_last_error=False)(16, 'GenerateMipSubLevels', ()))
+    win32more.Graphics.Direct3D9.IDirect3DResource9
     return IDirect3DBaseTexture9
 def _define_IDirect3DTexture9_head():
     class IDirect3DTexture9(win32more.Graphics.Direct3D9.IDirect3DBaseTexture9_head):
@@ -2296,6 +2305,7 @@ def _define_IDirect3DTexture9():
     IDirect3DTexture9.LockRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D9.D3DLOCKED_RECT_head),POINTER(win32more.Foundation.RECT_head),UInt32, use_last_error=False)(19, 'LockRect', ((1, 'Level'),(1, 'pLockedRect'),(1, 'pRect'),(1, 'Flags'),)))
     IDirect3DTexture9.UnlockRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(20, 'UnlockRect', ((1, 'Level'),)))
     IDirect3DTexture9.AddDirtyRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(21, 'AddDirtyRect', ((1, 'pDirtyRect'),)))
+    win32more.Graphics.Direct3D9.IDirect3DBaseTexture9
     return IDirect3DTexture9
 def _define_IDirect3DVolumeTexture9_head():
     class IDirect3DVolumeTexture9(win32more.Graphics.Direct3D9.IDirect3DBaseTexture9_head):
@@ -2308,6 +2318,7 @@ def _define_IDirect3DVolumeTexture9():
     IDirect3DVolumeTexture9.LockBox = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D9.D3DLOCKED_BOX_head),POINTER(win32more.Graphics.Direct3D9.D3DBOX_head),UInt32, use_last_error=False)(19, 'LockBox', ((1, 'Level'),(1, 'pLockedVolume'),(1, 'pBox'),(1, 'Flags'),)))
     IDirect3DVolumeTexture9.UnlockBox = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(20, 'UnlockBox', ((1, 'Level'),)))
     IDirect3DVolumeTexture9.AddDirtyBox = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DBOX_head), use_last_error=False)(21, 'AddDirtyBox', ((1, 'pDirtyBox'),)))
+    win32more.Graphics.Direct3D9.IDirect3DBaseTexture9
     return IDirect3DVolumeTexture9
 def _define_IDirect3DCubeTexture9_head():
     class IDirect3DCubeTexture9(win32more.Graphics.Direct3D9.IDirect3DBaseTexture9_head):
@@ -2320,6 +2331,7 @@ def _define_IDirect3DCubeTexture9():
     IDirect3DCubeTexture9.LockRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.D3DCUBEMAP_FACES,UInt32,POINTER(win32more.Graphics.Direct3D9.D3DLOCKED_RECT_head),POINTER(win32more.Foundation.RECT_head),UInt32, use_last_error=False)(19, 'LockRect', ((1, 'FaceType'),(1, 'Level'),(1, 'pLockedRect'),(1, 'pRect'),(1, 'Flags'),)))
     IDirect3DCubeTexture9.UnlockRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.D3DCUBEMAP_FACES,UInt32, use_last_error=False)(20, 'UnlockRect', ((1, 'FaceType'),(1, 'Level'),)))
     IDirect3DCubeTexture9.AddDirtyRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D9.D3DCUBEMAP_FACES,POINTER(win32more.Foundation.RECT_head), use_last_error=False)(21, 'AddDirtyRect', ((1, 'FaceType'),(1, 'pDirtyRect'),)))
+    win32more.Graphics.Direct3D9.IDirect3DBaseTexture9
     return IDirect3DCubeTexture9
 def _define_IDirect3DVertexBuffer9_head():
     class IDirect3DVertexBuffer9(win32more.Graphics.Direct3D9.IDirect3DResource9_head):
@@ -2330,6 +2342,7 @@ def _define_IDirect3DVertexBuffer9():
     IDirect3DVertexBuffer9.Lock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(c_void_p),UInt32, use_last_error=False)(11, 'Lock', ((1, 'OffsetToLock'),(1, 'SizeToLock'),(1, 'ppbData'),(1, 'Flags'),)))
     IDirect3DVertexBuffer9.Unlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Unlock', ()))
     IDirect3DVertexBuffer9.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DVERTEXBUFFER_DESC_head), use_last_error=False)(13, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D9.IDirect3DResource9
     return IDirect3DVertexBuffer9
 def _define_IDirect3DIndexBuffer9_head():
     class IDirect3DIndexBuffer9(win32more.Graphics.Direct3D9.IDirect3DResource9_head):
@@ -2340,6 +2353,7 @@ def _define_IDirect3DIndexBuffer9():
     IDirect3DIndexBuffer9.Lock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(c_void_p),UInt32, use_last_error=False)(11, 'Lock', ((1, 'OffsetToLock'),(1, 'SizeToLock'),(1, 'ppbData'),(1, 'Flags'),)))
     IDirect3DIndexBuffer9.Unlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Unlock', ()))
     IDirect3DIndexBuffer9.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DINDEXBUFFER_DESC_head), use_last_error=False)(13, 'GetDesc', ((1, 'pDesc'),)))
+    win32more.Graphics.Direct3D9.IDirect3DResource9
     return IDirect3DIndexBuffer9
 def _define_IDirect3DSurface9_head():
     class IDirect3DSurface9(win32more.Graphics.Direct3D9.IDirect3DResource9_head):
@@ -2353,6 +2367,7 @@ def _define_IDirect3DSurface9():
     IDirect3DSurface9.UnlockRect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'UnlockRect', ()))
     IDirect3DSurface9.GetDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Gdi.HDC), use_last_error=False)(15, 'GetDC', ((1, 'phdc'),)))
     IDirect3DSurface9.ReleaseDC = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Gdi.HDC, use_last_error=False)(16, 'ReleaseDC', ((1, 'hdc'),)))
+    win32more.Graphics.Direct3D9.IDirect3DResource9
     return IDirect3DSurface9
 def _define_IDirect3DVolume9_head():
     class IDirect3DVolume9(win32more.System.Com.IUnknown_head):
@@ -2368,6 +2383,7 @@ def _define_IDirect3DVolume9():
     IDirect3DVolume9.GetDesc = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DVOLUME_DESC_head), use_last_error=False)(8, 'GetDesc', ((1, 'pDesc'),)))
     IDirect3DVolume9.LockBox = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DLOCKED_BOX_head),POINTER(win32more.Graphics.Direct3D9.D3DBOX_head),UInt32, use_last_error=False)(9, 'LockBox', ((1, 'pLockedVolume'),(1, 'pBox'),(1, 'Flags'),)))
     IDirect3DVolume9.UnlockBox = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'UnlockBox', ()))
+    win32more.System.Com.IUnknown
     return IDirect3DVolume9
 def _define_IDirect3DQuery9_head():
     class IDirect3DQuery9(win32more.System.Com.IUnknown_head):
@@ -2380,6 +2396,7 @@ def _define_IDirect3DQuery9():
     IDirect3DQuery9.GetDataSize = COMMETHOD(WINFUNCTYPE(UInt32, use_last_error=False)(5, 'GetDataSize', ()))
     IDirect3DQuery9.Issue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(6, 'Issue', ((1, 'dwIssueFlags'),)))
     IDirect3DQuery9.GetData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,UInt32, use_last_error=False)(7, 'GetData', ((1, 'pData'),(1, 'dwSize'),(1, 'dwGetDataFlags'),)))
+    win32more.System.Com.IUnknown
     return IDirect3DQuery9
 def _define_IDirect3D9Ex_head():
     class IDirect3D9Ex(win32more.Graphics.Direct3D9.IDirect3D9_head):
@@ -2392,6 +2409,7 @@ def _define_IDirect3D9Ex():
     IDirect3D9Ex.GetAdapterDisplayModeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYMODEEX_head),POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYROTATION), use_last_error=False)(19, 'GetAdapterDisplayModeEx', ((1, 'Adapter'),(1, 'pMode'),(1, 'pRotation'),)))
     IDirect3D9Ex.CreateDeviceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Graphics.Direct3D9.D3DDEVTYPE,win32more.Foundation.HWND,UInt32,POINTER(win32more.Graphics.Direct3D9.D3DPRESENT_PARAMETERS_head),POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYMODEEX_head),POINTER(win32more.Graphics.Direct3D9.IDirect3DDevice9Ex_head), use_last_error=False)(20, 'CreateDeviceEx', ((1, 'Adapter'),(1, 'DeviceType'),(1, 'hFocusWindow'),(1, 'BehaviorFlags'),(1, 'pPresentationParameters'),(1, 'pFullscreenDisplayMode'),(1, 'ppReturnedDeviceInterface'),)))
     IDirect3D9Ex.GetAdapterLUID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.LUID_head), use_last_error=False)(21, 'GetAdapterLUID', ((1, 'Adapter'),(1, 'pLUID'),)))
+    win32more.Graphics.Direct3D9.IDirect3D9
     return IDirect3D9Ex
 def _define_IDirect3DDevice9Ex_head():
     class IDirect3DDevice9Ex(win32more.Graphics.Direct3D9.IDirect3DDevice9_head):
@@ -2414,6 +2432,7 @@ def _define_IDirect3DDevice9Ex():
     IDirect3DDevice9Ex.CreateDepthStencilSurfaceEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,win32more.Graphics.Direct3D9.D3DFORMAT,win32more.Graphics.Direct3D9.D3DMULTISAMPLE_TYPE,UInt32,win32more.Foundation.BOOL,POINTER(win32more.Graphics.Direct3D9.IDirect3DSurface9_head),POINTER(win32more.Foundation.HANDLE),UInt32, use_last_error=False)(131, 'CreateDepthStencilSurfaceEx', ((1, 'Width'),(1, 'Height'),(1, 'Format'),(1, 'MultiSample'),(1, 'MultisampleQuality'),(1, 'Discard'),(1, 'ppSurface'),(1, 'pSharedHandle'),(1, 'Usage'),)))
     IDirect3DDevice9Ex.ResetEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DPRESENT_PARAMETERS_head),POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYMODEEX_head), use_last_error=False)(132, 'ResetEx', ((1, 'pPresentationParameters'),(1, 'pFullscreenDisplayMode'),)))
     IDirect3DDevice9Ex.GetDisplayModeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYMODEEX_head),POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYROTATION), use_last_error=False)(133, 'GetDisplayModeEx', ((1, 'iSwapChain'),(1, 'pMode'),(1, 'pRotation'),)))
+    win32more.Graphics.Direct3D9.IDirect3DDevice9
     return IDirect3DDevice9Ex
 def _define_IDirect3DSwapChain9Ex_head():
     class IDirect3DSwapChain9Ex(win32more.Graphics.Direct3D9.IDirect3DSwapChain9_head):
@@ -2424,6 +2443,7 @@ def _define_IDirect3DSwapChain9Ex():
     IDirect3DSwapChain9Ex.GetLastPresentCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'GetLastPresentCount', ((1, 'pLastPresentCount'),)))
     IDirect3DSwapChain9Ex.GetPresentStats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DPRESENTSTATS_head), use_last_error=False)(11, 'GetPresentStats', ((1, 'pPresentationStatistics'),)))
     IDirect3DSwapChain9Ex.GetDisplayModeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYMODEEX_head),POINTER(win32more.Graphics.Direct3D9.D3DDISPLAYROTATION), use_last_error=False)(12, 'GetDisplayModeEx', ((1, 'pMode'),(1, 'pRotation'),)))
+    win32more.Graphics.Direct3D9.IDirect3DSwapChain9
     return IDirect3DSwapChain9Ex
 def _define_Direct3DCreate9():
     try:

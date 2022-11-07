@@ -248,6 +248,7 @@ def _define_IBackgroundCopyFile():
     IBackgroundCopyFile.GetRemoteName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetRemoteName', ((1, 'pVal'),)))
     IBackgroundCopyFile.GetLocalName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetLocalName', ((1, 'pVal'),)))
     IBackgroundCopyFile.GetProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.BG_FILE_PROGRESS_head), use_last_error=False)(5, 'GetProgress', ((1, 'pVal'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyFile
 def _define_IEnumBackgroundCopyFiles_head():
     class IEnumBackgroundCopyFiles(win32more.System.Com.IUnknown_head):
@@ -260,6 +261,7 @@ def _define_IEnumBackgroundCopyFiles():
     IEnumBackgroundCopyFiles.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumBackgroundCopyFiles.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IEnumBackgroundCopyFiles_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
     IEnumBackgroundCopyFiles.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'puCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumBackgroundCopyFiles
 BG_ERROR_CONTEXT = Int32
 BG_ERROR_CONTEXT_NONE = 0
@@ -282,6 +284,7 @@ def _define_IBackgroundCopyError():
     IBackgroundCopyError.GetErrorDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetErrorDescription', ((1, 'LanguageId'),(1, 'pErrorDescription'),)))
     IBackgroundCopyError.GetErrorContextDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetErrorContextDescription', ((1, 'LanguageId'),(1, 'pContextDescription'),)))
     IBackgroundCopyError.GetProtocol = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetProtocol', ((1, 'pProtocol'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyError
 def _define_BG_FILE_INFO_head():
     class BG_FILE_INFO(Structure):
@@ -381,6 +384,7 @@ def _define_IBackgroundCopyJob():
     IBackgroundCopyJob.SetProxySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.BG_JOB_PROXY_USAGE,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(32, 'SetProxySettings', ((1, 'ProxyUsage'),(1, 'ProxyList'),(1, 'ProxyBypassList'),)))
     IBackgroundCopyJob.GetProxySettings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.BG_JOB_PROXY_USAGE),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(33, 'GetProxySettings', ((1, 'pProxyUsage'),(1, 'pProxyList'),(1, 'pProxyBypassList'),)))
     IBackgroundCopyJob.TakeOwnership = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(34, 'TakeOwnership', ()))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyJob
 def _define_IEnumBackgroundCopyJobs_head():
     class IEnumBackgroundCopyJobs(win32more.System.Com.IUnknown_head):
@@ -393,6 +397,7 @@ def _define_IEnumBackgroundCopyJobs():
     IEnumBackgroundCopyJobs.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumBackgroundCopyJobs.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IEnumBackgroundCopyJobs_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
     IEnumBackgroundCopyJobs.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'puCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumBackgroundCopyJobs
 def _define_IBackgroundCopyCallback_head():
     class IBackgroundCopyCallback(win32more.System.Com.IUnknown_head):
@@ -403,6 +408,7 @@ def _define_IBackgroundCopyCallback():
     IBackgroundCopyCallback.JobTransferred = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head, use_last_error=False)(3, 'JobTransferred', ((1, 'pJob'),)))
     IBackgroundCopyCallback.JobError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyError_head, use_last_error=False)(4, 'JobError', ((1, 'pJob'),(1, 'pError'),)))
     IBackgroundCopyCallback.JobModification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head,UInt32, use_last_error=False)(5, 'JobModification', ((1, 'pJob'),(1, 'dwReserved'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyCallback
 def _define_AsyncIBackgroundCopyCallback_head():
     class AsyncIBackgroundCopyCallback(win32more.System.Com.IUnknown_head):
@@ -416,6 +422,7 @@ def _define_AsyncIBackgroundCopyCallback():
     AsyncIBackgroundCopyCallback.Finish_JobError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Finish_JobError', ()))
     AsyncIBackgroundCopyCallback.Begin_JobModification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head,UInt32, use_last_error=False)(7, 'Begin_JobModification', ((1, 'pJob'),(1, 'dwReserved'),)))
     AsyncIBackgroundCopyCallback.Finish_JobModification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Finish_JobModification', ()))
+    win32more.System.Com.IUnknown
     return AsyncIBackgroundCopyCallback
 def _define_IBackgroundCopyManager_head():
     class IBackgroundCopyManager(win32more.System.Com.IUnknown_head):
@@ -427,6 +434,7 @@ def _define_IBackgroundCopyManager():
     IBackgroundCopyManager.GetJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head), use_last_error=False)(4, 'GetJob', ((1, 'jobID'),(1, 'ppJob'),)))
     IBackgroundCopyManager.EnumJobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IEnumBackgroundCopyJobs_head), use_last_error=False)(5, 'EnumJobs', ((1, 'dwFlags'),(1, 'ppEnum'),)))
     IBackgroundCopyManager.GetErrorDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetErrorDescription', ((1, 'hResult'),(1, 'LanguageId'),(1, 'pErrorDescription'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyManager
 BackgroundCopyManager1_5 = Guid('f087771f-d74f-4c1a-bb8a-e16aca9124ea')
 def _define_BG_JOB_REPLY_PROGRESS_head():
@@ -496,6 +504,7 @@ def _define_IBackgroundCopyJob2():
     IBackgroundCopyJob2.GetReplyFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(40, 'GetReplyFileName', ((1, 'pReplyFileName'),)))
     IBackgroundCopyJob2.SetCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.BG_AUTH_CREDENTIALS_head), use_last_error=False)(41, 'SetCredentials', ((1, 'credentials'),)))
     IBackgroundCopyJob2.RemoveCredentials = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.BG_AUTH_TARGET,win32more.Networking.BackgroundIntelligentTransferService.BG_AUTH_SCHEME, use_last_error=False)(42, 'RemoveCredentials', ((1, 'Target'),(1, 'Scheme'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob
     return IBackgroundCopyJob2
 BackgroundCopyManager2_0 = Guid('6d18ad12-bde3-4393-b311-099c346e6df9')
 def _define_BG_FILE_RANGE_head():
@@ -519,6 +528,7 @@ def _define_IBackgroundCopyJob3():
     IBackgroundCopyJob3.AddFileWithRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE), use_last_error=False)(44, 'AddFileWithRanges', ((1, 'RemoteUrl'),(1, 'LocalName'),(1, 'RangeCount'),(1, 'Ranges'),)))
     IBackgroundCopyJob3.SetFileACLFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(45, 'SetFileACLFlags', ((1, 'Flags'),)))
     IBackgroundCopyJob3.GetFileACLFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(46, 'GetFileACLFlags', ((1, 'Flags'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob2
     return IBackgroundCopyJob3
 def _define_IBackgroundCopyFile2_head():
     class IBackgroundCopyFile2(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile_head):
@@ -528,6 +538,7 @@ def _define_IBackgroundCopyFile2():
     IBackgroundCopyFile2 = win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile2_head
     IBackgroundCopyFile2.GetFileRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE_head)), use_last_error=False)(6, 'GetFileRanges', ((1, 'RangeCount'),(1, 'Ranges'),)))
     IBackgroundCopyFile2.SetRemoteName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(7, 'SetRemoteName', ((1, 'Val'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile
     return IBackgroundCopyFile2
 BackgroundCopyManager2_5 = Guid('03ca98d6-ff5d-49b8-abc6-03dd84127020')
 BG_CERT_STORE_LOCATION = Int32
@@ -553,6 +564,7 @@ def _define_IBackgroundCopyJobHttpOptions():
     IBackgroundCopyJobHttpOptions.GetCustomHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'GetCustomHeaders', ((1, 'pRequestHeaders'),)))
     IBackgroundCopyJobHttpOptions.SetSecurityFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'SetSecurityFlags', ((1, 'Flags'),)))
     IBackgroundCopyJobHttpOptions.GetSecurityFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(10, 'GetSecurityFlags', ((1, 'pFlags'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyJobHttpOptions
 BackgroundCopyManager3_0 = Guid('659cdea7-489e-11d9-a9cd-000d56965251')
 def _define_IBitsPeerCacheRecord_head():
@@ -568,6 +580,7 @@ def _define_IBitsPeerCacheRecord():
     IBitsPeerCacheRecord.GetLastAccessTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.FILETIME_head), use_last_error=False)(7, 'GetLastAccessTime', ((1, 'pVal'),)))
     IBitsPeerCacheRecord.IsFileValidated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'IsFileValidated', ()))
     IBitsPeerCacheRecord.GetFileRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE_head)), use_last_error=False)(9, 'GetFileRanges', ((1, 'pRangeCount'),(1, 'ppRanges'),)))
+    win32more.System.Com.IUnknown
     return IBitsPeerCacheRecord
 def _define_IEnumBitsPeerCacheRecords_head():
     class IEnumBitsPeerCacheRecords(win32more.System.Com.IUnknown_head):
@@ -580,6 +593,7 @@ def _define_IEnumBitsPeerCacheRecords():
     IEnumBitsPeerCacheRecords.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumBitsPeerCacheRecords.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IEnumBitsPeerCacheRecords_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
     IEnumBitsPeerCacheRecords.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'puCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumBitsPeerCacheRecords
 def _define_IBitsPeer_head():
     class IBitsPeer(win32more.System.Com.IUnknown_head):
@@ -590,6 +604,7 @@ def _define_IBitsPeer():
     IBitsPeer.GetPeerName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetPeerName', ((1, 'pName'),)))
     IBitsPeer.IsAuthenticated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'IsAuthenticated', ((1, 'pAuth'),)))
     IBitsPeer.IsAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsAvailable', ((1, 'pOnline'),)))
+    win32more.System.Com.IUnknown
     return IBitsPeer
 def _define_IEnumBitsPeers_head():
     class IEnumBitsPeers(win32more.System.Com.IUnknown_head):
@@ -602,6 +617,7 @@ def _define_IEnumBitsPeers():
     IEnumBitsPeers.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumBitsPeers.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IEnumBitsPeers_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
     IEnumBitsPeers.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'puCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumBitsPeers
 def _define_IBitsPeerCacheAdministration_head():
     class IBitsPeerCacheAdministration(win32more.System.Com.IUnknown_head):
@@ -623,6 +639,7 @@ def _define_IBitsPeerCacheAdministration():
     IBitsPeerCacheAdministration.EnumPeers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IEnumBitsPeers_head), use_last_error=False)(14, 'EnumPeers', ((1, 'ppEnum'),)))
     IBitsPeerCacheAdministration.ClearPeers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'ClearPeers', ()))
     IBitsPeerCacheAdministration.DiscoverPeers = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'DiscoverPeers', ()))
+    win32more.System.Com.IUnknown
     return IBitsPeerCacheAdministration
 def _define_IBackgroundCopyJob4_head():
     class IBackgroundCopyJob4(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob3_head):
@@ -636,6 +653,7 @@ def _define_IBackgroundCopyJob4():
     IBackgroundCopyJob4.GetOwnerElevationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(50, 'GetOwnerElevationState', ((1, 'pElevated'),)))
     IBackgroundCopyJob4.SetMaximumDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(51, 'SetMaximumDownloadTime', ((1, 'Timeout'),)))
     IBackgroundCopyJob4.GetMaximumDownloadTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(52, 'GetMaximumDownloadTime', ((1, 'pTimeout'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob3
     return IBackgroundCopyJob4
 def _define_IBackgroundCopyFile3_head():
     class IBackgroundCopyFile3(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile2_head):
@@ -647,6 +665,7 @@ def _define_IBackgroundCopyFile3():
     IBackgroundCopyFile3.SetValidationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(9, 'SetValidationState', ((1, 'state'),)))
     IBackgroundCopyFile3.GetValidationState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(10, 'GetValidationState', ((1, 'pState'),)))
     IBackgroundCopyFile3.IsDownloadedFromPeer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'IsDownloadedFromPeer', ((1, 'pVal'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile2
     return IBackgroundCopyFile3
 def _define_IBackgroundCopyCallback2_head():
     class IBackgroundCopyCallback2(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyCallback_head):
@@ -655,6 +674,7 @@ def _define_IBackgroundCopyCallback2_head():
 def _define_IBackgroundCopyCallback2():
     IBackgroundCopyCallback2 = win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyCallback2_head
     IBackgroundCopyCallback2.FileTransferred = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile_head, use_last_error=False)(6, 'FileTransferred', ((1, 'pJob'),(1, 'pFile'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyCallback
     return IBackgroundCopyCallback2
 BackgroundCopyManager4_0 = Guid('bb6df56b-cace-11dc-9992-0019b93a3a84')
 def _define_IBitsTokenOptions_head():
@@ -668,6 +688,7 @@ def _define_IBitsTokenOptions():
     IBitsTokenOptions.SetHelperToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'SetHelperToken', ()))
     IBitsTokenOptions.ClearHelperToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'ClearHelperToken', ()))
     IBitsTokenOptions.GetHelperTokenSid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetHelperTokenSid', ((1, 'pSid'),)))
+    win32more.System.Com.IUnknown
     return IBitsTokenOptions
 def _define_IBackgroundCopyFile4_head():
     class IBackgroundCopyFile4(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile3_head):
@@ -676,6 +697,7 @@ def _define_IBackgroundCopyFile4_head():
 def _define_IBackgroundCopyFile4():
     IBackgroundCopyFile4 = win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile4_head
     IBackgroundCopyFile4.GetPeerDownloadStats = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64), use_last_error=False)(12, 'GetPeerDownloadStats', ((1, 'pFromOrigin'),(1, 'pFromPeers'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile3
     return IBackgroundCopyFile4
 BackgroundCopyManager5_0 = Guid('1ecca34c-e88a-44e3-8d6a-8921bde9e452')
 BITS_JOB_TRANSFER_POLICY = Int32
@@ -727,6 +749,7 @@ def _define_IBackgroundCopyJob5():
     IBackgroundCopyJob5 = win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob5_head
     IBackgroundCopyJob5.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID,win32more.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_VALUE, use_last_error=False)(53, 'SetProperty', ((1, 'PropertyId'),(1, 'PropertyValue'),)))
     IBackgroundCopyJob5.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_ID,POINTER(win32more.Networking.BackgroundIntelligentTransferService.BITS_JOB_PROPERTY_VALUE_head), use_last_error=False)(54, 'GetProperty', ((1, 'PropertyId'),(1, 'PropertyValue'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob4
     return IBackgroundCopyJob5
 def _define_IBackgroundCopyFile5_head():
     class IBackgroundCopyFile5(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile4_head):
@@ -736,6 +759,7 @@ def _define_IBackgroundCopyFile5():
     IBackgroundCopyFile5 = win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile5_head
     IBackgroundCopyFile5.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.BITS_FILE_PROPERTY_ID,win32more.Networking.BackgroundIntelligentTransferService.BITS_FILE_PROPERTY_VALUE, use_last_error=False)(13, 'SetProperty', ((1, 'PropertyId'),(1, 'PropertyValue'),)))
     IBackgroundCopyFile5.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.BITS_FILE_PROPERTY_ID,POINTER(win32more.Networking.BackgroundIntelligentTransferService.BITS_FILE_PROPERTY_VALUE_head), use_last_error=False)(14, 'GetProperty', ((1, 'PropertyId'),(1, 'PropertyValue'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile4
     return IBackgroundCopyFile5
 BackgroundCopyManager10_1 = Guid('4bd3e4e1-7bd4-4a2b-9964-496400de5193')
 def _define_IBackgroundCopyCallback3_head():
@@ -745,6 +769,7 @@ def _define_IBackgroundCopyCallback3_head():
 def _define_IBackgroundCopyCallback3():
     IBackgroundCopyCallback3 = win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyCallback3_head
     IBackgroundCopyCallback3.FileRangesTransferred = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile_head,UInt32,POINTER(win32more.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE), use_last_error=False)(7, 'FileRangesTransferred', ((1, 'job'),(1, 'file'),(1, 'rangeCount'),(1, 'ranges'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyCallback2
     return IBackgroundCopyCallback3
 def _define_IBackgroundCopyFile6_head():
     class IBackgroundCopyFile6(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile5_head):
@@ -755,6 +780,7 @@ def _define_IBackgroundCopyFile6():
     IBackgroundCopyFile6.UpdateDownloadPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64, use_last_error=False)(15, 'UpdateDownloadPosition', ((1, 'offset'),)))
     IBackgroundCopyFile6.RequestFileRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE), use_last_error=False)(16, 'RequestFileRanges', ((1, 'rangeCount'),(1, 'ranges'),)))
     IBackgroundCopyFile6.GetFilledFileRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(POINTER(win32more.Networking.BackgroundIntelligentTransferService.BG_FILE_RANGE_head)), use_last_error=False)(17, 'GetFilledFileRanges', ((1, 'rangeCount'),(1, 'ranges'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile5
     return IBackgroundCopyFile6
 BackgroundCopyManager10_2 = Guid('4575438f-a6c8-4976-b0fe-2f26b80d959e')
 def _define_IBackgroundCopyJobHttpOptions2_head():
@@ -765,6 +791,7 @@ def _define_IBackgroundCopyJobHttpOptions2():
     IBackgroundCopyJobHttpOptions2 = win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJobHttpOptions2_head
     IBackgroundCopyJobHttpOptions2.SetHttpMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(11, 'SetHttpMethod', ((1, 'method'),)))
     IBackgroundCopyJobHttpOptions2.GetHttpMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(12, 'GetHttpMethod', ((1, 'method'),)))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJobHttpOptions
     return IBackgroundCopyJobHttpOptions2
 BackgroundCopyManager10_3 = Guid('5fd42ad5-c04e-4d36-adc7-e08ff15737ad')
 def _define_IBackgroundCopyServerCertificateValidationCallback_head():
@@ -774,6 +801,7 @@ def _define_IBackgroundCopyServerCertificateValidationCallback_head():
 def _define_IBackgroundCopyServerCertificateValidationCallback():
     IBackgroundCopyServerCertificateValidationCallback = win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyServerCertificateValidationCallback_head
     IBackgroundCopyServerCertificateValidationCallback.ValidateServerCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob_head,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyFile_head,UInt32,POINTER(Byte),UInt32,UInt32,POINTER(Byte), use_last_error=False)(3, 'ValidateServerCertificate', ((1, 'job'),(1, 'file'),(1, 'certLength'),(1, 'certData'),(1, 'certEncodingType'),(1, 'certStoreLength'),(1, 'certStoreData'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyServerCertificateValidationCallback
 def _define_IBackgroundCopyJobHttpOptions3_head():
     class IBackgroundCopyJobHttpOptions3(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJobHttpOptions2_head):
@@ -783,6 +811,7 @@ def _define_IBackgroundCopyJobHttpOptions3():
     IBackgroundCopyJobHttpOptions3 = win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJobHttpOptions3_head
     IBackgroundCopyJobHttpOptions3.SetServerCertificateValidationInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(13, 'SetServerCertificateValidationInterface', ((1, 'certValidationCallback'),)))
     IBackgroundCopyJobHttpOptions3.MakeCustomHeadersWriteOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'MakeCustomHeadersWriteOnly', ()))
+    win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJobHttpOptions2
     return IBackgroundCopyJobHttpOptions3
 BITSExtensionSetupFactory = Guid('efbbab68-7286-4783-94bf-9461d8b7e7e9')
 def _define_IBITSExtensionSetup_head():
@@ -795,6 +824,7 @@ def _define_IBITSExtensionSetup():
     IBITSExtensionSetup.DisableBITSUploads = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'DisableBITSUploads', ()))
     IBITSExtensionSetup.GetCleanupTaskName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'GetCleanupTaskName', ((1, 'pTaskName'),)))
     IBITSExtensionSetup.GetCleanupTask = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(10, 'GetCleanupTask', ((1, 'riid'),(1, 'ppUnk'),)))
+    win32more.System.Com.IDispatch
     return IBITSExtensionSetup
 def _define_IBITSExtensionSetupFactory_head():
     class IBITSExtensionSetupFactory(win32more.System.Com.IDispatch_head):
@@ -803,6 +833,7 @@ def _define_IBITSExtensionSetupFactory_head():
 def _define_IBITSExtensionSetupFactory():
     IBITSExtensionSetupFactory = win32more.Networking.BackgroundIntelligentTransferService.IBITSExtensionSetupFactory_head
     IBITSExtensionSetupFactory.GetObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IBITSExtensionSetup_head), use_last_error=False)(7, 'GetObject', ((1, 'Path'),(1, 'ppExtensionSetup'),)))
+    win32more.System.Com.IDispatch
     return IBITSExtensionSetupFactory
 BackgroundCopyQMgr = Guid('69ad4aee-51be-439b-a92c-86ae490e8b30')
 def _define_FILESETINFO_head():
@@ -831,6 +862,7 @@ def _define_IBackgroundCopyJob1():
     IBackgroundCopyJob1.GetFileCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(8, 'GetFileCount', ((1, 'pdwFileCount'),)))
     IBackgroundCopyJob1.SwitchToForeground = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'SwitchToForeground', ()))
     IBackgroundCopyJob1.get_JobID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(10, 'get_JobID', ((1, 'pguidJobID'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyJob1
 def _define_IEnumBackgroundCopyJobs1_head():
     class IEnumBackgroundCopyJobs1(win32more.System.Com.IUnknown_head):
@@ -843,6 +875,7 @@ def _define_IEnumBackgroundCopyJobs1():
     IEnumBackgroundCopyJobs1.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumBackgroundCopyJobs1.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IEnumBackgroundCopyJobs1_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
     IEnumBackgroundCopyJobs1.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'puCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumBackgroundCopyJobs1
 GROUPPROP = Int32
 GROUPPROP_PRIORITY = 0
@@ -879,6 +912,7 @@ def _define_IBackgroundCopyGroup():
     IBackgroundCopyGroup.SwitchToForeground = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'SwitchToForeground', ()))
     IBackgroundCopyGroup.QueryNewJobInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(16, 'QueryNewJobInterface', ((1, 'iid'),(1, 'pUnk'),)))
     IBackgroundCopyGroup.SetNotificationPointer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.System.Com.IUnknown_head, use_last_error=False)(17, 'SetNotificationPointer', ((1, 'iid'),(1, 'pUnk'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyGroup
 def _define_IEnumBackgroundCopyGroups_head():
     class IEnumBackgroundCopyGroups(win32more.System.Com.IUnknown_head):
@@ -891,6 +925,7 @@ def _define_IEnumBackgroundCopyGroups():
     IEnumBackgroundCopyGroups.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumBackgroundCopyGroups.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IEnumBackgroundCopyGroups_head), use_last_error=False)(6, 'Clone', ((1, 'ppenum'),)))
     IEnumBackgroundCopyGroups.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'GetCount', ((1, 'puCount'),)))
+    win32more.System.Com.IUnknown
     return IEnumBackgroundCopyGroups
 def _define_IBackgroundCopyCallback1_head():
     class IBackgroundCopyCallback1(win32more.System.Com.IUnknown_head):
@@ -901,6 +936,7 @@ def _define_IBackgroundCopyCallback1():
     IBackgroundCopyCallback1.OnStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyGroup_head,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob1_head,UInt32,UInt32,UInt32,UInt32,UInt32, use_last_error=False)(3, 'OnStatus', ((1, 'pGroup'),(1, 'pJob'),(1, 'dwFileIndex'),(1, 'dwStatus'),(1, 'dwNumOfRetries'),(1, 'dwWin32Result'),(1, 'dwTransportResult'),)))
     IBackgroundCopyCallback1.OnProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyGroup_head,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob1_head,UInt32,UInt32, use_last_error=False)(4, 'OnProgress', ((1, 'ProgressType'),(1, 'pGroup'),(1, 'pJob'),(1, 'dwFileIndex'),(1, 'dwProgressValue'),)))
     IBackgroundCopyCallback1.OnProgressEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyGroup_head,win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyJob1_head,UInt32,UInt32,UInt32,POINTER(Byte), use_last_error=False)(5, 'OnProgressEx', ((1, 'ProgressType'),(1, 'pGroup'),(1, 'pJob'),(1, 'dwFileIndex'),(1, 'dwProgressValue'),(1, 'dwByteArraySize'),(1, 'pByte'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyCallback1
 def _define_IBackgroundCopyQMgr_head():
     class IBackgroundCopyQMgr(win32more.System.Com.IUnknown_head):
@@ -911,6 +947,7 @@ def _define_IBackgroundCopyQMgr():
     IBackgroundCopyQMgr.CreateGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyGroup_head), use_last_error=False)(3, 'CreateGroup', ((1, 'guidGroupID'),(1, 'ppGroup'),)))
     IBackgroundCopyQMgr.GetGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IBackgroundCopyGroup_head), use_last_error=False)(4, 'GetGroup', ((1, 'groupID'),(1, 'ppGroup'),)))
     IBackgroundCopyQMgr.EnumGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Networking.BackgroundIntelligentTransferService.IEnumBackgroundCopyGroups_head), use_last_error=False)(5, 'EnumGroups', ((1, 'dwFlags'),(1, 'ppEnumGroups'),)))
+    win32more.System.Com.IUnknown
     return IBackgroundCopyQMgr
 __all__ = [
     "BG_NOTIFY_JOB_TRANSFERRED",

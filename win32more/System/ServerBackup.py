@@ -24,6 +24,7 @@ def _define_IWsbApplicationBackupSupport_head():
 def _define_IWsbApplicationBackupSupport():
     IWsbApplicationBackupSupport = win32more.System.ServerBackup.IWsbApplicationBackupSupport_head
     IWsbApplicationBackupSupport.CheckConsistency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.System.ServerBackup.IWsbApplicationAsync_head), use_last_error=False)(3, 'CheckConsistency', ((1, 'wszWriterMetadata'),(1, 'wszComponentName'),(1, 'wszComponentLogicalPath'),(1, 'cVolumes'),(1, 'rgwszSourceVolumePath'),(1, 'rgwszSnapshotVolumePath'),(1, 'ppAsync'),)))
+    win32more.System.Com.IUnknown
     return IWsbApplicationBackupSupport
 def _define_IWsbApplicationRestoreSupport_head():
     class IWsbApplicationRestoreSupport(win32more.System.Com.IUnknown_head):
@@ -35,6 +36,7 @@ def _define_IWsbApplicationRestoreSupport():
     IWsbApplicationRestoreSupport.PostRestore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.BOOLEAN, use_last_error=False)(4, 'PostRestore', ((1, 'wszWriterMetadata'),(1, 'wszComponentName'),(1, 'wszComponentLogicalPath'),(1, 'bNoRollForward'),)))
     IWsbApplicationRestoreSupport.OrderComponents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),POINTER(POINTER(win32more.Foundation.PWSTR)),POINTER(POINTER(win32more.Foundation.PWSTR)), use_last_error=False)(5, 'OrderComponents', ((1, 'cComponents'),(1, 'rgComponentName'),(1, 'rgComponentLogicalPaths'),(1, 'prgComponentName'),(1, 'prgComponentLogicalPath'),)))
     IWsbApplicationRestoreSupport.IsRollForwardSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no, use_last_error=False)(6, 'IsRollForwardSupported', ((1, 'pbRollForwardSupported'),)))
+    win32more.System.Com.IUnknown
     return IWsbApplicationRestoreSupport
 def _define_IWsbApplicationAsync_head():
     class IWsbApplicationAsync(win32more.System.Com.IUnknown_head):
@@ -44,6 +46,7 @@ def _define_IWsbApplicationAsync():
     IWsbApplicationAsync = win32more.System.ServerBackup.IWsbApplicationAsync_head
     IWsbApplicationAsync.QueryStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT), use_last_error=False)(3, 'QueryStatus', ((1, 'phrResult'),)))
     IWsbApplicationAsync.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Abort', ()))
+    win32more.System.Com.IUnknown
     return IWsbApplicationAsync
 WSB_OB_STATUS_ENTRY_PAIR_TYPE = Int32
 WSB_OB_ET_UNDEFINED = 0

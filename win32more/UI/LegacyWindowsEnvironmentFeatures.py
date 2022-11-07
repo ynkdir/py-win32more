@@ -44,6 +44,7 @@ def _define_IEmptyVolumeCacheCallBack():
     IEmptyVolumeCacheCallBack = win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack_head
     IEmptyVolumeCacheCallBack.ScanProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(3, 'ScanProgress', ((1, 'dwlSpaceUsed'),(1, 'dwFlags'),(1, 'pcwszStatus'),)))
     IEmptyVolumeCacheCallBack.PurgeProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,UInt64,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(4, 'PurgeProgress', ((1, 'dwlSpaceFreed'),(1, 'dwlSpaceToFree'),(1, 'dwFlags'),(1, 'pcwszStatus'),)))
+    win32more.System.Com.IUnknown
     return IEmptyVolumeCacheCallBack
 def _define_IEmptyVolumeCache_head():
     class IEmptyVolumeCache(win32more.System.Com.IUnknown_head):
@@ -56,6 +57,7 @@ def _define_IEmptyVolumeCache():
     IEmptyVolumeCache.Purge = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt64,win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCacheCallBack_head, use_last_error=False)(5, 'Purge', ((1, 'dwlSpaceToFree'),(1, 'picb'),)))
     IEmptyVolumeCache.ShowProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND, use_last_error=False)(6, 'ShowProperties', ((1, 'hwnd'),)))
     IEmptyVolumeCache.Deactivate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(7, 'Deactivate', ((1, 'pdwFlags'),)))
+    win32more.System.Com.IUnknown
     return IEmptyVolumeCache
 def _define_IEmptyVolumeCache2_head():
     class IEmptyVolumeCache2(win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCache_head):
@@ -64,6 +66,7 @@ def _define_IEmptyVolumeCache2_head():
 def _define_IEmptyVolumeCache2():
     IEmptyVolumeCache2 = win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCache2_head
     IEmptyVolumeCache2.InitializeEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Registry.HKEY,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.PWSTR),POINTER(UInt32), use_last_error=False)(8, 'InitializeEx', ((1, 'hkRegKey'),(1, 'pcwszVolume'),(1, 'pcwszKeyName'),(1, 'ppwszDisplayName'),(1, 'ppwszDescription'),(1, 'ppwszBtnText'),(1, 'pdwFlags'),)))
+    win32more.UI.LegacyWindowsEnvironmentFeatures.IEmptyVolumeCache
     return IEmptyVolumeCache2
 def _define_IReconcileInitiator_head():
     class IReconcileInitiator(win32more.System.Com.IUnknown_head):
@@ -73,6 +76,7 @@ def _define_IReconcileInitiator():
     IReconcileInitiator = win32more.UI.LegacyWindowsEnvironmentFeatures.IReconcileInitiator_head
     IReconcileInitiator.SetAbortCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'SetAbortCallback', ((1, 'punkForAbort'),)))
     IReconcileInitiator.SetProgressFeedback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(4, 'SetProgressFeedback', ((1, 'ulProgress'),(1, 'ulProgressMax'),)))
+    win32more.System.Com.IUnknown
     return IReconcileInitiator
 _reconcilef = Int32
 RECONCILEF_MAYBOTHERUSER = 1
@@ -91,6 +95,7 @@ def _define_IReconcilableObject():
     IReconcilableObject = win32more.UI.LegacyWindowsEnvironmentFeatures.IReconcilableObject_head
     IReconcilableObject.Reconcile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.LegacyWindowsEnvironmentFeatures.IReconcileInitiator_head,UInt32,win32more.Foundation.HWND,win32more.Foundation.HWND,UInt32,POINTER(win32more.System.Com.IMoniker_head),POINTER(Int32),win32more.System.Com.StructuredStorage.IStorage_head,c_void_p, use_last_error=False)(3, 'Reconcile', ((1, 'pInitiator'),(1, 'dwFlags'),(1, 'hwndOwner'),(1, 'hwndProgressFeedback'),(1, 'ulcInput'),(1, 'rgpmkOtherInput'),(1, 'plOutIndex'),(1, 'pstgNewResidues'),(1, 'pvReserved'),)))
     IReconcilableObject.GetProgressFeedbackMaxEstimate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetProgressFeedbackMaxEstimate', ((1, 'pulProgressMax'),)))
+    win32more.System.Com.IUnknown
     return IReconcilableObject
 def _define_IBriefcaseInitiator_head():
     class IBriefcaseInitiator(win32more.System.Com.IUnknown_head):
@@ -99,6 +104,7 @@ def _define_IBriefcaseInitiator_head():
 def _define_IBriefcaseInitiator():
     IBriefcaseInitiator = win32more.UI.LegacyWindowsEnvironmentFeatures.IBriefcaseInitiator_head
     IBriefcaseInitiator.IsMonikerInBriefcase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IMoniker_head, use_last_error=False)(3, 'IsMonikerInBriefcase', ((1, 'pmk'),)))
+    win32more.System.Com.IUnknown
     return IBriefcaseInitiator
 def _define_IActiveDesktopP_head():
     class IActiveDesktopP(win32more.System.Com.IUnknown_head):
@@ -110,6 +116,7 @@ def _define_IActiveDesktopP():
     IActiveDesktopP.EnsureUpdateHTML = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'EnsureUpdateHTML', ()))
     IActiveDesktopP.SetScheme = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(5, 'SetScheme', ((1, 'pwszSchemeName'),(1, 'dwFlags'),)))
     IActiveDesktopP.GetScheme = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt32),UInt32, use_last_error=False)(6, 'GetScheme', ((1, 'pwszSchemeName'),(1, 'pdwcchBuffer'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IActiveDesktopP
 def _define_IADesktopP2_head():
     class IADesktopP2(win32more.System.Com.IUnknown_head):
@@ -121,6 +128,7 @@ def _define_IADesktopP2():
     IADesktopP2.GetADObjectFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),UInt32, use_last_error=False)(4, 'GetADObjectFlags', ((1, 'pdwFlags'),(1, 'dwMask'),)))
     IADesktopP2.UpdateAllDesktopSubscriptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'UpdateAllDesktopSubscriptions', ()))
     IADesktopP2.MakeDynamicChanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Ole.IOleObject_head, use_last_error=False)(6, 'MakeDynamicChanges', ((1, 'pOleObj'),)))
+    win32more.System.Com.IUnknown
     return IADesktopP2
 __all__ = [
     "EVCF_HASSETTINGS",

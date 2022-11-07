@@ -319,6 +319,7 @@ def _define_IDeviceModelPlugIn():
     IDeviceModelPlugIn.GetGamutBoundaryMesh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,UInt32,POINTER(Single),POINTER(win32more.UI.ColorSystem.GamutShellTriangle), use_last_error=False)(11, 'GetGamutBoundaryMesh', ((1, 'cChannels'),(1, 'cVertices'),(1, 'cTriangles'),(1, 'pVertices'),(1, 'pTriangles'),)))
     IDeviceModelPlugIn.GetNeutralAxisSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'GetNeutralAxisSize', ((1, 'pcColors'),)))
     IDeviceModelPlugIn.GetNeutralAxis = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.ColorSystem.XYZColorF), use_last_error=False)(13, 'GetNeutralAxis', ((1, 'cColors'),(1, 'pXYZColors'),)))
+    win32more.System.Com.IUnknown
     return IDeviceModelPlugIn
 def _define_IGamutMapModelPlugIn_head():
     class IGamutMapModelPlugIn(win32more.System.Com.IUnknown_head):
@@ -328,6 +329,7 @@ def _define_IGamutMapModelPlugIn():
     IGamutMapModelPlugIn = win32more.UI.ColorSystem.IGamutMapModelPlugIn_head
     IGamutMapModelPlugIn.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.UI.ColorSystem.IDeviceModelPlugIn_head,win32more.UI.ColorSystem.IDeviceModelPlugIn_head,POINTER(win32more.UI.ColorSystem.GamutBoundaryDescription_head),POINTER(win32more.UI.ColorSystem.GamutBoundaryDescription_head), use_last_error=False)(3, 'Initialize', ((1, 'bstrXml'),(1, 'pSrcPlugIn'),(1, 'pDestPlugIn'),(1, 'pSrcGBD'),(1, 'pDestGBD'),)))
     IGamutMapModelPlugIn.SourceToDestinationAppearanceColors = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.ColorSystem.JChColorF),POINTER(win32more.UI.ColorSystem.JChColorF), use_last_error=False)(4, 'SourceToDestinationAppearanceColors', ((1, 'cColors'),(1, 'pInputColors'),(1, 'pOutputColors'),)))
+    win32more.System.Com.IUnknown
     return IGamutMapModelPlugIn
 def _define_NAMED_PROFILE_INFO_head():
     class NAMED_PROFILE_INFO(Structure):

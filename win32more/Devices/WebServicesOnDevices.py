@@ -119,6 +119,7 @@ def _define_IWSDAddress():
     IWSDAddress = win32more.Devices.WebServicesOnDevices.IWSDAddress_head
     IWSDAddress.Serialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),UInt32,win32more.Foundation.BOOL, use_last_error=False)(3, 'Serialize', ((1, 'pszBuffer'),(1, 'cchLength'),(1, 'fSafe'),)))
     IWSDAddress.Deserialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'Deserialize', ((1, 'pszBuffer'),)))
+    win32more.System.Com.IUnknown
     return IWSDAddress
 def _define_IWSDTransportAddress_head():
     class IWSDTransportAddress(win32more.Devices.WebServicesOnDevices.IWSDAddress_head):
@@ -131,6 +132,7 @@ def _define_IWSDTransportAddress():
     IWSDTransportAddress.GetTransportAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetTransportAddress', ((1, 'ppszAddress'),)))
     IWSDTransportAddress.GetTransportAddressEx = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'GetTransportAddressEx', ((1, 'fSafe'),(1, 'ppszAddress'),)))
     IWSDTransportAddress.SetTransportAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(9, 'SetTransportAddress', ((1, 'pszAddress'),)))
+    win32more.Devices.WebServicesOnDevices.IWSDAddress
     return IWSDTransportAddress
 def _define_IWSDMessageParameters_head():
     class IWSDMessageParameters(win32more.System.Com.IUnknown_head):
@@ -143,6 +145,7 @@ def _define_IWSDMessageParameters():
     IWSDMessageParameters.GetRemoteAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.IWSDAddress_head), use_last_error=False)(5, 'GetRemoteAddress', ((1, 'ppAddress'),)))
     IWSDMessageParameters.SetRemoteAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.WebServicesOnDevices.IWSDAddress_head, use_last_error=False)(6, 'SetRemoteAddress', ((1, 'pAddress'),)))
     IWSDMessageParameters.GetLowerParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head), use_last_error=False)(7, 'GetLowerParameters', ((1, 'ppTxParams'),)))
+    win32more.System.Com.IUnknown
     return IWSDMessageParameters
 def _define_WSDUdpRetransmitParams_head():
     class WSDUdpRetransmitParams(Structure):
@@ -166,6 +169,7 @@ def _define_IWSDUdpMessageParameters():
     IWSDUdpMessageParameters = win32more.Devices.WebServicesOnDevices.IWSDUdpMessageParameters_head
     IWSDUdpMessageParameters.SetRetransmitParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSDUdpRetransmitParams_head), use_last_error=False)(8, 'SetRetransmitParams', ((1, 'pParams'),)))
     IWSDUdpMessageParameters.GetRetransmitParams = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSDUdpRetransmitParams_head), use_last_error=False)(9, 'GetRetransmitParams', ((1, 'pParams'),)))
+    win32more.Devices.WebServicesOnDevices.IWSDMessageParameters
     return IWSDUdpMessageParameters
 WSDUdpMessageType = Int32
 ONE_WAY = 0
@@ -186,6 +190,7 @@ def _define_IWSDUdpAddress():
     IWSDUdpAddress.GetTTL = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(17, 'GetTTL', ((1, 'pdwTTL'),)))
     IWSDUdpAddress.SetAlias = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(18, 'SetAlias', ((1, 'pAlias'),)))
     IWSDUdpAddress.GetAlias = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(19, 'GetAlias', ((1, 'pAlias'),)))
+    win32more.Devices.WebServicesOnDevices.IWSDTransportAddress
     return IWSDUdpAddress
 def _define_IWSDHttpMessageParameters_head():
     class IWSDHttpMessageParameters(win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head):
@@ -202,6 +207,7 @@ def _define_IWSDHttpMessageParameters():
     IWSDHttpMessageParameters.SetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head, use_last_error=False)(14, 'SetContext', ((1, 'pContext'),)))
     IWSDHttpMessageParameters.GetContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(15, 'GetContext', ((1, 'ppContext'),)))
     IWSDHttpMessageParameters.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Clear', ()))
+    win32more.Devices.WebServicesOnDevices.IWSDMessageParameters
     return IWSDHttpMessageParameters
 def _define_IWSDHttpAddress_head():
     class IWSDHttpAddress(win32more.Devices.WebServicesOnDevices.IWSDTransportAddress_head):
@@ -213,6 +219,7 @@ def _define_IWSDHttpAddress():
     IWSDHttpAddress.SetSecure = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(11, 'SetSecure', ((1, 'fSecure'),)))
     IWSDHttpAddress.GetPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(12, 'GetPath', ((1, 'ppszPath'),)))
     IWSDHttpAddress.SetPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(13, 'SetPath', ((1, 'pszPath'),)))
+    win32more.Devices.WebServicesOnDevices.IWSDTransportAddress
     return IWSDHttpAddress
 def _define_IWSDSSLClientCertificate_head():
     class IWSDSSLClientCertificate(win32more.System.Com.IUnknown_head):
@@ -222,6 +229,7 @@ def _define_IWSDSSLClientCertificate():
     IWSDSSLClientCertificate = win32more.Devices.WebServicesOnDevices.IWSDSSLClientCertificate_head
     IWSDSSLClientCertificate.GetClientCertificate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Security.Cryptography.CERT_CONTEXT_head)), use_last_error=False)(3, 'GetClientCertificate', ((1, 'ppCertContext'),)))
     IWSDSSLClientCertificate.GetMappedAccessToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(4, 'GetMappedAccessToken', ((1, 'phToken'),)))
+    win32more.System.Com.IUnknown
     return IWSDSSLClientCertificate
 def _define_IWSDHttpAuthParameters_head():
     class IWSDHttpAuthParameters(win32more.System.Com.IUnknown_head):
@@ -231,6 +239,7 @@ def _define_IWSDHttpAuthParameters():
     IWSDHttpAuthParameters = win32more.Devices.WebServicesOnDevices.IWSDHttpAuthParameters_head
     IWSDHttpAuthParameters.GetClientAccessToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(3, 'GetClientAccessToken', ((1, 'phToken'),)))
     IWSDHttpAuthParameters.GetAuthType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetAuthType', ((1, 'pAuthType'),)))
+    win32more.System.Com.IUnknown
     return IWSDHttpAuthParameters
 def _define_IWSDSignatureProperty_head():
     class IWSDSignatureProperty(win32more.System.Com.IUnknown_head):
@@ -243,6 +252,7 @@ def _define_IWSDSignatureProperty():
     IWSDSignatureProperty.GetKeyInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(5, 'GetKeyInfo', ((1, 'pbKeyInfo'),(1, 'pdwKeyInfoSize'),)))
     IWSDSignatureProperty.GetSignature = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(6, 'GetSignature', ((1, 'pbSignature'),(1, 'pdwSignatureSize'),)))
     IWSDSignatureProperty.GetSignedInfoHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt32), use_last_error=False)(7, 'GetSignedInfoHash', ((1, 'pbSignedInfoHash'),(1, 'pdwHashSize'),)))
+    win32more.System.Com.IUnknown
     return IWSDSignatureProperty
 def _define_IWSDAttachment_head():
     class IWSDAttachment(win32more.System.Com.IUnknown_head):
@@ -250,6 +260,7 @@ def _define_IWSDAttachment_head():
     return IWSDAttachment
 def _define_IWSDAttachment():
     IWSDAttachment = win32more.Devices.WebServicesOnDevices.IWSDAttachment_head
+    win32more.System.Com.IUnknown
     return IWSDAttachment
 def _define_IWSDOutboundAttachment_head():
     class IWSDOutboundAttachment(win32more.Devices.WebServicesOnDevices.IWSDAttachment_head):
@@ -260,6 +271,7 @@ def _define_IWSDOutboundAttachment():
     IWSDOutboundAttachment.Write = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(3, 'Write', ((1, 'pBuffer'),(1, 'dwBytesToWrite'),(1, 'pdwNumberOfBytesWritten'),)))
     IWSDOutboundAttachment.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Close', ()))
     IWSDOutboundAttachment.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Abort', ()))
+    win32more.Devices.WebServicesOnDevices.IWSDAttachment
     return IWSDOutboundAttachment
 def _define_IWSDInboundAttachment_head():
     class IWSDInboundAttachment(win32more.Devices.WebServicesOnDevices.IWSDAttachment_head):
@@ -269,6 +281,7 @@ def _define_IWSDInboundAttachment():
     IWSDInboundAttachment = win32more.Devices.WebServicesOnDevices.IWSDInboundAttachment_head
     IWSDInboundAttachment.Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(UInt32), use_last_error=False)(3, 'Read', ((1, 'pBuffer'),(1, 'dwBytesToRead'),(1, 'pdwNumberOfBytesRead'),)))
     IWSDInboundAttachment.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Close', ()))
+    win32more.Devices.WebServicesOnDevices.IWSDAttachment
     return IWSDInboundAttachment
 def _define_WSD_DATETIME_head():
     class WSD_DATETIME(Structure):
@@ -366,6 +379,7 @@ def _define_IWSDXMLContext():
     IWSDXMLContext.AddNameToNamespace = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head)), use_last_error=False)(4, 'AddNameToNamespace', ((1, 'pszUri'),(1, 'pszName'),(1, 'ppName'),)))
     IWSDXMLContext.SetNamespaces = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAMESPACE_head)),UInt16,Byte, use_last_error=False)(5, 'SetNamespaces', ((1, 'pNamespaces'),(1, 'wNamespacesCount'),(1, 'bLayerNumber'),)))
     IWSDXMLContext.SetTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_TYPE_head)),UInt32,Byte, use_last_error=False)(6, 'SetTypes', ((1, 'pTypes'),(1, 'dwTypesCount'),(1, 'bLayerNumber'),)))
+    win32more.System.Com.IUnknown
     return IWSDXMLContext
 def _define_WSDXML_NAMESPACE_head():
     class WSDXML_NAMESPACE(Structure):
@@ -1157,6 +1171,7 @@ def _define_IWSDiscoveryProvider():
     IWSDiscoveryProvider.SearchByAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(7, 'SearchByAddress', ((1, 'pszAddress'),(1, 'pszTag'),)))
     IWSDiscoveryProvider.SearchByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_NAME_LIST_head),POINTER(win32more.Devices.WebServicesOnDevices.WSD_URI_LIST_head),win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(8, 'SearchByType', ((1, 'pTypesList'),(1, 'pScopesList'),(1, 'pszMatchBy'),(1, 'pszTag'),)))
     IWSDiscoveryProvider.GetXMLContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.IWSDXMLContext_head), use_last_error=False)(9, 'GetXMLContext', ((1, 'ppContext'),)))
+    win32more.System.Com.IUnknown
     return IWSDiscoveryProvider
 def _define_IWSDiscoveryProviderNotify_head():
     class IWSDiscoveryProviderNotify(win32more.System.Com.IUnknown_head):
@@ -1168,6 +1183,7 @@ def _define_IWSDiscoveryProviderNotify():
     IWSDiscoveryProviderNotify.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.WebServicesOnDevices.IWSDiscoveredService_head, use_last_error=False)(4, 'Remove', ((1, 'pService'),)))
     IWSDiscoveryProviderNotify.SearchFailed = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SearchFailed', ((1, 'hr'),(1, 'pszTag'),)))
     IWSDiscoveryProviderNotify.SearchComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(6, 'SearchComplete', ((1, 'pszTag'),)))
+    win32more.System.Com.IUnknown
     return IWSDiscoveryProviderNotify
 def _define_IWSDiscoveredService_head():
     class IWSDiscoveredService(win32more.System.Com.IUnknown_head):
@@ -1186,6 +1202,7 @@ def _define_IWSDiscoveredService():
     IWSDiscoveredService.GetLocalTransportAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(11, 'GetLocalTransportAddress', ((1, 'ppszLocalTransportAddress'),)))
     IWSDiscoveredService.GetLocalInterfaceGUID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(12, 'GetLocalInterfaceGUID', ((1, 'pGuid'),)))
     IWSDiscoveredService.GetInstanceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(13, 'GetInstanceId', ((1, 'pullInstanceId'),)))
+    win32more.System.Com.IUnknown
     return IWSDiscoveredService
 def _define_IWSDiscoveryPublisher_head():
     class IWSDiscoveryPublisher(win32more.System.Com.IUnknown_head):
@@ -1206,6 +1223,7 @@ def _define_IWSDiscoveryPublisher():
     IWSDiscoveryPublisher.RegisterScopeMatchingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.WebServicesOnDevices.IWSDScopeMatchingRule_head, use_last_error=False)(13, 'RegisterScopeMatchingRule', ((1, 'pScopeMatchingRule'),)))
     IWSDiscoveryPublisher.UnRegisterScopeMatchingRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.WebServicesOnDevices.IWSDScopeMatchingRule_head, use_last_error=False)(14, 'UnRegisterScopeMatchingRule', ((1, 'pScopeMatchingRule'),)))
     IWSDiscoveryPublisher.GetXMLContext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.IWSDXMLContext_head), use_last_error=False)(15, 'GetXMLContext', ((1, 'ppContext'),)))
+    win32more.System.Com.IUnknown
     return IWSDiscoveryPublisher
 def _define_IWSDiscoveryPublisherNotify_head():
     class IWSDiscoveryPublisherNotify(win32more.System.Com.IUnknown_head):
@@ -1215,6 +1233,7 @@ def _define_IWSDiscoveryPublisherNotify():
     IWSDiscoveryPublisherNotify = win32more.Devices.WebServicesOnDevices.IWSDiscoveryPublisherNotify_head
     IWSDiscoveryPublisherNotify.ProbeHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_MESSAGE_head),win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head, use_last_error=False)(3, 'ProbeHandler', ((1, 'pSoap'),(1, 'pMessageParameters'),)))
     IWSDiscoveryPublisherNotify.ResolveHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_MESSAGE_head),win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head, use_last_error=False)(4, 'ResolveHandler', ((1, 'pSoap'),(1, 'pMessageParameters'),)))
+    win32more.System.Com.IUnknown
     return IWSDiscoveryPublisherNotify
 def _define_IWSDScopeMatchingRule_head():
     class IWSDScopeMatchingRule(win32more.System.Com.IUnknown_head):
@@ -1224,6 +1243,7 @@ def _define_IWSDScopeMatchingRule():
     IWSDScopeMatchingRule = win32more.Devices.WebServicesOnDevices.IWSDScopeMatchingRule_head
     IWSDScopeMatchingRule.GetScopeRule = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetScopeRule', ((1, 'ppszScopeMatchingRule'),)))
     IWSDScopeMatchingRule.MatchScopes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'MatchScopes', ((1, 'pszScope1'),(1, 'pszScope2'),(1, 'pfMatch'),)))
+    win32more.System.Com.IUnknown
     return IWSDScopeMatchingRule
 def _define_IWSDEndpointProxy_head():
     class IWSDEndpointProxy(win32more.System.Com.IUnknown_head):
@@ -1238,6 +1258,7 @@ def _define_IWSDEndpointProxy():
     IWSDEndpointProxy.ProcessFault = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_FAULT_head), use_last_error=False)(7, 'ProcessFault', ((1, 'pFault'),)))
     IWSDEndpointProxy.GetErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'GetErrorInfo', ((1, 'ppszErrorInfo'),)))
     IWSDEndpointProxy.GetFaultInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_FAULT_head)), use_last_error=False)(9, 'GetFaultInfo', ((1, 'ppFault'),)))
+    win32more.System.Com.IUnknown
     return IWSDEndpointProxy
 def _define_IWSDMetadataExchange_head():
     class IWSDMetadataExchange(win32more.System.Com.IUnknown_head):
@@ -1246,6 +1267,7 @@ def _define_IWSDMetadataExchange_head():
 def _define_IWSDMetadataExchange():
     IWSDMetadataExchange = win32more.Devices.WebServicesOnDevices.IWSDMetadataExchange_head
     IWSDMetadataExchange.GetMetadata = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_METADATA_SECTION_LIST_head)), use_last_error=False)(3, 'GetMetadata', ((1, 'MetadataOut'),)))
+    win32more.System.Com.IUnknown
     return IWSDMetadataExchange
 def _define_IWSDServiceProxy_head():
     class IWSDServiceProxy(win32more.Devices.WebServicesOnDevices.IWSDMetadataExchange_head):
@@ -1260,6 +1282,7 @@ def _define_IWSDServiceProxy():
     IWSDServiceProxy.UnsubscribeToOperation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), use_last_error=False)(8, 'UnsubscribeToOperation', ((1, 'pOperation'),)))
     IWSDServiceProxy.SetEventingStatusCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.WebServicesOnDevices.IWSDEventingStatus_head, use_last_error=False)(9, 'SetEventingStatusCallback', ((1, 'pStatus'),)))
     IWSDServiceProxy.GetEndpointProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.IWSDEndpointProxy_head), use_last_error=False)(10, 'GetEndpointProxy', ((1, 'ppProxy'),)))
+    win32more.Devices.WebServicesOnDevices.IWSDMetadataExchange
     return IWSDServiceProxy
 def _define_IWSDServiceProxyEventing_head():
     class IWSDServiceProxyEventing(win32more.Devices.WebServicesOnDevices.IWSDServiceProxy_head):
@@ -1279,6 +1302,7 @@ def _define_IWSDServiceProxyEventing():
     IWSDServiceProxyEventing.GetStatusForMultipleOperations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION),UInt32,POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head),POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)),POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)), use_last_error=False)(20, 'GetStatusForMultipleOperations', ((1, 'pOperations'),(1, 'dwOperationCount'),(1, 'pAny'),(1, 'ppExpires'),(1, 'ppAny'),)))
     IWSDServiceProxyEventing.BeginGetStatusForMultipleOperations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION),UInt32,POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head),win32more.System.Com.IUnknown_head,win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head,POINTER(win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head), use_last_error=False)(21, 'BeginGetStatusForMultipleOperations', ((1, 'pOperations'),(1, 'dwOperationCount'),(1, 'pAny'),(1, 'pAsyncState'),(1, 'pAsyncCallback'),(1, 'ppResult'),)))
     IWSDServiceProxyEventing.EndGetStatusForMultipleOperations = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION),UInt32,win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head,POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENTING_EXPIRES_head)),POINTER(POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_ELEMENT_head)), use_last_error=False)(22, 'EndGetStatusForMultipleOperations', ((1, 'pOperations'),(1, 'dwOperationCount'),(1, 'pResult'),(1, 'ppExpires'),(1, 'ppAny'),)))
+    win32more.Devices.WebServicesOnDevices.IWSDServiceProxy
     return IWSDServiceProxyEventing
 def _define_IWSDDeviceProxy_head():
     class IWSDDeviceProxy(win32more.System.Com.IUnknown_head):
@@ -1296,6 +1320,7 @@ def _define_IWSDDeviceProxy():
     IWSDDeviceProxy.GetServiceProxyById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Devices.WebServicesOnDevices.IWSDServiceProxy_head), use_last_error=False)(10, 'GetServiceProxyById', ((1, 'pszServiceId'),(1, 'ppServiceProxy'),)))
     IWSDDeviceProxy.GetServiceProxyByType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSDXML_NAME_head),POINTER(win32more.Devices.WebServicesOnDevices.IWSDServiceProxy_head), use_last_error=False)(11, 'GetServiceProxyByType', ((1, 'pType'),(1, 'ppServiceProxy'),)))
     IWSDDeviceProxy.GetEndpointProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.IWSDEndpointProxy_head), use_last_error=False)(12, 'GetEndpointProxy', ((1, 'ppProxy'),)))
+    win32more.System.Com.IUnknown
     return IWSDDeviceProxy
 def _define_IWSDAsyncResult_head():
     class IWSDAsyncResult(win32more.System.Com.IUnknown_head):
@@ -1310,6 +1335,7 @@ def _define_IWSDAsyncResult():
     IWSDAsyncResult.Abort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Abort', ()))
     IWSDAsyncResult.GetEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_EVENT_head), use_last_error=False)(8, 'GetEvent', ((1, 'pEvent'),)))
     IWSDAsyncResult.GetEndpointProxy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.IWSDEndpointProxy_head), use_last_error=False)(9, 'GetEndpointProxy', ((1, 'ppEndpoint'),)))
+    win32more.System.Com.IUnknown
     return IWSDAsyncResult
 def _define_IWSDAsyncCallback_head():
     class IWSDAsyncCallback(win32more.System.Com.IUnknown_head):
@@ -1318,6 +1344,7 @@ def _define_IWSDAsyncCallback_head():
 def _define_IWSDAsyncCallback():
     IWSDAsyncCallback = win32more.Devices.WebServicesOnDevices.IWSDAsyncCallback_head
     IWSDAsyncCallback.AsyncOperationComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.WebServicesOnDevices.IWSDAsyncResult_head,win32more.System.Com.IUnknown_head, use_last_error=False)(3, 'AsyncOperationComplete', ((1, 'pAsyncResult'),(1, 'pAsyncState'),)))
+    win32more.System.Com.IUnknown
     return IWSDAsyncCallback
 def _define_IWSDEventingStatus_head():
     class IWSDEventingStatus(win32more.System.Com.IUnknown_head):
@@ -1328,6 +1355,7 @@ def _define_IWSDEventingStatus():
     IWSDEventingStatus.SubscriptionRenewed = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SubscriptionRenewed', ((1, 'pszSubscriptionAction'),)))
     IWSDEventingStatus.SubscriptionRenewalFailed = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR,win32more.Foundation.HRESULT, use_last_error=False)(4, 'SubscriptionRenewalFailed', ((1, 'pszSubscriptionAction'),(1, 'hr'),)))
     IWSDEventingStatus.SubscriptionEnded = COMMETHOD(WINFUNCTYPE(Void,win32more.Foundation.PWSTR, use_last_error=False)(5, 'SubscriptionEnded', ((1, 'pszSubscriptionAction'),)))
+    win32more.System.Com.IUnknown
     return IWSDEventingStatus
 def _define_IWSDDeviceHost_head():
     class IWSDDeviceHost(win32more.System.Com.IUnknown_head):
@@ -1347,6 +1375,7 @@ def _define_IWSDDeviceHost():
     IWSDDeviceHost.RemoveDynamicService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(12, 'RemoveDynamicService', ((1, 'pszServiceId'),)))
     IWSDDeviceHost.SetServiceDiscoverable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.BOOL, use_last_error=False)(13, 'SetServiceDiscoverable', ((1, 'pszServiceId'),(1, 'fDiscoverable'),)))
     IWSDDeviceHost.SignalEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,c_void_p,POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head), use_last_error=False)(14, 'SignalEvent', ((1, 'pszServiceId'),(1, 'pBody'),(1, 'pOperation'),)))
+    win32more.System.Com.IUnknown
     return IWSDDeviceHost
 def _define_IWSDDeviceHostNotify_head():
     class IWSDDeviceHostNotify(win32more.System.Com.IUnknown_head):
@@ -1355,6 +1384,7 @@ def _define_IWSDDeviceHostNotify_head():
 def _define_IWSDDeviceHostNotify():
     IWSDDeviceHostNotify = win32more.Devices.WebServicesOnDevices.IWSDDeviceHostNotify_head
     IWSDDeviceHostNotify.GetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetService', ((1, 'pszServiceId'),(1, 'ppService'),)))
+    win32more.System.Com.IUnknown
     return IWSDDeviceHostNotify
 def _define_IWSDServiceMessaging_head():
     class IWSDServiceMessaging(win32more.System.Com.IUnknown_head):
@@ -1364,6 +1394,7 @@ def _define_IWSDServiceMessaging():
     IWSDServiceMessaging = win32more.Devices.WebServicesOnDevices.IWSDServiceMessaging_head
     IWSDServiceMessaging.SendResponse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(win32more.Devices.WebServicesOnDevices.WSD_OPERATION_head),win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head, use_last_error=False)(3, 'SendResponse', ((1, 'pBody'),(1, 'pOperation'),(1, 'pMessageParameters'),)))
     IWSDServiceMessaging.FaultRequest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_HEADER_head),win32more.Devices.WebServicesOnDevices.IWSDMessageParameters_head,POINTER(win32more.Devices.WebServicesOnDevices.WSD_SOAP_FAULT_head), use_last_error=False)(4, 'FaultRequest', ((1, 'pRequestHeader'),(1, 'pMessageParameters'),(1, 'pFault'),)))
+    win32more.System.Com.IUnknown
     return IWSDServiceMessaging
 def _define_WSDCreateUdpMessageParameters():
     try:

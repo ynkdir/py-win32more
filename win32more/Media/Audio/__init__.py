@@ -570,6 +570,7 @@ def _define_IMessageFilter():
     IMessageFilter.HandleInComingCall = COMMETHOD(WINFUNCTYPE(UInt32,UInt32,win32more.Media.HTASK,UInt32,POINTER(win32more.System.Com.INTERFACEINFO_head), use_last_error=False)(3, 'HandleInComingCall', ((1, 'dwCallType'),(1, 'htaskCaller'),(1, 'dwTickCount'),(1, 'lpInterfaceInfo'),)))
     IMessageFilter.RetryRejectedCall = COMMETHOD(WINFUNCTYPE(UInt32,win32more.Media.HTASK,UInt32,UInt32, use_last_error=False)(4, 'RetryRejectedCall', ((1, 'htaskCallee'),(1, 'dwTickCount'),(1, 'dwRejectType'),)))
     IMessageFilter.MessagePending = COMMETHOD(WINFUNCTYPE(UInt32,win32more.Media.HTASK,UInt32,UInt32, use_last_error=False)(5, 'MessagePending', ((1, 'htaskCallee'),(1, 'dwTickCount'),(1, 'dwPendingType'),)))
+    win32more.System.Com.IUnknown
     return IMessageFilter
 def _define_WAVEFORMATEXTENSIBLE_head():
     class WAVEFORMATEXTENSIBLE(Structure):
@@ -1581,6 +1582,7 @@ def _define_IAudioClient():
     IAudioClient.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'Reset', ()))
     IAudioClient.SetEventHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(13, 'SetEventHandle', ((1, 'eventHandle'),)))
     IAudioClient.GetService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(14, 'GetService', ((1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IAudioClient
 def _define_IAudioClient2_head():
     class IAudioClient2(win32more.Media.Audio.IAudioClient_head):
@@ -1591,6 +1593,7 @@ def _define_IAudioClient2():
     IAudioClient2.IsOffloadCapable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,POINTER(win32more.Foundation.BOOL), use_last_error=False)(15, 'IsOffloadCapable', ((1, 'Category'),(1, 'pbOffloadCapable'),)))
     IAudioClient2.SetClientProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.AudioClientProperties_head), use_last_error=False)(16, 'SetClientProperties', ((1, 'pProperties'),)))
     IAudioClient2.GetBufferSizeLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),win32more.Foundation.BOOL,POINTER(Int64),POINTER(Int64), use_last_error=False)(17, 'GetBufferSizeLimits', ((1, 'pFormat'),(1, 'bEventDriven'),(1, 'phnsMinBufferDuration'),(1, 'phnsMaxBufferDuration'),)))
+    win32more.Media.Audio.IAudioClient
     return IAudioClient2
 def _define_AudioClient3ActivationParams_head():
     class AudioClient3ActivationParams(Structure):
@@ -1611,6 +1614,7 @@ def _define_IAudioClient3():
     IAudioClient3.GetSharedModeEnginePeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(18, 'GetSharedModeEnginePeriod', ((1, 'pFormat'),(1, 'pDefaultPeriodInFrames'),(1, 'pFundamentalPeriodInFrames'),(1, 'pMinPeriodInFrames'),(1, 'pMaxPeriodInFrames'),)))
     IAudioClient3.GetCurrentSharedModeEnginePeriod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)),POINTER(UInt32), use_last_error=False)(19, 'GetCurrentSharedModeEnginePeriod', ((1, 'ppFormat'),(1, 'pCurrentPeriodInFrames'),)))
     IAudioClient3.InitializeSharedAudioStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(Guid), use_last_error=False)(20, 'InitializeSharedAudioStream', ((1, 'StreamFlags'),(1, 'PeriodInFrames'),(1, 'pFormat'),(1, 'AudioSessionGuid'),)))
+    win32more.Media.Audio.IAudioClient2
     return IAudioClient3
 def _define_IAudioRenderClient_head():
     class IAudioRenderClient(win32more.System.Com.IUnknown_head):
@@ -1620,6 +1624,7 @@ def _define_IAudioRenderClient():
     IAudioRenderClient = win32more.Media.Audio.IAudioRenderClient_head
     IAudioRenderClient.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(c_char_p_no), use_last_error=False)(3, 'GetBuffer', ((1, 'NumFramesRequested'),(1, 'ppData'),)))
     IAudioRenderClient.ReleaseBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32, use_last_error=False)(4, 'ReleaseBuffer', ((1, 'NumFramesWritten'),(1, 'dwFlags'),)))
+    win32more.System.Com.IUnknown
     return IAudioRenderClient
 def _define_IAudioCaptureClient_head():
     class IAudioCaptureClient(win32more.System.Com.IUnknown_head):
@@ -1630,6 +1635,7 @@ def _define_IAudioCaptureClient():
     IAudioCaptureClient.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32),POINTER(UInt32),POINTER(UInt64),POINTER(UInt64), use_last_error=False)(3, 'GetBuffer', ((1, 'ppData'),(1, 'pNumFramesToRead'),(1, 'pdwFlags'),(1, 'pu64DevicePosition'),(1, 'pu64QPCPosition'),)))
     IAudioCaptureClient.ReleaseBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'ReleaseBuffer', ((1, 'NumFramesRead'),)))
     IAudioCaptureClient.GetNextPacketSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetNextPacketSize', ((1, 'pNumFramesInNextPacket'),)))
+    win32more.System.Com.IUnknown
     return IAudioCaptureClient
 def _define_IAudioClock_head():
     class IAudioClock(win32more.System.Com.IUnknown_head):
@@ -1640,6 +1646,7 @@ def _define_IAudioClock():
     IAudioClock.GetFrequency = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(3, 'GetFrequency', ((1, 'pu64Frequency'),)))
     IAudioClock.GetPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64), use_last_error=False)(4, 'GetPosition', ((1, 'pu64Position'),(1, 'pu64QPCPosition'),)))
     IAudioClock.GetCharacteristics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetCharacteristics', ((1, 'pdwCharacteristics'),)))
+    win32more.System.Com.IUnknown
     return IAudioClock
 def _define_IAudioClock2_head():
     class IAudioClock2(win32more.System.Com.IUnknown_head):
@@ -1648,6 +1655,7 @@ def _define_IAudioClock2_head():
 def _define_IAudioClock2():
     IAudioClock2 = win32more.Media.Audio.IAudioClock2_head
     IAudioClock2.GetDevicePosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64),POINTER(UInt64), use_last_error=False)(3, 'GetDevicePosition', ((1, 'DevicePosition'),(1, 'QPCPosition'),)))
+    win32more.System.Com.IUnknown
     return IAudioClock2
 def _define_IAudioClockAdjustment_head():
     class IAudioClockAdjustment(win32more.System.Com.IUnknown_head):
@@ -1656,6 +1664,7 @@ def _define_IAudioClockAdjustment_head():
 def _define_IAudioClockAdjustment():
     IAudioClockAdjustment = win32more.Media.Audio.IAudioClockAdjustment_head
     IAudioClockAdjustment.SetSampleRate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(3, 'SetSampleRate', ((1, 'flSampleRate'),)))
+    win32more.System.Com.IUnknown
     return IAudioClockAdjustment
 def _define_ISimpleAudioVolume_head():
     class ISimpleAudioVolume(win32more.System.Com.IUnknown_head):
@@ -1667,6 +1676,7 @@ def _define_ISimpleAudioVolume():
     ISimpleAudioVolume.GetMasterVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single), use_last_error=False)(4, 'GetMasterVolume', ((1, 'pfLevel'),)))
     ISimpleAudioVolume.SetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(Guid), use_last_error=False)(5, 'SetMute', ((1, 'bMute'),(1, 'EventContext'),)))
     ISimpleAudioVolume.GetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'GetMute', ((1, 'pbMute'),)))
+    win32more.System.Com.IUnknown
     return ISimpleAudioVolume
 AUDIO_DUCKING_OPTIONS = UInt32
 AUDIO_DUCKING_OPTIONS_DEFAULT = 0
@@ -1678,6 +1688,7 @@ def _define_IAudioClientDuckingControl_head():
 def _define_IAudioClientDuckingControl():
     IAudioClientDuckingControl = win32more.Media.Audio.IAudioClientDuckingControl_head
     IAudioClientDuckingControl.SetDuckingOptionsForCurrentStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_DUCKING_OPTIONS, use_last_error=False)(3, 'SetDuckingOptionsForCurrentStream', ((1, 'options'),)))
+    win32more.System.Com.IUnknown
     return IAudioClientDuckingControl
 AUDIO_EFFECT_STATE = Int32
 AUDIO_EFFECT_STATE_OFF = 0
@@ -1701,6 +1712,7 @@ def _define_IAudioEffectsChangedNotificationClient_head():
 def _define_IAudioEffectsChangedNotificationClient():
     IAudioEffectsChangedNotificationClient = win32more.Media.Audio.IAudioEffectsChangedNotificationClient_head
     IAudioEffectsChangedNotificationClient.OnAudioEffectsChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnAudioEffectsChanged', ()))
+    win32more.System.Com.IUnknown
     return IAudioEffectsChangedNotificationClient
 def _define_IAudioEffectsManager_head():
     class IAudioEffectsManager(win32more.System.Com.IUnknown_head):
@@ -1712,6 +1724,7 @@ def _define_IAudioEffectsManager():
     IAudioEffectsManager.UnregisterAudioEffectsChangedNotificationCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioEffectsChangedNotificationClient_head, use_last_error=False)(4, 'UnregisterAudioEffectsChangedNotificationCallback', ((1, 'client'),)))
     IAudioEffectsManager.GetAudioEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.Media.Audio.AUDIO_EFFECT_head)),POINTER(UInt32), use_last_error=False)(5, 'GetAudioEffects', ((1, 'effects'),(1, 'numEffects'),)))
     IAudioEffectsManager.SetAudioEffectState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid,win32more.Media.Audio.AUDIO_EFFECT_STATE, use_last_error=False)(6, 'SetAudioEffectState', ((1, 'effectId'),(1, 'state'),)))
+    win32more.System.Com.IUnknown
     return IAudioEffectsManager
 def _define_IAudioStreamVolume_head():
     class IAudioStreamVolume(win32more.System.Com.IUnknown_head):
@@ -1724,6 +1737,7 @@ def _define_IAudioStreamVolume():
     IAudioStreamVolume.GetChannelVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(5, 'GetChannelVolume', ((1, 'dwIndex'),(1, 'pfLevel'),)))
     IAudioStreamVolume.SetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(6, 'SetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),)))
     IAudioStreamVolume.GetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(7, 'GetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),)))
+    win32more.System.Com.IUnknown
     return IAudioStreamVolume
 AMBISONICS_TYPE = Int32
 AMBISONICS_TYPE_FULL3D = 0
@@ -1759,6 +1773,7 @@ def _define_IAudioAmbisonicsControl():
     IAudioAmbisonicsControl.SetHeadTracking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(4, 'SetHeadTracking', ((1, 'bEnableHeadTracking'),)))
     IAudioAmbisonicsControl.GetHeadTracking = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'GetHeadTracking', ((1, 'pbEnableHeadTracking'),)))
     IAudioAmbisonicsControl.SetRotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single,Single, use_last_error=False)(6, 'SetRotation', ((1, 'X'),(1, 'Y'),(1, 'Z'),(1, 'W'),)))
+    win32more.System.Com.IUnknown
     return IAudioAmbisonicsControl
 def _define_IChannelAudioVolume_head():
     class IChannelAudioVolume(win32more.System.Com.IUnknown_head):
@@ -1771,6 +1786,7 @@ def _define_IChannelAudioVolume():
     IChannelAudioVolume.GetChannelVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(5, 'GetChannelVolume', ((1, 'dwIndex'),(1, 'pfLevel'),)))
     IChannelAudioVolume.SetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single),POINTER(Guid), use_last_error=False)(6, 'SetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),(1, 'EventContext'),)))
     IChannelAudioVolume.GetAllVolumes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(7, 'GetAllVolumes', ((1, 'dwCount'),(1, 'pfVolumes'),)))
+    win32more.System.Com.IUnknown
     return IChannelAudioVolume
 AudioObjectType = UInt32
 AudioObjectType_None = 0
@@ -1838,6 +1854,7 @@ def _define_IAudioFormatEnumerator():
     IAudioFormatEnumerator = win32more.Media.Audio.IAudioFormatEnumerator_head
     IAudioFormatEnumerator.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'count'),)))
     IAudioFormatEnumerator.GetFormat = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.Media.Audio.WAVEFORMATEX_head)), use_last_error=False)(4, 'GetFormat', ((1, 'index'),(1, 'format'),)))
+    win32more.System.Com.IUnknown
     return IAudioFormatEnumerator
 def _define_ISpatialAudioObjectBase_head():
     class ISpatialAudioObjectBase(win32more.System.Com.IUnknown_head):
@@ -1849,6 +1866,7 @@ def _define_ISpatialAudioObjectBase():
     ISpatialAudioObjectBase.SetEndOfStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'SetEndOfStream', ((1, 'frameCount'),)))
     ISpatialAudioObjectBase.IsActive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'IsActive', ((1, 'isActive'),)))
     ISpatialAudioObjectBase.GetAudioObjectType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.AudioObjectType), use_last_error=False)(6, 'GetAudioObjectType', ((1, 'audioObjectType'),)))
+    win32more.System.Com.IUnknown
     return ISpatialAudioObjectBase
 def _define_ISpatialAudioObject_head():
     class ISpatialAudioObject(win32more.Media.Audio.ISpatialAudioObjectBase_head):
@@ -1858,6 +1876,7 @@ def _define_ISpatialAudioObject():
     ISpatialAudioObject = win32more.Media.Audio.ISpatialAudioObject_head
     ISpatialAudioObject.SetPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,Single,Single, use_last_error=False)(7, 'SetPosition', ((1, 'x'),(1, 'y'),(1, 'z'),)))
     ISpatialAudioObject.SetVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single, use_last_error=False)(8, 'SetVolume', ((1, 'volume'),)))
+    win32more.Media.Audio.ISpatialAudioObjectBase
     return ISpatialAudioObject
 def _define_ISpatialAudioObjectRenderStreamBase_head():
     class ISpatialAudioObjectRenderStreamBase(win32more.System.Com.IUnknown_head):
@@ -1872,6 +1891,7 @@ def _define_ISpatialAudioObjectRenderStreamBase():
     ISpatialAudioObjectRenderStreamBase.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Reset', ()))
     ISpatialAudioObjectRenderStreamBase.BeginUpdatingAudioObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(8, 'BeginUpdatingAudioObjects', ((1, 'availableDynamicObjectCount'),(1, 'frameCountPerBuffer'),)))
     ISpatialAudioObjectRenderStreamBase.EndUpdatingAudioObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'EndUpdatingAudioObjects', ()))
+    win32more.System.Com.IUnknown
     return ISpatialAudioObjectRenderStreamBase
 def _define_ISpatialAudioObjectRenderStream_head():
     class ISpatialAudioObjectRenderStream(win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head):
@@ -1880,6 +1900,7 @@ def _define_ISpatialAudioObjectRenderStream_head():
 def _define_ISpatialAudioObjectRenderStream():
     ISpatialAudioObjectRenderStream = win32more.Media.Audio.ISpatialAudioObjectRenderStream_head
     ISpatialAudioObjectRenderStream.ActivateSpatialAudioObject = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType,POINTER(win32more.Media.Audio.ISpatialAudioObject_head), use_last_error=False)(10, 'ActivateSpatialAudioObject', ((1, 'type'),(1, 'audioObject'),)))
+    win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase
     return ISpatialAudioObjectRenderStream
 def _define_ISpatialAudioObjectRenderStreamNotify_head():
     class ISpatialAudioObjectRenderStreamNotify(win32more.System.Com.IUnknown_head):
@@ -1888,6 +1909,7 @@ def _define_ISpatialAudioObjectRenderStreamNotify_head():
 def _define_ISpatialAudioObjectRenderStreamNotify():
     ISpatialAudioObjectRenderStreamNotify = win32more.Media.Audio.ISpatialAudioObjectRenderStreamNotify_head
     ISpatialAudioObjectRenderStreamNotify.OnAvailableDynamicObjectCountChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head,Int64,UInt32, use_last_error=False)(3, 'OnAvailableDynamicObjectCountChange', ((1, 'sender'),(1, 'hnsComplianceDeadlineTime'),(1, 'availableDynamicObjectCountChange'),)))
+    win32more.System.Com.IUnknown
     return ISpatialAudioObjectRenderStreamNotify
 def _define_ISpatialAudioClient_head():
     class ISpatialAudioClient(win32more.System.Com.IUnknown_head):
@@ -1903,6 +1925,7 @@ def _define_ISpatialAudioClient():
     ISpatialAudioClient.IsAudioObjectFormatSupported = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.WAVEFORMATEX_head), use_last_error=False)(8, 'IsAudioObjectFormatSupported', ((1, 'objectFormat'),)))
     ISpatialAudioClient.IsSpatialAudioStreamAvailable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head), use_last_error=False)(9, 'IsSpatialAudioStreamAvailable', ((1, 'streamUuid'),(1, 'auxiliaryInfo'),)))
     ISpatialAudioClient.ActivateSpatialAudioStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(Guid),POINTER(c_void_p), use_last_error=False)(10, 'ActivateSpatialAudioStream', ((1, 'activationParams'),(1, 'riid'),(1, 'stream'),)))
+    win32more.System.Com.IUnknown
     return ISpatialAudioClient
 def _define_ISpatialAudioClient2_head():
     class ISpatialAudioClient2(win32more.Media.Audio.ISpatialAudioClient_head):
@@ -1912,6 +1935,7 @@ def _define_ISpatialAudioClient2():
     ISpatialAudioClient2 = win32more.Media.Audio.ISpatialAudioClient2_head
     ISpatialAudioClient2.IsOffloadCapable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'IsOffloadCapable', ((1, 'category'),(1, 'isOffloadCapable'),)))
     ISpatialAudioClient2.GetMaxFrameCountForCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AUDIO_STREAM_CATEGORY,win32more.Foundation.BOOL,POINTER(win32more.Media.Audio.WAVEFORMATEX_head),POINTER(UInt32), use_last_error=False)(12, 'GetMaxFrameCountForCategory', ((1, 'category'),(1, 'offloadEnabled'),(1, 'objectFormat'),(1, 'frameCountPerBuffer'),)))
+    win32more.Media.Audio.ISpatialAudioClient
     return ISpatialAudioClient2
 def _define_SpatialAudioClientActivationParams_head():
     class SpatialAudioClientActivationParams(Structure):
@@ -2060,6 +2084,7 @@ def _define_ISpatialAudioObjectForHrtf():
     ISpatialAudioObjectForHrtf.SetEnvironment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.SpatialAudioHrtfEnvironmentType, use_last_error=False)(10, 'SetEnvironment', ((1, 'environment'),)))
     ISpatialAudioObjectForHrtf.SetDistanceDecay = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.SpatialAudioHrtfDistanceDecay_head), use_last_error=False)(11, 'SetDistanceDecay', ((1, 'distanceDecay'),)))
     ISpatialAudioObjectForHrtf.SetDirectivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.SpatialAudioHrtfDirectivityUnion_head), use_last_error=False)(12, 'SetDirectivity', ((1, 'directivity'),)))
+    win32more.Media.Audio.ISpatialAudioObjectBase
     return ISpatialAudioObjectForHrtf
 def _define_ISpatialAudioObjectRenderStreamForHrtf_head():
     class ISpatialAudioObjectRenderStreamForHrtf(win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head):
@@ -2068,6 +2093,7 @@ def _define_ISpatialAudioObjectRenderStreamForHrtf_head():
 def _define_ISpatialAudioObjectRenderStreamForHrtf():
     ISpatialAudioObjectRenderStreamForHrtf = win32more.Media.Audio.ISpatialAudioObjectRenderStreamForHrtf_head
     ISpatialAudioObjectRenderStreamForHrtf.ActivateSpatialAudioObjectForHrtf = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType,POINTER(win32more.Media.Audio.ISpatialAudioObjectForHrtf_head), use_last_error=False)(10, 'ActivateSpatialAudioObjectForHrtf', ((1, 'type'),(1, 'audioObject'),)))
+    win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase
     return ISpatialAudioObjectRenderStreamForHrtf
 MMDeviceEnumerator = Guid('bcde0395-e52f-467c-8e3d-c4579291692e')
 def _define_DIRECTX_AUDIO_ACTIVATION_PARAMS_head():
@@ -2116,6 +2142,7 @@ def _define_IMMNotificationClient():
     IMMNotificationClient.OnDeviceRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(5, 'OnDeviceRemoved', ((1, 'pwstrDeviceId'),)))
     IMMNotificationClient.OnDefaultDeviceChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.EDataFlow,win32more.Media.Audio.ERole,win32more.Foundation.PWSTR, use_last_error=False)(6, 'OnDefaultDeviceChanged', ((1, 'flow'),(1, 'role'),(1, 'pwstrDefaultDeviceId'),)))
     IMMNotificationClient.OnPropertyValueChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.UI.Shell.PropertiesSystem.PROPERTYKEY, use_last_error=False)(7, 'OnPropertyValueChanged', ((1, 'pwstrDeviceId'),(1, 'key'),)))
+    win32more.System.Com.IUnknown
     return IMMNotificationClient
 def _define_IMMDevice_head():
     class IMMDevice(win32more.System.Com.IUnknown_head):
@@ -2127,6 +2154,7 @@ def _define_IMMDevice():
     IMMDevice.OpenPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Shell.PropertiesSystem.IPropertyStore_head), use_last_error=False)(4, 'OpenPropertyStore', ((1, 'stgmAccess'),(1, 'ppProperties'),)))
     IMMDevice.GetId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetId', ((1, 'ppstrId'),)))
     IMMDevice.GetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetState', ((1, 'pdwState'),)))
+    win32more.System.Com.IUnknown
     return IMMDevice
 def _define_IMMDeviceCollection_head():
     class IMMDeviceCollection(win32more.System.Com.IUnknown_head):
@@ -2136,6 +2164,7 @@ def _define_IMMDeviceCollection():
     IMMDeviceCollection = win32more.Media.Audio.IMMDeviceCollection_head
     IMMDeviceCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pcDevices'),)))
     IMMDeviceCollection.Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.IMMDevice_head), use_last_error=False)(4, 'Item', ((1, 'nDevice'),(1, 'ppDevice'),)))
+    win32more.System.Com.IUnknown
     return IMMDeviceCollection
 def _define_IMMEndpoint_head():
     class IMMEndpoint(win32more.System.Com.IUnknown_head):
@@ -2144,6 +2173,7 @@ def _define_IMMEndpoint_head():
 def _define_IMMEndpoint():
     IMMEndpoint = win32more.Media.Audio.IMMEndpoint_head
     IMMEndpoint.GetDataFlow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.EDataFlow), use_last_error=False)(3, 'GetDataFlow', ((1, 'pDataFlow'),)))
+    win32more.System.Com.IUnknown
     return IMMEndpoint
 def _define_IMMDeviceEnumerator_head():
     class IMMDeviceEnumerator(win32more.System.Com.IUnknown_head):
@@ -2156,6 +2186,7 @@ def _define_IMMDeviceEnumerator():
     IMMDeviceEnumerator.GetDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Media.Audio.IMMDevice_head), use_last_error=False)(5, 'GetDevice', ((1, 'pwstrId'),(1, 'ppDevice'),)))
     IMMDeviceEnumerator.RegisterEndpointNotificationCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IMMNotificationClient_head, use_last_error=False)(6, 'RegisterEndpointNotificationCallback', ((1, 'pClient'),)))
     IMMDeviceEnumerator.UnregisterEndpointNotificationCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IMMNotificationClient_head, use_last_error=False)(7, 'UnregisterEndpointNotificationCallback', ((1, 'pClient'),)))
+    win32more.System.Com.IUnknown
     return IMMDeviceEnumerator
 def _define_IMMDeviceActivator_head():
     class IMMDeviceActivator(win32more.System.Com.IUnknown_head):
@@ -2164,6 +2195,7 @@ def _define_IMMDeviceActivator_head():
 def _define_IMMDeviceActivator():
     IMMDeviceActivator = win32more.Media.Audio.IMMDeviceActivator_head
     IMMDeviceActivator.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Media.Audio.IMMDevice_head,POINTER(win32more.System.Com.StructuredStorage.PROPVARIANT_head),POINTER(c_void_p), use_last_error=False)(3, 'Activate', ((1, 'iid'),(1, 'pDevice'),(1, 'pActivationParams'),(1, 'ppInterface'),)))
+    win32more.System.Com.IUnknown
     return IMMDeviceActivator
 def _define_IActivateAudioInterfaceCompletionHandler_head():
     class IActivateAudioInterfaceCompletionHandler(win32more.System.Com.IUnknown_head):
@@ -2172,6 +2204,7 @@ def _define_IActivateAudioInterfaceCompletionHandler_head():
 def _define_IActivateAudioInterfaceCompletionHandler():
     IActivateAudioInterfaceCompletionHandler = win32more.Media.Audio.IActivateAudioInterfaceCompletionHandler_head
     IActivateAudioInterfaceCompletionHandler.ActivateCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IActivateAudioInterfaceAsyncOperation_head, use_last_error=False)(3, 'ActivateCompleted', ((1, 'activateOperation'),)))
+    win32more.System.Com.IUnknown
     return IActivateAudioInterfaceCompletionHandler
 def _define_IActivateAudioInterfaceAsyncOperation_head():
     class IActivateAudioInterfaceAsyncOperation(win32more.System.Com.IUnknown_head):
@@ -2180,6 +2213,7 @@ def _define_IActivateAudioInterfaceAsyncOperation_head():
 def _define_IActivateAudioInterfaceAsyncOperation():
     IActivateAudioInterfaceAsyncOperation = win32more.Media.Audio.IActivateAudioInterfaceAsyncOperation_head
     IActivateAudioInterfaceAsyncOperation.GetActivateResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HRESULT),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetActivateResult', ((1, 'activateResult'),(1, 'activatedInterface'),)))
+    win32more.System.Com.IUnknown
     return IActivateAudioInterfaceAsyncOperation
 def _define_AudioExtensionParams_head():
     class AudioExtensionParams(Structure):
@@ -2206,6 +2240,7 @@ def _define_IAudioSystemEffectsPropertyChangeNotificationClient_head():
 def _define_IAudioSystemEffectsPropertyChangeNotificationClient():
     IAudioSystemEffectsPropertyChangeNotificationClient = win32more.Media.Audio.IAudioSystemEffectsPropertyChangeNotificationClient_head
     IAudioSystemEffectsPropertyChangeNotificationClient.OnPropertyChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.__MIDL___MIDL_itf_mmdeviceapi_0000_0008_0002,win32more.UI.Shell.PropertiesSystem.PROPERTYKEY, use_last_error=False)(3, 'OnPropertyChanged', ((1, 'type'),(1, 'key'),)))
+    win32more.System.Com.IUnknown
     return IAudioSystemEffectsPropertyChangeNotificationClient
 def _define_IAudioSystemEffectsPropertyStore_head():
     class IAudioSystemEffectsPropertyStore(win32more.System.Com.IUnknown_head):
@@ -2220,6 +2255,7 @@ def _define_IAudioSystemEffectsPropertyStore():
     IAudioSystemEffectsPropertyStore.ResetVolatilePropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'ResetVolatilePropertyStore', ()))
     IAudioSystemEffectsPropertyStore.RegisterPropertyChangeNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSystemEffectsPropertyChangeNotificationClient_head, use_last_error=False)(8, 'RegisterPropertyChangeNotification', ((1, 'callback'),)))
     IAudioSystemEffectsPropertyStore.UnregisterPropertyChangeNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSystemEffectsPropertyChangeNotificationClient_head, use_last_error=False)(9, 'UnregisterPropertyChangeNotification', ((1, 'callback'),)))
+    win32more.System.Com.IUnknown
     return IAudioSystemEffectsPropertyStore
 DeviceTopology = Guid('1df639d0-5ec1-47aa-9379-828dc1aa8c59')
 DataFlow = Int32
@@ -2247,6 +2283,7 @@ def _define_IPerChannelDbLevel():
     IPerChannelDbLevel.SetLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,Single,POINTER(Guid), use_last_error=False)(6, 'SetLevel', ((1, 'nChannel'),(1, 'fLevelDB'),(1, 'pguidEventContext'),)))
     IPerChannelDbLevel.SetLevelUniform = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Single,POINTER(Guid), use_last_error=False)(7, 'SetLevelUniform', ((1, 'fLevelDB'),(1, 'pguidEventContext'),)))
     IPerChannelDbLevel.SetLevelAllChannels = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Single),UInt32,POINTER(Guid), use_last_error=False)(8, 'SetLevelAllChannels', ((1, 'aLevelsDB'),(1, 'cChannels'),(1, 'pguidEventContext'),)))
+    win32more.System.Com.IUnknown
     return IPerChannelDbLevel
 def _define_IAudioVolumeLevel_head():
     class IAudioVolumeLevel(win32more.Media.Audio.IPerChannelDbLevel_head):
@@ -2254,6 +2291,7 @@ def _define_IAudioVolumeLevel_head():
     return IAudioVolumeLevel
 def _define_IAudioVolumeLevel():
     IAudioVolumeLevel = win32more.Media.Audio.IAudioVolumeLevel_head
+    win32more.Media.Audio.IPerChannelDbLevel
     return IAudioVolumeLevel
 def _define_IAudioChannelConfig_head():
     class IAudioChannelConfig(win32more.System.Com.IUnknown_head):
@@ -2263,6 +2301,7 @@ def _define_IAudioChannelConfig():
     IAudioChannelConfig = win32more.Media.Audio.IAudioChannelConfig_head
     IAudioChannelConfig.SetChannelConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(3, 'SetChannelConfig', ((1, 'dwConfig'),(1, 'pguidEventContext'),)))
     IAudioChannelConfig.GetChannelConfig = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetChannelConfig', ((1, 'pdwConfig'),)))
+    win32more.System.Com.IUnknown
     return IAudioChannelConfig
 def _define_IAudioLoudness_head():
     class IAudioLoudness(win32more.System.Com.IUnknown_head):
@@ -2272,6 +2311,7 @@ def _define_IAudioLoudness():
     IAudioLoudness = win32more.Media.Audio.IAudioLoudness_head
     IAudioLoudness.GetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetEnabled', ((1, 'pbEnabled'),)))
     IAudioLoudness.SetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(Guid), use_last_error=False)(4, 'SetEnabled', ((1, 'bEnable'),(1, 'pguidEventContext'),)))
+    win32more.System.Com.IUnknown
     return IAudioLoudness
 def _define_IAudioInputSelector_head():
     class IAudioInputSelector(win32more.System.Com.IUnknown_head):
@@ -2281,6 +2321,7 @@ def _define_IAudioInputSelector():
     IAudioInputSelector = win32more.Media.Audio.IAudioInputSelector_head
     IAudioInputSelector.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetSelection', ((1, 'pnIdSelected'),)))
     IAudioInputSelector.SetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(4, 'SetSelection', ((1, 'nIdSelect'),(1, 'pguidEventContext'),)))
+    win32more.System.Com.IUnknown
     return IAudioInputSelector
 def _define_IAudioOutputSelector_head():
     class IAudioOutputSelector(win32more.System.Com.IUnknown_head):
@@ -2290,6 +2331,7 @@ def _define_IAudioOutputSelector():
     IAudioOutputSelector = win32more.Media.Audio.IAudioOutputSelector_head
     IAudioOutputSelector.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetSelection', ((1, 'pnIdSelected'),)))
     IAudioOutputSelector.SetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(4, 'SetSelection', ((1, 'nIdSelect'),(1, 'pguidEventContext'),)))
+    win32more.System.Com.IUnknown
     return IAudioOutputSelector
 def _define_IAudioMute_head():
     class IAudioMute(win32more.System.Com.IUnknown_head):
@@ -2299,6 +2341,7 @@ def _define_IAudioMute():
     IAudioMute = win32more.Media.Audio.IAudioMute_head
     IAudioMute.SetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(Guid), use_last_error=False)(3, 'SetMute', ((1, 'bMuted'),(1, 'pguidEventContext'),)))
     IAudioMute.GetMute = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetMute', ((1, 'pbMuted'),)))
+    win32more.System.Com.IUnknown
     return IAudioMute
 def _define_IAudioBass_head():
     class IAudioBass(win32more.Media.Audio.IPerChannelDbLevel_head):
@@ -2306,6 +2349,7 @@ def _define_IAudioBass_head():
     return IAudioBass
 def _define_IAudioBass():
     IAudioBass = win32more.Media.Audio.IAudioBass_head
+    win32more.Media.Audio.IPerChannelDbLevel
     return IAudioBass
 def _define_IAudioMidrange_head():
     class IAudioMidrange(win32more.Media.Audio.IPerChannelDbLevel_head):
@@ -2313,6 +2357,7 @@ def _define_IAudioMidrange_head():
     return IAudioMidrange
 def _define_IAudioMidrange():
     IAudioMidrange = win32more.Media.Audio.IAudioMidrange_head
+    win32more.Media.Audio.IPerChannelDbLevel
     return IAudioMidrange
 def _define_IAudioTreble_head():
     class IAudioTreble(win32more.Media.Audio.IPerChannelDbLevel_head):
@@ -2320,6 +2365,7 @@ def _define_IAudioTreble_head():
     return IAudioTreble
 def _define_IAudioTreble():
     IAudioTreble = win32more.Media.Audio.IAudioTreble_head
+    win32more.Media.Audio.IPerChannelDbLevel
     return IAudioTreble
 def _define_IAudioAutoGainControl_head():
     class IAudioAutoGainControl(win32more.System.Com.IUnknown_head):
@@ -2329,6 +2375,7 @@ def _define_IAudioAutoGainControl():
     IAudioAutoGainControl = win32more.Media.Audio.IAudioAutoGainControl_head
     IAudioAutoGainControl.GetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetEnabled', ((1, 'pbEnabled'),)))
     IAudioAutoGainControl.SetEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL,POINTER(Guid), use_last_error=False)(4, 'SetEnabled', ((1, 'bEnable'),(1, 'pguidEventContext'),)))
+    win32more.System.Com.IUnknown
     return IAudioAutoGainControl
 def _define_IAudioPeakMeter_head():
     class IAudioPeakMeter(win32more.System.Com.IUnknown_head):
@@ -2338,6 +2385,7 @@ def _define_IAudioPeakMeter():
     IAudioPeakMeter = win32more.Media.Audio.IAudioPeakMeter_head
     IAudioPeakMeter.GetChannelCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetChannelCount', ((1, 'pcChannels'),)))
     IAudioPeakMeter.GetLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Single), use_last_error=False)(4, 'GetLevel', ((1, 'nChannel'),(1, 'pfLevel'),)))
+    win32more.System.Com.IUnknown
     return IAudioPeakMeter
 def _define_IDeviceSpecificProperty_head():
     class IDeviceSpecificProperty(win32more.System.Com.IUnknown_head):
@@ -2349,6 +2397,7 @@ def _define_IDeviceSpecificProperty():
     IDeviceSpecificProperty.GetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,POINTER(UInt32), use_last_error=False)(4, 'GetValue', ((1, 'pvValue'),(1, 'pcbValue'),)))
     IDeviceSpecificProperty.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_void_p,UInt32,POINTER(Guid), use_last_error=False)(5, 'SetValue', ((1, 'pvValue'),(1, 'cbValue'),(1, 'pguidEventContext'),)))
     IDeviceSpecificProperty.Get4BRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),POINTER(Int32),POINTER(Int32), use_last_error=False)(6, 'Get4BRange', ((1, 'plMin'),(1, 'plMax'),(1, 'plStepping'),)))
+    win32more.System.Com.IUnknown
     return IDeviceSpecificProperty
 def _define_IPartsList_head():
     class IPartsList(win32more.System.Com.IUnknown_head):
@@ -2358,6 +2407,7 @@ def _define_IPartsList():
     IPartsList = win32more.Media.Audio.IPartsList_head
     IPartsList.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pCount'),)))
     IPartsList.GetPart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.IPart_head), use_last_error=False)(4, 'GetPart', ((1, 'nIndex'),(1, 'ppPart'),)))
+    win32more.System.Com.IUnknown
     return IPartsList
 def _define_IPart_head():
     class IPart(win32more.System.Com.IUnknown_head):
@@ -2378,6 +2428,7 @@ def _define_IPart():
     IPart.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(13, 'Activate', ((1, 'dwClsContext'),(1, 'refiid'),(1, 'ppvObject'),)))
     IPart.RegisterControlChangeCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Media.Audio.IControlChangeNotify_head, use_last_error=False)(14, 'RegisterControlChangeCallback', ((1, 'riid'),(1, 'pNotify'),)))
     IPart.UnregisterControlChangeCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IControlChangeNotify_head, use_last_error=False)(15, 'UnregisterControlChangeCallback', ((1, 'pNotify'),)))
+    win32more.System.Com.IUnknown
     return IPart
 def _define_IConnector_head():
     class IConnector(win32more.System.Com.IUnknown_head):
@@ -2393,6 +2444,7 @@ def _define_IConnector():
     IConnector.GetConnectedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.IConnector_head), use_last_error=False)(8, 'GetConnectedTo', ((1, 'ppConTo'),)))
     IConnector.GetConnectorIdConnectedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'GetConnectorIdConnectedTo', ((1, 'ppwstrConnectorId'),)))
     IConnector.GetDeviceIdConnectedTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'GetDeviceIdConnectedTo', ((1, 'ppwstrDeviceId'),)))
+    win32more.System.Com.IUnknown
     return IConnector
 def _define_ISubunit_head():
     class ISubunit(win32more.System.Com.IUnknown_head):
@@ -2400,6 +2452,7 @@ def _define_ISubunit_head():
     return ISubunit
 def _define_ISubunit():
     ISubunit = win32more.Media.Audio.ISubunit_head
+    win32more.System.Com.IUnknown
     return ISubunit
 def _define_IControlInterface_head():
     class IControlInterface(win32more.System.Com.IUnknown_head):
@@ -2409,6 +2462,7 @@ def _define_IControlInterface():
     IControlInterface = win32more.Media.Audio.IControlInterface_head
     IControlInterface.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'ppwstrName'),)))
     IControlInterface.GetIID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(4, 'GetIID', ((1, 'pIID'),)))
+    win32more.System.Com.IUnknown
     return IControlInterface
 def _define_IControlChangeNotify_head():
     class IControlChangeNotify(win32more.System.Com.IUnknown_head):
@@ -2417,6 +2471,7 @@ def _define_IControlChangeNotify_head():
 def _define_IControlChangeNotify():
     IControlChangeNotify = win32more.Media.Audio.IControlChangeNotify_head
     IControlChangeNotify.OnNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid), use_last_error=False)(3, 'OnNotify', ((1, 'dwSenderProcessId'),(1, 'pguidEventContext'),)))
+    win32more.System.Com.IUnknown
     return IControlChangeNotify
 def _define_IDeviceTopology_head():
     class IDeviceTopology(win32more.System.Com.IUnknown_head):
@@ -2431,6 +2486,7 @@ def _define_IDeviceTopology():
     IDeviceTopology.GetPartById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Media.Audio.IPart_head), use_last_error=False)(7, 'GetPartById', ((1, 'nId'),(1, 'ppPart'),)))
     IDeviceTopology.GetDeviceId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'GetDeviceId', ((1, 'ppwstrDeviceId'),)))
     IDeviceTopology.GetSignalPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IPart_head,win32more.Media.Audio.IPart_head,win32more.Foundation.BOOL,POINTER(win32more.Media.Audio.IPartsList_head), use_last_error=False)(9, 'GetSignalPath', ((1, 'pIPartFrom'),(1, 'pIPartTo'),(1, 'bRejectMixedPaths'),(1, 'ppParts'),)))
+    win32more.System.Com.IUnknown
     return IDeviceTopology
 AudioSessionDisconnectReason = Int32
 AudioSessionDisconnectReason_DisconnectReasonDeviceRemoval = 0
@@ -2452,6 +2508,7 @@ def _define_IAudioSessionEvents():
     IAudioSessionEvents.OnGroupingParamChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid), use_last_error=False)(7, 'OnGroupingParamChanged', ((1, 'NewGroupingParam'),(1, 'EventContext'),)))
     IAudioSessionEvents.OnStateChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioSessionState, use_last_error=False)(8, 'OnStateChanged', ((1, 'NewState'),)))
     IAudioSessionEvents.OnSessionDisconnected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioSessionDisconnectReason, use_last_error=False)(9, 'OnSessionDisconnected', ((1, 'DisconnectReason'),)))
+    win32more.System.Com.IUnknown
     return IAudioSessionEvents
 def _define_IAudioSessionControl_head():
     class IAudioSessionControl(win32more.System.Com.IUnknown_head):
@@ -2468,6 +2525,7 @@ def _define_IAudioSessionControl():
     IAudioSessionControl.SetGroupingParam = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(Guid), use_last_error=False)(9, 'SetGroupingParam', ((1, 'Override'),(1, 'EventContext'),)))
     IAudioSessionControl.RegisterAudioSessionNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSessionEvents_head, use_last_error=False)(10, 'RegisterAudioSessionNotification', ((1, 'NewNotifications'),)))
     IAudioSessionControl.UnregisterAudioSessionNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSessionEvents_head, use_last_error=False)(11, 'UnregisterAudioSessionNotification', ((1, 'NewNotifications'),)))
+    win32more.System.Com.IUnknown
     return IAudioSessionControl
 def _define_IAudioSessionControl2_head():
     class IAudioSessionControl2(win32more.Media.Audio.IAudioSessionControl_head):
@@ -2480,6 +2538,7 @@ def _define_IAudioSessionControl2():
     IAudioSessionControl2.GetProcessId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'GetProcessId', ((1, 'pRetVal'),)))
     IAudioSessionControl2.IsSystemSoundsSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'IsSystemSoundsSession', ()))
     IAudioSessionControl2.SetDuckingPreference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(16, 'SetDuckingPreference', ((1, 'optOut'),)))
+    win32more.Media.Audio.IAudioSessionControl
     return IAudioSessionControl2
 def _define_IAudioSessionManager_head():
     class IAudioSessionManager(win32more.System.Com.IUnknown_head):
@@ -2489,6 +2548,7 @@ def _define_IAudioSessionManager():
     IAudioSessionManager = win32more.Media.Audio.IAudioSessionManager_head
     IAudioSessionManager.GetAudioSessionControl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.Media.Audio.IAudioSessionControl_head), use_last_error=False)(3, 'GetAudioSessionControl', ((1, 'AudioSessionGuid'),(1, 'StreamFlags'),(1, 'SessionControl'),)))
     IAudioSessionManager.GetSimpleAudioVolume = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32,POINTER(win32more.Media.Audio.ISimpleAudioVolume_head), use_last_error=False)(4, 'GetSimpleAudioVolume', ((1, 'AudioSessionGuid'),(1, 'StreamFlags'),(1, 'AudioVolume'),)))
+    win32more.System.Com.IUnknown
     return IAudioSessionManager
 def _define_IAudioVolumeDuckNotification_head():
     class IAudioVolumeDuckNotification(win32more.System.Com.IUnknown_head):
@@ -2498,6 +2558,7 @@ def _define_IAudioVolumeDuckNotification():
     IAudioVolumeDuckNotification = win32more.Media.Audio.IAudioVolumeDuckNotification_head
     IAudioVolumeDuckNotification.OnVolumeDuckNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(3, 'OnVolumeDuckNotification', ((1, 'sessionID'),(1, 'countCommunicationSessions'),)))
     IAudioVolumeDuckNotification.OnVolumeUnduckNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'OnVolumeUnduckNotification', ((1, 'sessionID'),)))
+    win32more.System.Com.IUnknown
     return IAudioVolumeDuckNotification
 def _define_IAudioSessionNotification_head():
     class IAudioSessionNotification(win32more.System.Com.IUnknown_head):
@@ -2506,6 +2567,7 @@ def _define_IAudioSessionNotification_head():
 def _define_IAudioSessionNotification():
     IAudioSessionNotification = win32more.Media.Audio.IAudioSessionNotification_head
     IAudioSessionNotification.OnSessionCreated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSessionControl_head, use_last_error=False)(3, 'OnSessionCreated', ((1, 'NewSession'),)))
+    win32more.System.Com.IUnknown
     return IAudioSessionNotification
 def _define_IAudioSessionEnumerator_head():
     class IAudioSessionEnumerator(win32more.System.Com.IUnknown_head):
@@ -2515,6 +2577,7 @@ def _define_IAudioSessionEnumerator():
     IAudioSessionEnumerator = win32more.Media.Audio.IAudioSessionEnumerator_head
     IAudioSessionEnumerator.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'GetCount', ((1, 'SessionCount'),)))
     IAudioSessionEnumerator.GetSession = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Media.Audio.IAudioSessionControl_head), use_last_error=False)(4, 'GetSession', ((1, 'SessionCount'),(1, 'Session'),)))
+    win32more.System.Com.IUnknown
     return IAudioSessionEnumerator
 def _define_IAudioSessionManager2_head():
     class IAudioSessionManager2(win32more.Media.Audio.IAudioSessionManager_head):
@@ -2527,6 +2590,7 @@ def _define_IAudioSessionManager2():
     IAudioSessionManager2.UnregisterSessionNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioSessionNotification_head, use_last_error=False)(7, 'UnregisterSessionNotification', ((1, 'SessionNotification'),)))
     IAudioSessionManager2.RegisterDuckNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Media.Audio.IAudioVolumeDuckNotification_head, use_last_error=False)(8, 'RegisterDuckNotification', ((1, 'sessionID'),(1, 'duckNotification'),)))
     IAudioSessionManager2.UnregisterDuckNotification = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.IAudioVolumeDuckNotification_head, use_last_error=False)(9, 'UnregisterDuckNotification', ((1, 'duckNotification'),)))
+    win32more.Media.Audio.IAudioSessionManager
     return IAudioSessionManager2
 SpatialAudioMetadataWriterOverflowMode = Int32
 SpatialAudioMetadataWriterOverflow_Fail = 0
@@ -2603,6 +2667,7 @@ def _define_ISpatialAudioMetadataItems():
     ISpatialAudioMetadataItems.GetMaxItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(5, 'GetMaxItemCount', ((1, 'maxItemCount'),)))
     ISpatialAudioMetadataItems.GetMaxValueBufferLength = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetMaxValueBufferLength', ((1, 'maxValueBufferLength'),)))
     ISpatialAudioMetadataItems.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.SpatialAudioMetadataItemsInfo_head), use_last_error=False)(7, 'GetInfo', ((1, 'info'),)))
+    win32more.System.Com.IUnknown
     return ISpatialAudioMetadataItems
 def _define_ISpatialAudioMetadataWriter_head():
     class ISpatialAudioMetadataWriter(win32more.System.Com.IUnknown_head):
@@ -2614,6 +2679,7 @@ def _define_ISpatialAudioMetadataWriter():
     ISpatialAudioMetadataWriter.WriteNextItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16, use_last_error=False)(4, 'WriteNextItem', ((1, 'frameOffset'),)))
     ISpatialAudioMetadataWriter.WriteNextItemCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte,c_void_p,UInt32, use_last_error=False)(5, 'WriteNextItemCommand', ((1, 'commandID'),(1, 'valueBuffer'),(1, 'valueBufferLength'),)))
     ISpatialAudioMetadataWriter.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Close', ()))
+    win32more.System.Com.IUnknown
     return ISpatialAudioMetadataWriter
 def _define_ISpatialAudioMetadataReader_head():
     class ISpatialAudioMetadataReader(win32more.System.Com.IUnknown_head):
@@ -2625,6 +2691,7 @@ def _define_ISpatialAudioMetadataReader():
     ISpatialAudioMetadataReader.ReadNextItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,POINTER(UInt16), use_last_error=False)(4, 'ReadNextItem', ((1, 'commandCount'),(1, 'frameOffset'),)))
     ISpatialAudioMetadataReader.ReadNextItemCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,c_void_p,UInt32,POINTER(UInt32), use_last_error=False)(5, 'ReadNextItemCommand', ((1, 'commandID'),(1, 'valueBuffer'),(1, 'maxValueBufferLength'),(1, 'valueBufferLength'),)))
     ISpatialAudioMetadataReader.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Close', ()))
+    win32more.System.Com.IUnknown
     return ISpatialAudioMetadataReader
 def _define_ISpatialAudioMetadataCopier_head():
     class ISpatialAudioMetadataCopier(win32more.System.Com.IUnknown_head):
@@ -2635,6 +2702,7 @@ def _define_ISpatialAudioMetadataCopier():
     ISpatialAudioMetadataCopier.Open = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.ISpatialAudioMetadataItems_head, use_last_error=False)(3, 'Open', ((1, 'metadataItems'),)))
     ISpatialAudioMetadataCopier.CopyMetadataForFrames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16,win32more.Media.Audio.SpatialAudioMetadataCopyMode,win32more.Media.Audio.ISpatialAudioMetadataItems_head,POINTER(UInt16), use_last_error=False)(4, 'CopyMetadataForFrames', ((1, 'copyFrameCount'),(1, 'copyMode'),(1, 'dstMetadataItems'),(1, 'itemsCopied'),)))
     ISpatialAudioMetadataCopier.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Close', ()))
+    win32more.System.Com.IUnknown
     return ISpatialAudioMetadataCopier
 def _define_ISpatialAudioMetadataItemsBuffer_head():
     class ISpatialAudioMetadataItemsBuffer(win32more.System.Com.IUnknown_head):
@@ -2645,6 +2713,7 @@ def _define_ISpatialAudioMetadataItemsBuffer():
     ISpatialAudioMetadataItemsBuffer.AttachToBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(3, 'AttachToBuffer', ((1, 'buffer'),(1, 'bufferLength'),)))
     ISpatialAudioMetadataItemsBuffer.AttachToPopulatedBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,c_char_p_no,UInt32, use_last_error=False)(4, 'AttachToPopulatedBuffer', ((1, 'buffer'),(1, 'bufferLength'),)))
     ISpatialAudioMetadataItemsBuffer.DetachBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'DetachBuffer', ()))
+    win32more.System.Com.IUnknown
     return ISpatialAudioMetadataItemsBuffer
 def _define_ISpatialAudioMetadataClient_head():
     class ISpatialAudioMetadataClient(win32more.System.Com.IUnknown_head):
@@ -2657,6 +2726,7 @@ def _define_ISpatialAudioMetadataClient():
     ISpatialAudioMetadataClient.ActivateSpatialAudioMetadataWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.SpatialAudioMetadataWriterOverflowMode,POINTER(win32more.Media.Audio.ISpatialAudioMetadataWriter_head), use_last_error=False)(5, 'ActivateSpatialAudioMetadataWriter', ((1, 'overflowMode'),(1, 'metadataWriter'),)))
     ISpatialAudioMetadataClient.ActivateSpatialAudioMetadataCopier = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.ISpatialAudioMetadataCopier_head), use_last_error=False)(6, 'ActivateSpatialAudioMetadataCopier', ((1, 'metadataCopier'),)))
     ISpatialAudioMetadataClient.ActivateSpatialAudioMetadataReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.ISpatialAudioMetadataReader_head), use_last_error=False)(7, 'ActivateSpatialAudioMetadataReader', ((1, 'metadataReader'),)))
+    win32more.System.Com.IUnknown
     return ISpatialAudioMetadataClient
 def _define_ISpatialAudioObjectForMetadataCommands_head():
     class ISpatialAudioObjectForMetadataCommands(win32more.Media.Audio.ISpatialAudioObjectBase_head):
@@ -2665,6 +2735,7 @@ def _define_ISpatialAudioObjectForMetadataCommands_head():
 def _define_ISpatialAudioObjectForMetadataCommands():
     ISpatialAudioObjectForMetadataCommands = win32more.Media.Audio.ISpatialAudioObjectForMetadataCommands_head
     ISpatialAudioObjectForMetadataCommands.WriteNextMetadataCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Byte,c_void_p,UInt32, use_last_error=False)(7, 'WriteNextMetadataCommand', ((1, 'commandID'),(1, 'valueBuffer'),(1, 'valueBufferLength'),)))
+    win32more.Media.Audio.ISpatialAudioObjectBase
     return ISpatialAudioObjectForMetadataCommands
 def _define_ISpatialAudioObjectForMetadataItems_head():
     class ISpatialAudioObjectForMetadataItems(win32more.Media.Audio.ISpatialAudioObjectBase_head):
@@ -2673,6 +2744,7 @@ def _define_ISpatialAudioObjectForMetadataItems_head():
 def _define_ISpatialAudioObjectForMetadataItems():
     ISpatialAudioObjectForMetadataItems = win32more.Media.Audio.ISpatialAudioObjectForMetadataItems_head
     ISpatialAudioObjectForMetadataItems.GetSpatialAudioMetadataItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Media.Audio.ISpatialAudioMetadataItems_head), use_last_error=False)(7, 'GetSpatialAudioMetadataItems', ((1, 'metadataItems'),)))
+    win32more.Media.Audio.ISpatialAudioObjectBase
     return ISpatialAudioObjectForMetadataItems
 def _define_ISpatialAudioObjectRenderStreamForMetadata_head():
     class ISpatialAudioObjectRenderStreamForMetadata(win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase_head):
@@ -2682,6 +2754,7 @@ def _define_ISpatialAudioObjectRenderStreamForMetadata():
     ISpatialAudioObjectRenderStreamForMetadata = win32more.Media.Audio.ISpatialAudioObjectRenderStreamForMetadata_head
     ISpatialAudioObjectRenderStreamForMetadata.ActivateSpatialAudioObjectForMetadataCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType,POINTER(win32more.Media.Audio.ISpatialAudioObjectForMetadataCommands_head), use_last_error=False)(10, 'ActivateSpatialAudioObjectForMetadataCommands', ((1, 'type'),(1, 'audioObject'),)))
     ISpatialAudioObjectRenderStreamForMetadata.ActivateSpatialAudioObjectForMetadataItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.AudioObjectType,POINTER(win32more.Media.Audio.ISpatialAudioObjectForMetadataItems_head), use_last_error=False)(11, 'ActivateSpatialAudioObjectForMetadataItems', ((1, 'type'),(1, 'audioObject'),)))
+    win32more.Media.Audio.ISpatialAudioObjectRenderStreamBase
     return ISpatialAudioObjectRenderStreamForMetadata
 PROCESS_LOOPBACK_MODE = Int32
 PROCESS_LOOPBACK_MODE_INCLUDE_TARGET_PROCESS_TREE = 0
@@ -2734,6 +2807,7 @@ def _define_IAudioStateMonitor():
     IAudioStateMonitor.RegisterCallback = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Media.Audio.PAudioStateMonitorCallback,c_void_p,POINTER(Int64), use_last_error=False)(3, 'RegisterCallback', ((1, 'callback'),(1, 'context'),(1, 'registration'),)))
     IAudioStateMonitor.UnregisterCallback = COMMETHOD(WINFUNCTYPE(Void,Int64, use_last_error=False)(4, 'UnregisterCallback', ((1, 'registration'),)))
     IAudioStateMonitor.GetSoundLevel = COMMETHOD(WINFUNCTYPE(win32more.Media.Audio.AudioStateMonitorSoundLevel, use_last_error=False)(5, 'GetSoundLevel', ()))
+    win32more.System.Com.IUnknown
     return IAudioStateMonitor
 def _define_ACMDRIVERENUMCB():
     return CFUNCTYPE(win32more.Foundation.BOOL,win32more.Media.Audio.HACMDRIVERID,UIntPtr,UInt32, use_last_error=False)

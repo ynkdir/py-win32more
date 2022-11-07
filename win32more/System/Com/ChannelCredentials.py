@@ -30,6 +30,7 @@ def _define_IChannelCredentials():
     IChannelCredentials.SetDefaultServiceCertificateFromFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(14, 'SetDefaultServiceCertificateFromFile', ((1, 'filename'),(1, 'password'),(1, 'keystorageFlags'),)))
     IChannelCredentials.SetServiceCertificateAuthentication = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(15, 'SetServiceCertificateAuthentication', ((1, 'storeLocation'),(1, 'revocationMode'),(1, 'certificateValidationMode'),)))
     IChannelCredentials.SetIssuedToken = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(16, 'SetIssuedToken', ((1, 'localIssuerAddres'),(1, 'localIssuerBindingType'),(1, 'localIssuerBinding'),)))
+    win32more.System.Com.IDispatch
     return IChannelCredentials
 __all__ = [
     "IChannelCredentials",

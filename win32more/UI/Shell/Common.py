@@ -156,6 +156,7 @@ def _define_IObjectArray():
     IObjectArray = win32more.UI.Shell.Common.IObjectArray_head
     IObjectArray.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pcObjects'),)))
     IObjectArray.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(Guid),POINTER(c_void_p), use_last_error=False)(4, 'GetAt', ((1, 'uiIndex'),(1, 'riid'),(1, 'ppv'),)))
+    win32more.System.Com.IUnknown
     return IObjectArray
 def _define_IObjectCollection_head():
     class IObjectCollection(win32more.UI.Shell.Common.IObjectArray_head):
@@ -167,6 +168,7 @@ def _define_IObjectCollection():
     IObjectCollection.AddFromArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.Common.IObjectArray_head, use_last_error=False)(6, 'AddFromArray', ((1, 'poaSource'),)))
     IObjectCollection.RemoveObjectAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'RemoveObjectAt', ((1, 'uiIndex'),)))
     IObjectCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Clear', ()))
+    win32more.UI.Shell.Common.IObjectArray
     return IObjectCollection
 __all__ = [
     "PERCEIVEDFLAG_UNDEFINED",

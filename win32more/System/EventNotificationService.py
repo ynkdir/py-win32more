@@ -67,6 +67,7 @@ def _define_ISensNetwork():
     ISensNetwork.ConnectionLost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.EventNotificationService.SENS_CONNECTION_TYPE, use_last_error=False)(9, 'ConnectionLost', ((1, 'bstrConnection'),(1, 'ulType'),)))
     ISensNetwork.DestinationReachable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32,POINTER(win32more.System.EventNotificationService.SENS_QOCINFO_head), use_last_error=False)(10, 'DestinationReachable', ((1, 'bstrDestination'),(1, 'bstrConnection'),(1, 'ulType'),(1, 'lpQOCInfo'),)))
     ISensNetwork.DestinationReachableNoQOCInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,UInt32, use_last_error=False)(11, 'DestinationReachableNoQOCInfo', ((1, 'bstrDestination'),(1, 'bstrConnection'),(1, 'ulType'),)))
+    win32more.System.Com.IDispatch
     return ISensNetwork
 def _define_ISensOnNow_head():
     class ISensOnNow(win32more.System.Com.IDispatch_head):
@@ -77,6 +78,7 @@ def _define_ISensOnNow():
     ISensOnNow.OnACPower = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'OnACPower', ()))
     ISensOnNow.OnBatteryPower = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(8, 'OnBatteryPower', ((1, 'dwBatteryLifePercent'),)))
     ISensOnNow.BatteryLow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'BatteryLow', ((1, 'dwBatteryLifePercent'),)))
+    win32more.System.Com.IDispatch
     return ISensOnNow
 def _define_ISensLogon_head():
     class ISensLogon(win32more.System.Com.IDispatch_head):
@@ -91,6 +93,7 @@ def _define_ISensLogon():
     ISensLogon.DisplayUnlock = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'DisplayUnlock', ((1, 'bstrUserName'),)))
     ISensLogon.StartScreenSaver = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'StartScreenSaver', ((1, 'bstrUserName'),)))
     ISensLogon.StopScreenSaver = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(13, 'StopScreenSaver', ((1, 'bstrUserName'),)))
+    win32more.System.Com.IDispatch
     return ISensLogon
 def _define_ISensLogon2_head():
     class ISensLogon2(win32more.System.Com.IDispatch_head):
@@ -103,6 +106,7 @@ def _define_ISensLogon2():
     ISensLogon2.SessionDisconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32, use_last_error=False)(9, 'SessionDisconnect', ((1, 'bstrUserName'),(1, 'dwSessionId'),)))
     ISensLogon2.SessionReconnect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32, use_last_error=False)(10, 'SessionReconnect', ((1, 'bstrUserName'),(1, 'dwSessionId'),)))
     ISensLogon2.PostShell = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,UInt32, use_last_error=False)(11, 'PostShell', ((1, 'bstrUserName'),(1, 'dwSessionId'),)))
+    win32more.System.Com.IDispatch
     return ISensLogon2
 def _define_IsDestinationReachableA():
     try:

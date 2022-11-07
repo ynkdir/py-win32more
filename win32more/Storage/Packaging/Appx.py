@@ -141,6 +141,7 @@ def _define_IAppxFactory():
     IAppxFactory.CreateManifestReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestReader_head), use_last_error=False)(5, 'CreateManifestReader', ((1, 'inputStream'),(1, 'manifestReader'),)))
     IAppxFactory.CreateBlockMapReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.IAppxBlockMapReader_head), use_last_error=False)(6, 'CreateBlockMapReader', ((1, 'inputStream'),(1, 'blockMapReader'),)))
     IAppxFactory.CreateValidatedBlockMapReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.Foundation.PWSTR,POINTER(win32more.Storage.Packaging.Appx.IAppxBlockMapReader_head), use_last_error=False)(7, 'CreateValidatedBlockMapReader', ((1, 'blockMapStream'),(1, 'signatureFileName'),(1, 'blockMapReader'),)))
+    win32more.System.Com.IUnknown
     return IAppxFactory
 def _define_IAppxFactory2_head():
     class IAppxFactory2(win32more.System.Com.IUnknown_head):
@@ -151,6 +152,7 @@ def _define_IAppxFactory2():
     IAppxFactory2.CreateContentGroupMapReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.IAppxContentGroupMapReader_head), use_last_error=False)(3, 'CreateContentGroupMapReader', ((1, 'inputStream'),(1, 'contentGroupMapReader'),)))
     IAppxFactory2.CreateSourceContentGroupMapReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.IAppxSourceContentGroupMapReader_head), use_last_error=False)(4, 'CreateSourceContentGroupMapReader', ((1, 'inputStream'),(1, 'reader'),)))
     IAppxFactory2.CreateContentGroupMapWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.IAppxContentGroupMapWriter_head), use_last_error=False)(5, 'CreateContentGroupMapWriter', ((1, 'stream'),(1, 'contentGroupMapWriter'),)))
+    win32more.System.Com.IUnknown
     return IAppxFactory2
 def _define_IAppxPackageReader_head():
     class IAppxPackageReader(win32more.System.Com.IUnknown_head):
@@ -163,6 +165,7 @@ def _define_IAppxPackageReader():
     IAppxPackageReader.GetPayloadFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.Packaging.Appx.IAppxFile_head), use_last_error=False)(5, 'GetPayloadFile', ((1, 'fileName'),(1, 'file'),)))
     IAppxPackageReader.GetPayloadFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxFilesEnumerator_head), use_last_error=False)(6, 'GetPayloadFiles', ((1, 'filesEnumerator'),)))
     IAppxPackageReader.GetManifest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestReader_head), use_last_error=False)(7, 'GetManifest', ((1, 'manifestReader'),)))
+    win32more.System.Com.IUnknown
     return IAppxPackageReader
 def _define_IAppxPackageWriter_head():
     class IAppxPackageWriter(win32more.System.Com.IUnknown_head):
@@ -172,6 +175,7 @@ def _define_IAppxPackageWriter():
     IAppxPackageWriter = win32more.Storage.Packaging.Appx.IAppxPackageWriter_head
     IAppxPackageWriter.AddPayloadFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION,win32more.System.Com.IStream_head, use_last_error=False)(3, 'AddPayloadFile', ((1, 'fileName'),(1, 'contentType'),(1, 'compressionOption'),(1, 'inputStream'),)))
     IAppxPackageWriter.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head, use_last_error=False)(4, 'Close', ((1, 'manifest'),)))
+    win32more.System.Com.IUnknown
     return IAppxPackageWriter
 def _define_IAppxPackageWriter2_head():
     class IAppxPackageWriter2(win32more.System.Com.IUnknown_head):
@@ -180,6 +184,7 @@ def _define_IAppxPackageWriter2_head():
 def _define_IAppxPackageWriter2():
     IAppxPackageWriter2 = win32more.Storage.Packaging.Appx.IAppxPackageWriter2_head
     IAppxPackageWriter2.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head, use_last_error=False)(3, 'Close', ((1, 'manifest'),(1, 'contentGroupMap'),)))
+    win32more.System.Com.IUnknown
     return IAppxPackageWriter2
 def _define_IAppxPackageWriter3_head():
     class IAppxPackageWriter3(win32more.System.Com.IUnknown_head):
@@ -188,6 +193,7 @@ def _define_IAppxPackageWriter3_head():
 def _define_IAppxPackageWriter3():
     IAppxPackageWriter3 = win32more.Storage.Packaging.Appx.IAppxPackageWriter3_head
     IAppxPackageWriter3.AddPayloadFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.Packaging.Appx.APPX_PACKAGE_WRITER_PAYLOAD_STREAM),UInt64, use_last_error=False)(3, 'AddPayloadFiles', ((1, 'fileCount'),(1, 'payloadFiles'),(1, 'memoryLimit'),)))
+    win32more.System.Com.IUnknown
     return IAppxPackageWriter3
 def _define_IAppxFile_head():
     class IAppxFile(win32more.System.Com.IUnknown_head):
@@ -200,6 +206,7 @@ def _define_IAppxFile():
     IAppxFile.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetName', ((1, 'fileName'),)))
     IAppxFile.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(6, 'GetSize', ((1, 'size'),)))
     IAppxFile.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(7, 'GetStream', ((1, 'stream'),)))
+    win32more.System.Com.IUnknown
     return IAppxFile
 def _define_IAppxFilesEnumerator_head():
     class IAppxFilesEnumerator(win32more.System.Com.IUnknown_head):
@@ -210,6 +217,7 @@ def _define_IAppxFilesEnumerator():
     IAppxFilesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxFile_head), use_last_error=False)(3, 'GetCurrent', ((1, 'file'),)))
     IAppxFilesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxFilesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxFilesEnumerator
 def _define_IAppxBlockMapReader_head():
     class IAppxBlockMapReader(win32more.System.Com.IUnknown_head):
@@ -221,6 +229,7 @@ def _define_IAppxBlockMapReader():
     IAppxBlockMapReader.GetFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxBlockMapFilesEnumerator_head), use_last_error=False)(4, 'GetFiles', ((1, 'enumerator'),)))
     IAppxBlockMapReader.GetHashMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUri_head), use_last_error=False)(5, 'GetHashMethod', ((1, 'hashMethod'),)))
     IAppxBlockMapReader.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(6, 'GetStream', ((1, 'blockMapStream'),)))
+    win32more.System.Com.IUnknown
     return IAppxBlockMapReader
 def _define_IAppxBlockMapFile_head():
     class IAppxBlockMapFile(win32more.System.Com.IUnknown_head):
@@ -233,6 +242,7 @@ def _define_IAppxBlockMapFile():
     IAppxBlockMapFile.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetName', ((1, 'name'),)))
     IAppxBlockMapFile.GetUncompressedSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(6, 'GetUncompressedSize', ((1, 'size'),)))
     IAppxBlockMapFile.ValidateFileHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'ValidateFileHash', ((1, 'fileStream'),(1, 'isValid'),)))
+    win32more.System.Com.IUnknown
     return IAppxBlockMapFile
 def _define_IAppxBlockMapFilesEnumerator_head():
     class IAppxBlockMapFilesEnumerator(win32more.System.Com.IUnknown_head):
@@ -243,6 +253,7 @@ def _define_IAppxBlockMapFilesEnumerator():
     IAppxBlockMapFilesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxBlockMapFile_head), use_last_error=False)(3, 'GetCurrent', ((1, 'file'),)))
     IAppxBlockMapFilesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxBlockMapFilesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasCurrent'),)))
+    win32more.System.Com.IUnknown
     return IAppxBlockMapFilesEnumerator
 def _define_IAppxBlockMapBlock_head():
     class IAppxBlockMapBlock(win32more.System.Com.IUnknown_head):
@@ -252,6 +263,7 @@ def _define_IAppxBlockMapBlock():
     IAppxBlockMapBlock = win32more.Storage.Packaging.Appx.IAppxBlockMapBlock_head
     IAppxBlockMapBlock.GetHash = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(3, 'GetHash', ((1, 'bufferSize'),(1, 'buffer'),)))
     IAppxBlockMapBlock.GetCompressedSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetCompressedSize', ((1, 'size'),)))
+    win32more.System.Com.IUnknown
     return IAppxBlockMapBlock
 def _define_IAppxBlockMapBlocksEnumerator_head():
     class IAppxBlockMapBlocksEnumerator(win32more.System.Com.IUnknown_head):
@@ -262,6 +274,7 @@ def _define_IAppxBlockMapBlocksEnumerator():
     IAppxBlockMapBlocksEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxBlockMapBlock_head), use_last_error=False)(3, 'GetCurrent', ((1, 'block'),)))
     IAppxBlockMapBlocksEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxBlockMapBlocksEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxBlockMapBlocksEnumerator
 def _define_IAppxManifestReader_head():
     class IAppxManifestReader(win32more.System.Com.IUnknown_head):
@@ -278,6 +291,7 @@ def _define_IAppxManifestReader():
     IAppxManifestReader.GetPrerequisite = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(UInt64), use_last_error=False)(9, 'GetPrerequisite', ((1, 'name'),(1, 'value'),)))
     IAppxManifestReader.GetApplications = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestApplicationsEnumerator_head), use_last_error=False)(10, 'GetApplications', ((1, 'applications'),)))
     IAppxManifestReader.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(11, 'GetStream', ((1, 'manifestStream'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestReader
 def _define_IAppxManifestReader2_head():
     class IAppxManifestReader2(win32more.Storage.Packaging.Appx.IAppxManifestReader_head):
@@ -286,6 +300,7 @@ def _define_IAppxManifestReader2_head():
 def _define_IAppxManifestReader2():
     IAppxManifestReader2 = win32more.Storage.Packaging.Appx.IAppxManifestReader2_head
     IAppxManifestReader2.GetQualifiedResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestQualifiedResourcesEnumerator_head), use_last_error=False)(12, 'GetQualifiedResources', ((1, 'resources'),)))
+    win32more.Storage.Packaging.Appx.IAppxManifestReader
     return IAppxManifestReader2
 def _define_IAppxManifestReader3_head():
     class IAppxManifestReader3(win32more.Storage.Packaging.Appx.IAppxManifestReader2_head):
@@ -295,6 +310,7 @@ def _define_IAppxManifestReader3():
     IAppxManifestReader3 = win32more.Storage.Packaging.Appx.IAppxManifestReader3_head
     IAppxManifestReader3.GetCapabilitiesByCapabilityClass = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Appx.APPX_CAPABILITY_CLASS_TYPE,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestCapabilitiesEnumerator_head), use_last_error=False)(13, 'GetCapabilitiesByCapabilityClass', ((1, 'capabilityClass'),(1, 'capabilities'),)))
     IAppxManifestReader3.GetTargetDeviceFamilies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestTargetDeviceFamiliesEnumerator_head), use_last_error=False)(14, 'GetTargetDeviceFamilies', ((1, 'targetDeviceFamilies'),)))
+    win32more.Storage.Packaging.Appx.IAppxManifestReader2
     return IAppxManifestReader3
 def _define_IAppxManifestReader4_head():
     class IAppxManifestReader4(win32more.Storage.Packaging.Appx.IAppxManifestReader3_head):
@@ -303,6 +319,7 @@ def _define_IAppxManifestReader4_head():
 def _define_IAppxManifestReader4():
     IAppxManifestReader4 = win32more.Storage.Packaging.Appx.IAppxManifestReader4_head
     IAppxManifestReader4.GetOptionalPackageInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestOptionalPackageInfo_head), use_last_error=False)(15, 'GetOptionalPackageInfo', ((1, 'optionalPackageInfo'),)))
+    win32more.Storage.Packaging.Appx.IAppxManifestReader3
     return IAppxManifestReader4
 def _define_IAppxManifestReader5_head():
     class IAppxManifestReader5(win32more.System.Com.IUnknown_head):
@@ -311,6 +328,7 @@ def _define_IAppxManifestReader5_head():
 def _define_IAppxManifestReader5():
     IAppxManifestReader5 = win32more.Storage.Packaging.Appx.IAppxManifestReader5_head
     IAppxManifestReader5.GetMainPackageDependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestMainPackageDependenciesEnumerator_head), use_last_error=False)(3, 'GetMainPackageDependencies', ((1, 'mainPackageDependencies'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestReader5
 def _define_IAppxManifestReader6_head():
     class IAppxManifestReader6(win32more.System.Com.IUnknown_head):
@@ -319,6 +337,7 @@ def _define_IAppxManifestReader6_head():
 def _define_IAppxManifestReader6():
     IAppxManifestReader6 = win32more.Storage.Packaging.Appx.IAppxManifestReader6_head
     IAppxManifestReader6.GetIsNonQualifiedResourcePackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetIsNonQualifiedResourcePackage', ((1, 'isNonQualifiedResourcePackage'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestReader6
 def _define_IAppxManifestReader7_head():
     class IAppxManifestReader7(win32more.System.Com.IUnknown_head):
@@ -329,6 +348,7 @@ def _define_IAppxManifestReader7():
     IAppxManifestReader7.GetDriverDependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestDriverDependenciesEnumerator_head), use_last_error=False)(3, 'GetDriverDependencies', ((1, 'driverDependencies'),)))
     IAppxManifestReader7.GetOSPackageDependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestOSPackageDependenciesEnumerator_head), use_last_error=False)(4, 'GetOSPackageDependencies', ((1, 'osPackageDependencies'),)))
     IAppxManifestReader7.GetHostRuntimeDependencies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestHostRuntimeDependenciesEnumerator_head), use_last_error=False)(5, 'GetHostRuntimeDependencies', ((1, 'hostRuntimeDependencies'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestReader7
 def _define_IAppxManifestDriverDependenciesEnumerator_head():
     class IAppxManifestDriverDependenciesEnumerator(win32more.System.Com.IUnknown_head):
@@ -339,6 +359,7 @@ def _define_IAppxManifestDriverDependenciesEnumerator():
     IAppxManifestDriverDependenciesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestDriverDependency_head), use_last_error=False)(3, 'GetCurrent', ((1, 'driverDependency'),)))
     IAppxManifestDriverDependenciesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestDriverDependenciesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestDriverDependenciesEnumerator
 def _define_IAppxManifestDriverDependency_head():
     class IAppxManifestDriverDependency(win32more.System.Com.IUnknown_head):
@@ -347,6 +368,7 @@ def _define_IAppxManifestDriverDependency_head():
 def _define_IAppxManifestDriverDependency():
     IAppxManifestDriverDependency = win32more.Storage.Packaging.Appx.IAppxManifestDriverDependency_head
     IAppxManifestDriverDependency.GetDriverConstraints = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestDriverConstraintsEnumerator_head), use_last_error=False)(3, 'GetDriverConstraints', ((1, 'driverConstraints'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestDriverDependency
 def _define_IAppxManifestDriverConstraintsEnumerator_head():
     class IAppxManifestDriverConstraintsEnumerator(win32more.System.Com.IUnknown_head):
@@ -357,6 +379,7 @@ def _define_IAppxManifestDriverConstraintsEnumerator():
     IAppxManifestDriverConstraintsEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestDriverConstraint_head), use_last_error=False)(3, 'GetCurrent', ((1, 'driverConstraint'),)))
     IAppxManifestDriverConstraintsEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestDriverConstraintsEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestDriverConstraintsEnumerator
 def _define_IAppxManifestDriverConstraint_head():
     class IAppxManifestDriverConstraint(win32more.System.Com.IUnknown_head):
@@ -367,6 +390,7 @@ def _define_IAppxManifestDriverConstraint():
     IAppxManifestDriverConstraint.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'name'),)))
     IAppxManifestDriverConstraint.GetMinVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(4, 'GetMinVersion', ((1, 'minVersion'),)))
     IAppxManifestDriverConstraint.GetMinDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetMinDate', ((1, 'minDate'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestDriverConstraint
 def _define_IAppxManifestOSPackageDependenciesEnumerator_head():
     class IAppxManifestOSPackageDependenciesEnumerator(win32more.System.Com.IUnknown_head):
@@ -377,6 +401,7 @@ def _define_IAppxManifestOSPackageDependenciesEnumerator():
     IAppxManifestOSPackageDependenciesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestOSPackageDependency_head), use_last_error=False)(3, 'GetCurrent', ((1, 'osPackageDependency'),)))
     IAppxManifestOSPackageDependenciesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestOSPackageDependenciesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestOSPackageDependenciesEnumerator
 def _define_IAppxManifestOSPackageDependency_head():
     class IAppxManifestOSPackageDependency(win32more.System.Com.IUnknown_head):
@@ -386,6 +411,7 @@ def _define_IAppxManifestOSPackageDependency():
     IAppxManifestOSPackageDependency = win32more.Storage.Packaging.Appx.IAppxManifestOSPackageDependency_head
     IAppxManifestOSPackageDependency.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'name'),)))
     IAppxManifestOSPackageDependency.GetVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(4, 'GetVersion', ((1, 'version'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestOSPackageDependency
 def _define_IAppxManifestHostRuntimeDependenciesEnumerator_head():
     class IAppxManifestHostRuntimeDependenciesEnumerator(win32more.System.Com.IUnknown_head):
@@ -396,6 +422,7 @@ def _define_IAppxManifestHostRuntimeDependenciesEnumerator():
     IAppxManifestHostRuntimeDependenciesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestHostRuntimeDependency_head), use_last_error=False)(3, 'GetCurrent', ((1, 'hostRuntimeDependency'),)))
     IAppxManifestHostRuntimeDependenciesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestHostRuntimeDependenciesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestHostRuntimeDependenciesEnumerator
 def _define_IAppxManifestHostRuntimeDependency_head():
     class IAppxManifestHostRuntimeDependency(win32more.System.Com.IUnknown_head):
@@ -406,6 +433,7 @@ def _define_IAppxManifestHostRuntimeDependency():
     IAppxManifestHostRuntimeDependency.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'name'),)))
     IAppxManifestHostRuntimeDependency.GetPublisher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetPublisher', ((1, 'publisher'),)))
     IAppxManifestHostRuntimeDependency.GetMinVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(5, 'GetMinVersion', ((1, 'minVersion'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestHostRuntimeDependency
 def _define_IAppxManifestHostRuntimeDependency2_head():
     class IAppxManifestHostRuntimeDependency2(win32more.System.Com.IUnknown_head):
@@ -414,6 +442,7 @@ def _define_IAppxManifestHostRuntimeDependency2_head():
 def _define_IAppxManifestHostRuntimeDependency2():
     IAppxManifestHostRuntimeDependency2 = win32more.Storage.Packaging.Appx.IAppxManifestHostRuntimeDependency2_head
     IAppxManifestHostRuntimeDependency2.GetPackageFamilyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetPackageFamilyName', ((1, 'packageFamilyName'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestHostRuntimeDependency2
 def _define_IAppxManifestOptionalPackageInfo_head():
     class IAppxManifestOptionalPackageInfo(win32more.System.Com.IUnknown_head):
@@ -423,6 +452,7 @@ def _define_IAppxManifestOptionalPackageInfo():
     IAppxManifestOptionalPackageInfo = win32more.Storage.Packaging.Appx.IAppxManifestOptionalPackageInfo_head
     IAppxManifestOptionalPackageInfo.GetIsOptionalPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetIsOptionalPackage', ((1, 'isOptionalPackage'),)))
     IAppxManifestOptionalPackageInfo.GetMainPackageName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetMainPackageName', ((1, 'mainPackageName'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestOptionalPackageInfo
 def _define_IAppxManifestMainPackageDependenciesEnumerator_head():
     class IAppxManifestMainPackageDependenciesEnumerator(win32more.System.Com.IUnknown_head):
@@ -433,6 +463,7 @@ def _define_IAppxManifestMainPackageDependenciesEnumerator():
     IAppxManifestMainPackageDependenciesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestMainPackageDependency_head), use_last_error=False)(3, 'GetCurrent', ((1, 'mainPackageDependency'),)))
     IAppxManifestMainPackageDependenciesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestMainPackageDependenciesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestMainPackageDependenciesEnumerator
 def _define_IAppxManifestMainPackageDependency_head():
     class IAppxManifestMainPackageDependency(win32more.System.Com.IUnknown_head):
@@ -443,6 +474,7 @@ def _define_IAppxManifestMainPackageDependency():
     IAppxManifestMainPackageDependency.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'name'),)))
     IAppxManifestMainPackageDependency.GetPublisher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetPublisher', ((1, 'publisher'),)))
     IAppxManifestMainPackageDependency.GetPackageFamilyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetPackageFamilyName', ((1, 'packageFamilyName'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestMainPackageDependency
 def _define_IAppxManifestPackageId_head():
     class IAppxManifestPackageId(win32more.System.Com.IUnknown_head):
@@ -458,6 +490,7 @@ def _define_IAppxManifestPackageId():
     IAppxManifestPackageId.ComparePublisher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'ComparePublisher', ((1, 'other'),(1, 'isSame'),)))
     IAppxManifestPackageId.GetPackageFullName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'GetPackageFullName', ((1, 'packageFullName'),)))
     IAppxManifestPackageId.GetPackageFamilyName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(10, 'GetPackageFamilyName', ((1, 'packageFamilyName'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestPackageId
 def _define_IAppxManifestPackageId2_head():
     class IAppxManifestPackageId2(win32more.Storage.Packaging.Appx.IAppxManifestPackageId_head):
@@ -466,6 +499,7 @@ def _define_IAppxManifestPackageId2_head():
 def _define_IAppxManifestPackageId2():
     IAppxManifestPackageId2 = win32more.Storage.Packaging.Appx.IAppxManifestPackageId2_head
     IAppxManifestPackageId2.GetArchitecture2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.APPX_PACKAGE_ARCHITECTURE2), use_last_error=False)(11, 'GetArchitecture2', ((1, 'architecture'),)))
+    win32more.Storage.Packaging.Appx.IAppxManifestPackageId
     return IAppxManifestPackageId2
 def _define_IAppxManifestProperties_head():
     class IAppxManifestProperties(win32more.System.Com.IUnknown_head):
@@ -475,6 +509,7 @@ def _define_IAppxManifestProperties():
     IAppxManifestProperties = win32more.Storage.Packaging.Appx.IAppxManifestProperties_head
     IAppxManifestProperties.GetBoolValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetBoolValue', ((1, 'name'),(1, 'value'),)))
     IAppxManifestProperties.GetStringValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetStringValue', ((1, 'name'),(1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestProperties
 def _define_IAppxManifestTargetDeviceFamiliesEnumerator_head():
     class IAppxManifestTargetDeviceFamiliesEnumerator(win32more.System.Com.IUnknown_head):
@@ -485,6 +520,7 @@ def _define_IAppxManifestTargetDeviceFamiliesEnumerator():
     IAppxManifestTargetDeviceFamiliesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestTargetDeviceFamily_head), use_last_error=False)(3, 'GetCurrent', ((1, 'targetDeviceFamily'),)))
     IAppxManifestTargetDeviceFamiliesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestTargetDeviceFamiliesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestTargetDeviceFamiliesEnumerator
 def _define_IAppxManifestTargetDeviceFamily_head():
     class IAppxManifestTargetDeviceFamily(win32more.System.Com.IUnknown_head):
@@ -495,6 +531,7 @@ def _define_IAppxManifestTargetDeviceFamily():
     IAppxManifestTargetDeviceFamily.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'name'),)))
     IAppxManifestTargetDeviceFamily.GetMinVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(4, 'GetMinVersion', ((1, 'minVersion'),)))
     IAppxManifestTargetDeviceFamily.GetMaxVersionTested = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(5, 'GetMaxVersionTested', ((1, 'maxVersionTested'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestTargetDeviceFamily
 def _define_IAppxManifestPackageDependenciesEnumerator_head():
     class IAppxManifestPackageDependenciesEnumerator(win32more.System.Com.IUnknown_head):
@@ -505,6 +542,7 @@ def _define_IAppxManifestPackageDependenciesEnumerator():
     IAppxManifestPackageDependenciesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestPackageDependency_head), use_last_error=False)(3, 'GetCurrent', ((1, 'dependency'),)))
     IAppxManifestPackageDependenciesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestPackageDependenciesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestPackageDependenciesEnumerator
 def _define_IAppxManifestPackageDependency_head():
     class IAppxManifestPackageDependency(win32more.System.Com.IUnknown_head):
@@ -515,6 +553,7 @@ def _define_IAppxManifestPackageDependency():
     IAppxManifestPackageDependency.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'name'),)))
     IAppxManifestPackageDependency.GetPublisher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetPublisher', ((1, 'publisher'),)))
     IAppxManifestPackageDependency.GetMinVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(5, 'GetMinVersion', ((1, 'minVersion'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestPackageDependency
 def _define_IAppxManifestPackageDependency2_head():
     class IAppxManifestPackageDependency2(win32more.Storage.Packaging.Appx.IAppxManifestPackageDependency_head):
@@ -523,6 +562,7 @@ def _define_IAppxManifestPackageDependency2_head():
 def _define_IAppxManifestPackageDependency2():
     IAppxManifestPackageDependency2 = win32more.Storage.Packaging.Appx.IAppxManifestPackageDependency2_head
     IAppxManifestPackageDependency2.GetMaxMajorVersionTested = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt16), use_last_error=False)(6, 'GetMaxMajorVersionTested', ((1, 'maxMajorVersionTested'),)))
+    win32more.Storage.Packaging.Appx.IAppxManifestPackageDependency
     return IAppxManifestPackageDependency2
 def _define_IAppxManifestPackageDependency3_head():
     class IAppxManifestPackageDependency3(win32more.System.Com.IUnknown_head):
@@ -531,6 +571,7 @@ def _define_IAppxManifestPackageDependency3_head():
 def _define_IAppxManifestPackageDependency3():
     IAppxManifestPackageDependency3 = win32more.Storage.Packaging.Appx.IAppxManifestPackageDependency3_head
     IAppxManifestPackageDependency3.GetIsOptional = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetIsOptional', ((1, 'isOptional'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestPackageDependency3
 def _define_IAppxManifestResourcesEnumerator_head():
     class IAppxManifestResourcesEnumerator(win32more.System.Com.IUnknown_head):
@@ -541,6 +582,7 @@ def _define_IAppxManifestResourcesEnumerator():
     IAppxManifestResourcesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetCurrent', ((1, 'resource'),)))
     IAppxManifestResourcesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestResourcesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestResourcesEnumerator
 def _define_IAppxManifestDeviceCapabilitiesEnumerator_head():
     class IAppxManifestDeviceCapabilitiesEnumerator(win32more.System.Com.IUnknown_head):
@@ -551,6 +593,7 @@ def _define_IAppxManifestDeviceCapabilitiesEnumerator():
     IAppxManifestDeviceCapabilitiesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetCurrent', ((1, 'deviceCapability'),)))
     IAppxManifestDeviceCapabilitiesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestDeviceCapabilitiesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestDeviceCapabilitiesEnumerator
 def _define_IAppxManifestCapabilitiesEnumerator_head():
     class IAppxManifestCapabilitiesEnumerator(win32more.System.Com.IUnknown_head):
@@ -561,6 +604,7 @@ def _define_IAppxManifestCapabilitiesEnumerator():
     IAppxManifestCapabilitiesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetCurrent', ((1, 'capability'),)))
     IAppxManifestCapabilitiesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestCapabilitiesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestCapabilitiesEnumerator
 def _define_IAppxManifestApplicationsEnumerator_head():
     class IAppxManifestApplicationsEnumerator(win32more.System.Com.IUnknown_head):
@@ -571,6 +615,7 @@ def _define_IAppxManifestApplicationsEnumerator():
     IAppxManifestApplicationsEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestApplication_head), use_last_error=False)(3, 'GetCurrent', ((1, 'application'),)))
     IAppxManifestApplicationsEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestApplicationsEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestApplicationsEnumerator
 def _define_IAppxManifestApplication_head():
     class IAppxManifestApplication(win32more.System.Com.IUnknown_head):
@@ -580,6 +625,7 @@ def _define_IAppxManifestApplication():
     IAppxManifestApplication = win32more.Storage.Packaging.Appx.IAppxManifestApplication_head
     IAppxManifestApplication.GetStringValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetStringValue', ((1, 'name'),(1, 'value'),)))
     IAppxManifestApplication.GetAppUserModelId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetAppUserModelId', ((1, 'appUserModelId'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestApplication
 def _define_IAppxManifestQualifiedResourcesEnumerator_head():
     class IAppxManifestQualifiedResourcesEnumerator(win32more.System.Com.IUnknown_head):
@@ -590,6 +636,7 @@ def _define_IAppxManifestQualifiedResourcesEnumerator():
     IAppxManifestQualifiedResourcesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestQualifiedResource_head), use_last_error=False)(3, 'GetCurrent', ((1, 'resource'),)))
     IAppxManifestQualifiedResourcesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxManifestQualifiedResourcesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestQualifiedResourcesEnumerator
 def _define_IAppxManifestQualifiedResource_head():
     class IAppxManifestQualifiedResource(win32more.System.Com.IUnknown_head):
@@ -600,6 +647,7 @@ def _define_IAppxManifestQualifiedResource():
     IAppxManifestQualifiedResource.GetLanguage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetLanguage', ((1, 'language'),)))
     IAppxManifestQualifiedResource.GetScale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(4, 'GetScale', ((1, 'scale'),)))
     IAppxManifestQualifiedResource.GetDXFeatureLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.DX_FEATURE_LEVEL), use_last_error=False)(5, 'GetDXFeatureLevel', ((1, 'dxFeatureLevel'),)))
+    win32more.System.Com.IUnknown
     return IAppxManifestQualifiedResource
 def _define_IAppxBundleFactory_head():
     class IAppxBundleFactory(win32more.System.Com.IUnknown_head):
@@ -610,6 +658,7 @@ def _define_IAppxBundleFactory():
     IAppxBundleFactory.CreateBundleWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,UInt64,POINTER(win32more.Storage.Packaging.Appx.IAppxBundleWriter_head), use_last_error=False)(3, 'CreateBundleWriter', ((1, 'outputStream'),(1, 'bundleVersion'),(1, 'bundleWriter'),)))
     IAppxBundleFactory.CreateBundleReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.IAppxBundleReader_head), use_last_error=False)(4, 'CreateBundleReader', ((1, 'inputStream'),(1, 'bundleReader'),)))
     IAppxBundleFactory.CreateBundleManifestReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.IAppxBundleManifestReader_head), use_last_error=False)(5, 'CreateBundleManifestReader', ((1, 'inputStream'),(1, 'manifestReader'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleFactory
 def _define_IAppxBundleWriter_head():
     class IAppxBundleWriter(win32more.System.Com.IUnknown_head):
@@ -619,6 +668,7 @@ def _define_IAppxBundleWriter():
     IAppxBundleWriter = win32more.Storage.Packaging.Appx.IAppxBundleWriter_head
     IAppxBundleWriter.AddPayloadPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head, use_last_error=False)(3, 'AddPayloadPackage', ((1, 'fileName'),(1, 'packageStream'),)))
     IAppxBundleWriter.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IAppxBundleWriter
 def _define_IAppxBundleWriter2_head():
     class IAppxBundleWriter2(win32more.System.Com.IUnknown_head):
@@ -627,6 +677,7 @@ def _define_IAppxBundleWriter2_head():
 def _define_IAppxBundleWriter2():
     IAppxBundleWriter2 = win32more.Storage.Packaging.Appx.IAppxBundleWriter2_head
     IAppxBundleWriter2.AddExternalPackageReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head, use_last_error=False)(3, 'AddExternalPackageReference', ((1, 'fileName'),(1, 'inputStream'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleWriter2
 def _define_IAppxBundleWriter3_head():
     class IAppxBundleWriter3(win32more.System.Com.IUnknown_head):
@@ -636,6 +687,7 @@ def _define_IAppxBundleWriter3():
     IAppxBundleWriter3 = win32more.Storage.Packaging.Appx.IAppxBundleWriter3_head
     IAppxBundleWriter3.AddPackageReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head, use_last_error=False)(3, 'AddPackageReference', ((1, 'fileName'),(1, 'inputStream'),)))
     IAppxBundleWriter3.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'Close', ((1, 'hashMethodString'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleWriter3
 def _define_IAppxBundleWriter4_head():
     class IAppxBundleWriter4(win32more.System.Com.IUnknown_head):
@@ -646,6 +698,7 @@ def _define_IAppxBundleWriter4():
     IAppxBundleWriter4.AddPayloadPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head,win32more.Foundation.BOOL, use_last_error=False)(3, 'AddPayloadPackage', ((1, 'fileName'),(1, 'packageStream'),(1, 'isDefaultApplicablePackage'),)))
     IAppxBundleWriter4.AddPackageReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head,win32more.Foundation.BOOL, use_last_error=False)(4, 'AddPackageReference', ((1, 'fileName'),(1, 'inputStream'),(1, 'isDefaultApplicablePackage'),)))
     IAppxBundleWriter4.AddExternalPackageReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head,win32more.Foundation.BOOL, use_last_error=False)(5, 'AddExternalPackageReference', ((1, 'fileName'),(1, 'inputStream'),(1, 'isDefaultApplicablePackage'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleWriter4
 def _define_IAppxBundleReader_head():
     class IAppxBundleReader(win32more.System.Com.IUnknown_head):
@@ -658,6 +711,7 @@ def _define_IAppxBundleReader():
     IAppxBundleReader.GetManifest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxBundleManifestReader_head), use_last_error=False)(5, 'GetManifest', ((1, 'manifestReader'),)))
     IAppxBundleReader.GetPayloadPackages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxFilesEnumerator_head), use_last_error=False)(6, 'GetPayloadPackages', ((1, 'payloadPackages'),)))
     IAppxBundleReader.GetPayloadPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Storage.Packaging.Appx.IAppxFile_head), use_last_error=False)(7, 'GetPayloadPackage', ((1, 'fileName'),(1, 'payloadPackage'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleReader
 def _define_IAppxBundleManifestReader_head():
     class IAppxBundleManifestReader(win32more.System.Com.IUnknown_head):
@@ -668,6 +722,7 @@ def _define_IAppxBundleManifestReader():
     IAppxBundleManifestReader.GetPackageId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestPackageId_head), use_last_error=False)(3, 'GetPackageId', ((1, 'packageId'),)))
     IAppxBundleManifestReader.GetPackageInfoItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxBundleManifestPackageInfoEnumerator_head), use_last_error=False)(4, 'GetPackageInfoItems', ((1, 'packageInfoItems'),)))
     IAppxBundleManifestReader.GetStream = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IStream_head), use_last_error=False)(5, 'GetStream', ((1, 'manifestStream'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleManifestReader
 def _define_IAppxBundleManifestReader2_head():
     class IAppxBundleManifestReader2(win32more.System.Com.IUnknown_head):
@@ -676,6 +731,7 @@ def _define_IAppxBundleManifestReader2_head():
 def _define_IAppxBundleManifestReader2():
     IAppxBundleManifestReader2 = win32more.Storage.Packaging.Appx.IAppxBundleManifestReader2_head
     IAppxBundleManifestReader2.GetOptionalBundles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxBundleManifestOptionalBundleInfoEnumerator_head), use_last_error=False)(3, 'GetOptionalBundles', ((1, 'optionalBundles'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleManifestReader2
 def _define_IAppxBundleManifestPackageInfoEnumerator_head():
     class IAppxBundleManifestPackageInfoEnumerator(win32more.System.Com.IUnknown_head):
@@ -686,6 +742,7 @@ def _define_IAppxBundleManifestPackageInfoEnumerator():
     IAppxBundleManifestPackageInfoEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxBundleManifestPackageInfo_head), use_last_error=False)(3, 'GetCurrent', ((1, 'packageInfo'),)))
     IAppxBundleManifestPackageInfoEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxBundleManifestPackageInfoEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleManifestPackageInfoEnumerator
 def _define_IAppxBundleManifestPackageInfo_head():
     class IAppxBundleManifestPackageInfo(win32more.System.Com.IUnknown_head):
@@ -699,6 +756,7 @@ def _define_IAppxBundleManifestPackageInfo():
     IAppxBundleManifestPackageInfo.GetOffset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(6, 'GetOffset', ((1, 'offset'),)))
     IAppxBundleManifestPackageInfo.GetSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt64), use_last_error=False)(7, 'GetSize', ((1, 'size'),)))
     IAppxBundleManifestPackageInfo.GetResources = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestQualifiedResourcesEnumerator_head), use_last_error=False)(8, 'GetResources', ((1, 'resources'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleManifestPackageInfo
 def _define_IAppxBundleManifestPackageInfo2_head():
     class IAppxBundleManifestPackageInfo2(win32more.System.Com.IUnknown_head):
@@ -709,6 +767,7 @@ def _define_IAppxBundleManifestPackageInfo2():
     IAppxBundleManifestPackageInfo2.GetIsPackageReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetIsPackageReference', ((1, 'isPackageReference'),)))
     IAppxBundleManifestPackageInfo2.GetIsNonQualifiedResourcePackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetIsNonQualifiedResourcePackage', ((1, 'isNonQualifiedResourcePackage'),)))
     IAppxBundleManifestPackageInfo2.GetIsDefaultApplicablePackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'GetIsDefaultApplicablePackage', ((1, 'isDefaultApplicablePackage'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleManifestPackageInfo2
 def _define_IAppxBundleManifestPackageInfo3_head():
     class IAppxBundleManifestPackageInfo3(win32more.System.Com.IUnknown_head):
@@ -717,6 +776,7 @@ def _define_IAppxBundleManifestPackageInfo3_head():
 def _define_IAppxBundleManifestPackageInfo3():
     IAppxBundleManifestPackageInfo3 = win32more.Storage.Packaging.Appx.IAppxBundleManifestPackageInfo3_head
     IAppxBundleManifestPackageInfo3.GetTargetDeviceFamilies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestTargetDeviceFamiliesEnumerator_head), use_last_error=False)(3, 'GetTargetDeviceFamilies', ((1, 'targetDeviceFamilies'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleManifestPackageInfo3
 def _define_IAppxBundleManifestPackageInfo4_head():
     class IAppxBundleManifestPackageInfo4(win32more.System.Com.IUnknown_head):
@@ -725,6 +785,7 @@ def _define_IAppxBundleManifestPackageInfo4_head():
 def _define_IAppxBundleManifestPackageInfo4():
     IAppxBundleManifestPackageInfo4 = win32more.Storage.Packaging.Appx.IAppxBundleManifestPackageInfo4_head
     IAppxBundleManifestPackageInfo4.GetIsStub = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetIsStub', ((1, 'isStub'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleManifestPackageInfo4
 def _define_IAppxBundleManifestOptionalBundleInfoEnumerator_head():
     class IAppxBundleManifestOptionalBundleInfoEnumerator(win32more.System.Com.IUnknown_head):
@@ -735,6 +796,7 @@ def _define_IAppxBundleManifestOptionalBundleInfoEnumerator():
     IAppxBundleManifestOptionalBundleInfoEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxBundleManifestOptionalBundleInfo_head), use_last_error=False)(3, 'GetCurrent', ((1, 'optionalBundle'),)))
     IAppxBundleManifestOptionalBundleInfoEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxBundleManifestOptionalBundleInfoEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleManifestOptionalBundleInfoEnumerator
 def _define_IAppxBundleManifestOptionalBundleInfo_head():
     class IAppxBundleManifestOptionalBundleInfo(win32more.System.Com.IUnknown_head):
@@ -745,6 +807,7 @@ def _define_IAppxBundleManifestOptionalBundleInfo():
     IAppxBundleManifestOptionalBundleInfo.GetPackageId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxManifestPackageId_head), use_last_error=False)(3, 'GetPackageId', ((1, 'packageId'),)))
     IAppxBundleManifestOptionalBundleInfo.GetFileName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetFileName', ((1, 'fileName'),)))
     IAppxBundleManifestOptionalBundleInfo.GetPackageInfoItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxBundleManifestPackageInfoEnumerator_head), use_last_error=False)(5, 'GetPackageInfoItems', ((1, 'packageInfoItems'),)))
+    win32more.System.Com.IUnknown
     return IAppxBundleManifestOptionalBundleInfo
 def _define_IAppxContentGroupFilesEnumerator_head():
     class IAppxContentGroupFilesEnumerator(win32more.System.Com.IUnknown_head):
@@ -755,6 +818,7 @@ def _define_IAppxContentGroupFilesEnumerator():
     IAppxContentGroupFilesEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetCurrent', ((1, 'file'),)))
     IAppxContentGroupFilesEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxContentGroupFilesEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxContentGroupFilesEnumerator
 def _define_IAppxContentGroup_head():
     class IAppxContentGroup(win32more.System.Com.IUnknown_head):
@@ -764,6 +828,7 @@ def _define_IAppxContentGroup():
     IAppxContentGroup = win32more.Storage.Packaging.Appx.IAppxContentGroup_head
     IAppxContentGroup.GetName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetName', ((1, 'groupName'),)))
     IAppxContentGroup.GetFiles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxContentGroupFilesEnumerator_head), use_last_error=False)(4, 'GetFiles', ((1, 'enumerator'),)))
+    win32more.System.Com.IUnknown
     return IAppxContentGroup
 def _define_IAppxContentGroupsEnumerator_head():
     class IAppxContentGroupsEnumerator(win32more.System.Com.IUnknown_head):
@@ -774,6 +839,7 @@ def _define_IAppxContentGroupsEnumerator():
     IAppxContentGroupsEnumerator.GetCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxContentGroup_head), use_last_error=False)(3, 'GetCurrent', ((1, 'stream'),)))
     IAppxContentGroupsEnumerator.GetHasCurrent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'GetHasCurrent', ((1, 'hasCurrent'),)))
     IAppxContentGroupsEnumerator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'MoveNext', ((1, 'hasNext'),)))
+    win32more.System.Com.IUnknown
     return IAppxContentGroupsEnumerator
 def _define_IAppxContentGroupMapReader_head():
     class IAppxContentGroupMapReader(win32more.System.Com.IUnknown_head):
@@ -783,6 +849,7 @@ def _define_IAppxContentGroupMapReader():
     IAppxContentGroupMapReader = win32more.Storage.Packaging.Appx.IAppxContentGroupMapReader_head
     IAppxContentGroupMapReader.GetRequiredGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxContentGroup_head), use_last_error=False)(3, 'GetRequiredGroup', ((1, 'requiredGroup'),)))
     IAppxContentGroupMapReader.GetAutomaticGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxContentGroupsEnumerator_head), use_last_error=False)(4, 'GetAutomaticGroups', ((1, 'automaticGroupsEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IAppxContentGroupMapReader
 def _define_IAppxSourceContentGroupMapReader_head():
     class IAppxSourceContentGroupMapReader(win32more.System.Com.IUnknown_head):
@@ -792,6 +859,7 @@ def _define_IAppxSourceContentGroupMapReader():
     IAppxSourceContentGroupMapReader = win32more.Storage.Packaging.Appx.IAppxSourceContentGroupMapReader_head
     IAppxSourceContentGroupMapReader.GetRequiredGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxContentGroup_head), use_last_error=False)(3, 'GetRequiredGroup', ((1, 'requiredGroup'),)))
     IAppxSourceContentGroupMapReader.GetAutomaticGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Storage.Packaging.Appx.IAppxContentGroupsEnumerator_head), use_last_error=False)(4, 'GetAutomaticGroups', ((1, 'automaticGroupsEnumerator'),)))
+    win32more.System.Com.IUnknown
     return IAppxSourceContentGroupMapReader
 def _define_IAppxContentGroupMapWriter_head():
     class IAppxContentGroupMapWriter(win32more.System.Com.IUnknown_head):
@@ -802,6 +870,7 @@ def _define_IAppxContentGroupMapWriter():
     IAppxContentGroupMapWriter.AddAutomaticGroup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'AddAutomaticGroup', ((1, 'groupName'),)))
     IAppxContentGroupMapWriter.AddAutomaticFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'AddAutomaticFile', ((1, 'fileName'),)))
     IAppxContentGroupMapWriter.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IAppxContentGroupMapWriter
 def _define_IAppxPackagingDiagnosticEventSink_head():
     class IAppxPackagingDiagnosticEventSink(win32more.System.Com.IUnknown_head):
@@ -811,6 +880,7 @@ def _define_IAppxPackagingDiagnosticEventSink():
     IAppxPackagingDiagnosticEventSink = win32more.Storage.Packaging.Appx.IAppxPackagingDiagnosticEventSink_head
     IAppxPackagingDiagnosticEventSink.ReportContextChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Appx.APPX_PACKAGING_CONTEXT_CHANGE_TYPE,Int32,win32more.Foundation.PSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'ReportContextChange', ((1, 'changeType'),(1, 'contextId'),(1, 'contextName'),(1, 'contextMessage'),(1, 'detailsMessage'),)))
     IAppxPackagingDiagnosticEventSink.ReportError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'ReportError', ((1, 'errorMessage'),)))
+    win32more.System.Com.IUnknown
     return IAppxPackagingDiagnosticEventSink
 def _define_IAppxPackagingDiagnosticEventSinkManager_head():
     class IAppxPackagingDiagnosticEventSinkManager(win32more.System.Com.IUnknown_head):
@@ -819,6 +889,7 @@ def _define_IAppxPackagingDiagnosticEventSinkManager_head():
 def _define_IAppxPackagingDiagnosticEventSinkManager():
     IAppxPackagingDiagnosticEventSinkManager = win32more.Storage.Packaging.Appx.IAppxPackagingDiagnosticEventSinkManager_head
     IAppxPackagingDiagnosticEventSinkManager.SetSinkForProcess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Storage.Packaging.Appx.IAppxPackagingDiagnosticEventSink_head, use_last_error=False)(3, 'SetSinkForProcess', ((1, 'sink'),)))
+    win32more.System.Com.IUnknown
     return IAppxPackagingDiagnosticEventSinkManager
 def _define_APPX_ENCRYPTED_PACKAGE_SETTINGS_head():
     class APPX_ENCRYPTED_PACKAGE_SETTINGS(Structure):
@@ -888,6 +959,7 @@ def _define_IAppxEncryptionFactory():
     IAppxEncryptionFactory.DecryptBundle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.APPX_KEY_INFO_head), use_last_error=False)(8, 'DecryptBundle', ((1, 'inputStream'),(1, 'outputStream'),(1, 'keyInfo'),)))
     IAppxEncryptionFactory.CreateEncryptedBundleWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,UInt64,POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS_head),POINTER(win32more.Storage.Packaging.Appx.APPX_KEY_INFO_head),POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head),POINTER(win32more.Storage.Packaging.Appx.IAppxEncryptedBundleWriter_head), use_last_error=False)(9, 'CreateEncryptedBundleWriter', ((1, 'outputStream'),(1, 'bundleVersion'),(1, 'settings'),(1, 'keyInfo'),(1, 'exemptedFiles'),(1, 'bundleWriter'),)))
     IAppxEncryptionFactory.CreateEncryptedBundleReader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.APPX_KEY_INFO_head),POINTER(win32more.Storage.Packaging.Appx.IAppxBundleReader_head), use_last_error=False)(10, 'CreateEncryptedBundleReader', ((1, 'inputStream'),(1, 'keyInfo'),(1, 'bundleReader'),)))
+    win32more.System.Com.IUnknown
     return IAppxEncryptionFactory
 def _define_IAppxEncryptionFactory2_head():
     class IAppxEncryptionFactory2(win32more.System.Com.IUnknown_head):
@@ -896,6 +968,7 @@ def _define_IAppxEncryptionFactory2_head():
 def _define_IAppxEncryptionFactory2():
     IAppxEncryptionFactory2 = win32more.Storage.Packaging.Appx.IAppxEncryptionFactory2_head
     IAppxEncryptionFactory2.CreateEncryptedPackageWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS_head),POINTER(win32more.Storage.Packaging.Appx.APPX_KEY_INFO_head),POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head),POINTER(win32more.Storage.Packaging.Appx.IAppxEncryptedPackageWriter_head), use_last_error=False)(3, 'CreateEncryptedPackageWriter', ((1, 'outputStream'),(1, 'manifestStream'),(1, 'contentGroupMapStream'),(1, 'settings'),(1, 'keyInfo'),(1, 'exemptedFiles'),(1, 'packageWriter'),)))
+    win32more.System.Com.IUnknown
     return IAppxEncryptionFactory2
 def _define_IAppxEncryptionFactory3_head():
     class IAppxEncryptionFactory3(win32more.System.Com.IUnknown_head):
@@ -907,6 +980,7 @@ def _define_IAppxEncryptionFactory3():
     IAppxEncryptionFactory3.CreateEncryptedPackageWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS2_head),POINTER(win32more.Storage.Packaging.Appx.APPX_KEY_INFO_head),POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head),POINTER(win32more.Storage.Packaging.Appx.IAppxEncryptedPackageWriter_head), use_last_error=False)(4, 'CreateEncryptedPackageWriter', ((1, 'outputStream'),(1, 'manifestStream'),(1, 'contentGroupMapStream'),(1, 'settings'),(1, 'keyInfo'),(1, 'exemptedFiles'),(1, 'packageWriter'),)))
     IAppxEncryptionFactory3.EncryptBundle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS2_head),POINTER(win32more.Storage.Packaging.Appx.APPX_KEY_INFO_head),POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head), use_last_error=False)(5, 'EncryptBundle', ((1, 'inputStream'),(1, 'outputStream'),(1, 'settings'),(1, 'keyInfo'),(1, 'exemptedFiles'),)))
     IAppxEncryptionFactory3.CreateEncryptedBundleWriter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,UInt64,POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS2_head),POINTER(win32more.Storage.Packaging.Appx.APPX_KEY_INFO_head),POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head),POINTER(win32more.Storage.Packaging.Appx.IAppxEncryptedBundleWriter_head), use_last_error=False)(6, 'CreateEncryptedBundleWriter', ((1, 'outputStream'),(1, 'bundleVersion'),(1, 'settings'),(1, 'keyInfo'),(1, 'exemptedFiles'),(1, 'bundleWriter'),)))
+    win32more.System.Com.IUnknown
     return IAppxEncryptionFactory3
 def _define_IAppxEncryptionFactory4_head():
     class IAppxEncryptionFactory4(win32more.System.Com.IUnknown_head):
@@ -915,6 +989,7 @@ def _define_IAppxEncryptionFactory4_head():
 def _define_IAppxEncryptionFactory4():
     IAppxEncryptionFactory4 = win32more.Storage.Packaging.Appx.IAppxEncryptionFactory4_head
     IAppxEncryptionFactory4.EncryptPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS2_head),POINTER(win32more.Storage.Packaging.Appx.APPX_KEY_INFO_head),POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_EXEMPTIONS_head),UInt64, use_last_error=False)(3, 'EncryptPackage', ((1, 'inputStream'),(1, 'outputStream'),(1, 'settings'),(1, 'keyInfo'),(1, 'exemptedFiles'),(1, 'memoryLimit'),)))
+    win32more.System.Com.IUnknown
     return IAppxEncryptionFactory4
 def _define_IAppxEncryptedPackageWriter_head():
     class IAppxEncryptedPackageWriter(win32more.System.Com.IUnknown_head):
@@ -924,6 +999,7 @@ def _define_IAppxEncryptedPackageWriter():
     IAppxEncryptedPackageWriter = win32more.Storage.Packaging.Appx.IAppxEncryptedPackageWriter_head
     IAppxEncryptedPackageWriter.AddPayloadFileEncrypted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Storage.Packaging.Appx.APPX_COMPRESSION_OPTION,win32more.System.Com.IStream_head, use_last_error=False)(3, 'AddPayloadFileEncrypted', ((1, 'fileName'),(1, 'compressionOption'),(1, 'inputStream'),)))
     IAppxEncryptedPackageWriter.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IAppxEncryptedPackageWriter
 def _define_IAppxEncryptedPackageWriter2_head():
     class IAppxEncryptedPackageWriter2(win32more.System.Com.IUnknown_head):
@@ -932,6 +1008,7 @@ def _define_IAppxEncryptedPackageWriter2_head():
 def _define_IAppxEncryptedPackageWriter2():
     IAppxEncryptedPackageWriter2 = win32more.Storage.Packaging.Appx.IAppxEncryptedPackageWriter2_head
     IAppxEncryptedPackageWriter2.AddPayloadFilesEncrypted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Storage.Packaging.Appx.APPX_PACKAGE_WRITER_PAYLOAD_STREAM),UInt64, use_last_error=False)(3, 'AddPayloadFilesEncrypted', ((1, 'fileCount'),(1, 'payloadFiles'),(1, 'memoryLimit'),)))
+    win32more.System.Com.IUnknown
     return IAppxEncryptedPackageWriter2
 def _define_IAppxEncryptedBundleWriter_head():
     class IAppxEncryptedBundleWriter(win32more.System.Com.IUnknown_head):
@@ -941,6 +1018,7 @@ def _define_IAppxEncryptedBundleWriter():
     IAppxEncryptedBundleWriter = win32more.Storage.Packaging.Appx.IAppxEncryptedBundleWriter_head
     IAppxEncryptedBundleWriter.AddPayloadPackageEncrypted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head, use_last_error=False)(3, 'AddPayloadPackageEncrypted', ((1, 'fileName'),(1, 'packageStream'),)))
     IAppxEncryptedBundleWriter.Close = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Close', ()))
+    win32more.System.Com.IUnknown
     return IAppxEncryptedBundleWriter
 def _define_IAppxEncryptedBundleWriter2_head():
     class IAppxEncryptedBundleWriter2(win32more.System.Com.IUnknown_head):
@@ -949,6 +1027,7 @@ def _define_IAppxEncryptedBundleWriter2_head():
 def _define_IAppxEncryptedBundleWriter2():
     IAppxEncryptedBundleWriter2 = win32more.Storage.Packaging.Appx.IAppxEncryptedBundleWriter2_head
     IAppxEncryptedBundleWriter2.AddExternalPackageReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head, use_last_error=False)(3, 'AddExternalPackageReference', ((1, 'fileName'),(1, 'inputStream'),)))
+    win32more.System.Com.IUnknown
     return IAppxEncryptedBundleWriter2
 APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION = Int32
 APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION_APPEND_DELTA = 0
@@ -964,6 +1043,7 @@ def _define_IAppxEncryptedBundleWriter3():
     IAppxEncryptedBundleWriter3 = win32more.Storage.Packaging.Appx.IAppxEncryptedBundleWriter3_head
     IAppxEncryptedBundleWriter3.AddPayloadPackageEncrypted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head,win32more.Foundation.BOOL, use_last_error=False)(3, 'AddPayloadPackageEncrypted', ((1, 'fileName'),(1, 'packageStream'),(1, 'isDefaultApplicablePackage'),)))
     IAppxEncryptedBundleWriter3.AddExternalPackageReference = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.System.Com.IStream_head,win32more.Foundation.BOOL, use_last_error=False)(4, 'AddExternalPackageReference', ((1, 'fileName'),(1, 'inputStream'),(1, 'isDefaultApplicablePackage'),)))
+    win32more.System.Com.IUnknown
     return IAppxEncryptedBundleWriter3
 def _define_IAppxPackageEditor_head():
     class IAppxPackageEditor(win32more.System.Com.IUnknown_head):
@@ -977,6 +1057,7 @@ def _define_IAppxPackageEditor():
     IAppxPackageEditor.UpdatePackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION, use_last_error=False)(6, 'UpdatePackage', ((1, 'baselinePackageStream'),(1, 'deltaPackageStream'),(1, 'updateOption'),)))
     IAppxPackageEditor.UpdateEncryptedPackage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,win32more.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_OPTION,POINTER(win32more.Storage.Packaging.Appx.APPX_ENCRYPTED_PACKAGE_SETTINGS2_head),POINTER(win32more.Storage.Packaging.Appx.APPX_KEY_INFO_head), use_last_error=False)(7, 'UpdateEncryptedPackage', ((1, 'baselineEncryptedPackageStream'),(1, 'deltaPackageStream'),(1, 'updateOption'),(1, 'settings'),(1, 'keyInfo'),)))
     IAppxPackageEditor.UpdatePackageManifest = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IStream_head,win32more.System.Com.IStream_head,win32more.Foundation.BOOL,win32more.Storage.Packaging.Appx.APPX_PACKAGE_EDITOR_UPDATE_PACKAGE_MANIFEST_OPTIONS, use_last_error=False)(8, 'UpdatePackageManifest', ((1, 'packageStream'),(1, 'updatedManifestStream'),(1, 'isPackageEncrypted'),(1, 'options'),)))
+    win32more.System.Com.IUnknown
     return IAppxPackageEditor
 def _define_PACKAGE_VERSION_head():
     class PACKAGE_VERSION(Structure):

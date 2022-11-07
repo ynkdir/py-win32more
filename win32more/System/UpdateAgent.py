@@ -590,6 +590,7 @@ def _define_IUpdateLockdown_head():
 def _define_IUpdateLockdown():
     IUpdateLockdown = win32more.System.UpdateAgent.IUpdateLockdown_head
     IUpdateLockdown.LockDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(3, 'LockDown', ((1, 'flags'),)))
+    win32more.System.Com.IUnknown
     return IUpdateLockdown
 def _define_IStringCollection_head():
     class IStringCollection(win32more.System.Com.IDispatch_head):
@@ -607,6 +608,7 @@ def _define_IStringCollection():
     IStringCollection.Copy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IStringCollection_head), use_last_error=False)(14, 'Copy', ((1, 'retval'),)))
     IStringCollection.Insert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.Foundation.BSTR, use_last_error=False)(15, 'Insert', ((1, 'index'),(1, 'value'),)))
     IStringCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(16, 'RemoveAt', ((1, 'index'),)))
+    win32more.System.Com.IDispatch
     return IStringCollection
 def _define_IWebProxy_head():
     class IWebProxy(win32more.System.Com.IDispatch_head):
@@ -628,6 +630,7 @@ def _define_IWebProxy():
     IWebProxy.PromptForCredentialsFromHwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,win32more.Foundation.BSTR, use_last_error=False)(18, 'PromptForCredentialsFromHwnd', ((1, 'parentWindow'),(1, 'title'),)))
     IWebProxy.get_AutoDetect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(19, 'get_AutoDetect', ((1, 'retval'),)))
     IWebProxy.put_AutoDetect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(20, 'put_AutoDetect', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IWebProxy
 def _define_ISystemInformation_head():
     class ISystemInformation(win32more.System.Com.IDispatch_head):
@@ -637,6 +640,7 @@ def _define_ISystemInformation():
     ISystemInformation = win32more.System.UpdateAgent.ISystemInformation_head
     ISystemInformation.get_OemHardwareSupportLink = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_OemHardwareSupportLink', ((1, 'retval'),)))
     ISystemInformation.get_RebootRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_RebootRequired', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return ISystemInformation
 def _define_IWindowsUpdateAgentInfo_head():
     class IWindowsUpdateAgentInfo(win32more.System.Com.IDispatch_head):
@@ -645,6 +649,7 @@ def _define_IWindowsUpdateAgentInfo_head():
 def _define_IWindowsUpdateAgentInfo():
     IWindowsUpdateAgentInfo = win32more.System.UpdateAgent.IWindowsUpdateAgentInfo_head
     IWindowsUpdateAgentInfo.GetInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'GetInfo', ((1, 'varInfoIdentifier'),(1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IWindowsUpdateAgentInfo
 def _define_IAutomaticUpdatesResults_head():
     class IAutomaticUpdatesResults(win32more.System.Com.IDispatch_head):
@@ -654,6 +659,7 @@ def _define_IAutomaticUpdatesResults():
     IAutomaticUpdatesResults = win32more.System.UpdateAgent.IAutomaticUpdatesResults_head
     IAutomaticUpdatesResults.get_LastSearchSuccessDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(7, 'get_LastSearchSuccessDate', ((1, 'retval'),)))
     IAutomaticUpdatesResults.get_LastInstallationSuccessDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'get_LastInstallationSuccessDate', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IAutomaticUpdatesResults
 def _define_IAutomaticUpdatesSettings_head():
     class IAutomaticUpdatesSettings(win32more.System.Com.IDispatch_head):
@@ -671,6 +677,7 @@ def _define_IAutomaticUpdatesSettings():
     IAutomaticUpdatesSettings.put_ScheduledInstallationTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(14, 'put_ScheduledInstallationTime', ((1, 'value'),)))
     IAutomaticUpdatesSettings.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Refresh', ()))
     IAutomaticUpdatesSettings.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Save', ()))
+    win32more.System.Com.IDispatch
     return IAutomaticUpdatesSettings
 def _define_IAutomaticUpdatesSettings2_head():
     class IAutomaticUpdatesSettings2(win32more.System.UpdateAgent.IAutomaticUpdatesSettings_head):
@@ -681,6 +688,7 @@ def _define_IAutomaticUpdatesSettings2():
     IAutomaticUpdatesSettings2.get_IncludeRecommendedUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(17, 'get_IncludeRecommendedUpdates', ((1, 'retval'),)))
     IAutomaticUpdatesSettings2.put_IncludeRecommendedUpdates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(18, 'put_IncludeRecommendedUpdates', ((1, 'value'),)))
     IAutomaticUpdatesSettings2.CheckPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.AutomaticUpdatesUserType,win32more.System.UpdateAgent.AutomaticUpdatesPermissionType,POINTER(Int16), use_last_error=False)(19, 'CheckPermission', ((1, 'userType'),(1, 'permissionType'),(1, 'userHasPermission'),)))
+    win32more.System.UpdateAgent.IAutomaticUpdatesSettings
     return IAutomaticUpdatesSettings2
 def _define_IAutomaticUpdatesSettings3_head():
     class IAutomaticUpdatesSettings3(win32more.System.UpdateAgent.IAutomaticUpdatesSettings2_head):
@@ -692,6 +700,7 @@ def _define_IAutomaticUpdatesSettings3():
     IAutomaticUpdatesSettings3.put_NonAdministratorsElevated = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(21, 'put_NonAdministratorsElevated', ((1, 'value'),)))
     IAutomaticUpdatesSettings3.get_FeaturedUpdatesEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(22, 'get_FeaturedUpdatesEnabled', ((1, 'retval'),)))
     IAutomaticUpdatesSettings3.put_FeaturedUpdatesEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(23, 'put_FeaturedUpdatesEnabled', ((1, 'value'),)))
+    win32more.System.UpdateAgent.IAutomaticUpdatesSettings2
     return IAutomaticUpdatesSettings3
 def _define_IAutomaticUpdates_head():
     class IAutomaticUpdates(win32more.System.Com.IDispatch_head):
@@ -706,6 +715,7 @@ def _define_IAutomaticUpdates():
     IAutomaticUpdates.get_Settings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IAutomaticUpdatesSettings_head), use_last_error=False)(11, 'get_Settings', ((1, 'retval'),)))
     IAutomaticUpdates.get_ServiceEnabled = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(12, 'get_ServiceEnabled', ((1, 'retval'),)))
     IAutomaticUpdates.EnableService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'EnableService', ()))
+    win32more.System.Com.IDispatch
     return IAutomaticUpdates
 def _define_IAutomaticUpdates2_head():
     class IAutomaticUpdates2(win32more.System.UpdateAgent.IAutomaticUpdates_head):
@@ -714,6 +724,7 @@ def _define_IAutomaticUpdates2_head():
 def _define_IAutomaticUpdates2():
     IAutomaticUpdates2 = win32more.System.UpdateAgent.IAutomaticUpdates2_head
     IAutomaticUpdates2.get_Results = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IAutomaticUpdatesResults_head), use_last_error=False)(14, 'get_Results', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IAutomaticUpdates
     return IAutomaticUpdates2
 def _define_IUpdateIdentity_head():
     class IUpdateIdentity(win32more.System.Com.IDispatch_head):
@@ -723,6 +734,7 @@ def _define_IUpdateIdentity():
     IUpdateIdentity = win32more.System.UpdateAgent.IUpdateIdentity_head
     IUpdateIdentity.get_RevisionNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_RevisionNumber', ((1, 'retval'),)))
     IUpdateIdentity.get_UpdateID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_UpdateID', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateIdentity
 def _define_IImageInformation_head():
     class IImageInformation(win32more.System.Com.IDispatch_head):
@@ -734,6 +746,7 @@ def _define_IImageInformation():
     IImageInformation.get_Height = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_Height', ((1, 'retval'),)))
     IImageInformation.get_Source = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Source', ((1, 'retval'),)))
     IImageInformation.get_Width = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_Width', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IImageInformation
 def _define_ICategory_head():
     class ICategory(win32more.System.Com.IDispatch_head):
@@ -750,6 +763,7 @@ def _define_ICategory():
     ICategory.get_Parent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.ICategory_head), use_last_error=False)(13, 'get_Parent', ((1, 'retval'),)))
     ICategory.get_Type = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_Type', ((1, 'retval'),)))
     ICategory.get_Updates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateCollection_head), use_last_error=False)(15, 'get_Updates', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return ICategory
 def _define_ICategoryCollection_head():
     class ICategoryCollection(win32more.System.Com.IDispatch_head):
@@ -760,6 +774,7 @@ def _define_ICategoryCollection():
     ICategoryCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.ICategory_head), use_last_error=False)(7, 'get_Item', ((1, 'index'),(1, 'retval'),)))
     ICategoryCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     ICategoryCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return ICategoryCollection
 def _define_IInstallationBehavior_head():
     class IInstallationBehavior(win32more.System.Com.IDispatch_head):
@@ -771,6 +786,7 @@ def _define_IInstallationBehavior():
     IInstallationBehavior.get_Impact = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.InstallationImpact), use_last_error=False)(8, 'get_Impact', ((1, 'retval'),)))
     IInstallationBehavior.get_RebootBehavior = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.InstallationRebootBehavior), use_last_error=False)(9, 'get_RebootBehavior', ((1, 'retval'),)))
     IInstallationBehavior.get_RequiresNetworkConnectivity = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_RequiresNetworkConnectivity', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IInstallationBehavior
 def _define_IUpdateDownloadContent_head():
     class IUpdateDownloadContent(win32more.System.Com.IDispatch_head):
@@ -779,6 +795,7 @@ def _define_IUpdateDownloadContent_head():
 def _define_IUpdateDownloadContent():
     IUpdateDownloadContent = win32more.System.UpdateAgent.IUpdateDownloadContent_head
     IUpdateDownloadContent.get_DownloadUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_DownloadUrl', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateDownloadContent
 def _define_IUpdateDownloadContent2_head():
     class IUpdateDownloadContent2(win32more.System.UpdateAgent.IUpdateDownloadContent_head):
@@ -787,6 +804,7 @@ def _define_IUpdateDownloadContent2_head():
 def _define_IUpdateDownloadContent2():
     IUpdateDownloadContent2 = win32more.System.UpdateAgent.IUpdateDownloadContent2_head
     IUpdateDownloadContent2.get_IsDeltaCompressedContent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_IsDeltaCompressedContent', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdateDownloadContent
     return IUpdateDownloadContent2
 def _define_IUpdateDownloadContentCollection_head():
     class IUpdateDownloadContentCollection(win32more.System.Com.IDispatch_head):
@@ -797,6 +815,7 @@ def _define_IUpdateDownloadContentCollection():
     IUpdateDownloadContentCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.IUpdateDownloadContent_head), use_last_error=False)(7, 'get_Item', ((1, 'index'),(1, 'retval'),)))
     IUpdateDownloadContentCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     IUpdateDownloadContentCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateDownloadContentCollection
 def _define_IUpdate_head():
     class IUpdate(win32more.System.Com.IDispatch_head):
@@ -849,6 +868,7 @@ def _define_IUpdate():
     IUpdate.CopyFromCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(49, 'CopyFromCache', ((1, 'path'),(1, 'toExtractCabFiles'),)))
     IUpdate.get_DownloadPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.DownloadPriority), use_last_error=False)(50, 'get_DownloadPriority', ((1, 'retval'),)))
     IUpdate.get_DownloadContents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateDownloadContentCollection_head), use_last_error=False)(51, 'get_DownloadContents', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdate
 def _define_IWindowsDriverUpdate_head():
     class IWindowsDriverUpdate(win32more.System.UpdateAgent.IUpdate_head):
@@ -864,6 +884,7 @@ def _define_IWindowsDriverUpdate():
     IWindowsDriverUpdate.get_DriverVerDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(57, 'get_DriverVerDate', ((1, 'retval'),)))
     IWindowsDriverUpdate.get_DeviceProblemNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(58, 'get_DeviceProblemNumber', ((1, 'retval'),)))
     IWindowsDriverUpdate.get_DeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(59, 'get_DeviceStatus', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdate
     return IWindowsDriverUpdate
 def _define_IUpdate2_head():
     class IUpdate2(win32more.System.UpdateAgent.IUpdate_head):
@@ -875,6 +896,7 @@ def _define_IUpdate2():
     IUpdate2.get_IsPresent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(53, 'get_IsPresent', ((1, 'retval'),)))
     IUpdate2.get_CveIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IStringCollection_head), use_last_error=False)(54, 'get_CveIDs', ((1, 'retval'),)))
     IUpdate2.CopyToCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.IStringCollection_head, use_last_error=False)(55, 'CopyToCache', ((1, 'pFiles'),)))
+    win32more.System.UpdateAgent.IUpdate
     return IUpdate2
 def _define_IUpdate3_head():
     class IUpdate3(win32more.System.UpdateAgent.IUpdate2_head):
@@ -883,6 +905,7 @@ def _define_IUpdate3_head():
 def _define_IUpdate3():
     IUpdate3 = win32more.System.UpdateAgent.IUpdate3_head
     IUpdate3.get_BrowseOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(56, 'get_BrowseOnly', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdate2
     return IUpdate3
 def _define_IUpdate4_head():
     class IUpdate4(win32more.System.UpdateAgent.IUpdate3_head):
@@ -891,6 +914,7 @@ def _define_IUpdate4_head():
 def _define_IUpdate4():
     IUpdate4 = win32more.System.UpdateAgent.IUpdate4_head
     IUpdate4.get_PerUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(57, 'get_PerUser', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdate3
     return IUpdate4
 def _define_IUpdate5_head():
     class IUpdate5(win32more.System.UpdateAgent.IUpdate4_head):
@@ -900,6 +924,7 @@ def _define_IUpdate5():
     IUpdate5 = win32more.System.UpdateAgent.IUpdate5_head
     IUpdate5.get_AutoSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.AutoSelectionMode), use_last_error=False)(58, 'get_AutoSelection', ((1, 'retval'),)))
     IUpdate5.get_AutoDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.AutoDownloadMode), use_last_error=False)(59, 'get_AutoDownload', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdate4
     return IUpdate5
 def _define_IWindowsDriverUpdate2_head():
     class IWindowsDriverUpdate2(win32more.System.UpdateAgent.IWindowsDriverUpdate_head):
@@ -911,6 +936,7 @@ def _define_IWindowsDriverUpdate2():
     IWindowsDriverUpdate2.get_IsPresent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(61, 'get_IsPresent', ((1, 'retval'),)))
     IWindowsDriverUpdate2.get_CveIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IStringCollection_head), use_last_error=False)(62, 'get_CveIDs', ((1, 'retval'),)))
     IWindowsDriverUpdate2.CopyToCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.IStringCollection_head, use_last_error=False)(63, 'CopyToCache', ((1, 'pFiles'),)))
+    win32more.System.UpdateAgent.IWindowsDriverUpdate
     return IWindowsDriverUpdate2
 def _define_IWindowsDriverUpdate3_head():
     class IWindowsDriverUpdate3(win32more.System.UpdateAgent.IWindowsDriverUpdate2_head):
@@ -919,6 +945,7 @@ def _define_IWindowsDriverUpdate3_head():
 def _define_IWindowsDriverUpdate3():
     IWindowsDriverUpdate3 = win32more.System.UpdateAgent.IWindowsDriverUpdate3_head
     IWindowsDriverUpdate3.get_BrowseOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(64, 'get_BrowseOnly', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IWindowsDriverUpdate2
     return IWindowsDriverUpdate3
 def _define_IWindowsDriverUpdateEntry_head():
     class IWindowsDriverUpdateEntry(win32more.System.Com.IDispatch_head):
@@ -934,6 +961,7 @@ def _define_IWindowsDriverUpdateEntry():
     IWindowsDriverUpdateEntry.get_DriverVerDate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(12, 'get_DriverVerDate', ((1, 'retval'),)))
     IWindowsDriverUpdateEntry.get_DeviceProblemNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(13, 'get_DeviceProblemNumber', ((1, 'retval'),)))
     IWindowsDriverUpdateEntry.get_DeviceStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(14, 'get_DeviceStatus', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IWindowsDriverUpdateEntry
 def _define_IWindowsDriverUpdateEntryCollection_head():
     class IWindowsDriverUpdateEntryCollection(win32more.System.Com.IDispatch_head):
@@ -944,6 +972,7 @@ def _define_IWindowsDriverUpdateEntryCollection():
     IWindowsDriverUpdateEntryCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.IWindowsDriverUpdateEntry_head), use_last_error=False)(7, 'get_Item', ((1, 'index'),(1, 'retval'),)))
     IWindowsDriverUpdateEntryCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     IWindowsDriverUpdateEntryCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IWindowsDriverUpdateEntryCollection
 def _define_IWindowsDriverUpdate4_head():
     class IWindowsDriverUpdate4(win32more.System.UpdateAgent.IWindowsDriverUpdate3_head):
@@ -953,6 +982,7 @@ def _define_IWindowsDriverUpdate4():
     IWindowsDriverUpdate4 = win32more.System.UpdateAgent.IWindowsDriverUpdate4_head
     IWindowsDriverUpdate4.get_WindowsDriverUpdateEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IWindowsDriverUpdateEntryCollection_head), use_last_error=False)(65, 'get_WindowsDriverUpdateEntries', ((1, 'retval'),)))
     IWindowsDriverUpdate4.get_PerUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(66, 'get_PerUser', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IWindowsDriverUpdate3
     return IWindowsDriverUpdate4
 def _define_IWindowsDriverUpdate5_head():
     class IWindowsDriverUpdate5(win32more.System.UpdateAgent.IWindowsDriverUpdate4_head):
@@ -962,6 +992,7 @@ def _define_IWindowsDriverUpdate5():
     IWindowsDriverUpdate5 = win32more.System.UpdateAgent.IWindowsDriverUpdate5_head
     IWindowsDriverUpdate5.get_AutoSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.AutoSelectionMode), use_last_error=False)(67, 'get_AutoSelection', ((1, 'retval'),)))
     IWindowsDriverUpdate5.get_AutoDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.AutoDownloadMode), use_last_error=False)(68, 'get_AutoDownload', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IWindowsDriverUpdate4
     return IWindowsDriverUpdate5
 def _define_IUpdateCollection_head():
     class IUpdateCollection(win32more.System.Com.IDispatch_head):
@@ -979,6 +1010,7 @@ def _define_IUpdateCollection():
     IUpdateCollection.Copy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateCollection_head), use_last_error=False)(14, 'Copy', ((1, 'retval'),)))
     IUpdateCollection.Insert = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.System.UpdateAgent.IUpdate_head, use_last_error=False)(15, 'Insert', ((1, 'index'),(1, 'value'),)))
     IUpdateCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(16, 'RemoveAt', ((1, 'index'),)))
+    win32more.System.Com.IDispatch
     return IUpdateCollection
 def _define_IUpdateException_head():
     class IUpdateException(win32more.System.Com.IDispatch_head):
@@ -989,6 +1021,7 @@ def _define_IUpdateException():
     IUpdateException.get_Message = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Message', ((1, 'retval'),)))
     IUpdateException.get_HResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_HResult', ((1, 'retval'),)))
     IUpdateException.get_Context = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.UpdateExceptionContext), use_last_error=False)(9, 'get_Context', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateException
 def _define_IInvalidProductLicenseException_head():
     class IInvalidProductLicenseException(win32more.System.UpdateAgent.IUpdateException_head):
@@ -997,6 +1030,7 @@ def _define_IInvalidProductLicenseException_head():
 def _define_IInvalidProductLicenseException():
     IInvalidProductLicenseException = win32more.System.UpdateAgent.IInvalidProductLicenseException_head
     IInvalidProductLicenseException.get_Product = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_Product', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdateException
     return IInvalidProductLicenseException
 def _define_IUpdateExceptionCollection_head():
     class IUpdateExceptionCollection(win32more.System.Com.IDispatch_head):
@@ -1007,6 +1041,7 @@ def _define_IUpdateExceptionCollection():
     IUpdateExceptionCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.IUpdateException_head), use_last_error=False)(7, 'get_Item', ((1, 'index'),(1, 'retval'),)))
     IUpdateExceptionCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     IUpdateExceptionCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateExceptionCollection
 def _define_ISearchResult_head():
     class ISearchResult(win32more.System.Com.IDispatch_head):
@@ -1018,6 +1053,7 @@ def _define_ISearchResult():
     ISearchResult.get_RootCategories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.ICategoryCollection_head), use_last_error=False)(8, 'get_RootCategories', ((1, 'retval'),)))
     ISearchResult.get_Updates = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateCollection_head), use_last_error=False)(9, 'get_Updates', ((1, 'retval'),)))
     ISearchResult.get_Warnings = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateExceptionCollection_head), use_last_error=False)(10, 'get_Warnings', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return ISearchResult
 def _define_ISearchJob_head():
     class ISearchJob(win32more.System.Com.IDispatch_head):
@@ -1029,6 +1065,7 @@ def _define_ISearchJob():
     ISearchJob.get_IsCompleted = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_IsCompleted', ((1, 'retval'),)))
     ISearchJob.CleanUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'CleanUp', ()))
     ISearchJob.RequestAbort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'RequestAbort', ()))
+    win32more.System.Com.IDispatch
     return ISearchJob
 def _define_ISearchCompletedCallbackArgs_head():
     class ISearchCompletedCallbackArgs(win32more.System.Com.IDispatch_head):
@@ -1036,6 +1073,7 @@ def _define_ISearchCompletedCallbackArgs_head():
     return ISearchCompletedCallbackArgs
 def _define_ISearchCompletedCallbackArgs():
     ISearchCompletedCallbackArgs = win32more.System.UpdateAgent.ISearchCompletedCallbackArgs_head
+    win32more.System.Com.IDispatch
     return ISearchCompletedCallbackArgs
 def _define_ISearchCompletedCallback_head():
     class ISearchCompletedCallback(win32more.System.Com.IUnknown_head):
@@ -1044,6 +1082,7 @@ def _define_ISearchCompletedCallback_head():
 def _define_ISearchCompletedCallback():
     ISearchCompletedCallback = win32more.System.UpdateAgent.ISearchCompletedCallback_head
     ISearchCompletedCallback.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.ISearchJob_head,win32more.System.UpdateAgent.ISearchCompletedCallbackArgs_head, use_last_error=False)(3, 'Invoke', ((1, 'searchJob'),(1, 'callbackArgs'),)))
+    win32more.System.Com.IUnknown
     return ISearchCompletedCallback
 def _define_IUpdateHistoryEntry_head():
     class IUpdateHistoryEntry(win32more.System.Com.IDispatch_head):
@@ -1065,6 +1104,7 @@ def _define_IUpdateHistoryEntry():
     IUpdateHistoryEntry.get_UninstallationSteps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IStringCollection_head), use_last_error=False)(18, 'get_UninstallationSteps', ((1, 'retval'),)))
     IUpdateHistoryEntry.get_UninstallationNotes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_UninstallationNotes', ((1, 'retval'),)))
     IUpdateHistoryEntry.get_SupportUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(20, 'get_SupportUrl', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateHistoryEntry
 def _define_IUpdateHistoryEntry2_head():
     class IUpdateHistoryEntry2(win32more.System.UpdateAgent.IUpdateHistoryEntry_head):
@@ -1073,6 +1113,7 @@ def _define_IUpdateHistoryEntry2_head():
 def _define_IUpdateHistoryEntry2():
     IUpdateHistoryEntry2 = win32more.System.UpdateAgent.IUpdateHistoryEntry2_head
     IUpdateHistoryEntry2.get_Categories = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.ICategoryCollection_head), use_last_error=False)(21, 'get_Categories', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdateHistoryEntry
     return IUpdateHistoryEntry2
 def _define_IUpdateHistoryEntryCollection_head():
     class IUpdateHistoryEntryCollection(win32more.System.Com.IDispatch_head):
@@ -1083,6 +1124,7 @@ def _define_IUpdateHistoryEntryCollection():
     IUpdateHistoryEntryCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.IUpdateHistoryEntry_head), use_last_error=False)(7, 'get_Item', ((1, 'index'),(1, 'retval'),)))
     IUpdateHistoryEntryCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     IUpdateHistoryEntryCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateHistoryEntryCollection
 def _define_IUpdateSearcher_head():
     class IUpdateSearcher(win32more.System.Com.IDispatch_head):
@@ -1108,6 +1150,7 @@ def _define_IUpdateSearcher():
     IUpdateSearcher.GetTotalHistoryCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(22, 'GetTotalHistoryCount', ((1, 'retval'),)))
     IUpdateSearcher.get_ServiceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(23, 'get_ServiceID', ((1, 'retval'),)))
     IUpdateSearcher.put_ServiceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(24, 'put_ServiceID', ((1, 'value'),)))
+    win32more.System.Com.IDispatch
     return IUpdateSearcher
 def _define_IUpdateSearcher2_head():
     class IUpdateSearcher2(win32more.System.UpdateAgent.IUpdateSearcher_head):
@@ -1117,6 +1160,7 @@ def _define_IUpdateSearcher2():
     IUpdateSearcher2 = win32more.System.UpdateAgent.IUpdateSearcher2_head
     IUpdateSearcher2.get_IgnoreDownloadPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(25, 'get_IgnoreDownloadPriority', ((1, 'retval'),)))
     IUpdateSearcher2.put_IgnoreDownloadPriority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(26, 'put_IgnoreDownloadPriority', ((1, 'value'),)))
+    win32more.System.UpdateAgent.IUpdateSearcher
     return IUpdateSearcher2
 def _define_IUpdateSearcher3_head():
     class IUpdateSearcher3(win32more.System.UpdateAgent.IUpdateSearcher2_head):
@@ -1126,6 +1170,7 @@ def _define_IUpdateSearcher3():
     IUpdateSearcher3 = win32more.System.UpdateAgent.IUpdateSearcher3_head
     IUpdateSearcher3.get_SearchScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.SearchScope), use_last_error=False)(27, 'get_SearchScope', ((1, 'retval'),)))
     IUpdateSearcher3.put_SearchScope = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.SearchScope, use_last_error=False)(28, 'put_SearchScope', ((1, 'value'),)))
+    win32more.System.UpdateAgent.IUpdateSearcher2
     return IUpdateSearcher3
 def _define_IUpdateDownloadResult_head():
     class IUpdateDownloadResult(win32more.System.Com.IDispatch_head):
@@ -1135,6 +1180,7 @@ def _define_IUpdateDownloadResult():
     IUpdateDownloadResult = win32more.System.UpdateAgent.IUpdateDownloadResult_head
     IUpdateDownloadResult.get_HResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_HResult', ((1, 'retval'),)))
     IUpdateDownloadResult.get_ResultCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.OperationResultCode), use_last_error=False)(8, 'get_ResultCode', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateDownloadResult
 def _define_IDownloadResult_head():
     class IDownloadResult(win32more.System.Com.IDispatch_head):
@@ -1145,6 +1191,7 @@ def _define_IDownloadResult():
     IDownloadResult.get_HResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_HResult', ((1, 'retval'),)))
     IDownloadResult.get_ResultCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.OperationResultCode), use_last_error=False)(8, 'get_ResultCode', ((1, 'retval'),)))
     IDownloadResult.GetUpdateResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.IUpdateDownloadResult_head), use_last_error=False)(9, 'GetUpdateResult', ((1, 'updateIndex'),(1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IDownloadResult
 def _define_IDownloadProgress_head():
     class IDownloadProgress(win32more.System.Com.IDispatch_head):
@@ -1161,6 +1208,7 @@ def _define_IDownloadProgress():
     IDownloadProgress.GetUpdateResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.IUpdateDownloadResult_head), use_last_error=False)(13, 'GetUpdateResult', ((1, 'updateIndex'),(1, 'retval'),)))
     IDownloadProgress.get_CurrentUpdateDownloadPhase = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.DownloadPhase), use_last_error=False)(14, 'get_CurrentUpdateDownloadPhase', ((1, 'retval'),)))
     IDownloadProgress.get_CurrentUpdatePercentComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(15, 'get_CurrentUpdatePercentComplete', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IDownloadProgress
 def _define_IDownloadJob_head():
     class IDownloadJob(win32more.System.Com.IDispatch_head):
@@ -1174,6 +1222,7 @@ def _define_IDownloadJob():
     IDownloadJob.CleanUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'CleanUp', ()))
     IDownloadJob.GetProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IDownloadProgress_head), use_last_error=False)(11, 'GetProgress', ((1, 'retval'),)))
     IDownloadJob.RequestAbort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'RequestAbort', ()))
+    win32more.System.Com.IDispatch
     return IDownloadJob
 def _define_IDownloadCompletedCallbackArgs_head():
     class IDownloadCompletedCallbackArgs(win32more.System.Com.IDispatch_head):
@@ -1181,6 +1230,7 @@ def _define_IDownloadCompletedCallbackArgs_head():
     return IDownloadCompletedCallbackArgs
 def _define_IDownloadCompletedCallbackArgs():
     IDownloadCompletedCallbackArgs = win32more.System.UpdateAgent.IDownloadCompletedCallbackArgs_head
+    win32more.System.Com.IDispatch
     return IDownloadCompletedCallbackArgs
 def _define_IDownloadCompletedCallback_head():
     class IDownloadCompletedCallback(win32more.System.Com.IUnknown_head):
@@ -1189,6 +1239,7 @@ def _define_IDownloadCompletedCallback_head():
 def _define_IDownloadCompletedCallback():
     IDownloadCompletedCallback = win32more.System.UpdateAgent.IDownloadCompletedCallback_head
     IDownloadCompletedCallback.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.IDownloadJob_head,win32more.System.UpdateAgent.IDownloadCompletedCallbackArgs_head, use_last_error=False)(3, 'Invoke', ((1, 'downloadJob'),(1, 'callbackArgs'),)))
+    win32more.System.Com.IUnknown
     return IDownloadCompletedCallback
 def _define_IDownloadProgressChangedCallbackArgs_head():
     class IDownloadProgressChangedCallbackArgs(win32more.System.Com.IDispatch_head):
@@ -1197,6 +1248,7 @@ def _define_IDownloadProgressChangedCallbackArgs_head():
 def _define_IDownloadProgressChangedCallbackArgs():
     IDownloadProgressChangedCallbackArgs = win32more.System.UpdateAgent.IDownloadProgressChangedCallbackArgs_head
     IDownloadProgressChangedCallbackArgs.get_Progress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IDownloadProgress_head), use_last_error=False)(7, 'get_Progress', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IDownloadProgressChangedCallbackArgs
 def _define_IDownloadProgressChangedCallback_head():
     class IDownloadProgressChangedCallback(win32more.System.Com.IUnknown_head):
@@ -1205,6 +1257,7 @@ def _define_IDownloadProgressChangedCallback_head():
 def _define_IDownloadProgressChangedCallback():
     IDownloadProgressChangedCallback = win32more.System.UpdateAgent.IDownloadProgressChangedCallback_head
     IDownloadProgressChangedCallback.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.IDownloadJob_head,win32more.System.UpdateAgent.IDownloadProgressChangedCallbackArgs_head, use_last_error=False)(3, 'Invoke', ((1, 'downloadJob'),(1, 'callbackArgs'),)))
+    win32more.System.Com.IUnknown
     return IDownloadProgressChangedCallback
 def _define_IUpdateDownloader_head():
     class IUpdateDownloader(win32more.System.Com.IDispatch_head):
@@ -1223,6 +1276,7 @@ def _define_IUpdateDownloader():
     IUpdateDownloader.BeginDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,win32more.System.Com.IUnknown_head,win32more.System.Com.VARIANT,POINTER(win32more.System.UpdateAgent.IDownloadJob_head), use_last_error=False)(15, 'BeginDownload', ((1, 'onProgressChanged'),(1, 'onCompleted'),(1, 'state'),(1, 'retval'),)))
     IUpdateDownloader.Download = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IDownloadResult_head), use_last_error=False)(16, 'Download', ((1, 'retval'),)))
     IUpdateDownloader.EndDownload = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.IDownloadJob_head,POINTER(win32more.System.UpdateAgent.IDownloadResult_head), use_last_error=False)(17, 'EndDownload', ((1, 'value'),(1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateDownloader
 def _define_IUpdateInstallationResult_head():
     class IUpdateInstallationResult(win32more.System.Com.IDispatch_head):
@@ -1233,6 +1287,7 @@ def _define_IUpdateInstallationResult():
     IUpdateInstallationResult.get_HResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_HResult', ((1, 'retval'),)))
     IUpdateInstallationResult.get_RebootRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_RebootRequired', ((1, 'retval'),)))
     IUpdateInstallationResult.get_ResultCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.OperationResultCode), use_last_error=False)(9, 'get_ResultCode', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateInstallationResult
 def _define_IInstallationResult_head():
     class IInstallationResult(win32more.System.Com.IDispatch_head):
@@ -1244,6 +1299,7 @@ def _define_IInstallationResult():
     IInstallationResult.get_RebootRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(8, 'get_RebootRequired', ((1, 'retval'),)))
     IInstallationResult.get_ResultCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.OperationResultCode), use_last_error=False)(9, 'get_ResultCode', ((1, 'retval'),)))
     IInstallationResult.GetUpdateResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.IUpdateInstallationResult_head), use_last_error=False)(10, 'GetUpdateResult', ((1, 'updateIndex'),(1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IInstallationResult
 def _define_IInstallationProgress_head():
     class IInstallationProgress(win32more.System.Com.IDispatch_head):
@@ -1255,6 +1311,7 @@ def _define_IInstallationProgress():
     IInstallationProgress.get_CurrentUpdatePercentComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_CurrentUpdatePercentComplete', ((1, 'retval'),)))
     IInstallationProgress.get_PercentComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_PercentComplete', ((1, 'retval'),)))
     IInstallationProgress.GetUpdateResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.IUpdateInstallationResult_head), use_last_error=False)(10, 'GetUpdateResult', ((1, 'updateIndex'),(1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IInstallationProgress
 def _define_IInstallationJob_head():
     class IInstallationJob(win32more.System.Com.IDispatch_head):
@@ -1268,6 +1325,7 @@ def _define_IInstallationJob():
     IInstallationJob.CleanUp = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'CleanUp', ()))
     IInstallationJob.GetProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IInstallationProgress_head), use_last_error=False)(11, 'GetProgress', ((1, 'retval'),)))
     IInstallationJob.RequestAbort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'RequestAbort', ()))
+    win32more.System.Com.IDispatch
     return IInstallationJob
 def _define_IInstallationCompletedCallbackArgs_head():
     class IInstallationCompletedCallbackArgs(win32more.System.Com.IDispatch_head):
@@ -1275,6 +1333,7 @@ def _define_IInstallationCompletedCallbackArgs_head():
     return IInstallationCompletedCallbackArgs
 def _define_IInstallationCompletedCallbackArgs():
     IInstallationCompletedCallbackArgs = win32more.System.UpdateAgent.IInstallationCompletedCallbackArgs_head
+    win32more.System.Com.IDispatch
     return IInstallationCompletedCallbackArgs
 def _define_IInstallationCompletedCallback_head():
     class IInstallationCompletedCallback(win32more.System.Com.IUnknown_head):
@@ -1283,6 +1342,7 @@ def _define_IInstallationCompletedCallback_head():
 def _define_IInstallationCompletedCallback():
     IInstallationCompletedCallback = win32more.System.UpdateAgent.IInstallationCompletedCallback_head
     IInstallationCompletedCallback.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.IInstallationJob_head,win32more.System.UpdateAgent.IInstallationCompletedCallbackArgs_head, use_last_error=False)(3, 'Invoke', ((1, 'installationJob'),(1, 'callbackArgs'),)))
+    win32more.System.Com.IUnknown
     return IInstallationCompletedCallback
 def _define_IInstallationProgressChangedCallbackArgs_head():
     class IInstallationProgressChangedCallbackArgs(win32more.System.Com.IDispatch_head):
@@ -1291,6 +1351,7 @@ def _define_IInstallationProgressChangedCallbackArgs_head():
 def _define_IInstallationProgressChangedCallbackArgs():
     IInstallationProgressChangedCallbackArgs = win32more.System.UpdateAgent.IInstallationProgressChangedCallbackArgs_head
     IInstallationProgressChangedCallbackArgs.get_Progress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IInstallationProgress_head), use_last_error=False)(7, 'get_Progress', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IInstallationProgressChangedCallbackArgs
 def _define_IInstallationProgressChangedCallback_head():
     class IInstallationProgressChangedCallback(win32more.System.Com.IUnknown_head):
@@ -1299,6 +1360,7 @@ def _define_IInstallationProgressChangedCallback_head():
 def _define_IInstallationProgressChangedCallback():
     IInstallationProgressChangedCallback = win32more.System.UpdateAgent.IInstallationProgressChangedCallback_head
     IInstallationProgressChangedCallback.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.UpdateAgent.IInstallationJob_head,win32more.System.UpdateAgent.IInstallationProgressChangedCallbackArgs_head, use_last_error=False)(3, 'Invoke', ((1, 'installationJob'),(1, 'callbackArgs'),)))
+    win32more.System.Com.IUnknown
     return IInstallationProgressChangedCallback
 def _define_IUpdateInstaller_head():
     class IUpdateInstaller(win32more.System.Com.IDispatch_head):
@@ -1327,6 +1389,7 @@ def _define_IUpdateInstaller():
     IUpdateInstaller.get_AllowSourcePrompts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(25, 'get_AllowSourcePrompts', ((1, 'retval'),)))
     IUpdateInstaller.put_AllowSourcePrompts = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(26, 'put_AllowSourcePrompts', ((1, 'value'),)))
     IUpdateInstaller.get_RebootRequiredBeforeInstallation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(27, 'get_RebootRequiredBeforeInstallation', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateInstaller
 def _define_IUpdateInstaller2_head():
     class IUpdateInstaller2(win32more.System.UpdateAgent.IUpdateInstaller_head):
@@ -1336,6 +1399,7 @@ def _define_IUpdateInstaller2():
     IUpdateInstaller2 = win32more.System.UpdateAgent.IUpdateInstaller2_head
     IUpdateInstaller2.get_ForceQuiet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(28, 'get_ForceQuiet', ((1, 'retval'),)))
     IUpdateInstaller2.put_ForceQuiet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(29, 'put_ForceQuiet', ((1, 'value'),)))
+    win32more.System.UpdateAgent.IUpdateInstaller
     return IUpdateInstaller2
 def _define_IUpdateInstaller3_head():
     class IUpdateInstaller3(win32more.System.UpdateAgent.IUpdateInstaller2_head):
@@ -1345,6 +1409,7 @@ def _define_IUpdateInstaller3():
     IUpdateInstaller3 = win32more.System.UpdateAgent.IUpdateInstaller3_head
     IUpdateInstaller3.get_AttemptCloseAppsIfNecessary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(30, 'get_AttemptCloseAppsIfNecessary', ((1, 'retval'),)))
     IUpdateInstaller3.put_AttemptCloseAppsIfNecessary = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(31, 'put_AttemptCloseAppsIfNecessary', ((1, 'value'),)))
+    win32more.System.UpdateAgent.IUpdateInstaller2
     return IUpdateInstaller3
 def _define_IUpdateInstaller4_head():
     class IUpdateInstaller4(win32more.System.UpdateAgent.IUpdateInstaller3_head):
@@ -1353,6 +1418,7 @@ def _define_IUpdateInstaller4_head():
 def _define_IUpdateInstaller4():
     IUpdateInstaller4 = win32more.System.UpdateAgent.IUpdateInstaller4_head
     IUpdateInstaller4.Commit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(32, 'Commit', ((1, 'dwFlags'),)))
+    win32more.System.UpdateAgent.IUpdateInstaller3
     return IUpdateInstaller4
 def _define_IUpdateSession_head():
     class IUpdateSession(win32more.System.Com.IDispatch_head):
@@ -1368,6 +1434,7 @@ def _define_IUpdateSession():
     IUpdateSession.CreateUpdateSearcher = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateSearcher_head), use_last_error=False)(12, 'CreateUpdateSearcher', ((1, 'retval'),)))
     IUpdateSession.CreateUpdateDownloader = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateDownloader_head), use_last_error=False)(13, 'CreateUpdateDownloader', ((1, 'retval'),)))
     IUpdateSession.CreateUpdateInstaller = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateInstaller_head), use_last_error=False)(14, 'CreateUpdateInstaller', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateSession
 def _define_IUpdateSession2_head():
     class IUpdateSession2(win32more.System.UpdateAgent.IUpdateSession_head):
@@ -1377,6 +1444,7 @@ def _define_IUpdateSession2():
     IUpdateSession2 = win32more.System.UpdateAgent.IUpdateSession2_head
     IUpdateSession2.get_UserLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(15, 'get_UserLocale', ((1, 'retval'),)))
     IUpdateSession2.put_UserLocale = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(16, 'put_UserLocale', ((1, 'lcid'),)))
+    win32more.System.UpdateAgent.IUpdateSession
     return IUpdateSession2
 def _define_IUpdateSession3_head():
     class IUpdateSession3(win32more.System.UpdateAgent.IUpdateSession2_head):
@@ -1386,6 +1454,7 @@ def _define_IUpdateSession3():
     IUpdateSession3 = win32more.System.UpdateAgent.IUpdateSession3_head
     IUpdateSession3.CreateUpdateServiceManager = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateServiceManager2_head), use_last_error=False)(17, 'CreateUpdateServiceManager', ((1, 'retval'),)))
     IUpdateSession3.QueryHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,Int32,POINTER(win32more.System.UpdateAgent.IUpdateHistoryEntryCollection_head), use_last_error=False)(18, 'QueryHistory', ((1, 'criteria'),(1, 'startIndex'),(1, 'count'),(1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdateSession2
     return IUpdateSession3
 def _define_IUpdateService_head():
     class IUpdateService(win32more.System.Com.IDispatch_head):
@@ -1406,6 +1475,7 @@ def _define_IUpdateService():
     IUpdateService.get_CanRegisterWithAU = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(17, 'get_CanRegisterWithAU', ((1, 'retval'),)))
     IUpdateService.get_ServiceUrl = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(18, 'get_ServiceUrl', ((1, 'retval'),)))
     IUpdateService.get_SetupPrefix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(19, 'get_SetupPrefix', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateService
 def _define_IUpdateService2_head():
     class IUpdateService2(win32more.System.UpdateAgent.IUpdateService_head):
@@ -1414,6 +1484,7 @@ def _define_IUpdateService2_head():
 def _define_IUpdateService2():
     IUpdateService2 = win32more.System.UpdateAgent.IUpdateService2_head
     IUpdateService2.get_IsDefaultAUService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(20, 'get_IsDefaultAUService', ((1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdateService
     return IUpdateService2
 def _define_IUpdateServiceCollection_head():
     class IUpdateServiceCollection(win32more.System.Com.IDispatch_head):
@@ -1424,6 +1495,7 @@ def _define_IUpdateServiceCollection():
     IUpdateServiceCollection.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.UpdateAgent.IUpdateService_head), use_last_error=False)(7, 'get_Item', ((1, 'index'),(1, 'retval'),)))
     IUpdateServiceCollection.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(8, 'get__NewEnum', ((1, 'retval'),)))
     IUpdateServiceCollection.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateServiceCollection
 def _define_IUpdateServiceRegistration_head():
     class IUpdateServiceRegistration(win32more.System.Com.IDispatch_head):
@@ -1435,6 +1507,7 @@ def _define_IUpdateServiceRegistration():
     IUpdateServiceRegistration.get_ServiceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(8, 'get_ServiceID', ((1, 'retval'),)))
     IUpdateServiceRegistration.get_IsPendingRegistrationWithAU = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(9, 'get_IsPendingRegistrationWithAU', ((1, 'retval'),)))
     IUpdateServiceRegistration.get_Service = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.UpdateAgent.IUpdateService2_head), use_last_error=False)(10, 'get_Service', ((1, 'retval'),)))
+    win32more.System.Com.IDispatch
     return IUpdateServiceRegistration
 def _define_IUpdateServiceManager_head():
     class IUpdateServiceManager(win32more.System.Com.IDispatch_head):
@@ -1449,6 +1522,7 @@ def _define_IUpdateServiceManager():
     IUpdateServiceManager.UnregisterServiceWithAU = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(11, 'UnregisterServiceWithAU', ((1, 'serviceID'),)))
     IUpdateServiceManager.AddScanPackageService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,Int32,POINTER(win32more.System.UpdateAgent.IUpdateService_head), use_last_error=False)(12, 'AddScanPackageService', ((1, 'serviceName'),(1, 'scanFileLocation'),(1, 'flags'),(1, 'ppService'),)))
     IUpdateServiceManager.SetOption = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.VARIANT, use_last_error=False)(13, 'SetOption', ((1, 'optionName'),(1, 'optionValue'),)))
+    win32more.System.Com.IDispatch
     return IUpdateServiceManager
 def _define_IUpdateServiceManager2_head():
     class IUpdateServiceManager2(win32more.System.UpdateAgent.IUpdateServiceManager_head):
@@ -1460,6 +1534,7 @@ def _define_IUpdateServiceManager2():
     IUpdateServiceManager2.put_ClientApplicationID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'put_ClientApplicationID', ((1, 'value'),)))
     IUpdateServiceManager2.QueryServiceRegistration = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.UpdateAgent.IUpdateServiceRegistration_head), use_last_error=False)(16, 'QueryServiceRegistration', ((1, 'serviceID'),(1, 'retval'),)))
     IUpdateServiceManager2.AddService2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.Foundation.BSTR,POINTER(win32more.System.UpdateAgent.IUpdateServiceRegistration_head), use_last_error=False)(17, 'AddService2', ((1, 'serviceID'),(1, 'flags'),(1, 'authorizationCabPath'),(1, 'retval'),)))
+    win32more.System.UpdateAgent.IUpdateServiceManager
     return IUpdateServiceManager2
 def _define_IInstallationAgent_head():
     class IInstallationAgent(win32more.System.Com.IDispatch_head):
@@ -1468,6 +1543,7 @@ def _define_IInstallationAgent_head():
 def _define_IInstallationAgent():
     IInstallationAgent = win32more.System.UpdateAgent.IInstallationAgent_head
     IInstallationAgent.RecordInstallationResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int32,win32more.System.UpdateAgent.IStringCollection_head, use_last_error=False)(7, 'RecordInstallationResult', ((1, 'installationResultCookie'),(1, 'hresult'),(1, 'extendedReportingData'),)))
+    win32more.System.Com.IDispatch
     return IInstallationAgent
 UpdateLockdownOption = Int32
 UpdateLockdownOption_uloForWebsiteAccess = 1

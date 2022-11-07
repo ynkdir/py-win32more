@@ -700,6 +700,7 @@ def _define_IMAPIAdviseSink_head():
 def _define_IMAPIAdviseSink():
     IMAPIAdviseSink = win32more.System.AddressBook.IMAPIAdviseSink_head
     IMAPIAdviseSink.OnNotify = COMMETHOD(WINFUNCTYPE(UInt32,UInt32,POINTER(win32more.System.AddressBook.NOTIFICATION_head), use_last_error=False)(3, 'OnNotify', ((1, 'cNotif'),(1, 'lpNotifications'),)))
+    win32more.System.Com.IUnknown
     return IMAPIAdviseSink
 def _define_LPNOTIFCALLBACK():
     return CFUNCTYPE(Int32,c_void_p,UInt32,POINTER(win32more.System.AddressBook.NOTIFICATION_head), use_last_error=False)
@@ -714,6 +715,7 @@ def _define_IMAPIProgress():
     IMAPIProgress.GetMax = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(5, 'GetMax', ((1, 'lpulMax'),)))
     IMAPIProgress.GetMin = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(6, 'GetMin', ((1, 'lpulMin'),)))
     IMAPIProgress.SetLimits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32),POINTER(UInt32),POINTER(UInt32), use_last_error=False)(7, 'SetLimits', ((1, 'lpulMin'),(1, 'lpulMax'),(1, 'lpulFlags'),)))
+    win32more.System.Com.IUnknown
     return IMAPIProgress
 def _define_MAPINAMEID_head():
     class MAPINAMEID(Structure):
@@ -750,6 +752,7 @@ def _define_IMAPIProp():
     IMAPIProp.CopyProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SPropTagArray_head),UIntPtr,win32more.System.AddressBook.IMAPIProgress_head,POINTER(Guid),c_void_p,UInt32,POINTER(POINTER(win32more.System.AddressBook.SPropProblemArray_head)), use_last_error=False)(11, 'CopyProps', ((1, 'lpIncludeProps'),(1, 'ulUIParam'),(1, 'lpProgress'),(1, 'lpInterface'),(1, 'lpDestObj'),(1, 'ulFlags'),(1, 'lppProblems'),)))
     IMAPIProp.GetNamesFromIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.AddressBook.SPropTagArray_head)),POINTER(Guid),UInt32,POINTER(UInt32),POINTER(POINTER(POINTER(win32more.System.AddressBook.MAPINAMEID_head))), use_last_error=False)(12, 'GetNamesFromIDs', ((1, 'lppPropTags'),(1, 'lpPropSetGuid'),(1, 'ulFlags'),(1, 'lpcPropNames'),(1, 'lpppPropNames'),)))
     IMAPIProp.GetIDsFromNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.System.AddressBook.MAPINAMEID_head)),UInt32,POINTER(POINTER(win32more.System.AddressBook.SPropTagArray_head)), use_last_error=False)(13, 'GetIDsFromNames', ((1, 'cPropNames'),(1, 'lppPropNames'),(1, 'ulFlags'),(1, 'lppPropTags'),)))
+    win32more.System.Com.IUnknown
     return IMAPIProp
 def _define_SSortOrder_head():
     class SSortOrder(Structure):
@@ -958,6 +961,7 @@ def _define_IMAPITable():
     IMAPITable.WaitForCompletion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(UInt32), use_last_error=False)(23, 'WaitForCompletion', ((1, 'ulFlags'),(1, 'ulTimeout'),(1, 'lpulTableStatus'),)))
     IMAPITable.GetCollapseState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,POINTER(UInt32),POINTER(c_char_p_no), use_last_error=False)(24, 'GetCollapseState', ((1, 'ulFlags'),(1, 'cbInstanceKey'),(1, 'lpbInstanceKey'),(1, 'lpcbCollapseState'),(1, 'lppbCollapseState'),)))
     IMAPITable.SetCollapseState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,c_char_p_no,POINTER(UInt32), use_last_error=False)(25, 'SetCollapseState', ((1, 'ulFlags'),(1, 'cbCollapseState'),(1, 'pbCollapseState'),(1, 'lpbkLocation'),)))
+    win32more.System.Com.IUnknown
     return IMAPITable
 def _define_IProfSect_head():
     class IProfSect(win32more.System.AddressBook.IMAPIProp_head):
@@ -965,6 +969,7 @@ def _define_IProfSect_head():
     return IProfSect
 def _define_IProfSect():
     IProfSect = win32more.System.AddressBook.IProfSect_head
+    win32more.System.AddressBook.IMAPIProp
     return IProfSect
 def _define_IMAPIStatus_head():
     class IMAPIStatus(win32more.System.AddressBook.IMAPIProp_head):
@@ -976,6 +981,7 @@ def _define_IMAPIStatus():
     IMAPIStatus.SettingsDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32, use_last_error=False)(15, 'SettingsDialog', ((1, 'ulUIParam'),(1, 'ulFlags'),)))
     IMAPIStatus.ChangePassword = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(SByte),POINTER(SByte),UInt32, use_last_error=False)(16, 'ChangePassword', ((1, 'lpOldPass'),(1, 'lpNewPass'),(1, 'ulFlags'),)))
     IMAPIStatus.FlushQueues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,UInt32,POINTER(win32more.System.AddressBook.ENTRYID),UInt32, use_last_error=False)(17, 'FlushQueues', ((1, 'ulUIParam'),(1, 'cbTargetTransport'),(1, 'lpTargetTransport'),(1, 'ulFlags'),)))
+    win32more.System.AddressBook.IMAPIProp
     return IMAPIStatus
 def _define_IMAPIContainer_head():
     class IMAPIContainer(win32more.System.AddressBook.IMAPIProp_head):
@@ -988,6 +994,7 @@ def _define_IMAPIContainer():
     IMAPIContainer.OpenEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.ENTRYID_head),POINTER(Guid),UInt32,POINTER(UInt32),POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(16, 'OpenEntry', ((1, 'cbEntryID'),(1, 'lpEntryID'),(1, 'lpInterface'),(1, 'ulFlags'),(1, 'lpulObjType'),(1, 'lppUnk'),)))
     IMAPIContainer.SetSearchCriteria = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SRestriction_head),POINTER(win32more.System.AddressBook.SBinaryArray_head),UInt32, use_last_error=False)(17, 'SetSearchCriteria', ((1, 'lpRestriction'),(1, 'lpContainerList'),(1, 'ulSearchFlags'),)))
     IMAPIContainer.GetSearchCriteria = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.System.AddressBook.SRestriction_head)),POINTER(POINTER(win32more.System.AddressBook.SBinaryArray_head)),POINTER(UInt32), use_last_error=False)(18, 'GetSearchCriteria', ((1, 'ulFlags'),(1, 'lppRestriction'),(1, 'lppContainerList'),(1, 'lpulSearchState'),)))
+    win32more.System.AddressBook.IMAPIProp
     return IMAPIContainer
 def _define__flaglist_head():
     class _flaglist(Structure):
@@ -1010,6 +1017,7 @@ def _define_IABContainer():
     IABContainer.CopyEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SBinaryArray_head),UIntPtr,win32more.System.AddressBook.IMAPIProgress_head,UInt32, use_last_error=False)(20, 'CopyEntries', ((1, 'lpEntries'),(1, 'ulUIParam'),(1, 'lpProgress'),(1, 'ulFlags'),)))
     IABContainer.DeleteEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SBinaryArray_head),UInt32, use_last_error=False)(21, 'DeleteEntries', ((1, 'lpEntries'),(1, 'ulFlags'),)))
     IABContainer.ResolveNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SPropTagArray_head),UInt32,POINTER(win32more.System.AddressBook.ADRLIST_head),POINTER(win32more.System.AddressBook._flaglist_head), use_last_error=False)(22, 'ResolveNames', ((1, 'lpPropTagArray'),(1, 'ulFlags'),(1, 'lpAdrList'),(1, 'lpFlagList'),)))
+    win32more.System.AddressBook.IMAPIContainer
     return IABContainer
 def _define_IMailUser_head():
     class IMailUser(win32more.System.AddressBook.IMAPIProp_head):
@@ -1017,6 +1025,7 @@ def _define_IMailUser_head():
     return IMailUser
 def _define_IMailUser():
     IMailUser = win32more.System.AddressBook.IMailUser_head
+    win32more.System.AddressBook.IMAPIProp
     return IMailUser
 def _define_IDistList_head():
     class IDistList(win32more.System.AddressBook.IMAPIContainer_head):
@@ -1028,6 +1037,7 @@ def _define_IDistList():
     IDistList.CopyEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SBinaryArray_head),UIntPtr,win32more.System.AddressBook.IMAPIProgress_head,UInt32, use_last_error=False)(20, 'CopyEntries', ((1, 'lpEntries'),(1, 'ulUIParam'),(1, 'lpProgress'),(1, 'ulFlags'),)))
     IDistList.DeleteEntries = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SBinaryArray_head),UInt32, use_last_error=False)(21, 'DeleteEntries', ((1, 'lpEntries'),(1, 'ulFlags'),)))
     IDistList.ResolveNames = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SPropTagArray_head),UInt32,POINTER(win32more.System.AddressBook.ADRLIST_head),POINTER(win32more.System.AddressBook._flaglist_head), use_last_error=False)(22, 'ResolveNames', ((1, 'lpPropTagArray'),(1, 'ulFlags'),(1, 'lpAdrList'),(1, 'lpFlagList'),)))
+    win32more.System.AddressBook.IMAPIContainer
     return IDistList
 def _define_IMAPIFolder_head():
     class IMAPIFolder(win32more.System.AddressBook.IMAPIContainer_head):
@@ -1046,6 +1056,7 @@ def _define_IMAPIFolder():
     IMAPIFolder.SetMessageStatus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.ENTRYID_head),UInt32,UInt32,POINTER(UInt32), use_last_error=False)(27, 'SetMessageStatus', ((1, 'cbEntryID'),(1, 'lpEntryID'),(1, 'ulNewStatus'),(1, 'ulNewStatusMask'),(1, 'lpulOldStatus'),)))
     IMAPIFolder.SaveContentsSort = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SSortOrderSet_head),UInt32, use_last_error=False)(28, 'SaveContentsSort', ((1, 'lpSortCriteria'),(1, 'ulFlags'),)))
     IMAPIFolder.EmptyFolder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UIntPtr,win32more.System.AddressBook.IMAPIProgress_head,UInt32, use_last_error=False)(29, 'EmptyFolder', ((1, 'ulUIParam'),(1, 'lpProgress'),(1, 'ulFlags'),)))
+    win32more.System.AddressBook.IMAPIContainer
     return IMAPIFolder
 def _define_IMsgStore_head():
     class IMsgStore(win32more.System.AddressBook.IMAPIProp_head):
@@ -1066,6 +1077,7 @@ def _define_IMsgStore():
     IMsgStore.SetLockState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.AddressBook.IMessage_head,UInt32, use_last_error=False)(24, 'SetLockState', ((1, 'lpMessage'),(1, 'ulLockState'),)))
     IMsgStore.FinishedMsg = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UInt32,POINTER(win32more.System.AddressBook.ENTRYID_head), use_last_error=False)(25, 'FinishedMsg', ((1, 'ulFlags'),(1, 'cbEntryID'),(1, 'lpEntryID'),)))
     IMsgStore.NotifyNewMail = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.NOTIFICATION_head), use_last_error=False)(26, 'NotifyNewMail', ((1, 'lpNotification'),)))
+    win32more.System.AddressBook.IMAPIProp
     return IMsgStore
 def _define_IMessage_head():
     class IMessage(win32more.System.AddressBook.IMAPIProp_head):
@@ -1081,6 +1093,7 @@ def _define_IMessage():
     IMessage.ModifyRecipients = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.ADRLIST_head), use_last_error=False)(19, 'ModifyRecipients', ((1, 'ulFlags'),(1, 'lpMods'),)))
     IMessage.SubmitMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(20, 'SubmitMessage', ((1, 'ulFlags'),)))
     IMessage.SetReadFlag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(21, 'SetReadFlag', ((1, 'ulFlags'),)))
+    win32more.System.AddressBook.IMAPIProp
     return IMessage
 def _define_IAttach_head():
     class IAttach(win32more.System.AddressBook.IMAPIProp_head):
@@ -1088,6 +1101,7 @@ def _define_IAttach_head():
     return IAttach
 def _define_IAttach():
     IAttach = win32more.System.AddressBook.IAttach_head
+    win32more.System.AddressBook.IMAPIProp
     return IAttach
 def _define_LPFNABSDI():
     return CFUNCTYPE(win32more.Foundation.BOOL,UIntPtr,c_void_p, use_last_error=False)
@@ -1131,6 +1145,7 @@ def _define_IMAPIControl():
     IMAPIControl.GetLastError = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.System.AddressBook.MAPIERROR_head)), use_last_error=False)(3, 'GetLastError', ((1, 'hResult'),(1, 'ulFlags'),(1, 'lppMAPIError'),)))
     IMAPIControl.Activate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,UIntPtr, use_last_error=False)(4, 'Activate', ((1, 'ulFlags'),(1, 'ulUIParam'),)))
     IMAPIControl.GetState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(UInt32), use_last_error=False)(5, 'GetState', ((1, 'ulFlags'),(1, 'lpulState'),)))
+    win32more.System.Com.IUnknown
     return IMAPIControl
 def _define_DTBLLABEL_head():
     class DTBLLABEL(Structure):
@@ -1290,6 +1305,7 @@ def _define_IProviderAdmin():
     IProviderAdmin.CreateProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(SByte),UInt32,POINTER(win32more.System.AddressBook.SPropValue),UIntPtr,UInt32,POINTER(win32more.System.AddressBook.MAPIUID_head), use_last_error=False)(5, 'CreateProvider', ((1, 'lpszProvider'),(1, 'cValues'),(1, 'lpProps'),(1, 'ulUIParam'),(1, 'ulFlags'),(1, 'lpUID'),)))
     IProviderAdmin.DeleteProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.MAPIUID_head), use_last_error=False)(6, 'DeleteProvider', ((1, 'lpUID'),)))
     IProviderAdmin.OpenProfileSection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.MAPIUID_head),POINTER(Guid),UInt32,POINTER(win32more.System.AddressBook.IProfSect_head), use_last_error=False)(7, 'OpenProfileSection', ((1, 'lpUID'),(1, 'lpInterface'),(1, 'ulFlags'),(1, 'lppProfSect'),)))
+    win32more.System.Com.IUnknown
     return IProviderAdmin
 Gender = Int32
 Gender_genderUnspecified = 0
@@ -1312,6 +1328,7 @@ def _define_ITableData():
     ITableData.HrInsertRow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.SRow_head), use_last_error=False)(9, 'HrInsertRow', ((1, 'uliRow'),(1, 'lpSRow'),)))
     ITableData.HrModifyRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.SRowSet_head), use_last_error=False)(10, 'HrModifyRows', ((1, 'ulFlags'),(1, 'lpSRowSet'),)))
     ITableData.HrDeleteRows = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.SRowSet_head),POINTER(UInt32), use_last_error=False)(11, 'HrDeleteRows', ((1, 'ulFlags'),(1, 'lprowsetToDelete'),(1, 'cRowsDeleted'),)))
+    win32more.System.Com.IUnknown
     return ITableData
 def _define_IPropData_head():
     class IPropData(win32more.System.AddressBook.IMAPIProp_head):
@@ -1323,6 +1340,7 @@ def _define_IPropData():
     IPropData.HrSetPropAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(UInt32), use_last_error=False)(15, 'HrSetPropAccess', ((1, 'lpPropTagArray'),(1, 'rgulAccess'),)))
     IPropData.HrGetPropAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.AddressBook.SPropTagArray_head)),POINTER(POINTER(UInt32)), use_last_error=False)(16, 'HrGetPropAccess', ((1, 'lppPropTagArray'),(1, 'lprgulAccess'),)))
     IPropData.HrAddObjProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(POINTER(win32more.System.AddressBook.SPropProblemArray_head)), use_last_error=False)(17, 'HrAddObjProps', ((1, 'lppPropTagArray'),(1, 'lprgulAccess'),)))
+    win32more.System.AddressBook.IMAPIProp
     return IPropData
 def _define_FNIDLE():
     return CFUNCTYPE(win32more.Foundation.BOOL,c_void_p, use_last_error=False)
@@ -1413,6 +1431,7 @@ def _define_IAddrBook():
     IAddrBook.GetSearchPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(POINTER(win32more.System.AddressBook.SRowSet_head)), use_last_error=False)(29, 'GetSearchPath', ((1, 'ulFlags'),(1, 'lppSearchPath'),)))
     IAddrBook.SetSearchPath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.SRowSet_head), use_last_error=False)(30, 'SetSearchPath', ((1, 'ulFlags'),(1, 'lpSearchPath'),)))
     IAddrBook.PrepareRecips = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.AddressBook.SPropTagArray_head),POINTER(win32more.System.AddressBook.ADRLIST_head), use_last_error=False)(31, 'PrepareRecips', ((1, 'ulFlags'),(1, 'lpPropTagArray'),(1, 'lpRecipList'),)))
+    win32more.System.AddressBook.IMAPIProp
     return IAddrBook
 def _define__WABACTIONITEM_head():
     class _WABACTIONITEM(Structure):
@@ -1440,6 +1459,7 @@ def _define_IWABObject():
     IWABObject.VCardRetrieve = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.AddressBook.IAddrBook_head,UInt32,win32more.Foundation.PSTR,POINTER(win32more.System.AddressBook.IMailUser_head), use_last_error=False)(13, 'VCardRetrieve', ((1, 'lpIAB'),(1, 'ulFlags'),(1, 'lpszVCard'),(1, 'lppMailUser'),)))
     IWABObject.GetMe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.AddressBook.IAddrBook_head,UInt32,POINTER(UInt32),POINTER(win32more.System.AddressBook.SBinary_head),win32more.Foundation.HWND, use_last_error=False)(14, 'GetMe', ((1, 'lpIAB'),(1, 'ulFlags'),(1, 'lpdwAction'),(1, 'lpsbEID'),(1, 'hwnd'),)))
     IWABObject.SetMe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.AddressBook.IAddrBook_head,UInt32,win32more.System.AddressBook.SBinary,win32more.Foundation.HWND, use_last_error=False)(15, 'SetMe', ((1, 'lpIAB'),(1, 'ulFlags'),(1, 'sbEID'),(1, 'hwnd'),)))
+    win32more.System.Com.IUnknown
     return IWABObject
 def _define_IWABOBJECT_QueryInterface_METHOD():
     return CFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(c_void_p), use_last_error=False)
@@ -1553,6 +1573,7 @@ def _define_IWABExtInit_head():
 def _define_IWABExtInit():
     IWABExtInit = win32more.System.AddressBook.IWABExtInit_head
     IWABExtInit.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.AddressBook.WABEXTDISPLAY_head), use_last_error=False)(3, 'Initialize', ((1, 'lpWABExtDisplay'),)))
+    win32more.System.Com.IUnknown
     return IWABExtInit
 def _define_LPWABALLOCATEBUFFER():
     return CFUNCTYPE(Int32,win32more.System.AddressBook.IWABObject_head,UInt32,POINTER(c_void_p), use_last_error=False)

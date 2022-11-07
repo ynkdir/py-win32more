@@ -31,6 +31,7 @@ def _define_IGameExplorer():
     IGameExplorer.RemoveGame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(4, 'RemoveGame', ((1, 'guidInstanceID'),)))
     IGameExplorer.UpdateGame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Guid, use_last_error=False)(5, 'UpdateGame', ((1, 'guidInstanceID'),)))
     IGameExplorer.VerifyAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'VerifyAccess', ((1, 'bstrGDFBinaryPath'),(1, 'pfHasAccess'),)))
+    win32more.System.Com.IUnknown
     return IGameExplorer
 GAMESTATS_OPEN_TYPE = Int32
 GAMESTATS_OPEN_OPENORCREATE = 0
@@ -56,6 +57,7 @@ def _define_IGameStatistics():
     IGameStatistics.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(12, 'Save', ((1, 'trackChanges'),)))
     IGameStatistics.SetLastPlayedCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(13, 'SetLastPlayedCategory', ((1, 'categoryIndex'),)))
     IGameStatistics.GetLastPlayedCategory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(14, 'GetLastPlayedCategory', ((1, 'pCategoryIndex'),)))
+    win32more.System.Com.IUnknown
     return IGameStatistics
 def _define_IGameStatisticsMgr_head():
     class IGameStatisticsMgr(win32more.System.Com.IUnknown_head):
@@ -65,6 +67,7 @@ def _define_IGameStatisticsMgr():
     IGameStatisticsMgr = win32more.Gaming.IGameStatisticsMgr_head
     IGameStatisticsMgr.GetGameStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Gaming.GAMESTATS_OPEN_TYPE,POINTER(win32more.Gaming.GAMESTATS_OPEN_RESULT),POINTER(win32more.Gaming.IGameStatistics_head), use_last_error=False)(3, 'GetGameStatistics', ((1, 'GDFBinaryPath'),(1, 'openType'),(1, 'pOpenResult'),(1, 'ppiStats'),)))
     IGameStatisticsMgr.RemoveGameStatistics = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'RemoveGameStatistics', ((1, 'GDFBinaryPath'),)))
+    win32more.System.Com.IUnknown
     return IGameStatisticsMgr
 def _define_IGameExplorer2_head():
     class IGameExplorer2(win32more.System.Com.IUnknown_head):
@@ -75,6 +78,7 @@ def _define_IGameExplorer2():
     IGameExplorer2.InstallGame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Gaming.GAME_INSTALL_SCOPE, use_last_error=False)(3, 'InstallGame', ((1, 'binaryGDFPath'),(1, 'installDirectory'),(1, 'installScope'),)))
     IGameExplorer2.UninstallGame = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(4, 'UninstallGame', ((1, 'binaryGDFPath'),)))
     IGameExplorer2.CheckAccess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'CheckAccess', ((1, 'binaryGDFPath'),(1, 'pHasAccess'),)))
+    win32more.System.Com.IUnknown
     return IGameExplorer2
 GAMING_DEVICE_VENDOR_ID = Int32
 GAMING_DEVICE_VENDOR_ID_NONE = 0
@@ -147,6 +151,7 @@ def _define_IXblIdpAuthManager():
     IXblIdpAuthManager.GetEnvironment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(6, 'GetEnvironment', ((1, 'environment'),)))
     IXblIdpAuthManager.GetSandbox = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(7, 'GetSandbox', ((1, 'sandbox'),)))
     IXblIdpAuthManager.GetTokenAndSignatureWithTokenResult = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(Byte),UInt32,win32more.Foundation.BOOL,POINTER(win32more.Gaming.IXblIdpAuthTokenResult_head), use_last_error=False)(8, 'GetTokenAndSignatureWithTokenResult', ((1, 'msaAccountId'),(1, 'appSid'),(1, 'msaTarget'),(1, 'msaPolicy'),(1, 'httpMethod'),(1, 'uri'),(1, 'headers'),(1, 'body'),(1, 'bodySize'),(1, 'forceRefresh'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return IXblIdpAuthManager
 def _define_IXblIdpAuthTokenResult_head():
     class IXblIdpAuthTokenResult(win32more.System.Com.IUnknown_head):
@@ -174,6 +179,7 @@ def _define_IXblIdpAuthTokenResult():
     IXblIdpAuthTokenResult.GetEnforcementBans = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(20, 'GetEnforcementBans', ((1, 'enforcementBans'),)))
     IXblIdpAuthTokenResult.GetRestrictions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(21, 'GetRestrictions', ((1, 'restrictions'),)))
     IXblIdpAuthTokenResult.GetTitleRestrictions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(22, 'GetTitleRestrictions', ((1, 'titleRestrictions'),)))
+    win32more.System.Com.IUnknown
     return IXblIdpAuthTokenResult
 def _define_IXblIdpAuthTokenResult2_head():
     class IXblIdpAuthTokenResult2(win32more.System.Com.IUnknown_head):
@@ -184,6 +190,7 @@ def _define_IXblIdpAuthTokenResult2():
     IXblIdpAuthTokenResult2.GetModernGamertag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetModernGamertag', ((1, 'value'),)))
     IXblIdpAuthTokenResult2.GetModernGamertagSuffix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetModernGamertagSuffix', ((1, 'value'),)))
     IXblIdpAuthTokenResult2.GetUniqueModernGamertag = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(5, 'GetUniqueModernGamertag', ((1, 'value'),)))
+    win32more.System.Com.IUnknown
     return IXblIdpAuthTokenResult2
 def _define_HasExpandedResources():
     try:

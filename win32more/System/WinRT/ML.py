@@ -23,6 +23,7 @@ def _define_ILearningModelOperatorProviderNative_head():
 def _define_ILearningModelOperatorProviderNative():
     ILearningModelOperatorProviderNative = win32more.System.WinRT.ML.ILearningModelOperatorProviderNative_head
     ILearningModelOperatorProviderNative.GetRegistry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.AI.MachineLearning.WinML.IMLOperatorRegistry_head), use_last_error=False)(3, 'GetRegistry', ((1, 'ppOperatorRegistry'),)))
+    win32more.System.Com.IUnknown
     return ILearningModelOperatorProviderNative
 def _define_ITensorNative_head():
     class ITensorNative(win32more.System.Com.IUnknown_head):
@@ -32,6 +33,7 @@ def _define_ITensorNative():
     ITensorNative = win32more.System.WinRT.ML.ITensorNative_head
     ITensorNative.GetBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(3, 'GetBuffer', ((1, 'value'),(1, 'capacity'),)))
     ITensorNative.GetD3D12Resource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Graphics.Direct3D12.ID3D12Resource_head), use_last_error=False)(4, 'GetD3D12Resource', ((1, 'result'),)))
+    win32more.System.Com.IUnknown
     return ITensorNative
 def _define_ITensorStaticsNative_head():
     class ITensorStaticsNative(win32more.System.Com.IUnknown_head):
@@ -40,6 +42,7 @@ def _define_ITensorStaticsNative_head():
 def _define_ITensorStaticsNative():
     ITensorStaticsNative = win32more.System.WinRT.ML.ITensorStaticsNative_head
     ITensorStaticsNative.CreateFromD3D12Resource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12Resource_head,POINTER(Int64),Int32,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateFromD3D12Resource', ((1, 'value'),(1, 'shape'),(1, 'shapeCount'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return ITensorStaticsNative
 def _define_ILearningModelDeviceFactoryNative_head():
     class ILearningModelDeviceFactoryNative(win32more.System.Com.IUnknown_head):
@@ -48,6 +51,7 @@ def _define_ILearningModelDeviceFactoryNative_head():
 def _define_ILearningModelDeviceFactoryNative():
     ILearningModelDeviceFactoryNative = win32more.System.WinRT.ML.ILearningModelDeviceFactoryNative_head
     ILearningModelDeviceFactoryNative.CreateFromD3D12CommandQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Graphics.Direct3D12.ID3D12CommandQueue_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateFromD3D12CommandQueue', ((1, 'value'),(1, 'result'),)))
+    win32more.System.Com.IUnknown
     return ILearningModelDeviceFactoryNative
 def _define_ILearningModelSessionOptionsNative_head():
     class ILearningModelSessionOptionsNative(win32more.System.Com.IUnknown_head):
@@ -56,6 +60,7 @@ def _define_ILearningModelSessionOptionsNative_head():
 def _define_ILearningModelSessionOptionsNative():
     ILearningModelSessionOptionsNative = win32more.System.WinRT.ML.ILearningModelSessionOptionsNative_head
     ILearningModelSessionOptionsNative.SetIntraOpNumThreadsOverride = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(3, 'SetIntraOpNumThreadsOverride', ((1, 'intraOpNumThreads'),)))
+    win32more.System.Com.IUnknown
     return ILearningModelSessionOptionsNative
 __all__ = [
     "ILearningModelOperatorProviderNative",

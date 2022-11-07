@@ -1086,6 +1086,7 @@ def _define_IWpdSerializer():
     IWpdSerializer.WriteIPortableDeviceValuesToBuffer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(Byte),POINTER(UInt32), use_last_error=False)(4, 'WriteIPortableDeviceValuesToBuffer', ((1, 'dwOutputBufferLength'),(1, 'pResults'),(1, 'pBuffer'),(1, 'pdwBytesWritten'),)))
     IWpdSerializer.GetBufferFromIPortableDeviceValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(5, 'GetBufferFromIPortableDeviceValues', ((1, 'pSource'),(1, 'ppBuffer'),(1, 'pdwBufferSize'),)))
     IWpdSerializer.GetSerializedSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(UInt32), use_last_error=False)(6, 'GetSerializedSize', ((1, 'pSource'),(1, 'pdwSize'),)))
+    win32more.System.Com.IUnknown
     return IWpdSerializer
 def _define_IPortableDeviceValues_head():
     class IPortableDeviceValues(win32more.System.Com.IUnknown_head):
@@ -1133,6 +1134,7 @@ def _define_IPortableDeviceValues():
     IPortableDeviceValues.CopyValuesFromPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, use_last_error=False)(40, 'CopyValuesFromPropertyStore', ((1, 'pStore'),)))
     IPortableDeviceValues.CopyValuesToPropertyStore = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Shell.PropertiesSystem.IPropertyStore_head, use_last_error=False)(41, 'CopyValuesToPropertyStore', ((1, 'pStore'),)))
     IPortableDeviceValues.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(42, 'Clear', ()))
+    win32more.System.Com.IUnknown
     return IPortableDeviceValues
 def _define_IPortableDeviceKeyCollection_head():
     class IPortableDeviceKeyCollection(win32more.System.Com.IUnknown_head):
@@ -1145,6 +1147,7 @@ def _define_IPortableDeviceKeyCollection():
     IPortableDeviceKeyCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head), use_last_error=False)(5, 'Add', ((1, 'Key'),)))
     IPortableDeviceKeyCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Clear', ()))
     IPortableDeviceKeyCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'RemoveAt', ((1, 'dwIndex'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceKeyCollection
 def _define_IPortableDevicePropVariantCollection_head():
     class IPortableDevicePropVariantCollection(win32more.System.Com.IUnknown_head):
@@ -1159,6 +1162,7 @@ def _define_IPortableDevicePropVariantCollection():
     IPortableDevicePropVariantCollection.ChangeType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt16, use_last_error=False)(7, 'ChangeType', ((1, 'vt'),)))
     IPortableDevicePropVariantCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Clear', ()))
     IPortableDevicePropVariantCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'RemoveAt', ((1, 'dwIndex'),)))
+    win32more.System.Com.IUnknown
     return IPortableDevicePropVariantCollection
 def _define_IPortableDeviceValuesCollection_head():
     class IPortableDeviceValuesCollection(win32more.System.Com.IUnknown_head):
@@ -1171,6 +1175,7 @@ def _define_IPortableDeviceValuesCollection():
     IPortableDeviceValuesCollection.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDeviceValues_head, use_last_error=False)(5, 'Add', ((1, 'pValues'),)))
     IPortableDeviceValuesCollection.Clear = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Clear', ()))
     IPortableDeviceValuesCollection.RemoveAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(7, 'RemoveAt', ((1, 'dwIndex'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceValuesCollection
 PortableDevice = Guid('728a21c5-3d9e-48d7-9810-864848f0f404')
 PortableDeviceManager = Guid('0af10cec-2ecd-4b92-9581-34f6ae0637f3')
@@ -1192,6 +1197,7 @@ def _define_IPortableDeviceManager():
     IPortableDeviceManager.GetDeviceManufacturer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(UInt32), use_last_error=False)(7, 'GetDeviceManufacturer', ((1, 'pszPnPDeviceID'),(1, 'pDeviceManufacturer'),(1, 'pcchDeviceManufacturer'),)))
     IPortableDeviceManager.GetDeviceProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,c_char_p_no,POINTER(UInt32),POINTER(UInt32), use_last_error=False)(8, 'GetDeviceProperty', ((1, 'pszPnPDeviceID'),(1, 'pszDevicePropertyName'),(1, 'pData'),(1, 'pcbData'),(1, 'pdwType'),)))
     IPortableDeviceManager.GetPrivateDevices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(UInt32), use_last_error=False)(9, 'GetPrivateDevices', ((1, 'pPnPDeviceIDs'),(1, 'pcPnPDeviceIDs'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceManager
 def _define_IPortableDevice_head():
     class IPortableDevice(win32more.System.Com.IUnknown_head):
@@ -1208,6 +1214,7 @@ def _define_IPortableDevice():
     IPortableDevice.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.PortableDevices.IPortableDeviceEventCallback_head,win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(9, 'Advise', ((1, 'dwFlags'),(1, 'pCallback'),(1, 'pParameters'),(1, 'ppszCookie'),)))
     IPortableDevice.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(10, 'Unadvise', ((1, 'pszCookie'),)))
     IPortableDevice.GetPnPDeviceID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(11, 'GetPnPDeviceID', ((1, 'ppszPnPDeviceID'),)))
+    win32more.System.Com.IUnknown
     return IPortableDevice
 def _define_IPortableDeviceContent_head():
     class IPortableDeviceContent(win32more.System.Com.IUnknown_head):
@@ -1225,6 +1232,7 @@ def _define_IPortableDeviceContent():
     IPortableDeviceContent.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Cancel', ()))
     IPortableDeviceContent.Move = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDevicePropVariantCollection_head,win32more.Foundation.PWSTR,POINTER(win32more.Devices.PortableDevices.IPortableDevicePropVariantCollection_head), use_last_error=False)(11, 'Move', ((1, 'pObjectIDs'),(1, 'pszDestinationFolderObjectID'),(1, 'ppResults'),)))
     IPortableDeviceContent.Copy = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDevicePropVariantCollection_head,win32more.Foundation.PWSTR,POINTER(win32more.Devices.PortableDevices.IPortableDevicePropVariantCollection_head), use_last_error=False)(12, 'Copy', ((1, 'pObjectIDs'),(1, 'pszDestinationFolderObjectID'),(1, 'ppResults'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceContent
 def _define_IPortableDeviceContent2_head():
     class IPortableDeviceContent2(win32more.Devices.PortableDevices.IPortableDeviceContent_head):
@@ -1233,6 +1241,7 @@ def _define_IPortableDeviceContent2_head():
 def _define_IPortableDeviceContent2():
     IPortableDeviceContent2 = win32more.Devices.PortableDevices.IPortableDeviceContent2_head
     IPortableDeviceContent2.UpdateObjectWithPropertiesAndData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(win32more.System.Com.IStream_head),POINTER(UInt32), use_last_error=False)(13, 'UpdateObjectWithPropertiesAndData', ((1, 'pszObjectID'),(1, 'pProperties'),(1, 'ppData'),(1, 'pdwOptimalWriteBufferSize'),)))
+    win32more.Devices.PortableDevices.IPortableDeviceContent
     return IPortableDeviceContent2
 def _define_IEnumPortableDeviceObjectIDs_head():
     class IEnumPortableDeviceObjectIDs(win32more.System.Com.IUnknown_head):
@@ -1245,6 +1254,7 @@ def _define_IEnumPortableDeviceObjectIDs():
     IEnumPortableDeviceObjectIDs.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumPortableDeviceObjectIDs.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.PortableDevices.IEnumPortableDeviceObjectIDs_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
     IEnumPortableDeviceObjectIDs.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return IEnumPortableDeviceObjectIDs
 def _define_IPortableDeviceProperties_head():
     class IPortableDeviceProperties(win32more.System.Com.IUnknown_head):
@@ -1258,6 +1268,7 @@ def _define_IPortableDeviceProperties():
     IPortableDeviceProperties.SetValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(win32more.Devices.PortableDevices.IPortableDeviceValues_head), use_last_error=False)(6, 'SetValues', ((1, 'pszObjectID'),(1, 'pValues'),(1, 'ppResults'),)))
     IPortableDeviceProperties.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.PortableDevices.IPortableDeviceKeyCollection_head, use_last_error=False)(7, 'Delete', ((1, 'pszObjectID'),(1, 'pKeys'),)))
     IPortableDeviceProperties.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(8, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return IPortableDeviceProperties
 def _define_IPortableDeviceResources_head():
     class IPortableDeviceResources(win32more.System.Com.IUnknown_head):
@@ -1271,6 +1282,7 @@ def _define_IPortableDeviceResources():
     IPortableDeviceResources.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.PortableDevices.IPortableDeviceKeyCollection_head, use_last_error=False)(6, 'Delete', ((1, 'pszObjectID'),(1, 'pKeys'),)))
     IPortableDeviceResources.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'Cancel', ()))
     IPortableDeviceResources.CreateResource = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(win32more.System.Com.IStream_head),POINTER(UInt32),POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'CreateResource', ((1, 'pResourceAttributes'),(1, 'ppData'),(1, 'pdwOptimalWriteBufferSize'),(1, 'ppszCookie'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceResources
 def _define_IPortableDeviceCapabilities_head():
     class IPortableDeviceCapabilities(win32more.System.Com.IUnknown_head):
@@ -1289,6 +1301,7 @@ def _define_IPortableDeviceCapabilities():
     IPortableDeviceCapabilities.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Cancel', ()))
     IPortableDeviceCapabilities.GetSupportedEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.PortableDevices.IPortableDevicePropVariantCollection_head), use_last_error=False)(12, 'GetSupportedEvents', ((1, 'ppEvents'),)))
     IPortableDeviceCapabilities.GetEventOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),POINTER(win32more.Devices.PortableDevices.IPortableDeviceValues_head), use_last_error=False)(13, 'GetEventOptions', ((1, 'Event'),(1, 'ppOptions'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceCapabilities
 def _define_IPortableDeviceEventCallback_head():
     class IPortableDeviceEventCallback(win32more.System.Com.IUnknown_head):
@@ -1297,6 +1310,7 @@ def _define_IPortableDeviceEventCallback_head():
 def _define_IPortableDeviceEventCallback():
     IPortableDeviceEventCallback = win32more.Devices.PortableDevices.IPortableDeviceEventCallback_head
     IPortableDeviceEventCallback.OnEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDeviceValues_head, use_last_error=False)(3, 'OnEvent', ((1, 'pEventParameters'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceEventCallback
 def _define_IPortableDeviceDataStream_head():
     class IPortableDeviceDataStream(win32more.System.Com.IStream_head):
@@ -1306,6 +1320,7 @@ def _define_IPortableDeviceDataStream():
     IPortableDeviceDataStream = win32more.Devices.PortableDevices.IPortableDeviceDataStream_head
     IPortableDeviceDataStream.GetObjectID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(14, 'GetObjectID', ((1, 'ppszObjectID'),)))
     IPortableDeviceDataStream.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Cancel', ()))
+    win32more.System.Com.IStream
     return IPortableDeviceDataStream
 def _define_IPortableDeviceUnitsStream_head():
     class IPortableDeviceUnitsStream(win32more.System.Com.IUnknown_head):
@@ -1315,6 +1330,7 @@ def _define_IPortableDeviceUnitsStream():
     IPortableDeviceUnitsStream = win32more.Devices.PortableDevices.IPortableDeviceUnitsStream_head
     IPortableDeviceUnitsStream.SeekInUnits = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.LARGE_INTEGER,win32more.Devices.PortableDevices.WPD_STREAM_UNITS,UInt32,POINTER(win32more.Foundation.ULARGE_INTEGER_head), use_last_error=False)(3, 'SeekInUnits', ((1, 'dlibMove'),(1, 'units'),(1, 'dwOrigin'),(1, 'plibNewPosition'),)))
     IPortableDeviceUnitsStream.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return IPortableDeviceUnitsStream
 def _define_IPortableDevicePropertiesBulk_head():
     class IPortableDevicePropertiesBulk(win32more.System.Com.IUnknown_head):
@@ -1327,6 +1343,7 @@ def _define_IPortableDevicePropertiesBulk():
     IPortableDevicePropertiesBulk.QueueSetValuesByObjectList = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDeviceValuesCollection_head,win32more.Devices.PortableDevices.IPortableDevicePropertiesBulkCallback_head,POINTER(Guid), use_last_error=False)(5, 'QueueSetValuesByObjectList', ((1, 'pObjectValues'),(1, 'pCallback'),(1, 'pContext'),)))
     IPortableDevicePropertiesBulk.Start = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(6, 'Start', ((1, 'pContext'),)))
     IPortableDevicePropertiesBulk.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(7, 'Cancel', ((1, 'pContext'),)))
+    win32more.System.Com.IUnknown
     return IPortableDevicePropertiesBulk
 def _define_IPortableDevicePropertiesBulkCallback_head():
     class IPortableDevicePropertiesBulkCallback(win32more.System.Com.IUnknown_head):
@@ -1337,6 +1354,7 @@ def _define_IPortableDevicePropertiesBulkCallback():
     IPortableDevicePropertiesBulkCallback.OnStart = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid), use_last_error=False)(3, 'OnStart', ((1, 'pContext'),)))
     IPortableDevicePropertiesBulkCallback.OnProgress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Devices.PortableDevices.IPortableDeviceValuesCollection_head, use_last_error=False)(4, 'OnProgress', ((1, 'pContext'),(1, 'pResults'),)))
     IPortableDevicePropertiesBulkCallback.OnEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Foundation.HRESULT, use_last_error=False)(5, 'OnEnd', ((1, 'pContext'),(1, 'hrStatus'),)))
+    win32more.System.Com.IUnknown
     return IPortableDevicePropertiesBulkCallback
 def _define_IPortableDeviceServiceManager_head():
     class IPortableDeviceServiceManager(win32more.System.Com.IUnknown_head):
@@ -1346,6 +1364,7 @@ def _define_IPortableDeviceServiceManager():
     IPortableDeviceServiceManager = win32more.Devices.PortableDevices.IPortableDeviceServiceManager_head
     IPortableDeviceServiceManager.GetDeviceServices = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(Guid),POINTER(win32more.Foundation.PWSTR),POINTER(UInt32), use_last_error=False)(3, 'GetDeviceServices', ((1, 'pszPnPDeviceID'),(1, 'guidServiceCategory'),(1, 'pServices'),(1, 'pcServices'),)))
     IPortableDeviceServiceManager.GetDeviceForService = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'GetDeviceForService', ((1, 'pszPnPServiceID'),(1, 'ppszPnPDeviceID'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceServiceManager
 def _define_IPortableDeviceService_head():
     class IPortableDeviceService(win32more.System.Com.IUnknown_head):
@@ -1364,6 +1383,7 @@ def _define_IPortableDeviceService():
     IPortableDeviceService.Advise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.PortableDevices.IPortableDeviceEventCallback_head,win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(11, 'Advise', ((1, 'dwFlags'),(1, 'pCallback'),(1, 'pParameters'),(1, 'ppszCookie'),)))
     IPortableDeviceService.Unadvise = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(12, 'Unadvise', ((1, 'pszCookie'),)))
     IPortableDeviceService.SendCommand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(win32more.Devices.PortableDevices.IPortableDeviceValues_head), use_last_error=False)(13, 'SendCommand', ((1, 'dwFlags'),(1, 'pParameters'),(1, 'ppResults'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceService
 def _define_IPortableDeviceServiceCapabilities_head():
     class IPortableDeviceServiceCapabilities(win32more.System.Com.IUnknown_head):
@@ -1387,6 +1407,7 @@ def _define_IPortableDeviceServiceCapabilities():
     IPortableDeviceServiceCapabilities.GetSupportedCommands = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.PortableDevices.IPortableDeviceKeyCollection_head), use_last_error=False)(16, 'GetSupportedCommands', ((1, 'ppCommands'),)))
     IPortableDeviceServiceCapabilities.GetCommandOptions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Shell.PropertiesSystem.PROPERTYKEY_head),POINTER(win32more.Devices.PortableDevices.IPortableDeviceValues_head), use_last_error=False)(17, 'GetCommandOptions', ((1, 'Command'),(1, 'ppOptions'),)))
     IPortableDeviceServiceCapabilities.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return IPortableDeviceServiceCapabilities
 def _define_IPortableDeviceServiceMethods_head():
     class IPortableDeviceServiceMethods(win32more.System.Com.IUnknown_head):
@@ -1397,6 +1418,7 @@ def _define_IPortableDeviceServiceMethods():
     IPortableDeviceServiceMethods.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Devices.PortableDevices.IPortableDeviceValues_head,POINTER(win32more.Devices.PortableDevices.IPortableDeviceValues_head), use_last_error=False)(3, 'Invoke', ((1, 'Method'),(1, 'pParameters'),(1, 'ppResults'),)))
     IPortableDeviceServiceMethods.InvokeAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),win32more.Devices.PortableDevices.IPortableDeviceValues_head,win32more.Devices.PortableDevices.IPortableDeviceServiceMethodCallback_head, use_last_error=False)(4, 'InvokeAsync', ((1, 'Method'),(1, 'pParameters'),(1, 'pCallback'),)))
     IPortableDeviceServiceMethods.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDeviceServiceMethodCallback_head, use_last_error=False)(5, 'Cancel', ((1, 'pCallback'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceServiceMethods
 def _define_IPortableDeviceServiceMethodCallback_head():
     class IPortableDeviceServiceMethodCallback(win32more.System.Com.IUnknown_head):
@@ -1405,6 +1427,7 @@ def _define_IPortableDeviceServiceMethodCallback_head():
 def _define_IPortableDeviceServiceMethodCallback():
     IPortableDeviceServiceMethodCallback = win32more.Devices.PortableDevices.IPortableDeviceServiceMethodCallback_head
     IPortableDeviceServiceMethodCallback.OnComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IPortableDeviceValues_head, use_last_error=False)(3, 'OnComplete', ((1, 'hrStatus'),(1, 'pResults'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceServiceMethodCallback
 def _define_IPortableDeviceServiceActivation_head():
     class IPortableDeviceServiceActivation(win32more.System.Com.IUnknown_head):
@@ -1414,6 +1437,7 @@ def _define_IPortableDeviceServiceActivation():
     IPortableDeviceServiceActivation = win32more.Devices.PortableDevices.IPortableDeviceServiceActivation_head
     IPortableDeviceServiceActivation.OpenAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Devices.PortableDevices.IPortableDeviceValues_head,win32more.Devices.PortableDevices.IPortableDeviceServiceOpenCallback_head, use_last_error=False)(3, 'OpenAsync', ((1, 'pszPnPServiceID'),(1, 'pClientInfo'),(1, 'pCallback'),)))
     IPortableDeviceServiceActivation.CancelOpenAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'CancelOpenAsync', ()))
+    win32more.System.Com.IUnknown
     return IPortableDeviceServiceActivation
 def _define_IPortableDeviceServiceOpenCallback_head():
     class IPortableDeviceServiceOpenCallback(win32more.System.Com.IUnknown_head):
@@ -1422,6 +1446,7 @@ def _define_IPortableDeviceServiceOpenCallback_head():
 def _define_IPortableDeviceServiceOpenCallback():
     IPortableDeviceServiceOpenCallback = win32more.Devices.PortableDevices.IPortableDeviceServiceOpenCallback_head
     IPortableDeviceServiceOpenCallback.OnComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnComplete', ((1, 'hrStatus'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceServiceOpenCallback
 def _define_IPortableDeviceDispatchFactory_head():
     class IPortableDeviceDispatchFactory(win32more.System.Com.IUnknown_head):
@@ -1430,6 +1455,7 @@ def _define_IPortableDeviceDispatchFactory_head():
 def _define_IPortableDeviceDispatchFactory():
     IPortableDeviceDispatchFactory = win32more.Devices.PortableDevices.IPortableDeviceDispatchFactory_head
     IPortableDeviceDispatchFactory.GetDeviceDispatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(3, 'GetDeviceDispatch', ((1, 'pszPnPDeviceID'),(1, 'ppDeviceDispatch'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceDispatchFactory
 def _define_IPortableDeviceWebControl_head():
     class IPortableDeviceWebControl(win32more.System.Com.IDispatch_head):
@@ -1439,6 +1465,7 @@ def _define_IPortableDeviceWebControl():
     IPortableDeviceWebControl = win32more.Devices.PortableDevices.IPortableDeviceWebControl_head
     IPortableDeviceWebControl.GetDeviceFromId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.IDispatch_head), use_last_error=False)(7, 'GetDeviceFromId', ((1, 'deviceId'),(1, 'ppDevice'),)))
     IPortableDeviceWebControl.GetDeviceFromIdAsync = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.System.Com.IDispatch_head,win32more.System.Com.IDispatch_head, use_last_error=False)(8, 'GetDeviceFromIdAsync', ((1, 'deviceId'),(1, 'pCompletionHandler'),(1, 'pErrorHandler'),)))
+    win32more.System.Com.IDispatch
     return IPortableDeviceWebControl
 EnumBthMtpConnectors = Guid('a1570149-e645-4f43-8b0d-409b061db2fc')
 def _define_IEnumPortableDeviceConnectors_head():
@@ -1451,6 +1478,7 @@ def _define_IEnumPortableDeviceConnectors():
     IEnumPortableDeviceConnectors.Skip = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(4, 'Skip', ((1, 'cConnectors'),)))
     IEnumPortableDeviceConnectors.Reset = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Reset', ()))
     IEnumPortableDeviceConnectors.Clone = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.PortableDevices.IEnumPortableDeviceConnectors_head), use_last_error=False)(6, 'Clone', ((1, 'ppEnum'),)))
+    win32more.System.Com.IUnknown
     return IEnumPortableDeviceConnectors
 def _define_IPortableDeviceConnector_head():
     class IPortableDeviceConnector(win32more.System.Com.IUnknown_head):
@@ -1464,6 +1492,7 @@ def _define_IPortableDeviceConnector():
     IPortableDeviceConnector.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Properties.DEVPROPKEY_head),POINTER(UInt32),POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(6, 'GetProperty', ((1, 'pPropertyKey'),(1, 'pPropertyType'),(1, 'ppData'),(1, 'pcbData'),)))
     IPortableDeviceConnector.SetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Properties.DEVPROPKEY_head),UInt32,POINTER(Byte),UInt32, use_last_error=False)(7, 'SetProperty', ((1, 'pPropertyKey'),(1, 'PropertyType'),(1, 'pData'),(1, 'cbData'),)))
     IPortableDeviceConnector.GetPnPID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(8, 'GetPnPID', ((1, 'ppwszPnPID'),)))
+    win32more.System.Com.IUnknown
     return IPortableDeviceConnector
 def _define_IConnectionRequestCallback_head():
     class IConnectionRequestCallback(win32more.System.Com.IUnknown_head):
@@ -1472,6 +1501,7 @@ def _define_IConnectionRequestCallback_head():
 def _define_IConnectionRequestCallback():
     IConnectionRequestCallback = win32more.Devices.PortableDevices.IConnectionRequestCallback_head
     IConnectionRequestCallback.OnComplete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HRESULT, use_last_error=False)(3, 'OnComplete', ((1, 'hrStatus'),)))
+    win32more.System.Com.IUnknown
     return IConnectionRequestCallback
 DEVICE_RADIO_STATE = Int32
 DRS_RADIO_ON = 0
@@ -1493,6 +1523,7 @@ def _define_IMediaRadioManager():
     IMediaRadioManager = win32more.Devices.PortableDevices.IMediaRadioManager_head
     IMediaRadioManager.GetRadioInstances = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.PortableDevices.IRadioInstanceCollection_head), use_last_error=False)(3, 'GetRadioInstances', ((1, 'ppCollection'),)))
     IMediaRadioManager.OnSystemRadioStateChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.SYSTEM_RADIO_STATE,UInt32, use_last_error=False)(4, 'OnSystemRadioStateChange', ((1, 'sysRadioState'),(1, 'uTimeoutSec'),)))
+    win32more.System.Com.IUnknown
     return IMediaRadioManager
 def _define_IRadioInstanceCollection_head():
     class IRadioInstanceCollection(win32more.System.Com.IUnknown_head):
@@ -1502,6 +1533,7 @@ def _define_IRadioInstanceCollection():
     IRadioInstanceCollection = win32more.Devices.PortableDevices.IRadioInstanceCollection_head
     IRadioInstanceCollection.GetCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(3, 'GetCount', ((1, 'pcInstance'),)))
     IRadioInstanceCollection.GetAt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.Devices.PortableDevices.IRadioInstance_head), use_last_error=False)(4, 'GetAt', ((1, 'uIndex'),(1, 'ppRadioInstance'),)))
+    win32more.System.Com.IUnknown
     return IRadioInstanceCollection
 def _define_IRadioInstance_head():
     class IRadioInstance(win32more.System.Com.IUnknown_head):
@@ -1516,6 +1548,7 @@ def _define_IRadioInstance():
     IRadioInstance.SetRadioState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.DEVICE_RADIO_STATE,UInt32, use_last_error=False)(7, 'SetRadioState', ((1, 'radioState'),(1, 'uTimeoutSec'),)))
     IRadioInstance.IsMultiComm = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(8, 'IsMultiComm', ()))
     IRadioInstance.IsAssociatingDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.BOOL, use_last_error=False)(9, 'IsAssociatingDevice', ()))
+    win32more.System.Com.IUnknown
     return IRadioInstance
 def _define_IMediaRadioManagerNotifySink_head():
     class IMediaRadioManagerNotifySink(win32more.System.Com.IUnknown_head):
@@ -1526,6 +1559,7 @@ def _define_IMediaRadioManagerNotifySink():
     IMediaRadioManagerNotifySink.OnInstanceAdd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.PortableDevices.IRadioInstance_head, use_last_error=False)(3, 'OnInstanceAdd', ((1, 'pRadioInstance'),)))
     IMediaRadioManagerNotifySink.OnInstanceRemove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(4, 'OnInstanceRemove', ((1, 'bstrRadioInstanceId'),)))
     IMediaRadioManagerNotifySink.OnInstanceRadioChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Devices.PortableDevices.DEVICE_RADIO_STATE, use_last_error=False)(5, 'OnInstanceRadioChange', ((1, 'bstrRadioInstanceId'),(1, 'radioState'),)))
+    win32more.System.Com.IUnknown
     return IMediaRadioManagerNotifySink
 def _define_DMProcessConfigXMLFiltered():
     try:

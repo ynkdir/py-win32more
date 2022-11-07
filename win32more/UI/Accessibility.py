@@ -1011,6 +1011,7 @@ def _define_IRicheditWindowlessAccessibility_head():
 def _define_IRicheditWindowlessAccessibility():
     IRicheditWindowlessAccessibility = win32more.UI.Accessibility.IRicheditWindowlessAccessibility_head
     IRicheditWindowlessAccessibility.CreateProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderWindowlessSite_head,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(3, 'CreateProvider', ((1, 'pSite'),(1, 'ppProvider'),)))
+    win32more.System.Com.IUnknown
     return IRicheditWindowlessAccessibility
 def _define_IRichEditUiaInformation_head():
     class IRichEditUiaInformation(win32more.System.Com.IUnknown_head):
@@ -1020,6 +1021,7 @@ def _define_IRichEditUiaInformation():
     IRichEditUiaInformation = win32more.UI.Accessibility.IRichEditUiaInformation_head
     IRichEditUiaInformation.GetBoundaryRectangle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UiaRect_head), use_last_error=False)(3, 'GetBoundaryRectangle', ((1, 'pUiaRect'),)))
     IRichEditUiaInformation.IsVisible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'IsVisible', ()))
+    win32more.System.Com.IUnknown
     return IRichEditUiaInformation
 CAccPropServices = Guid('b5f8350b-0548-48b1-a6ee-88bd00b4a5e7')
 def _define_LPFNLRESULTFROMOBJECT():
@@ -1073,6 +1075,7 @@ def _define_IAccessible():
     IAccessible.accDoDefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(25, 'accDoDefaultAction', ((1, 'varChild'),)))
     IAccessible.put_accName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR, use_last_error=False)(26, 'put_accName', ((1, 'varChild'),(1, 'szName'),)))
     IAccessible.put_accValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,win32more.Foundation.BSTR, use_last_error=False)(27, 'put_accValue', ((1, 'varChild'),(1, 'szValue'),)))
+    win32more.System.Com.IDispatch
     return IAccessible
 def _define_IAccessibleHandler_head():
     class IAccessibleHandler(win32more.System.Com.IUnknown_head):
@@ -1081,6 +1084,7 @@ def _define_IAccessibleHandler_head():
 def _define_IAccessibleHandler():
     IAccessibleHandler = win32more.UI.Accessibility.IAccessibleHandler_head
     IAccessibleHandler.AccessibleObjectFromID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.UI.Accessibility.IAccessible_head), use_last_error=False)(3, 'AccessibleObjectFromID', ((1, 'hwnd'),(1, 'lObjectID'),(1, 'pIAccessible'),)))
+    win32more.System.Com.IUnknown
     return IAccessibleHandler
 def _define_IAccessibleWindowlessSite_head():
     class IAccessibleWindowlessSite(win32more.System.Com.IUnknown_head):
@@ -1092,6 +1096,7 @@ def _define_IAccessibleWindowlessSite():
     IAccessibleWindowlessSite.ReleaseObjectIdRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,win32more.UI.Accessibility.IAccessibleHandler_head, use_last_error=False)(4, 'ReleaseObjectIdRange', ((1, 'rangeBase'),(1, 'pRangeOwner'),)))
     IAccessibleWindowlessSite.QueryObjectIdRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessibleHandler_head,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(5, 'QueryObjectIdRanges', ((1, 'pRangesOwner'),(1, 'psaRanges'),)))
     IAccessibleWindowlessSite.GetParentAccessible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IAccessible_head), use_last_error=False)(6, 'GetParentAccessible', ((1, 'ppParent'),)))
+    win32more.System.Com.IUnknown
     return IAccessibleWindowlessSite
 AnnoScope = Int32
 ANNO_THIS = 0
@@ -1103,6 +1108,7 @@ def _define_IAccIdentity_head():
 def _define_IAccIdentity():
     IAccIdentity = win32more.UI.Accessibility.IAccIdentity_head
     IAccIdentity.GetIdentityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(3, 'GetIdentityString', ((1, 'dwIDChild'),(1, 'ppIDString'),(1, 'pdwIDStringLen'),)))
+    win32more.System.Com.IUnknown
     return IAccIdentity
 def _define_IAccPropServer_head():
     class IAccPropServer(win32more.System.Com.IUnknown_head):
@@ -1111,6 +1117,7 @@ def _define_IAccPropServer_head():
 def _define_IAccPropServer():
     IAccPropServer = win32more.UI.Accessibility.IAccPropServer_head
     IAccPropServer.GetPropValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,Guid,POINTER(win32more.System.Com.VARIANT_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'GetPropValue', ((1, 'pIDString'),(1, 'dwIDStringLen'),(1, 'idProp'),(1, 'pvarValue'),(1, 'pfHasProp'),)))
+    win32more.System.Com.IUnknown
     return IAccPropServer
 def _define_IAccPropServices_head():
     class IAccPropServices(win32more.System.Com.IUnknown_head):
@@ -1133,6 +1140,7 @@ def _define_IAccPropServices():
     IAccPropServices.ClearHmenuProps = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HMENU,UInt32,POINTER(Guid),Int32, use_last_error=False)(15, 'ClearHmenuProps', ((1, 'hmenu'),(1, 'idChild'),(1, 'paProps'),(1, 'cProps'),)))
     IAccPropServices.ComposeHmenuIdentityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.WindowsAndMessaging.HMENU,UInt32,POINTER(c_char_p_no),POINTER(UInt32), use_last_error=False)(16, 'ComposeHmenuIdentityString', ((1, 'hmenu'),(1, 'idChild'),(1, 'ppIDString'),(1, 'pdwIDStringLen'),)))
     IAccPropServices.DecomposeHmenuIdentityString = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Byte),UInt32,POINTER(win32more.UI.WindowsAndMessaging.HMENU),POINTER(UInt32), use_last_error=False)(17, 'DecomposeHmenuIdentityString', ((1, 'pIDString'),(1, 'dwIDStringLen'),(1, 'phmenu'),(1, 'pidChild'),)))
+    win32more.System.Com.IUnknown
     return IAccPropServices
 CUIAutomation = Guid('ff48dba4-60ef-4201-aa87-54103eef594e')
 CUIAutomation8 = Guid('e22ad333-b25f-460c-83d0-0581107395c9')
@@ -1510,6 +1518,7 @@ def _define_IRawElementProviderSimple():
     IRawElementProviderSimple.GetPatternProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(4, 'GetPatternProvider', ((1, 'patternId'),(1, 'pRetVal'),)))
     IRawElementProviderSimple.GetPropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(5, 'GetPropertyValue', ((1, 'propertyId'),(1, 'pRetVal'),)))
     IRawElementProviderSimple.get_HostRawElementProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(6, 'get_HostRawElementProvider', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IRawElementProviderSimple
 def _define_IAccessibleEx_head():
     class IAccessibleEx(win32more.System.Com.IUnknown_head):
@@ -1521,6 +1530,7 @@ def _define_IAccessibleEx():
     IAccessibleEx.GetIAccessiblePair = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IAccessible_head),POINTER(Int32), use_last_error=False)(4, 'GetIAccessiblePair', ((1, 'ppAcc'),(1, 'pidChild'),)))
     IAccessibleEx.GetRuntimeId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(5, 'GetRuntimeId', ((1, 'pRetVal'),)))
     IAccessibleEx.ConvertReturnedElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,POINTER(win32more.UI.Accessibility.IAccessibleEx_head), use_last_error=False)(6, 'ConvertReturnedElement', ((1, 'pIn'),(1, 'ppRetValOut'),)))
+    win32more.System.Com.IUnknown
     return IAccessibleEx
 def _define_IRawElementProviderSimple2_head():
     class IRawElementProviderSimple2(win32more.UI.Accessibility.IRawElementProviderSimple_head):
@@ -1529,6 +1539,7 @@ def _define_IRawElementProviderSimple2_head():
 def _define_IRawElementProviderSimple2():
     IRawElementProviderSimple2 = win32more.UI.Accessibility.IRawElementProviderSimple2_head
     IRawElementProviderSimple2.ShowContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'ShowContextMenu', ()))
+    win32more.UI.Accessibility.IRawElementProviderSimple
     return IRawElementProviderSimple2
 def _define_IRawElementProviderSimple3_head():
     class IRawElementProviderSimple3(win32more.UI.Accessibility.IRawElementProviderSimple2_head):
@@ -1537,6 +1548,7 @@ def _define_IRawElementProviderSimple3_head():
 def _define_IRawElementProviderSimple3():
     IRawElementProviderSimple3 = win32more.UI.Accessibility.IRawElementProviderSimple3_head
     IRawElementProviderSimple3.GetMetadataValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(8, 'GetMetadataValue', ((1, 'targetId'),(1, 'metadataId'),(1, 'returnVal'),)))
+    win32more.UI.Accessibility.IRawElementProviderSimple2
     return IRawElementProviderSimple3
 def _define_IRawElementProviderFragmentRoot_head():
     class IRawElementProviderFragmentRoot(win32more.System.Com.IUnknown_head):
@@ -1546,6 +1558,7 @@ def _define_IRawElementProviderFragmentRoot():
     IRawElementProviderFragmentRoot = win32more.UI.Accessibility.IRawElementProviderFragmentRoot_head
     IRawElementProviderFragmentRoot.ElementProviderFromPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Double,Double,POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head), use_last_error=False)(3, 'ElementProviderFromPoint', ((1, 'x'),(1, 'y'),(1, 'pRetVal'),)))
     IRawElementProviderFragmentRoot.GetFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head), use_last_error=False)(4, 'GetFocus', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IRawElementProviderFragmentRoot
 def _define_IRawElementProviderFragment_head():
     class IRawElementProviderFragment(win32more.System.Com.IUnknown_head):
@@ -1559,6 +1572,7 @@ def _define_IRawElementProviderFragment():
     IRawElementProviderFragment.GetEmbeddedFragmentRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(6, 'GetEmbeddedFragmentRoots', ((1, 'pRetVal'),)))
     IRawElementProviderFragment.SetFocus = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(7, 'SetFocus', ()))
     IRawElementProviderFragment.get_FragmentRoot = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderFragmentRoot_head), use_last_error=False)(8, 'get_FragmentRoot', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IRawElementProviderFragment
 def _define_IRawElementProviderAdviseEvents_head():
     class IRawElementProviderAdviseEvents(win32more.System.Com.IUnknown_head):
@@ -1568,6 +1582,7 @@ def _define_IRawElementProviderAdviseEvents():
     IRawElementProviderAdviseEvents = win32more.UI.Accessibility.IRawElementProviderAdviseEvents_head
     IRawElementProviderAdviseEvents.AdviseEventAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(3, 'AdviseEventAdded', ((1, 'eventId'),(1, 'propertyIDs'),)))
     IRawElementProviderAdviseEvents.AdviseEventRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(4, 'AdviseEventRemoved', ((1, 'eventId'),(1, 'propertyIDs'),)))
+    win32more.System.Com.IUnknown
     return IRawElementProviderAdviseEvents
 def _define_IRawElementProviderHwndOverride_head():
     class IRawElementProviderHwndOverride(win32more.System.Com.IUnknown_head):
@@ -1576,6 +1591,7 @@ def _define_IRawElementProviderHwndOverride_head():
 def _define_IRawElementProviderHwndOverride():
     IRawElementProviderHwndOverride = win32more.UI.Accessibility.IRawElementProviderHwndOverride_head
     IRawElementProviderHwndOverride.GetOverrideProviderForHwnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(3, 'GetOverrideProviderForHwnd', ((1, 'hwnd'),(1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IRawElementProviderHwndOverride
 def _define_IProxyProviderWinEventSink_head():
     class IProxyProviderWinEventSink(win32more.System.Com.IUnknown_head):
@@ -1586,6 +1602,7 @@ def _define_IProxyProviderWinEventSink():
     IProxyProviderWinEventSink.AddAutomationPropertyChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,Int32,win32more.System.Com.VARIANT, use_last_error=False)(3, 'AddAutomationPropertyChangedEvent', ((1, 'pProvider'),(1, 'id'),(1, 'newValue'),)))
     IProxyProviderWinEventSink.AddAutomationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,Int32, use_last_error=False)(4, 'AddAutomationEvent', ((1, 'pProvider'),(1, 'id'),)))
     IProxyProviderWinEventSink.AddStructureChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,win32more.UI.Accessibility.StructureChangeType,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(5, 'AddStructureChangedEvent', ((1, 'pProvider'),(1, 'structureChangeType'),(1, 'runtimeId'),)))
+    win32more.System.Com.IUnknown
     return IProxyProviderWinEventSink
 def _define_IProxyProviderWinEventHandler_head():
     class IProxyProviderWinEventHandler(win32more.System.Com.IUnknown_head):
@@ -1594,6 +1611,7 @@ def _define_IProxyProviderWinEventHandler_head():
 def _define_IProxyProviderWinEventHandler():
     IProxyProviderWinEventHandler = win32more.UI.Accessibility.IProxyProviderWinEventHandler_head
     IProxyProviderWinEventHandler.RespondToWinEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.HWND,Int32,Int32,win32more.UI.Accessibility.IProxyProviderWinEventSink_head, use_last_error=False)(3, 'RespondToWinEvent', ((1, 'idWinEvent'),(1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'pSink'),)))
+    win32more.System.Com.IUnknown
     return IProxyProviderWinEventHandler
 def _define_IRawElementProviderWindowlessSite_head():
     class IRawElementProviderWindowlessSite(win32more.System.Com.IUnknown_head):
@@ -1603,6 +1621,7 @@ def _define_IRawElementProviderWindowlessSite():
     IRawElementProviderWindowlessSite = win32more.UI.Accessibility.IRawElementProviderWindowlessSite_head
     IRawElementProviderWindowlessSite.GetAdjacentFragment = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.NavigateDirection,POINTER(win32more.UI.Accessibility.IRawElementProviderFragment_head), use_last_error=False)(3, 'GetAdjacentFragment', ((1, 'direction'),(1, 'ppParent'),)))
     IRawElementProviderWindowlessSite.GetRuntimeIdPrefix = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(4, 'GetRuntimeIdPrefix', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IRawElementProviderWindowlessSite
 def _define_IAccessibleHostingElementProviders_head():
     class IAccessibleHostingElementProviders(win32more.System.Com.IUnknown_head):
@@ -1612,6 +1631,7 @@ def _define_IAccessibleHostingElementProviders():
     IAccessibleHostingElementProviders = win32more.UI.Accessibility.IAccessibleHostingElementProviders_head
     IAccessibleHostingElementProviders.GetEmbeddedFragmentRoots = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetEmbeddedFragmentRoots', ((1, 'pRetVal'),)))
     IAccessibleHostingElementProviders.GetObjectIdForProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,POINTER(Int32), use_last_error=False)(4, 'GetObjectIdForProvider', ((1, 'pProvider'),(1, 'pidObject'),)))
+    win32more.System.Com.IUnknown
     return IAccessibleHostingElementProviders
 def _define_IRawElementProviderHostingAccessibles_head():
     class IRawElementProviderHostingAccessibles(win32more.System.Com.IUnknown_head):
@@ -1620,6 +1640,7 @@ def _define_IRawElementProviderHostingAccessibles_head():
 def _define_IRawElementProviderHostingAccessibles():
     IRawElementProviderHostingAccessibles = win32more.UI.Accessibility.IRawElementProviderHostingAccessibles_head
     IRawElementProviderHostingAccessibles.GetEmbeddedAccessibles = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetEmbeddedAccessibles', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IRawElementProviderHostingAccessibles
 def _define_IDockProvider_head():
     class IDockProvider(win32more.System.Com.IUnknown_head):
@@ -1629,6 +1650,7 @@ def _define_IDockProvider():
     IDockProvider = win32more.UI.Accessibility.IDockProvider_head
     IDockProvider.SetDockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.DockPosition, use_last_error=False)(3, 'SetDockPosition', ((1, 'dockPosition'),)))
     IDockProvider.get_DockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.DockPosition), use_last_error=False)(4, 'get_DockPosition', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IDockProvider
 def _define_IExpandCollapseProvider_head():
     class IExpandCollapseProvider(win32more.System.Com.IUnknown_head):
@@ -1639,6 +1661,7 @@ def _define_IExpandCollapseProvider():
     IExpandCollapseProvider.Expand = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Expand', ()))
     IExpandCollapseProvider.Collapse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Collapse', ()))
     IExpandCollapseProvider.get_ExpandCollapseState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ExpandCollapseState), use_last_error=False)(5, 'get_ExpandCollapseState', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IExpandCollapseProvider
 def _define_IGridProvider_head():
     class IGridProvider(win32more.System.Com.IUnknown_head):
@@ -1649,6 +1672,7 @@ def _define_IGridProvider():
     IGridProvider.GetItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(3, 'GetItem', ((1, 'row'),(1, 'column'),(1, 'pRetVal'),)))
     IGridProvider.get_RowCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(4, 'get_RowCount', ((1, 'pRetVal'),)))
     IGridProvider.get_ColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'get_ColumnCount', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IGridProvider
 def _define_IGridItemProvider_head():
     class IGridItemProvider(win32more.System.Com.IUnknown_head):
@@ -1661,6 +1685,7 @@ def _define_IGridItemProvider():
     IGridItemProvider.get_RowSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'get_RowSpan', ((1, 'pRetVal'),)))
     IGridItemProvider.get_ColumnSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(6, 'get_ColumnSpan', ((1, 'pRetVal'),)))
     IGridItemProvider.get_ContainingGrid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(7, 'get_ContainingGrid', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IGridItemProvider
 def _define_IInvokeProvider_head():
     class IInvokeProvider(win32more.System.Com.IUnknown_head):
@@ -1669,6 +1694,7 @@ def _define_IInvokeProvider_head():
 def _define_IInvokeProvider():
     IInvokeProvider = win32more.UI.Accessibility.IInvokeProvider_head
     IInvokeProvider.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Invoke', ()))
+    win32more.System.Com.IUnknown
     return IInvokeProvider
 def _define_IMultipleViewProvider_head():
     class IMultipleViewProvider(win32more.System.Com.IUnknown_head):
@@ -1680,6 +1706,7 @@ def _define_IMultipleViewProvider():
     IMultipleViewProvider.SetCurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(4, 'SetCurrentView', ((1, 'viewId'),)))
     IMultipleViewProvider.get_CurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'get_CurrentView', ((1, 'pRetVal'),)))
     IMultipleViewProvider.GetSupportedViews = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(6, 'GetSupportedViews', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IMultipleViewProvider
 def _define_IRangeValueProvider_head():
     class IRangeValueProvider(win32more.System.Com.IUnknown_head):
@@ -1694,6 +1721,7 @@ def _define_IRangeValueProvider():
     IRangeValueProvider.get_Minimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(7, 'get_Minimum', ((1, 'pRetVal'),)))
     IRangeValueProvider.get_LargeChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(8, 'get_LargeChange', ((1, 'pRetVal'),)))
     IRangeValueProvider.get_SmallChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(9, 'get_SmallChange', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IRangeValueProvider
 def _define_IScrollItemProvider_head():
     class IScrollItemProvider(win32more.System.Com.IUnknown_head):
@@ -1702,6 +1730,7 @@ def _define_IScrollItemProvider_head():
 def _define_IScrollItemProvider():
     IScrollItemProvider = win32more.UI.Accessibility.IScrollItemProvider_head
     IScrollItemProvider.ScrollIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'ScrollIntoView', ()))
+    win32more.System.Com.IUnknown
     return IScrollItemProvider
 def _define_ISelectionProvider_head():
     class ISelectionProvider(win32more.System.Com.IUnknown_head):
@@ -1712,6 +1741,7 @@ def _define_ISelectionProvider():
     ISelectionProvider.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetSelection', ((1, 'pRetVal'),)))
     ISelectionProvider.get_CanSelectMultiple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'get_CanSelectMultiple', ((1, 'pRetVal'),)))
     ISelectionProvider.get_IsSelectionRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'get_IsSelectionRequired', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ISelectionProvider
 def _define_ISelectionProvider2_head():
     class ISelectionProvider2(win32more.UI.Accessibility.ISelectionProvider_head):
@@ -1723,6 +1753,7 @@ def _define_ISelectionProvider2():
     ISelectionProvider2.get_LastSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(7, 'get_LastSelectedItem', ((1, 'retVal'),)))
     ISelectionProvider2.get_CurrentSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(8, 'get_CurrentSelectedItem', ((1, 'retVal'),)))
     ISelectionProvider2.get_ItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_ItemCount', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.ISelectionProvider
     return ISelectionProvider2
 def _define_IScrollProvider_head():
     class IScrollProvider(win32more.System.Com.IUnknown_head):
@@ -1738,6 +1769,7 @@ def _define_IScrollProvider():
     IScrollProvider.get_VerticalViewSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(8, 'get_VerticalViewSize', ((1, 'pRetVal'),)))
     IScrollProvider.get_HorizontallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'get_HorizontallyScrollable', ((1, 'pRetVal'),)))
     IScrollProvider.get_VerticallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(10, 'get_VerticallyScrollable', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IScrollProvider
 def _define_ISelectionItemProvider_head():
     class ISelectionItemProvider(win32more.System.Com.IUnknown_head):
@@ -1750,6 +1782,7 @@ def _define_ISelectionItemProvider():
     ISelectionItemProvider.RemoveFromSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'RemoveFromSelection', ()))
     ISelectionItemProvider.get_IsSelected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'get_IsSelected', ((1, 'pRetVal'),)))
     ISelectionItemProvider.get_SelectionContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(7, 'get_SelectionContainer', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ISelectionItemProvider
 def _define_ISynchronizedInputProvider_head():
     class ISynchronizedInputProvider(win32more.System.Com.IUnknown_head):
@@ -1759,6 +1792,7 @@ def _define_ISynchronizedInputProvider():
     ISynchronizedInputProvider = win32more.UI.Accessibility.ISynchronizedInputProvider_head
     ISynchronizedInputProvider.StartListening = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.SynchronizedInputType, use_last_error=False)(3, 'StartListening', ((1, 'inputType'),)))
     ISynchronizedInputProvider.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return ISynchronizedInputProvider
 def _define_ITableProvider_head():
     class ITableProvider(win32more.System.Com.IUnknown_head):
@@ -1769,6 +1803,7 @@ def _define_ITableProvider():
     ITableProvider.GetRowHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetRowHeaders', ((1, 'pRetVal'),)))
     ITableProvider.GetColumnHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(4, 'GetColumnHeaders', ((1, 'pRetVal'),)))
     ITableProvider.get_RowOrColumnMajor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.RowOrColumnMajor), use_last_error=False)(5, 'get_RowOrColumnMajor', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ITableProvider
 def _define_ITableItemProvider_head():
     class ITableItemProvider(win32more.System.Com.IUnknown_head):
@@ -1778,6 +1813,7 @@ def _define_ITableItemProvider():
     ITableItemProvider = win32more.UI.Accessibility.ITableItemProvider_head
     ITableItemProvider.GetRowHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(3, 'GetRowHeaderItems', ((1, 'pRetVal'),)))
     ITableItemProvider.GetColumnHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(4, 'GetColumnHeaderItems', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ITableItemProvider
 def _define_IToggleProvider_head():
     class IToggleProvider(win32more.System.Com.IUnknown_head):
@@ -1787,6 +1823,7 @@ def _define_IToggleProvider():
     IToggleProvider = win32more.UI.Accessibility.IToggleProvider_head
     IToggleProvider.Toggle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Toggle', ()))
     IToggleProvider.get_ToggleState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ToggleState), use_last_error=False)(4, 'get_ToggleState', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IToggleProvider
 def _define_ITransformProvider_head():
     class ITransformProvider(win32more.System.Com.IUnknown_head):
@@ -1800,6 +1837,7 @@ def _define_ITransformProvider():
     ITransformProvider.get_CanMove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(6, 'get_CanMove', ((1, 'pRetVal'),)))
     ITransformProvider.get_CanResize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'get_CanResize', ((1, 'pRetVal'),)))
     ITransformProvider.get_CanRotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'get_CanRotate', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ITransformProvider
 def _define_IValueProvider_head():
     class IValueProvider(win32more.System.Com.IUnknown_head):
@@ -1810,6 +1848,7 @@ def _define_IValueProvider():
     IValueProvider.SetValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR, use_last_error=False)(3, 'SetValue', ((1, 'val'),)))
     IValueProvider.get_Value = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_Value', ((1, 'pRetVal'),)))
     IValueProvider.get_IsReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'get_IsReadOnly', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IValueProvider
 def _define_IWindowProvider_head():
     class IWindowProvider(win32more.System.Com.IUnknown_head):
@@ -1826,6 +1865,7 @@ def _define_IWindowProvider():
     IWindowProvider.get_WindowVisualState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowVisualState), use_last_error=False)(9, 'get_WindowVisualState', ((1, 'pRetVal'),)))
     IWindowProvider.get_WindowInteractionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowInteractionState), use_last_error=False)(10, 'get_WindowInteractionState', ((1, 'pRetVal'),)))
     IWindowProvider.get_IsTopmost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'get_IsTopmost', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IWindowProvider
 def _define_ILegacyIAccessibleProvider_head():
     class ILegacyIAccessibleProvider(win32more.System.Com.IUnknown_head):
@@ -1847,6 +1887,7 @@ def _define_ILegacyIAccessibleProvider():
     ILegacyIAccessibleProvider.get_KeyboardShortcut = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(14, 'get_KeyboardShortcut', ((1, 'pszKeyboardShortcut'),)))
     ILegacyIAccessibleProvider.GetSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(15, 'GetSelection', ((1, 'pvarSelectedChildren'),)))
     ILegacyIAccessibleProvider.get_DefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(16, 'get_DefaultAction', ((1, 'pszDefaultAction'),)))
+    win32more.System.Com.IUnknown
     return ILegacyIAccessibleProvider
 def _define_IItemContainerProvider_head():
     class IItemContainerProvider(win32more.System.Com.IUnknown_head):
@@ -1855,6 +1896,7 @@ def _define_IItemContainerProvider_head():
 def _define_IItemContainerProvider():
     IItemContainerProvider = win32more.UI.Accessibility.IItemContainerProvider_head
     IItemContainerProvider.FindItemByProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,Int32,win32more.System.Com.VARIANT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(3, 'FindItemByProperty', ((1, 'pStartAfter'),(1, 'propertyId'),(1, 'value'),(1, 'pFound'),)))
+    win32more.System.Com.IUnknown
     return IItemContainerProvider
 def _define_IVirtualizedItemProvider_head():
     class IVirtualizedItemProvider(win32more.System.Com.IUnknown_head):
@@ -1863,6 +1905,7 @@ def _define_IVirtualizedItemProvider_head():
 def _define_IVirtualizedItemProvider():
     IVirtualizedItemProvider = win32more.UI.Accessibility.IVirtualizedItemProvider_head
     IVirtualizedItemProvider.Realize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Realize', ()))
+    win32more.System.Com.IUnknown
     return IVirtualizedItemProvider
 def _define_IObjectModelProvider_head():
     class IObjectModelProvider(win32more.System.Com.IUnknown_head):
@@ -1871,6 +1914,7 @@ def _define_IObjectModelProvider_head():
 def _define_IObjectModelProvider():
     IObjectModelProvider = win32more.UI.Accessibility.IObjectModelProvider_head
     IObjectModelProvider.GetUnderlyingObjectModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetUnderlyingObjectModel', ((1, 'ppUnknown'),)))
+    win32more.System.Com.IUnknown
     return IObjectModelProvider
 def _define_IAnnotationProvider_head():
     class IAnnotationProvider(win32more.System.Com.IUnknown_head):
@@ -1883,6 +1927,7 @@ def _define_IAnnotationProvider():
     IAnnotationProvider.get_Author = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(5, 'get_Author', ((1, 'retVal'),)))
     IAnnotationProvider.get_DateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_DateTime', ((1, 'retVal'),)))
     IAnnotationProvider.get_Target = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(7, 'get_Target', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IAnnotationProvider
 def _define_IStylesProvider_head():
     class IStylesProvider(win32more.System.Com.IUnknown_head):
@@ -1897,6 +1942,7 @@ def _define_IStylesProvider():
     IStylesProvider.get_Shape = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Shape', ((1, 'retVal'),)))
     IStylesProvider.get_FillPatternColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(8, 'get_FillPatternColor', ((1, 'retVal'),)))
     IStylesProvider.get_ExtendedProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_ExtendedProperties', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IStylesProvider
 def _define_ISpreadsheetProvider_head():
     class ISpreadsheetProvider(win32more.System.Com.IUnknown_head):
@@ -1905,6 +1951,7 @@ def _define_ISpreadsheetProvider_head():
 def _define_ISpreadsheetProvider():
     ISpreadsheetProvider = win32more.UI.Accessibility.ISpreadsheetProvider_head
     ISpreadsheetProvider.GetItemByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(3, 'GetItemByName', ((1, 'name'),(1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ISpreadsheetProvider
 def _define_ISpreadsheetItemProvider_head():
     class ISpreadsheetItemProvider(win32more.System.Com.IUnknown_head):
@@ -1915,6 +1962,7 @@ def _define_ISpreadsheetItemProvider():
     ISpreadsheetItemProvider.get_Formula = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_Formula', ((1, 'pRetVal'),)))
     ISpreadsheetItemProvider.GetAnnotationObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(4, 'GetAnnotationObjects', ((1, 'pRetVal'),)))
     ISpreadsheetItemProvider.GetAnnotationTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(5, 'GetAnnotationTypes', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ISpreadsheetItemProvider
 def _define_ITransformProvider2_head():
     class ITransformProvider2(win32more.UI.Accessibility.ITransformProvider_head):
@@ -1928,6 +1976,7 @@ def _define_ITransformProvider2():
     ITransformProvider2.get_ZoomMinimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(12, 'get_ZoomMinimum', ((1, 'pRetVal'),)))
     ITransformProvider2.get_ZoomMaximum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(13, 'get_ZoomMaximum', ((1, 'pRetVal'),)))
     ITransformProvider2.ZoomByUnit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.ZoomUnit, use_last_error=False)(14, 'ZoomByUnit', ((1, 'zoomUnit'),)))
+    win32more.UI.Accessibility.ITransformProvider
     return ITransformProvider2
 def _define_IDragProvider_head():
     class IDragProvider(win32more.System.Com.IUnknown_head):
@@ -1939,6 +1988,7 @@ def _define_IDragProvider():
     IDragProvider.get_DropEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_DropEffect', ((1, 'pRetVal'),)))
     IDragProvider.get_DropEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(5, 'get_DropEffects', ((1, 'pRetVal'),)))
     IDragProvider.GetGrabbedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(6, 'GetGrabbedItems', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IDragProvider
 def _define_IDropTargetProvider_head():
     class IDropTargetProvider(win32more.System.Com.IUnknown_head):
@@ -1948,6 +1998,7 @@ def _define_IDropTargetProvider():
     IDropTargetProvider = win32more.UI.Accessibility.IDropTargetProvider_head
     IDropTargetProvider.get_DropTargetEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(3, 'get_DropTargetEffect', ((1, 'pRetVal'),)))
     IDropTargetProvider.get_DropTargetEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(4, 'get_DropTargetEffects', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IDropTargetProvider
 def _define_ITextRangeProvider_head():
     class ITextRangeProvider(win32more.System.Com.IUnknown_head):
@@ -1973,6 +2024,7 @@ def _define_ITextRangeProvider():
     ITextRangeProvider.RemoveFromSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'RemoveFromSelection', ()))
     ITextRangeProvider.ScrollIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(19, 'ScrollIntoView', ((1, 'alignToTop'),)))
     ITextRangeProvider.GetChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(20, 'GetChildren', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ITextRangeProvider
 def _define_ITextProvider_head():
     class ITextProvider(win32more.System.Com.IUnknown_head):
@@ -1986,6 +2038,7 @@ def _define_ITextProvider():
     ITextProvider.RangeFromPoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.UiaPoint,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head), use_last_error=False)(6, 'RangeFromPoint', ((1, 'point'),(1, 'pRetVal'),)))
     ITextProvider.get_DocumentRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head), use_last_error=False)(7, 'get_DocumentRange', ((1, 'pRetVal'),)))
     ITextProvider.get_SupportedTextSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.SupportedTextSelection), use_last_error=False)(8, 'get_SupportedTextSelection', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ITextProvider
 def _define_ITextProvider2_head():
     class ITextProvider2(win32more.UI.Accessibility.ITextProvider_head):
@@ -1995,6 +2048,7 @@ def _define_ITextProvider2():
     ITextProvider2 = win32more.UI.Accessibility.ITextProvider2_head
     ITextProvider2.RangeFromAnnotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IRawElementProviderSimple_head,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head), use_last_error=False)(9, 'RangeFromAnnotation', ((1, 'annotationElement'),(1, 'pRetVal'),)))
     ITextProvider2.GetCaretRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.UI.Accessibility.ITextRangeProvider_head), use_last_error=False)(10, 'GetCaretRange', ((1, 'isActive'),(1, 'pRetVal'),)))
+    win32more.UI.Accessibility.ITextProvider
     return ITextProvider2
 def _define_ITextEditProvider_head():
     class ITextEditProvider(win32more.UI.Accessibility.ITextProvider_head):
@@ -2004,6 +2058,7 @@ def _define_ITextEditProvider():
     ITextEditProvider = win32more.UI.Accessibility.ITextEditProvider_head
     ITextEditProvider.GetActiveComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head), use_last_error=False)(9, 'GetActiveComposition', ((1, 'pRetVal'),)))
     ITextEditProvider.GetConversionTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head), use_last_error=False)(10, 'GetConversionTarget', ((1, 'pRetVal'),)))
+    win32more.UI.Accessibility.ITextProvider
     return ITextEditProvider
 def _define_ITextRangeProvider2_head():
     class ITextRangeProvider2(win32more.UI.Accessibility.ITextRangeProvider_head):
@@ -2012,6 +2067,7 @@ def _define_ITextRangeProvider2_head():
 def _define_ITextRangeProvider2():
     ITextRangeProvider2 = win32more.UI.Accessibility.ITextRangeProvider2_head
     ITextRangeProvider2.ShowContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'ShowContextMenu', ()))
+    win32more.UI.Accessibility.ITextRangeProvider
     return ITextRangeProvider2
 def _define_ITextChildProvider_head():
     class ITextChildProvider(win32more.System.Com.IUnknown_head):
@@ -2021,6 +2077,7 @@ def _define_ITextChildProvider():
     ITextChildProvider = win32more.UI.Accessibility.ITextChildProvider_head
     ITextChildProvider.get_TextContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(3, 'get_TextContainer', ((1, 'pRetVal'),)))
     ITextChildProvider.get_TextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ITextRangeProvider_head), use_last_error=False)(4, 'get_TextRange', ((1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ITextChildProvider
 def _define_ICustomNavigationProvider_head():
     class ICustomNavigationProvider(win32more.System.Com.IUnknown_head):
@@ -2029,6 +2086,7 @@ def _define_ICustomNavigationProvider_head():
 def _define_ICustomNavigationProvider():
     ICustomNavigationProvider = win32more.UI.Accessibility.ICustomNavigationProvider_head
     ICustomNavigationProvider.Navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.NavigateDirection,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(3, 'Navigate', ((1, 'direction'),(1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return ICustomNavigationProvider
 def _define_IUIAutomationPatternInstance_head():
     class IUIAutomationPatternInstance(win32more.System.Com.IUnknown_head):
@@ -2038,6 +2096,7 @@ def _define_IUIAutomationPatternInstance():
     IUIAutomationPatternInstance = win32more.UI.Accessibility.IUIAutomationPatternInstance_head
     IUIAutomationPatternInstance.GetProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.BOOL,win32more.UI.Accessibility.UIAutomationType,c_void_p, use_last_error=False)(3, 'GetProperty', ((1, 'index'),(1, 'cached'),(1, 'type'),(1, 'pPtr'),)))
     IUIAutomationPatternInstance.CallMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.UI.Accessibility.UIAutomationParameter_head),UInt32, use_last_error=False)(4, 'CallMethod', ((1, 'index'),(1, 'pParams'),(1, 'cParams'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationPatternInstance
 def _define_IUIAutomationPatternHandler_head():
     class IUIAutomationPatternHandler(win32more.System.Com.IUnknown_head):
@@ -2047,6 +2106,7 @@ def _define_IUIAutomationPatternHandler():
     IUIAutomationPatternHandler = win32more.UI.Accessibility.IUIAutomationPatternHandler_head
     IUIAutomationPatternHandler.CreateClientWrapper = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationPatternInstance_head,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'CreateClientWrapper', ((1, 'pPatternInstance'),(1, 'pClientWrapper'),)))
     IUIAutomationPatternHandler.Dispatch = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.IUnknown_head,UInt32,POINTER(win32more.UI.Accessibility.UIAutomationParameter_head),UInt32, use_last_error=False)(4, 'Dispatch', ((1, 'pTarget'),(1, 'index'),(1, 'pParams'),(1, 'cParams'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationPatternHandler
 def _define_IUIAutomationRegistrar_head():
     class IUIAutomationRegistrar(win32more.System.Com.IUnknown_head):
@@ -2057,6 +2117,7 @@ def _define_IUIAutomationRegistrar():
     IUIAutomationRegistrar.RegisterProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIAutomationPropertyInfo_head),POINTER(Int32), use_last_error=False)(3, 'RegisterProperty', ((1, 'property'),(1, 'propertyId'),)))
     IUIAutomationRegistrar.RegisterEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIAutomationEventInfo_head),POINTER(Int32), use_last_error=False)(4, 'RegisterEvent', ((1, 'event'),(1, 'eventId'),)))
     IUIAutomationRegistrar.RegisterPattern = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.UIAutomationPatternInfo_head),POINTER(Int32),POINTER(Int32),UInt32,POINTER(Int32),UInt32,POINTER(Int32), use_last_error=False)(5, 'RegisterPattern', ((1, 'pattern'),(1, 'pPatternId'),(1, 'pPatternAvailablePropertyId'),(1, 'propertyIdCount'),(1, 'pPropertyIds'),(1, 'eventIdCount'),(1, 'pEventIds'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationRegistrar
 TreeScope = Int32
 TreeScope_None = 0
@@ -2182,6 +2243,7 @@ def _define_IUIAutomationElement():
     IUIAutomationElement.get_CachedFlowsTo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(82, 'get_CachedFlowsTo', ((1, 'retVal'),)))
     IUIAutomationElement.get_CachedProviderDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(83, 'get_CachedProviderDescription', ((1, 'retVal'),)))
     IUIAutomationElement.GetClickablePoint = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.POINT_head),POINTER(win32more.Foundation.BOOL), use_last_error=False)(84, 'GetClickablePoint', ((1, 'clickable'),(1, 'gotClickable'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationElement
 def _define_IUIAutomationElementArray_head():
     class IUIAutomationElementArray(win32more.System.Com.IUnknown_head):
@@ -2191,6 +2253,7 @@ def _define_IUIAutomationElementArray():
     IUIAutomationElementArray = win32more.UI.Accessibility.IUIAutomationElementArray_head
     IUIAutomationElementArray.get_Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'get_Length', ((1, 'length'),)))
     IUIAutomationElementArray.GetElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(4, 'GetElement', ((1, 'index'),(1, 'element'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationElementArray
 def _define_IUIAutomationCondition_head():
     class IUIAutomationCondition(win32more.System.Com.IUnknown_head):
@@ -2198,6 +2261,7 @@ def _define_IUIAutomationCondition_head():
     return IUIAutomationCondition
 def _define_IUIAutomationCondition():
     IUIAutomationCondition = win32more.UI.Accessibility.IUIAutomationCondition_head
+    win32more.System.Com.IUnknown
     return IUIAutomationCondition
 def _define_IUIAutomationBoolCondition_head():
     class IUIAutomationBoolCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
@@ -2206,6 +2270,7 @@ def _define_IUIAutomationBoolCondition_head():
 def _define_IUIAutomationBoolCondition():
     IUIAutomationBoolCondition = win32more.UI.Accessibility.IUIAutomationBoolCondition_head
     IUIAutomationBoolCondition.get_BooleanValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'get_BooleanValue', ((1, 'boolVal'),)))
+    win32more.UI.Accessibility.IUIAutomationCondition
     return IUIAutomationBoolCondition
 def _define_IUIAutomationPropertyCondition_head():
     class IUIAutomationPropertyCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
@@ -2216,6 +2281,7 @@ def _define_IUIAutomationPropertyCondition():
     IUIAutomationPropertyCondition.get_PropertyId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'get_PropertyId', ((1, 'propertyId'),)))
     IUIAutomationPropertyCondition.get_PropertyValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(4, 'get_PropertyValue', ((1, 'propertyValue'),)))
     IUIAutomationPropertyCondition.get_PropertyConditionFlags = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.PropertyConditionFlags), use_last_error=False)(5, 'get_PropertyConditionFlags', ((1, 'flags'),)))
+    win32more.UI.Accessibility.IUIAutomationCondition
     return IUIAutomationPropertyCondition
 def _define_IUIAutomationAndCondition_head():
     class IUIAutomationAndCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
@@ -2226,6 +2292,7 @@ def _define_IUIAutomationAndCondition():
     IUIAutomationAndCondition.get_ChildCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'get_ChildCount', ((1, 'childCount'),)))
     IUIAutomationAndCondition.GetChildrenAsNativeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)),POINTER(Int32), use_last_error=False)(4, 'GetChildrenAsNativeArray', ((1, 'childArray'),(1, 'childArrayCount'),)))
     IUIAutomationAndCondition.GetChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(5, 'GetChildren', ((1, 'childArray'),)))
+    win32more.UI.Accessibility.IUIAutomationCondition
     return IUIAutomationAndCondition
 def _define_IUIAutomationOrCondition_head():
     class IUIAutomationOrCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
@@ -2236,6 +2303,7 @@ def _define_IUIAutomationOrCondition():
     IUIAutomationOrCondition.get_ChildCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'get_ChildCount', ((1, 'childCount'),)))
     IUIAutomationOrCondition.GetChildrenAsNativeArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head)),POINTER(Int32), use_last_error=False)(4, 'GetChildrenAsNativeArray', ((1, 'childArray'),(1, 'childArrayCount'),)))
     IUIAutomationOrCondition.GetChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(5, 'GetChildren', ((1, 'childArray'),)))
+    win32more.UI.Accessibility.IUIAutomationCondition
     return IUIAutomationOrCondition
 def _define_IUIAutomationNotCondition_head():
     class IUIAutomationNotCondition(win32more.UI.Accessibility.IUIAutomationCondition_head):
@@ -2244,6 +2312,7 @@ def _define_IUIAutomationNotCondition_head():
 def _define_IUIAutomationNotCondition():
     IUIAutomationNotCondition = win32more.UI.Accessibility.IUIAutomationNotCondition_head
     IUIAutomationNotCondition.GetChild = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head), use_last_error=False)(3, 'GetChild', ((1, 'condition'),)))
+    win32more.UI.Accessibility.IUIAutomationCondition
     return IUIAutomationNotCondition
 def _define_IUIAutomationCacheRequest_head():
     class IUIAutomationCacheRequest(win32more.System.Com.IUnknown_head):
@@ -2260,6 +2329,7 @@ def _define_IUIAutomationCacheRequest():
     IUIAutomationCacheRequest.put_TreeFilter = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCondition_head, use_last_error=False)(9, 'put_TreeFilter', ((1, 'filter'),)))
     IUIAutomationCacheRequest.get_AutomationElementMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.AutomationElementMode), use_last_error=False)(10, 'get_AutomationElementMode', ((1, 'mode'),)))
     IUIAutomationCacheRequest.put_AutomationElementMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.AutomationElementMode, use_last_error=False)(11, 'put_AutomationElementMode', ((1, 'mode'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationCacheRequest
 def _define_IUIAutomationTreeWalker_head():
     class IUIAutomationTreeWalker(win32more.System.Com.IUnknown_head):
@@ -2280,6 +2350,7 @@ def _define_IUIAutomationTreeWalker():
     IUIAutomationTreeWalker.GetPreviousSiblingElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(13, 'GetPreviousSiblingElementBuildCache', ((1, 'element'),(1, 'cacheRequest'),(1, 'previous'),)))
     IUIAutomationTreeWalker.NormalizeElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(14, 'NormalizeElementBuildCache', ((1, 'element'),(1, 'cacheRequest'),(1, 'normalized'),)))
     IUIAutomationTreeWalker.get_Condition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationCondition_head), use_last_error=False)(15, 'get_Condition', ((1, 'condition'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTreeWalker
 def _define_IUIAutomationEventHandler_head():
     class IUIAutomationEventHandler(win32more.System.Com.IUnknown_head):
@@ -2288,6 +2359,7 @@ def _define_IUIAutomationEventHandler_head():
 def _define_IUIAutomationEventHandler():
     IUIAutomationEventHandler = win32more.UI.Accessibility.IUIAutomationEventHandler_head
     IUIAutomationEventHandler.HandleAutomationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,Int32, use_last_error=False)(3, 'HandleAutomationEvent', ((1, 'sender'),(1, 'eventId'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationEventHandler
 def _define_IUIAutomationPropertyChangedEventHandler_head():
     class IUIAutomationPropertyChangedEventHandler(win32more.System.Com.IUnknown_head):
@@ -2296,6 +2368,7 @@ def _define_IUIAutomationPropertyChangedEventHandler_head():
 def _define_IUIAutomationPropertyChangedEventHandler():
     IUIAutomationPropertyChangedEventHandler = win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head
     IUIAutomationPropertyChangedEventHandler.HandlePropertyChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,Int32,win32more.System.Com.VARIANT, use_last_error=False)(3, 'HandlePropertyChangedEvent', ((1, 'sender'),(1, 'propertyId'),(1, 'newValue'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationPropertyChangedEventHandler
 def _define_IUIAutomationStructureChangedEventHandler_head():
     class IUIAutomationStructureChangedEventHandler(win32more.System.Com.IUnknown_head):
@@ -2304,6 +2377,7 @@ def _define_IUIAutomationStructureChangedEventHandler_head():
 def _define_IUIAutomationStructureChangedEventHandler():
     IUIAutomationStructureChangedEventHandler = win32more.UI.Accessibility.IUIAutomationStructureChangedEventHandler_head
     IUIAutomationStructureChangedEventHandler.HandleStructureChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.StructureChangeType,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(3, 'HandleStructureChangedEvent', ((1, 'sender'),(1, 'changeType'),(1, 'runtimeId'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationStructureChangedEventHandler
 def _define_IUIAutomationFocusChangedEventHandler_head():
     class IUIAutomationFocusChangedEventHandler(win32more.System.Com.IUnknown_head):
@@ -2312,6 +2386,7 @@ def _define_IUIAutomationFocusChangedEventHandler_head():
 def _define_IUIAutomationFocusChangedEventHandler():
     IUIAutomationFocusChangedEventHandler = win32more.UI.Accessibility.IUIAutomationFocusChangedEventHandler_head
     IUIAutomationFocusChangedEventHandler.HandleFocusChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head, use_last_error=False)(3, 'HandleFocusChangedEvent', ((1, 'sender'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationFocusChangedEventHandler
 def _define_IUIAutomationTextEditTextChangedEventHandler_head():
     class IUIAutomationTextEditTextChangedEventHandler(win32more.System.Com.IUnknown_head):
@@ -2320,6 +2395,7 @@ def _define_IUIAutomationTextEditTextChangedEventHandler_head():
 def _define_IUIAutomationTextEditTextChangedEventHandler():
     IUIAutomationTextEditTextChangedEventHandler = win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head
     IUIAutomationTextEditTextChangedEventHandler.HandleTextEditTextChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TextEditChangeType,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(3, 'HandleTextEditTextChangedEvent', ((1, 'sender'),(1, 'textEditChangeType'),(1, 'eventStrings'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTextEditTextChangedEventHandler
 def _define_IUIAutomationChangesEventHandler_head():
     class IUIAutomationChangesEventHandler(win32more.System.Com.IUnknown_head):
@@ -2328,6 +2404,7 @@ def _define_IUIAutomationChangesEventHandler_head():
 def _define_IUIAutomationChangesEventHandler():
     IUIAutomationChangesEventHandler = win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head
     IUIAutomationChangesEventHandler.HandleChangesEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.UiaChangeInfo),Int32, use_last_error=False)(3, 'HandleChangesEvent', ((1, 'sender'),(1, 'uiaChanges'),(1, 'changesCount'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationChangesEventHandler
 def _define_IUIAutomationNotificationEventHandler_head():
     class IUIAutomationNotificationEventHandler(win32more.System.Com.IUnknown_head):
@@ -2336,6 +2413,7 @@ def _define_IUIAutomationNotificationEventHandler_head():
 def _define_IUIAutomationNotificationEventHandler():
     IUIAutomationNotificationEventHandler = win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head
     IUIAutomationNotificationEventHandler.HandleNotificationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.NotificationKind,win32more.UI.Accessibility.NotificationProcessing,win32more.Foundation.BSTR,win32more.Foundation.BSTR, use_last_error=False)(3, 'HandleNotificationEvent', ((1, 'sender'),(1, 'notificationKind'),(1, 'notificationProcessing'),(1, 'displayString'),(1, 'activityId'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationNotificationEventHandler
 def _define_IUIAutomationInvokePattern_head():
     class IUIAutomationInvokePattern(win32more.System.Com.IUnknown_head):
@@ -2344,6 +2422,7 @@ def _define_IUIAutomationInvokePattern_head():
 def _define_IUIAutomationInvokePattern():
     IUIAutomationInvokePattern = win32more.UI.Accessibility.IUIAutomationInvokePattern_head
     IUIAutomationInvokePattern.Invoke = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Invoke', ()))
+    win32more.System.Com.IUnknown
     return IUIAutomationInvokePattern
 def _define_IUIAutomationDockPattern_head():
     class IUIAutomationDockPattern(win32more.System.Com.IUnknown_head):
@@ -2354,6 +2433,7 @@ def _define_IUIAutomationDockPattern():
     IUIAutomationDockPattern.SetDockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.DockPosition, use_last_error=False)(3, 'SetDockPosition', ((1, 'dockPos'),)))
     IUIAutomationDockPattern.get_CurrentDockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.DockPosition), use_last_error=False)(4, 'get_CurrentDockPosition', ((1, 'retVal'),)))
     IUIAutomationDockPattern.get_CachedDockPosition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.DockPosition), use_last_error=False)(5, 'get_CachedDockPosition', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationDockPattern
 def _define_IUIAutomationExpandCollapsePattern_head():
     class IUIAutomationExpandCollapsePattern(win32more.System.Com.IUnknown_head):
@@ -2365,6 +2445,7 @@ def _define_IUIAutomationExpandCollapsePattern():
     IUIAutomationExpandCollapsePattern.Collapse = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Collapse', ()))
     IUIAutomationExpandCollapsePattern.get_CurrentExpandCollapseState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ExpandCollapseState), use_last_error=False)(5, 'get_CurrentExpandCollapseState', ((1, 'retVal'),)))
     IUIAutomationExpandCollapsePattern.get_CachedExpandCollapseState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ExpandCollapseState), use_last_error=False)(6, 'get_CachedExpandCollapseState', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationExpandCollapsePattern
 def _define_IUIAutomationGridPattern_head():
     class IUIAutomationGridPattern(win32more.System.Com.IUnknown_head):
@@ -2377,6 +2458,7 @@ def _define_IUIAutomationGridPattern():
     IUIAutomationGridPattern.get_CurrentColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(5, 'get_CurrentColumnCount', ((1, 'retVal'),)))
     IUIAutomationGridPattern.get_CachedRowCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(6, 'get_CachedRowCount', ((1, 'retVal'),)))
     IUIAutomationGridPattern.get_CachedColumnCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_CachedColumnCount', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationGridPattern
 def _define_IUIAutomationGridItemPattern_head():
     class IUIAutomationGridItemPattern(win32more.System.Com.IUnknown_head):
@@ -2394,6 +2476,7 @@ def _define_IUIAutomationGridItemPattern():
     IUIAutomationGridItemPattern.get_CachedColumn = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_CachedColumn', ((1, 'retVal'),)))
     IUIAutomationGridItemPattern.get_CachedRowSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(11, 'get_CachedRowSpan', ((1, 'retVal'),)))
     IUIAutomationGridItemPattern.get_CachedColumnSpan = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_CachedColumnSpan', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationGridItemPattern
 def _define_IUIAutomationMultipleViewPattern_head():
     class IUIAutomationMultipleViewPattern(win32more.System.Com.IUnknown_head):
@@ -2407,6 +2490,7 @@ def _define_IUIAutomationMultipleViewPattern():
     IUIAutomationMultipleViewPattern.GetCurrentSupportedViews = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(6, 'GetCurrentSupportedViews', ((1, 'retVal'),)))
     IUIAutomationMultipleViewPattern.get_CachedCurrentView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(7, 'get_CachedCurrentView', ((1, 'retVal'),)))
     IUIAutomationMultipleViewPattern.GetCachedSupportedViews = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(8, 'GetCachedSupportedViews', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationMultipleViewPattern
 def _define_IUIAutomationObjectModelPattern_head():
     class IUIAutomationObjectModelPattern(win32more.System.Com.IUnknown_head):
@@ -2415,6 +2499,7 @@ def _define_IUIAutomationObjectModelPattern_head():
 def _define_IUIAutomationObjectModelPattern():
     IUIAutomationObjectModelPattern = win32more.UI.Accessibility.IUIAutomationObjectModelPattern_head
     IUIAutomationObjectModelPattern.GetUnderlyingObjectModel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(3, 'GetUnderlyingObjectModel', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationObjectModelPattern
 def _define_IUIAutomationRangeValuePattern_head():
     class IUIAutomationRangeValuePattern(win32more.System.Com.IUnknown_head):
@@ -2435,6 +2520,7 @@ def _define_IUIAutomationRangeValuePattern():
     IUIAutomationRangeValuePattern.get_CachedMinimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(13, 'get_CachedMinimum', ((1, 'retVal'),)))
     IUIAutomationRangeValuePattern.get_CachedLargeChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(14, 'get_CachedLargeChange', ((1, 'retVal'),)))
     IUIAutomationRangeValuePattern.get_CachedSmallChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(15, 'get_CachedSmallChange', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationRangeValuePattern
 def _define_IUIAutomationScrollPattern_head():
     class IUIAutomationScrollPattern(win32more.System.Com.IUnknown_head):
@@ -2456,6 +2542,7 @@ def _define_IUIAutomationScrollPattern():
     IUIAutomationScrollPattern.get_CachedVerticalViewSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(14, 'get_CachedVerticalViewSize', ((1, 'retVal'),)))
     IUIAutomationScrollPattern.get_CachedHorizontallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(15, 'get_CachedHorizontallyScrollable', ((1, 'retVal'),)))
     IUIAutomationScrollPattern.get_CachedVerticallyScrollable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(16, 'get_CachedVerticallyScrollable', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationScrollPattern
 def _define_IUIAutomationScrollItemPattern_head():
     class IUIAutomationScrollItemPattern(win32more.System.Com.IUnknown_head):
@@ -2464,6 +2551,7 @@ def _define_IUIAutomationScrollItemPattern_head():
 def _define_IUIAutomationScrollItemPattern():
     IUIAutomationScrollItemPattern = win32more.UI.Accessibility.IUIAutomationScrollItemPattern_head
     IUIAutomationScrollItemPattern.ScrollIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'ScrollIntoView', ()))
+    win32more.System.Com.IUnknown
     return IUIAutomationScrollItemPattern
 def _define_IUIAutomationSelectionPattern_head():
     class IUIAutomationSelectionPattern(win32more.System.Com.IUnknown_head):
@@ -2477,6 +2565,7 @@ def _define_IUIAutomationSelectionPattern():
     IUIAutomationSelectionPattern.GetCachedSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(6, 'GetCachedSelection', ((1, 'retVal'),)))
     IUIAutomationSelectionPattern.get_CachedCanSelectMultiple = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'get_CachedCanSelectMultiple', ((1, 'retVal'),)))
     IUIAutomationSelectionPattern.get_CachedIsSelectionRequired = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'get_CachedIsSelectionRequired', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationSelectionPattern
 def _define_IUIAutomationSelectionPattern2_head():
     class IUIAutomationSelectionPattern2(win32more.UI.Accessibility.IUIAutomationSelectionPattern_head):
@@ -2492,6 +2581,7 @@ def _define_IUIAutomationSelectionPattern2():
     IUIAutomationSelectionPattern2.get_CachedLastSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(14, 'get_CachedLastSelectedItem', ((1, 'retVal'),)))
     IUIAutomationSelectionPattern2.get_CachedCurrentSelectedItem = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(15, 'get_CachedCurrentSelectedItem', ((1, 'retVal'),)))
     IUIAutomationSelectionPattern2.get_CachedItemCount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_CachedItemCount', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.IUIAutomationSelectionPattern
     return IUIAutomationSelectionPattern2
 def _define_IUIAutomationSelectionItemPattern_head():
     class IUIAutomationSelectionItemPattern(win32more.System.Com.IUnknown_head):
@@ -2506,6 +2596,7 @@ def _define_IUIAutomationSelectionItemPattern():
     IUIAutomationSelectionItemPattern.get_CurrentSelectionContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(7, 'get_CurrentSelectionContainer', ((1, 'retVal'),)))
     IUIAutomationSelectionItemPattern.get_CachedIsSelected = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(8, 'get_CachedIsSelected', ((1, 'retVal'),)))
     IUIAutomationSelectionItemPattern.get_CachedSelectionContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(9, 'get_CachedSelectionContainer', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationSelectionItemPattern
 def _define_IUIAutomationSynchronizedInputPattern_head():
     class IUIAutomationSynchronizedInputPattern(win32more.System.Com.IUnknown_head):
@@ -2515,6 +2606,7 @@ def _define_IUIAutomationSynchronizedInputPattern():
     IUIAutomationSynchronizedInputPattern = win32more.UI.Accessibility.IUIAutomationSynchronizedInputPattern_head
     IUIAutomationSynchronizedInputPattern.StartListening = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.SynchronizedInputType, use_last_error=False)(3, 'StartListening', ((1, 'inputType'),)))
     IUIAutomationSynchronizedInputPattern.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Cancel', ()))
+    win32more.System.Com.IUnknown
     return IUIAutomationSynchronizedInputPattern
 def _define_IUIAutomationTablePattern_head():
     class IUIAutomationTablePattern(win32more.System.Com.IUnknown_head):
@@ -2528,6 +2620,7 @@ def _define_IUIAutomationTablePattern():
     IUIAutomationTablePattern.GetCachedRowHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(6, 'GetCachedRowHeaders', ((1, 'retVal'),)))
     IUIAutomationTablePattern.GetCachedColumnHeaders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(7, 'GetCachedColumnHeaders', ((1, 'retVal'),)))
     IUIAutomationTablePattern.get_CachedRowOrColumnMajor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.RowOrColumnMajor), use_last_error=False)(8, 'get_CachedRowOrColumnMajor', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTablePattern
 def _define_IUIAutomationTableItemPattern_head():
     class IUIAutomationTableItemPattern(win32more.System.Com.IUnknown_head):
@@ -2539,6 +2632,7 @@ def _define_IUIAutomationTableItemPattern():
     IUIAutomationTableItemPattern.GetCurrentColumnHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(4, 'GetCurrentColumnHeaderItems', ((1, 'retVal'),)))
     IUIAutomationTableItemPattern.GetCachedRowHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(5, 'GetCachedRowHeaderItems', ((1, 'retVal'),)))
     IUIAutomationTableItemPattern.GetCachedColumnHeaderItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(6, 'GetCachedColumnHeaderItems', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTableItemPattern
 def _define_IUIAutomationTogglePattern_head():
     class IUIAutomationTogglePattern(win32more.System.Com.IUnknown_head):
@@ -2549,6 +2643,7 @@ def _define_IUIAutomationTogglePattern():
     IUIAutomationTogglePattern.Toggle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Toggle', ()))
     IUIAutomationTogglePattern.get_CurrentToggleState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ToggleState), use_last_error=False)(4, 'get_CurrentToggleState', ((1, 'retVal'),)))
     IUIAutomationTogglePattern.get_CachedToggleState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.ToggleState), use_last_error=False)(5, 'get_CachedToggleState', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTogglePattern
 def _define_IUIAutomationTransformPattern_head():
     class IUIAutomationTransformPattern(win32more.System.Com.IUnknown_head):
@@ -2565,6 +2660,7 @@ def _define_IUIAutomationTransformPattern():
     IUIAutomationTransformPattern.get_CachedCanMove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(9, 'get_CachedCanMove', ((1, 'retVal'),)))
     IUIAutomationTransformPattern.get_CachedCanResize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(10, 'get_CachedCanResize', ((1, 'retVal'),)))
     IUIAutomationTransformPattern.get_CachedCanRotate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(11, 'get_CachedCanRotate', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTransformPattern
 def _define_IUIAutomationValuePattern_head():
     class IUIAutomationValuePattern(win32more.System.Com.IUnknown_head):
@@ -2577,6 +2673,7 @@ def _define_IUIAutomationValuePattern():
     IUIAutomationValuePattern.get_CurrentIsReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(5, 'get_CurrentIsReadOnly', ((1, 'retVal'),)))
     IUIAutomationValuePattern.get_CachedValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_CachedValue', ((1, 'retVal'),)))
     IUIAutomationValuePattern.get_CachedIsReadOnly = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(7, 'get_CachedIsReadOnly', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationValuePattern
 def _define_IUIAutomationWindowPattern_head():
     class IUIAutomationWindowPattern(win32more.System.Com.IUnknown_head):
@@ -2599,6 +2696,7 @@ def _define_IUIAutomationWindowPattern():
     IUIAutomationWindowPattern.get_CachedIsTopmost = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(15, 'get_CachedIsTopmost', ((1, 'retVal'),)))
     IUIAutomationWindowPattern.get_CachedWindowVisualState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowVisualState), use_last_error=False)(16, 'get_CachedWindowVisualState', ((1, 'retVal'),)))
     IUIAutomationWindowPattern.get_CachedWindowInteractionState = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.WindowInteractionState), use_last_error=False)(17, 'get_CachedWindowInteractionState', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationWindowPattern
 def _define_IUIAutomationTextRange_head():
     class IUIAutomationTextRange(win32more.System.Com.IUnknown_head):
@@ -2624,6 +2722,7 @@ def _define_IUIAutomationTextRange():
     IUIAutomationTextRange.RemoveFromSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'RemoveFromSelection', ()))
     IUIAutomationTextRange.ScrollIntoView = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(19, 'ScrollIntoView', ((1, 'alignToTop'),)))
     IUIAutomationTextRange.GetChildren = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(20, 'GetChildren', ((1, 'children'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTextRange
 def _define_IUIAutomationTextRange2_head():
     class IUIAutomationTextRange2(win32more.UI.Accessibility.IUIAutomationTextRange_head):
@@ -2632,6 +2731,7 @@ def _define_IUIAutomationTextRange2_head():
 def _define_IUIAutomationTextRange2():
     IUIAutomationTextRange2 = win32more.UI.Accessibility.IUIAutomationTextRange2_head
     IUIAutomationTextRange2.ShowContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(21, 'ShowContextMenu', ()))
+    win32more.UI.Accessibility.IUIAutomationTextRange
     return IUIAutomationTextRange2
 def _define_IUIAutomationTextRange3_head():
     class IUIAutomationTextRange3(win32more.UI.Accessibility.IUIAutomationTextRange2_head):
@@ -2642,6 +2742,7 @@ def _define_IUIAutomationTextRange3():
     IUIAutomationTextRange3.GetEnclosingElementBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(22, 'GetEnclosingElementBuildCache', ((1, 'cacheRequest'),(1, 'enclosingElement'),)))
     IUIAutomationTextRange3.GetChildrenBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(23, 'GetChildrenBuildCache', ((1, 'cacheRequest'),(1, 'children'),)))
     IUIAutomationTextRange3.GetAttributeValues = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32),Int32,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(24, 'GetAttributeValues', ((1, 'attributeIds'),(1, 'attributeIdCount'),(1, 'attributeValues'),)))
+    win32more.UI.Accessibility.IUIAutomationTextRange2
     return IUIAutomationTextRange3
 def _define_IUIAutomationTextRangeArray_head():
     class IUIAutomationTextRangeArray(win32more.System.Com.IUnknown_head):
@@ -2651,6 +2752,7 @@ def _define_IUIAutomationTextRangeArray():
     IUIAutomationTextRangeArray = win32more.UI.Accessibility.IUIAutomationTextRangeArray_head
     IUIAutomationTextRangeArray.get_Length = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(3, 'get_Length', ((1, 'length'),)))
     IUIAutomationTextRangeArray.GetElement = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head), use_last_error=False)(4, 'GetElement', ((1, 'index'),(1, 'element'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTextRangeArray
 def _define_IUIAutomationTextPattern_head():
     class IUIAutomationTextPattern(win32more.System.Com.IUnknown_head):
@@ -2664,6 +2766,7 @@ def _define_IUIAutomationTextPattern():
     IUIAutomationTextPattern.GetVisibleRanges = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRangeArray_head), use_last_error=False)(6, 'GetVisibleRanges', ((1, 'ranges'),)))
     IUIAutomationTextPattern.get_DocumentRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head), use_last_error=False)(7, 'get_DocumentRange', ((1, 'range'),)))
     IUIAutomationTextPattern.get_SupportedTextSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.SupportedTextSelection), use_last_error=False)(8, 'get_SupportedTextSelection', ((1, 'supportedTextSelection'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTextPattern
 def _define_IUIAutomationTextPattern2_head():
     class IUIAutomationTextPattern2(win32more.UI.Accessibility.IUIAutomationTextPattern_head):
@@ -2673,6 +2776,7 @@ def _define_IUIAutomationTextPattern2():
     IUIAutomationTextPattern2 = win32more.UI.Accessibility.IUIAutomationTextPattern2_head
     IUIAutomationTextPattern2.RangeFromAnnotation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head), use_last_error=False)(9, 'RangeFromAnnotation', ((1, 'annotation'),(1, 'range'),)))
     IUIAutomationTextPattern2.GetCaretRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL),POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head), use_last_error=False)(10, 'GetCaretRange', ((1, 'isActive'),(1, 'range'),)))
+    win32more.UI.Accessibility.IUIAutomationTextPattern
     return IUIAutomationTextPattern2
 def _define_IUIAutomationTextEditPattern_head():
     class IUIAutomationTextEditPattern(win32more.UI.Accessibility.IUIAutomationTextPattern_head):
@@ -2682,6 +2786,7 @@ def _define_IUIAutomationTextEditPattern():
     IUIAutomationTextEditPattern = win32more.UI.Accessibility.IUIAutomationTextEditPattern_head
     IUIAutomationTextEditPattern.GetActiveComposition = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head), use_last_error=False)(9, 'GetActiveComposition', ((1, 'range'),)))
     IUIAutomationTextEditPattern.GetConversionTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head), use_last_error=False)(10, 'GetConversionTarget', ((1, 'range'),)))
+    win32more.UI.Accessibility.IUIAutomationTextPattern
     return IUIAutomationTextEditPattern
 def _define_IUIAutomationCustomNavigationPattern_head():
     class IUIAutomationCustomNavigationPattern(win32more.System.Com.IUnknown_head):
@@ -2690,6 +2795,7 @@ def _define_IUIAutomationCustomNavigationPattern_head():
 def _define_IUIAutomationCustomNavigationPattern():
     IUIAutomationCustomNavigationPattern = win32more.UI.Accessibility.IUIAutomationCustomNavigationPattern_head
     IUIAutomationCustomNavigationPattern.Navigate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.NavigateDirection,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(3, 'Navigate', ((1, 'direction'),(1, 'pRetVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationCustomNavigationPattern
 def _define_IUIAutomationActiveTextPositionChangedEventHandler_head():
     class IUIAutomationActiveTextPositionChangedEventHandler(win32more.System.Com.IUnknown_head):
@@ -2698,6 +2804,7 @@ def _define_IUIAutomationActiveTextPositionChangedEventHandler_head():
 def _define_IUIAutomationActiveTextPositionChangedEventHandler():
     IUIAutomationActiveTextPositionChangedEventHandler = win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head
     IUIAutomationActiveTextPositionChangedEventHandler.HandleActiveTextPositionChangedEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationTextRange_head, use_last_error=False)(3, 'HandleActiveTextPositionChangedEvent', ((1, 'sender'),(1, 'range'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationActiveTextPositionChangedEventHandler
 def _define_IUIAutomationLegacyIAccessiblePattern_head():
     class IUIAutomationLegacyIAccessiblePattern(win32more.System.Com.IUnknown_head):
@@ -2729,6 +2836,7 @@ def _define_IUIAutomationLegacyIAccessiblePattern():
     IUIAutomationLegacyIAccessiblePattern.GetCachedSelection = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(24, 'GetCachedSelection', ((1, 'pvarSelectedChildren'),)))
     IUIAutomationLegacyIAccessiblePattern.get_CachedDefaultAction = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(25, 'get_CachedDefaultAction', ((1, 'pszDefaultAction'),)))
     IUIAutomationLegacyIAccessiblePattern.GetIAccessible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IAccessible_head), use_last_error=False)(26, 'GetIAccessible', ((1, 'ppAccessible'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationLegacyIAccessiblePattern
 def _define_IUIAutomationItemContainerPattern_head():
     class IUIAutomationItemContainerPattern(win32more.System.Com.IUnknown_head):
@@ -2737,6 +2845,7 @@ def _define_IUIAutomationItemContainerPattern_head():
 def _define_IUIAutomationItemContainerPattern():
     IUIAutomationItemContainerPattern = win32more.UI.Accessibility.IUIAutomationItemContainerPattern_head
     IUIAutomationItemContainerPattern.FindItemByProperty = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,Int32,win32more.System.Com.VARIANT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(3, 'FindItemByProperty', ((1, 'pStartAfter'),(1, 'propertyId'),(1, 'value'),(1, 'pFound'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationItemContainerPattern
 def _define_IUIAutomationVirtualizedItemPattern_head():
     class IUIAutomationVirtualizedItemPattern(win32more.System.Com.IUnknown_head):
@@ -2745,6 +2854,7 @@ def _define_IUIAutomationVirtualizedItemPattern_head():
 def _define_IUIAutomationVirtualizedItemPattern():
     IUIAutomationVirtualizedItemPattern = win32more.UI.Accessibility.IUIAutomationVirtualizedItemPattern_head
     IUIAutomationVirtualizedItemPattern.Realize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Realize', ()))
+    win32more.System.Com.IUnknown
     return IUIAutomationVirtualizedItemPattern
 def _define_IUIAutomationAnnotationPattern_head():
     class IUIAutomationAnnotationPattern(win32more.System.Com.IUnknown_head):
@@ -2762,6 +2872,7 @@ def _define_IUIAutomationAnnotationPattern():
     IUIAutomationAnnotationPattern.get_CachedAuthor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(10, 'get_CachedAuthor', ((1, 'retVal'),)))
     IUIAutomationAnnotationPattern.get_CachedDateTime = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(11, 'get_CachedDateTime', ((1, 'retVal'),)))
     IUIAutomationAnnotationPattern.get_CachedTarget = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(12, 'get_CachedTarget', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationAnnotationPattern
 def _define_IUIAutomationStylesPattern_head():
     class IUIAutomationStylesPattern(win32more.System.Com.IUnknown_head):
@@ -2785,6 +2896,7 @@ def _define_IUIAutomationStylesPattern():
     IUIAutomationStylesPattern.get_CachedFillPatternColor = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_CachedFillPatternColor', ((1, 'retVal'),)))
     IUIAutomationStylesPattern.get_CachedExtendedProperties = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_CachedExtendedProperties', ((1, 'retVal'),)))
     IUIAutomationStylesPattern.GetCachedExtendedPropertiesAsArray = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.UI.Accessibility.ExtendedProperty_head)),POINTER(Int32), use_last_error=False)(18, 'GetCachedExtendedPropertiesAsArray', ((1, 'propertyArray'),(1, 'propertyCount'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationStylesPattern
 def _define_IUIAutomationSpreadsheetPattern_head():
     class IUIAutomationSpreadsheetPattern(win32more.System.Com.IUnknown_head):
@@ -2793,6 +2905,7 @@ def _define_IUIAutomationSpreadsheetPattern_head():
 def _define_IUIAutomationSpreadsheetPattern():
     IUIAutomationSpreadsheetPattern = win32more.UI.Accessibility.IUIAutomationSpreadsheetPattern_head
     IUIAutomationSpreadsheetPattern.GetItemByName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(3, 'GetItemByName', ((1, 'name'),(1, 'element'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationSpreadsheetPattern
 def _define_IUIAutomationSpreadsheetItemPattern_head():
     class IUIAutomationSpreadsheetItemPattern(win32more.System.Com.IUnknown_head):
@@ -2806,6 +2919,7 @@ def _define_IUIAutomationSpreadsheetItemPattern():
     IUIAutomationSpreadsheetItemPattern.get_CachedFormula = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(6, 'get_CachedFormula', ((1, 'retVal'),)))
     IUIAutomationSpreadsheetItemPattern.GetCachedAnnotationObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(7, 'GetCachedAnnotationObjects', ((1, 'retVal'),)))
     IUIAutomationSpreadsheetItemPattern.GetCachedAnnotationTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(8, 'GetCachedAnnotationTypes', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationSpreadsheetItemPattern
 def _define_IUIAutomationTransformPattern2_head():
     class IUIAutomationTransformPattern2(win32more.UI.Accessibility.IUIAutomationTransformPattern_head):
@@ -2823,6 +2937,7 @@ def _define_IUIAutomationTransformPattern2():
     IUIAutomationTransformPattern2.get_CachedZoomMinimum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(19, 'get_CachedZoomMinimum', ((1, 'retVal'),)))
     IUIAutomationTransformPattern2.get_CurrentZoomMaximum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(20, 'get_CurrentZoomMaximum', ((1, 'retVal'),)))
     IUIAutomationTransformPattern2.get_CachedZoomMaximum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(21, 'get_CachedZoomMaximum', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.IUIAutomationTransformPattern
     return IUIAutomationTransformPattern2
 def _define_IUIAutomationTextChildPattern_head():
     class IUIAutomationTextChildPattern(win32more.System.Com.IUnknown_head):
@@ -2832,6 +2947,7 @@ def _define_IUIAutomationTextChildPattern():
     IUIAutomationTextChildPattern = win32more.UI.Accessibility.IUIAutomationTextChildPattern_head
     IUIAutomationTextChildPattern.get_TextContainer = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(3, 'get_TextContainer', ((1, 'container'),)))
     IUIAutomationTextChildPattern.get_TextRange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationTextRange_head), use_last_error=False)(4, 'get_TextRange', ((1, 'range'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationTextChildPattern
 def _define_IUIAutomationDragPattern_head():
     class IUIAutomationDragPattern(win32more.System.Com.IUnknown_head):
@@ -2847,6 +2963,7 @@ def _define_IUIAutomationDragPattern():
     IUIAutomationDragPattern.get_CachedDropEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(8, 'get_CachedDropEffects', ((1, 'retVal'),)))
     IUIAutomationDragPattern.GetCurrentGrabbedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(9, 'GetCurrentGrabbedItems', ((1, 'retVal'),)))
     IUIAutomationDragPattern.GetCachedGrabbedItems = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(10, 'GetCachedGrabbedItems', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationDragPattern
 def _define_IUIAutomationDropTargetPattern_head():
     class IUIAutomationDropTargetPattern(win32more.System.Com.IUnknown_head):
@@ -2858,6 +2975,7 @@ def _define_IUIAutomationDropTargetPattern():
     IUIAutomationDropTargetPattern.get_CachedDropTargetEffect = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_CachedDropTargetEffect', ((1, 'retVal'),)))
     IUIAutomationDropTargetPattern.get_CurrentDropTargetEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(5, 'get_CurrentDropTargetEffects', ((1, 'retVal'),)))
     IUIAutomationDropTargetPattern.get_CachedDropTargetEffects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(6, 'get_CachedDropTargetEffects', ((1, 'retVal'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationDropTargetPattern
 def _define_IUIAutomationElement2_head():
     class IUIAutomationElement2(win32more.UI.Accessibility.IUIAutomationElement_head):
@@ -2871,6 +2989,7 @@ def _define_IUIAutomationElement2():
     IUIAutomationElement2.get_CachedLiveSetting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.LiveSetting), use_last_error=False)(88, 'get_CachedLiveSetting', ((1, 'retVal'),)))
     IUIAutomationElement2.get_CurrentFlowsFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(89, 'get_CurrentFlowsFrom', ((1, 'retVal'),)))
     IUIAutomationElement2.get_CachedFlowsFrom = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(90, 'get_CachedFlowsFrom', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.IUIAutomationElement
     return IUIAutomationElement2
 def _define_IUIAutomationElement3_head():
     class IUIAutomationElement3(win32more.UI.Accessibility.IUIAutomationElement2_head):
@@ -2881,6 +3000,7 @@ def _define_IUIAutomationElement3():
     IUIAutomationElement3.ShowContextMenu = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(91, 'ShowContextMenu', ()))
     IUIAutomationElement3.get_CurrentIsPeripheral = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(92, 'get_CurrentIsPeripheral', ((1, 'retVal'),)))
     IUIAutomationElement3.get_CachedIsPeripheral = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(93, 'get_CachedIsPeripheral', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.IUIAutomationElement2
     return IUIAutomationElement3
 def _define_IUIAutomationElement4_head():
     class IUIAutomationElement4(win32more.UI.Accessibility.IUIAutomationElement3_head):
@@ -2898,6 +3018,7 @@ def _define_IUIAutomationElement4():
     IUIAutomationElement4.get_CachedLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(101, 'get_CachedLevel', ((1, 'retVal'),)))
     IUIAutomationElement4.get_CachedAnnotationTypes = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(102, 'get_CachedAnnotationTypes', ((1, 'retVal'),)))
     IUIAutomationElement4.get_CachedAnnotationObjects = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(103, 'get_CachedAnnotationObjects', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.IUIAutomationElement3
     return IUIAutomationElement4
 def _define_IUIAutomationElement5_head():
     class IUIAutomationElement5(win32more.UI.Accessibility.IUIAutomationElement4_head):
@@ -2909,6 +3030,7 @@ def _define_IUIAutomationElement5():
     IUIAutomationElement5.get_CurrentLocalizedLandmarkType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(105, 'get_CurrentLocalizedLandmarkType', ((1, 'retVal'),)))
     IUIAutomationElement5.get_CachedLandmarkType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(106, 'get_CachedLandmarkType', ((1, 'retVal'),)))
     IUIAutomationElement5.get_CachedLocalizedLandmarkType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(107, 'get_CachedLocalizedLandmarkType', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.IUIAutomationElement4
     return IUIAutomationElement5
 def _define_IUIAutomationElement6_head():
     class IUIAutomationElement6(win32more.UI.Accessibility.IUIAutomationElement5_head):
@@ -2918,6 +3040,7 @@ def _define_IUIAutomationElement6():
     IUIAutomationElement6 = win32more.UI.Accessibility.IUIAutomationElement6_head
     IUIAutomationElement6.get_CurrentFullDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(108, 'get_CurrentFullDescription', ((1, 'retVal'),)))
     IUIAutomationElement6.get_CachedFullDescription = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(109, 'get_CachedFullDescription', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.IUIAutomationElement5
     return IUIAutomationElement6
 def _define_IUIAutomationElement7_head():
     class IUIAutomationElement7(win32more.UI.Accessibility.IUIAutomationElement6_head):
@@ -2930,6 +3053,7 @@ def _define_IUIAutomationElement7():
     IUIAutomationElement7.FindFirstWithOptionsBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.TreeTraversalOptions,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(112, 'FindFirstWithOptionsBuildCache', ((1, 'scope'),(1, 'condition'),(1, 'cacheRequest'),(1, 'traversalOptions'),(1, 'root'),(1, 'found'),)))
     IUIAutomationElement7.FindAllWithOptionsBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCondition_head,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.TreeTraversalOptions,win32more.UI.Accessibility.IUIAutomationElement_head,POINTER(win32more.UI.Accessibility.IUIAutomationElementArray_head), use_last_error=False)(113, 'FindAllWithOptionsBuildCache', ((1, 'scope'),(1, 'condition'),(1, 'cacheRequest'),(1, 'traversalOptions'),(1, 'root'),(1, 'found'),)))
     IUIAutomationElement7.GetCurrentMetadataValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(114, 'GetCurrentMetadataValue', ((1, 'targetId'),(1, 'metadataId'),(1, 'returnVal'),)))
+    win32more.UI.Accessibility.IUIAutomationElement6
     return IUIAutomationElement7
 def _define_IUIAutomationElement8_head():
     class IUIAutomationElement8(win32more.UI.Accessibility.IUIAutomationElement7_head):
@@ -2939,6 +3063,7 @@ def _define_IUIAutomationElement8():
     IUIAutomationElement8 = win32more.UI.Accessibility.IUIAutomationElement8_head
     IUIAutomationElement8.get_CurrentHeadingLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(115, 'get_CurrentHeadingLevel', ((1, 'retVal'),)))
     IUIAutomationElement8.get_CachedHeadingLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(116, 'get_CachedHeadingLevel', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.IUIAutomationElement7
     return IUIAutomationElement8
 def _define_IUIAutomationElement9_head():
     class IUIAutomationElement9(win32more.UI.Accessibility.IUIAutomationElement8_head):
@@ -2948,6 +3073,7 @@ def _define_IUIAutomationElement9():
     IUIAutomationElement9 = win32more.UI.Accessibility.IUIAutomationElement9_head
     IUIAutomationElement9.get_CurrentIsDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(117, 'get_CurrentIsDialog', ((1, 'retVal'),)))
     IUIAutomationElement9.get_CachedIsDialog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(118, 'get_CachedIsDialog', ((1, 'retVal'),)))
+    win32more.UI.Accessibility.IUIAutomationElement8
     return IUIAutomationElement9
 def _define_IUIAutomationProxyFactory_head():
     class IUIAutomationProxyFactory(win32more.System.Com.IUnknown_head):
@@ -2957,6 +3083,7 @@ def _define_IUIAutomationProxyFactory():
     IUIAutomationProxyFactory = win32more.UI.Accessibility.IUIAutomationProxyFactory_head
     IUIAutomationProxyFactory.CreateProvider = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HWND,Int32,Int32,POINTER(win32more.UI.Accessibility.IRawElementProviderSimple_head), use_last_error=False)(3, 'CreateProvider', ((1, 'hwnd'),(1, 'idObject'),(1, 'idChild'),(1, 'provider'),)))
     IUIAutomationProxyFactory.get_ProxyFactoryId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(4, 'get_ProxyFactoryId', ((1, 'factoryId'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationProxyFactory
 def _define_IUIAutomationProxyFactoryEntry_head():
     class IUIAutomationProxyFactoryEntry(win32more.System.Com.IUnknown_head):
@@ -2977,6 +3104,7 @@ def _define_IUIAutomationProxyFactoryEntry():
     IUIAutomationProxyFactoryEntry.put_NeedsAdviseEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BOOL, use_last_error=False)(13, 'put_NeedsAdviseEvents', ((1, 'adviseEvents'),)))
     IUIAutomationProxyFactoryEntry.SetWinEventsForAutomationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(14, 'SetWinEventsForAutomationEvent', ((1, 'eventId'),(1, 'propertyId'),(1, 'winEvents'),)))
     IUIAutomationProxyFactoryEntry.GetWinEventsForAutomationEvent = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,POINTER(POINTER(win32more.System.Com.SAFEARRAY_head)), use_last_error=False)(15, 'GetWinEventsForAutomationEvent', ((1, 'eventId'),(1, 'propertyId'),(1, 'winEvents'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationProxyFactoryEntry
 def _define_IUIAutomationProxyFactoryMapping_head():
     class IUIAutomationProxyFactoryMapping(win32more.System.Com.IUnknown_head):
@@ -2993,6 +3121,7 @@ def _define_IUIAutomationProxyFactoryMapping():
     IUIAutomationProxyFactoryMapping.RemoveEntry = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(9, 'RemoveEntry', ((1, 'index'),)))
     IUIAutomationProxyFactoryMapping.ClearTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'ClearTable', ()))
     IUIAutomationProxyFactoryMapping.RestoreDefaultTable = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'RestoreDefaultTable', ()))
+    win32more.System.Com.IUnknown
     return IUIAutomationProxyFactoryMapping
 def _define_IUIAutomationEventHandlerGroup_head():
     class IUIAutomationEventHandlerGroup(win32more.System.Com.IUnknown_head):
@@ -3007,6 +3136,7 @@ def _define_IUIAutomationEventHandlerGroup():
     IUIAutomationEventHandlerGroup.AddPropertyChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationPropertyChangedEventHandler_head,POINTER(Int32),Int32, use_last_error=False)(7, 'AddPropertyChangedEventHandler', ((1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),(1, 'propertyArray'),(1, 'propertyCount'),)))
     IUIAutomationEventHandlerGroup.AddStructureChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationStructureChangedEventHandler_head, use_last_error=False)(8, 'AddStructureChangedEventHandler', ((1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
     IUIAutomationEventHandlerGroup.AddTextEditTextChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.TextEditChangeType,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head, use_last_error=False)(9, 'AddTextEditTextChangedEventHandler', ((1, 'scope'),(1, 'textEditChangeType'),(1, 'cacheRequest'),(1, 'handler'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomationEventHandlerGroup
 def _define_IUIAutomation_head():
     class IUIAutomation(win32more.System.Com.IUnknown_head):
@@ -3069,6 +3199,7 @@ def _define_IUIAutomation():
     IUIAutomation.get_ReservedMixedAttributeValue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(55, 'get_ReservedMixedAttributeValue', ((1, 'mixedAttributeValue'),)))
     IUIAutomation.ElementFromIAccessible = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessible_head,Int32,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(56, 'ElementFromIAccessible', ((1, 'accessible'),(1, 'childId'),(1, 'element'),)))
     IUIAutomation.ElementFromIAccessibleBuildCache = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IAccessible_head,Int32,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,POINTER(win32more.UI.Accessibility.IUIAutomationElement_head), use_last_error=False)(57, 'ElementFromIAccessibleBuildCache', ((1, 'accessible'),(1, 'childId'),(1, 'cacheRequest'),(1, 'element'),)))
+    win32more.System.Com.IUnknown
     return IUIAutomation
 def _define_IUIAutomation2_head():
     class IUIAutomation2(win32more.UI.Accessibility.IUIAutomation_head):
@@ -3082,6 +3213,7 @@ def _define_IUIAutomation2():
     IUIAutomation2.put_ConnectionTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(61, 'put_ConnectionTimeout', ((1, 'timeout'),)))
     IUIAutomation2.get_TransactionTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(62, 'get_TransactionTimeout', ((1, 'timeout'),)))
     IUIAutomation2.put_TransactionTimeout = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32, use_last_error=False)(63, 'put_TransactionTimeout', ((1, 'timeout'),)))
+    win32more.UI.Accessibility.IUIAutomation
     return IUIAutomation2
 def _define_IUIAutomation3_head():
     class IUIAutomation3(win32more.UI.Accessibility.IUIAutomation2_head):
@@ -3091,6 +3223,7 @@ def _define_IUIAutomation3():
     IUIAutomation3 = win32more.UI.Accessibility.IUIAutomation3_head
     IUIAutomation3.AddTextEditTextChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.TextEditChangeType,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head, use_last_error=False)(64, 'AddTextEditTextChangedEventHandler', ((1, 'element'),(1, 'scope'),(1, 'textEditChangeType'),(1, 'cacheRequest'),(1, 'handler'),)))
     IUIAutomation3.RemoveTextEditTextChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationTextEditTextChangedEventHandler_head, use_last_error=False)(65, 'RemoveTextEditTextChangedEventHandler', ((1, 'element'),(1, 'handler'),)))
+    win32more.UI.Accessibility.IUIAutomation2
     return IUIAutomation3
 def _define_IUIAutomation4_head():
     class IUIAutomation4(win32more.UI.Accessibility.IUIAutomation3_head):
@@ -3100,6 +3233,7 @@ def _define_IUIAutomation4():
     IUIAutomation4 = win32more.UI.Accessibility.IUIAutomation4_head
     IUIAutomation4.AddChangesEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,POINTER(Int32),Int32,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head, use_last_error=False)(66, 'AddChangesEventHandler', ((1, 'element'),(1, 'scope'),(1, 'changeTypes'),(1, 'changesCount'),(1, 'pCacheRequest'),(1, 'handler'),)))
     IUIAutomation4.RemoveChangesEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationChangesEventHandler_head, use_last_error=False)(67, 'RemoveChangesEventHandler', ((1, 'element'),(1, 'handler'),)))
+    win32more.UI.Accessibility.IUIAutomation3
     return IUIAutomation4
 def _define_IUIAutomation5_head():
     class IUIAutomation5(win32more.UI.Accessibility.IUIAutomation4_head):
@@ -3109,6 +3243,7 @@ def _define_IUIAutomation5():
     IUIAutomation5 = win32more.UI.Accessibility.IUIAutomation5_head
     IUIAutomation5.AddNotificationEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head, use_last_error=False)(68, 'AddNotificationEventHandler', ((1, 'element'),(1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
     IUIAutomation5.RemoveNotificationEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationNotificationEventHandler_head, use_last_error=False)(69, 'RemoveNotificationEventHandler', ((1, 'element'),(1, 'handler'),)))
+    win32more.UI.Accessibility.IUIAutomation4
     return IUIAutomation5
 def _define_IUIAutomation6_head():
     class IUIAutomation6(win32more.UI.Accessibility.IUIAutomation5_head):
@@ -3125,6 +3260,7 @@ def _define_IUIAutomation6():
     IUIAutomation6.put_CoalesceEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.CoalesceEventsOptions, use_last_error=False)(76, 'put_CoalesceEvents', ((1, 'coalesceEventsOptions'),)))
     IUIAutomation6.AddActiveTextPositionChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.TreeScope,win32more.UI.Accessibility.IUIAutomationCacheRequest_head,win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head, use_last_error=False)(77, 'AddActiveTextPositionChangedEventHandler', ((1, 'element'),(1, 'scope'),(1, 'cacheRequest'),(1, 'handler'),)))
     IUIAutomation6.RemoveActiveTextPositionChangedEventHandler = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.UI.Accessibility.IUIAutomationElement_head,win32more.UI.Accessibility.IUIAutomationActiveTextPositionChangedEventHandler_head, use_last_error=False)(78, 'RemoveActiveTextPositionChangedEventHandler', ((1, 'element'),(1, 'handler'),)))
+    win32more.UI.Accessibility.IUIAutomation5
     return IUIAutomation6
 ConditionType = Int32
 ConditionType_True = 0

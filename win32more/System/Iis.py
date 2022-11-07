@@ -896,6 +896,7 @@ def _define_IFtpProviderConstruct_head():
 def _define_IFtpProviderConstruct():
     IFtpProviderConstruct = win32more.System.Iis.IFtpProviderConstruct_head
     IFtpProviderConstruct.Construct = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.SAFEARRAY_head), use_last_error=False)(3, 'Construct', ((1, 'configurationEntries'),)))
+    win32more.System.Com.IUnknown
     return IFtpProviderConstruct
 def _define_IFtpAuthenticationProvider_head():
     class IFtpAuthenticationProvider(win32more.System.Com.IUnknown_head):
@@ -904,6 +905,7 @@ def _define_IFtpAuthenticationProvider_head():
 def _define_IFtpAuthenticationProvider():
     IFtpAuthenticationProvider = win32more.System.Iis.IFtpAuthenticationProvider_head
     IFtpAuthenticationProvider.AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'AuthenticateUser', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszPassword'),(1, 'ppszCanonicalUserName'),(1, 'pfAuthenticated'),)))
+    win32more.System.Com.IUnknown
     return IFtpAuthenticationProvider
 def _define_AsyncIFtpAuthenticationProvider_head():
     class AsyncIFtpAuthenticationProvider(win32more.System.Com.IUnknown_head):
@@ -913,6 +915,7 @@ def _define_AsyncIFtpAuthenticationProvider():
     AsyncIFtpAuthenticationProvider = win32more.System.Iis.AsyncIFtpAuthenticationProvider_head
     AsyncIFtpAuthenticationProvider.Begin_AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Begin_AuthenticateUser', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszPassword'),)))
     AsyncIFtpAuthenticationProvider.Finish_AuthenticateUser = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR),POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'Finish_AuthenticateUser', ((1, 'ppszCanonicalUserName'),(1, 'pfAuthenticated'),)))
+    win32more.System.Com.IUnknown
     return AsyncIFtpAuthenticationProvider
 def _define_IFtpRoleProvider_head():
     class IFtpRoleProvider(win32more.System.Com.IUnknown_head):
@@ -921,6 +924,7 @@ def _define_IFtpRoleProvider_head():
 def _define_IFtpRoleProvider():
     IFtpRoleProvider = win32more.System.Iis.IFtpRoleProvider_head
     IFtpRoleProvider.IsUserInRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.BOOL), use_last_error=False)(3, 'IsUserInRole', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszRole'),(1, 'pfIsInRole'),)))
+    win32more.System.Com.IUnknown
     return IFtpRoleProvider
 def _define_AsyncIFtpRoleProvider_head():
     class AsyncIFtpRoleProvider(win32more.System.Com.IUnknown_head):
@@ -930,6 +934,7 @@ def _define_AsyncIFtpRoleProvider():
     AsyncIFtpRoleProvider = win32more.System.Iis.AsyncIFtpRoleProvider_head
     AsyncIFtpRoleProvider.Begin_IsUserInRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Begin_IsUserInRole', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'pszRole'),)))
     AsyncIFtpRoleProvider.Finish_IsUserInRole = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BOOL), use_last_error=False)(4, 'Finish_IsUserInRole', ((1, 'pfIsInRole'),)))
+    win32more.System.Com.IUnknown
     return AsyncIFtpRoleProvider
 def _define_IFtpHomeDirectoryProvider_head():
     class IFtpHomeDirectoryProvider(win32more.System.Com.IUnknown_head):
@@ -938,6 +943,7 @@ def _define_IFtpHomeDirectoryProvider_head():
 def _define_IFtpHomeDirectoryProvider():
     IFtpHomeDirectoryProvider = win32more.System.Iis.IFtpHomeDirectoryProvider_head
     IFtpHomeDirectoryProvider.GetUserHomeDirectoryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(3, 'GetUserHomeDirectoryData', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),(1, 'ppszHomeDirectoryData'),)))
+    win32more.System.Com.IUnknown
     return IFtpHomeDirectoryProvider
 def _define_AsyncIFtpHomeDirectoryProvider_head():
     class AsyncIFtpHomeDirectoryProvider(win32more.System.Com.IUnknown_head):
@@ -947,6 +953,7 @@ def _define_AsyncIFtpHomeDirectoryProvider():
     AsyncIFtpHomeDirectoryProvider = win32more.System.Iis.AsyncIFtpHomeDirectoryProvider_head
     AsyncIFtpHomeDirectoryProvider.Begin_GetUserHomeDirectoryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Begin_GetUserHomeDirectoryData', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszUserName'),)))
     AsyncIFtpHomeDirectoryProvider.Finish_GetUserHomeDirectoryData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.PWSTR), use_last_error=False)(4, 'Finish_GetUserHomeDirectoryData', ((1, 'ppszHomeDirectoryData'),)))
+    win32more.System.Com.IUnknown
     return AsyncIFtpHomeDirectoryProvider
 def _define_LOGGING_PARAMETERS_head():
     class LOGGING_PARAMETERS(Structure):
@@ -982,6 +989,7 @@ def _define_IFtpLogProvider_head():
 def _define_IFtpLogProvider():
     IFtpLogProvider = win32more.System.Iis.IFtpLogProvider_head
     IFtpLogProvider.Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.LOGGING_PARAMETERS_head), use_last_error=False)(3, 'Log', ((1, 'pLoggingParameters'),)))
+    win32more.System.Com.IUnknown
     return IFtpLogProvider
 def _define_AsyncIFtpLogProvider_head():
     class AsyncIFtpLogProvider(win32more.System.Com.IUnknown_head):
@@ -991,6 +999,7 @@ def _define_AsyncIFtpLogProvider():
     AsyncIFtpLogProvider = win32more.System.Iis.AsyncIFtpLogProvider_head
     AsyncIFtpLogProvider.Begin_Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.LOGGING_PARAMETERS_head), use_last_error=False)(3, 'Begin_Log', ((1, 'pLoggingParameters'),)))
     AsyncIFtpLogProvider.Finish_Log = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Finish_Log', ()))
+    win32more.System.Com.IUnknown
     return AsyncIFtpLogProvider
 FTP_ACCESS = Int32
 FTP_ACCESS_NONE = 0
@@ -1004,6 +1013,7 @@ def _define_IFtpAuthorizationProvider_head():
 def _define_IFtpAuthorizationProvider():
     IFtpAuthorizationProvider = win32more.System.Iis.IFtpAuthorizationProvider_head
     IFtpAuthorizationProvider.GetUserAccessPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.System.Iis.FTP_ACCESS), use_last_error=False)(3, 'GetUserAccessPermission', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszVirtualPath'),(1, 'pszUserName'),(1, 'pFtpAccess'),)))
+    win32more.System.Com.IUnknown
     return IFtpAuthorizationProvider
 def _define_AsyncIFtpAuthorizationProvider_head():
     class AsyncIFtpAuthorizationProvider(win32more.System.Com.IUnknown_head):
@@ -1013,6 +1023,7 @@ def _define_AsyncIFtpAuthorizationProvider():
     AsyncIFtpAuthorizationProvider = win32more.System.Iis.AsyncIFtpAuthorizationProvider_head
     AsyncIFtpAuthorizationProvider.Begin_GetUserAccessPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR, use_last_error=False)(3, 'Begin_GetUserAccessPermission', ((1, 'pszSessionId'),(1, 'pszSiteName'),(1, 'pszVirtualPath'),(1, 'pszUserName'),)))
     AsyncIFtpAuthorizationProvider.Finish_GetUserAccessPermission = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.FTP_ACCESS), use_last_error=False)(4, 'Finish_GetUserAccessPermission', ((1, 'pFtpAccess'),)))
+    win32more.System.Com.IUnknown
     return AsyncIFtpAuthorizationProvider
 FTP_PROCESS_STATUS = Int32
 FTP_PROCESS_CONTINUE = 0
@@ -1048,6 +1059,7 @@ def _define_IFtpPreprocessProvider_head():
 def _define_IFtpPreprocessProvider():
     IFtpPreprocessProvider = win32more.System.Iis.IFtpPreprocessProvider_head
     IFtpPreprocessProvider.HandlePreprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.PRE_PROCESS_PARAMETERS_head),POINTER(win32more.System.Iis.FTP_PROCESS_STATUS), use_last_error=False)(3, 'HandlePreprocess', ((1, 'pPreProcessParameters'),(1, 'pFtpProcessStatus'),)))
+    win32more.System.Com.IUnknown
     return IFtpPreprocessProvider
 def _define_AsyncIFtpPreprocessProvider_head():
     class AsyncIFtpPreprocessProvider(win32more.System.Com.IUnknown_head):
@@ -1057,6 +1069,7 @@ def _define_AsyncIFtpPreprocessProvider():
     AsyncIFtpPreprocessProvider = win32more.System.Iis.AsyncIFtpPreprocessProvider_head
     AsyncIFtpPreprocessProvider.Begin_HandlePreprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.PRE_PROCESS_PARAMETERS_head), use_last_error=False)(3, 'Begin_HandlePreprocess', ((1, 'pPreProcessParameters'),)))
     AsyncIFtpPreprocessProvider.Finish_HandlePreprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.FTP_PROCESS_STATUS), use_last_error=False)(4, 'Finish_HandlePreprocess', ((1, 'pFtpProcessStatus'),)))
+    win32more.System.Com.IUnknown
     return AsyncIFtpPreprocessProvider
 def _define_POST_PROCESS_PARAMETERS_head():
     class POST_PROCESS_PARAMETERS(Structure):
@@ -1094,6 +1107,7 @@ def _define_IFtpPostprocessProvider_head():
 def _define_IFtpPostprocessProvider():
     IFtpPostprocessProvider = win32more.System.Iis.IFtpPostprocessProvider_head
     IFtpPostprocessProvider.HandlePostprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.POST_PROCESS_PARAMETERS_head),POINTER(win32more.System.Iis.FTP_PROCESS_STATUS), use_last_error=False)(3, 'HandlePostprocess', ((1, 'pPostProcessParameters'),(1, 'pFtpProcessStatus'),)))
+    win32more.System.Com.IUnknown
     return IFtpPostprocessProvider
 def _define_AsyncIFtpPostprocessProvider_head():
     class AsyncIFtpPostprocessProvider(win32more.System.Com.IUnknown_head):
@@ -1103,6 +1117,7 @@ def _define_AsyncIFtpPostprocessProvider():
     AsyncIFtpPostprocessProvider = win32more.System.Iis.AsyncIFtpPostprocessProvider_head
     AsyncIFtpPostprocessProvider.Begin_HandlePostprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.POST_PROCESS_PARAMETERS_head), use_last_error=False)(3, 'Begin_HandlePostprocess', ((1, 'pPostProcessParameters'),)))
     AsyncIFtpPostprocessProvider.Finish_HandlePostprocess = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.FTP_PROCESS_STATUS), use_last_error=False)(4, 'Finish_HandlePostprocess', ((1, 'pFtpProcessStatus'),)))
+    win32more.System.Com.IUnknown
     return AsyncIFtpPostprocessProvider
 def _define_IADMEXT_head():
     class IADMEXT(win32more.System.Com.IUnknown_head):
@@ -1113,6 +1128,7 @@ def _define_IADMEXT():
     IADMEXT.Initialize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(3, 'Initialize', ()))
     IADMEXT.EnumDcomCLSIDs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Guid),UInt32, use_last_error=False)(4, 'EnumDcomCLSIDs', ((1, 'pclsidDcom'),(1, 'dwEnumIndex'),)))
     IADMEXT.Terminate = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Terminate', ()))
+    win32more.System.Com.IUnknown
     return IADMEXT
 METADATATYPES = Int32
 ALL_METADATA = 0
@@ -1240,6 +1256,7 @@ def _define_IMSAdminBaseW():
     IMSAdminBaseW.DeleteBackup = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(31, 'DeleteBackup', ((1, 'pszMDBackupLocation'),(1, 'dwMDVersion'),)))
     IMSAdminBaseW.UnmarshalInterface = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Iis.IMSAdminBaseW_head), use_last_error=False)(32, 'UnmarshalInterface', ((1, 'piadmbwInterface'),)))
     IMSAdminBaseW.GetServerGuid = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(33, 'GetServerGuid', ()))
+    win32more.System.Com.IUnknown
     return IMSAdminBaseW
 def _define__IIS_CRYPTO_BLOB_head():
     class _IIS_CRYPTO_BLOB(Structure):
@@ -1260,6 +1277,7 @@ def _define_IMSAdminBase2W():
     IMSAdminBase2W.Import = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(37, 'Import', ((1, 'pszPasswd'),(1, 'pszFileName'),(1, 'pszSourcePath'),(1, 'pszDestPath'),(1, 'dwMDFlags'),)))
     IMSAdminBase2W.RestoreHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,UInt32,UInt32,UInt32, use_last_error=False)(38, 'RestoreHistory', ((1, 'pszMDHistoryLocation'),(1, 'dwMDMajorVersion'),(1, 'dwMDMinorVersion'),(1, 'dwMDFlags'),)))
     IMSAdminBase2W.EnumHistory = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Char),POINTER(UInt32),POINTER(UInt32),POINTER(win32more.Foundation.FILETIME_head),UInt32, use_last_error=False)(39, 'EnumHistory', ((1, 'pszMDHistoryLocation'),(1, 'pdwMDMajorVersion'),(1, 'pdwMDMinorVersion'),(1, 'pftMDHistoryTime'),(1, 'dwMDEnumIndex'),)))
+    win32more.System.Iis.IMSAdminBaseW
     return IMSAdminBase2W
 def _define_IMSAdminBase3W_head():
     class IMSAdminBase3W(win32more.System.Iis.IMSAdminBase2W_head):
@@ -1268,6 +1286,7 @@ def _define_IMSAdminBase3W_head():
 def _define_IMSAdminBase3W():
     IMSAdminBase3W = win32more.System.Iis.IMSAdminBase3W_head
     IMSAdminBase3W.GetChildPaths = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(40, 'GetChildPaths', ((1, 'hMDHandle'),(1, 'pszMDPath'),(1, 'cchMDBufferSize'),(1, 'pszBuffer'),(1, 'pcchMDRequiredBufferSize'),)))
+    win32more.System.Iis.IMSAdminBase2W
     return IMSAdminBase3W
 def _define_IMSImpExpHelpW_head():
     class IMSImpExpHelpW(win32more.System.Com.IUnknown_head):
@@ -1276,6 +1295,7 @@ def _define_IMSImpExpHelpW_head():
 def _define_IMSImpExpHelpW():
     IMSImpExpHelpW = win32more.System.Iis.IMSImpExpHelpW_head
     IMSImpExpHelpW.EnumeratePathsInFile = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,UInt32,POINTER(Char),POINTER(UInt32), use_last_error=False)(3, 'EnumeratePathsInFile', ((1, 'pszFileName'),(1, 'pszKeyType'),(1, 'dwMDBufferSize'),(1, 'pszBuffer'),(1, 'pdwMDRequiredBufferSize'),)))
+    win32more.System.Com.IUnknown
     return IMSImpExpHelpW
 def _define_IMSAdminBaseSinkW_head():
     class IMSAdminBaseSinkW(win32more.System.Com.IUnknown_head):
@@ -1285,6 +1305,7 @@ def _define_IMSAdminBaseSinkW():
     IMSAdminBaseSinkW = win32more.System.Iis.IMSAdminBaseSinkW_head
     IMSAdminBaseSinkW.SinkNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,POINTER(win32more.System.Iis.MD_CHANGE_OBJECT_W), use_last_error=False)(3, 'SinkNotify', ((1, 'dwMDNumElements'),(1, 'pcoChangeList'),)))
     IMSAdminBaseSinkW.ShutdownNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'ShutdownNotify', ()))
+    win32more.System.Com.IUnknown
     return IMSAdminBaseSinkW
 def _define_AsyncIMSAdminBaseSinkW_head():
     class AsyncIMSAdminBaseSinkW(win32more.System.Com.IUnknown_head):
@@ -1296,6 +1317,7 @@ def _define_AsyncIMSAdminBaseSinkW():
     AsyncIMSAdminBaseSinkW.Finish_SinkNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(4, 'Finish_SinkNotify', ()))
     AsyncIMSAdminBaseSinkW.Begin_ShutdownNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(5, 'Begin_ShutdownNotify', ()))
     AsyncIMSAdminBaseSinkW.Finish_ShutdownNotify = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(6, 'Finish_ShutdownNotify', ()))
+    win32more.System.Com.IUnknown
     return AsyncIMSAdminBaseSinkW
 def _define_HSE_VERSION_INFO_head():
     class HSE_VERSION_INFO(Structure):

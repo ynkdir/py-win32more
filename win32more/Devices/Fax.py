@@ -1088,6 +1088,7 @@ def _define_IFaxJobStatus():
     IFaxJobStatus.get_TransmissionEnd = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Double), use_last_error=False)(21, 'get_TransmissionEnd', ((1, 'pdateTransmissionEnd'),)))
     IFaxJobStatus.get_CallerId = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(22, 'get_CallerId', ((1, 'pbstrCallerId'),)))
     IFaxJobStatus.get_RoutingInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(23, 'get_RoutingInformation', ((1, 'pbstrRoutingInformation'),)))
+    win32more.System.Com.IDispatch
     return IFaxJobStatus
 FAX_SERVER_EVENTS_TYPE_ENUM = Int32
 FAX_SERVER_EVENTS_TYPE_ENUM_fsetNONE = 0
@@ -1138,6 +1139,7 @@ def _define_IFaxServer():
     IFaxServer.UnregisterInboundRoutingExtension = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(30, 'UnregisterInboundRoutingExtension', ((1, 'bstrExtensionUniqueName'),)))
     IFaxServer.get_RegisteredEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.FAX_SERVER_EVENTS_TYPE_ENUM), use_last_error=False)(31, 'get_RegisteredEvents', ((1, 'pEventTypes'),)))
     IFaxServer.get_APIVersion = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.FAX_SERVER_APIVERSION_ENUM), use_last_error=False)(32, 'get_APIVersion', ((1, 'pAPIVersion'),)))
+    win32more.System.Com.IDispatch
     return IFaxServer
 def _define_IFaxDeviceProviders_head():
     class IFaxDeviceProviders(win32more.System.Com.IDispatch_head):
@@ -1148,6 +1150,7 @@ def _define_IFaxDeviceProviders():
     IFaxDeviceProviders.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'ppUnk'),)))
     IFaxDeviceProviders.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Devices.Fax.IFaxDeviceProvider_head), use_last_error=False)(8, 'get_Item', ((1, 'vIndex'),(1, 'pFaxDeviceProvider'),)))
     IFaxDeviceProviders.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'plCount'),)))
+    win32more.System.Com.IDispatch
     return IFaxDeviceProviders
 def _define_IFaxDevices_head():
     class IFaxDevices(win32more.System.Com.IDispatch_head):
@@ -1159,6 +1162,7 @@ def _define_IFaxDevices():
     IFaxDevices.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Devices.Fax.IFaxDevice_head), use_last_error=False)(8, 'get_Item', ((1, 'vIndex'),(1, 'pFaxDevice'),)))
     IFaxDevices.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'plCount'),)))
     IFaxDevices.get_ItemById = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Fax.IFaxDevice_head), use_last_error=False)(10, 'get_ItemById', ((1, 'lId'),(1, 'ppFaxDevice'),)))
+    win32more.System.Com.IDispatch
     return IFaxDevices
 def _define_IFaxInboundRouting_head():
     class IFaxInboundRouting(win32more.System.Com.IDispatch_head):
@@ -1168,6 +1172,7 @@ def _define_IFaxInboundRouting():
     IFaxInboundRouting = win32more.Devices.Fax.IFaxInboundRouting_head
     IFaxInboundRouting.GetExtensions = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxInboundRoutingExtensions_head), use_last_error=False)(7, 'GetExtensions', ((1, 'pFaxInboundRoutingExtensions'),)))
     IFaxInboundRouting.GetMethods = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxInboundRoutingMethods_head), use_last_error=False)(8, 'GetMethods', ((1, 'pFaxInboundRoutingMethods'),)))
+    win32more.System.Com.IDispatch
     return IFaxInboundRouting
 def _define_IFaxFolders_head():
     class IFaxFolders(win32more.System.Com.IDispatch_head):
@@ -1179,6 +1184,7 @@ def _define_IFaxFolders():
     IFaxFolders.get_IncomingQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxIncomingQueue_head), use_last_error=False)(8, 'get_IncomingQueue', ((1, 'pFaxIncomingQueue'),)))
     IFaxFolders.get_IncomingArchive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxIncomingArchive_head), use_last_error=False)(9, 'get_IncomingArchive', ((1, 'pFaxIncomingArchive'),)))
     IFaxFolders.get_OutgoingArchive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxOutgoingArchive_head), use_last_error=False)(10, 'get_OutgoingArchive', ((1, 'pFaxOutgoingArchive'),)))
+    win32more.System.Com.IDispatch
     return IFaxFolders
 def _define_IFaxLoggingOptions_head():
     class IFaxLoggingOptions(win32more.System.Com.IDispatch_head):
@@ -1188,6 +1194,7 @@ def _define_IFaxLoggingOptions():
     IFaxLoggingOptions = win32more.Devices.Fax.IFaxLoggingOptions_head
     IFaxLoggingOptions.get_EventLogging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxEventLogging_head), use_last_error=False)(7, 'get_EventLogging', ((1, 'pFaxEventLogging'),)))
     IFaxLoggingOptions.get_ActivityLogging = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxActivityLogging_head), use_last_error=False)(8, 'get_ActivityLogging', ((1, 'pFaxActivityLogging'),)))
+    win32more.System.Com.IDispatch
     return IFaxLoggingOptions
 def _define_IFaxActivity_head():
     class IFaxActivity(win32more.System.Com.IDispatch_head):
@@ -1200,6 +1207,7 @@ def _define_IFaxActivity():
     IFaxActivity.get_OutgoingMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_OutgoingMessages', ((1, 'plOutgoingMessages'),)))
     IFaxActivity.get_QueuedMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(10, 'get_QueuedMessages', ((1, 'plQueuedMessages'),)))
     IFaxActivity.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Refresh', ()))
+    win32more.System.Com.IDispatch
     return IFaxActivity
 def _define_IFaxOutboundRouting_head():
     class IFaxOutboundRouting(win32more.System.Com.IDispatch_head):
@@ -1209,6 +1217,7 @@ def _define_IFaxOutboundRouting():
     IFaxOutboundRouting = win32more.Devices.Fax.IFaxOutboundRouting_head
     IFaxOutboundRouting.GetGroups = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxOutboundRoutingGroups_head), use_last_error=False)(7, 'GetGroups', ((1, 'pFaxOutboundRoutingGroups'),)))
     IFaxOutboundRouting.GetRules = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxOutboundRoutingRules_head), use_last_error=False)(8, 'GetRules', ((1, 'pFaxOutboundRoutingRules'),)))
+    win32more.System.Com.IDispatch
     return IFaxOutboundRouting
 FAX_SMTP_AUTHENTICATION_TYPE_ENUM = Int32
 FAX_SMTP_AUTHENTICATION_TYPE_ENUM_fsatANONYMOUS = 0
@@ -1242,6 +1251,7 @@ def _define_IFaxReceiptOptions():
     IFaxReceiptOptions.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(22, 'Save', ()))
     IFaxReceiptOptions.get_UseForInboundRouting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(23, 'get_UseForInboundRouting', ((1, 'pbUseForInboundRouting'),)))
     IFaxReceiptOptions.put_UseForInboundRouting = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(24, 'put_UseForInboundRouting', ((1, 'bUseForInboundRouting'),)))
+    win32more.System.Com.IDispatch
     return IFaxReceiptOptions
 FAX_ACCESS_RIGHTS_ENUM = Int32
 farSUBMIT_LOW = 1
@@ -1268,6 +1278,7 @@ def _define_IFaxSecurity():
     IFaxSecurity.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Save', ()))
     IFaxSecurity.get_InformationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_InformationType', ((1, 'plInformationType'),)))
     IFaxSecurity.put_InformationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(13, 'put_InformationType', ((1, 'lInformationType'),)))
+    win32more.System.Com.IDispatch
     return IFaxSecurity
 FAX_PRIORITY_TYPE_ENUM = Int32
 FAX_PRIORITY_TYPE_ENUM_fptLOW = 0
@@ -1321,6 +1332,7 @@ def _define_IFaxDocument():
     IFaxDocument.ConnectedSubmit = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.IFaxServer_head,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(38, 'ConnectedSubmit', ((1, 'pFaxServer'),(1, 'pvFaxOutgoingJobIDs'),)))
     IFaxDocument.get_AttachFaxToReceipt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(39, 'get_AttachFaxToReceipt', ((1, 'pbAttachFax'),)))
     IFaxDocument.put_AttachFaxToReceipt = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(40, 'put_AttachFaxToReceipt', ((1, 'bAttachFax'),)))
+    win32more.System.Com.IDispatch
     return IFaxDocument
 def _define_IFaxSender_head():
     class IFaxSender(win32more.System.Com.IDispatch_head):
@@ -1362,6 +1374,7 @@ def _define_IFaxSender():
     IFaxSender.put_ZipCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(38, 'put_ZipCode', ((1, 'bstrZipCode'),)))
     IFaxSender.LoadDefaultSender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(39, 'LoadDefaultSender', ()))
     IFaxSender.SaveDefaultSender = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(40, 'SaveDefaultSender', ()))
+    win32more.System.Com.IDispatch
     return IFaxSender
 def _define_IFaxRecipient_head():
     class IFaxRecipient(win32more.System.Com.IDispatch_head):
@@ -1373,6 +1386,7 @@ def _define_IFaxRecipient():
     IFaxRecipient.put_FaxNumber = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(8, 'put_FaxNumber', ((1, 'bstrFaxNumber'),)))
     IFaxRecipient.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(9, 'get_Name', ((1, 'pbstrName'),)))
     IFaxRecipient.put_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'put_Name', ((1, 'bstrName'),)))
+    win32more.System.Com.IDispatch
     return IFaxRecipient
 def _define_IFaxRecipients_head():
     class IFaxRecipients(win32more.System.Com.IDispatch_head):
@@ -1385,6 +1399,7 @@ def _define_IFaxRecipients():
     IFaxRecipients.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'plCount'),)))
     IFaxRecipients.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxRecipient_head), use_last_error=False)(10, 'Add', ((1, 'bstrFaxNumber'),(1, 'bstrRecipientName'),(1, 'ppFaxRecipient'),)))
     IFaxRecipients.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'lIndex'),)))
+    win32more.System.Com.IDispatch
     return IFaxRecipients
 def _define_IFaxIncomingArchive_head():
     class IFaxIncomingArchive(win32more.System.Com.IDispatch_head):
@@ -1410,6 +1425,7 @@ def _define_IFaxIncomingArchive():
     IFaxIncomingArchive.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(22, 'Save', ()))
     IFaxIncomingArchive.GetMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Fax.IFaxIncomingMessageIterator_head), use_last_error=False)(23, 'GetMessages', ((1, 'lPrefetchSize'),(1, 'pFaxIncomingMessageIterator'),)))
     IFaxIncomingArchive.GetMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxIncomingMessage_head), use_last_error=False)(24, 'GetMessage', ((1, 'bstrMessageId'),(1, 'pFaxIncomingMessage'),)))
+    win32more.System.Com.IDispatch
     return IFaxIncomingArchive
 def _define_IFaxIncomingQueue_head():
     class IFaxIncomingQueue(win32more.System.Com.IDispatch_head):
@@ -1423,6 +1439,7 @@ def _define_IFaxIncomingQueue():
     IFaxIncomingQueue.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(10, 'Save', ()))
     IFaxIncomingQueue.GetJobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxIncomingJobs_head), use_last_error=False)(11, 'GetJobs', ((1, 'pFaxIncomingJobs'),)))
     IFaxIncomingQueue.GetJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxIncomingJob_head), use_last_error=False)(12, 'GetJob', ((1, 'bstrJobId'),(1, 'pFaxIncomingJob'),)))
+    win32more.System.Com.IDispatch
     return IFaxIncomingQueue
 def _define_IFaxOutgoingArchive_head():
     class IFaxOutgoingArchive(win32more.System.Com.IDispatch_head):
@@ -1448,6 +1465,7 @@ def _define_IFaxOutgoingArchive():
     IFaxOutgoingArchive.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(22, 'Save', ()))
     IFaxOutgoingArchive.GetMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Fax.IFaxOutgoingMessageIterator_head), use_last_error=False)(23, 'GetMessages', ((1, 'lPrefetchSize'),(1, 'pFaxOutgoingMessageIterator'),)))
     IFaxOutgoingArchive.GetMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxOutgoingMessage_head), use_last_error=False)(24, 'GetMessage', ((1, 'bstrMessageId'),(1, 'pFaxOutgoingMessage'),)))
+    win32more.System.Com.IDispatch
     return IFaxOutgoingArchive
 def _define_IFaxOutgoingQueue_head():
     class IFaxOutgoingQueue(win32more.System.Com.IDispatch_head):
@@ -1479,6 +1497,7 @@ def _define_IFaxOutgoingQueue():
     IFaxOutgoingQueue.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(28, 'Save', ()))
     IFaxOutgoingQueue.GetJobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxOutgoingJobs_head), use_last_error=False)(29, 'GetJobs', ((1, 'pFaxOutgoingJobs'),)))
     IFaxOutgoingQueue.GetJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxOutgoingJob_head), use_last_error=False)(30, 'GetJob', ((1, 'bstrJobId'),(1, 'pFaxOutgoingJob'),)))
+    win32more.System.Com.IDispatch
     return IFaxOutgoingQueue
 def _define_IFaxIncomingMessageIterator_head():
     class IFaxIncomingMessageIterator(win32more.System.Com.IDispatch_head):
@@ -1492,6 +1511,7 @@ def _define_IFaxIncomingMessageIterator():
     IFaxIncomingMessageIterator.get_AtEOF = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(10, 'get_AtEOF', ((1, 'pbEOF'),)))
     IFaxIncomingMessageIterator.MoveFirst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'MoveFirst', ()))
     IFaxIncomingMessageIterator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'MoveNext', ()))
+    win32more.System.Com.IDispatch
     return IFaxIncomingMessageIterator
 def _define_IFaxIncomingMessage_head():
     class IFaxIncomingMessage(win32more.System.Com.IDispatch_head):
@@ -1512,6 +1532,7 @@ def _define_IFaxIncomingMessage():
     IFaxIncomingMessage.get_RoutingInformation = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(17, 'get_RoutingInformation', ((1, 'pbstrRoutingInformation'),)))
     IFaxIncomingMessage.CopyTiff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(18, 'CopyTiff', ((1, 'bstrTiffPath'),)))
     IFaxIncomingMessage.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(19, 'Delete', ()))
+    win32more.System.Com.IDispatch
     return IFaxIncomingMessage
 def _define_IFaxOutgoingJobs_head():
     class IFaxOutgoingJobs(win32more.System.Com.IDispatch_head):
@@ -1522,6 +1543,7 @@ def _define_IFaxOutgoingJobs():
     IFaxOutgoingJobs.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'ppUnk'),)))
     IFaxOutgoingJobs.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Devices.Fax.IFaxOutgoingJob_head), use_last_error=False)(8, 'get_Item', ((1, 'vIndex'),(1, 'pFaxOutgoingJob'),)))
     IFaxOutgoingJobs.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'plCount'),)))
+    win32more.System.Com.IDispatch
     return IFaxOutgoingJobs
 def _define_IFaxOutgoingJob_head():
     class IFaxOutgoingJob(win32more.System.Com.IDispatch_head):
@@ -1560,6 +1582,7 @@ def _define_IFaxOutgoingJob():
     IFaxOutgoingJob.CopyTiff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(35, 'CopyTiff', ((1, 'bstrTiffPath'),)))
     IFaxOutgoingJob.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(36, 'Refresh', ()))
     IFaxOutgoingJob.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(37, 'Cancel', ()))
+    win32more.System.Com.IDispatch
     return IFaxOutgoingJob
 def _define_IFaxOutgoingMessageIterator_head():
     class IFaxOutgoingMessageIterator(win32more.System.Com.IDispatch_head):
@@ -1573,6 +1596,7 @@ def _define_IFaxOutgoingMessageIterator():
     IFaxOutgoingMessageIterator.put_PrefetchSize = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'put_PrefetchSize', ((1, 'lPrefetchSize'),)))
     IFaxOutgoingMessageIterator.MoveFirst = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'MoveFirst', ()))
     IFaxOutgoingMessageIterator.MoveNext = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(12, 'MoveNext', ()))
+    win32more.System.Com.IDispatch
     return IFaxOutgoingMessageIterator
 def _define_IFaxOutgoingMessage_head():
     class IFaxOutgoingMessage(win32more.System.Com.IDispatch_head):
@@ -1599,6 +1623,7 @@ def _define_IFaxOutgoingMessage():
     IFaxOutgoingMessage.get_TSID = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(23, 'get_TSID', ((1, 'pbstrTSID'),)))
     IFaxOutgoingMessage.CopyTiff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(24, 'CopyTiff', ((1, 'bstrTiffPath'),)))
     IFaxOutgoingMessage.Delete = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(25, 'Delete', ()))
+    win32more.System.Com.IDispatch
     return IFaxOutgoingMessage
 def _define_IFaxIncomingJobs_head():
     class IFaxIncomingJobs(win32more.System.Com.IDispatch_head):
@@ -1609,6 +1634,7 @@ def _define_IFaxIncomingJobs():
     IFaxIncomingJobs.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'ppUnk'),)))
     IFaxIncomingJobs.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Devices.Fax.IFaxIncomingJob_head), use_last_error=False)(8, 'get_Item', ((1, 'vIndex'),(1, 'pFaxIncomingJob'),)))
     IFaxIncomingJobs.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'plCount'),)))
+    win32more.System.Com.IDispatch
     return IFaxIncomingJobs
 def _define_IFaxIncomingJob_head():
     class IFaxIncomingJob(win32more.System.Com.IDispatch_head):
@@ -1635,6 +1661,7 @@ def _define_IFaxIncomingJob():
     IFaxIncomingJob.Cancel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(23, 'Cancel', ()))
     IFaxIncomingJob.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(24, 'Refresh', ()))
     IFaxIncomingJob.CopyTiff = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(25, 'CopyTiff', ((1, 'bstrTiffPath'),)))
+    win32more.System.Com.IDispatch
     return IFaxIncomingJob
 FAX_PROVIDER_STATUS_ENUM = Int32
 FAX_PROVIDER_STATUS_ENUM_fpsSUCCESS = 0
@@ -1662,6 +1689,7 @@ def _define_IFaxDeviceProvider():
     IFaxDeviceProvider.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.FAX_PROVIDER_STATUS_ENUM), use_last_error=False)(16, 'get_Status', ((1, 'pStatus'),)))
     IFaxDeviceProvider.get_InitErrorCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(17, 'get_InitErrorCode', ((1, 'plInitErrorCode'),)))
     IFaxDeviceProvider.get_DeviceIds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(18, 'get_DeviceIds', ((1, 'pvDeviceIds'),)))
+    win32more.System.Com.IDispatch
     return IFaxDeviceProvider
 FAX_DEVICE_RECEIVE_MODE_ENUM = Int32
 fdrmNO_ANSWER = 0
@@ -1699,6 +1727,7 @@ def _define_IFaxDevice():
     IFaxDevice.UseRoutingMethod = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,Int16, use_last_error=False)(30, 'UseRoutingMethod', ((1, 'bstrMethodGUID'),(1, 'bUse'),)))
     IFaxDevice.get_RingingNow = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(31, 'get_RingingNow', ((1, 'pbRingingNow'),)))
     IFaxDevice.AnswerCall = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(32, 'AnswerCall', ()))
+    win32more.System.Com.IDispatch
     return IFaxDevice
 def _define_IFaxActivityLogging_head():
     class IFaxActivityLogging(win32more.System.Com.IDispatch_head):
@@ -1714,6 +1743,7 @@ def _define_IFaxActivityLogging():
     IFaxActivityLogging.put_DatabasePath = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(12, 'put_DatabasePath', ((1, 'bstrDatabasePath'),)))
     IFaxActivityLogging.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(13, 'Refresh', ()))
     IFaxActivityLogging.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Save', ()))
+    win32more.System.Com.IDispatch
     return IFaxActivityLogging
 FAX_LOG_LEVEL_ENUM = Int32
 FAX_LOG_LEVEL_ENUM_fllNONE = 0
@@ -1736,6 +1766,7 @@ def _define_IFaxEventLogging():
     IFaxEventLogging.put_GeneralEventsLevel = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.FAX_LOG_LEVEL_ENUM, use_last_error=False)(14, 'put_GeneralEventsLevel', ((1, 'GeneralEventLevel'),)))
     IFaxEventLogging.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Refresh', ()))
     IFaxEventLogging.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Save', ()))
+    win32more.System.Com.IDispatch
     return IFaxEventLogging
 def _define_IFaxOutboundRoutingGroups_head():
     class IFaxOutboundRoutingGroups(win32more.System.Com.IDispatch_head):
@@ -1748,6 +1779,7 @@ def _define_IFaxOutboundRoutingGroups():
     IFaxOutboundRoutingGroups.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'plCount'),)))
     IFaxOutboundRoutingGroups.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxOutboundRoutingGroup_head), use_last_error=False)(10, 'Add', ((1, 'bstrName'),(1, 'pFaxOutboundRoutingGroup'),)))
     IFaxOutboundRoutingGroups.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(11, 'Remove', ((1, 'vIndex'),)))
+    win32more.System.Com.IDispatch
     return IFaxOutboundRoutingGroups
 FAX_GROUP_STATUS_ENUM = Int32
 FAX_GROUP_STATUS_ENUM_fgsALL_DEV_VALID = 0
@@ -1763,6 +1795,7 @@ def _define_IFaxOutboundRoutingGroup():
     IFaxOutboundRoutingGroup.get_Name = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(7, 'get_Name', ((1, 'pbstrName'),)))
     IFaxOutboundRoutingGroup.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.FAX_GROUP_STATUS_ENUM), use_last_error=False)(8, 'get_Status', ((1, 'pStatus'),)))
     IFaxOutboundRoutingGroup.get_DeviceIds = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxDeviceIds_head), use_last_error=False)(9, 'get_DeviceIds', ((1, 'pFaxDeviceIds'),)))
+    win32more.System.Com.IDispatch
     return IFaxOutboundRoutingGroup
 def _define_IFaxDeviceIds_head():
     class IFaxDeviceIds(win32more.System.Com.IDispatch_head):
@@ -1776,6 +1809,7 @@ def _define_IFaxDeviceIds():
     IFaxDeviceIds.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(10, 'Add', ((1, 'lDeviceId'),)))
     IFaxDeviceIds.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(11, 'Remove', ((1, 'lIndex'),)))
     IFaxDeviceIds.SetOrder = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(12, 'SetOrder', ((1, 'lDeviceId'),(1, 'lNewOrder'),)))
+    win32more.System.Com.IDispatch
     return IFaxDeviceIds
 def _define_IFaxOutboundRoutingRules_head():
     class IFaxOutboundRoutingRules(win32more.System.Com.IDispatch_head):
@@ -1790,6 +1824,7 @@ def _define_IFaxOutboundRoutingRules():
     IFaxOutboundRoutingRules.RemoveByCountryAndArea = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32, use_last_error=False)(11, 'RemoveByCountryAndArea', ((1, 'lCountryCode'),(1, 'lAreaCode'),)))
     IFaxOutboundRoutingRules.Remove = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(12, 'Remove', ((1, 'lIndex'),)))
     IFaxOutboundRoutingRules.Add = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,Int32,Int16,win32more.Foundation.BSTR,Int32,POINTER(win32more.Devices.Fax.IFaxOutboundRoutingRule_head), use_last_error=False)(13, 'Add', ((1, 'lCountryCode'),(1, 'lAreaCode'),(1, 'bUseDevice'),(1, 'bstrGroupName'),(1, 'lDeviceId'),(1, 'pFaxOutboundRoutingRule'),)))
+    win32more.System.Com.IDispatch
     return IFaxOutboundRoutingRules
 FAX_RULE_STATUS_ENUM = Int32
 FAX_RULE_STATUS_ENUM_frsVALID = 0
@@ -1814,6 +1849,7 @@ def _define_IFaxOutboundRoutingRule():
     IFaxOutboundRoutingRule.put_GroupName = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(15, 'put_GroupName', ((1, 'bstrGroupName'),)))
     IFaxOutboundRoutingRule.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(16, 'Refresh', ()))
     IFaxOutboundRoutingRule.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(17, 'Save', ()))
+    win32more.System.Com.IDispatch
     return IFaxOutboundRoutingRule
 def _define_IFaxInboundRoutingExtensions_head():
     class IFaxInboundRoutingExtensions(win32more.System.Com.IDispatch_head):
@@ -1824,6 +1860,7 @@ def _define_IFaxInboundRoutingExtensions():
     IFaxInboundRoutingExtensions.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'ppUnk'),)))
     IFaxInboundRoutingExtensions.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Devices.Fax.IFaxInboundRoutingExtension_head), use_last_error=False)(8, 'get_Item', ((1, 'vIndex'),(1, 'pFaxInboundRoutingExtension'),)))
     IFaxInboundRoutingExtensions.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'plCount'),)))
+    win32more.System.Com.IDispatch
     return IFaxInboundRoutingExtensions
 def _define_IFaxInboundRoutingExtension_head():
     class IFaxInboundRoutingExtension(win32more.System.Com.IDispatch_head):
@@ -1842,6 +1879,7 @@ def _define_IFaxInboundRoutingExtension():
     IFaxInboundRoutingExtension.get_Status = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.FAX_PROVIDER_STATUS_ENUM), use_last_error=False)(15, 'get_Status', ((1, 'pStatus'),)))
     IFaxInboundRoutingExtension.get_InitErrorCode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(16, 'get_InitErrorCode', ((1, 'plInitErrorCode'),)))
     IFaxInboundRoutingExtension.get_Methods = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.VARIANT_head), use_last_error=False)(17, 'get_Methods', ((1, 'pvMethods'),)))
+    win32more.System.Com.IDispatch
     return IFaxInboundRoutingExtension
 def _define_IFaxInboundRoutingMethods_head():
     class IFaxInboundRoutingMethods(win32more.System.Com.IDispatch_head):
@@ -1852,6 +1890,7 @@ def _define_IFaxInboundRoutingMethods():
     IFaxInboundRoutingMethods.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'ppUnk'),)))
     IFaxInboundRoutingMethods.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Devices.Fax.IFaxInboundRoutingMethod_head), use_last_error=False)(8, 'get_Item', ((1, 'vIndex'),(1, 'pFaxInboundRoutingMethod'),)))
     IFaxInboundRoutingMethods.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'plCount'),)))
+    win32more.System.Com.IDispatch
     return IFaxInboundRoutingMethods
 def _define_IFaxInboundRoutingMethod_head():
     class IFaxInboundRoutingMethod(win32more.System.Com.IDispatch_head):
@@ -1868,6 +1907,7 @@ def _define_IFaxInboundRoutingMethod():
     IFaxInboundRoutingMethod.put_Priority = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(13, 'put_Priority', ((1, 'lPriority'),)))
     IFaxInboundRoutingMethod.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(14, 'Refresh', ()))
     IFaxInboundRoutingMethod.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(15, 'Save', ()))
+    win32more.System.Com.IDispatch
     return IFaxInboundRoutingMethod
 def _define_IFaxDocument2_head():
     class IFaxDocument2(win32more.Devices.Fax.IFaxDocument_head):
@@ -1880,6 +1920,7 @@ def _define_IFaxDocument2():
     IFaxDocument2.put_Bodies = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT, use_last_error=False)(43, 'put_Bodies', ((1, 'vBodies'),)))
     IFaxDocument2.Submit2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int32), use_last_error=False)(44, 'Submit2', ((1, 'bstrFaxServerName'),(1, 'pvFaxOutgoingJobIDs'),(1, 'plErrorBodyFile'),)))
     IFaxDocument2.ConnectedSubmit2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.IFaxServer_head,POINTER(win32more.System.Com.VARIANT_head),POINTER(Int32), use_last_error=False)(45, 'ConnectedSubmit2', ((1, 'pFaxServer'),(1, 'pvFaxOutgoingJobIDs'),(1, 'plErrorBodyFile'),)))
+    win32more.Devices.Fax.IFaxDocument
     return IFaxDocument2
 def _define_IFaxConfiguration_head():
     class IFaxConfiguration(win32more.System.Com.IDispatch_head):
@@ -1929,6 +1970,7 @@ def _define_IFaxConfiguration():
     IFaxConfiguration.put_IncomingFaxesArePublic = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(46, 'put_IncomingFaxesArePublic', ((1, 'bIncomingFaxesArePublic'),)))
     IFaxConfiguration.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(47, 'Refresh', ()))
     IFaxConfiguration.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(48, 'Save', ()))
+    win32more.System.Com.IDispatch
     return IFaxConfiguration
 def _define_IFaxServer2_head():
     class IFaxServer2(win32more.Devices.Fax.IFaxServer_head):
@@ -1940,6 +1982,7 @@ def _define_IFaxServer2():
     IFaxServer2.get_CurrentAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxAccount_head), use_last_error=False)(34, 'get_CurrentAccount', ((1, 'ppCurrentAccount'),)))
     IFaxServer2.get_FaxAccountSet = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxAccountSet_head), use_last_error=False)(35, 'get_FaxAccountSet', ((1, 'ppFaxAccountSet'),)))
     IFaxServer2.get_Security2 = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxSecurity2_head), use_last_error=False)(36, 'get_Security2', ((1, 'ppFaxSecurity2'),)))
+    win32more.Devices.Fax.IFaxServer
     return IFaxServer2
 def _define_IFaxAccountSet_head():
     class IFaxAccountSet(win32more.System.Com.IDispatch_head):
@@ -1951,6 +1994,7 @@ def _define_IFaxAccountSet():
     IFaxAccountSet.GetAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxAccount_head), use_last_error=False)(8, 'GetAccount', ((1, 'bstrAccountName'),(1, 'pFaxAccount'),)))
     IFaxAccountSet.AddAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxAccount_head), use_last_error=False)(9, 'AddAccount', ((1, 'bstrAccountName'),(1, 'pFaxAccount'),)))
     IFaxAccountSet.RemoveAccount = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR, use_last_error=False)(10, 'RemoveAccount', ((1, 'bstrAccountName'),)))
+    win32more.System.Com.IDispatch
     return IFaxAccountSet
 def _define_IFaxAccounts_head():
     class IFaxAccounts(win32more.System.Com.IDispatch_head):
@@ -1961,6 +2005,7 @@ def _define_IFaxAccounts():
     IFaxAccounts.get__NewEnum = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.System.Com.IUnknown_head), use_last_error=False)(7, 'get__NewEnum', ((1, 'ppUnk'),)))
     IFaxAccounts.get_Item = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.System.Com.VARIANT,POINTER(win32more.Devices.Fax.IFaxAccount_head), use_last_error=False)(8, 'get_Item', ((1, 'vIndex'),(1, 'pFaxAccount'),)))
     IFaxAccounts.get_Count = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(9, 'get_Count', ((1, 'plCount'),)))
+    win32more.System.Com.IDispatch
     return IFaxAccounts
 FAX_ACCOUNT_EVENTS_TYPE_ENUM = Int32
 FAX_ACCOUNT_EVENTS_TYPE_ENUM_faetNONE = 0
@@ -1979,6 +2024,7 @@ def _define_IFaxAccount():
     IFaxAccount.get_Folders = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxAccountFolders_head), use_last_error=False)(8, 'get_Folders', ((1, 'ppFolders'),)))
     IFaxAccount.ListenToAccountEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.FAX_ACCOUNT_EVENTS_TYPE_ENUM, use_last_error=False)(9, 'ListenToAccountEvents', ((1, 'EventTypes'),)))
     IFaxAccount.get_RegisteredEvents = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.FAX_ACCOUNT_EVENTS_TYPE_ENUM), use_last_error=False)(10, 'get_RegisteredEvents', ((1, 'pRegisteredEvents'),)))
+    win32more.System.Com.IDispatch
     return IFaxAccount
 def _define_IFaxOutgoingJob2_head():
     class IFaxOutgoingJob2(win32more.Devices.Fax.IFaxOutgoingJob_head):
@@ -1989,6 +2035,7 @@ def _define_IFaxOutgoingJob2():
     IFaxOutgoingJob2.get_HasCoverPage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int16), use_last_error=False)(38, 'get_HasCoverPage', ((1, 'pbHasCoverPage'),)))
     IFaxOutgoingJob2.get_ReceiptAddress = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.BSTR), use_last_error=False)(39, 'get_ReceiptAddress', ((1, 'pbstrReceiptAddress'),)))
     IFaxOutgoingJob2.get_ScheduleType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.FAX_SCHEDULE_TYPE_ENUM), use_last_error=False)(40, 'get_ScheduleType', ((1, 'pScheduleType'),)))
+    win32more.Devices.Fax.IFaxOutgoingJob
     return IFaxOutgoingJob2
 def _define_IFaxAccountFolders_head():
     class IFaxAccountFolders(win32more.System.Com.IDispatch_head):
@@ -2000,6 +2047,7 @@ def _define_IFaxAccountFolders():
     IFaxAccountFolders.get_IncomingQueue = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxAccountIncomingQueue_head), use_last_error=False)(8, 'get_IncomingQueue', ((1, 'pFaxIncomingQueue'),)))
     IFaxAccountFolders.get_IncomingArchive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxAccountIncomingArchive_head), use_last_error=False)(9, 'get_IncomingArchive', ((1, 'pFaxIncomingArchive'),)))
     IFaxAccountFolders.get_OutgoingArchive = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxAccountOutgoingArchive_head), use_last_error=False)(10, 'get_OutgoingArchive', ((1, 'pFaxOutgoingArchive'),)))
+    win32more.System.Com.IDispatch
     return IFaxAccountFolders
 def _define_IFaxAccountIncomingQueue_head():
     class IFaxAccountIncomingQueue(win32more.System.Com.IDispatch_head):
@@ -2009,6 +2057,7 @@ def _define_IFaxAccountIncomingQueue():
     IFaxAccountIncomingQueue = win32more.Devices.Fax.IFaxAccountIncomingQueue_head
     IFaxAccountIncomingQueue.GetJobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxIncomingJobs_head), use_last_error=False)(7, 'GetJobs', ((1, 'pFaxIncomingJobs'),)))
     IFaxAccountIncomingQueue.GetJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxIncomingJob_head), use_last_error=False)(8, 'GetJob', ((1, 'bstrJobId'),(1, 'pFaxIncomingJob'),)))
+    win32more.System.Com.IDispatch
     return IFaxAccountIncomingQueue
 def _define_IFaxAccountOutgoingQueue_head():
     class IFaxAccountOutgoingQueue(win32more.System.Com.IDispatch_head):
@@ -2018,6 +2067,7 @@ def _define_IFaxAccountOutgoingQueue():
     IFaxAccountOutgoingQueue = win32more.Devices.Fax.IFaxAccountOutgoingQueue_head
     IFaxAccountOutgoingQueue.GetJobs = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.IFaxOutgoingJobs_head), use_last_error=False)(7, 'GetJobs', ((1, 'pFaxOutgoingJobs'),)))
     IFaxAccountOutgoingQueue.GetJob = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxOutgoingJob_head), use_last_error=False)(8, 'GetJob', ((1, 'bstrJobId'),(1, 'pFaxOutgoingJob'),)))
+    win32more.System.Com.IDispatch
     return IFaxAccountOutgoingQueue
 def _define_IFaxOutgoingMessage2_head():
     class IFaxOutgoingMessage2(win32more.Devices.Fax.IFaxOutgoingMessage_head):
@@ -2032,6 +2082,7 @@ def _define_IFaxOutgoingMessage2():
     IFaxOutgoingMessage2.put_Read = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int16, use_last_error=False)(30, 'put_Read', ((1, 'bRead'),)))
     IFaxOutgoingMessage2.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(31, 'Save', ()))
     IFaxOutgoingMessage2.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(32, 'Refresh', ()))
+    win32more.Devices.Fax.IFaxOutgoingMessage
     return IFaxOutgoingMessage2
 def _define_IFaxAccountIncomingArchive_head():
     class IFaxAccountIncomingArchive(win32more.System.Com.IDispatch_head):
@@ -2044,6 +2095,7 @@ def _define_IFaxAccountIncomingArchive():
     IFaxAccountIncomingArchive.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     IFaxAccountIncomingArchive.GetMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Fax.IFaxIncomingMessageIterator_head), use_last_error=False)(10, 'GetMessages', ((1, 'lPrefetchSize'),(1, 'pFaxIncomingMessageIterator'),)))
     IFaxAccountIncomingArchive.GetMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxIncomingMessage_head), use_last_error=False)(11, 'GetMessage', ((1, 'bstrMessageId'),(1, 'pFaxIncomingMessage'),)))
+    win32more.System.Com.IDispatch
     return IFaxAccountIncomingArchive
 def _define_IFaxAccountOutgoingArchive_head():
     class IFaxAccountOutgoingArchive(win32more.System.Com.IDispatch_head):
@@ -2056,6 +2108,7 @@ def _define_IFaxAccountOutgoingArchive():
     IFaxAccountOutgoingArchive.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(9, 'Refresh', ()))
     IFaxAccountOutgoingArchive.GetMessages = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32,POINTER(win32more.Devices.Fax.IFaxOutgoingMessageIterator_head), use_last_error=False)(10, 'GetMessages', ((1, 'lPrefetchSize'),(1, 'pFaxOutgoingMessageIterator'),)))
     IFaxAccountOutgoingArchive.GetMessage = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.BSTR,POINTER(win32more.Devices.Fax.IFaxOutgoingMessage_head), use_last_error=False)(11, 'GetMessage', ((1, 'bstrMessageId'),(1, 'pFaxOutgoingMessage'),)))
+    win32more.System.Com.IDispatch
     return IFaxAccountOutgoingArchive
 FAX_ACCESS_RIGHTS_ENUM_2 = Int32
 far2SUBMIT_LOW = 1
@@ -2081,6 +2134,7 @@ def _define_IFaxSecurity2():
     IFaxSecurity2.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(11, 'Save', ()))
     IFaxSecurity2.get_InformationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(Int32), use_last_error=False)(12, 'get_InformationType', ((1, 'plInformationType'),)))
     IFaxSecurity2.put_InformationType = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,Int32, use_last_error=False)(13, 'put_InformationType', ((1, 'lInformationType'),)))
+    win32more.System.Com.IDispatch
     return IFaxSecurity2
 def _define_IFaxIncomingMessage2_head():
     class IFaxIncomingMessage2(win32more.Devices.Fax.IFaxIncomingMessage_head):
@@ -2104,6 +2158,7 @@ def _define_IFaxIncomingMessage2():
     IFaxIncomingMessage2.ReAssign = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(33, 'ReAssign', ()))
     IFaxIncomingMessage2.Save = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(34, 'Save', ()))
     IFaxIncomingMessage2.Refresh = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(35, 'Refresh', ()))
+    win32more.Devices.Fax.IFaxIncomingMessage
     return IFaxIncomingMessage2
 FAX_ROUTING_RULE_CODE_ENUM = Int32
 frrcANY_CODE = 0
@@ -2113,6 +2168,7 @@ def _define_IFaxServerNotify_head():
     return IFaxServerNotify
 def _define_IFaxServerNotify():
     IFaxServerNotify = win32more.Devices.Fax.IFaxServerNotify_head
+    win32more.System.Com.IDispatch
     return IFaxServerNotify
 def _define__IFaxServerNotify2_head():
     class _IFaxServerNotify2(win32more.System.Com.IDispatch_head):
@@ -2146,6 +2202,7 @@ def _define__IFaxServerNotify2():
     _IFaxServerNotify2.OnServerShutDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.IFaxServer2_head, use_last_error=False)(30, 'OnServerShutDown', ((1, 'pFaxServer'),)))
     _IFaxServerNotify2.OnDeviceStatusChange = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.IFaxServer2_head,Int32,Int16,Int16,Int16,Int16, use_last_error=False)(31, 'OnDeviceStatusChange', ((1, 'pFaxServer'),(1, 'lDeviceId'),(1, 'bPoweredOff'),(1, 'bSending'),(1, 'bReceiving'),(1, 'bRinging'),)))
     _IFaxServerNotify2.OnGeneralServerConfigChanged = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.IFaxServer2_head, use_last_error=False)(32, 'OnGeneralServerConfigChanged', ((1, 'pFaxServer'),)))
+    win32more.System.Com.IDispatch
     return _IFaxServerNotify2
 def _define_IFaxServerNotify2_head():
     class IFaxServerNotify2(win32more.System.Com.IDispatch_head):
@@ -2153,6 +2210,7 @@ def _define_IFaxServerNotify2_head():
     return IFaxServerNotify2
 def _define_IFaxServerNotify2():
     IFaxServerNotify2 = win32more.Devices.Fax.IFaxServerNotify2_head
+    win32more.System.Com.IDispatch
     return IFaxServerNotify2
 def _define__IFaxAccountNotify_head():
     class _IFaxAccountNotify(win32more.System.Com.IDispatch_head):
@@ -2171,6 +2229,7 @@ def _define__IFaxAccountNotify():
     _IFaxAccountNotify.OnOutgoingMessageAdded = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.IFaxAccount_head,win32more.Foundation.BSTR, use_last_error=False)(15, 'OnOutgoingMessageAdded', ((1, 'pFaxAccount'),(1, 'bstrMessageId'),)))
     _IFaxAccountNotify.OnOutgoingMessageRemoved = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.IFaxAccount_head,win32more.Foundation.BSTR, use_last_error=False)(16, 'OnOutgoingMessageRemoved', ((1, 'pFaxAccount'),(1, 'bstrMessageId'),)))
     _IFaxAccountNotify.OnServerShutDown = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Devices.Fax.IFaxServer2_head, use_last_error=False)(17, 'OnServerShutDown', ((1, 'pFaxServer'),)))
+    win32more.System.Com.IDispatch
     return _IFaxAccountNotify
 def _define_IFaxAccountNotify_head():
     class IFaxAccountNotify(win32more.System.Com.IDispatch_head):
@@ -2178,6 +2237,7 @@ def _define_IFaxAccountNotify_head():
     return IFaxAccountNotify
 def _define_IFaxAccountNotify():
     IFaxAccountNotify = win32more.Devices.Fax.IFaxAccountNotify_head
+    win32more.System.Com.IDispatch
     return IFaxAccountNotify
 def _define_PFAXROUTEADDFILE():
     return CFUNCTYPE(Int32,UInt32,win32more.Foundation.PWSTR,POINTER(Guid), use_last_error=False)
@@ -2417,6 +2477,7 @@ def _define_IStillImageW():
     IStillImageW.LaunchApplicationForDevice = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.PWSTR,win32more.Foundation.PWSTR,POINTER(win32more.Devices.Fax.STINOTIFY_head), use_last_error=False)(15, 'LaunchApplicationForDevice', ((1, 'pwszDeviceName'),(1, 'pwszAppName'),(1, 'pStiNotify'),)))
     IStillImageW.SetupDeviceParameters = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.STI_DEVICE_INFORMATIONW_head), use_last_error=False)(16, 'SetupDeviceParameters', ((1, 'param0'),)))
     IStillImageW.WriteToErrorLog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR, use_last_error=False)(17, 'WriteToErrorLog', ((1, 'dwMessageType'),(1, 'pszMessage'),)))
+    win32more.System.Com.IUnknown
     return IStillImageW
 def _define_IStiDevice_head():
     class IStiDevice(win32more.System.Com.IUnknown_head):
@@ -2441,6 +2502,7 @@ def _define_IStiDevice():
     IStiDevice.GetLastNotificationData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.STINOTIFY_head), use_last_error=False)(17, 'GetLastNotificationData', ((1, 'lpNotify'),)))
     IStiDevice.UnSubscribe = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT, use_last_error=False)(18, 'UnSubscribe', ()))
     IStiDevice.GetLastErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax._ERROR_INFOW_head), use_last_error=False)(19, 'GetLastErrorInfo', ((1, 'pLastErrorInfo'),)))
+    win32more.System.Com.IUnknown
     return IStiDevice
 def _define_STI_USD_CAPS_head():
     class STI_USD_CAPS(Structure):
@@ -2470,6 +2532,7 @@ def _define_IStiDeviceControl():
     IStiDeviceControl.GetMyDeviceHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Foundation.HANDLE), use_last_error=False)(11, 'GetMyDeviceHandle', ((1, 'lph'),)))
     IStiDeviceControl.GetMyDeviceOpenMode = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(UInt32), use_last_error=False)(12, 'GetMyDeviceOpenMode', ((1, 'pdwOpenMode'),)))
     IStiDeviceControl.WriteToErrorLog = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,UInt32,win32more.Foundation.PWSTR,UInt32, use_last_error=False)(13, 'WriteToErrorLog', ((1, 'dwMessageType'),(1, 'pszMessage'),(1, 'dwErrorCode'),)))
+    win32more.System.Com.IUnknown
     return IStiDeviceControl
 def _define_IStiUSD_head():
     class IStiUSD(win32more.System.Com.IUnknown_head):
@@ -2493,6 +2556,7 @@ def _define_IStiUSD():
     IStiUSD.SetNotificationHandle = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,win32more.Foundation.HANDLE, use_last_error=False)(16, 'SetNotificationHandle', ((1, 'hEvent'),)))
     IStiUSD.GetNotificationData = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax.STINOTIFY_head), use_last_error=False)(17, 'GetNotificationData', ((1, 'lpNotify'),)))
     IStiUSD.GetLastErrorInfo = COMMETHOD(WINFUNCTYPE(win32more.Foundation.HRESULT,POINTER(win32more.Devices.Fax._ERROR_INFOW_head), use_last_error=False)(18, 'GetLastErrorInfo', ((1, 'pLastErrorInfo'),)))
+    win32more.System.Com.IUnknown
     return IStiUSD
 def _define_FaxConnectFaxServerA():
     try:
