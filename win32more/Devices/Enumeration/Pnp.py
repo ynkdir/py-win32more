@@ -1,4 +1,4 @@
-from win32more import *
+from win32more.base import *
 import win32more.Devices.Enumeration.Pnp
 import win32more.Devices.Properties
 import win32more.Foundation

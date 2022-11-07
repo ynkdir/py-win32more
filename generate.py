@@ -441,7 +441,7 @@ def main():
             p.parent.mkdir(parents=True)
         with p.open("w") as f:
             g = Generator(f)
-            g.writeline(f"from {PACKAGE_NAME} import *")
+            g.writeline(f"from {PACKAGE_NAME}.base import *")
             g.write_import(pp.collect_apiref(mod, {pkg_modapi}))
             g.write_getattr()
             g.write_define(mod)

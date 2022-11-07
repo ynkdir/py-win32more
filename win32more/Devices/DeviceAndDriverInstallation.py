@@ -1,4 +1,4 @@
-from win32more import *
+from win32more.base import *
 import win32more.Data.HtmlHelp
 import win32more.Devices.DeviceAndDriverInstallation
 import win32more.Devices.Properties

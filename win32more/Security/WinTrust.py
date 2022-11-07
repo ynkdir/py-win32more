@@ -1,4 +1,4 @@
-from win32more import *
+from win32more.base import *
 import win32more.Foundation
 import win32more.Security.Cryptography
 import win32more.Security.Cryptography.Sip

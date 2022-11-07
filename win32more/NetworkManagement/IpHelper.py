@@ -1,4 +1,4 @@
-from win32more import *
+from win32more.base import *
 import win32more.Foundation
 import win32more.NetworkManagement.IpHelper
 import win32more.NetworkManagement.Ndis

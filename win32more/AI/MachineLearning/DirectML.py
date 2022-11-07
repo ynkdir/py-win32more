@@ -1,4 +1,4 @@
-from win32more import *
+from win32more.base import *
 import win32more.AI.MachineLearning.DirectML
 import win32more.Foundation
 import win32more.Graphics.Direct3D12

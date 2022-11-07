@@ -1,4 +1,4 @@
-from win32more import *
+from win32more.base import *
 import win32more.Foundation
 import win32more.Security
 import win32more.System.JobObjects
