@@ -1,16 +1,15 @@
-from win32more import *
-from win32more.Foundation import ERROR_INSUFFICIENT_BUFFER, NO_ERROR
-from win32more.NetworkManagement.IpHelper import GetIpAddrTable, MIB_IPADDRTABLE, MIB_IPADDRROW_XP
+import win32more.all as win32
+from ctypes import cast, byref, resize, POINTER
 import socket
 
-dwSize = ULONG(0)
-if (r := GetIpAddrTable(None, dwSize, False)) != ERROR_INSUFFICIENT_BUFFER:
-    raise WinError(r)
+dwSize = win32.ULONG(0)
+if (r := win32.GetIpAddrTable(None, dwSize, False)) != win32.ERROR_INSUFFICIENT_BUFFER:
+    raise win32.WinError(r)
 
-IpAddrTable = MIB_IPADDRTABLE()
+IpAddrTable = win32.MIB_IPADDRTABLE()
 resize(IpAddrTable, dwSize.value)
-if (r := GetIpAddrTable(IpAddrTable, dwSize, False)) != NO_ERROR:
-    raise WinError(r)
+if (r := win32.GetIpAddrTable(IpAddrTable, dwSize, False)) != win32.NO_ERROR:
+    raise win32.WinError(r)
 
-for row in cast(byref(IpAddrTable.table), POINTER(MIB_IPADDRROW_XP * IpAddrTable.dwNumEntries)).contents:
+for row in cast(byref(IpAddrTable.table), POINTER(win32.MIB_IPADDRROW_XP * IpAddrTable.dwNumEntries)).contents:
     print(socket.inet_ntoa(row.dwAddr.to_bytes(4, "big")))

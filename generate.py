@@ -428,6 +428,7 @@ def main():
     ns = pp.patch_com_vtbl_index(ns)
     ns = pp.patch_apiref(ns)
     ns = pp.patch_api_prefix(ns, PACKAGE_NAME)
+    nameindex = {}
     for modapi in allmeta:
         pkg_modapi = f"{PACKAGE_NAME}.{modapi}"
         mod = {k: v for k, v in ns.items() if v["_Api"] == pkg_modapi}
@@ -445,15 +446,34 @@ def main():
             g.write_getattr()
             g.write_define(mod)
             g.write_export(pp.collect_export(mod))
+        for name in pp.collect_export(mod):
+            nameindex[name] = pkg_modapi
     # generate __init__.py
     for p in Path(PACKAGE_NAME).glob("**/*"):
         if p.is_dir() and not (p / "__init__.py").exists():
             (p / "__init__.py").write_text("")
     # generate all.py module
     with open(f"{PACKAGE_NAME}/all.py", "w") as f:
-        f.write(f"from {PACKAGE_NAME} import *\n")
-        for api in sorted(allmeta):
-            f.write(f"from {PACKAGE_NAME}.{api} import *\n")
+        f.write("""import importlib
+import sys
+_module = sys.modules[__name__]
+def __getattr__(name):
+    if name not in nameindex:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'") from None
+    module = importlib.import_module(nameindex[name])
+    attr = getattr(module, name)
+    setattr(_module, name, attr)
+    return attr
+def __dir__():
+    return __all__
+""")
+        f.write("nameindex = {\n")
+        with open("all.txt") as b:
+            f.write(b.read())
+        for name, pkg_modapi in nameindex.items():
+            f.write(f"'{name}': '{pkg_modapi}',\n")
+        f.write("}\n")
+        f.write("__all__ = sorted(nameindex.keys())")
 
 if __name__ == "__main__":
     main()
