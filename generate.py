@@ -432,14 +432,12 @@ def main():
     for modapi in allmeta:
         pkg_modapi = f"{PACKAGE_NAME}.{modapi}"
         mod = {k: v for k, v in ns.items() if v["_Api"] == pkg_modapi}
-        is_dir = any(api.startswith(modapi + ".") for api in allmeta)
-        if is_dir:
-            p = Path(pkg_modapi.replace(".", "/")) / "__init__.py"
-        else:
-            p = Path(pkg_modapi.replace(".", "/") + ".py")
-        if not p.parent.exists():
-            p.parent.mkdir(parents=True)
-        with p.open("w") as f:
+        p = Path(pkg_modapi.replace(".", "/"))
+        p.mkdir(parents=True, exist_ok=True)
+        for d in p.parents[:-1]:
+            if not (d / "__init__.py").exists():
+                (d / "__init__.py").write_text("")
+        with (p / "__init__.py").open("w") as f:
             g = Generator(f)
             g.writeline(f"from {PACKAGE_NAME}.base import *")
             g.write_import(pp.collect_apiref(mod, {pkg_modapi}))
@@ -448,10 +446,6 @@ def main():
             g.write_export(pp.collect_export(mod))
         for name in pp.collect_export(mod):
             nameindex[name] = pkg_modapi
-    # generate __init__.py
-    for p in Path(PACKAGE_NAME).glob("**/*"):
-        if p.is_dir() and not (p / "__init__.py").exists():
-            (p / "__init__.py").write_text("")
     # generate all.py module
     with open(f"{PACKAGE_NAME}/all.py", "w") as f:
         f.write("""import importlib
