@@ -10,6 +10,9 @@ PACKAGE_NAME = "win32more"
 
 ARCHITECTURE = "X64"
 
+BASE_EXPORTS = ["c_char_p_no", "c_wchar_p_no", "Byte", "SByte", "Char", "Int16", "UInt16", "Int32", "UInt32", "Int64", "UInt64", "IntPtr", "UIntPtr", "Single", "Double", "String", "Boolean", "Void", "Guid", "PROPERTYKEY", "COMMETHOD", "SUCCEEDED", "FAILED"]
+BASE_EXPORTS_CSV = ", ".join(BASE_EXPORTS)
+
 class Generator:
     def __init__(self, out) -> None:
         self.out = out
@@ -439,7 +442,8 @@ def main():
                 (d / "__init__.py").write_text("")
         with (p / "__init__.py").open("w") as f:
             g = Generator(f)
-            g.writeline(f"from {PACKAGE_NAME}.base import *")
+            g.writeline(f"from ctypes import c_void_p, Structure, Union, POINTER, CFUNCTYPE, WINFUNCTYPE, cdll, windll")
+            g.writeline(f"from {PACKAGE_NAME}.base import {BASE_EXPORTS_CSV}")
             g.write_import(pp.collect_apiref(mod, {pkg_modapi}))
             g.write_getattr()
             g.write_define(mod)
@@ -462,12 +466,12 @@ def __dir__():
     return __all__
 """)
         f.write("nameindex = {\n")
-        with open("all.txt") as b:
-            f.write(b.read())
+        for name in BASE_EXPORTS:
+            f.write(f"'{name}': '{PACKAGE_NAME}.base',\n")
         for name, pkg_modapi in nameindex.items():
             f.write(f"'{name}': '{pkg_modapi}',\n")
         f.write("}\n")
-        f.write("__all__ = sorted(nameindex.keys())")
+        f.write("__all__ = sorted(nameindex)\n")
 
 if __name__ == "__main__":
     main()

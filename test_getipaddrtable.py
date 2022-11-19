@@ -1,8 +1,9 @@
 import win32more.all as win32
 from ctypes import cast, byref, resize, POINTER
+from ctypes.wintypes import ULONG
 import socket
 
-dwSize = win32.ULONG(0)
+dwSize = ULONG(0)
 if (r := win32.GetIpAddrTable(None, dwSize, False)) != win32.ERROR_INSUFFICIENT_BUFFER:
     raise win32.WinError(r)
 

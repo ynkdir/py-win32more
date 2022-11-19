@@ -1,6 +1,7 @@
 # https://docs.microsoft.com/en-us/previous-versions/office/troubleshoot/office-developer/automate-excel-from-c
 
 from contextlib import ExitStack
+from ctypes import pointer, byref, WinError
 from win32more.all import *
 
 # missing constants in win32metadata

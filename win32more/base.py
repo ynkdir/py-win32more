@@ -1,5 +1,4 @@
-from ctypes import *
-from ctypes.wintypes import *
+from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, Structure
 import uuid
 
 # to avoid auto conversion to str
