@@ -1,5 +1,7 @@
-from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, Structure
+from ctypes import c_byte, c_ubyte, c_short, c_ushort, c_int, c_uint, c_longlong, c_ulonglong, c_float, c_double, c_bool, c_wchar, c_char_p, c_wchar_p, c_void_p, Structure
 import uuid
+
+MissingType = c_void_p
 
 # to avoid auto conversion to str
 class c_char_p_no(c_char_p):
@@ -51,9 +53,6 @@ class Guid(Structure):
 
     def __str__(self):
         return f"{self.Data1:08x}-{self.Data2:04x}-{self.Data3:04x}-{self.Data4[0]:02x}{self.Data4[1]:02x}-{self.Data4[2]:02x}{self.Data4[3]:02x}{self.Data4[4]:02x}{self.Data4[5]:02x}{self.Data4[6]:02x}{self.Data4[7]:02x}"
-
-class PROPERTYKEY(Structure):
-    _fields_ = [("fmtid", Guid), ("pid", UInt32)]
 
 def COMMETHOD(f):
     def wrap(*args, **kwargs):

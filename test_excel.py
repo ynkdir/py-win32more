@@ -106,7 +106,7 @@ def main():
         AutoWrap(DISPATCH_PROPERTYPUT, pXlRange, "Value", arr)
 
         # Wait for user
-        MessageBox(0, "All done.", "Notice", MB_OK)
+        MessageBoxW(0, "All done.", "Notice", MB_OK)
 
         # Set .Saved property of workbook to TRUE so we aren't prompted
         # to save when we tell Excel to quit
