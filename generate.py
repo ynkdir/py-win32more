@@ -183,10 +183,10 @@ class TypeDefinition:
             case "System.Enum":
                 return "enum"
             case "System.ValueType":
-                if self.has_custom_attribute(f"Windows.Win32.Interop.NativeTypedefAttribute"):
+                if self.has_custom_attribute("Windows.Win32.Interop.NativeTypedefAttribute"):
                     return "native_typedef"
                 # FIXME:
-                elif self.has_custom_attribute(f"Windows.Win32.Interop.GuidAttribute") and not self.fields:
+                elif self.has_custom_attribute("Windows.Win32.Interop.GuidAttribute") and not self.fields:
                     return "guid"
                 elif "ExplicitLayout" in self.attributes:
                     return "union"
@@ -321,15 +321,15 @@ class FieldDefinition:
         if "HasDefault" in self.attributes:
             return ascii(self.default_value.value)
         elif self.type.kind == "Type" and self.type.name == "System.Guid":
-            guid, rest = self.get_custom_attribute(f"Windows.Win32.Interop.GuidAttribute").guid_value()
+            guid, rest = self.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
             assert(len(rest) == 0)
             return f"Guid('{guid}')"
         elif self.type.kind == "Type" and self.type.name == f"{PACKAGE_NAME}.Devices.Properties.DEVPROPKEY":
-            guid, rest = self.get_custom_attribute(f"Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
+            guid, rest = self.get_custom_attribute("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert(len(rest) == 1)
             return f"{self.type.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
         elif self.type.kind == "Type" and self.type.name == f"{PACKAGE_NAME}.UI.Shell.PropertiesSystem.PROPERTYKEY":
-            guid, rest = self.get_custom_attribute(f"Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
+            guid, rest = self.get_custom_attribute("Windows.Win32.Interop.PropertyKeyAttribute").guid_value()
             assert(len(rest) == 1)
             return f"{self.type.name}(fmtid=Guid('{guid}'), pid={rest[0]})"
         else:
@@ -789,7 +789,7 @@ class PyGenerator:
         writer.write(f"{td.name} = {pytype}\n")
 
     def emit_guid(self, writer: TextIO, td: TypeDefinition) -> None:
-        guid, rest = td.get_custom_attribute(f"Windows.Win32.Interop.GuidAttribute").guid_value()
+        guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
         writer.write(f"{td.name} = Guid('{guid}')\n")
 
     def emit_struct_union(self, writer: TextIO, td: TypeDefinition, nested: bool = False) -> None:
@@ -844,8 +844,8 @@ class PyGenerator:
         else:
             base = td.interface_implementations[0].interface
             base_head = f"{base}_head"
-        if td.has_custom_attribute(f"Windows.Win32.Interop.GuidAttribute"):
-            guid, rest = td.get_custom_attribute(f"Windows.Win32.Interop.GuidAttribute").guid_value()
+        if td.has_custom_attribute("Windows.Win32.Interop.GuidAttribute"):
+            guid, rest = td.get_custom_attribute("Windows.Win32.Interop.GuidAttribute").guid_value()
         else:
             guid = None
         writer.write(f"def _define_{td.name}_head():\n")
